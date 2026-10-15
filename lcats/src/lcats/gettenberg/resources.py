@@ -2,9 +2,12 @@
 
 Construction and plan() are read-only. fetch() acquires only under an explicit
 online origin policy; a valid hit never triggers HEAD or conditional requests.
-There is no implicit catalog setup, URL guessing, decoding or cleanup here.
+decode_text is a separate offline operation; fetch never decodes or sets up a catalog.
+There is no implicit URL guessing or cleanup.
 """
 
+from lcats.gettenberg import _decode_types
+from lcats.gettenberg import _resource_decoding
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
 from lcats.gettenberg import _resource_selection
@@ -19,6 +22,12 @@ ResourceSelection = _resource_selection.ResourceSelection
 SelectionDiagnostic = _resource_selection.SelectionDiagnostic
 DEFAULT_PREFERENCES = _resource_selection.DEFAULT_PREFERENCES
 select_resource = _resource_selection.select_resource
+
+DecodeOptions = _decode_types.DecodeOptions
+DecodedText = _decode_types.DecodedText
+DecodeDiagnostic = _decode_types.DecodeDiagnostic
+ResourceDecodeError = _decode_types.ResourceDecodeError
+decode_text = _resource_decoding.decode_text
 
 SourceRequest = _resource_types.SourceRequest
 NetworkPolicy = _resource_types.NetworkPolicy

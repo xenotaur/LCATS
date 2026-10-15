@@ -9,6 +9,7 @@ import dataclasses
 import datetime
 import email.message
 import hashlib
+import gzip
 import http.server
 import io
 import json
@@ -214,6 +215,37 @@ class ResourceTests(unittest.TestCase):
         self.assertEqual(len(self.server.requests), 1)
         self.assertEqual(self.server.requests[0][1]["Accept-Encoding"], "identity")
         self.assertTrue(self.server.requests[0][1]["User-Agent"].startswith("LCATS"))
+
+    def test_cached_artifact_decodes_without_requests_or_writes(self):
+        markup = (
+            '<meta charset="utf-8"><p>café</p><img src="https://never.invalid/image">'
+        )
+        original = gzip.compress(markup.encode("utf-8"), mtime=0)
+        self.seed(
+            Reply(
+                body=original,
+                headers=(("Content-Type", "text/html"), ("Content-Encoding", "gzip")),
+            )
+        )
+        before = {
+            p: p.stat().st_mtime_ns for p in self.cache_dir.rglob("*") if p.is_file()
+        }
+        # Exercise persisted receipt reconstruction, then forbid every new socket
+        # while the decoder verifies the original and inspects HTML declarations.
+        with mock.patch.object(
+            socket, "socket", side_effect=AssertionError("offline decoding")
+        ):
+            artifact = self.store.fetch(self.request())
+            result = resources.decode_text(artifact)
+        self.assertEqual(result.text, markup)
+        self.assertEqual(result.transformations, ("http:gzip",))
+        self.assertEqual(result.encoding_source, "html")
+        self.assertEqual(artifact.path.read_bytes(), original)
+        self.assertEqual(len(self.server.requests), 1)
+        self.assertEqual(
+            before,
+            {p: p.stat().st_mtime_ns for p in self.cache_dir.rglob("*") if p.is_file()},
+        )
 
     def test_request_identity_preserves_query_and_escaping_and_separates_kind(self):
         base = resources.SourceRequest.from_url(

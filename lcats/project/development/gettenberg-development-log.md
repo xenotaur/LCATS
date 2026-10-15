@@ -1377,3 +1377,108 @@ A17 resource selection is now internally integrated. Remaining WI-0005 scope:
 conditional refresh, strict text/container decoding, catalog receipt composition,
 and qualified automatic Gutenberg routing. Further implementation needs a new
 authorized run; integration alone does not renew the expired sprint grant.
+
+## 2026-10-15 05:02 UTC — Offline decoding run grant
+
+The human requested another bounded run after the recommendation of strict offline
+text/container decoding with a 45-minute target / 60-minute hard stop. Start
+05:02:55 UTC, target 05:47:55, hard stop 06:02:55. Feature freeze at 05:32:55;
+remaining time is for review, repair, validation and checkpoint. Scope is WI-0005
+A18/A19 only, not refresh, catalog receipt composition, route qualification,
+gatherer migration or main promotion. Base c1c9a3e6f6399e421eae40c75a38efaf3f78d7ba;
+child codex/gettenberg-offline-decoding targets codex/gettenberg-acquisition.
+
+Use the approved charter adapter and LRH implementation/review procedures already
+read in this session. Coordinator plus one cold independent reviewer planned;
+one review assignment with up to two same-scope rechecks, at most 20 cumulative
+worker minutes. Broader inherited ceilings are not targets. No recursive delegation,
+new paid calls, external data downloads, CI changes, persistent policy edits or
+automatic renewal. Native work item/executions stay nonterminal until main delivery.
+
+Native readiness yes, no warnings; prior-art check in WI. Legacy gatherers perform
+network decoding with replacement fallback and are migration targets, not reusable
+strict offline decoding. Source/cache/model dependencies are independently reviewed
+and integrated ancestors; WI-0002/0004 canonically resolved. No duplicate decoder
+exists in gettenberg. Watched gates clean, persistent skip consent invalid; explicit
+human grant is authority. Shared weekly meter 74%; per-run usage unavailable.
+Environment: LCATS Python 3.11.9 with absolute worktree PYTHONPATH. Root/package
+AGENTS and STYLE apply; control plane remains documentation/non-executable data.
+
+### Coordinator implementation decisions before code
+
+Public resources.decode_text accepts immutable bytes or a SourceArtifact, optional
+catalog_formats tuple, and immutable DecodeOptions. Bare bytes have no invented
+HTTP provenance. Artifact reads are bounded, regular-file-only and reverify hash,
+length and receipt identity. Outputs are immutable DecodedText, versioned with raw
+source hash, payload hash, chosen encoding/source, transformation/member details,
+diagnostics and a derived identity incorporating relevant metadata/options.
+No persisted decoded cache, network, filesystem extraction, boilerplate removal,
+HTML asset fetching or catalog setup.
+
+Default bounds: 32 MiB original input, 64 MiB inflated payload per stage, 1000 ZIP
+entries, 64 KiB combined declaration metadata and 8192 bytes HTML declaration scan.
+Bounds are positive integer caller options, not invisible truncation. Gzip output
+is streamed with a one-byte overflow sentinel; reject corrupt/truncated/concatenated
+streams. At most one HTTP gzip layer followed by one gzip or ZIP container. ZIP
+central directory is bounded and counted before ZipFile allocates member records;
+reject ZIP64/multidisk, unsafe names, symlinks/special entries, encryption and
+unsupported compression. Read a single txt/html/htm/xhtml member, or an explicit
+safe text member; ambiguous choices error. No filename-based encoding inference.
+EPUB/PDF/audio are byte-only, not text extractors.
+
+Encoding authority is explicit override, BOM, HTTP charset, catalog charset, HTML
+meta declaration, then strict UTF-8. Without override/BOM any distinct declarations
+error; unknown selected codecs or invalid bytes error. Override/BOM may supersede
+conflicting lower claims with explicit diagnostics. HTML meta inspection is bounded
+and parses tags without fetching assets; return markup unchanged. Plain untyped
+bytes default to text/plain with an explicit diagnostic. Supported text media are
+text/plain, text/html and application/xhtml+xml; compressed MIME claims describe
+containers, not extracted member type. Selection's validated MIME grammar is reused
+privately without changing its existing behavior. All details require offline tests,
+independent review, canonical qualification and exact-head CI before integration.
+
+### Decoding implementation checkpoint — 05:16 UTC
+
+53 focused offline tests pass, including four executable how-to examples.
+Initial tests caught binary transform codec classification and a test expectation
+that size-rejected bytes had already been hashed; classification was corrected,
+and the public pre-hash size-rejection contract is now explicit. No input is read
+past its permitted size merely to compute an error identity.
+
+Code inspection identified ZipExtFile truncation to declared output length;
+selected compressed extents are now independently inflated, counted and CRC-checked.
+A forged short size/prefix CRC regression fails explicitly, without hidden output.
+ZIP central-directory record counts are checked before member-index allocation.
+No extraction, download or persisted derived cache was added.
+
+Canonical tests and cold review may run concurrently under the existing bounded
+adapter; neither is waived, and both must qualify the same final source before
+push/integration. Review target is the full diff including new files against
+c1c9a3e6. Shared weekly meter 75% before planned dispatch. No extra assignment.
+
+### Independent review repair — 05:22 UTC
+
+One cold review found a P2: HTMLParser can raise AssertionError for malformed marked
+sections and ValueError for excessive numeric entities within the scan bound.
+Coordinator reproduced both independently. Translate only the parser boundary,
+retain structured diagnostics/source hash, and test direct and http-equiv forms.
+54 focused tests and the same-assignment independent recheck pass; 13 reviewed
+file hashes verified. One review assignment, one recheck, under six worker minutes.
+No additional delegated scope. Shared weekly meter 77%; attribution unavailable.
+Canonical rerun includes the new persisted ResourceStore artifact boundary test;
+source integrity, no extra requests/writes and compressed-byte preservation tested.
+
+Process observation: a bounded byte scan does not make a standard-library parser's
+exception contract safe. Keep parser errors at a narrow typed boundary and require
+adversarial malformed-attribute fixtures in future LRH review packets. Independent
+review found a concrete defect, rather than merely repeating the test results.
+
+### Canonical qualification — 05:24 UTC
+
+Final scripts/test passes 2818 tests in 69.921 seconds, including 54 focused decoder
+tests, four new how-to examples and persisted acquisition→offline decoding.
+Format/lint pass; LRH 0 errors / 351 existing warnings; readiness yes; diff check
+and new-doc relative links/fence pairs pass. Initial 2816-test suite also passed
+before the additional boundary test and independent review repair. Qualification
+maps A18/A19 to reviewed source/test/doc hashes and explicit command evidence.
+Source is frozen for PR/hosted review; any repair invalidates affected evidence.

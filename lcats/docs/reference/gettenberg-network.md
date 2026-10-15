@@ -5,8 +5,9 @@ verified local cache. It does not require a Gutenberg metadata catalog or
 `gutenbergpy`. The existing `lcats gather` command has not migrated to this API.
 
 This covers acquisition and pure resource selection within WI-GETTENBERG-0005.
-Automatic Gutenberg alias/mirror routing, conditional refresh, text/container
-decoding, and catalog-manifest receipt integration are not yet implemented. Every content type can be fetched as original bytes using an
+Automatic Gutenberg alias/mirror routing, conditional refresh, and catalog-manifest
+receipt integration are not yet implemented. [Offline decoding](gettenberg-decoding.md)
+is a separate operation. Every content type can be fetched as original bytes using an
 explicit permitted URL; that does not promise an extractor for the format.
 
 ## Public interface
