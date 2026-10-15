@@ -31,6 +31,7 @@ from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import _resource_io
 from lcats.gettenberg import _resource_transport
 from lcats.gettenberg import resources
+from lcats.gettenberg import lifecycle
 from lcats.utils import capture
 
 
@@ -868,6 +869,360 @@ class ResourceTests(unittest.TestCase):
         self.assertEqual(self.server.requests, [])
         self.assertEqual(self.clock.sleeps, [])
 
+    def test_slow_pacing_save_does_not_shorten_actual_request_spacing(self):
+        save = _resource_transport.Pacing.save
+        starts = []
+        writes = []
+
+        def slow_first_save(pacing):
+            if not writes:
+                self.clock.sleep(3)
+            writes.append(True)
+            return save(pacing)
+
+        def response(*args, **kwargs):
+            starts.append(self.clock.monotonic())
+            return MemoryResponse()
+
+        client = mock.Mock()
+        client.open.side_effect = response
+        with (
+            mock.patch.object(_resource_transport.Pacing, "save", slow_first_save),
+            mock.patch.object(_resource_transport, "opener", return_value=client),
+        ):
+            self.fetch("/one")
+            self.fetch("/two")
+        self.assertGreaterEqual(starts[1] - starts[0], 2)
+
+    def test_abandoned_attempt_reestablishes_spacing_after_slow_persistence(self):
+        path = self.directory / "pacing.json"
+        pacing = _resource_transport.Pacing(path, 2)
+        pacing.start(self.server.origin, _resource_transport.Budget(30))
+        # Model a delayed first dispatch followed by process death. The next
+        # process cannot infer the dispatch timestamp from the old wall deadline.
+        self.clock.sleep(3)
+        before = self.clock.monotonic()
+        restored = _resource_transport.Pacing(path, 2)
+        restored.start(self.server.origin, _resource_transport.Budget(30))
+        self.assertGreaterEqual(self.clock.monotonic() - before, 2)
+
+    def test_archive_publication_and_catalog_retention_share_coordination(self):
+        self.check_archive_publication(False)
+
+    def test_failed_archive_publication_cleanup_keeps_catalog_reader_stable(self):
+        self.check_archive_publication(True)
+
+    def check_archive_publication(self, fail_sync):
+        # Real independent publishers share bytes but used to have separate locks.
+        # Force the catalog's hash verification across resource hard-link cleanup.
+        body = b"shared archive bytes"
+        self.server.routes["/archive"] = [Reply(body=body)]
+        source = self.directory / "catalog-source.tar.bz2"
+        source.write_bytes(body)
+        linked, hashing, publisher_done = (threading.Event() for _ in range(3))
+        original_immutable = _resource_io.Cache._immutable
+        original_stable = _lifecycle_io._stable
+        original_sync = _lifecycle_io.sync_directory
+        original_discard = _resource_transport._discard_temporary
+        cleanup_ready, cleaned = threading.Event(), threading.Event()
+        results = {}
+        failures = []
+
+        def sync(path):
+            if (
+                fail_sync
+                and path.name == "archives"
+                and list(path.glob("*.tar.bz2"))
+                and not failures
+            ):
+                failures.append(True)
+                raise OSError("injected archive fsync failure after hard link")
+            return original_sync(path)
+
+        def discard(path, *args):
+            # Force the old failing cleanup to overlap a real catalog verifier.
+            # Correct publication already removed the link while holding the leaf.
+            if path.exists():
+                cleanup_ready.set()
+                if not hashing.wait(3):
+                    raise AssertionError("catalog did not begin verification")
+            try:
+                return original_discard(path, *args)
+            finally:
+                cleaned.set()
+
+        def immutable(cache, temporary, target, *args):
+            try:
+                return original_immutable(cache, temporary, target, *args)
+            finally:
+                if target.parent.name == "archives":
+                    linked.set()
+                    hashing.wait(0.15)
+
+        def stable(path, stream, before, **kwargs):
+            if (
+                threading.current_thread().name == "catalog-retainer"
+                and path.parent.name == "archives"
+            ):
+                hashing.set()
+                if cleanup_ready.is_set() and not cleaned.wait(3):
+                    raise AssertionError("cleanup did not finish")
+            return original_stable(path, stream, before, **kwargs)
+
+        def publish():
+            try:
+                results["resource"] = self.store.fetch(
+                    self.request("/archive", kind="archive"), policy=self.policy
+                )
+            except Exception as exc:
+                results["resource_error"] = exc
+            finally:
+                publisher_done.set()
+
+        def retain():
+            try:
+                results["catalog"] = _lifecycle_io.retain_archive(
+                    source, self.cache_dir / "gettenberg/archives", 100
+                )
+            except Exception as exc:
+                results["catalog_error"] = exc
+
+        with (
+            mock.patch.object(_resource_io.Cache, "_immutable", immutable),
+            mock.patch.object(_lifecycle_io, "_stable", stable),
+            mock.patch.object(_lifecycle_io, "sync_directory", sync),
+            mock.patch.object(_resource_transport, "_discard_temporary", discard),
+        ):
+            publisher = threading.Thread(target=publish, daemon=True)
+            publisher.start()
+            self.assertTrue(linked.wait(3), results)
+            retainer = threading.Thread(
+                target=retain, name="catalog-retainer", daemon=True
+            )
+            retainer.start()
+            publisher.join(3)
+            retainer.join(3)
+        self.assertFalse(publisher.is_alive() or retainer.is_alive())
+        self.assertNotIn("catalog_error", results)
+        if fail_sync:
+            self.assertIsInstance(
+                results.get("resource_error"), resources.ResourceIntegrityError
+            )
+            self.assertTrue(failures)
+        else:
+            self.assertNotIn("resource_error", results)
+            self.assertEqual(results["resource"].path, results["catalog"][0])
+        self.assertEqual(results["catalog"][0].read_bytes(), body)
+
+    def test_catalog_cleanup_preserves_linked_archive_orphan_during_cache_hit(self):
+        self.server.routes["/archive"] = [Reply(body=b"retained archive")]
+        request = self.request("/archive", kind="archive")
+        artifact = self.store.fetch(request, policy=self.policy)
+        # This is the durable inode state after a publisher dies between link
+        # publication and temporary-link cleanup. Its later unlink changes ctime.
+        orphan = artifact.path.parent / (".archive." + "a" * 32 + ".tmp")
+        os.link(artifact.path, orphan)
+        manager = lifecycle.CatalogManager(self.cache_dir)
+        stable = _lifecycle_io._stable
+
+        def cleanup_during_hash(path, stream, before, **kwargs):
+            if path == artifact.path:
+                manager.cleanup()
+            return stable(path, stream, before, **kwargs)
+
+        with mock.patch.object(_lifecycle_io, "_stable", cleanup_during_hash):
+            self.assertEqual(self.store.plan(request).artifact, artifact)
+        self.assertTrue(orphan.exists())
+        self.assertEqual(artifact.path.read_bytes(), b"retained archive")
+
+    def test_later_resource_cleanup_preserves_linked_archive_orphan(self):
+        self.server.routes["/archive"] = [Reply(body=b"retained archive")]
+        request = self.request("/archive", kind="archive")
+        artifact = self.store.fetch(request, policy=self.policy)
+        cache = _resource_io.Cache(self.cache_dir)
+        orphan = cache.temporary()
+        os.link(artifact.path, orphan)
+        stable = _lifecycle_io._stable
+
+        def discard_during_hash(path, stream, before, **kwargs):
+            if path == artifact.path:
+                cache.discard(orphan, "archive", 0)
+            return stable(path, stream, before, **kwargs)
+
+        with mock.patch.object(_lifecycle_io, "_stable", discard_during_hash):
+            self.assertEqual(self.store.plan(request).artifact, artifact)
+        self.assertTrue(orphan.exists())
+
+    def test_best_effort_cleanup_does_not_mask_failure_with_stat_error(self):
+        cache = _resource_io.Cache(self.cache_dir)
+        cache.directories(create=True)
+        temporary = cache.temporary()
+        temporary.write_bytes(b"unpublished")
+        exists = pathlib.Path.exists
+
+        def fail_stat(path):
+            if path == temporary:
+                raise TimeoutError("injected local stat failure")
+            return exists(path)
+
+        with mock.patch.object(pathlib.Path, "exists", fail_stat):
+            cache.discard(temporary, "archive", 0)
+        self.assertTrue(temporary.exists())
+
+    def test_malformed_http_protocol_does_not_retry(self):
+        replies = (
+            b"NOT HTTP\r\n\r\n",
+            b"HTTP/1.1 200 OK\r\nX-Long: " + b"x" * 65537 + b"\r\n\r\n",
+        )
+        for reply in replies:
+            calls = []
+
+            class Handler(socketserver.BaseRequestHandler):
+                def handle(self):
+                    self.request.recv(8192)
+                    calls.append(True)
+                    try:
+                        self.request.sendall(reply)
+                    except (BrokenPipeError, ConnectionResetError):
+                        pass
+
+            with socketserver.TCPServer(("127.0.0.1", 0), Handler) as server:
+                worker = threading.Thread(
+                    target=server.serve_forever,
+                    kwargs={"poll_interval": 0.01},
+                    daemon=True,
+                )
+                worker.start()
+                origin = f"http://127.0.0.1:{server.server_address[1]}"
+                policy = resources.NetworkPolicy(online=True, allowed_origins=(origin,))
+                try:
+                    with self.assertRaises(resources.ResourceTransportError):
+                        self.store.fetch(
+                            resources.SourceRequest.from_url(origin + "/bad"),
+                            policy=policy,
+                        )
+                    self.assertEqual(len(calls), 1)
+                finally:
+                    server.shutdown()
+                    worker.join(3)
+
+    def test_completion_pacing_failure_reports_already_published_resource(self):
+        for phase in ("before_replace", "after_replace"):
+            path = f"/completion-{phase}"
+            self.server.routes[path] = [Reply()]
+            request = self.request(path)
+            reference = (
+                self.cache_dir / "gettenberg/resources/refs" / (request.key + ".json")
+            )
+            finish, sync = (
+                _resource_transport.Pacing.finish,
+                _lifecycle_io.sync_directory,
+            )
+
+            def fail_finish(pacing):
+                if phase == "before_replace" and reference.exists():
+                    raise OSError("injected completion pacing write failure")
+                return finish(pacing)
+
+            def fail_sync(directory):
+                if (
+                    phase == "after_replace"
+                    and directory.name == "resources"
+                    and reference.exists()
+                ):
+                    raise OSError("injected completion pacing durability failure")
+                return sync(directory)
+
+            before = len(self.server.requests)
+            with (
+                self.subTest(phase=phase),
+                mock.patch.object(_resource_transport.Pacing, "finish", fail_finish),
+                mock.patch.object(_lifecycle_io, "sync_directory", fail_sync),
+            ):
+                with self.assertRaises(resources.ResourcePublicationError) as caught:
+                    self.fetch(path)
+                self.assertTrue(caught.exception.published)
+                self.assertEqual(
+                    self.store.fetch(request).path.read_bytes(), Reply().body
+                )
+                self.assertEqual(len(self.server.requests) - before, 1)
+
+    def test_local_io_failures_are_integrity_errors_without_network_retries(self):
+        # Inject at the actual filesystem boundaries, not inside the HTTP reader.
+        # TimeoutError is an OSError subclass a remote filesystem can produce;
+        # its class alone must never turn a cache failure into another GET.
+        for stage in ("open", "write", "flush", "fsync", "close", "publish"):
+            for error_type in (OSError, TimeoutError, ConnectionError):
+                path = f"/local-{stage}-{error_type.__name__}"
+                self.server.routes[path] = [Reply()]
+                original_open, original_sync = pathlib.Path.open, os.fsync
+                original_publish = _resource_io.Cache.publish
+                state = {"fired": False, "fd": None}
+
+                def fail_once(at):
+                    if stage == at and not state["fired"]:
+                        state["fired"] = True
+                        raise error_type(f"injected local {at} failure")
+
+                class LocalFile:
+                    """Delegate real bytes, injecting one chosen local fault."""
+
+                    def __init__(self, stream):
+                        self.stream = stream
+                        state["fd"] = stream.fileno()
+
+                    def __enter__(self):
+                        return self
+
+                    def __exit__(self, *args):
+                        self.close()
+
+                    def write(self, value):
+                        fail_once("write")
+                        return self.stream.write(value)
+
+                    def flush(self):
+                        fail_once("flush")
+                        return self.stream.flush()
+
+                    def fileno(self):
+                        return self.stream.fileno()
+
+                    def close(self):
+                        try:
+                            self.stream.close()
+                        finally:
+                            state["fd"] = None
+                        fail_once("close")
+
+                def local_open(file, mode="r", *args, **kwargs):
+                    if file.suffix == ".part" and mode == "xb":
+                        fail_once("open")
+                        return LocalFile(original_open(file, mode, *args, **kwargs))
+                    return original_open(file, mode, *args, **kwargs)
+
+                def local_sync(fd):
+                    if fd == state["fd"]:
+                        fail_once("fsync")
+                    return original_sync(fd)
+
+                def local_publish(cache, *args):
+                    fail_once("publish")
+                    return original_publish(cache, *args)
+
+                before = len(self.server.requests)
+                with (
+                    self.subTest(stage=stage, error=error_type.__name__),
+                    mock.patch.object(pathlib.Path, "open", local_open),
+                    mock.patch.object(os, "fsync", local_sync),
+                    mock.patch.object(_resource_io.Cache, "publish", local_publish),
+                ):
+                    with self.assertRaises(resources.ResourceIntegrityError):
+                        self.fetch(path)
+                    self.assertTrue(state["fired"])
+                    self.assertEqual(len(self.server.requests) - before, 1)
+                    self.assertIsNone(self.store.plan(self.request(path)).artifact)
+
     def test_pacing_capacity_preserves_new_and_old_cooldowns(self):
         path = self.directory / "pacing.json"
         pacing = _resource_transport.Pacing(path, 2)
@@ -1005,6 +1360,7 @@ class ProcessResourceTests(unittest.TestCase):
             self.addCleanup(server.close)
             server.routes["/book"] = [Reply(pause=0.15)]
             code = """from lcats.gettenberg import resources
+from lcats.gettenberg import lifecycle
 import sys
 store = resources.ResourceStore(sys.argv[1])
 request = resources.SourceRequest.from_url(sys.argv[2] + '/book')

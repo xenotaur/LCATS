@@ -1104,3 +1104,101 @@ is running; test, coverage and lint checks are running. No manual retrigger.
 Backfill the PR link in both native execution records, keeping status in_progress.
 This bookkeeping-only follow-up preserves every reviewed product/test/doc hash;
 CI must qualify the resulting exact head before internal integration.
+
+
+## 2026-10-15 01:40 UTC — Minute-40 checkpoint and hosted review repair
+
+Current pushed head bac92db3, base bd2998a8; first hosted Codex review at source
+commit 7a00da1c found one P2: local temporary-file/publish OSError was caught by
+the network retry handler. The finding is present on current source, valid and
+feasible within scope. A filesystem TimeoutError/ConnectionError could cause
+another GET. No CI failure or main promotion; all current-head checks passed
+before this new repair, which invalidates their source qualification.
+
+lrh-review-response loaded with its references; the charter's explicit bounded
+repair authority supplies the coordinator confirmation, not fabricated human
+approval. Identity matches PR #510. Slug/prompt checks found no previous response.
+Native response prompt minted 01:38:16 and linked record created 01:40:13. Primary
+provenance is the explicitly authored WI-0005 acquisition-core execution; the
+SELFREVIEW sibling is not selected as primary. No comments skipped.
+
+Fail-first regression covers local open/write/flush/fsync/close/publish with
+OSError, TimeoutError and ConnectionError (18 cases): 6 errors/12 failures before
+repair. Translate only local filesystem calls before they reach the network
+handler, leaving HTTP reads as network operations. 59 focused tests now pass with
+resource warnings enabled. Canonical format/lint/full-suite rerun underway.
+Same-assignment recheck 2 (final allowed) dispatched 01:39:50, deadline 01:48:30,
+no new scope or worker. Source snapshot review-files-hosted-fix.json frozen.
+
+At minute40, feature work remains frozen and this is one bounded review repair.
+Approximately20 minutes to target /35 to hard stop remain; if qualification cannot
+finish, preserve the open PR without integration. The first hosted review was not
+skipped or manually retriggered. Pending findings are not treated as acceptance.
+
+
+## 2026-10-15 01:45 UTC — Cross-boundary review adjustment
+
+First automatic Copilot review supplied three additional actionable findings:
+shared archive publication could race catalog retention across hard-link cleanup;
+slow pacing persistence could consume the next-start interval before GET dispatch;
+permanent HTTPException subclasses were retried. All were directly reproduced by
+new fail-first local regressions: catalog Source-changed error with unchanged
+bytes, zero-second dispatch gap after a three-second save, and three GETs for a
+malformed status line. No findings were waived. First Codex local-I/O repair had
+already passed independent recheck and full suite (2735), but new fixes require
+fresh qualification. This is additional boundary coverage from the first hosted
+round, not evidence that the previously repaired cases regressed.
+
+Coordinator replan within the approved scope: introduce a shared archive-publication
+leaf lock in the existing lifecycle I/O module, used by both catalog retention and
+resource publication through temporary-link cleanup. Keep strict inode stability
+checks; do not weaken mutation detection or hold both resource and catalog outer
+locks. Resource-network or catalog-writer → archive-publication is the order;
+never reverse it. Lock waits are bounded and cache hits remain lock-free. This
+small lifecycle adaptation is necessary to satisfy the already-required shared
+archive namespace, and is explicitly reflected in design/reference docs.
+
+Pacing now persists an in-flight marker before dispatch and renews spacing after
+each attempt. A killed holder's uncertain dispatch time incurs a fresh conservative
+interval; slow writes cannot shorten actual starts. Retry classification excludes
+malformed status/header protocol errors. All 261 gettenberg tests pass, including
+existing lifecycle tests and the new cross-publisher/slow-save/protocol cases.
+
+The original independent assignment has used both permitted same-scope rechecks
+and is complete. A second explicit, cold-context boundary-review assignment was
+dispatched around01:45, deadline01:54:30, reviewing all hosted repairs and the
+lifecycle interface adjustment. This is assignment2 of6, not a third follow-up
+hidden under assignment1; cumulative occupancy remains below45minutes. Canonical
+full qualification runs concurrently; product/docs frozen at the 11-file boundary
+snapshot. No new feature work, main promotion or acceptance waiver. If review/CI
+cannot finish by the hard stop, leave an open, clearly unaccepted PR checkpoint.
+
+
+## 2026-10-15 01:54 UTC — Final boundary repairs qualified
+
+Second independent reviewer reproduced post-publication pacing reporting, failed
+archive publication cleanup, killed-publisher linked-orphan cleanup and later
+cleanup racing post-retention catalog verification. Coordinator directly ran both
+archive probes before repairs and after; final probes show expected acquisition
+failure with successful concurrent catalog verification, and offline reuse with
+linked orphans preserved. Completion-pacing failure now reports published=True;
+pre-publication pacing failure remains an integrity error. Cleanup-stat errors
+cannot mask the primary failure. All fixes have permanent boundary regressions.
+
+Archive cleanup is now deliberately conservative: cleanup in the original shared
+leaf-lock section removes temporary links; later cleanup preserves nlink>1 because
+readers may already be verifying the published inode without that lock. Strict
+mutation detection is retained. This is a documented recovery tradeoff, not silent
+orphan deletion or an acceptance waiver. A new fault-test initially omitted its
+patch context and failed its own injection assertion; the harness was corrected,
+not the product behavior or specification.
+
+Final reviewer signal01:52:34 clean across11 hashes;68 resource/50 lifecycle tests.
+Coordinator full canonical suite passes2744 in74.632s; format/lint pass.
+Two assignments total; original reviewer with two rechecks used under9minutes,
+second assignment under8minutes, total under17 of45. No further delegation.
+Shared weekly usage68% near minute53 versus58% launch; account-wide, not per-run
+cost. The pre-second-assignment usage read was missed and taken afterward; record
+this process miss rather than claiming a timely checkpoint. No numerical usage
+stop threshold was agreed. Next is one repair push, current-head CI and thread
+verification; no feature work or main promotion.

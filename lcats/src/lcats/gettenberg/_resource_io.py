@@ -34,6 +34,16 @@ def translated_errors():
         raise _resource_types.ResourceIntegrityError("cache_io", str(exc)) from exc
 
 
+def local_call(operation, *args, **kwargs):
+    """Translate one local I/O boundary before an enclosing network handler.
+
+    Do not wrap response reads: network timeouts must remain transport failures,
+    while filesystem TimeoutError/ConnectionError must never cause another GET.
+    """
+    with translated_errors():
+        return operation(*args, **kwargs)
+
+
 def _hash(value):
     if not isinstance(value, str) or not _HASH.fullmatch(value):
         raise _resource_types.ResourceIntegrityError(
@@ -184,6 +194,29 @@ class Cache:
         """Return an unpredictable exclusive-write path, never a cache hit."""
         return self.root / "tmp" / (uuid.uuid4().hex + ".part")
 
+    def discard(self, temporary, kind, lock_timeout):
+        """Best-effort cleanup; never unlink a shared archive outside its lock."""
+        try:
+            with translated_errors():
+                if not temporary.exists() and not temporary.is_symlink():
+                    return
+                lock = (
+                    _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
+                    if kind == "archive"
+                    else contextlib.nullcontext()
+                )
+                with lock:
+                    if kind == "archive" and temporary.lstat().st_nlink > 1:
+                        # Original publication already left its critical section.
+                        # A catalog verifier may now read without the leaf lock.
+                        # Retain linked orphans rather than changing its inode.
+                        return
+                    temporary.unlink(missing_ok=True)
+        except _resource_types.ResourceError:
+            # A leftover link is safer than racing a published archive reader.
+            # Do not replace the acquisition/publication failure with cleanup.
+            pass
+
     def _immutable(self, temporary, target, expected, limit):
         """Publish without overwriting; verify an existing object before reusing it."""
         try:
@@ -195,19 +228,31 @@ class Cache:
                 )
         _lifecycle_io.sync_directory(target.parent)
 
-    def publish(self, temporary, receipt, max_bytes):
+    def publish(self, temporary, receipt, max_bytes, lock_timeout=10.0):
         """Commit body, receipt, then reference; partial publication is never a hit."""
         payload = _resource_types.canonical_json(dataclasses.asdict(receipt))
         if len(payload) > _METADATA_LIMIT:
             raise _resource_types.ResourceIntegrityError(
                 "metadata_limit", "receipt exceeds byte budget"
             )
-        self._immutable(
-            temporary,
-            self.body_path(receipt.kind, receipt.sha256),
-            (receipt.sha256, receipt.size),
-            max_bytes,
+        archive_lock = (
+            _lifecycle_io.archive_publication_lock(self.archives, lock_timeout)
+            if receipt.kind == "archive"
+            else contextlib.nullcontext()
         )
+        with archive_lock:
+            try:
+                self._immutable(
+                    temporary,
+                    self.body_path(receipt.kind, receipt.sha256),
+                    (receipt.sha256, receipt.size),
+                    max_bytes,
+                )
+            finally:
+                # Cleanup is inside the leaf lock even when directory fsync
+                # failed after link publication. Later retries take it again.
+                temporary.unlink(missing_ok=True)
+                _lifecycle_io.sync_directory(temporary.parent)
         digest = hashlib.sha256(payload).hexdigest()
         receipt_temp = self.temporary()
         try:
@@ -224,7 +269,6 @@ class Cache:
             # Hard-link removal changes inode ctime. Finish it before making
             # the reference visible, so concurrent integrity checks see stable
             # immutable objects throughout their reads.
-            temporary.unlink()
             receipt_temp.unlink()
             _lifecycle_io.sync_directory(temporary.parent)
             try:

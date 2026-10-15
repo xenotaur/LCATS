@@ -122,7 +122,10 @@ process cannot immediately bypass cooldown. Cache hits and read-only plans do no
 acquire a writable lock. Coordination covers cooperating users of the same cache
 root, not unrelated roots, machines or external downloaders. Fixed lock order:
 resource network lock only during acquisition; release it before catalog writer
-lock acquisition. A killed downloader releases its SQLite lock; persistent lock
+lock acquisition. The implementation review qualified one shared archive-publication
+leaf lock: resource-network or catalog-writer may acquire it, never the reverse.
+It covers archive publication/verification through temporary hard-link cleanup,
+preventing link-count changes from racing with the other publisher's hash checks. A killed downloader releases its SQLite lock; persistent lock
 files are never unlinked as cleanup. Clock changes must not cause negative waits
 or unbounded sleeps; reject implausible/corrupt pacing metadata explicitly.
 

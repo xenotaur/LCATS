@@ -73,7 +73,8 @@ No denial triggers another mirror, resource or format guess.
 
 Retryable HTTP statuses are 408, 429, 500, 502, 503 and 504. Temporary DNS,
 connection/read failures are bounded by the same attempt and time budgets.
-TLS verification errors, other HTTP statuses, malformed representation metadata,
+TLS verification errors, malformed status lines/overlong headers, other HTTP
+statuses, malformed representation metadata,
 policy failures and integrity failures do not trigger speculative fallback.
 Fallback backoff is two then four seconds; valid longer Retry-After delays take
 precedence. Retry-After supports integer seconds and HTTP dates, including on
@@ -85,19 +86,28 @@ socket read has its timeout capped by remaining time, including raw reads used
 to parse status lines, headers, chunk extensions and trailers. Standard-library DNS/OS
 blocking cannot be hard-cancelled; this is not a guarantee of exact wall-clock
 termination. Cache verification and filesystem durability also depend on local I/O.
-The narrow urllib socket adapter is covered by loopback tests and fails explicitly
-if the standard library's response layout changes.
+The urllib response adapter uses the socket makefile interface and is covered
+by local HTTP/HTTPS framing tests.
 
 ## Coordination and cache layout
 
 All acquisitions sharing a resolved cache root use one persistent SQLite network
 lock, held through response streaming/publication. Rechecking the cache after
 locking avoids duplicate downloads. A killed process releases its lock. Never
-unlink the lock file to resolve contention. Different roots/machines and external
+unlink the lock file to resolve contention. Resource and catalog publishers also
+share a persistent archive-publication leaf lock during archive publication,
+verification and temporary-link cleanup. Lock order is resource-network or
+catalog-writer, then archive-publication; never acquire an outer lock while
+holding the archive lock. Cache hits remain read-only and lock-free.
+Different roots/machines and external
 clients are outside this coordination boundary.
 
 Atomic pacing metadata preserves global request spacing and per-origin cooldowns
-across processes. Wall/monotonic observations protect normal same-boot pacing.
+across processes. Before dispatch it persists an in-flight marker; after each
+attempt it conservatively renews spacing from completion. A slow metadata fsync
+therefore cannot consume the gap owed to the next actual GET. A new process
+finding an abandoned in-flight marker waits a fresh full interval. Wall/monotonic
+observations protect normal same-boot pacing.
 After a reboot or large clock step, outstanding delays are conservatively rebased
 and saved before waiting; some previously elapsed delay may be repeated rather
 than bypassing a server cooldown. The operation budget still bounds waiting.
@@ -108,6 +118,7 @@ Retry-After is dropped. Malformed pacing state is an explicit integrity error.
 ```text
 <cache>/gettenberg/
   archives/<body-sha256>.tar.bz2
+  archive-publication.sqlite
   resources/
     objects/<body-sha256>
     receipts/<receipt-sha256>.json
@@ -129,10 +140,15 @@ hash object, publishes an immutable receipt, then atomically replaces the reques
 reference. Only a complete hash-verified receipt/body pair is a cache hit. Failed
 partial bodies are removed when possible; orphan objects/receipts can remain.
 There is no automatic pruning, repair, partial resume or refresh in this tranche.
+Archive cleanup, including failure cleanup, shares the publication lock. Both resource failure cleanup and catalog
+cleanup retain linked archive temporary orphans so it cannot change an immutable
+archive inode while a lock-free resource reader verifies it.
 Temporary hard links are removed before reference publication so concurrent
 hash checks do not mistake cleanup for content mutation. A failure after reference
 replacement reports possible publication explicitly; a pacing durability failure
-reports an integrity error without claiming a resource was published.
+before resource publication reports an integrity error. A completion-pacing failure
+after reference publication reports `ResourcePublicationError(published=True)`;
+the resource is already visible even though coordination persistence failed.
 
 The caller owns and trusts the local cache. Managed symlinks and corrupt evidence
 are refused, but the store is not an isolation boundary against another user with

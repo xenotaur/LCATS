@@ -83,3 +83,15 @@ filesystem/platform prerequisites.
 Local archive paths must be representable as UTF-8 for manifest provenance.
 A surrogate-escaped POSIX path raises `CatalogInputError` before any archive
 copy or candidate build; setup reuse still ignores an unused archive argument.
+
+
+Archive retention also takes `<cache>/gettenberg/archive-publication.sqlite`, a
+persistent leaf lock shared with resource acquisition. It protects publication,
+verification of an existing archive and temporary hard-link cleanup. Catalog
+writer → archive publication is the lock order; no catalog/network outer lock
+may be acquired while the archive leaf lock is held. Do not delete lock files.
+
+Cleanup conservatively retains abandoned archive temporary files with more than
+one hard link. Removing such a name changes the published inode's ctime and could
+invalidate a concurrent lock-free resource integrity check. These linked orphans
+are retained evidence; cleanup still removes unlinked recognized archive temps.

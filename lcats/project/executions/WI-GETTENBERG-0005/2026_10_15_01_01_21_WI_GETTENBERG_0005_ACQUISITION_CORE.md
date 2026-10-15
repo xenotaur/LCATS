@@ -38,19 +38,18 @@ Small official-source checkouts were inspected, not vendored or executed.
 
 # Validation
 
-58 focused tests pass with ResourceWarning errors; canonical scripts/test passes
-2734 tests in 76.017 seconds. Format/lint pass (258 Python files), LRH validation
-has zero errors, and WI readiness is clean. Only local network fixtures were used.
-Independent cold review found four P2 issues; coordinator directly reproduced the
-top finding, applied all four repairs with regressions, and obtained a clean
-same-assignment recheck at 01:30:17 UTC on the exact current source hashes.
+Final68 focused resource tests and canonical scripts/test's 2744 tests pass
+(74.632seconds). Format/lint pass,258 files. The first local cold review, first
+automatic Codex/Copilot rounds and a second cold boundary review found real defects;
+all were reproduced and repaired with regressions. Final independent signal at
+01:52:34 UTC matches all11 source/design/doc hashes;68 resource and50 lifecycle
+tests pass. No external ebook/catalog download or CI/dependency changes.
 
-Evidence: [qualification](../../development/evidence/gettenberg-acquisition-core-20261015/qualification.json)
+[Final qualification](../../development/evidence/gettenberg-acquisition-core-20261015/hosted-review-repairs.json)
 and [review/acceptance mapping](../../development/evidence/gettenberg-acquisition-core-20261015/review.md).
-Native review record:
-2026_10_15_01_29_09_WI_GETTENBERG_0005_ACQUISITION_CORE_SELFREVIEW.
-The initial 95% statement-coverage measurement predates repairs and is not claimed
-as a measurement of the final source. Tests and review are separate evidence.
+Earlier qualification.json preserves its original historical snapshot. Initial95%
+statement coverage predates repairs and is not a claim about final source.
+Native review records are linked via rerun_of and PR510; all remain nonterminal.
 
 # Follow-up
 

@@ -16,6 +16,7 @@ from urllib import parse
 from urllib import request as urllib_request
 
 from lcats.gettenberg import _lifecycle_io
+from lcats.gettenberg import _resource_io
 from lcats.gettenberg import _resource_types
 
 _TRANSIENT = {408, 429, 500, 502, 503, 504}
@@ -172,14 +173,16 @@ class Pacing:
             self.state = {
                 "version": 1,
                 "next_start": 0.0,
+                "in_flight": False,
                 "origins": {},
                 "clock": {"wall": time.time(), "monotonic": time.monotonic()},
             }
         state = self.state
         valid = (
-            set(state) == {"version", "next_start", "origins", "clock"}
+            set(state) == {"version", "next_start", "origins", "clock", "in_flight"}
             and type(state["version"]) is int
             and state["version"] == 1
+            and type(state["in_flight"]) is bool
             and isinstance(state["origins"], dict)
             and len(state["origins"]) <= 256
         )
@@ -264,6 +267,11 @@ class Pacing:
         _lifecycle_io.atomic_json(self.path, self.state)
 
     def start(self, url, budget):
+        if self.state["in_flight"]:
+            # The previous holder died after recording intent. Dispatch could
+            # have followed a slow fsync; its timestamp is unknown. Reestablish
+            # a full conservative interval before another request.
+            self.finish()
         if self.rebase_clock():
             self.save()
         now = time.time()
@@ -277,6 +285,16 @@ class Pacing:
         budget.wait(max(0.0, target - now, monotonic_target - time.monotonic()), target)
         self.rebase_clock()
         self.state["next_start"] = time.time() + self.interval
+        self.state["in_flight"] = True
+        self.save()
+
+    def finish(self):
+        """Space the next attempt from completion, safely after actual dispatch."""
+        self.rebase_clock()
+        self.state["next_start"] = max(
+            self.state["next_start"], time.time() + self.interval
+        )
+        self.state["in_flight"] = False
         self.save()
 
     def defer(self, url, delay):
@@ -356,7 +374,8 @@ def _body(response, destination, max_bytes, budget, io_timeout):
             "size_limit", "advertised body exceeds limit"
         )
     digest, size = hashlib.sha256(), 0
-    with destination.open("xb") as stream:
+    stream = _resource_io.local_call(destination.open, "xb")
+    try:
         while True:
             budget.remaining()
             # Raw socket reads underneath HTTPResponse enforce the same budget
@@ -370,14 +389,16 @@ def _body(response, destination, max_bytes, budget, io_timeout):
                 raise _resource_types.ResourceTransportError(
                     "size_limit", "received body exceeds limit"
                 )
-            stream.write(chunk)
+            _resource_io.local_call(stream.write, chunk)
             digest.update(chunk)
         if length is not None and size != length:
             raise _resource_types.ResourceTransportError(
                 "truncated_body", "body length differs from Content-Length"
             )
-        stream.flush()
-        os.fsync(stream.fileno())
+        _resource_io.local_call(stream.flush)
+        _resource_io.local_call(os.fsync, stream.fileno())
+    finally:
+        _resource_io.local_call(stream.close)
     return digest.hexdigest(), size
 
 
@@ -394,6 +415,7 @@ def acquire(source, policy, cache, budget):
             )
         pacing.start(url, budget)
         temporary = cache.temporary()
+        published = False
         try:
             request = urllib_request.Request(
                 url,
@@ -497,7 +519,18 @@ def acquire(source, policy, cache, budget):
                     headers,
                 )
                 budget.remaining()
-                return cache.publish(temporary, receipt, policy.byte_limit(source))
+                artifact = _resource_io.local_call(
+                    cache.publish,
+                    temporary,
+                    receipt,
+                    policy.byte_limit(source),
+                    min(policy.lock_timeout, budget.remaining()),
+                )
+                published = True
+                return artifact
+        except _resource_types.ResourcePublicationError:
+            published = True
+            raise
         except (error.URLError, OSError, http.client.HTTPException) as exc:
             reason = exc.reason if isinstance(exc, error.URLError) else exc
             if isinstance(reason, ssl.SSLError):
@@ -507,20 +540,48 @@ def acquire(source, policy, cache, budget):
             # Only network failures are retryable. Local file errors must not
             # trigger another GET or hide a full disk/permission problem.
             transient = isinstance(
-                reason, (TimeoutError, ConnectionError, http.client.HTTPException)
+                reason, (TimeoutError, ConnectionError, http.client.IncompleteRead)
             ) or (
                 isinstance(reason, socket.gaierror) and reason.errno == socket.EAI_AGAIN
             )
             if not transient or retries >= policy.max_retries:
                 raise _resource_types.ResourceTransportError(
-                    "connection", str(exc)
+                    (
+                        "protocol"
+                        if isinstance(reason, http.client.HTTPException)
+                        and not transient
+                        else "connection"
+                    ),
+                    str(exc),
                 ) from exc
             pacing.defer(url, 2.0 * 2**retries)
             retries += 1
         finally:
+            # Preserve crash-safe intent before dispatch, then conservatively
+            # renew spacing after every attempt. A slow pre-request save cannot
+            # consume the spacing owed to the next actual GET.
             try:
-                temporary.unlink(missing_ok=True)
-            except OSError:
-                # A failed cleanup leaves an unreferenced .part, never a hit.
-                # Do not mask the acquisition/publication failure being reported.
-                pass
+                try:
+                    _resource_io.local_call(pacing.finish)
+                except _resource_types.ResourceError as exc:
+                    if published:
+                        raise _resource_types.ResourcePublicationError(
+                            "coordination_uncertain",
+                            "resource published but completion pacing could not be confirmed",
+                        ) from exc
+                    raise
+            finally:
+                _discard_temporary(
+                    temporary,
+                    cache,
+                    source.kind,
+                    min(
+                        policy.lock_timeout,
+                        max(0.0, budget.deadline - time.monotonic()),
+                    ),
+                )
+
+
+def _discard_temporary(temporary, cache, kind, lock_timeout):
+    """Clean a failed partial body without replacing the primary error."""
+    cache.discard(temporary, kind, lock_timeout)

@@ -45,3 +45,25 @@ This tranche qualifies the explicit-URL subset only:
 No acquisition success certifies RDF validity or activates a catalog. WI-0005
 stays proposed and native executions stay in_progress until human-approved main
 promotion and completion of the remaining criteria.
+
+
+## First hosted round and boundary-repair qualification
+
+The first automatic Codex round found local I/O exceptions incorrectly entering
+network retry logic. Copilot's first round added shared archive publication races,
+slow-persistence request spacing and permanent protocol-error retries. All four
+were present, valid, feasible and repaired; none skipped. Direct fail-first probes
+are preserved as behavioral unit regressions, not executable control-plane files.
+
+A second cold boundary reviewer found completion-pacing publication reporting and
+additional interrupted-cleanup races. The implementation now preserves published
+state on completion-pacing failure, holds a shared archive leaf lock through initial
+cleanup, and conservatively retains linked archive orphans during later cleanup.
+Neither strict inode stability checks nor lock-free cache hits were weakened.
+
+Final independent signal at 01:52:34 UTC: all 11 source/design/doc hashes match,
+68 resource and50 lifecycle tests pass, no actionable findings remain in scope.
+Coordinator canonical suite: **2744 tests pass in 74.632 seconds**; format/lint
+pass. [Final source and test evidence](hosted-review-repairs.json) supersedes the
+earlier snapshot qualification. Hosted exact-head checks still require completion
+before coordinator integration. No main promotion or native resolution is implied.

@@ -376,6 +376,7 @@ class CatalogManager:
             limits.max_compressed_bytes,
             _Deadline(self.validation_seconds).check,
             expected=expected_archive,
+            lock_timeout=self.lock_timeout,
         )
         identifier = uuid.uuid4().hex
         path = self.root / "candidates" / identifier
@@ -623,13 +624,27 @@ class CatalogManager:
                 (self.root, r"\.active\.json\.[0-9a-f]{32}\.tmp"),
                 (self.root / "archives", r"\.archive\.[0-9a-f]{32}\.tmp"),
             ):
-                for path in sorted(directory.iterdir()):
-                    if (
-                        re.fullmatch(pattern, path.name)
-                        and path.is_file()
-                        and not path.is_symlink()
-                    ):
-                        path.unlink()
-                        removed.append(str(path))
+                archive_lock = (
+                    _lifecycle_io.archive_publication_lock(directory, self.lock_timeout)
+                    if directory.name == "archives"
+                    else contextlib.nullcontext()
+                )
+                with archive_lock:
+                    for path in sorted(directory.iterdir()):
+                        if (
+                            re.fullmatch(pattern, path.name)
+                            and path.is_file()
+                            and not path.is_symlink()
+                        ):
+                            if (
+                                directory.name == "archives"
+                                and path.stat().st_nlink > 1
+                            ):
+                                # A killed publisher can leave a temporary name
+                                # linked to a live immutable archive. Unlinking
+                                # it changes ctime during lock-free reader hashes.
+                                continue
+                            path.unlink()
+                            removed.append(str(path))
             _lifecycle_io.sync_directory(self.root / "candidates")
         return tuple(removed)
