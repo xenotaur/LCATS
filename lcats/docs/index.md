@@ -18,6 +18,7 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Decode cached text without network access](how-to/gettenberg-decoding.md)
 - [Acquire and reuse original source bytes](how-to/gettenberg-resources.md)
 - [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
 
@@ -32,6 +33,7 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Strict offline text decoding](reference/gettenberg-decoding.md)
 - [Original-byte acquisition and network policy](reference/gettenberg-network.md)
 - [Local catalog lifecycle](reference/gettenberg-lifecycle.md)
 

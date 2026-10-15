@@ -1,0 +1,65 @@
+{
+  "baseRefName": "codex/gettenberg-acquisition",
+  "baseRefOid": "c1c9a3e6f6399e421eae40c75a38efaf3f78d7ba",
+  "headRefOid": "caada6e8d50d343d7793226ff48edf35d9a1ec79",
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T05:37:41Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38687528784/job/116265938906",
+      "name": "coverage",
+      "startedAt": "2026-10-15T05:35:33Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T05:35:16Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38687528787/job/116265699350",
+      "name": "lint",
+      "startedAt": "2026-10-15T05:34:42Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T05:37:09Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38687528876/job/116265936859",
+      "name": "test",
+      "startedAt": "2026-10-15T05:35:32Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T05:37:10Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38687523320/job/116265930027",
+      "name": "test",
+      "startedAt": "2026-10-15T05:35:31Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "checkpoint_utc": "2026-10-15T05:37:52Z",
+  "elapsed_minutes_at_checkpoint": 34.95,
+  "result": "implemented and tested; PR open pending independent ZIP repair verification",
+  "integration_performed": false,
+  "main_promotion": false,
+  "canonical_tests": 2820,
+  "focused_tests": 56,
+  "native_status": "in_progress; WI proposed",
+  "worker_active": false,
+  "assignments": 1,
+  "same_scope_rechecks": 2,
+  "worker_minutes_upper_bound": 8,
+  "weekly_used_percent_launch": 74,
+  "weekly_used_percent_last_observed": 78,
+  "per_run_usage": "unavailable; shared account meter is not attribution",
+  "final_record_commit": "This evidence-only commit follows the checked source head; product/tests/docs hashes verified unchanged. New-head CI must be checked before later integration.",
+  "next_action": "Fresh independent review of container/test ZIP-comment repair, confirm both hosted threads, exact-head CI/base verification, then internal integration only under renewed authority."
+}

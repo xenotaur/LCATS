@@ -48,7 +48,7 @@ artifact = resources.ResourceStore("cache").fetch(source)
 The returned file contains original response-body bytes, including any server
 Content-Encoding or archive container. Do not rename a legacy decoded `.txt` or
 `.txt.gz` cache as an original, and do not assume the file is UTF-8 because the URL
-ends in `.txt`. Decoding is not part of this tranche.
+ends in `.txt`. Use the separate [offline decoding workflow](gettenberg-decoding.md) to obtain text.
 
 For an explicitly selected RDF archive URL, construct the request with
 `kind="archive"`. Its verified body is retained in the catalog's shared archive
@@ -61,7 +61,7 @@ integrity fails, inspect/preserve the evidence; this API intentionally has no
 implicit repair or destructive cleanup operation.
 
 See [the reference](../reference/gettenberg-network.md) for exact limits, errors,
-durability guarantees and the currently unimplemented refresh/decoding interfaces.
+durability guarantees and the currently unimplemented refresh interface.
 
 ## Choose a catalog resource without downloading
 

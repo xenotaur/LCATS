@@ -1,0 +1,77 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/512",
+  "reviewed_head": "a1ac41bb718f66a88f49f8f7c8465276b456ff48",
+  "hosted_findings": [
+    {
+      "priority": "P1",
+      "thread": "PRRT_kwDOKlhIbM6solS0",
+      "url": "https://github.com/xenotaur/LCATS/pull/512#discussion_r4279386127",
+      "finding": "Malformed marked-section fixture accepted by Python 3.11.17",
+      "evidence": "Hosted test failure; local Python3.11.9 rejects fixture. Numeric-entity cases continue to require structured errors.",
+      "repair": "Behavior test allows only unchanged successful markup or typed invalid_html; no skips/raw exceptions",
+      "independent_recheck": "passed; 55 focused tests before ZIP repair"
+    },
+    {
+      "priority": "P2",
+      "thread": "PRRT_kwDOKlhIbM6solS9",
+      "url": "https://github.com/xenotaur/LCATS/pull/512#discussion_r4279386137",
+      "finding": "Valid ZIP comment containing EOCD signature rejected",
+      "coordinator_reproduced": true,
+      "repair": "Bounded backward candidate validation and comment-free index view; original bytes/hashes preserved",
+      "regressions": "four valid comments including repeated/full misleading signatures and maximum65535bytes",
+      "independent_recheck": "pending: allocated two rechecks consumed"
+    }
+  ],
+  "portability_review_hashes": {
+    "tests/gettenberg_tests/decoding_test.py": "6590cde97015453b5fe189c560ae593cda5d673e447bec96fa3cae57fd21f4e6",
+    "docs/reference/gettenberg-decoding.md": "574b2786c9c174a1adf3ec25ee6ea963b32ac67ca523637fb22ee7590186b3c0"
+  },
+  "current_source_hashes": {
+    "src/lcats/gettenberg/_decode_types.py": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc",
+    "src/lcats/gettenberg/_resource_containers.py": "d38ef1a9adba030504c9f23461620e1e950366d77791054a35f5719bd67df2de",
+    "src/lcats/gettenberg/_resource_decoding.py": "74e0802bf44637c4e784ae756fb26f7b0db59f795dd3f321d5b90a3f18bd7b6b",
+    "src/lcats/gettenberg/_resource_encoding.py": "7421b825ec4352de2e7f4a1cabaaac3a504d6f27f47fca8c59a95a1b589cf2b5",
+    "src/lcats/gettenberg/resources.py": "28bedc800c8a147cdd03691ccc5be5e548be14873b17cc6ba938614efe5436ac",
+    "tests/gettenberg_tests/decoding_test.py": "d5b4fb4be0e54238d9892a609d69d7d9d69fd4cf05979608435738e3ffbcbaa8",
+    "docs/how-to/gettenberg-decoding.md": "c09f02c5e6da9896ef6399d79cbfa31c52521cbc25fc9ecf6b8b7437f48e851b",
+    "docs/reference/gettenberg-decoding.md": "574b2786c9c174a1adf3ec25ee6ea963b32ac67ca523637fb22ee7590186b3c0",
+    "docs/how-to/gettenberg-resources.md": "033cd2e28a8c468bf0378ff3b3ffeee03bbc9a3bb85f277d14d980f06dfaf828",
+    "docs/reference/gettenberg-network.md": "e230267a5c8e0943852d18a26315b760429eb2faeef39bc8d771aeed3f35eaab",
+    "docs/index.md": "29b317873b7a5c9fd0baa0561760961f47f4e6b112161b3c414da06654b90fff",
+    "docs/reference/README.md": "f308f62acb646ca910b204efe7321ae3157d656af0741d4e0af175bdbb8d928d",
+    "tests/gettenberg_tests/resources_test.py": "bed05722b6bad1753b19ff4545a1349ae3ae95f6ee8a995b781faa58846f018d"
+  },
+  "final_source_independently_qualified": false,
+  "pending_independent_paths": [
+    "src/lcats/gettenberg/_resource_containers.py",
+    "tests/gettenberg_tests/decoding_test.py"
+  ],
+  "focused_tests": 56,
+  "canonical_validation": {
+    "command": "scripts/test",
+    "tests": 2820,
+    "seconds": 79.86,
+    "exit_code": 0,
+    "format": "pass; 265 files unchanged",
+    "lint": "pass",
+    "lrh_errors": 0,
+    "lrh_warnings": 351,
+    "readiness": "yes; no warnings",
+    "diff_check": "pass",
+    "python": "3.11.9"
+  },
+  "prior_portability_canonical": {
+    "tests": 2819,
+    "seconds": 83.451,
+    "result": "pass"
+  },
+  "delivery": "open PR; no integration",
+  "review_budget": {
+    "assignments": 1,
+    "same_scope_rechecks": 2,
+    "worker_minutes_upper_bound": 8,
+    "worker_minutes_cap": 20
+  },
+  "weekly_used_percent_at_30min": 78,
+  "per_run_usage": "unavailable"
+}

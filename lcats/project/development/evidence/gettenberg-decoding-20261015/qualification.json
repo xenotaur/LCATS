@@ -1,0 +1,57 @@
+{
+  "base": "c1c9a3e6f6399e421eae40c75a38efaf3f78d7ba",
+  "acceptance": {
+    "A18": "54 focused tests: BOM, conflicts, invalid bytes, explicit override and deterministic identities",
+    "A19": "gzip/ZIP bounds, forged ZIP size/count, corrupt/unsupported containers, HTML declarations/assets, persisted artifact offline/no-write test"
+  },
+  "review": {
+    "agent": "/root/decoding_review",
+    "assignments": 1,
+    "same_scope_rechecks": 1,
+    "initial_findings": {
+      "P2": 1
+    },
+    "finding": "HTMLParser leaked AssertionError for unknown marked sections and ValueError for oversized numeric entities",
+    "coordinator_reproduced": true,
+    "repair": "Translate only HTML feed parser failures to invalid_html with source hash/diagnostics; three regression fixtures",
+    "remaining_actionable_findings": 0,
+    "focused_tests": 54,
+    "source_hashes_verified": {
+      "src/lcats/gettenberg/_decode_types.py": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc",
+      "src/lcats/gettenberg/_resource_containers.py": "5e09b2b9e426c044b314579bb6fd202a34df91ddc24013ef14de03486650d50c",
+      "src/lcats/gettenberg/_resource_decoding.py": "74e0802bf44637c4e784ae756fb26f7b0db59f795dd3f321d5b90a3f18bd7b6b",
+      "src/lcats/gettenberg/_resource_encoding.py": "7421b825ec4352de2e7f4a1cabaaac3a504d6f27f47fca8c59a95a1b589cf2b5",
+      "src/lcats/gettenberg/resources.py": "28bedc800c8a147cdd03691ccc5be5e548be14873b17cc6ba938614efe5436ac",
+      "tests/gettenberg_tests/decoding_test.py": "2bfb367a69a23447b37f7f50973d5ea1aa7be72c4b50b67ccbd9b1a2bfc4c992",
+      "docs/how-to/gettenberg-decoding.md": "c09f02c5e6da9896ef6399d79cbfa31c52521cbc25fc9ecf6b8b7437f48e851b",
+      "docs/reference/gettenberg-decoding.md": "c64febe9ece7a86fe9ad77df96bdf727273a33c1beb1007264ba96f55c71d568",
+      "docs/how-to/gettenberg-resources.md": "033cd2e28a8c468bf0378ff3b3ffeee03bbc9a3bb85f277d14d980f06dfaf828",
+      "docs/reference/gettenberg-network.md": "e230267a5c8e0943852d18a26315b760429eb2faeef39bc8d771aeed3f35eaab",
+      "docs/index.md": "29b317873b7a5c9fd0baa0561760961f47f4e6b112161b3c414da06654b90fff",
+      "docs/reference/README.md": "f308f62acb646ca910b204efe7321ae3157d656af0741d4e0af175bdbb8d928d",
+      "tests/gettenberg_tests/resources_test.py": "bed05722b6bad1753b19ff4545a1349ae3ae95f6ee8a995b781faa58846f018d"
+    }
+  },
+  "canonical_validation": {
+    "command": "scripts/test",
+    "tests": 2818,
+    "seconds": 69.921,
+    "exit_code": 0,
+    "format": "pass; 265 files unchanged",
+    "lint": "pass",
+    "lrh_errors": 0,
+    "lrh_warnings": 351,
+    "readiness": "yes; no warnings",
+    "diff_check": "pass",
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "PYTHONPATH": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src",
+    "initial_full_suite": {
+      "tests": 2816,
+      "seconds": 67.162,
+      "outcome": "pass before additional persisted-artifact test and parser repair"
+    }
+  },
+  "no_external_downloads": true
+}
