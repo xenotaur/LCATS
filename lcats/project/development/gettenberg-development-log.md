@@ -1962,3 +1962,41 @@ source hashes/test count. Shared usage last observed12% versus10% at launch;
 per-run cost unavailable. Process lesson: recheck wall-clock budget immediately
 after delayed tools/resumption and retain a checkpoint reserve; do not let a
 clock gap silently renew the grant.
+
+## PR514 review and integration pass — 2026-10-15 18:06 UTC
+
+Human explicitly requested review and integration after the prior bounded run
+stopped. This separate pass authorizes PR514 integration and evidence only; it
+does not renew feature-development scope. Clean head bfc3598576bfbe7291e46a7e4e8e256267a6786d
+and fresh integration base 0afde71e7156eea30898d9ea191ae17c4874b802 matched the qualified
+candidate. All nine reviewed file hashes and the canonical 2868-test log hash
+matched; the Unicode pre-retention regression passed again in0.008s.
+
+Read all hosted reviews, issue comments and threads without recency/outdated
+filters, with pagination exhausted. Copilot reported0 findings and unavailable
+runtime verification; actual independent389-test coverage and canonical evidence
+cover its general compatibility concern. Codex's sole P2 was independently
+cleared in the preceding repair; direct source and regression recheck confirmed
+it. Resolved thread PRRT_kwDOKlhIbM6s2y0u, then re-read all authors/threads and
+head/base immediately before integration. All4 final-head CI checks passed.
+No new source repair, agent assignment, hosted retrigger or full-suite repetition.
+
+[PR514](https://github.com/xenotaur/LCATS/pull/514) merged at 2026-10-15T18:07:55Z as
+0f36cfc16e3da18d97047daa6ae055343551571b into codex/gettenberg-acquisition. Merge parents match
+recorded base/head, merge tree equals reviewed head tree and all9 file hashes
+match. Existing 2868-test qualification therefore applies unchanged.
+[Integration evidence](evidence/gettenberg-catalog-20261015/integration.json)
+records checks, authors/threads, resolution, source identities and acceptance.
+
+A15/A16 are now staged internally. Main remains unchanged; native execution
+records stay in_progress and WI0005 stays proposed until human-approved main
+delivery. Automatic routing and subsequent consumer/CLI migration remain.
+The old checkpoint/qualification records remain historical; this entry supersedes
+their pending-integration status. Only non-executable evidence/lifecycle notes
+are added after merge, with LRH/readiness/diff validation before checkpoint push.
+Watched installed skills remain clean; invalid persistent skip consent is
+unchanged, and this explicit grant supplies integration authority.
+
+Integration checkpoint validation: LRH0 errors/351 existing warnings, WI0005
+prompt-ready, and diff check clean. Evidence-only checkpoint pushed on the
+integration branch; no product file changed after the verified merge.

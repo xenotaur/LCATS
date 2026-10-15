@@ -27,3 +27,13 @@ Both hosted first rounds read without time/outdated filtering. Copilot0 findings
 # Follow-up
 
 Do not integrate on pre-repair CI evidence. Final-head CI, exact head/base and all-thread reread/closure, and internal integration remain for a subsequent authorized pass. Main and native terminal closeout stay human-approved. No worker remains active.
+
+## Internal integration — 2026-10-15
+
+Human-authorized review/integration pass merged PR514 as 0f36cfc16e3da18d97047daa6ae055343551571b
+into codex/gettenberg-acquisition. Four exact-head checks passed, all hosted
+reviews were re-read, and the independently verified Unicode finding was resolved.
+Merge parents/tree and nine reviewed source hashes match qualification.
+[Integration evidence](../../development/evidence/gettenberg-catalog-20261015/integration.json).
+This supersedes pending-integration statements above. Native status remains
+in_progress until human-approved main promotion; no terminal closeout claimed.

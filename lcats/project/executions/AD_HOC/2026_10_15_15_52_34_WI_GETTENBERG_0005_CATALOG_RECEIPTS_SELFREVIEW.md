@@ -35,3 +35,13 @@ in same-scope recheck1. Final canonical 2868 tests pass in 72.643s.
 [Repair evidence](../../development/evidence/gettenberg-catalog-20261015/hosted-repair.json)
 supersedes the initial source hashes and test count. Final-head CI and internal
 integration remain pending; this record remains in_progress.
+
+## Internal integration — 2026-10-15
+
+Human-authorized review/integration pass merged PR514 as 0f36cfc16e3da18d97047daa6ae055343551571b
+into codex/gettenberg-acquisition. Four exact-head checks passed, all hosted
+reviews were re-read, and the independently verified Unicode finding was resolved.
+Merge parents/tree and nine reviewed source hashes match qualification.
+[Integration evidence](../../development/evidence/gettenberg-catalog-20261015/integration.json).
+This supersedes pending-integration statements above. Native status remains
+in_progress until human-approved main promotion; no terminal closeout claimed.

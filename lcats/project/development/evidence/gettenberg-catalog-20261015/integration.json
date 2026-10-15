@@ -1,0 +1,184 @@
+{
+  "scope": "PR514 internal review and integration; WI-GETTENBERG-0005 A15/A16",
+  "authority": "Human request: Please do the review and integration pass. Approved charter adapter applies; new pass, not extension of the stopped bounded run.",
+  "started_at": "2026-10-15T18:06:30Z",
+  "recorded_at": "2026-10-15T18:09:01.533176+00:00",
+  "pr": "https://github.com/xenotaur/LCATS/pull/514",
+  "merge": {
+    "baseRefName": "codex/gettenberg-acquisition",
+    "headRefOid": "bfc3598576bfbe7291e46a7e4e8e256267a6786d",
+    "mergeCommit": {
+      "oid": "0f36cfc16e3da18d97047daa6ae055343551571b"
+    },
+    "mergedAt": "2026-10-15T18:07:55Z",
+    "state": "MERGED"
+  },
+  "verified_head": "bfc3598576bfbe7291e46a7e4e8e256267a6786d",
+  "verified_base": "0afde71e7156eea30898d9ea191ae17c4874b802",
+  "merge_parents": [
+    "0f36cfc16e3da18d97047daa6ae055343551571b",
+    "0afde71e7156eea30898d9ea191ae17c4874b802",
+    "bfc3598576bfbe7291e46a7e4e8e256267a6786d"
+  ],
+  "merge_tree_equals_verified_head": true,
+  "source_sha256": {
+    "src/lcats/gettenberg/lifecycle.py": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912",
+    "src/lcats/gettenberg/_lifecycle_io.py": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a",
+    "src/lcats/gettenberg/_resource_decoding.py": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b",
+    "src/lcats/gettenberg/_catalog_provenance.py": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e",
+    "src/lcats/gettenberg/_resource_provenance.py": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2",
+    "tests/gettenberg_tests/lifecycle_test.py": "2c658ed85a49d8e32e7b93d687c7d327f14094e0847527bc5fd011c39b136923",
+    "tests/gettenberg_tests/catalog_receipts_test.py": "d4d808324d605af846d4d4f08d014317ffa6a6169a13e1e8807419681aea4692",
+    "docs/how-to/gettenberg-catalog.md": "a72d2cbeb6ea775a52b714259aef9d4297f843b8f82ba66716a038773a8f8111",
+    "docs/reference/gettenberg-lifecycle.md": "ac4665d22dc8004e34ea0752b6ce102e9307a111f5d4393ee445a0004bc3dcc6"
+  },
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T16:50:48Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38772049553/job/116550100278",
+      "name": "coverage",
+      "startedAt": "2026-10-15T16:48:25Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T16:48:55Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38772049162/job/116550098286",
+      "name": "lint",
+      "startedAt": "2026-10-15T16:48:24Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T16:49:56Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38772049214/job/116550098465",
+      "name": "test",
+      "startedAt": "2026-10-15T16:48:24Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T16:50:13Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38772042076/job/116550073256",
+      "name": "test",
+      "startedAt": "2026-10-15T16:48:21Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "review_coverage": {
+    "headRefOid": "bfc3598576bfbe7291e46a7e4e8e256267a6786d",
+    "baseRefName": "codex/gettenberg-acquisition",
+    "baseRefOid": "0afde71e7156eea30898d9ea191ae17c4874b802",
+    "reviews": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": [
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `8b4b3e1d08`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+          "state": "COMMENTED",
+          "submittedAt": "2026-10-15T15:58:19Z",
+          "commit": {
+            "oid": "8b4b3e1d0831b798d8d3d3fff730a1872fa1361d"
+          }
+        },
+        {
+          "author": {
+            "login": "copilot-pull-request-reviewer"
+          },
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udd35 Needs a closer look\n\nPersisted-manifest compatibility and shared receipt validation warrant human confirmation because independent runtime verification was unavailable.\n\n**0 open findings**\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nPreserves acquisition provenance when downloaded archives enter Gettenberg\u2019s offline catalog lifecycle, while retaining existing activation safeguards.\n\n**Changes:**\n- Embeds validated receipts in version2 manifests while retaining legacy compatibility.\n- Adds unchanged-aware updates and preserves provenance during implicit rebuilds.\n- Adds shared receipt validation, regression fixtures, documentation, and qualification records.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `lcats/\u200btests/\u200bgettenberg_tests/\u200blifecycle_test.py` | Supplies acquired artifacts to documentation tests. |\r\n| `lcats/\u200btests/\u200bgettenberg_tests/\u200bcatalog_receipts_test.py` | Tests provenance, reuse, tampering, and refresh safety. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200blifecycle.py` | Integrates receipts and offline update reuse. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_resource_provenance.py` | Shares bounded receipt validation. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_resource_decoding.py` | Reuses shared provenance checks. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_lifecycle_io.py` | Generalizes archive-identity error wording. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_catalog_provenance.py` | Validates catalog provenance and receipt binding. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0005/\u200b2026_10_15_15_25_13_WI_GETTENBERG_0005_CATALOG_RECEIPTS.md` | Records implementation and validation. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_15_15_52_34_WI_GETTENBERG_0005_CATALOG_RECEIPTS_SELFREVIEW.md` | Records independent review evidence. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md` | Documents scope, decisions, and qualification. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-catalog-20261015/\u200bqualification.json` | Captures validation results and source fingerprints. |\r\n| `lcats/\u200bdocs/\u200breference/\u200bgettenberg-lifecycle.md` | Defines provenance and update contracts. |\r\n| `lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-catalog.md` | Demonstrates acquired-archive workflows. |\n</details>\n\n\ud83e\udde0 **Review effort:** Balanced\n\n---\n\n\ud83d\udca1 <a href=\"/xenotaur/LCATS/new/codex/gettenberg-acquisition?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
+          "state": "COMMENTED",
+          "submittedAt": "2026-10-15T15:58:49Z",
+          "commit": {
+            "oid": "974d6f6189c152343b280ed8e886ef2ec0ba8418"
+          }
+        }
+      ]
+    },
+    "comments": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": [
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "<!-- codex-pull-request-review-summary -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-15T15:58:23.090618Z\">2026-10-15T15:58:23.090618Z</relative-time> | `8b4b3e1` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+          "createdAt": "2026-10-15T15:54:36Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "pageInfo": {
+        "hasNextPage": false
+      },
+      "nodes": [
+        {
+          "id": "PRRT_kwDOKlhIbM6s2y0u",
+          "isResolved": true,
+          "isOutdated": true,
+          "comments": {
+            "pageInfo": {
+              "hasNextPage": false
+            },
+            "nodes": [
+              {
+                "author": {
+                  "login": "chatgpt-codex-connector"
+                },
+                "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Reject non-UTF-8 receipt text before building**\n\nWhen an otherwise valid `SourceArtifact` contains a lone surrogate in a permitted receipt field such as `source_uri` or a header value, `artifact_value()` accepts it because canonical receipt JSON uses ASCII escaping, and this returns that value as provenance. Candidate ingestion then completes, but manifest publication fails when `atomic_json()` encodes the provenance as strict UTF-8, leaving a retained archive and an unusable candidate directory and causing every retry to rebuild. Validate that the detached receipt can be encoded as manifest UTF-8 before returning it here (or before retention/building begins).\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "thread_resolution": {
+    "data": {
+      "resolveReviewThread": {
+        "thread": {
+          "id": "PRRT_kwDOKlhIbM6s2y0u",
+          "isResolved": true
+        }
+      }
+    }
+  },
+  "qualification": {
+    "canonical_tests": 2868,
+    "canonical_seconds": 72.643,
+    "reused_unchanged_qualification": true,
+    "canonical_log_fingerprint_verified": true,
+    "direct_regression_recheck": "1 Unicode pre-retention regression passed in0.008s in intended LCATS environment",
+    "independent_review": "prior cold review plus recheck1 cleared final source; nine hashes matched before and after merge",
+    "copilot_overview": "0 findings, runtime unavailable to that reviewer; compatibility/shared-validation concern covered by actual independent389-test run, adversarial probes and canonical suite"
+  },
+  "acceptance": {
+    "A15": "acquired receipt/body identity verified and embedded; schema1/local compatibility and implicit provenance retention tested",
+    "A16": "unchanged archive reuse, count approval, failed download/build preservation and pinned readers tested"
+  },
+  "lifecycle": "staged integration only; native records in_progress, WI proposed; main unchanged",
+  "remaining": "Qualified automatic routing and subsequent consumer/CLI migration; human-approved main promotion/terminal closeout",
+  "policy": "watched installed skills clean; persistent skip consent invalid and unchanged; explicit human integration grant used",
+  "agents": "none dispatched; no active worker",
+  "validation_after_evidence": {
+    "lrh_errors": 0,
+    "lrh_existing_warnings": 351,
+    "readiness": "yes",
+    "git_diff_check": "pass",
+    "product_files_changed_after_merge": false
+  }
+}

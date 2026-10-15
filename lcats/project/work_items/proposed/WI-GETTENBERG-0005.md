@@ -128,3 +128,18 @@ contains the acceptance mapping, review/repair records and source identities.
 This is staged delivery only: status remains proposed until human-approved main
 promotion. A15/A16 catalog composition and qualified automatic routing remain;
 this checkpoint does not claim whole-WI or workstream completion.
+
+
+## Staged catalog-composition acceptance — 2026-10-15
+
+A15/A16 are independently reviewed and internally integrated through
+[PR514](https://github.com/xenotaur/LCATS/pull/514), merge 0f36cfc16e3da18d97047daa6ae055343551571b,
+verified head bfc3598576bfbe7291e46a7e4e8e256267a6786d. Receipt/body binding and embedded
+provenance, local/schema compatibility, unchanged-byte reuse, count approval and
+failure/pinned-reader safety are covered by 2868 canonical tests, independent
+review and four passing final-head CI checks.
+[Integration evidence](../../development/evidence/gettenberg-catalog-20261015/integration.json)
+records the exact source identities and review disposition. This supersedes the
+earlier checkpoint's pending A15/A16 status. Qualified automatic routing remains;
+consumer/CLI migration follows in its planned work. Status remains proposed
+until human-approved main delivery; whole-WI completion is not claimed.
