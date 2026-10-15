@@ -2,14 +2,14 @@
 execution_id: 2026_10_15_00_58_12_WI_SF_0120_PERSIST_REQUEST_FIELDS_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0120_PERSIST_REQUEST_FIELDS_SELFREVIEW)[2026-10-15T00:58:11+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_15_00_58_11_WI_SF_0120_PERSIST_REQUEST_FIELDS
 pr: https://github.com/xenotaur/LCATS/pull/509
-commit: b63a6616acbc5a9667a5822ccbccb538e29a2a59
+commit: 6d2678ff38cc343721aad0cb1943c88a59d40468
 created_at: 2026-10-15T00:58:12+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/509
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary

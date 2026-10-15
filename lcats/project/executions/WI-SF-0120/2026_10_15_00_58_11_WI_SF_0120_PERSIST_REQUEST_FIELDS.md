@@ -2,14 +2,14 @@
 execution_id: 2026_10_15_00_58_11_WI_SF_0120_PERSIST_REQUEST_FIELDS
 prompt_id: PROMPT(WI-SF-0120:WI_SF_0120_PERSIST_REQUEST_FIELDS)[2026-10-13T19:34:11+00:00]
 work_item: WI-SF-0120
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/509
-commit: b63a6616acbc5a9667a5822ccbccb538e29a2a59
+commit: 6d2678ff38cc343721aad0cb1943c88a59d40468
 created_at: 2026-10-15T00:58:11+00:00
 agent: claude_app
 instruction_source: project/work_items/proposed/WI-SF-0120.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
