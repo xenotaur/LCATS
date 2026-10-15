@@ -1,0 +1,52 @@
+{
+  "run": "gettenberg-20261015-plan",
+  "start_utc": "2026-10-15T00:07:30+00:00",
+  "freeze_utc": "2026-10-15T00:17:30+00:00",
+  "deadline_utc": "2026-10-15T00:22:30+00:00",
+  "base": "2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2",
+  "branch": "codex/gettenberg-acquisition",
+  "scope": "documentation-only WI-0005 planning; no implementation acceptance",
+  "agent_count": 1,
+  "delegated_assignments": 0,
+  "worker_minutes": 0,
+  "account_wide_weekly_used_percent_start": 55,
+  "per_run_token_cost_telemetry": "unavailable",
+  "lrh_version": "0.2.5.dev3596+gd86755f50",
+  "python_version": "3.11.9",
+  "loaded_skill_files": [],
+  "skills_note": "No LRH skill invoked in planning-only sprint; native CLI and approved charter used. Gate status fresh; no consent changes.",
+  "local_links_checked": 18,
+  "checked_at": "2026-10-15T00:15:17.399449+00:00",
+  "lrh_errors": 0,
+  "lrh_warnings": 351,
+  "wi_readiness": "ready; no blockers/warnings",
+  "tests": "not rerun: no executable changes",
+  "local_logs": {
+    "tools": {
+      "path": "/tmp/gettenberg-plan-20261015/tools.txt",
+      "sha256": "63df52565ef0fa8f87d869bd15706aefc9ba5ae564f92be13ceb561a27b7c612"
+    },
+    "format": {
+      "path": "/tmp/gettenberg-plan-20261015/format.txt",
+      "sha256": "604e56e964f42c1c9cfa331d2ef558e00897bd52616ba55644b9744f188b9a29"
+    },
+    "lint": {
+      "path": "/tmp/gettenberg-plan-20261015/lint.txt",
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+    },
+    "readiness": {
+      "path": "/tmp/gettenberg-plan-20261015/readiness.txt",
+      "sha256": "bd007d2f33be4f110f871e9813af5ade9fbb72f48359504024ea328fd9487c6f"
+    },
+    "lrh": {
+      "path": "/tmp/gettenberg-plan-20261015/lrh.txt",
+      "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+    }
+  },
+  "instruction_fingerprints": {
+    "../AGENTS.md": "b46d87bc0589426b420cf4fc933231ac6ee2801a86e086758c6a28249cd75421",
+    "AGENTS.md": "4117eff16d561fb08eda5ba5c4259f4ad815a7b370aa1c5f16f070a7c16ceb30",
+    "STYLE.md": "ced427421e936c793ec79725ed0487bdd68ad9ca01e8b334805c944bdf132725",
+    "project/development/gettenberg-pilot-charter.md": "e6270a35cbc46f0685fa89810e4f1fe8beddd25817b1cc3883268706c0409043"
+  }
+}

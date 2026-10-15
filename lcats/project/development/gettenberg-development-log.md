@@ -847,3 +847,49 @@ Codex session; its durable pointer is retained. No raw transcripts were committe
 No separate memory was written because the durable lessons are already in the
 committed guidance and runlog. Only control-plane files change after the reviewed
 main merge; product code, tests, docs and archival measurements remain identical.
+
+## 2026-10-15 00:07 UTC — Short acquisition planning grant
+
+Human explicitly approved a 15-minute sprint. Run gettenberg-20261015-plan starts
+00:07:30, content freeze 00:17:30, hard stop 00:22:30 UTC. One coordinator, zero
+worker assignments; no implementation, data downloads or main promotion. Branch
+codex/gettenberg-acquisition starts at fetched main 2f14e4e8. Native WI-0005
+readiness passes with no warnings; WI-0002 and WI-0004 are canonically resolved.
+LRH 0.2.5.dev3596+gd86755f50 is available; installed gate definitions are fresh,
+skip consent remains invalid, and this explicit grant supplies task authority.
+No skill file was invoked or changed for this planning-only grant; applicable
+charter, AGENTS and STYLE were read. Native prompt/readiness/validation commands
+are used directly. Selected session model identity is not exposed by these tools;
+no model change or delegated model call was made.
+
+Python 3.11.9 is available in the LCATS environment. Initial import inspection
+revealed its editable install points to the sibling LCATS clone; absolute
+PYTHONPATH bound it to the managed worktree and the resolved import was verified.
+No environment repair/install was needed. Account-wide weekly usage at launch
+was 55%; per-run tokens/cost are unavailable and concurrent-session usage cannot
+be attributed to this sprint.
+
+## 2026-10-15 00:13 UTC — Acquisition decisions and handoff
+
+Inspected actual Resource/lifecycle/legacy-cache/downloader boundaries and
+primary HTTP/Python/Gutenberg access documentation. Recorded the acquisition
+contract and 22 acceptance scenarios. Important boundaries: explicit online
+permission, no requests on valid cache hits, separate refresh, immutable raw-body
+receipts, no network within CatalogManager, strict separately versioned decoding,
+and one cache-root request coordinator. Concrete mirror route qualification and
+cooperative timeout semantics are explicit implementation preflight tasks.
+No live source data was downloaded. No claim of implementation or independent
+review is made. Next: self-check contract consistency, validate documentation and
+native readiness, commit a resumable planning checkpoint before the hard stop.
+
+## 2026-10-15 00:15 UTC — Planning validation checkpoint
+
+Canonical format/lint pass; LRH reports 0 errors and 351 existing warnings.
+WI-0005 readiness is clean. Verified 18 current local links/line anchors,
+fence balance and dependency ancestry. Product code/tests/docs and experimental
+measurements are unchanged; no unit-test rerun or implementation acceptance claim.
+The execution record and validation.json capture this planning-only scope.
+Single-agent self-check clarified retry/redirect budgets, corrupt-state recovery
+boundaries and conflicting encoding declarations. Independent implementation
+review remains required in the next grant. Next: commit/push a planning checkpoint
+and report its exact identity with remaining scope.

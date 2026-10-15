@@ -18,3 +18,6 @@ work items, and execution records remain authoritative for delivery.
   retained runners and archival technical measurements. The experiment's
   relocation.json resolves historical paths appearing in earlier records.
   Control-plane evidence here is non-executable planning/review/CI/usage data.
+
+- [Acquisition contract and handoff](gettenberg-acquisition-design.md): WI-0005
+  design decisions, acceptance matrix and the next bounded implementation packet.

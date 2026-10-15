@@ -104,3 +104,13 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+
+## Acquisition design checkpoint
+
+The [acquisition contract](../../development/gettenberg-acquisition-design.md)
+records transport/cache/redirect/pacing/decoding decisions and acceptance scenarios
+A01–A22 under the 2026-10-15 planning grant. It is a coordinator-authored handoff,
+not implementation acceptance or an independent review. Qualify the concrete
+mirror route mapping and document timeout semantics before implementing. Preserve
+these criteria when splitting work into resumable tranches; this WI remains open.

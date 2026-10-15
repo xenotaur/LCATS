@@ -249,3 +249,21 @@ assignments at most30 minutes and bounded by remaining allowance. Usage at
 launch, minute30 and before optional delegation; minute45 reassessment. No
 numeric usage threshold. All other charter safeguards and nonterminal native
 status rules remain. No persistent consent/gate changes or future-run grant.
+
+## Short planning grant — approved and activated 2026-10-15
+
+The human explicitly approved a 15-minute sprint for the next logical step.
+Run `gettenberg-20261015-plan` starts 00:07:30 UTC; content freeze 00:17:30;
+hard stop 00:22:30, including tools and checkpointing. Finish early if complete.
+One coordinator only, no delegated assignments. Scope is WI-0005 design/readiness:
+record acquisition decisions, API boundaries, an acceptance matrix and resumable
+handoff. No implementation, bulk downloads, independent-review claim, main merge,
+WI resolution or future implementation grant. Small official-documentation reads
+and Git synchronization are permitted; no Gutenberg data acquisition.
+
+Base is freshly fetched main 2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2;
+planning branch codex/gettenberg-acquisition. The final five minutes are reserved
+for documentation/control-plane validation, commit and checkpoint. A branch push
+may preserve the checkpoint; no PR/review/CI wait is required for this planning
+tranche. Product source and measured evidence remain unchanged. Other charter
+scope, stewardship and escalation rules continue; persistent consent is unchanged.
