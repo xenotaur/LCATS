@@ -117,7 +117,9 @@ For every trial, read and record:
   OpenAI-compatible backend `request_source` is `provider`, the request as
   built before it was sent, so these files show whether `strict` and a forced
   `tool_choice` were in the request. Other backends record `request_source:
-  runner`, the runner-level call arguments only. The records leave out the
+  runner`, the runner-level call arguments only; a backend that supports
+  capture also falls back to `runner` when a call fails before it builds the
+  request. The records leave out the
   system prompt, the messages and the story text, and a stage reused from a
   checkpoint has none because it made no call. Commit them with the other
   persisted artifacts;

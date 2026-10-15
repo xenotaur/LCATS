@@ -2626,7 +2626,6 @@ class _OpenAIShapedClient:
     """Stand-in for openai.OpenAI that answers with deterministic tool calls."""
 
     def __init__(self):
-        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
         self.requests = []
         self.chat = types.SimpleNamespace(
             completions=types.SimpleNamespace(create=self._create)
