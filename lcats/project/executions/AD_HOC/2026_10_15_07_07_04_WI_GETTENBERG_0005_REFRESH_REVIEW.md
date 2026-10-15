@@ -43,3 +43,9 @@ Push independently accepted repairs directly to PR513, verify all exact-head
 checks, then integrate only under the charter's
 integration-branch authority. No main promotion, WI resolution or persistent-policy
 change. Preserve initial qualification evidence and append superseding repair evidence.
+
+PR513 internally merged at 2026-10-15T07:18:29Z as 0a5ccd426b07511a535ab9172fc8418818c89da6.
+Final reviewed head 0454e6affcd1f3ed8df5594aea2780ba894b1647: all four exact-head checks pass,
+all threads resolved, and integrated source tree/hashes match final qualification.
+Repairs were pushed directly. [Integration evidence](../../development/evidence/gettenberg-refresh-20261015/integration.json).
+Native status remains in_progress pending human-approved main delivery.

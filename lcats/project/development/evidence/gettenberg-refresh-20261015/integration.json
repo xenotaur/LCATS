@@ -1,0 +1,94 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/513",
+  "state": "MERGED",
+  "merged_at": "2026-10-15T07:18:29Z",
+  "base_branch": "codex/gettenberg-acquisition",
+  "base_sha": "9fb1c767c7eeca6cdab23d3b9fcfbe171a738997",
+  "reviewed_final_head": "0454e6affcd1f3ed8df5594aea2780ba894b1647",
+  "merge_sha": "0a5ccd426b07511a535ab9172fc8418818c89da6",
+  "merge_tree_equals_reviewed_head": true,
+  "merge_parents_verified": true,
+  "source_sha256": {
+    "src/lcats/gettenberg/resources.py": "1beeeaed7697feed283760db7c799c2a267fa844910f9908f431af425ace631a",
+    "src/lcats/gettenberg/_resource_types.py": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c",
+    "src/lcats/gettenberg/_resource_io.py": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873",
+    "src/lcats/gettenberg/_resource_transport.py": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d",
+    "src/lcats/gettenberg/_resource_refresh.py": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671",
+    "src/lcats/gettenberg/_resource_decoding.py": "6712f2ca36327724928691e97d2ae71340de48b7c28796f783a746ee8e9f4987",
+    "tests/gettenberg_tests/refresh_test.py": "0da5314b1e6ac2e266ffc7e989b49903ca3c5276c3e09be5f9b82b886c68b0ea",
+    "tests/gettenberg_tests/resources_test.py": "e7f3b2fa7beb5ca8fb7a31195bcdf6a42ce6fde190615c47103f5caed706e2d2",
+    "tests/gettenberg_tests/decoding_test.py": "a6d28b090c498dd31039f963f8428cf5b14df9a6391c358f4e52ae058dde2382",
+    "docs/how-to/gettenberg-resources.md": "b8e56c3dd2403a40d2f9b7d196aa76944aaa794057666d725ac463966ad82a49",
+    "docs/how-to/gettenberg-catalog.md": "b828246e482f9e3824eb381ae0e8dde0597bd002a6766157ba7640bdc1fa8504",
+    "docs/reference/gettenberg-network.md": "899b1e190a47b0b06b66aea3a77c390c01f50ba81c1fa53910dd4bdf14e42faa"
+  },
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T07:16:36Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38697421190/job/116297188440",
+      "name": "coverage",
+      "startedAt": "2026-10-15T07:14:32Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T07:15:04Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38697421122/job/116297188164",
+      "name": "lint",
+      "startedAt": "2026-10-15T07:14:32Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T07:16:16Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38697421169/job/116297188507",
+      "name": "test",
+      "startedAt": "2026-10-15T07:14:32Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T07:16:07Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38697414662/job/116297166502",
+      "name": "test",
+      "startedAt": "2026-10-15T07:14:28Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "all_threads_resolved": true,
+  "review_authors": [
+    "copilot-pull-request-reviewer",
+    "chatgpt-codex-connector"
+  ],
+  "independent_acceptance": "hosted-repair.json; all12 source/test/doc hashes match integrated tree",
+  "canonical_tests": 2851,
+  "canonical_seconds": 68.435,
+  "focused_tests": 156,
+  "native_status": "executions in_progress; WI-GETTENBERG-0005 proposed until main delivery",
+  "main_promotion": false,
+  "main_observed": "210468236ff4db78d2d7c5218562fa2d166e6400",
+  "publication_outcome": "Pushed directly; approved internal integration merged via gh",
+  "run": {
+    "started_at": "2026-10-15T06:35:29Z",
+    "target_at": "2026-10-15T07:35:29Z",
+    "hard_stop_at": "2026-10-15T08:05:29Z",
+    "checkpoint_at": "2026-10-15T07:20:14.259779+00:00",
+    "review_assignments": 1,
+    "same_scope_rechecks": 2,
+    "cumulative_worker_minutes_upper_bound": 13,
+    "workers_active": 0,
+    "account_weekly_used_percent_launch": 4,
+    "account_weekly_used_percent_final": 10,
+    "per_run_tokens_cost": "unavailable; shared-account percentage is not attributable consumption"
+  },
+  "remaining_scope": "WI0005 A15/A16 catalog receipt composition and qualified automatic routing; subsequent gatherer migration. No automatic next run."
+}

@@ -1820,3 +1820,37 @@ lint, LRH validation (0 errors, 351 existing warnings), docs and diff checks pas
 Independent review cleared both hosted findings at matching source hashes. Push the
 repair and require green checks on its exact head before any internal merge.
 Initial evidence remains historical; hosted-repair.json records final acceptance.
+
+### PR513 internally integrated — 07:18 UTC
+
+[PR #513](https://github.com/xenotaur/LCATS/pull/513) merged at 2026-10-15T07:18:29Z
+as 0a5ccd426b07511a535ab9172fc8418818c89da6 into codex/gettenberg-acquisition. Immediately before merging,
+head 0454e6affcd1f3ed8df5594aea2780ba894b1647 and base 9fb1c767c7eeca6cdab23d3b9fcfbe171a738997 matched the authorized/qualified branches;
+all four final-head checks passed and all authors/threads were re-read, with both
+independently cleared threads resolved. Repairs were **pushed directly** in0454e6af.
+No hosted review was manually retriggered and no finding was skipped.
+
+Merge parents match the recorded base/head; integrated tree equals verified-head
+tree and all 12 reviewed source/test/doc hashes match. Canonical 2851 tests and
+156 focused tests therefore apply unchanged. Append only non-executable integration
+and lifecycle evidence after merge; rerun LRH validation/diff/readiness, not the
+unchanged product suite. [Integration evidence](evidence/gettenberg-refresh-20261015/integration.json)
+retains identities, exact checks, author coverage, hashes and bounded-run telemetry.
+
+Conditional refresh A14 is internally delivered. Main is untouched; all native
+executions remain in_progress and WI-0005 proposed. Remaining scope is catalog
+receipt composition (A15/A16), qualified automatic routing, and subsequent
+migration. No new run, destructive cleanup, bulk download or policy change.
+
+Run completed in approximately 45 minutes including reviews, two repair stages,
+canonical tests, hosted CI and checkpointing, within the 60-minute target and
+90-minute hard stop. One independent reviewer assignment plus two bounded rechecks
+used under 13 worker minutes; no worker remains active. Shared-account weekly usage
+moved 4% to 10%; per-run attribution/tokens/cost remain unavailable. The larger
+allowance provided repair headroom; no extra feature was added to fill time.
+
+Process findings: preserve a pre-dispatch source manifest and freeze until initial
+review returns; qualify only stable repairs; explicitly test writer/reader invariant
+parity and aggregate metadata limits; wait for all hosted authors plus CI before
+using the last independent recheck. This run followed the latter three lessons after
+recording the initial snapshot gap, and finished without a separate integration grant.

@@ -114,3 +114,17 @@ A01–A22 under the 2026-10-15 planning grant. It is a coordinator-authored hand
 not implementation acceptance or an independent review. Qualify the concrete
 mirror route mapping and document timeout semantics before implementing. Preserve
 these criteria when splitting work into resumable tranches; this WI remains open.
+
+
+## Staged conditional-refresh acceptance — 2026-10-15
+
+A14 is independently reviewed and internally integrated through
+[PR513](https://github.com/xenotaur/LCATS/pull/513), merge 0a5ccd426b07511a535ab9172fc8418818c89da6,
+verified head 0454e6affcd1f3ed8df5594aea2780ba894b1647. Explicit304/changed200 refresh, receipt history,
+validator binding, failure safety and schema-1 compatibility have 156 focused tests,
+2851 canonical tests and four passing exact-head CI checks.
+[Integration evidence](../../development/evidence/gettenberg-refresh-20261015/integration.json)
+contains the acceptance mapping, review/repair records and source identities.
+This is staged delivery only: status remains proposed until human-approved main
+promotion. A15/A16 catalog composition and qualified automatic routing remain;
+this checkpoint does not claim whole-WI or workstream completion.

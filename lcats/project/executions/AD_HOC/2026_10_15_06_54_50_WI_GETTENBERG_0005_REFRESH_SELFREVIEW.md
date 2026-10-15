@@ -55,3 +55,9 @@ Both hosted P2s independently cleared; 156 focused tests and additional publicat
 offline decoder probes passed. All 12 final hashes match the frozen pre-dispatch
 manifest. No further planned rechecks remain. Cumulative worker occupancy under
 13 minutes. [Final repair evidence](../../development/evidence/gettenberg-refresh-20261015/hosted-repair.json).
+
+PR513 internally merged at 2026-10-15T07:18:29Z as 0a5ccd426b07511a535ab9172fc8418818c89da6.
+Final reviewed head 0454e6affcd1f3ed8df5594aea2780ba894b1647: all four exact-head checks pass,
+all threads resolved, and integrated source tree/hashes match final qualification.
+Repairs were pushed directly. [Integration evidence](../../development/evidence/gettenberg-refresh-20261015/integration.json).
+Native status remains in_progress pending human-approved main delivery.
