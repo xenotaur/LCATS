@@ -1,0 +1,120 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19405,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1775,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/the_adventure_of_the_dying_detective__doyle",
+  "story_path": "mass_quantities/the_adventure_of_the_dying_detective__doyle/story.json",
+  "text": "",
+  "title": "The Adventure of the Dying Detective",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-sumatran-disease",
+        "character_reaction_evidence_ids": [
+          "sfev-979d0c3d3a6c33ab"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The disease is framed in coherent, nonsupernatural terms consistent with contemporary tropical medicine and microbiology (plantation outbreaks, methodical study, gelatine cultures of microbes), but this alone does not confer novum status.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-210743a80fbc2f12",
+            "sfev-c48bdaf42b0449da",
+            "sfev-b67b06f41cb6f6de"
+          ]
+        },
+        "description": "A supposedly rare, deadly, and highly contagious 'coolie disease from Sumatra' (Tapanuli fever / black Formosa corruption) allegedly transmissible by touch, which Holmes claims to have contracted.",
+        "estrangement_rationale": "The reader is initially led to believe in a deadly exotic contagion, then confronted with its exposure as a staged malingering, producing contrast rather than genuine cognitive estrangement of the ordinary world.",
+        "evidence_ids": [
+          "sfev-210743a80fbc2f12",
+          "sfev-c48bdaf42b0449da",
+          "sfev-b67b06f41cb6f6de",
+          "sfev-dceca1ced7c67a51",
+          "sfev-6b999e90d79961ee"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-dceca1ced7c67a51",
+            "sfev-6b999e90d79961ee"
+          ],
+          "rationale": "The disease functions as a pretext within a detective plot; the narrative logic is driven by Holmes's deception and the criminal investigation, not by any novel scientific difference in the world. The 'illness' is revealed to be a performance.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-210743a80fbc2f12",
+            "sfev-dceca1ced7c67a51",
+            "sfev-6b999e90d79961ee"
+          ],
+          "rationale": "The disease is presented within the ordinary early-20th-century empirical norm of poorly-understood tropical diseases, not a totalizing world-altering difference. Moreover, the narrative resolves it as a fiction Holmes fabricated: the illness was faked with vaseline, belladonna, rouge, and beeswax. There is no genuine world-altering novum here.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-dceca1ced7c67a51"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-6b999e90d79961ee"
+        ]
+      },
+      {
+        "candidate_id": "cand-poisoned-spring-box",
+        "character_reaction_evidence_ids": [
+          "sfev-9ed40e9d0ec01e18"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The mechanism is explained coherently and nonsupernaturally (a sharp spring like a viper's tooth emerging when the lid is slid open, carrying infection), but mundane mechanical plausibility does not establish a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-14511e297c4c14a6",
+            "sfev-58fb98c9d221d96d"
+          ]
+        },
+        "description": "A small ivory box fitted with a concealed poisoned spring-loaded mechanism that pricks and infects whoever opens it, used as a covert murder device.",
+        "estrangement_rationale": "The concealed lethal mechanism provides suspense and a reveal, but it operates entirely within a familiar empirical frame of poison and mechanical traps, not estrangement of the world norm.",
+        "evidence_ids": [
+          "sfev-14511e297c4c14a6",
+          "sfev-58fb98c9d221d96d",
+          "sfev-9ed40e9d0ec01e18"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-14511e297c4c14a6"
+          ],
+          "rationale": "The box is a plot device that establishes the murder method; it does not govern an overriding, world-altering narrative logic. The story's logic is the detective's ruse to extract a confession.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-14511e297c4c14a6"
+          ],
+          "rationale": "A booby-trapped poisoned box is an ordinary criminal gadget within the empirical norm of the story's world; it is an incidental murder device, not a totalizing or world-altering difference.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-58fb98c9d221d96d"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-14511e297c4c14a6"
+        ]
+      }
+    ]
+  }
+}

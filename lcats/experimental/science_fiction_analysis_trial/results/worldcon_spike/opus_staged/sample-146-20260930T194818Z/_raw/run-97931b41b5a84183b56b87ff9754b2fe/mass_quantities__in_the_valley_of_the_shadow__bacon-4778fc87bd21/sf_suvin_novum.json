@@ -1,0 +1,50 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15228,
+  "model": "claude-opus-4-8",
+  "output_tokens": 779,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/in_the_valley_of_the_shadow__bacon",
+  "story_path": "mass_quantities/in_the_valley_of_the_shadow__bacon/story.json",
+  "text": "",
+  "title": "In The Valley Of The Shadow",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-trained-nurse",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "Since no novum-level difference from the empirical norm is present, there is no imaginary science or novel social organization requiring an immanent, systematic account to validate. The nursing profession is presented realistically, not as a cognitively elaborated innovation.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The professional trained nurse (Miss Strong) whose calm authority reorganizes the emotional life of the household during a medical crisis.",
+        "estrangement_rationale": "Any estrangement here is social realism (a woman earning her living, a masculine competent professional challenging Belden's conventional views of womanhood), not cognitive estrangement produced by a world-altering novum.",
+        "evidence_ids": [],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "Miss Strong is central to the story's emotional logic and pervades the household, and the ending pivots on her, which could suggest centrality. However, centrality as an ordinary character does not constitute novum hegemony, because there is no world-altering difference whose logic governs the narrative. The narrative is a realist domestic drama, not one driven by a science-fictional innovation.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "A trained nurse in a turn-of-the-century domestic medical crisis is entirely within the authorial empirical norm. There is no totalizing or world-altering difference from the empirical world; the story depicts ordinary early-twentieth-century medicine, surgery under ether, and household dynamics. Miss Strong's competence and self-possessed personality are socially notable but not a new law of the storyworld.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16588,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1704,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "wodehouse/crowned_heads",
+  "story_path": "wodehouse/crowned_heads/story.json",
+  "text": "",
+  "title": "Wodehouse - Crowned Heads",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-grandfather-king-delusion",
+        "character_reaction_evidence_ids": [
+          "sfev-9a9353adc02489e2",
+          "sfev-c807453a4c10fc3d"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.8,
+          "counterevidence_ids": [
+            "sfev-487125dc3f15b41a"
+          ],
+          "rationale": "The delusion is presented as ordinary age-related dementia, not as any systematic imaginary science or alternative social organization. It has no immanent coherent logic that reorganizes the world; it is simply a recurring, shifting mental confusion (President Roosevelt, Prophet Elijah, King of England).",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "Old Matthew Bennett's delusion that he is the King of England (and generally that he holds royal authority), which governs the household's social logic and blocks Katie's marriage.",
+        "estrangement_rationale": "The reader-facing contrast is between the shared knowledge that the belief is false and the old man's sincere conviction; this is dramatic irony arising from a mundane delusion rather than a cognitively estranging novum. The storyworld remains the empirical norm.",
+        "evidence_ids": [
+          "sfev-b90b489ab2402aa4",
+          "sfev-487125dc3f15b41a",
+          "sfev-9a9353adc02489e2",
+          "sfev-c807453a4c10fc3d"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The delusion drives the central conflict: because the grandfather believes he is king, he forbids his 'granddaughter of the King of England' from marrying a commoner, and the entire plot revolves around resolving this obstacle. However, this narrative centrality does not make it a novum, since it lacks novelty and cognitive validation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-b90b489ab2402aa4",
+            "sfev-487125dc3f15b41a",
+            "sfev-c807453a4c10fc3d"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-b90b489ab2402aa4",
+            "sfev-487125dc3f15b41a"
+          ],
+          "rationale": "The grandfather's belief that he is King of England is a psychological delusion of a senile old man, not a totalizing or world-altering difference from the empirical norm. The story world remains ordinary contemporary New York; nothing in the storyworld is actually changed. Characters explicitly recognize it as 'all nonsense.' There is no alteration to the universe, only one man's private false belief.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-487125dc3f15b41a"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-b90b489ab2402aa4"
+        ]
+      },
+      {
+        "candidate_id": "cand-king-of-coney-island",
+        "character_reaction_evidence_ids": [
+          "sfev-cc7b0ed6bea965c0"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The election mechanism is mundane and real; there is no imaginary scientific or social system to validate as a novum, so the dimension is not meaningfully applicable.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The 'King of Coney Island' title won by popular vote in an annual Mardi Gras election, which Ted uses to present himself as royalty and secure permission to marry.",
+        "estrangement_rationale": "Any estrangement here is comedic, based on the old man's ignorance of a real place, not on cognitive novelty. This is a mundane social custom, not a novum.",
+        "evidence_ids": [
+          "sfev-cc7b0ed6bea965c0"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The Coney Island kingship provides the plot resolution: Ted exploits the grandfather's unfamiliarity with Coney Island to claim a 'royal alliance.' Yet this is an ordinary device, not a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-cc7b0ed6bea965c0"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-cc7b0ed6bea965c0"
+          ],
+          "rationale": "The Coney Island Mardi Gras king is an actual festival custom of the empirical world, a ceremonial popularity title, not a world-altering difference. It introduces no change to the story universe.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-cc7b0ed6bea965c0"
+        ]
+      }
+    ]
+  }
+}

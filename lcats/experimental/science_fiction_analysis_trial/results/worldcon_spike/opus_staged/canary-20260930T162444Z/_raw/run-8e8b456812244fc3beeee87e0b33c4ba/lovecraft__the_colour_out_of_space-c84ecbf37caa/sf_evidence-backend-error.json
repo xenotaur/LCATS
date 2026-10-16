@@ -1,0 +1,14 @@
+{
+  "attempt": 1,
+  "backend_error": "TruncatedResponseError",
+  "effective_max_tokens": 4096,
+  "error_message": "Anthropic response for model 'claude-opus-4-8' was truncated at the max_tokens limit (4096) before the tool_use block for 'record_science_fiction_evidence' finished generating; its input may be incomplete or invalid.",
+  "input_tokens": 27220,
+  "output_tokens": 4096,
+  "raw_content": "[{\"id\": \"toolu_01Fo3tokw7faiXdW4MHANbFs\", \"input\": {}, \"name\": \"record_science_fiction_evidence\", \"type\": \"tool_use\"}]",
+  "run_id": "run-8e8b456812244fc3beeee87e0b33c4ba",
+  "stage": "sf_evidence",
+  "story_id": "lovecraft/the_colour_out_of_space",
+  "story_path": "lovecraft/the_colour_out_of_space/story.json",
+  "title": "The Colour out of Space by H. P. Lovecraft"
+}

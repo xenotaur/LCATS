@@ -1,0 +1,641 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "wodehouse__at_geisenheimer_s-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No scientific fact, theory, discovery, natural process, or speculative science is materially represented. The story is a romantic comedy set in a New York dance hall.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The rigged dance-contest arrangement and Love-r-ly Silver Cup are ordinary social contrivances, not an engineered device, technique, or invention in any science-fictional sense. No technology materially affects the setting or outcome.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e81b22effb8bb4a8",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in the contemporary present with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are developed from an identifiable scientific, technological, social, or historical premise; the plot is a personal romantic intervention, not systematic extrapolation.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, measurement, or systematic inference materially drives the action. The narrator's scheme is social manipulation, not scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Settings are ordinary earthly locations (New York, rural Maine). References to the country are pastoral imagery, not other planets, dimensions, or nonordinary cosmic environments or visitors.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-d193dc74dc2eba74",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The conflict is a personal marital crisis; no natural, technological, cosmic, biological, or human-caused large-scale disaster is actual, impending, remembered, or causally central.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-c58eb1b5ba15979a",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-bc017802ed767570",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bc017802ed767570",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 18620,
+            "output": 942
+          }
+        },
+        "status": "complete",
+        "story_hash": "182fed9ed21f31582c41cfa09da2aca84b62cfded8beae3047ce9ed80de9c50e"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "wodehouse__at_geisenheimer_s-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-love-r-ly-cup-rigging",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The rigging is given a coherent, systematic, immanent, nonsupernatural account: employees who cannot advertise their status, a management rotation, and an emcee steering eliminations. It is internally consistent, but coherence alone does not confer novelty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e81b22effb8bb4a8",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "description": "The 'Love-r-ly Silver Cup' dance contest at Geisenheimer's is secretly rigged: professional dancers employed by the management win it on a fixed rotation, and the outcome is manipulated by the emcee Izzy rather than decided by skill.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The reader-facing contrast lies in the narrator's exposure of the ostensibly 'gen-u-ine sporting contest' as a fraud, an ironic gap between the public claim of merit and the hidden employment scheme.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e81b22effb8bb4a8",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-9058f782a2422cce",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e81b22effb8bb4a8",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-9058f782a2422cce",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The rigged contest is the mechanism through which the plot's turning point (the wife's win and the narrator's ticket-swap) occurs, so it is more than trivially incidental; but the overriding narrative logic is the country/city moral conflict, not the con itself.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e81b22effb8bb4a8",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-9058f782a2422cce",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e81b22effb8bb4a8",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ],
+              "rationale": "A rigged prize contest is a mundane, socially plausible con within the ordinary empirical world of Broadway nightlife. It introduces no totalizing or world-altering difference from the authorial empirical norm; it is an incidental deception, not a novum that reconstitutes the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-newyorkitis-corruption",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The pattern is presented coherently and immanently through the Tyson precedent and the narrator's own recurring rural longing, offering a consistent psychological/social account without supernatural agency.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-c58eb1b5ba15979a",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-d3426fc6a08ff8e6",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "description": "The recurring notion of 'Newyorkitis'\\u2014the city as a corrupting, quasi-diagnostic force that irresistibly seduces country spouses and destroys marriages (the Jack Tyson pattern)\\u2014functioning almost as a social law of the story world.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-1e4fc75f0985d2f3",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-c58eb1b5ba15979a",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-cd83a453e02f361d",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-d3426fc6a08ff8e6",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ],
+              "rationale": "The contrast between rural wholesomeness ('fresh milk and new-laid eggs') and metropolitan artifice creates the story's affective tension, but this is realist moral contrast, not cognitive estrangement produced by a novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-8f3212a78d5f51e2",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-d193dc74dc2eba74",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-9058f782a2422cce",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-8190ef941e0b929f",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-1e4fc75f0985d2f3",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-c58eb1b5ba15979a",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-8190ef941e0b929f",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-9058f782a2422cce",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-8f3212a78d5f51e2",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-d193dc74dc2eba74",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-cd83a453e02f361d",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              },
+              {
+                "evidence_id": "sfev-d3426fc6a08ff8e6",
+                "evidence_set_id": "sfes-bc017802ed767570"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The country/city tension governs the whole narrative arc\\u2014the wife's fear, the narrator's scheme, Charlie's reversal, and both women's decisions to return to the country all flow from it.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-1e4fc75f0985d2f3",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-c58eb1b5ba15979a",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-9058f782a2422cce",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-8190ef941e0b929f",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-9058f782a2422cce",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-8190ef941e0b929f",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ],
+              "rationale": "This is a thematic/moral metaphor about urban temptation, not a totalizing world-altering difference from the empirical norm. The city corrupting rural innocents is realist social commentary; nothing in the story world operates by different physical or social laws than the reader's own.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-c58eb1b5ba15979a",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                },
+                {
+                  "evidence_id": "sfev-8f3212a78d5f51e2",
+                  "evidence_set_id": "sfes-bc017802ed767570"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-bc017802ed767570",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bc017802ed767570",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 18967,
+            "output": 2004
+          }
+        },
+        "status": "complete",
+        "story_hash": "182fed9ed21f31582c41cfa09da2aca84b62cfded8beae3047ce9ed80de9c50e"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-bc017802ed767570",
+    "knight_analysis_id": "wodehouse__at_geisenheimer_s-knight-v1",
+    "suvin_novum_analysis_id": "wodehouse__at_geisenheimer_s-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-bc017802ed767570",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 137,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 0
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1e4fc75f0985d2f3",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator expresses weariness and dissatisfaction with city life at the outset.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "As I walked to Geisenheimer's that night I was feeling blue and restless, tired of New York, tired of dancing, tired of everything."
+        },
+        {
+          "anchor": {
+            "end_char": 31497,
+            "paragraph_ids": [
+              "p00190"
+            ],
+            "start_char": 31414
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8190ef941e0b929f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Charlie reverses his attitude and rejects the city entirely.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He gave a kind of shiver. 'I never want to see it again in my life!' he said."
+        },
+        {
+          "anchor": {
+            "end_char": 4134,
+            "paragraph_ids": [
+              "p00025"
+            ],
+            "start_char": 3918
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8f3212a78d5f51e2",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator contrasts her rural yearning with Charlie's fascination with the city.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We weren't thinking on the same plane, Charlie and me. The way I had been feeling all day, what I wanted to talk about was last season's crops. The subject he fancied was this season's chorus-girls."
+        },
+        {
+          "anchor": {
+            "end_char": 34447,
+            "paragraph_ids": [
+              "p00210"
+            ],
+            "start_char": 34287
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9058f782a2422cce",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrator decides to quit her job and change her life by returning to the country.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That's what I think. I'm sick of this place, Izzy. I'm sick of dancing. I'm sick of New York. I'm sick of everything. I'm going back to the country."
+        },
+        {
+          "anchor": {
+            "end_char": 11369,
+            "paragraph_ids": [
+              "p00081"
+            ],
+            "start_char": 11282
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c58eb1b5ba15979a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Mrs Charlie confesses her fear and hatred of the city.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I hate New York,' she said getting it out at last with a rush. 'I'm scared of it."
+        },
+        {
+          "anchor": {
+            "end_char": 29078,
+            "paragraph_ids": [
+              "p00175"
+            ],
+            "start_char": 29056
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cd83a453e02f361d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Charlie reacts with fright at the suggestion his wife might leave him.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He turned quite green."
+        },
+        {
+          "anchor": {
+            "end_char": 22984,
+            "paragraph_ids": [
+              "p00144"
+            ],
+            "start_char": 22844
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d193dc74dc2eba74",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator contrasts the rural wife's appeal against the city crowd's usual tastes.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She made you think of fresh milk and new-laid eggs and birds singing. To see her was like getting away to the country in August."
+        },
+        {
+          "anchor": {
+            "end_char": 2920,
+            "paragraph_ids": [
+              "p00022"
+            ],
+            "start_char": 2800
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d3426fc6a08ff8e6",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator describes a recurring longing for the countryside.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There still come days in the spring when the country seems to get a stranglehold on me and start in pulling."
+        },
+        {
+          "anchor": {
+            "end_char": 4566,
+            "paragraph_ids": [
+              "p00030"
+            ],
+            "start_char": 4467
+          },
+          "confidence": 0.45,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e81b22effb8bb4a8",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains the hidden arrangement of paid professional dancers who secretly win the cup contest.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "If you're a professional dancer at Geisenheimer's, you aren't supposed to advertise the fact."
+        }
+      ],
+      "story_hash": "182fed9ed21f31582c41cfa09da2aca84b62cfded8beae3047ce9ed80de9c50e",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "wodehouse/at_geisenheimer_s",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "182fed9ed21f31582c41cfa09da2aca84b62cfded8beae3047ce9ed80de9c50e",
+  "story_path": "wodehouse/at_geisenheimer_s/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

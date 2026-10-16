@@ -1,0 +1,1177 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_jar_of_jelly_beans__gregory-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "Real endocrinology (pituitary growth hormone, prenatal size regulation) is materially represented and reworked as speculative science central to the plot's central premise.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-95dcf118e4c961bf",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-9e8846c1cbeeff32",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-31228c7d1f4472e4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "Justin's engineered injection-and-diet technique for artificial dwarfing is an invention that drives the entire problem, action, and outcome of the story.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-31228c7d1f4472e4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-9e8846c1cbeeff32",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-bade4f4183a93cd4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story is explicitly set in 2060, a speculative future, with a developed historical timeline of decline; no time travel but future setting is material.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8792d651eb07c7ff",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.92,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The narrative systematically extrapolates consequences from the identifiable premise of unchecked overpopulation and resource depletion, projecting demographic and economic outcomes across generations.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-130f4d9f040b1148",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-951ec2480d3c0de4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-cc79b773953d4e06",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-4ede70bacf2912e2",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-be0a34992a88de72",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Justin conducts long-term experiments with measured height/age outcomes and reversed a known biological process, suggesting systematic inference; but the process is reported retrospectively rather than shown as hypothesis-test-revision driving understanding, leaving materiality uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-bade4f4183a93cd4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-31228c7d1f4472e4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Space, Moon stations, and Mars are mentioned only as a failed program and abandoned aspiration; no other place or visitor is materially depicted or entered in the narrative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "The remembered civilizational collapse by 2030 from resource exhaustion and economic bankruptcy, plus the actual nationwide riots, constitute a large-scale, causally central catastrophe.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e08ae0693eef56c6",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-901051c2e3c1c9fe",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-4a147a1912e74fb3",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-27d52d375211547a",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-27d52d375211547a",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 22236,
+            "output": 1285
+          }
+        },
+        "status": "complete",
+        "story_hash": "de78433652a4a9506c83ad9c5c86c29b6e8c37c64e0353ecff62e7258a4bd531"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_jar_of_jelly_beans__gregory-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-artificial-dwarfing",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The story offers a coherent, immanent, nonsupernatural account grounded in imaginary endocrinology: pituitary growth-hormone deficiency causes dwarfism; the process is 'reversed' by glandular manipulation; and prenatal size is regulated in the first trimester. Empirical accuracy is not required; the systematic biochemical logic and reported experimental subjects supply cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-95dcf118e4c961bf",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-9e8846c1cbeeff32",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-31228c7d1f4472e4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-bade4f4183a93cd4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "description": "A biochemical technique of glandular/hormonal manipulation (postnatal injection-and-diet and prenatal injection-and-diet) that deliberately produces fully healthy, high-IQ, proportionate but miniaturized humans, proposed as a species-wide solution to overpopulation and resource exhaustion.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-827a4d22adea9503",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-8e58fb9fa7163580",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-a2f3e6191482604a",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ],
+              "rationale": "Reader estrangement arises from contrasting the remembered abundance of the past with the deprived present, then presenting deliberate human miniaturization as salvation. Character reactions (Hackett's outrage, Doris's horror, Justin's pride) dramatize the moral and cognitive shock of the novum, though character surprise is not required for qualification.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-1e81bf6ca6f27f23",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-cc79b773953d4e06",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4ede70bacf2912e2",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-951ec2480d3c0de4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-31228c7d1f4472e4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-9e8846c1cbeeff32",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-95dcf118e4c961bf",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-cc79b773953d4e06",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-4ede70bacf2912e2",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-951ec2480d3c0de4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-bade4f4183a93cd4",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-a2f3e6191482604a",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-8e58fb9fa7163580",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-827a4d22adea9503",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.88,
+              "counterevidence": [],
+              "rationale": "The dwarfing technique governs the overriding narrative logic: it is Justin's secret answer to the overpopulation crisis, the political fulcrum for reelecting Austin and enlisting the Bosses, the object of Doris's pregnancy experiment, and the climactic 'new creation' that ends the story. The entire plot converges on this novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cc79b773953d4e06",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4ede70bacf2912e2",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-951ec2480d3c0de4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-a2f3e6191482604a",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-31228c7d1f4472e4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The candidate constitutes a totalizing difference from the empirical norm: deliberate creation of a new, permanently miniaturized breed of human intended to be adopted as universal prenatal care, such that within two generations anyone over three feet would be the exception. This world-altering reengineering of the human species is a qualitative departure from any real-world norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-31228c7d1f4472e4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-9e8846c1cbeeff32",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4ede70bacf2912e2",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-951ec2480d3c0de4",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-cc79b773953d4e06",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-a2f3e6191482604a",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-overpopulation-collapse",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "A coherent extrapolative socioeconomic logic is supplied: unchecked population growth plus wasteful capital expenditure on space leads to bankruptcy and resource exhaustion.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-130f4d9f040b1148",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-be0a34992a88de72",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-901051c2e3c1c9fe",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-e08ae0693eef56c6",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "description": "A 2060 storyworld defined by galloping global overpopulation (ten billion) and civilizational/economic collapse, with a National Demographic Authority governing, farms consolidated under automation, and tobacco abolished.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The stark contrast between the remembered era of plenty and present-day rationing, disease, and crowding estranges the reader by extrapolating current demographic anxieties to a totalizing crisis.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-1e81bf6ca6f27f23",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-e0b411db6452fd76",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-3e019beb7f358dd3",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-c8cb291a8cb5c93c",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-e08ae0693eef56c6",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-8792d651eb07c7ff",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-e0b411db6452fd76",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-e08ae0693eef56c6",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-3e019beb7f358dd3",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-c8cb291a8cb5c93c",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-130f4d9f040b1148",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-be0a34992a88de72",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-901051c2e3c1c9fe",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-cc79b773953d4e06",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-a2f3e6191482604a",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ],
+              "rationale": "The overpopulation collapse is the pervasive backdrop and motivation, but it functions as the condition the narrative responds to rather than the difference that governs the plot's resolution; the dwarfing novum is the operative driver. Its hegemony is thus ambiguous relative to the dominant novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8792d651eb07c7ff",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-e0b411db6452fd76",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The Malthusian-collapse setting is a totalizing world condition differing sharply from the empirical norm, altering governance, food, land, and daily life.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8792d651eb07c7ff",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-e0b411db6452fd76",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-e08ae0693eef56c6",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-3e019beb7f358dd3",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-c8cb291a8cb5c93c",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "novum-space-program-failure",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The program and its ruinous economics are given a coherent immanent account of capital expenditure without return leading to bankruptcy.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-be0a34992a88de72",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-901051c2e3c1c9fe",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "description": "A decades-long, income-consuming space colonization program (Moon stations, Mars landing) that is officially declared a failure and dismantled, triggering nationwide riots.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The abandonment of the space dream and resulting riots and suicides estrange the reader by inverting the optimistic frontier trope, but this operates as a subordinate catastrophe rather than the governing cognitive difference.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-4ffee49aaf6e0ea7",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4a147a1912e74fb3",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-be0a34992a88de72",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-901051c2e3c1c9fe",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-4ffee49aaf6e0ea7",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              },
+              {
+                "evidence_id": "sfev-4a147a1912e74fb3",
+                "evidence_set_id": "sfes-27d52d375211547a"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-cc79b773953d4e06",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-a2f3e6191482604a",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ],
+              "rationale": "The space program's failure is a catastrophic plot event that clears the ground for the dwarfing solution, but it does not itself determine the overriding narrative logic; it is an antecedent whose function is to make Justin's novum the story's answer. It thus lacks controlling centrality.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-4a147a1912e74fb3",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4ffee49aaf6e0ea7",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "Established interplanetary infrastructure and its collapse represent a differing storyworld condition, though it is presented as backstory that has failed rather than an operative marvel.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-be0a34992a88de72",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                },
+                {
+                  "evidence_id": "sfev-4ffee49aaf6e0ea7",
+                  "evidence_set_id": "sfes-27d52d375211547a"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "novum-artificial-dwarfing",
+        "evidence_set_id": "sfes-27d52d375211547a",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-27d52d375211547a",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 22583,
+            "output": 3341
+          }
+        },
+        "status": "complete",
+        "story_hash": "de78433652a4a9506c83ad9c5c86c29b6e8c37c64e0353ecff62e7258a4bd531"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-27d52d375211547a",
+    "knight_analysis_id": "mass_quantities__a_jar_of_jelly_beans__gregory-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_jar_of_jelly_beans__gregory-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-27d52d375211547a",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 1029,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 930
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-130f4d9f040b1148",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Justin extrapolates unchecked population growth leading to eventual collapse.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The more kids, the more\nthere are to grow up to beget more kids, ad infinitum till something\ngives."
+        },
+        {
+          "anchor": {
+            "end_char": 10023,
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "start_char": 9790
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1e81bf6ca6f27f23",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrative contrasts the abundance of the past era with the deprivation of the present.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "a life expectancy at birth of\nsixty-eight years; a daily diet of three thousand calories; meat, eggs,\nmilk whenever you wished (why, he himself could scarcely remember the\ntaste of beef!); bountiful super-markets groaning with viands"
+        },
+        {
+          "anchor": {
+            "end_char": 24985,
+            "paragraph_ids": [
+              "p00173"
+            ],
+            "start_char": 24797
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-31228c7d1f4472e4",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Justin explains prenatal size regulation and his injection-and-diet technique to induce dwarfing before birth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "What science has known for\nyears is that it's the condition of the child in the womb during the\nfirst three months of pregnancy that regulates size. I developed a\nsimple injection and diet"
+        },
+        {
+          "anchor": {
+            "end_char": 19862,
+            "paragraph_ids": [
+              "p00139"
+            ],
+            "start_char": 19715
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3e019beb7f358dd3",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Farms have been seized and consolidated under automation, displacing rural populations.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev21",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They took 'em\nall and threw 'em together with automation. For better production,\nthey claimed. Nobody's allowed back but the damned button-pushers."
+        },
+        {
+          "anchor": {
+            "end_char": 27902,
+            "paragraph_ids": [
+              "p00198"
+            ],
+            "start_char": 27731
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a147a1912e74fb3",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Nationwide riots erupt after the President announces the space program's failure.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Riots, the worst in thirty years, swept the nation late today in the\nwake of President Austin's stunning message to Congress. The Federal\nBuilding in St. Louis is burning."
+        },
+        {
+          "anchor": {
+            "end_char": 25444,
+            "paragraph_ids": [
+              "p00177"
+            ],
+            "start_char": 25374
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4ede70bacf2912e2",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Justin projects that prenatal dwarfing applied broadly would make tall people rare within two generations.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev20",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "in two generations anyone over three feet tall would be the exception."
+        },
+        {
+          "anchor": {
+            "end_char": 28455,
+            "paragraph_ids": [
+              "p00200"
+            ],
+            "start_char": 28219
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4ffee49aaf6e0ea7",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The government abandons the entire space program and dismantles its infrastructure.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He told Congress he has ordered abandonment of the\nMoon stations. He also has ordered immediate dismantlement of all\nrocket-launching installations, the closing of rocket-building yards,\nand the complete cessation of all Space research."
+        },
+        {
+          "anchor": {
+            "end_char": 25126,
+            "paragraph_ids": [
+              "p00175"
+            ],
+            "start_char": 25074
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-827a4d22adea9503",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Hackett reacts with anger on learning Justin experimented on his pregnant niece.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"You practiced on my niece? You cold-blooded louse!\""
+        },
+        {
+          "anchor": {
+            "end_char": 1906,
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "start_char": 1792
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8792d651eb07c7ff",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The story is set in 2060 amid severe overcrowding requiring a new frontier.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Nobody denied that in this year of Our Lord, 2060, a new frontier was\nneeded to relieve the horrible overcrowding."
+        },
+        {
+          "anchor": {
+            "end_char": 30485,
+            "paragraph_ids": [
+              "p00213"
+            ],
+            "start_char": 30432
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8e58fb9fa7163580",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Doris reacts with horror upon realizing her baby is intentionally a dwarf.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"It's a dwarf, I tell you! Oh Justin, how could you?\""
+        },
+        {
+          "anchor": {
+            "end_char": 11752,
+            "paragraph_ids": [
+              "p00071"
+            ],
+            "start_char": 11664
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-901051c2e3c1c9fe",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Economic collapse resulted from wasteful spending on the space program.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the frantic\nexpenditure of capital without return could only end in complete\nbankruptcy."
+        },
+        {
+          "anchor": {
+            "end_char": 24339,
+            "paragraph_ids": [
+              "p00168"
+            ],
+            "start_char": 24144
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-951ec2480d3c0de4",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Justin projects the demographic outcome of applying dwarfing to young children over twenty years.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "if we stop the growth,\nright now, of the thirty million in\nthat age group, allowing for natural mortality, in twenty years we'll\nhave over two hundred million small people--a fifth of our number."
+        },
+        {
+          "anchor": {
+            "end_char": 22092,
+            "paragraph_ids": [
+              "p00153"
+            ],
+            "start_char": 21859
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-95dcf118e4c961bf",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The mechanism of dwarfism via pituitary growth hormone deficiency and its correction is explained.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "What the early endocrinologists found was that a deficiency of\ngrowth hormone in the anterior lobe of the pituitary gland caused the\ncondition. They corrected it by injecting the right pituitary extracts\nso the midgets grew normally."
+        },
+        {
+          "anchor": {
+            "end_char": 22342,
+            "paragraph_ids": [
+              "p00154"
+            ],
+            "start_char": 22104
+          },
+          "confidence": 0.92,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9e8846c1cbeeff32",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Justin explains he reversed the hormonal process to deliberately create small but otherwise normal humans.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "what I've done is merely reverse the process by a proper\nmanipulation of glandular balance. It's nothing they couldn't have done\na century ago. And there's your result: a new and better breed of human\nin which nothing is omitted but size."
+        },
+        {
+          "anchor": {
+            "end_char": 31083,
+            "paragraph_ids": [
+              "p00220"
+            ],
+            "start_char": 31052
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a2f3e6191482604a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Justin proudly declares his miniaturized newborn a new kind of human.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"It's a new creation,\" he said."
+        },
+        {
+          "anchor": {
+            "end_char": 21324,
+            "paragraph_ids": [
+              "p00150"
+            ],
+            "start_char": 21098
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bade4f4183a93cd4",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Justin describes his experimental subjects and measured outcomes of the dwarfing procedure.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When I took\nthem from various welfare bureaus, their average age was eighteen\nmonths. The girls' average height was thirty-one inches, the boys a\ntrifle more. Well, that's still their height, but they are now twenty\nyears old."
+        },
+        {
+          "anchor": {
+            "end_char": 10816,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 10686
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-be0a34992a88de72",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The nation spent half its income on the space race, described as the cause of decline.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the nation in the decade after the\nRed collapse had poured half her national income into those innumerable\nstabs toward the stars."
+        },
+        {
+          "anchor": {
+            "end_char": 7927,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 7795
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c8cb291a8cb5c93c",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Tobacco farming was abolished and land converted to food grains, and smoking is prohibited.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Crazy, this young girl latching onto the habit forty-odd years after\nthey'd switched the last Burley field to essential food grains."
+        },
+        {
+          "anchor": {
+            "end_char": 23165,
+            "paragraph_ids": [
+              "p00161"
+            ],
+            "start_char": 22949
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cc79b773953d4e06",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Justin projects that miniaturized humans would use far fewer resources while remaining productive.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "As workers, these little people can produce as much\nas normal adults. Yet they need only half the food and yardage in\nclothes, smaller houses, smaller everything. Think of the tremendous\nsavings in natural resources!"
+        },
+        {
+          "anchor": {
+            "end_char": 12871,
+            "paragraph_ids": [
+              "p00076"
+            ],
+            "start_char": 12688
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e08ae0693eef56c6",
+          "evidence_type": "catastrophe",
+          "paraphrase": "By 2030 industrial civilization collapsed as natural resources were exhausted.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By 2030 the last foundations for any industrial nation collapsed\nas increasing man--cancer on his own planet, spendthrift and\nwastrel--exhausted his oil and coal and gas and minerals."
+        },
+        {
+          "anchor": {
+            "end_char": 4035,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 3858
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e0b411db6452fd76",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A demographic control agency has replaced the Security Council as the dominant governing body due to population crisis.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the National Demographic Authority, the agency\nwhich--in view of the galloping population crisis--had long since\nsucceeded the Security Council as No. 1 pusher-around of people."
+        }
+      ],
+      "story_hash": "de78433652a4a9506c83ad9c5c86c29b6e8c37c64e0353ecff62e7258a4bd531",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_jar_of_jelly_beans__gregory",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "de78433652a4a9506c83ad9c5c86c29b6e8c37c64e0353ecff62e7258a4bd531",
+  "story_path": "mass_quantities/a_jar_of_jelly_beans__gregory/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 8384,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1679,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/swineherd",
+  "story_path": "anderson/swineherd/story.json",
+  "text": "",
+  "title": "Anderson - The Swineherd",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-magic-kitchen-pot",
+        "character_reaction_evidence_ids": [
+          "sfev-ef0e9ff55fecb4b1",
+          "sfev-4c93989d734be6b3"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The pot's city-wide smelling ability is presented as fairy-tale wonder with no coherent, systematic, immanent nonsupernatural account; it operates by unexplained enchantment rather than any imaginary science or social logic.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-252e6c55b9fd3479"
+          ]
+        },
+        "description": "A kitchen-pot fitted with tinkling bells that plays a melody while boiling and, more remarkably, allows anyone who holds a finger in its smoke to smell every dish cooking on every hearth throughout the city.",
+        "estrangement_rationale": "The narrator directly contrasts the magical pot with the natural rose ('something quite different from the rose'), foregrounding an artificial-versus-natural estrangement, and the Princess's disdain for the natural gifts marks the reader-facing contrast.",
+        "evidence_ids": [
+          "sfev-252e6c55b9fd3479",
+          "sfev-5c91f260b7ee3faf",
+          "sfev-58e6a4e0f02a58ca"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.45,
+          "counterevidence_ids": [
+            "sfev-a58ea64bbada64d0"
+          ],
+          "rationale": "The pot drives the central bargain (kisses for the gadget) and the plot, but it shares that function with the later rattle, so it is one device within a repeated pattern rather than the single overriding narrative logic.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-5c91f260b7ee3faf",
+            "sfev-58e6a4e0f02a58ca"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The pot is a novel marvel contrasted explicitly with the natural rose, but it is a discrete magical gadget that does not totalize or alter the story universe or any crucial aspect of it; the fairy-tale world remains unchanged in its essential ordering.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-252e6c55b9fd3479",
+            "sfev-5c91f260b7ee3faf"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-5c91f260b7ee3faf"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-58e6a4e0f02a58ca"
+        ]
+      },
+      {
+        "candidate_id": "cand-magic-rattle",
+        "character_reaction_evidence_ids": [
+          "sfev-29d0843a98bd70be"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The rattle's ability to reproduce every tune ever heard is asserted as fairy-tale enchantment without any systematic, immanent, nonsupernatural explanation.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-a58ea64bbada64d0"
+          ]
+        },
+        "description": "A hand-swung rattle constructed by the swineherd that plays all the waltzes and jig tunes ever heard since the creation of the world.",
+        "estrangement_rationale": "The rattle extends the artificial-marvel motif that the tale sets against natural gifts, and the Emperor's curiosity at the crowd it attracts marks a reader-facing reaction.",
+        "evidence_ids": [
+          "sfev-a58ea64bbada64d0",
+          "sfev-58e6a4e0f02a58ca"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The rattle prompts the second, larger kiss-bargain that leads to the Emperor's discovery and the expulsion, so it is plot-relevant but remains an incidental repetition of the gadget motif rather than the governing logic.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-a58ea64bbada64d0",
+            "sfev-58e6a4e0f02a58ca"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "Like the pot, the rattle is a bounded magical plaything; it does not reconfigure the storyworld or a crucial aspect of it.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-a58ea64bbada64d0"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-5c91f260b7ee3faf"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-58e6a4e0f02a58ca"
+        ]
+      }
+    ]
+  }
+}

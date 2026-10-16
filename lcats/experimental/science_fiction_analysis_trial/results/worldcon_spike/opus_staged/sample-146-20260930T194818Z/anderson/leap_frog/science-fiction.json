@@ -1,0 +1,365 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__leap_frog-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The only near-scientific mention is a whimsical folk claim that a Leap-frog's back predicts winter, presented as fanciful councillor talk, not as materially represented scientific fact, theory, or natural process.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No device, engineered system, or invention appears or affects the fairy-tale jumping contest.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The tale is set in a timeless fable present with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The story is a moral fable and develops no consequences from an identifiable scientific, technological, social, or historical premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "The jumping contest is judged by whim and social favor; there is no observation, hypothesis, testing, or evidential revision driving understanding or action.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear; talking animals in an ordinary setting do not qualify.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The only misfortunes are a personal loss and a reported death in foreign service, with no large-scale disaster actual, impending, remembered, or causally central.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-25e13c34d2d3c7fd",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-25e13c34d2d3c7fd",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 4573,
+            "output": 894
+          }
+        },
+        "status": "complete",
+        "story_hash": "9e09fc4921956f1d53e37ac986743fb8c1505d02fc7550c6a447a38345cfb90c"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__leap_frog-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-talking-animal-society",
+            "cognitive_validation": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The talking-animal premise is asserted whimsically without any immanent, systematic account; the narrator even undercuts its truth-value, signaling a fabular rather than cognitive-scientific framing.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "A world in which fleas, grasshoppers, and leap-frogs speak, possess noble blood and ancient family lineages, and compete in a royal court for a Princess's hand as if they were human courtiers.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-28d2abb343abf27f",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ],
+              "rationale": "The narrator's direct address flagging the tale as possibly untrue foregrounds the fabular contract with the reader, and the Flea's bitter moralizing supplies satirical estrangement, but this operates as fable/allegory rather than cognitive estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-2027ef325038786c",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-28d2abb343abf27f",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-28d2abb343abf27f",
+                "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+              },
+              {
+                "evidence_id": "sfev-2027ef325038786c",
+                "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The animals-as-courtiers premise does drive the whole plot (the jumping contest and the moral about appearances), but centrality alone does not make it a qualifying novum absent novelty and cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-28d2abb343abf27f",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "Anthropomorphic talking animals in a beast fable are a conventional folkloric mode, not a totalizing world-altering difference from the empirical or implied norm. The device is a genre convention (fable/fairy tale) used for satirical allegory rather than an estranging novum that reconstructs the story universe on a systematic new principle.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-prophetic-leapfrog-back",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "No systematic or immanent account is offered; it is superstition/folk augury presented for comic effect rather than an imaginary science.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8e902b73961e1595",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ]
+            },
+            "description": "The claim that the Leap-frog is a prophet whose back reveals whether the coming winter will be severe or mild, exceeding the predictive power of the almanac writer.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The comparison to the almanac writer offers a mild satirical contrast against real-world weather prediction, but has no storyworld consequence.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-8e902b73961e1595",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-8e902b73961e1595",
+                "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The prophetic-back claim is an incidental aside about the Leap-frog's pedigree and plays no role in determining the plot's outcome, which turns on the jump into the Princess's lap.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "This is a passing satirical folk-belief asserted by a councillor, not a world-altering difference. It does not reconstruct the story universe and reads as folkloric weather-lore humor.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8e902b73961e1595",
+                  "evidence_set_id": "sfes-25e13c34d2d3c7fd"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-25e13c34d2d3c7fd",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-25e13c34d2d3c7fd",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 4920,
+            "output": 1423
+          }
+        },
+        "status": "complete",
+        "story_hash": "9e09fc4921956f1d53e37ac986743fb8c1505d02fc7550c6a447a38345cfb90c"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-25e13c34d2d3c7fd",
+    "knight_analysis_id": "anderson__leap_frog-knight-v1",
+    "suvin_novum_analysis_id": "anderson__leap_frog-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-25e13c34d2d3c7fd",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 3960,
+            "paragraph_ids": [
+              "p00016"
+            ],
+            "start_char": 3746
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2027ef325038786c",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator addresses the reader, noting the story may be untrue despite being printed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And then he began chirping his peculiar melancholy song, from which we have taken this history; and which may, very possibly, be all untrue, although it does stand here printed in black and white."
+        },
+        {
+          "anchor": {
+            "end_char": 3466,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 3243
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-28d2abb343abf27f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The Flea reacts with bitterness to losing, complaining that merit is not rewarded.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It's all the same to me,\" said the Flea. \"She may have the old Leap-frog, for all I care. I jumped the highest; but in this world merit seldom meets its reward. A fine exterior is what people look at now-a-days."
+        },
+        {
+          "anchor": {
+            "end_char": 2169,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 1962
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8e902b73961e1595",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A claim that the Leap-frog's back can indicate whether winter will be severe or mild.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the Leap-frog was a prophet; for that one could see on his back, if there would be a severe or mild winter, and that was what one could not see even on the back of the man who writes the almanac."
+        }
+      ],
+      "story_hash": "9e09fc4921956f1d53e37ac986743fb8c1505d02fc7550c6a447a38345cfb90c",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/leap_frog",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "9e09fc4921956f1d53e37ac986743fb8c1505d02fc7550c6a447a38345cfb90c",
+  "story_path": "anderson/leap_frog/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

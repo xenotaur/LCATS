@@ -1,0 +1,605 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_the_dying_detective__doyle-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "References to a Sumatran coolie disease, tropical pathology, and microbe cultivation are used as period-typical medical/criminal backdrop for a detective ruse, not as materially represented scientific fact, theory, discovery, natural process, or speculative science central to the story. The 'disease' is ultimately a fiction within the plot (Holmes was faking), so no genuine scientific content is developed.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The poisoned spring-loaded ivory box and Holmes's disguise materials (vaseline, belladonna, rouge, beeswax) are ordinary contrivances/props of a Victorian mystery, not an engineered invention or speculative technology that reshapes the setting in a science-fictional sense. They function as a murder trick and theatrical malingering, not as material technological novelty.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary (for Doyle) London with no speculative future, remote past, or temporal displacement. Only ordinary dates and times appear.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are systematically extrapolated from an identifiable scientific, technological, social, or historical premise. The plot is a detective's deception to extract a confession, not a working-out of implications of a premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Holmes's 'recent researches' and Smith's methodical study are gestures toward investigation, but the story's understanding is driven by Holmes's ruse and detective inference, not by materially depicted observation, hypothesis, testing, measurement, or evidential revision. This is generic detective cunning rather than scientific method materially driving action.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Sumatra is an ordinary foreign locale mentioned as the disease's supposed origin; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The threats are individual murders and a feigned personal illness, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. The contagious-disease framing is fictional within the plot and remains at the scale of personal misfortune, not catastrophe.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-7fa72751fbc60917",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7fa72751fbc60917",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 19058,
+            "output": 1398
+          }
+        },
+        "status": "complete",
+        "story_hash": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_the_dying_detective__doyle-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-sumatran-disease",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The disease is framed in coherent, nonsupernatural terms consistent with contemporary tropical medicine and microbiology (plantation outbreaks, methodical study, gelatine cultures of microbes), but this alone does not confer novum status.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-210743a80fbc2f12",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-c48bdaf42b0449da",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-b67b06f41cb6f6de",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ]
+            },
+            "description": "A supposedly rare, deadly, and highly contagious 'coolie disease from Sumatra' (Tapanuli fever / black Formosa corruption) allegedly transmissible by touch, which Holmes claims to have contracted.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-979d0c3d3a6c33ab",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "The reader is initially led to believe in a deadly exotic contagion, then confronted with its exposure as a staged malingering, producing contrast rather than genuine cognitive estrangement of the ordinary world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-dceca1ced7c67a51",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-6b999e90d79961ee",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-210743a80fbc2f12",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-c48bdaf42b0449da",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-b67b06f41cb6f6de",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-dceca1ced7c67a51",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-6b999e90d79961ee",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-dceca1ced7c67a51",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-6b999e90d79961ee",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "The disease functions as a pretext within a detective plot; the narrative logic is driven by Holmes's deception and the criminal investigation, not by any novel scientific difference in the world. The 'illness' is revealed to be a performance.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-210743a80fbc2f12",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-dceca1ced7c67a51",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-6b999e90d79961ee",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "The disease is presented within the ordinary early-20th-century empirical norm of poorly-understood tropical diseases, not a totalizing world-altering difference. Moreover, the narrative resolves it as a fiction Holmes fabricated: the illness was faked with vaseline, belladonna, rouge, and beeswax. There is no genuine world-altering novum here.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-poisoned-spring-box",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The mechanism is explained coherently and nonsupernaturally (a sharp spring like a viper's tooth emerging when the lid is slid open, carrying infection), but mundane mechanical plausibility does not establish a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-14511e297c4c14a6",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                },
+                {
+                  "evidence_id": "sfev-58fb98c9d221d96d",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ]
+            },
+            "description": "A small ivory box fitted with a concealed poisoned spring-loaded mechanism that pricks and infects whoever opens it, used as a covert murder device.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-9ed40e9d0ec01e18",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "The concealed lethal mechanism provides suspense and a reveal, but it operates entirely within a familiar empirical frame of poison and mechanical traps, not estrangement of the world norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-58fb98c9d221d96d",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-14511e297c4c14a6",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-14511e297c4c14a6",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-58fb98c9d221d96d",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              },
+              {
+                "evidence_id": "sfev-9ed40e9d0ec01e18",
+                "evidence_set_id": "sfes-7fa72751fbc60917"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-14511e297c4c14a6",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "The box is a plot device that establishes the murder method; it does not govern an overriding, world-altering narrative logic. The story's logic is the detective's ruse to extract a confession.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-14511e297c4c14a6",
+                  "evidence_set_id": "sfes-7fa72751fbc60917"
+                }
+              ],
+              "rationale": "A booby-trapped poisoned box is an ordinary criminal gadget within the empirical norm of the story's world; it is an incidental murder device, not a totalizing or world-altering difference.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-7fa72751fbc60917",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7fa72751fbc60917",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 19405,
+            "output": 1775
+          }
+        },
+        "status": "complete",
+        "story_hash": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-7fa72751fbc60917",
+    "knight_analysis_id": "mass_quantities__the_adventure_of_the_dying_detective__doyle-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__the_adventure_of_the_dying_detective__doyle-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-7fa72751fbc60917",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 31105,
+            "paragraph_ids": [
+              "p00186"
+            ],
+            "start_char": 30870
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-14511e297c4c14a6",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Holmes explains the mechanism of the poisoned spring-loaded box used as a murder device.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "You can just see if you look at it sideways where the\nsharp spring like a viper's tooth emerges as you open it.  I dare say\nit was by some such device that poor Savage, who stood between this\nmonster and a reversion, was done to death."
+        },
+        {
+          "anchor": {
+            "end_char": 4158,
+            "paragraph_ids": [
+              "p00023"
+            ],
+            "start_char": 3942
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-210743a80fbc2f12",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Holmes describes a supposedly rare, deadly, contagious Sumatran disease.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is a coolie disease from\nSumatra--a thing that the Dutch know more about than we, though they\nhave made little of it up to date.  One thing only is certain.  It is\ninfallibly deadly, and it is horribly contagious."
+        },
+        {
+          "anchor": {
+            "end_char": 25617,
+            "paragraph_ids": [
+              "p00162"
+            ],
+            "start_char": 25525
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-58fb98c9d221d96d",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Smith reveals the infected ivory box sent to Holmes.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Do you remember\na box--an ivory box?  It came on Wednesday.  You opened it--do you\nremember?"
+        },
+        {
+          "anchor": {
+            "end_char": 30216,
+            "paragraph_ids": [
+              "p00184"
+            ],
+            "start_char": 30046
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6b999e90d79961ee",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Holmes explains the practical means by which he simulated a dying appearance.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "With\nvaseline upon one's forehead, belladonna in one's eyes, rouge over the\ncheek-bones, and crusts of beeswax round one's lips, a very satisfying\neffect can be produced."
+        },
+        {
+          "anchor": {
+            "end_char": 1891,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 1782
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-979d0c3d3a6c33ab",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Watson reacts with horror on learning of Holmes's illness.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I was horrified for I had heard nothing of his illness.  I need not say\nthat I rushed for my coat and my hat."
+        },
+        {
+          "anchor": {
+            "end_char": 9288,
+            "paragraph_ids": [
+              "p00050"
+            ],
+            "start_char": 9136
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9ed40e9d0ec01e18",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Watson reacts with shock to Holmes's scream when he touches the box.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was a dreadful cry that he gave--a yell which might have been heard\ndown the street.  My skin went cold and my hair bristled at that\nhorrible scream."
+        },
+        {
+          "anchor": {
+            "end_char": 18556,
+            "paragraph_ids": [
+              "p00096"
+            ],
+            "start_char": 18350
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b67b06f41cb6f6de",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Smith describes cultivating dangerous microbes in gelatine cultures.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There are my\nprisons,\" he continued, pointing to a row of bottles and jars which\nstood upon a side table. \"Among those gelatine cultivations some of the\nvery worst offenders in the world are now doing time."
+        },
+        {
+          "anchor": {
+            "end_char": 6656,
+            "paragraph_ids": [
+              "p00039"
+            ],
+            "start_char": 6503
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c0fed8c5fe25613d",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes claims to have caught the illness while conducting medico-criminal research.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I have learned so much during some\nrecent researches which have a medico-criminal aspect.  It was in the\ncourse of them that I contracted this complaint."
+        },
+        {
+          "anchor": {
+            "end_char": 12096,
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "start_char": 11905
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c48bdaf42b0449da",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Culverton Smith is described as a planter who studied the disease methodically after an outbreak.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "An\noutbreak of the disease upon his\nplantation, which was distant from medical aid, caused him to study it\nhimself, with some rather far-reaching consequences.  He is a very\nmethodical person"
+        },
+        {
+          "anchor": {
+            "end_char": 27242,
+            "paragraph_ids": [
+              "p00172"
+            ],
+            "start_char": 27033
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dceca1ced7c67a51",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Holmes reveals his illness was a deliberate act, contrasting with the assumed reality.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The best way of successfully acting a part is to be it,\" said Holmes.\n\"I give you my word that for three days I have tasted neither food nor\ndrink until you were good enough to pour me out that glass of water."
+        }
+      ],
+      "story_hash": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/the_adventure_of_the_dying_detective__doyle",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451",
+  "story_path": "mass_quantities/the_adventure_of_the_dying_detective__doyle/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

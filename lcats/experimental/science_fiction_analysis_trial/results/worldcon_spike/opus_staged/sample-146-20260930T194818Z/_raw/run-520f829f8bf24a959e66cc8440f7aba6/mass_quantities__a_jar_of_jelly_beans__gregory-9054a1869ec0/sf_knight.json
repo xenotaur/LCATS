@@ -1,0 +1,108 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 22236,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1285,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_jar_of_jelly_beans__gregory",
+  "story_path": "mass_quantities/a_jar_of_jelly_beans__gregory/story.json",
+  "text": "",
+  "title": "A jar of jelly beans",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "Real endocrinology (pituitary growth hormone, prenatal size regulation) is materially represented and reworked as speculative science central to the plot's central premise.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-95dcf118e4c961bf",
+          "sfev-9e8846c1cbeeff32",
+          "sfev-31228c7d1f4472e4"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "Justin's engineered injection-and-diet technique for artificial dwarfing is an invention that drives the entire problem, action, and outcome of the story.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-31228c7d1f4472e4",
+          "sfev-9e8846c1cbeeff32",
+          "sfev-bade4f4183a93cd4"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The story is explicitly set in 2060, a speculative future, with a developed historical timeline of decline; no time travel but future setting is material.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8792d651eb07c7ff"
+        ]
+      },
+      {
+        "confidence": 0.92,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The narrative systematically extrapolates consequences from the identifiable premise of unchecked overpopulation and resource depletion, projecting demographic and economic outcomes across generations.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-130f4d9f040b1148",
+          "sfev-951ec2480d3c0de4",
+          "sfev-cc79b773953d4e06",
+          "sfev-4ede70bacf2912e2",
+          "sfev-be0a34992a88de72"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Justin conducts long-term experiments with measured height/age outcomes and reversed a known biological process, suggesting systematic inference; but the process is reported retrospectively rather than shown as hypothesis-test-revision driving understanding, leaving materiality uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-bade4f4183a93cd4",
+          "sfev-31228c7d1f4472e4"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-4ffee49aaf6e0ea7",
+          "sfev-be0a34992a88de72"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "Space, Moon stations, and Mars are mentioned only as a failed program and abandoned aspiration; no other place or visitor is materially depicted or entered in the narrative.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "central",
+        "rationale": "The remembered civilizational collapse by 2030 from resource exhaustion and economic bankruptcy, plus the actual nationwide riots, constitute a large-scale, causally central catastrophe.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-e08ae0693eef56c6",
+          "sfev-901051c2e3c1c9fe",
+          "sfev-4a147a1912e74fb3"
+        ]
+      }
+    ]
+  }
+}

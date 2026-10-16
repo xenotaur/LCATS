@@ -1,0 +1,898 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_bad_day_for_vermin__laumer-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No scientific fact, theory, discovery, or natural process is materially represented. The story is a satirical social/legal piece; the alien and its translator are present but no science is developed.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "incidental",
+            "rationale": "The alien assembles a 'talking machine' translation device that enables the courtroom communication, and its craft is a novel vessel. However, the technology serves only to set the stage; the plot turns on legal/social definition rather than on the device itself, so materiality is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-420761f4a8412cb7",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary small town; there is no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The story extrapolates the social/legal consequences of first contact with alien life: the town redefines 'person' and 'vermin,' anticipating effects on hunters, the meat industry, and future legislation. This developed consequence from the first-contact premise is central.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f78be8ef0533b3d0",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-94b3c6d8548aa57e",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-a619554fb2b01d40",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Officials reason through and reject candidate criteria for defining a person (shape, intelligence), a systematic inference process. But this is legal/definitional reasoning rather than observation, hypothesis, and empirical testing, so its qualification as scientific method is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4a14614befdd2614",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-1aebe7fe12151363",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "central",
+            "rationale": "A visitor from another world arrives in a spacecraft, an alien caterpillar-like being ('creatures from other worlds'). The extraterrestrial visitor is the central novum driving the entire story.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-abf97ad62e842adf",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-7ddf34c2dc4b6e39",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ]
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The killing of a single alien and the killing of Stump are individual acts of violence, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. No catastrophe of broad scale is actual, impending, or causally central.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-84ac4dfe28d87977",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-84ac4dfe28d87977",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 11490,
+            "output": 1225
+          }
+        },
+        "status": "complete",
+        "story_hash": "40923d3fd4528e837b08cfe15c15493bca91f3a3c42c94a544e8f43d3b8ad083"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_bad_day_for_vermin__laumer-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-alien-contact",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The alien is presented in coherent, nonsupernatural terms: a physical vessel, a biological caterpillar-like form, and a self-assembled translation machine enabling communication. Consequences are reasoned about systematically (legislation, industry).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-7ddf34c2dc4b6e39",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-420761f4a8412cb7",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-f78be8ef0533b3d0",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "description": "The arrival of an intelligent, benevolent alien (the Fianna) in a spacecraft on a small-town courthouse lawn, inaugurating an era of contact with extraterrestrial beings.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-7bf64c1bcb2a0c47",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-d1ef887c827d7e56",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ],
+              "rationale": "The mundane small-town response (petunia beds, publicity, a licensed exterminator shooting the visitor as a 'varmint') contrasts sharply with the momentous reality of first contact, estranging the reader's assumptions about personhood and human categories.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-db6924c3af1fa146",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-0bf76a44db89e828",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-a619554fb2b01d40",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-f78be8ef0533b3d0",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-abf97ad62e842adf",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-7ddf34c2dc4b6e39",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-ef74d759e81bea38",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-f78be8ef0533b3d0",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-94b3c6d8548aa57e",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-a619554fb2b01d40",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The alien's arrival governs the entire narrative logic: it triggers the killing, the legal crisis over personhood, the town's redefinition of 'person' and 'vermin', and the ironic ending. Without the alien contact there is no story.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-abf97ad62e842adf",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-ef74d759e81bea38",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-a619554fb2b01d40",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The landing of an alien vessel and emergence of an intelligent extraterrestrial represents a totalizing difference from the empirical norm; a character explicitly extrapolates that first contact will make big changes across society (hunting, meat industry, law).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-abf97ad62e842adf",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-7ddf34c2dc4b6e39",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-f78be8ef0533b3d0",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-redefinition-personhood",
+            "cognitive_validation": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The redefinition is developed through coherent, systematic social-legal reasoning: officials reject shape and intelligence criteria and arrive at 'harmless creature' as a workable legal basis. This is a nonsupernatural imaginary social organization.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-4a14614befdd2614",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-1aebe7fe12151363",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "description": "The town's legal redefinition of 'person' as 'any harmless creature' and correspondingly of violent actors as 'vermin', a novel social/legal order emerging from the contact.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-d1ef887c827d7e56",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ],
+              "rationale": "The reader confronts the contingency of 'personhood' as a legal category; the folksy town reasoning that arrives at 'any harmless creature' both estranges and turns the murderer's own logic against him.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-db6924c3af1fa146",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-0bf76a44db89e828",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-a619554fb2b01d40",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-94b3c6d8548aa57e",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-a619554fb2b01d40",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-4a14614befdd2614",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-1aebe7fe12151363",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              },
+              {
+                "evidence_id": "sfev-0bf76a44db89e828",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The redefinition is the story's engine toward its ironic climax: it is what turns Stump from a vindicated 'exterminator' into 'vermin', delivering the final twist where a new exterminator comes for him.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-a619554fb2b01d40",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-0bf76a44db89e828",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "Redefining legal personhood to include any harmless creature and reclassifying violent humans as vermin is a world-altering shift in social/legal norms departing from the empirical status quo.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-a619554fb2b01d40",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-translation-machine",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The device is presented as a coherent, nonsupernatural 'talking machine' assembled by the alien and functioning to render communication.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-420761f4a8412cb7",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "description": "The alien's self-assembled translation device that enables it to speak to the townspeople.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The casual mention of an alien assembling a talking machine provides mild estrangement but no story-level transformation.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-420761f4a8412cb7",
+                "evidence_set_id": "sfes-84ac4dfe28d87977"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ef74d759e81bea38",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                },
+                {
+                  "evidence_id": "sfev-94b3c6d8548aa57e",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ],
+              "rationale": "The translator is an incidental gadget; it merely permits the brief speech before the alien is killed and does not determine the overriding narrative logic, which is driven by the alien contact and personhood redefinition.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "A universal translation machine is a novelty relative to present-day norms, but here it is a minor enabling device rather than a totalizing alteration of the story universe on its own.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-420761f4a8412cb7",
+                  "evidence_set_id": "sfes-84ac4dfe28d87977"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "novum-alien-contact",
+        "evidence_set_id": "sfes-84ac4dfe28d87977",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-84ac4dfe28d87977",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 11837,
+            "output": 2602
+          }
+        },
+        "status": "complete",
+        "story_hash": "40923d3fd4528e837b08cfe15c15493bca91f3a3c42c94a544e8f43d3b8ad083"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-84ac4dfe28d87977",
+    "knight_analysis_id": "mass_quantities__a_bad_day_for_vermin__laumer-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_bad_day_for_vermin__laumer-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-84ac4dfe28d87977",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00065",
+              "p00066"
+            ],
+            "paraphrase": "The new definition implies a violent man is classified as vermin.",
+            "quote": "What about a man who commits a violent act, then?\" Judge Gates demanded. \"What's he, eh?",
+            "raw_id": "ev13",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00079",
+              "p00080"
+            ],
+            "paraphrase": "A new exterminator arrives to apply the new law against Stump.",
+            "quote": "The man reached the foot of the steps, raised the revolver and cocked it with a thumb.",
+            "raw_id": "ev14",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 11685,
+            "paragraph_ids": [
+              "p00080"
+            ],
+            "start_char": 11650
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0bf76a44db89e828",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The killer is now to be treated as vermin under the redefined law.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I'm the new exterminator,\" he said."
+        },
+        {
+          "anchor": {
+            "end_char": 4728,
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "start_char": 4655
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1aebe7fe12151363",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Characters question whether existing law defines what counts as a human/person.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "You mean the laws on murder don't define what constitutes--I mean, what--"
+        },
+        {
+          "anchor": {
+            "end_char": 965,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 834
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-420761f4a8412cb7",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The alien is assembling a translation device to communicate.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It's putting together what my boy assures me is some kind of talking machine, and any minute now it's going to start communicating."
+        },
+        {
+          "anchor": {
+            "end_char": 8494,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 8359
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a14614befdd2614",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Officials reason through and reject various criteria for defining a person.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Shape's got nothing to do with it,\" the chairman cut in. \"Bears walk on two legs! Dave Zawocky lost his in the war. Monkeys have hands."
+        },
+        {
+          "anchor": {
+            "end_char": 680,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 643
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7bf64c1bcb2a0c47",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The judge immediately reacts by calling officials.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Judge Gates whirled to the telephone."
+        },
+        {
+          "anchor": {
+            "end_char": 641,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 478
+          },
+          "confidence": 0.93,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7ddf34c2dc4b6e39",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A caterpillar-like alien being emerges from the landed vessel.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "On the upper, or stem end of the vessel, a translucent pink panel popped up and a slender, graceful form not unlike a large violet caterpillar undulated into view."
+        },
+        {
+          "anchor": {
+            "end_char": 8063,
+            "paragraph_ids": [
+              "p00052"
+            ],
+            "start_char": 7966
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-94b3c6d8548aa57e",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The town moves to formally define what constitutes a person.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We're going to redefine what constitutes a person within the incorporated limits of Willow Grove!"
+        },
+        {
+          "anchor": {
+            "end_char": 9676,
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "start_char": 9633
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a619554fb2b01d40",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The town enacts a new definition of 'person' as any harmless creature.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A person is ... _any harmless creature_...."
+        },
+        {
+          "anchor": {
+            "end_char": 477,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 304
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-abf97ad62e842adf",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "An alien spacecraft lands on a small-town courthouse lawn.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Through his second-floor office window, he saw a forty-foot flower-petal shape of pale turquoise settling gently between the well-tended petunia beds on the courthouse lawn."
+        },
+        {
+          "anchor": {
+            "end_char": 2945,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 2866
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d1ef887c827d7e56",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The crowd reacts with shock and rushes toward the slain alien.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There was a moment of stunned silence; then a rush of spectators for the alien."
+        },
+        {
+          "anchor": {
+            "end_char": 4254,
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "start_char": 4109
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-db6924c3af1fa146",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The killer argues the alien is mere vermin, not a human, contrasting definitions of personhood.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That ain't no stranger. That's a varmint. Murder's got to do with killin' humerns, way I understand it. You goin' to tell me that thing's humern?"
+        },
+        {
+          "anchor": {
+            "end_char": 2559,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 2418
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ef74d759e81bea38",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A man shoots and kills the visiting alien.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "yanked a heavy nickel-plated .44 revolver from the holster, took aim and fired five shots into the body of the Fianna at a range of ten feet."
+        },
+        {
+          "anchor": {
+            "end_char": 9167,
+            "paragraph_ids": [
+              "p00057"
+            ],
+            "start_char": 8905
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f78be8ef0533b3d0",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "A character extrapolates the broad social consequences of contact with alien life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It's going to make some big changes in things. Hunters aren't going to like it--and the meat industry will be affected. But if, as it appears, we're entering into an era of contact with ... ah ... creatures from other worlds, we've got to get our house in order."
+        }
+      ],
+      "story_hash": "40923d3fd4528e837b08cfe15c15493bca91f3a3c42c94a544e8f43d3b8ad083",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_bad_day_for_vermin__laumer",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "40923d3fd4528e837b08cfe15c15493bca91f3a3c42c94a544e8f43d3b8ad083",
+  "story_path": "mass_quantities/a_bad_day_for_vermin__laumer/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

@@ -1,0 +1,201 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__the_marriage_of_william_durrant__cummings-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied, so no criterion can be materially supported. The story itself is a domestic marital narrative with no scientific content, but per instructions absence of supplied evidence is treated as not_assessable rather than absent.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The evidence set is empty; no supplied record can support a device or invention affecting the story. Only ordinary contemporary items (telephone, piano) appear, which would not qualify regardless.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The narrative is set in an ordinary contemporary period with no speculative future, remote past, or temporal displacement.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The empty evidence set provides nothing to assess extrapolation from a scientific, technological, social, or historical premise.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The narrator's rationalizing self-justification is not systematic scientific inference, and no record supports this criterion.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The evidence set is empty; no supplied record supports other planets, dimensions, nonordinary cosmic environments, or visitors.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The word 'catastrophe' appears in the story but refers metaphorically to a personal marital misfortune, not a large-scale disaster; and there is no evidence record to cite.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-e5d0612abd9aeac1",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e5d0612abd9aeac1",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 12300,
+            "output": 940
+          }
+        },
+        "status": "complete",
+        "story_hash": "61b6efa53830999a17a2b768e882c832c52604f5dcdac2e47c0778c433189e17"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__the_marriage_of_william_durrant__cummings-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-durrant-marriage-narrator",
+            "cognitive_validation": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "With no novum present, there is no imaginary science or systematic new logic to validate. Cognitive validation is inapplicable to a purely realist domestic story.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The story is a first-person domestic narrative about William Durrant, a materialistic and self-deluded husband whose marriage fails because of his own emotional blindness. It contains no science-fictional, technological, or otherwise world-altering element.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "No reader-facing cognitive estrangement is created; the story presents a recognizably ordinary social world without any novum to defamiliarize it.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": 0.92,
+              "counterevidence": [],
+              "rationale": "The narrative is governed by ordinary character psychology and a mundane marital breakdown, not by any novum. No estranging element determines the story's logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.95,
+              "counterevidence": [],
+              "rationale": "There is no totalizing or world-altering difference from the empirical norm. The setting is early twentieth-century Philadelphia and New York, involving business, marriage, cards, and infidelity\\u2014entirely consistent with the authorial empirical reality. No new object, technology, social order, or condition estranges the world.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-e5d0612abd9aeac1",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-e5d0612abd9aeac1",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 12647,
+            "output": 666
+          }
+        },
+        "status": "complete",
+        "story_hash": "61b6efa53830999a17a2b768e882c832c52604f5dcdac2e47c0778c433189e17"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-e5d0612abd9aeac1",
+    "knight_analysis_id": "mass_quantities__the_marriage_of_william_durrant__cummings-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__the_marriage_of_william_durrant__cummings-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-e5d0612abd9aeac1",
+      "quarantined": [],
+      "records": [],
+      "story_hash": "61b6efa53830999a17a2b768e882c832c52604f5dcdac2e47c0778c433189e17",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/the_marriage_of_william_durrant__cummings",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "61b6efa53830999a17a2b768e882c832c52604f5dcdac2e47c0778c433189e17",
+  "story_path": "mass_quantities/the_marriage_of_william_durrant__cummings/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

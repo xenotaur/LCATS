@@ -1,0 +1,134 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 17437,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2030,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/shadow",
+  "story_path": "anderson/shadow/story.json",
+  "text": "",
+  "title": "Anderson - The Shadow",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-autonomous-shadow",
+        "character_reaction_evidence_ids": [
+          "sfev-e3d9e78757ee49bd",
+          "sfev-40225be8013faef6",
+          "sfev-62f4dcd69e33cf2e"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-e3d9e78757ee49bd"
+          ],
+          "rationale": "The story offers a quasi-systematic, immanent account: the shadow attributes its transformation to its nature revealed near Poesy, and its manhood is explained through the acquisition of clothing/the 'human varnish that makes a man perceptible,' framing perceptibility as a social/material condition rather than invoking deities. However, the mechanism remains fairy-tale enchantment with no consistent immanent law, so the cognitive coherence is partial and not clearly nonsupernatural.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-a21cf48098e313cc",
+            "sfev-27e80eaf0f2cba65"
+          ]
+        },
+        "description": "A man's shadow detaches from him, gains independent existence, eventually acquires a body and full human status, and progressively supplants its former master\\u2014rising socially to marry a princess while reducing the original man to the role of a shadow and finally having him executed.",
+        "estrangement_rationale": "The learned man's own remark that he 'never imagined that one's old shadow could come again as a man' marks the reader-facing contrast with empirical expectation, while the storyworld consequences (loss, regrowth, return, role reversal, execution) show the novum's totalizing reach.",
+        "evidence_ids": [
+          "sfev-3b408a417aa20d8f",
+          "sfev-3efc72fd5df2c904",
+          "sfev-ae4ebe91ed8025c5",
+          "sfev-ce7d3dda51e99953",
+          "sfev-8698719c4a74c37a",
+          "sfev-bf5dd79fa99b52c3",
+          "sfev-9a6de90e4dd8e099",
+          "sfev-a21cf48098e313cc",
+          "sfev-27e80eaf0f2cba65",
+          "sfev-40225be8013faef6",
+          "sfev-62f4dcd69e33cf2e",
+          "sfev-e3d9e78757ee49bd"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.92,
+          "counterevidence_ids": [],
+          "rationale": "The detached shadow is not an incidental device; it governs the whole plot arc from separation to the inversion of roles and the man's execution, determining the overriding narrative logic.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-ce7d3dda51e99953",
+            "sfev-8698719c4a74c37a",
+            "sfev-bf5dd79fa99b52c3",
+            "sfev-40225be8013faef6"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "The premise that a shadow can separate, persist independently, incarnate as a man, and reverse the master/shadow relation is a totalizing departure from empirical norms that reorganizes the entire storyworld's social and ontological logic.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-3b408a417aa20d8f",
+            "sfev-ae4ebe91ed8025c5",
+            "sfev-ce7d3dda51e99953",
+            "sfev-9a6de90e4dd8e099"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-9a6de90e4dd8e099"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-3b408a417aa20d8f",
+          "sfev-3efc72fd5df2c904",
+          "sfev-ae4ebe91ed8025c5",
+          "sfev-ce7d3dda51e99953",
+          "sfev-8698719c4a74c37a",
+          "sfev-bf5dd79fa99b52c3"
+        ]
+      },
+      {
+        "candidate_id": "novum-princess-too-clear-sight",
+        "character_reaction_evidence_ids": [
+          "sfev-62f4dcd69e33cf2e",
+          "sfev-35eefefa017225d3"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.3,
+          "counterevidence_ids": [],
+          "rationale": "No systematic or immanent account of this perceptual condition is provided beyond fairy-tale assertion.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "A princess afflicted with seeing too clearly, able to perceive that the shadow-man casts no shadow, whose condition is said to be curable by the waters.",
+        "estrangement_rationale": "The princess piercing the shadow with her eyes and her systematic questioning gesture toward her unusual perception, but these remain peripheral to the central novum.",
+        "evidence_ids": [
+          "sfev-62f4dcd69e33cf2e",
+          "sfev-35eefefa017225d3"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-ce7d3dda51e99953",
+            "sfev-bf5dd79fa99b52c3"
+          ],
+          "rationale": "The princess's clear sight is an incidental complication that the shadow easily deflects; it does not govern the overriding narrative logic, which is driven by the shadow's usurpation.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-35eefefa017225d3"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The idea of a person who 'sees too well' as an affliction is an unusual difference, but it is a localized trait rather than a world-altering condition.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-62f4dcd69e33cf2e"
+          ]
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

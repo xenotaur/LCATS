@@ -1,0 +1,648 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__creepin_tintypes__tuttle-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The only scientific gestures are the fake 'scientist/dinosaur' disguise and comedic banter about evolution; these are decorative jokes, not material scientific facts, theories, or processes.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The motion-picture camera is an ordinary contemporary device of the story's own period used only as a prop for a Western comedy; it does not represent speculative technology or an invention that materially transforms the setting in a science-fiction sense. Its use is a plot pretext but not an engineered novum.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-9afadafc6abaea50",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-a8934cfd2c2cc835",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-e5696be10329c98c",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in the contemporary American West. References to a dinosaur that 'died a million years ago' are joke banter, not a depicted remote past, future, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The plot is a comic Western caper driven by mistaken identity and slapstick; there is no consequence systematically extrapolated from a scientific, technological, social, or historical premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, or evidential revision materially drives understanding. The 'scientist' pose is fraudulent and comedic, not a demonstration of scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "All action occurs in ordinary earthly locations (a Western town and its environs). There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "A staged bank robbery, a real robbery by other parties, and a near-hanging are localized personal misfortunes and small-scale crimes, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-328d862b3bfcdebc",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-a24e40300081dbc4",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-3ef68d403364a2d7",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3ef68d403364a2d7",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 26981,
+            "output": 1094
+          }
+        },
+        "status": "complete",
+        "story_hash": "55c97a1bfed2fecfceb135718f6a0fb1b89ca336a525c68c21902ba4840001aa"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__creepin_tintypes__tuttle-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-moving-pictures",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The camera and filmmaking are presented with a coherent, nonsupernatural, immanent logic: camera placement in a hotel window, capturing a full shot of the street with the bank, filming staged action. This is internally consistent and rational, though it describes only real-world technology.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-9afadafc6abaea50",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-35108b748420fc3a",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-a8934cfd2c2cc835",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ]
+            },
+            "description": "A traveling filmmaker (Waldemar) uses a motion-picture camera to capture 'real' Western action, staging a bank robbery for realism.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-e5696be10329c98c",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-030dd60fe540ea92",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-918b38c7cace5525",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ],
+              "rationale": "The story contrasts the mythic 'wild West' of dime novels with a claimed mundane reality, and a rustic character marvels that pictures can appear to move. However, this contrast is comedic/satirical rather than a cognitive estrangement produced by a world-altering novum; the technology itself is empirically ordinary for the period.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-47f0857a8ff2f379",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-65017e2bdcb2193d",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-35108b748420fc3a",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-328d862b3bfcdebc",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-a24e40300081dbc4",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-a8934cfd2c2cc835",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-9afadafc6abaea50",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-e5696be10329c98c",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-35108b748420fc3a",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-a24e40300081dbc4",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-328d862b3bfcdebc",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-918b38c7cace5525",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-030dd60fe540ea92",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-47f0857a8ff2f379",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-65017e2bdcb2193d",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              },
+              {
+                "evidence_id": "sfev-d5b66d991ff22196",
+                "evidence_set_id": "sfes-3ef68d403364a2d7"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The desire to film an authentic robbery is the mainspring of the plot: it drives the protagonists to return to Piperock, motivates the staged hold-up, and precipitates the climactic near-hanging and the ironic real robbery. The device is central to the narrative logic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-35108b748420fc3a",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-9afadafc6abaea50",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-a24e40300081dbc4",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-918b38c7cace5525",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-a8934cfd2c2cc835",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-9afadafc6abaea50",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                },
+                {
+                  "evidence_id": "sfev-e5696be10329c98c",
+                  "evidence_set_id": "sfes-3ef68d403364a2d7"
+                }
+              ],
+              "rationale": "The motion-picture camera is a mundane, historically real technology contemporary to the story's setting, not a totalizing or world-altering difference from the empirical norm. While a rustic character finds it novel to himself, it introduces no systemic change to the story universe. It is an ordinary gadget/period device, not a Suvinian novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-3ef68d403364a2d7",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3ef68d403364a2d7",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 27328,
+            "output": 1238
+          }
+        },
+        "status": "complete",
+        "story_hash": "55c97a1bfed2fecfceb135718f6a0fb1b89ca336a525c68c21902ba4840001aa"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-3ef68d403364a2d7",
+    "knight_analysis_id": "mass_quantities__creepin_tintypes__tuttle-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__creepin_tintypes__tuttle-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-3ef68d403364a2d7",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 2895,
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "start_char": 2833
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-030dd60fe540ea92",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The filmmaker describes himself as a realist who dislikes artificiality.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I am a realist,\" says he, dreamy-like. \"I hate the artificial."
+        },
+        {
+          "anchor": {
+            "end_char": 35909,
+            "paragraph_ids": [
+              "p00272"
+            ],
+            "start_char": 35890
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-328d862b3bfcdebc",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Waldemar notes that an actual bank robbery occurred though the narrators did not commit it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Well, somebody did."
+        },
+        {
+          "anchor": {
+            "end_char": 5658,
+            "paragraph_ids": [
+              "p00044"
+            ],
+            "start_char": 5509
+          },
+          "confidence": 0.45,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-35108b748420fc3a",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Waldemar explains his aim to capture authentic, real-life Western events for his moving picture.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I want realism. I want the spirit of the old West in it. I want a stage\nhold-up, a bank robbery, with real people in it, in a Western town\\u2014real\nWest."
+        },
+        {
+          "anchor": {
+            "end_char": 1317,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 1261
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-47f0857a8ff2f379",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The filmmaker contrasts the mythic 'wild West' of stories with his claim that it doesn't really exist.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The West,\" says he, \"is the bunk. There ain\\u2019t none such."
+        },
+        {
+          "anchor": {
+            "end_char": 1596,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 1427
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-65017e2bdcb2193d",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The stranger contrasts the fictional West depicted by writers with his failure to find it in reality.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Wild,\" says he. \"Wild like the writers tell us about. The kind of a\nWest that Buffalo Bill knew. I\\u2019ve hunted for it loud and long, but she\nain\\u2019t and that\\u2019s an end to it."
+        },
+        {
+          "anchor": {
+            "end_char": 36716,
+            "paragraph_ids": [
+              "p00279"
+            ],
+            "start_char": 36658
+          },
+          "confidence": 0.35,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-918b38c7cace5525",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Dirty angrily dismisses Waldemar and his film-making.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "you can take your \\u2014\\u2014 creepin\\u2019\ntintypes and go plumb to \\u2014\\u2014!"
+        },
+        {
+          "anchor": {
+            "end_char": 16049,
+            "paragraph_ids": [
+              "p00145"
+            ],
+            "start_char": 15913
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9afadafc6abaea50",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Waldemar explains the technical setup of the camera to film the staged robbery.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "in the morning we\\u2019ll\nset up the camera in the hotel window which will give me a full shot at\nthe street, with the bank in the foreground"
+        },
+        {
+          "anchor": {
+            "end_char": 35781,
+            "paragraph_ids": [
+              "p00269"
+            ],
+            "start_char": 35687
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a24e40300081dbc4",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Waldemar reacts with dismay after nearly being hanged for the staged film stunt.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I seen you. I got a hundred feet of\nthe best hold-up on earth, and they were going to hang me."
+        },
+        {
+          "anchor": {
+            "end_char": 6276,
+            "paragraph_ids": [
+              "p00053"
+            ],
+            "start_char": 6261
+          },
+          "confidence": 0.3,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a8934cfd2c2cc835",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Waldemar clarifies that he takes moving pictures.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "No, I take \\u2019em."
+        },
+        {
+          "anchor": {
+            "end_char": 7550,
+            "paragraph_ids": [
+              "p00063"
+            ],
+            "start_char": 7462
+          },
+          "confidence": 0.3,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d5b66d991ff22196",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Reference to a disguise intended to conceal the characters' identities.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "No,\" says Dirty, \"but that won\\u2019t profit us much. Piperock may not\npenetrate our disguise"
+        },
+        {
+          "anchor": {
+            "end_char": 6402,
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "start_char": 6353
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e5696be10329c98c",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Dirty reacts with unfamiliarity and curiosity about how moving pictures work.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Does them pitchers make yuh think they\\u2019re movin\\u2019?"
+        }
+      ],
+      "story_hash": "55c97a1bfed2fecfceb135718f6a0fb1b89ca336a525c68c21902ba4840001aa",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/creepin_tintypes__tuttle",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "55c97a1bfed2fecfceb135718f6a0fb1b89ca336a525c68c21902ba4840001aa",
+  "story_path": "mass_quantities/creepin_tintypes__tuttle/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

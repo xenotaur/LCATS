@@ -1,0 +1,584 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__miss_sarah_jack_of_spanish_town_jamaica__trollope-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The only quasi-scientific content is a passing description of altitude affecting temperature in the mountains, which is incidental travel description, not a materially represented scientific fact, theory, or process driving the story. No speculative science appears.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The story concerns sugar-growing, estates, and courtship. Mills and Gadsden pans are ordinary contemporary agricultural tools mentioned in passing; no device, technique, or invention materially affects the setting, problem, or outcome in a speculative or engineered sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The tale is set in a contemporary/recent-past Jamaica, an ordinary historical setting. There is no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "While the decline of Jamaica following emancipation and the abolition of protective duties provides social/historical background, this is historical realism, not systematically developed speculative extrapolation from an identified premise. The consequences are actual historical circumstances, not an author's imaginative working-out of a novum.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, measurement, or systematic evidential inference materially drives understanding or action. The romantic plot advances through emotion and persuasion, not scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "Jamaica is an ordinary real-world colonial location, not another planet, dimension, or nonordinary cosmic environment, and there are no visitors from such. West Indian social customs addressed to readers are ordinary cultural contrast, not a speculative other-world.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "A remembered large-scale disaster is present in the backstory: slaves rose in revolt and burned down houses, mills, and offices across the region, contributing to the island's economic collapse. This is a human-caused, large-scale, remembered catastrophe forming the setting, but it is background rather than central to the romantic plot, hence ambiguous/incidental.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-2031e012e8c8166c",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              },
+              {
+                "evidence_id": "sfev-e7ddece62bd8c2cb",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-bc4e5214447bc368",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bc4e5214447bc368",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 26722,
+            "output": 1225
+          }
+        },
+        "status": "complete",
+        "story_hash": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__miss_sarah_jack_of_spanish_town_jamaica__trollope-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-emancipation",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The account is coherent, systematic, immanent and nonsupernatural: slaves revolt, are emancipated, and the plantation economy suffers labor shortages and decline. This is internally consistent social-economic causation, but coherence alone does not make it a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-2031e012e8c8166c",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-e7ddece62bd8c2cb",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ]
+            },
+            "description": "The emancipation of slaves in Jamaica and the resulting collapse of the plantation labor economy, forming the social-historical backdrop against which the story unfolds.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The narrator explicitly contrasts modern readers' view of emancipation with the contemporary proprietors' perception of it as a calamity (sfev-ea4dfaf0d50687f8), and the storyworld consequences are the destruction of the estate and the freeing of the slaves (sfev-2031e012e8c8166c, sfev-e7ddece62bd8c2cb). This is historical-moral estrangement, not science-fictional estrangement from an empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ea4dfaf0d50687f8",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-e7ddece62bd8c2cb",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-2031e012e8c8166c",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e7ddece62bd8c2cb",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              },
+              {
+                "evidence_id": "sfev-2031e012e8c8166c",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              },
+              {
+                "evidence_id": "sfev-ea4dfaf0d50687f8",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-cc198348498e09d1",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-181e5b6bc2daa66f",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "rationale": "The economic decline sets Maurice Cumming's circumstances and motivates Miss Jack's marriage scheme, so it conditions the setting. However the overriding narrative logic is a domestic courtship/flirtation plot resolved by character choices, not by the emancipation itself; the change is background rather than the governing engine of the narrative.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-2031e012e8c8166c",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-e7ddece62bd8c2cb",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.72,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e7ddece62bd8c2cb",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-2031e012e8c8166c",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-ea4dfaf0d50687f8",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "rationale": "Although emancipation is a major social and legal change within the storyworld, it is a historical event that belongs to the author's own empirical reality (nineteenth-century Jamaica), not a totalizing difference from the authorial empirical norm. Suvin's novum requires estrangement from the implied empirical world; a real historical reform depicted realistically is not such a difference. The reader-facing contrast (sfev-ea4dfaf0d50687f8) marks a shift in moral perspective over time, not an ontological or world-altering novelty.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-west-indian-flirting",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The narrator gives a coherent, immanent, nonsupernatural social account of flirting as an institution with rules and a life-cycle, but this coherence does not elevate an ordinary custom to a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-181e5b6bc2daa66f",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ]
+            },
+            "description": "The West Indian social 'institution' of flirting, presented by the narrator as a distinct cultural system practiced by all young ladies and set aside upon marriage.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-cc198348498e09d1",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "rationale": "The narrator directly addresses readers' unfamiliarity with West Indian flirting customs (sfev-181e5b6bc2daa66f), producing a cultural-contrast effect; Marian's eventual emotional collapse (sfev-cc198348498e09d1) shows the personal stakes. This is cultural estrangement, not the cognitive estrangement of a science-fictional novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-181e5b6bc2daa66f",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-181e5b6bc2daa66f",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              },
+              {
+                "evidence_id": "sfev-cc198348498e09d1",
+                "evidence_set_id": "sfes-bc4e5214447bc368"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "Marian's flirting drives the central romantic conflict, so the custom is thematically central. Yet it functions as a characterization device within a conventional courtship plot rather than as an estranging world-altering premise.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-181e5b6bc2daa66f",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                },
+                {
+                  "evidence_id": "sfev-cc198348498e09d1",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-181e5b6bc2daa66f",
+                  "evidence_set_id": "sfes-bc4e5214447bc368"
+                }
+              ],
+              "rationale": "This is a depicted regional social custom, not a totalizing or world-altering difference from the empirical norm. It represents ethnographic local color, not an estranging novum that reconstitutes the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-bc4e5214447bc368",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bc4e5214447bc368",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 27069,
+            "output": 1966
+          }
+        },
+        "status": "complete",
+        "story_hash": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-bc4e5214447bc368",
+    "knight_analysis_id": "mass_quantities__miss_sarah_jack_of_spanish_town_jamaica__trollope-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__miss_sarah_jack_of_spanish_town_jamaica__trollope-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-bc4e5214447bc368",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.45,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "paraphrase": "The abolition of the protective duty on Jamaica sugar is presented as a final economic blow.",
+            "quote": "But even this Mr. Cumming did bear after a while, and kept his shoulder\nto the wheel.  He kept his shoulder to the wheel till that third\nmisfortune came upon him\ninto the protection duty on Jamaica sugar was\nabolished.",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.4,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "paraphrase": "The estate's sugar production steadily declines over time.",
+            "quote": "In the good old times Mr.\nCumming\ns sugar produce had spread itself annually over some three\nhundred acres; but by degrees this dwindle down to half that extent of\nland.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.4,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00025"
+            ],
+            "paraphrase": "Explanation of climatic differences by altitude between Kingston and the mountains.",
+            "quote": "The family of the Leslies lived up near\nNewcastle\nin the mountains, that is, which stand over Kingston\nat a\ndistance of some eighteen miles from Kingston, but in a climate as\ndifferent from that of the town as the climate of Naples is from that of\nBerlin.",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00030"
+            ],
+            "paraphrase": "Maurice reacts with jealousy and resolves to give up on Marian.",
+            "quote": "I will have nothing more to say to\nher,\nsaid Maurice to himself, scowling.",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 17729,
+            "paragraph_ids": [
+              "p00033"
+            ],
+            "start_char": 17640
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-181e5b6bc2daa66f",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Narrator explicitly addresses readers' likely unfamiliarity with West Indian social customs.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "As a rule they will not\nknow how thoroughly flirting is an institution in the West\nIndies"
+        },
+        {
+          "anchor": {
+            "end_char": 2398,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 2256
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2031e012e8c8166c",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Consequence of unrest: slaves revolt and destroy the estate's buildings.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "His slaves rose\nagainst him, as they did against other proprietors around him, and burned\ndown his house and mills, his homestead and offices."
+        },
+        {
+          "anchor": {
+            "end_char": 12452,
+            "paragraph_ids": [
+              "p00025"
+            ],
+            "start_char": 12292
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5642b24010a7ef07",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Description of altitude and its effect on temperature in the mountains.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the mountains round\nNewcastle, some four thousand feet above the sea, it is merely warm\nduring the day, and cool enough at night to make a blanket desirable."
+        },
+        {
+          "anchor": {
+            "end_char": 50134,
+            "paragraph_ids": [
+              "p00180"
+            ],
+            "start_char": 50044
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cc198348498e09d1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Marian breaks down in tears, confessing her love for Maurice.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Oh, Fanny, I do love him, I do love him so dearly! and now\nhe will never come to me again!"
+        },
+        {
+          "anchor": {
+            "end_char": 2569,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 2536
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e7ddece62bd8c2cb",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A major social/legal change occurs in the storyworld: the emancipation of slaves.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Then the slaves were\nemancipated."
+        },
+        {
+          "anchor": {
+            "end_char": 2745,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 2571
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ea4dfaf0d50687f8",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Narrator contrasts modern readers' view of emancipation with the proprietors' view at the time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is not perhaps possible that we, now-a-days, should\nregard this as a calamity; but it was quite impossible that a Jamaica\nproprietor of those days should not have done so."
+        }
+      ],
+      "story_hash": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115",
+  "story_path": "mass_quantities/miss_sarah_jack_of_spanish_town_jamaica__trollope/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

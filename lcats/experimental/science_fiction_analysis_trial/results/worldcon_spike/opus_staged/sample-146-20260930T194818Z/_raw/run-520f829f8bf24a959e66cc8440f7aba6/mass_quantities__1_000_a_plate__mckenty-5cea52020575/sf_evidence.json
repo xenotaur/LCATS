@@ -1,0 +1,170 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 7868,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2411,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/1_000_a_plate__mckenty",
+  "story_path": "mass_quantities/1_000_a_plate__mckenty/story.json",
+  "text": "",
+  "title": "$1,000 a Plate",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "Mars is described as a settled tourist destination with visible moon craters and a space station on Deimos.",
+        "quote": "Each new crop of tourists goes\nto bed at sunrise the day after arrival with stiff necks from looking\nup all night. The craters of the moons are visible to the naked eye,\nand even a cheap pair of opera glasses can pick out the buildings of\nthe Deimos Space Station.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "Tourists remark on having traveled to Mars from space stations, indicating interplanetary travel.",
+        "quote": "Just think, Fred, we were way\nup there only twelve hours ago.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "Dr. Morton explains why observatories were relocated from Earth to the Moon to Mars for better viewing conditions.",
+        "quote": "If\nnot for the glare of city lights on Earth, we wouldn't have had to move\nour telescopes to the Moon. If not for the gravel falling out of the\nsky on the Moon, making it necessary to resurface the reflectors every\nweek, we wouldn't have had to move to Mars.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "The high cost of interplanetary freight makes each photographic plate enormously expensive.",
+        "quote": "except for the immense cost of transporting the\nequipment, building materials, workmen, and paying us triple time for\nworking so far from home. Why, did you ever figure the cost of a single\nphotographic plate?",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00012"
+        ],
+        "paraphrase": "Freight from Earth is quoted at a specific per-pound cost, framing the economics of the Mars operation.",
+        "quote": "At $7.97 per pound dead-weight ... well, you figure\nit out.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00015"
+        ],
+        "paraphrase": "A scientist uses tabulations and the law of averages to show that beating the casinos is statistically impossible.",
+        "quote": "He proved with his tabulations that,\nin this instance, science, in the guise of the law of averages, was\nunfortunately against them.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00016"
+        ],
+        "paraphrase": "A director contrasts a physicist's problem-solving with an astronomer's, highlighting the scheme's unconventional nature.",
+        "quote": "It's lucky Dr. Morton is a physicist,\" said one of the\ndirectors. \"No astronomer would ever have thought of that.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00020"
+        ],
+        "paraphrase": "The horoscope publicity scheme causes a casino to lose all its customers within two days.",
+        "quote": "Within two days the only people playing at Harvey's were the shills.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00027",
+          "p00028"
+        ],
+        "paraphrase": "The scheme is disrupted by an interplanetary telegram from the parent organization ordering it stopped.",
+        "quote": "It took the form of an interplanetary telegram from Harvard\nObservatory, their parent organization.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00042"
+        ],
+        "paraphrase": "A technician is developing a photocell device to automatically close the camera shutter when rockets are launched.",
+        "quote": "One of the technicians is working on a gadget with a photocell that\ncloses the shutter on the film when a rocket goes up,\" Dr. Morton was\nsaying. \"It should cut down the exposure time a great deal.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00042"
+        ],
+        "paraphrase": "The observatory's work is tied to mankind's first interstellar trip, and ruined plates cannot be replaced for a Martian year.",
+        "quote": "If the plates from any one night\nare spoiled, we may not be able to duplicate them for a Martian year.\nMankind is preparing the first trip to another star, and the work of\nMars Observatory is necessary to insure the success of that trip.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "Dr. Morton computes rocket trajectories on a computer and uses instruments to aim the skyrockets precisely.",
+        "quote": "The fuels are standard, and I worked\nout the trajectories on the computer.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "One of the rigged rockets goes off course and burns down Harvey's home.",
+        "quote": "But the other wobbled off to\nthe right, landed on the roof of Harvey's bachelor home and burned it\nto the ground.",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00053"
+        ],
+        "paraphrase": "The observatory offers to name a newly discovered comet after Harvey as a permanent remembrance.",
+        "quote": "This will\nbe one of the brightest objects in the sky, in a few months. It won't\nbe back again for thousands of years, but it will be around for a good\nwhile. We've just discovered it, and it is our privilege to call it\n'Harvey's Comet.'",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00016"
+        ],
+        "paraphrase": "The staff reacts to Dr. Morton's plan with progressing emotions from horror to exultation.",
+        "quote": "The other men listened to his plan, at\nfirst with shocked horror, then with deep interest and finally in wild\nexultation.",
+        "raw_id": "ev15"
+      }
+    ]
+  }
+}

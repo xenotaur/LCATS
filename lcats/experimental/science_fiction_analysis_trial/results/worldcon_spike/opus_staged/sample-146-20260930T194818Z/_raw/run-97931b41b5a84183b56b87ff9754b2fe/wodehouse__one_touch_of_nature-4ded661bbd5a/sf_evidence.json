@@ -1,0 +1,119 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12095,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1454,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "wodehouse/one_touch_of_nature",
+  "story_path": "wodehouse/one_touch_of_nature/story.json",
+  "text": "",
+  "title": "Wodehouse - One Touch Of Nature",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.4,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The protagonist has been geographically separated from his home city for five years.",
+        "quote": "Mr Birdsey had been doing something which he had not done since he left New York five years ago. He had been watching a game of baseball.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "Birdsey is dismayed at the prospect of never seeing baseball again.",
+        "quote": "He loved baseball with a love passing the love of women, and the prospect of never seeing a game again in his life appalled him.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00023"
+        ],
+        "paraphrase": "The bearded man reacts with sudden panic and fear when tapped on the shoulder.",
+        "quote": "The man gave a start that was almost a leap, and the pallor of his face became a sickly white. His eyes, as he swung round, met Mr Birdsey's for an instant before they dropped, and there was panic fear in them.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.35,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00053"
+        ],
+        "paraphrase": "Waterall describes his method of identifying faces from memory as central to his work.",
+        "quote": "If I think I remember a face, and can't place it, I worry myself into insomnia. It's partly sheer vanity, and partly because in my job a good memory for faces is a mighty fine asset.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00079"
+        ],
+        "paraphrase": "The bearded stranger is revealed to be a fugitive whose identity Waterall recalls from a past trial.",
+        "quote": "This is Mr John Benyon, and I last saw him five years ago when I was a reporter in New York, and covered his trial.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00081"
+        ],
+        "paraphrase": "Benyon's past crime and flight explain his years of hidden exile.",
+        "quote": "He robbed the New Asiatic Bank of a hundred thousand dollars, jumped his bail, and was never heard of again.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00088"
+        ],
+        "paraphrase": "Benyon explains he risked capture out of longing for home after years of miserable exile.",
+        "quote": "It was because I was a dead man, and saw a chance of coming to life for a day; because I was sick of the damned tomb I've been living in for five centuries; because I've been aching for New York ever since I've left it",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00115"
+        ],
+        "paraphrase": "Benyon collapses emotionally after failing to use the pistol.",
+        "quote": "The next moment Benyon had broken down. His face was buried in his arms, and he was a wreck of a man, sobbing like a hurt child.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00128"
+        ],
+        "paraphrase": "Birdsey suddenly physically attacks Waterall to help Benyon escape.",
+        "quote": "Even as the match gave out its flame, Mr Birdsey sprang.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00135"
+        ],
+        "paraphrase": "Birdsey contrasts the legal view of Benyon as a criminal with his own view of him as a fellow enthusiast.",
+        "quote": "He isn't a crook. He's a fan. And we exiled fans have got to stick together.",
+        "raw_id": "ev10"
+      }
+    ]
+  }
+}

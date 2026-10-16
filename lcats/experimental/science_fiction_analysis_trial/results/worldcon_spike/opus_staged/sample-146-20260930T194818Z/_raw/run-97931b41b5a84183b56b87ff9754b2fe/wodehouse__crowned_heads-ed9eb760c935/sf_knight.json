@@ -1,0 +1,86 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16241,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1029,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "wodehouse/crowned_heads",
+  "story_path": "wodehouse/crowned_heads/story.json",
+  "text": "",
+  "title": "Wodehouse - Crowned Heads",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "This is a Wodehouse comedy of manners about an old man's delusion and a romance. No scientific fact, theory, discovery, natural process, or speculative science is materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary contemporary items appear (bookshop, bath-chair, ferry, merry-go-round). No device, technique, engineered system, or invention materially affects the setting, problem, or outcome.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in a contemporary New York with no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The plot turns on exploiting an old man's delusion through a clever ruse, not on consequences developed from an identifiable scientific, technological, social, or historical premise.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "Ted's testing of the old man's memory with place names (Brooklyn, Yonkers) before proceeding resembles a hypothesis-test-then-act sequence, but it is a con artist's probing rather than systematic scientific inquiry driving genuine understanding; materiality and interpretation are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-cc7b0ed6bea965c0"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors appear. 'King of Coney Island' is a mundane festival title, not an other-worldly locale.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [
+          "sfev-c807453a4c10fc3d"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "Only personal misfortune and an elderly man's delusion occur; there is no large-scale natural, technological, cosmic, biological, or human-caused disaster, whether actual, impending, remembered, or causally central.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}
