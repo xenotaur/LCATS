@@ -63,6 +63,9 @@ line beginning (after whitespace) with one or more stars followed by `START` or
 Unicode spacing, single-star delimiters and wrapped fragments therefore cause a
 safe refusal instead of hiding a competing envelope. A narrative containing such
 a standalone starred heading can also cause a refusal; no content is lost.
+The exact historical `*** START: FULL LICENSE ***` line is license-section
+metadata, not a book boundary. It is exempt from candidate detection; this does
+not waive the matching book pair or the full-license heading requirement.
 
 All of these conditions must hold before any removal:
 

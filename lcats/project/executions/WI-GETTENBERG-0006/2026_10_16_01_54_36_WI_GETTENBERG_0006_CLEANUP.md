@@ -26,7 +26,7 @@ legacy wrappers and consumers remain for WI0008 migration.
 
 # Validation
 
-Canonical scripts/test: 2918 tests pass in 77.525s after hosted repairs; 32 focused
+Canonical scripts/test: 2919 tests pass in 76.935s after footer repair; 33 focused
 tests pass. Format: 274 files unchanged; lint passes. LRH: 0 errors and 351 existing
 warnings; WI prompt-ready and diff check clean. All four how-to blocks execute.
 Cold review found one P2 quadratic regex case; coordinator reproduced and repaired
@@ -37,8 +37,10 @@ repair; all seven frozen hashes matched. Independent initial Gettenberg suite:
 Both first hosted rounds completed: Codex found unsupported Unicode spacing;
 Copilot found single-star outer delimiters and wrapped second-book fragments.
 Coordinator reproduced all three, broadened refusal-only candidate detection,
-added regressions and requalified. Reserved independent recheck and final-head
-CI remain pending; threads will be resolved only after verification.
+added regressions and requalified. Prior final recheck verified those fixes but exposed a historical license-separator
+regression. Under a renewed human grant, the exact separator is now qualified in
+code and both historical fixtures, with an independent clean recheck. Final-head
+CI and thread resolution remain required for integration.
 
 # Follow-up
 

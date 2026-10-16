@@ -2210,3 +2210,38 @@ usage near minute30: 23%, account-wide and not attributable (launch19%).
 Publishing the repair set; final recheck is reserved until both hosted rounds and
 CI are collected, then exact-source independent verification will decide whether
 threads can be resolved and integration accepted. No manual hosted retrigger.
+
+
+## Footer repair and verification grant — 2026-10-16 04:04 UTC
+
+Human explicitly granted repair and verification after the interrupted run.
+New bounded window: start 04:04:09 UTC, hard stop 04:34:09 UTC (00:34 EDT).
+Scope: repair the verified historical license separator, strengthen fixtures,
+canonical qualification, one independent recheck, review-thread disposition and
+internal integration if all gates pass. No main promotion or automatic renewal.
+Fresh PR517 head e6e19c146139cbe2bdf46613906cea93352b10af and integration base
+3d55a48767c097aedc800cbad9012cca099f5cd2 match the clean local checkout.
+
+Backfilled prior-run outcome: final recheck verified all three hosted repairs,
+but found a P2 regression: the broadened candidate regex treats the historical
+`*** START: FULL LICENSE ***` footer as an unrecognized book boundary. Coordinator
+reproduced changed=False/unrecognized_marker and independently confirmed the exact
+line in primary publication32458 (line78 in the inspected web rendering), followed
+by its full-license heading. No narrative was lost; cleanup was refused. Both
+planned rechecks were consumed; interruption crossed the old hard stop before
+repair/logging. PR remained open and unaccepted. No extension was inferred.
+
+Repair decision before edits: exclude only that exact observed license-section
+separator from book-candidate detection, retaining surrounding horizontal-space
+handling. Do not exempt arbitrary START-colon lines or relax book-marker grammar.
+Add the separator to both historical fixtures and test retained body/offsets,
+near-miss refusal and a missing license-heading refusal. The earlier Unicode,
+single-star, wrapped-boundary and performance regressions remain required.
+
+Footer repair qualification — 04:08 UTC: 2919 canonical tests pass in 76.935s,
+33 focused tests pass; format/lint/LRH/readiness/diff pass. Both historical fixtures
+include the observed separator. Independent recheck under the renewed grant
+cleared the exact exception and confirmed earlier malformed-marker protections.
+All seven hashes matched before/after review. No source edits during review;
+no manual hosted retrigger. Publishing the verified repair; final-head CI and
+thread disposition remain before coordinator acceptance.

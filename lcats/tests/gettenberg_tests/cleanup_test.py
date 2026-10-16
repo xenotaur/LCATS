@@ -210,6 +210,41 @@ class CleanupTests(unittest.TestCase):
         # conservative refusal. It is never enough to authorize removal itself.
         self.preserved(envelope("Body\n*** START EXAMPLE ***\n"), "unrecognized_marker")
 
+    def test_historical_license_separator_is_not_a_book_boundary(self):
+        separator = "*** START: FULL LICENSE ***"
+        for newline in ("\n", "\r\n", "\r"):
+            body = "A story." + newline
+            text = (
+                _START.replace("OF THE", "OF THIS")
+                + newline
+                + body
+                + _END.replace("OF THE", "OF THIS")
+                + newline
+                + "\t"
+                + separator
+                + "  "
+                + newline
+                + "THE FULL PROJECT GUTENBERG LICENSE"
+                + newline
+            )
+            with self.subTest(newline=newline):
+                result = cleanup.strip_boilerplate(text)
+                self.assertEqual(result.text, body)
+                self.assertEqual(text[result.content_start : result.content_end], body)
+                self.assertEqual([m.kind for m in result.markers], ["start", "end"])
+        # The exemption cannot authorize a cut on its own or waive footer evidence.
+        self.preserved(separator, "no_markers")
+        self.preserved(envelope() + "\n" + separator, "unverified_footer")
+        self.assertEqual(
+            cleanup.strip_boilerplate(envelope(separator + "\n")).text, separator + "\n"
+        )
+        for damaged in (
+            "*** START: FULL LICENSE EXTRA ***",
+            "* START: FULL LICENSE *",
+            "*** START: PROJECT GUTENBERG EBOOK THE LANTERN ***",
+        ):
+            self.preserved(envelope("Body\n" + damaged + "\n"), "unrecognized_marker")
+
     def test_empty_or_whitespace_content_never_disappears(self):
         for body in ("", " \t\n", "\u2003\n"):
             with self.subTest(body=body):

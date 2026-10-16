@@ -21,12 +21,12 @@
     },
     {
       "name": "historical_this",
-      "input": "Project Gutenberg's The Clock, by LCATS\nTitle: The Clock\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\nTick.\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\nTHE FULL PROJECT GUTENBERG LICENSE\nSynthetic fixture footer.\n",
+      "input": "Project Gutenberg's The Clock, by LCATS\nTitle: The Clock\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\nTick.\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\n*** START: FULL LICENSE ***\nTHE FULL PROJECT GUTENBERG LICENSE\nSynthetic fixture footer.\n",
       "expected": "Tick.\n"
     },
     {
       "name": "historical_notice",
-      "input": "The Project Gutenberg EBook of The Clock, by LCATS\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\n\r\nTick.\r\n\r\nEnd of Project Gutenberg's The Clock, by LCATS\r\n\r\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\nTHE FULL PROJECT GUTENBERG LICENSE\r\n",
+      "input": "The Project Gutenberg EBook of The Clock, by LCATS\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\n\r\nTick.\r\n\r\nEnd of Project Gutenberg's The Clock, by LCATS\r\n\r\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\n*** START: FULL LICENSE ***\r\nTHE FULL PROJECT GUTENBERG LICENSE\r\n",
       "expected": "\r\nTick.\r\n\r\n"
     }
   ]

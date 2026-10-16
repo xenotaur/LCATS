@@ -5,12 +5,12 @@
   "started_at": "2026-10-16T01:52:46Z",
   "target_at": "2026-10-16T02:52:46Z",
   "hard_stop_at": "2026-10-16T03:22:46Z",
-  "candidate_identity": "Final hosted repair frozen before publication and reserved independent recheck",
+  "candidate_identity": "Footer repair source frozen before independent recheck under renewed human grant",
   "source_sha256": {
-    "src/lcats/gettenberg/cleanup.py": "c485ca3745edeedb592fc24edeeb8b53846b9932d1be42db0f93739c95d8c5c2",
-    "tests/gettenberg_tests/cleanup_test.py": "f60fc4321c34aea0bfde301717a36665b195a213ffb5ba443ab762615765cc0b",
-    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
-    "docs/reference/gettenberg-cleanup.md": "2e1a5d296eddf401f77a78c8f001272d44f63d565f663c977f857163b57a4724",
+    "src/lcats/gettenberg/cleanup.py": "1e26afb5aece1f880845add6d3e4dbeb3ef057a66cfa31c8707040cc12c8e1f4",
+    "tests/gettenberg_tests/cleanup_test.py": "8faa5b4d6bf06d46e0478cd881698bf94833621cba59bd535aa93972933f9817",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "31658dd855a776311d3d9ccf7344134db82e5c1b3d00930e432c588357b38315",
+    "docs/reference/gettenberg-cleanup.md": "3f9539de6c03f5440c364b079595eb3c42b6056c40a8e494701997cd3d80e8e8",
     "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
     "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
     "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
@@ -27,15 +27,15 @@
   "validation": {
     "canonical": {
       "command": "scripts/test",
-      "tests": 2918,
-      "seconds": 77.525,
+      "tests": 2919,
+      "seconds": 76.935,
       "result": "pass",
-      "log_sha256": "ae331f29951cc893332581c58933a3c42b2a7f138c87329c4cc85dab056304e2"
+      "log_sha256": "b63599e12f69aa93f132f61c720147ff8758690065fd2fc9ee08e810ca1803fe"
     },
     "focused": {
       "command": "python -m unittest tests.gettenberg_tests.cleanup_test",
-      "tests": 32,
-      "seconds": 0.135,
+      "tests": 33,
+      "seconds": 0.134,
       "result": "pass"
     },
     "format": {
@@ -73,10 +73,18 @@
     "all_seven_hashes_matched_before_after": true,
     "source_frozen_during_review": true,
     "assignments": 1,
-    "same_scope_rechecks_used": 1,
+    "same_scope_rechecks_used": 2,
     "worker_occupancy_upper_bound_minutes": 7,
     "manual_hosted_retriggers": 0,
-    "final_recheck_reserved_until_both_hosted_authors_and_ci": true
+    "final_recheck_reserved_until_both_hosted_authors_and_ci": false,
+    "prior_run_final_recheck": {
+      "head": "e6e19c146139cbe2bdf46613906cea93352b10af",
+      "hosted_three_fixes_verified": true,
+      "new_p2": "Historical START: FULL LICENSE separator falsely classified as book boundary",
+      "focused_tests": 32,
+      "hashes_matched": true,
+      "result": "integration withheld; prior allowance exhausted"
+    }
   },
   "fixture_provenance": {
     "authored_cases": 4,
@@ -114,7 +122,7 @@
     "per_run_cost": "unavailable",
     "weekly_used_percent_near_minute30": 23
   },
-  "integration_status": "pending reserved independent recheck and final-head CI",
+  "integration_status": "independent verification complete; final-head CI and thread resolution pending",
   "pre_hosted_source_sha256": {
     "src/lcats/gettenberg/cleanup.py": "771553fe72ab5ffba86c5f8a9a8ce17087cef327b1217e4ecb48526f1afd05ab",
     "tests/gettenberg_tests/cleanup_test.py": "e09d3d856507a2d8598570f34baa315edc0c720458cb418d54fb172e00124111",
@@ -125,7 +133,7 @@
     "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
   },
   "hosted_review_repairs": {
-    "status": "fixed and locally qualified; reserved independent recheck pending",
+    "status": "All three fixes independently verified; footer regression separately repaired and verified under renewed grant",
     "first_rounds_complete": true,
     "first_head_ci": "four successful checks at f9f0f1f64c4cf608d0dc1031df0de464cb203e57",
     "findings": [
@@ -158,5 +166,43 @@
     "acceptance_change": "No new removable form; broader conservative refusal only, documented explicitly",
     "final_head_ci": "pending",
     "threads": "pending independent verification before resolution"
+  },
+  "pre_footer_source_sha256": {
+    "src/lcats/gettenberg/cleanup.py": "c485ca3745edeedb592fc24edeeb8b53846b9932d1be42db0f93739c95d8c5c2",
+    "tests/gettenberg_tests/cleanup_test.py": "f60fc4321c34aea0bfde301717a36665b195a213ffb5ba443ab762615765cc0b",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
+    "docs/reference/gettenberg-cleanup.md": "2e1a5d296eddf401f77a78c8f001272d44f63d565f663c977f857163b57a4724",
+    "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
+    "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
+    "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
+  },
+  "footer_repair": {
+    "human_grant": "I grant the repair and verification.",
+    "started_at": "2026-10-16T04:04:09Z",
+    "hard_stop_at": "2026-10-16T04:34:09Z",
+    "base_head": "e6e19c146139cbe2bdf46613906cea93352b10af",
+    "reproduction": "Historical THIS envelope plus START: FULL LICENSE separator and license heading returned unchanged/unrecognized_marker before repair",
+    "source": "https://gutenberg.org/files/32458/32458-h/32458-h.htm",
+    "source_rendered_line": 78,
+    "repair": "Exclude only exact observed license-section separator from candidate detection; do not waive book-pair or footer-heading requirements",
+    "fixtures": "Both historical authored fixtures now retain this conventional separator; no external story prose copied",
+    "independent_review": {
+      "agent": "cleanup_review",
+      "cleared": true,
+      "findings": [],
+      "outstanding_p0_p2": 0,
+      "footer_regression": "resolved; exact observed separator does not authorize removal without valid pair and footer heading",
+      "prior_hosted_findings": "all three independently reverified: NBSP, single-star outer boundaries, wrapped second book",
+      "performance": "million-space malformed marker and notice each approximately 0.017s",
+      "focused_tests": 33,
+      "targeted_format_lint_diff": "pass",
+      "manifest": "all seven hashes matched before and after review",
+      "source_frozen": true,
+      "edits": false,
+      "delegation": false,
+      "worker_occupancy_upper_bound_minutes": 3,
+      "limitations": "canonical suite and committed final-head CI remain coordinator gates"
+    },
+    "renewed_grant_rechecks_used": 1
   }
 }

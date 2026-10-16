@@ -33,6 +33,12 @@ linear scaling (marker 0.019s, historical notice 0.017s). Primary sources and
 authored fixture provenance checked. Coordinator canonical suite: 2,915 tests.
 See the run qualification record for exact hashes and reproduction evidence.
 
+Final prior-run recheck verified the three hosted repairs but found a new P2:
+standard historical START: FULL LICENSE metadata was treated as a book boundary.
+Integration was withheld. A renewed human repair grant and separate review record
+cover the exact-separator fix and independent verification; this preserves the
+prior review history rather than treating the last candidate as accepted.
+
 # Follow-up
 
 Both first hosted rounds and final-head CI required before internal merge.
