@@ -1,0 +1,33 @@
+{
+  "provenance": {
+    "kind": "independently authored LCATS fixtures, not captured books",
+    "license": "repository MIT license",
+    "observed_conventions": [
+      "https://www.gutenberg.org/cache/epub/60600/pg60600-images.html",
+      "https://gutenberg.org/files/32458/32458-h/32458-h.htm"
+    ],
+    "note": "Titles, authors, body and surrounding prose below are synthetic. Only conventional delimiter/banner/heading syntax follows primary observations. No upstream cleanup code or marker list was copied."
+  },
+  "cases": [
+    {
+      "name": "modern_title",
+      "input": "The Project Gutenberg eBook of A Lantern\nTitle: A Lantern\n\n*** START OF THE PROJECT GUTENBERG EBOOK A LANTERN ***\n\nThe lamp glowed.\n\n*** END OF THE PROJECT GUTENBERG EBOOK A LANTERN ***\nTHE FULL PROJECT GUTENBERG™ LICENSE\nSynthetic fixture footer.\n",
+      "expected": "\nThe lamp glowed.\n\n"
+    },
+    {
+      "name": "modern_numeric",
+      "input": "*** START OF THE PROJECT GUTENBERG EBOOK 42 ***\r\nA\r\n*** END OF THE PROJECT GUTENBERG EBOOK 42 ***",
+      "expected": "A\r\n"
+    },
+    {
+      "name": "historical_this",
+      "input": "Project Gutenberg's The Clock, by LCATS\nTitle: The Clock\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\nTick.\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\nTHE FULL PROJECT GUTENBERG LICENSE\nSynthetic fixture footer.\n",
+      "expected": "Tick.\n"
+    },
+    {
+      "name": "historical_notice",
+      "input": "The Project Gutenberg EBook of The Clock, by LCATS\n*** START OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\n\r\nTick.\r\n\r\nEnd of Project Gutenberg's The Clock, by LCATS\r\n\r\n*** END OF THIS PROJECT GUTENBERG EBOOK THE CLOCK ***\r\nTHE FULL PROJECT GUTENBERG LICENSE\r\n",
+      "expected": "\r\nTick.\r\n\r\n"
+    }
+  ]
+}

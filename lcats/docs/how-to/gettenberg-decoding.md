@@ -68,3 +68,5 @@ formats produce actionable errors; they do not trigger fallback downloads.
 See the [reference](../reference/gettenberg-decoding.md) for exact precedence,
 container support, limits, error codes and memory guarantees, and the
 [acquisition guide](gettenberg-resources.md) for obtaining original bytes.
+
+For decoded plain text, continue with [conservative boilerplate cleanup](gettenberg-cleanup.md).

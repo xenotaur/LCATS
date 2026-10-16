@@ -1,0 +1,117 @@
+{
+  "run": "gettenberg-20261016-cleanup",
+  "scope": "WI-GETTENBERG-0006 conservative plain-text boilerplate cleanup",
+  "base": "3d55a48767c097aedc800cbad9012cca099f5cd2",
+  "started_at": "2026-10-16T01:52:46Z",
+  "target_at": "2026-10-16T02:52:46Z",
+  "hard_stop_at": "2026-10-16T03:22:46Z",
+  "candidate_identity": "repaired source frozen before same-scope independent recheck",
+  "source_sha256": {
+    "src/lcats/gettenberg/cleanup.py": "771553fe72ab5ffba86c5f8a9a8ce17087cef327b1217e4ecb48526f1afd05ab",
+    "tests/gettenberg_tests/cleanup_test.py": "e09d3d856507a2d8598570f34baa315edc0c720458cb418d54fb172e00124111",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
+    "docs/reference/gettenberg-cleanup.md": "03d9aa9742befca35e76f39ecc4a8eecd3974fc7bd1e36f0b61c0e3f0becbe50",
+    "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
+    "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
+    "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
+  },
+  "initial_source_sha256": {
+    "src/lcats/gettenberg/cleanup.py": "38fa9238ae7edf9775a927166b2613288c6c8ce5563c21040a24c912bfe46ffb",
+    "tests/gettenberg_tests/cleanup_test.py": "45fadce259c82a440e84a30bd1aff303b052c14777669414c25cd33df1951335",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
+    "docs/reference/gettenberg-cleanup.md": "03d9aa9742befca35e76f39ecc4a8eecd3974fc7bd1e36f0b61c0e3f0becbe50",
+    "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
+    "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
+    "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
+  },
+  "validation": {
+    "canonical": {
+      "command": "scripts/test",
+      "tests": 2915,
+      "seconds": 76.825,
+      "result": "pass",
+      "log_sha256": "419eb982736df29f46f6c9f6da3bee4e619f8d2748077fef66ac20ac622a7992"
+    },
+    "focused": {
+      "command": "python -m unittest tests.gettenberg_tests.cleanup_test",
+      "tests": 29,
+      "seconds": 0.123,
+      "result": "pass"
+    },
+    "format": {
+      "command": "scripts/format --check --diff",
+      "files": 274,
+      "result": "pass"
+    },
+    "lint": {
+      "command": "scripts/lint",
+      "result": "pass"
+    },
+    "lrh": {
+      "errors": 0,
+      "warnings": 351
+    },
+    "readiness": "yes",
+    "diff_check": "pass",
+    "documentation": "all four fenced how-to blocks execute offline; changed relative links and fence parity checked",
+    "commands_exit_code": 0
+  },
+  "independent_review": {
+    "agent": "cleanup_review",
+    "mode": "cold diff against integration base",
+    "initial_finding": {
+      "priority": "P2",
+      "description": "Overlapping EBOOK separator and identifier repetitions cause quadratic backtracking on malformed markers.",
+      "coordinator_reproduction": "1000 spaces 0.0031s; 4000 0.0478s; 16000 0.763s; 64000 exceeded four-second subprocess timeout."
+    },
+    "repair": "Disjoint first identifier/title character in marker and historical end-notice regexes; both malformed separator cases covered at 200000 spaces.",
+    "coordinator_reverification": "200000-space malformed marker preserved in 0.0037s; focused and canonical tests passed.",
+    "recheck": "Resolved; no further actionable findings. Independent malformed-marker/end-notice checks up to 1024000 spaces took 0.019s/0.017s and valid envelope preserved exact body.",
+    "outstanding_p0_p2": 0,
+    "initial_gettenberg_tests": 437,
+    "recheck_focused_tests": 29,
+    "all_seven_hashes_matched_before_after": true,
+    "source_frozen_during_review": true,
+    "assignments": 1,
+    "same_scope_rechecks_used": 1,
+    "worker_occupancy_upper_bound_minutes": 7,
+    "manual_hosted_retriggers": 0,
+    "final_recheck_reserved_until_both_hosted_authors_and_ci": true
+  },
+  "fixture_provenance": {
+    "authored_cases": 4,
+    "implementation": "independently authored; no upstream code/list copied",
+    "content": "LCATS-authored substitute narratives and envelopes; repository license",
+    "research": "primary publication web inspection, no bulk catalog/ebook downloads"
+  },
+  "primary_sources": [
+    "https://www.gutenberg.org/cache/epub/60600/pg60600-images.html",
+    "https://gutenberg.org/files/32458/32458-h/32458-h.htm"
+  ],
+  "acceptance_mapping": {
+    "original_boundaries_version_ambiguities": "immutable original/slice/marker/diagnostic records; offset/reconstruction/determinism tests",
+    "modern_and_verified_historical": "THE/THIS starred pairs plus corroborated historical title notice; four authored fixtures tied to primary sources",
+    "false_positives_and_malformed_inputs": "narrative/quoted pairs, short/empty/Unicode texts, repeated/reversed/mismatched/unsupported boundaries; conservative preservation and resource-limit tests",
+    "license": "independent implementation and authored fixtures; no retained third-party code or marker list"
+  },
+  "limitations": [
+    "Only qualified THE/THIS EBOOK forms; no ETEXT/small-print/wrapped/multilingual claim",
+    "Syntax/context cannot prove origin of a fully reproduced envelope",
+    "Legacy headers wrapper and gatherers remain for WI0008 migration",
+    "No main promotion or native terminal closeout"
+  ],
+  "environment": {
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "PYTHONPATH": "managed-worktree/lcats/src",
+    "cache": "isolated /tmp"
+  },
+  "usage": {
+    "weekly_used_percent_launch": 19,
+    "weekly_used_percent_before_hosted_review": 22,
+    "shared_account_not_attributable": true,
+    "per_run_cost": "unavailable"
+  },
+  "integration_status": "pending hosted reviews and exact-head CI"
+}

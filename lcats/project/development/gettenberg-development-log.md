@@ -2117,3 +2117,69 @@ live endpoint availability. One coordinator and one compact cold review were
 sufficient; the unused budget did not become another work-item grant. Executable
 how-to tests and unchanged-source fingerprints allowed the remaining time to be
 spent on hosted/CI gates, not repetitive product checks.
+
+## Conservative-cleanup bounded run — 2026-10-16 01:52 UTC
+
+Human explicitly authorized WI-GETTENBERG-0006 under the proposed60-minute
+target/90-minute hard stop. Start01:52:46 UTC; target/feature freeze02:52:46;
+hard stop03:22:46. Reassess at minute45; no scope expansion or automatic renewal.
+Coordinator implements, one cold reviewer planned; max4 total agents,6 assignments,
+45 cumulative worker minutes with15 reserved for review, max30 per assignment.
+Up to2 same-scope rechecks; reserve final until both hosted authors and CI.
+Internal integration permitted after full gates; no main promotion.
+
+Fresh integration base3d55a48767c097aedc800cbad9012cca099f5cd2; main remains
+210468236ff4db78d2d7c5218562fa2d166e6400. Child codex/gettenberg-cleanup targets
+codex/gettenberg-acquisition. WI0002 dependency canonically resolved by PR508,
+main merge35f80fb53c1820ff70708df0ab049266f25dc3c7 verified ancestral. WI0006 ready.
+Native prior-art/demand checks apply; no prior execution for minted prompt
+PROMPT(WI-GETTENBERG-0006:WI_GETTENBERG_0006_CLEANUP)[2026-10-16T01:54:06+00:00].
+Watched skills clean, persistent skip consent invalid and unchanged; explicit
+human charter grant governs. Shared weekly usage19% at launch; attribution and
+per-run cost unavailable. Same LCATS environment and worktree-bound PYTHONPATH.
+
+Scope: pure text cleanup API, conservative modern/verified historical boundaries,
+original-text/offset/version/diagnostic preservation, offline tests, Diataxis docs,
+review and evidence. Separate byte decoding; no corpus changes, broad normalization,
+CLI/caller migration, dependency/CI change, bulk download, policy change or release.
+Audit existing fixtures and upstream primary evidence before choosing marker rules.
+Prefer independently authored rules/fixtures; verify attribution before retaining
+any external material. Existing headers wrapper and callers remain for the planned
+migration item; this run delivers the tested replacement library contract.
+
+Cleanup design checkpoint: inspected existing wrapper/tests, resolved dependency,
+and primary modern60600/historical32458 publications. [Contract](gettenberg-cleanup-design.md)
+records the pure str/offset API and paired-marker/context safeguards before code.
+Historical THIS markers and a corroborated end notice are in scope; broad legacy
+substring heuristics are not. Tests will be independently authored, with no copied
+upstream code/list or story prose. Keep legacy wrapper/callers for WI0008 migration;
+no existing gather-time behavior changes in this library tranche.
+
+Cleanup candidate frozen02:06 UTC:29 focused tests pass in0.122s, all four how-to
+blocks execute offline, changed Markdown fences/relative links pass. Immutable
+original/offset/marker/diagnostic records preserve LF/CRLF/CR and Unicode; repeated
+or malformed boundaries and context failures preserve all text. Regex construction
+avoids overlapping trailing-whitespace scans; bounded subprocess tests exercise
+a200000-space malformed line and100000 ordinary lines. Source/test/fixture/docs
+manifest captured before cold review; no source edits during the initial review.
+
+
+Cleanup review/repair checkpoint — 02:13 UTC: cold review found a P2 regex overlap
+missed by the original stress case, which placed its spaces after the identifier.
+Coordinator reproduced 16,000 leading spaces taking 0.763s and 64,000 exceeding a
+four-second subprocess limit. This corrects the earlier candidate's incomplete
+linear-scan assurance. Disjoint separator/identifier matching fixes starred markers
+and the analogous historical notice. Both 200,000-space cases now run in the
+bounded regression; coordinator measured the malformed marker at 0.0037s.
+
+Same-scope recheck cleared the repair, with independent checks through 1,024,000
+spaces (0.019s marker / 0.017s notice). All seven hashes matched before/after both
+review intervals. One review assignment with one recheck, under seven worker
+minutes; final recheck remains reserved until both hosted authors and CI.
+Canonical repaired source: 2915 tests in 76.825s, format/lint pass, LRH
+0 errors/351 existing warnings, readiness/diff pass. All four how-to blocks execute.
+An initial format invocation without an option hit the existing Bash empty-array
+issue; using supported --quiet succeeded, and canonical --check --diff passed.
+No tooling workaround was committed. Shared weekly usage 19% launch, 22% at this
+checkpoint; account-wide and not attributable. Preparing the PR; hosted reviews
+and CI remain pending, with main/consent/corpus/legacy consumers unchanged.

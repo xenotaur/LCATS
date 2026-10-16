@@ -16,3 +16,5 @@ See also: [API key setup](../secrets-setup.md) (how-to, not reference).
 - [Original-byte acquisition and network policy](gettenberg-network.md)
 
 - [Strict offline text decoding](gettenberg-decoding.md)
+
+- [Conservative Gutenberg boilerplate cleanup](gettenberg-cleanup.md)
