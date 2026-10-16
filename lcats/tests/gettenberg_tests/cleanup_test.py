@@ -157,6 +157,59 @@ class CleanupTests(unittest.TestCase):
                 result = self.preserved(text, "unrecognized_marker")
                 self.assertIn("unrecognized", [item.kind for item in result.markers])
 
+    def test_unsupported_marker_whitespace_cannot_hide_extra_boundaries(self):
+        # Candidate discovery must be broader than the accepted ASCII syntax,
+        # including when the malformed line would otherwise be removed as boilerplate.
+        for space in ("\u00a0", "\u2003", "\u2028", "\u2029", "\v", "\f"):
+            variants = (
+                _START.replace("PROJECT GUTENBERG", "PROJECT" + space + "GUTENBERG"),
+                _START.replace(" ", space, 1),
+                space + _START,
+            )
+            for marker in variants:
+                documents = (
+                    "The Project Gutenberg eBook of THE LANTERN\n"
+                    + marker
+                    + "\n"
+                    + envelope(),
+                    envelope("Body\n" + marker + "\nMore\n"),
+                    envelope() + "\n" + marker + "\nTHE FULL PROJECT GUTENBERG LICENSE",
+                )
+                for text in documents:
+                    with self.subTest(space=space, marker=marker, text=text):
+                        self.preserved(text, "unrecognized_marker")
+
+    def test_damaged_outer_markers_do_not_select_a_nested_example(self):
+        for stars in ("*", "**"):
+            text = (
+                "The Project Gutenberg eBook of THE LANTERN\n"
+                + _START.replace("***", stars)
+                + "\nOuter narrative.\n"
+                + envelope("Example only.\n")
+                + "\nMore outer narrative.\n"
+                + _END.replace("***", stars)
+                + "\nTHE FULL PROJECT GUTENBERG LICENSE"
+            )
+            with self.subTest(stars=stars):
+                self.preserved(text, "unrecognized_marker")
+
+    def test_wrapped_or_incomplete_candidates_block_partial_book_selection(self):
+        for separator in ("\n", "\r\n", "\r"):
+            for phrase in ("PROJECT GUTENBERG", "THE PROJECT"):
+                text = (
+                    envelope("First story.\n")
+                    + "\n"
+                    + _START.replace(phrase, phrase.replace(" ", separator))
+                    + "\nSecond story.\n"
+                    + _END.replace(phrase, phrase.replace(" ", separator))
+                    + "\nTHE FULL PROJECT GUTENBERG LICENSE"
+                )
+                with self.subTest(separator=separator, phrase=phrase):
+                    self.preserved(text, "unrecognized_marker")
+        # A starred START/END line needs no complete Gutenberg name to force a
+        # conservative refusal. It is never enough to authorize removal itself.
+        self.preserved(envelope("Body\n*** START EXAMPLE ***\n"), "unrecognized_marker")
+
     def test_empty_or_whitespace_content_never_disappears(self):
         for body in ("", " \t\n", "\u2003\n"):
             with self.subTest(body=body):

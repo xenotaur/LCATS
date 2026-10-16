@@ -57,6 +57,13 @@ Keywords are ASCII case-insensitive. Horizontal indentation and spacing are
 accepted, as is an initial BOM; none of this changes the body. Only LF, CRLF and
 CR form physical lines. Unicode line-like characters are ordinary text.
 
+Candidate detection is deliberately broader than accepted syntax: a physical
+line beginning (after whitespace) with one or more stars followed by `START` or
+`END` is a candidate, even if its Gutenberg name is incomplete or absent. Unsupported
+Unicode spacing, single-star delimiters and wrapped fragments therefore cause a
+safe refusal instead of hiding a competing envelope. A narrative containing such
+a standalone starred heading can also cause a refusal; no content is lost.
+
 All of these conditions must hold before any removal:
 
 1. There is exactly one recognized start and one recognized end, in order, with

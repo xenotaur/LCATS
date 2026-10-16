@@ -2188,3 +2188,25 @@ PR517 opened against codex/gettenberg-acquisition at 02:15 UTC, source commit
 53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9. Both native records now carry PR and source-commit
 backlinks. This evidence-only follow-up changes none of the seven frozen files.
 First hosted rounds and CI are running; no manual retrigger.
+
+
+Hosted review repair checkpoint — 02:29 UTC: all four checks passed on f9f0f1f6,
+and both first hosted rounds completed. Codex identified a malformed Unicode-space
+marker that escaped candidate discovery. Copilot identified single-star outer
+markers hiding an inner example and wrapped second-book markers hiding a second
+narrative. Coordinator directly reproduced all three: the old result excluded
+surrounding/second-book text with envelope_removed. These are valid in-scope
+preservation defects, not reasons to weaken the conservative contract.
+
+Candidate discovery now accepts a physical line's starred START/END prefix with
+Unicode whitespace, one or more stars, and no requirement for a complete Gutenberg
+name on that line. Full removal syntax stays strict. This deliberately increases
+safe refusals; the reference documents that a narrative starred heading can cause
+a no-op. New regressions cover prefix/body/footer positions, damaged outer/valid
+inner pairs, and supported-plus-wrapped books across LF/CRLF/CR. Final repaired
+candidate: 2918 canonical tests in 77.525s and 32 focused tests pass;
+format/lint/LRH/readiness/diff pass. Source hashes frozen again. Shared weekly
+usage near minute30: 23%, account-wide and not attributable (launch19%).
+Publishing the repair set; final recheck is reserved until both hosted rounds and
+CI are collected, then exact-source independent verification will decide whether
+threads can be resolved and integration accepted. No manual hosted retrigger.

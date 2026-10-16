@@ -22,7 +22,10 @@ _MARKER = re.compile(
     r"PROJECT[ \t]+GUTENBERG[ \t]+EBOOK[ \t]+([^* \t][^*]*)\*\*\*",
     re.IGNORECASE | re.ASCII,
 )
-_CANDIDATE = re.compile(r"\*{2,}[ \t]*(?:START|END)\b", re.IGNORECASE | re.ASCII)
+# Candidate detection is deliberately broader than accepted marker syntax.
+# A damaged or wrapped name must not hide a competing boundary. False positives
+# here only preserve the original; removal still requires the complete grammar.
+_CANDIDATE = re.compile(r"\*+\s*(?:START|END)\b", re.IGNORECASE)
 _BANNER = re.compile(
     r"(?:The[ \t]+)?Project[ \t]+Gutenberg(?:'s[ \t]+.+|[ \t]+eBook[ \t]+of[ \t]+.+)",
     re.IGNORECASE | re.ASCII,
@@ -158,7 +161,7 @@ def strip_boilerplate(
             # Only whether a license exists after the end marker matters; retain
             # the latest position, not an unbounded list of repeated headings.
             last_license_start = start
-        if _CANDIDATE.match(value) and "project gutenberg" in _label(value):
+        if _CANDIDATE.match(value.lstrip()):
             if len(markers) == _MAX_CANDIDATES:
                 diagnostics.append(
                     CleanupDiagnostic(

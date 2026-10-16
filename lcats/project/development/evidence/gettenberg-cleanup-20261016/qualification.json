@@ -5,12 +5,12 @@
   "started_at": "2026-10-16T01:52:46Z",
   "target_at": "2026-10-16T02:52:46Z",
   "hard_stop_at": "2026-10-16T03:22:46Z",
-  "candidate_identity": "repaired source frozen before same-scope independent recheck",
+  "candidate_identity": "Final hosted repair frozen before publication and reserved independent recheck",
   "source_sha256": {
-    "src/lcats/gettenberg/cleanup.py": "771553fe72ab5ffba86c5f8a9a8ce17087cef327b1217e4ecb48526f1afd05ab",
-    "tests/gettenberg_tests/cleanup_test.py": "e09d3d856507a2d8598570f34baa315edc0c720458cb418d54fb172e00124111",
+    "src/lcats/gettenberg/cleanup.py": "c485ca3745edeedb592fc24edeeb8b53846b9932d1be42db0f93739c95d8c5c2",
+    "tests/gettenberg_tests/cleanup_test.py": "f60fc4321c34aea0bfde301717a36665b195a213ffb5ba443ab762615765cc0b",
     "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
-    "docs/reference/gettenberg-cleanup.md": "03d9aa9742befca35e76f39ecc4a8eecd3974fc7bd1e36f0b61c0e3f0becbe50",
+    "docs/reference/gettenberg-cleanup.md": "2e1a5d296eddf401f77a78c8f001272d44f63d565f663c977f857163b57a4724",
     "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
     "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
     "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
@@ -27,15 +27,15 @@
   "validation": {
     "canonical": {
       "command": "scripts/test",
-      "tests": 2915,
-      "seconds": 76.825,
+      "tests": 2918,
+      "seconds": 77.525,
       "result": "pass",
-      "log_sha256": "419eb982736df29f46f6c9f6da3bee4e619f8d2748077fef66ac20ac622a7992"
+      "log_sha256": "ae331f29951cc893332581c58933a3c42b2a7f138c87329c4cc85dab056304e2"
     },
     "focused": {
       "command": "python -m unittest tests.gettenberg_tests.cleanup_test",
-      "tests": 29,
-      "seconds": 0.123,
+      "tests": 32,
+      "seconds": 0.135,
       "result": "pass"
     },
     "format": {
@@ -111,7 +111,52 @@
     "weekly_used_percent_launch": 19,
     "weekly_used_percent_before_hosted_review": 22,
     "shared_account_not_attributable": true,
-    "per_run_cost": "unavailable"
+    "per_run_cost": "unavailable",
+    "weekly_used_percent_near_minute30": 23
   },
-  "integration_status": "pending hosted reviews and exact-head CI"
+  "integration_status": "pending reserved independent recheck and final-head CI",
+  "pre_hosted_source_sha256": {
+    "src/lcats/gettenberg/cleanup.py": "771553fe72ab5ffba86c5f8a9a8ce17087cef327b1217e4ecb48526f1afd05ab",
+    "tests/gettenberg_tests/cleanup_test.py": "e09d3d856507a2d8598570f34baa315edc0c720458cb418d54fb172e00124111",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "5fcf0429852359cec5b1197a8d8520f52a3a8575c3c7e9606ec10b99d0abe2b0",
+    "docs/reference/gettenberg-cleanup.md": "03d9aa9742befca35e76f39ecc4a8eecd3974fc7bd1e36f0b61c0e3f0becbe50",
+    "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
+    "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
+    "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
+  },
+  "hosted_review_repairs": {
+    "status": "fixed and locally qualified; reserved independent recheck pending",
+    "first_rounds_complete": true,
+    "first_head_ci": "four successful checks at f9f0f1f64c4cf608d0dc1031df0de464cb203e57",
+    "findings": [
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCZ1M",
+        "author": "Codex",
+        "priority": "P2",
+        "issue": "Unicode marker spacing hid a competing boundary",
+        "reproduction": "NBSP in PROJECT GUTENBERG before valid pair returned only A story with envelope_removed",
+        "repair": "Unicode whitespace considered in candidate discovery; strict accepted syntax unchanged"
+      },
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCbI2",
+        "author": "Copilot",
+        "priority": "medium",
+        "issue": "Single-asterisk outer boundaries hid narrative around a valid inner example",
+        "reproduction": "Returned only Example body and omitted both outer narrative regions",
+        "repair": "One or more stars qualifies a potential boundary for conservative refusal"
+      },
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCbJA",
+        "author": "Copilot",
+        "priority": "medium",
+        "issue": "Wrapped second book hidden after supported first book",
+        "reproduction": "PROJECT/newline/GUTENBERG delimiters plus later license yielded only First story",
+        "repair": "Starred START/END candidate discovery no longer requires a complete Gutenberg name on the same line"
+      }
+    ],
+    "regressions": "Unsupported whitespace in prefix/body/footer; damaged outer/valid inner boundaries; valid first/wrapped second book across LF/CRLF/CR; incomplete name refusal",
+    "acceptance_change": "No new removable form; broader conservative refusal only, documented explicitly",
+    "final_head_ci": "pending",
+    "threads": "pending independent verification before resolution"
+  }
 }
