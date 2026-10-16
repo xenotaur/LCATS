@@ -122,7 +122,7 @@
     "per_run_cost": "unavailable",
     "weekly_used_percent_near_minute30": 23
   },
-  "integration_status": "independent verification complete; final-head CI and thread resolution pending",
+  "integration_status": "accepted internally through PR517 at 2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2; native terminal closeout waits for human main delivery",
   "pre_hosted_source_sha256": {
     "src/lcats/gettenberg/cleanup.py": "771553fe72ab5ffba86c5f8a9a8ce17087cef327b1217e4ecb48526f1afd05ab",
     "tests/gettenberg_tests/cleanup_test.py": "e09d3d856507a2d8598570f34baa315edc0c720458cb418d54fb172e00124111",
@@ -164,8 +164,8 @@
     ],
     "regressions": "Unsupported whitespace in prefix/body/footer; damaged outer/valid inner boundaries; valid first/wrapped second book across LF/CRLF/CR; incomplete name refusal",
     "acceptance_change": "No new removable form; broader conservative refusal only, documented explicitly",
-    "final_head_ci": "pending",
-    "threads": "pending independent verification before resolution"
+    "final_head_ci": "four successful checks at 40cd36f036439575b63322acc3a91beee3a244c1",
+    "threads": "all three independently verified and resolved"
   },
   "pre_footer_source_sha256": {
     "src/lcats/gettenberg/cleanup.py": "c485ca3745edeedb592fc24edeeb8b53846b9932d1be42db0f93739c95d8c5c2",

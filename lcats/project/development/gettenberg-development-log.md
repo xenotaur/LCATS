@@ -2245,3 +2245,47 @@ cleared the exact exception and confirmed earlier malformed-marker protections.
 All seven hashes matched before/after review. No source edits during review;
 no manual hosted retrigger. Publishing the verified repair; final-head CI and
 thread disposition remain before coordinator acceptance.
+
+
+## Cleanup integration and repair-grant closeout — 2026-10-16 04:13 UTC
+
+[PR517](https://github.com/xenotaur/LCATS/pull/517) merged at 04:12:38 UTC into
+codex/gettenberg-acquisition as 2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2.
+Fresh base 3d55a48767c097aedc800cbad9012cca099f5cd2 and accepted head
+40cd36f036439575b63322acc3a91beee3a244c1 matched immediately before merge.
+Both merge parents and exact accepted-head tree were verified afterward; all
+seven frozen source/test/fixture/doc hashes match. Canonical 2,919 tests in
+76.935s and 33 focused tests pass. All four final-head CI checks succeeded.
+
+Both first hosted rounds were read in full, including outdated threads, without
+recency filtering; all pagination exhausted. All three findings were reproduced,
+repaired, independently reverified and resolved. The separate historical-footer
+regression also received direct reproduction, a narrow fix, strengthened fixtures
+and a clean independent recheck under the renewed human grant. No unresolved
+P0-P2 finding remains. [Integration evidence](evidence/gettenberg-cleanup-20261016/integration.json)
+records exact review bodies, resolved threads, CI, identities and criterion mapping.
+No manual hosted retrigger was used. The final evidence-only checkpoint does not
+change qualified source and receives LRH/readiness/diff checks instead of another
+redundant product-suite run.
+
+This renewed grant has used about 10 minutes of its 30-minute ceiling so far,
+one independent recheck under three worker minutes, and peak two agents. No active
+worker remains. Account-wide weekly usage observed at closeout: 26%; a new-grant
+launch measurement was not captured, so no attributable run cost is claimed.
+Watched-skill staleness remains clean; persistent skip consent remains invalid
+and unchanged. Explicit human charter/repair authority governed this run.
+Main remains 210468236ff4db78d2d7c5218562fa2d166e6400; no main promotion,
+corpus/cache rewrite, dependency/CI change, policy restamp or legacy migration.
+All three native execution records remain in_progress; WI0006 remains proposed
+with staged acceptance. Native terminal closeout waits for human main delivery.
+
+Process findings: the synthetic historical fixtures preserved the paired book
+markers but omitted an observed license-section delimiter. Broader malformed-book
+candidate detection therefore passed those fixtures while rejecting the real
+historical envelope. Preserve complete boundary structure when substituting
+synthetic narrative; document known non-book delimiters separately. The prior
+final recheck found this interaction and correctly withheld acceptance. Exhausted
+recheck allowance plus interruption required one explicit renewal; the narrow
+repair and verification then completed without more design expansion. Record
+recheck budgets separately from elapsed-time budgets, and retain a specific
+resume packet (head/base, finding, reproduction, fixture gap, outstanding gates).

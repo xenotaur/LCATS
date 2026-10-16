@@ -40,7 +40,16 @@ Coordinator reproduced all three, broadened refusal-only candidate detection,
 added regressions and requalified. Prior final recheck verified those fixes but exposed a historical license-separator
 regression. Under a renewed human grant, the exact separator is now qualified in
 code and both historical fixtures, with an independent clean recheck. Final-head
-CI and thread resolution remain required for integration.
+CI and thread resolution subsequently passed as recorded below.
+
+Both first hosted rounds completed. All three findings were reproduced, repaired
+and independently rechecked, and all threads resolved. The historical license
+separator repair also passed independent verification under the renewed grant.
+Four final-head CI checks passed. Internally merged as 2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2, verified head
+40cd36f036439575b63322acc3a91beee3a244c1 and base 3d55a48767c097aedc800cbad9012cca099f5cd2.
+Merge parents and accepted-head tree match; all seven source hashes unchanged.
+[Integration evidence](../../development/evidence/gettenberg-cleanup-20261016/integration.json)
+records acceptance and limitations. Native status remains in_progress until main.
 
 # Follow-up
 

@@ -1,0 +1,335 @@
+{
+  "scope": "WI-GETTENBERG-0006 conservative boilerplate cleanup internal integration",
+  "authority": "Human authorized bounded run; approved pilot adapter permits internal integration after qualification and review, never main promotion.",
+  "started_at": "2026-10-16T01:52:46Z",
+  "recorded_at": "2026-10-16T04:13:53.048439+00:00",
+  "pr": "https://github.com/xenotaur/LCATS/pull/517",
+  "merge": {
+    "baseRefName": "codex/gettenberg-acquisition",
+    "headRefOid": "40cd36f036439575b63322acc3a91beee3a244c1",
+    "mergeCommit": {
+      "oid": "2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2"
+    },
+    "mergedAt": "2026-10-16T04:12:38Z",
+    "state": "MERGED"
+  },
+  "verified_head": "40cd36f036439575b63322acc3a91beee3a244c1",
+  "verified_base": "3d55a48767c097aedc800cbad9012cca099f5cd2",
+  "merge_parents": [
+    "3d55a48767c097aedc800cbad9012cca099f5cd2",
+    "40cd36f036439575b63322acc3a91beee3a244c1"
+  ],
+  "merge_tree_equals_verified_head": true,
+  "source_sha256": {
+    "src/lcats/gettenberg/cleanup.py": "1e26afb5aece1f880845add6d3e4dbeb3ef057a66cfa31c8707040cc12c8e1f4",
+    "tests/gettenberg_tests/cleanup_test.py": "8faa5b4d6bf06d46e0478cd881698bf94833621cba59bd535aa93972933f9817",
+    "tests/gettenberg_tests/fixtures/cleanup/cases.json": "31658dd855a776311d3d9ccf7344134db82e5c1b3d00930e432c588357b38315",
+    "docs/reference/gettenberg-cleanup.md": "3f9539de6c03f5440c364b079595eb3c42b6056c40a8e494701997cd3d80e8e8",
+    "docs/how-to/gettenberg-cleanup.md": "b71f3c1283d7a2cc9e6bc2b7396019180f34f56459585cad6d00063b6ad29396",
+    "docs/reference/README.md": "846e3bb2ae009a313c00240ffaf4eeaeda9e09518f8a0ea9d988527752de4508",
+    "docs/how-to/gettenberg-decoding.md": "80ab1ab85f87310a9fc2362d27c2f9f4786924e0f2ab0a9afe3e5365f38db6df"
+  },
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-16T04:11:00Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38849080678/job/116806066242",
+      "name": "coverage",
+      "startedAt": "2026-10-16T04:08:45Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-16T04:09:15Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38849080745/job/116806066190",
+      "name": "lint",
+      "startedAt": "2026-10-16T04:08:46Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-16T04:10:27Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38849080684/job/116806065968",
+      "name": "test",
+      "startedAt": "2026-10-16T04:08:45Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-16T04:10:37Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38849077955/job/116806057775",
+      "name": "test",
+      "startedAt": "2026-10-16T04:08:44Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "review_coverage": {
+    "number": 517,
+    "state": "OPEN",
+    "headRefOid": "40cd36f036439575b63322acc3a91beee3a244c1",
+    "baseRefOid": "3d55a48767c097aedc800cbad9012cca099f5cd2",
+    "baseRefName": "codex/gettenberg-acquisition",
+    "reviews": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpO0MjAyNi0xMC0xNlQwMjoxOTozNlq0MjAyNi0xMC0xNlQwMjoxOTozNVrPAAAAAUpYAuM="
+      },
+      "nodes": [
+        {
+          "id": "PRR_kwDOKlhIbM8AAAABSlfX3g",
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `53b4a4c073`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+          "state": "COMMENTED",
+          "submittedAt": "2026-10-16T02:17:47Z",
+          "commit": {
+            "oid": "53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9"
+          },
+          "url": "https://github.com/xenotaur/LCATS/pull/517#pullrequestreview-5542238174"
+        },
+        {
+          "id": "PRR_kwDOKlhIbM8AAAABSlgC4w",
+          "author": {
+            "login": "copilot-pull-request-reviewer"
+          },
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nVerified malformed-boundary cases exclude narrative from the returned text instead of preserving ambiguous input.\n\n<details open>\n<summary><strong>2 open findings</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Detect malformed single-asterisk delimiters and preserve original input](https://github.com/xenotaur/LCATS/pull/517#discussion_r4290220239) \u00b7 New\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Preserve input when wrapped envelope fragments follow a supported book](https://github.com/xenotaur/LCATS/pull/517#discussion_r4290220261) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds a standalone, conservative Gutenberg cleanup API while leaving legacy wrappers and gatherers unchanged.\n\n**Changes:**\n- Returns exact text slices with original text, offsets, markers, and diagnostics.\n- Adds authored fixtures and offline behavior tests.\n- Documents usage, supported boundaries, and validation evidence.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bfixtures/\u200bcleanup/\u200bcases.json | Authored modern and historical examples. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bcleanup_test.py | Preservation, boundary, and documentation tests. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bcleanup.py | Cleanup API and boundary checks. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0006/\u200b2026_10_16_01_54_36_WI_GETTENBERG_0006_CLEANUP.md | Implementation execution record. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_16_02_06_33_WI_GETTENBERG_0006_CLEANUP_SELFREVIEW.md | Independent review and repair record. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md | Development and validation checkpoints. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-cleanup-design.md | Cleanup contract and scope. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-cleanup-20261016/\u200bqualification.json | Source hashes and qualification evidence. |\r\n| lcats/\u200bdocs/\u200breference/\u200bREADME.md | Links the cleanup reference. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-cleanup.md | API, acceptance rules, and diagnostics. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-decoding.md | Links decoding to cleanup. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-cleanup.md | Executable cleanup workflow examples. |\n</details>\n\n\ud83e\udde0 **Review effort:** Balanced\n\n---\n\n\ud83d\udca1 <a href=\"/xenotaur/LCATS/new/codex/gettenberg-acquisition?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
+          "state": "COMMENTED",
+          "submittedAt": "2026-10-16T02:19:36Z",
+          "commit": {
+            "oid": "f9f0f1f64c4cf608d0dc1031df0de464cb203e57"
+          },
+          "url": "https://github.com/xenotaur/LCATS/pull/517#pullrequestreview-5542249187"
+        }
+      ]
+    },
+    "comments": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpHPAAAAAXHwCQc="
+      },
+      "nodes": [
+        {
+          "id": "IC_kwDOKlhIbM8AAAABcfAJBw",
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9\",\"has_any_findings\":true,\"has_unresolved_findings\":true,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-16T02:17:49.898959Z\">2026-10-16T02:17:49.898959Z</relative-time> | `53b4a4c` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+          "createdAt": "2026-10-16T02:15:15Z",
+          "url": "https://github.com/xenotaur/LCATS/pull/517#issuecomment-6206523655"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xNlQwMjoxOTozNlrOrQmyQA=="
+      },
+      "nodes": [
+        {
+          "id": "PRRT_kwDOKlhIbM6tCZ1M",
+          "isResolved": true,
+          "isOutdated": true,
+          "path": "lcats/src/lcats/gettenberg/cleanup.py",
+          "line": null,
+          "comments": {
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xNlQwMjoxNzo0N1rO_7dt-g=="
+            },
+            "nodes": [
+              {
+                "id": "PRRC_kwDOKlhIbM7_t236",
+                "author": {
+                  "login": "chatgpt-codex-connector"
+                },
+                "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Treat malformed Gutenberg marker spacing as ambiguous**\n\nWhen a marker-like line uses unsupported whitespace inside `PROJECT GUTENBERG` (for example, a non-breaking space), `_CANDIDATE.match(value)` succeeds but the literal substring check fails because `_label()` normalizes only spaces and tabs. Consequently, a banner followed by that malformed line and an otherwise valid marker pair is cleaned successfully, deleting the malformed line with the prefix, even though the documented conservative contract says malformed marker-like candidates must preserve the entire input. Detect such candidates without requiring this already-normalized literal phrase so they produce `unrecognized_marker` instead.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                "createdAt": "2026-10-16T02:17:47Z",
+                "url": "https://github.com/xenotaur/LCATS/pull/517#discussion_r4290211322"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PRRT_kwDOKlhIbM6tCbI2",
+          "isResolved": true,
+          "isOutdated": true,
+          "path": "lcats/src/lcats/gettenberg/cleanup.py",
+          "line": null,
+          "comments": {
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xNlQwMjoxOTozNlrO_7eQzw=="
+            },
+            "nodes": [
+              {
+                "id": "PRRC_kwDOKlhIbM7_t5DP",
+                "author": {
+                  "login": "copilot-pull-request-reviewer"
+                },
+                "body": "Single-asterisk Gutenberg delimiters are ignored rather than recorded as malformed. With a Gutenberg banner, damaged single-asterisk outer boundaries, a complete triple-asterisk example inside the narrative, and a license heading, cleanup returns only the example's body and excludes the surrounding narrative. Include single-asterisk delimiters in candidate detection so the existing malformed-marker handling preserves the original. Add an outer-malformed/inner-valid regression.",
+                "createdAt": "2026-10-16T02:19:36Z",
+                "url": "https://github.com/xenotaur/LCATS/pull/517#discussion_r4290220239"
+              }
+            ]
+          }
+        },
+        {
+          "id": "PRRT_kwDOKlhIbM6tCbJA",
+          "isResolved": true,
+          "isOutdated": true,
+          "path": "lcats/src/lcats/gettenberg/cleanup.py",
+          "line": null,
+          "comments": {
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xNlQwMjoxOTozNlrO_7eQ5Q=="
+            },
+            "nodes": [
+              {
+                "id": "PRRC_kwDOKlhIbM7_t5Dl",
+                "author": {
+                  "login": "copilot-pull-request-reviewer"
+                },
+                "body": "A supported envelope followed by a second book whose delimiters wrap between `PROJECT` and `GUTENBERG` returns only the first book's body. This gate ignores the wrapped fragments, while the later license heading satisfies the suffix check, so the second book's narrative is excluded from `result.text` with `envelope_removed`. Detect these wrapped fragments as unsupported candidates and preserve the entire input; this should not enable stripping wrapped envelopes. Add a regression combining a supported book with a wrapped one.",
+                "createdAt": "2026-10-16T02:19:36Z",
+                "url": "https://github.com/xenotaur/LCATS/pull/517#discussion_r4290220261"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "hosted_review_source_commits": [
+    "53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9",
+    "f9f0f1f64c4cf608d0dc1031df0de464cb203e57"
+  ],
+  "later_changes": "Three hosted findings plus historical-footer regression repaired, independently verified and qualified at accepted head 40cd36f036439575b63322acc3a91beee3a244c1",
+  "footer_repair": {
+    "human_grant": "I grant the repair and verification.",
+    "started_at": "2026-10-16T04:04:09Z",
+    "hard_stop_at": "2026-10-16T04:34:09Z",
+    "base_head": "e6e19c146139cbe2bdf46613906cea93352b10af",
+    "reproduction": "Historical THIS envelope plus START: FULL LICENSE separator and license heading returned unchanged/unrecognized_marker before repair",
+    "source": "https://gutenberg.org/files/32458/32458-h/32458-h.htm",
+    "source_rendered_line": 78,
+    "repair": "Exclude only exact observed license-section separator from candidate detection; do not waive book-pair or footer-heading requirements",
+    "fixtures": "Both historical authored fixtures now retain this conventional separator; no external story prose copied",
+    "independent_review": {
+      "agent": "cleanup_review",
+      "cleared": true,
+      "findings": [],
+      "outstanding_p0_p2": 0,
+      "footer_regression": "resolved; exact observed separator does not authorize removal without valid pair and footer heading",
+      "prior_hosted_findings": "all three independently reverified: NBSP, single-star outer boundaries, wrapped second book",
+      "performance": "million-space malformed marker and notice each approximately 0.017s",
+      "focused_tests": 33,
+      "targeted_format_lint_diff": "pass",
+      "manifest": "all seven hashes matched before and after review",
+      "source_frozen": true,
+      "edits": false,
+      "delegation": false,
+      "worker_occupancy_upper_bound_minutes": 3,
+      "limitations": "canonical suite and committed final-head CI remain coordinator gates"
+    },
+    "renewed_grant_rechecks_used": 1
+  },
+  "hosted_review_repairs": {
+    "status": "All three fixes independently verified; footer regression separately repaired and verified under renewed grant",
+    "first_rounds_complete": true,
+    "first_head_ci": "four successful checks at f9f0f1f64c4cf608d0dc1031df0de464cb203e57",
+    "findings": [
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCZ1M",
+        "author": "Codex",
+        "priority": "P2",
+        "issue": "Unicode marker spacing hid a competing boundary",
+        "reproduction": "NBSP in PROJECT GUTENBERG before valid pair returned only A story with envelope_removed",
+        "repair": "Unicode whitespace considered in candidate discovery; strict accepted syntax unchanged"
+      },
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCbI2",
+        "author": "Copilot",
+        "priority": "medium",
+        "issue": "Single-asterisk outer boundaries hid narrative around a valid inner example",
+        "reproduction": "Returned only Example body and omitted both outer narrative regions",
+        "repair": "One or more stars qualifies a potential boundary for conservative refusal"
+      },
+      {
+        "thread": "PRRT_kwDOKlhIbM6tCbJA",
+        "author": "Copilot",
+        "priority": "medium",
+        "issue": "Wrapped second book hidden after supported first book",
+        "reproduction": "PROJECT/newline/GUTENBERG delimiters plus later license yielded only First story",
+        "repair": "Starred START/END candidate discovery no longer requires a complete Gutenberg name on the same line"
+      }
+    ],
+    "regressions": "Unsupported whitespace in prefix/body/footer; damaged outer/valid inner boundaries; valid first/wrapped second book across LF/CRLF/CR; incomplete name refusal",
+    "acceptance_change": "No new removable form; broader conservative refusal only, documented explicitly",
+    "final_head_ci": "four successful checks at 40cd36f036439575b63322acc3a91beee3a244c1",
+    "threads": "all three independently verified and resolved"
+  },
+  "independent_review": {
+    "agent": "cleanup_review",
+    "mode": "cold diff against integration base",
+    "initial_finding": {
+      "priority": "P2",
+      "description": "Overlapping EBOOK separator and identifier repetitions cause quadratic backtracking on malformed markers.",
+      "coordinator_reproduction": "1000 spaces 0.0031s; 4000 0.0478s; 16000 0.763s; 64000 exceeded four-second subprocess timeout."
+    },
+    "repair": "Disjoint first identifier/title character in marker and historical end-notice regexes; both malformed separator cases covered at 200000 spaces.",
+    "coordinator_reverification": "200000-space malformed marker preserved in 0.0037s; focused and canonical tests passed.",
+    "recheck": "Resolved; no further actionable findings. Independent malformed-marker/end-notice checks up to 1024000 spaces took 0.019s/0.017s and valid envelope preserved exact body.",
+    "outstanding_p0_p2": 0,
+    "initial_gettenberg_tests": 437,
+    "recheck_focused_tests": 29,
+    "all_seven_hashes_matched_before_after": true,
+    "source_frozen_during_review": true,
+    "assignments": 1,
+    "same_scope_rechecks_used": 2,
+    "worker_occupancy_upper_bound_minutes": 7,
+    "manual_hosted_retriggers": 0,
+    "final_recheck_reserved_until_both_hosted_authors_and_ci": false,
+    "prior_run_final_recheck": {
+      "head": "e6e19c146139cbe2bdf46613906cea93352b10af",
+      "hosted_three_fixes_verified": true,
+      "new_p2": "Historical START: FULL LICENSE separator falsely classified as book boundary",
+      "focused_tests": 32,
+      "hashes_matched": true,
+      "result": "integration withheld; prior allowance exhausted"
+    }
+  },
+  "acceptance_mapping": {
+    "original_boundaries_version_ambiguities": "immutable original/slice/marker/diagnostic records; offset/reconstruction/determinism tests",
+    "modern_and_verified_historical": "THE/THIS starred pairs plus corroborated historical title notice; four authored fixtures tied to primary sources",
+    "false_positives_and_malformed_inputs": "narrative/quoted pairs, short/empty/Unicode texts, repeated/reversed/mismatched/unsupported boundaries; conservative preservation and resource-limit tests",
+    "license": "independent implementation and authored fixtures; no retained third-party code or marker list"
+  },
+  "canonical_tests": 2919,
+  "focused_tests": 33,
+  "limitations": [
+    "Only qualified THE/THIS EBOOK forms; no ETEXT/small-print/wrapped/multilingual claim",
+    "Syntax/context cannot prove origin of a fully reproduced envelope",
+    "Legacy headers wrapper and gatherers remain for WI0008 migration",
+    "No main promotion or native terminal closeout"
+  ],
+  "main_observed": "210468236ff4db78d2d7c5218562fa2d166e6400",
+  "native_state": "WI proposed; primary and side execution records in_progress until human-approved main delivery",
+  "no_active_workers": true,
+  "main_promoted": false,
+  "repair_grant_closed_at": "2026-10-16T04:14:00Z",
+  "usage": {
+    "weekly_used_percent_at_closeout": 26,
+    "shared_account_not_attributable": true,
+    "new_grant_launch_measurement": "not captured"
+  }
+}

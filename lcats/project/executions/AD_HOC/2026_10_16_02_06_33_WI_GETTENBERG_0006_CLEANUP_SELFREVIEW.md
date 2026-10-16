@@ -39,7 +39,15 @@ Integration was withheld. A renewed human repair grant and separate review recor
 cover the exact-separator fix and independent verification; this preserves the
 prior review history rather than treating the last candidate as accepted.
 
+Both first hosted rounds completed. All three findings were reproduced, repaired
+and independently rechecked, and all threads resolved. The historical license
+separator repair also passed independent verification under the renewed grant.
+Four final-head CI checks passed. Internally merged as 2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2, verified head
+40cd36f036439575b63322acc3a91beee3a244c1 and base 3d55a48767c097aedc800cbad9012cca099f5cd2.
+Merge parents and accepted-head tree match; all seven source hashes unchanged.
+[Integration evidence](../../development/evidence/gettenberg-cleanup-20261016/integration.json)
+records acceptance and limitations. Native status remains in_progress until main.
+
 # Follow-up
 
-Both first hosted rounds and final-head CI required before internal merge.
 No main promotion; native records remain in_progress.
