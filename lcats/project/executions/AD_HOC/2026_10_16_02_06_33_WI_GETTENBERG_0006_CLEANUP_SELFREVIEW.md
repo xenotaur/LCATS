@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:WI_GETTENBERG_0006_CLEANUP_SELFREVIEW)[2026-10-16T02:05
 work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_16_01_54_36_WI_GETTENBERG_0006_CLEANUP
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/517
+commit: 53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9
 created_at: 2026-10-16T02:06:33+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0006.md

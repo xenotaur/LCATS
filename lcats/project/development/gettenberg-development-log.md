@@ -2183,3 +2183,8 @@ issue; using supported --quiet succeeded, and canonical --check --diff passed.
 No tooling workaround was committed. Shared weekly usage 19% launch, 22% at this
 checkpoint; account-wide and not attributable. Preparing the PR; hosted reviews
 and CI remain pending, with main/consent/corpus/legacy consumers unchanged.
+
+PR517 opened against codex/gettenberg-acquisition at 02:15 UTC, source commit
+53b4a4c073ab1cbbedae1e9eba8e5f156c66e8b9. Both native records now carry PR and source-commit
+backlinks. This evidence-only follow-up changes none of the seven frozen files.
+First hosted rounds and CI are running; no manual retrigger.
