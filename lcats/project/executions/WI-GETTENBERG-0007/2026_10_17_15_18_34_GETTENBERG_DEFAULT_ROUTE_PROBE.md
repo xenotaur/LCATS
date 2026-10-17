@@ -4,8 +4,8 @@ prompt_id: PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_ROUTE_PROBE)[2026-10-17T
 work_item: WI-GETTENBERG-0007
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/520
+commit: eb428a73
 created_at: 2026-10-17T15:18:34+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

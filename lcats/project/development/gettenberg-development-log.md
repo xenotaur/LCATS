@@ -2590,12 +2590,12 @@ No process change is implemented in LRH by this experiment.
 
 ## Default-source qualification sprint — 2026-10-17 15:16 UTC
 
-Human grant15min target/20min hard. Start15:16:23; target15:31:23; hard15:36:23.
-Basec167d74cfef5ae2d51b6c28b4c24e0d5ddc44833 freshly fetched and clean;
-origin/main210468236ff4db78d2d7c5218562fa2d166e6400. Research branch
-codex/gettenberg-default-source-qualification. WI0007 readinessyes; watched
-gates fresh, persistent skip consent invalid and unchanged. Shared usage39%
-used at launch. Prior PR519 staged migration is an ancestor. Scope: separately
+Human grant: 15-minute target / 20-minute hard maximum. Start 15:16:23; target 15:31:23; hard 15:36:23.
+Base c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833 freshly fetched and clean;
+origin/main 210468236ff4db78d2d7c5218562fa2d166e6400. Research branch
+codex/gettenberg-default-source-qualification. WI0007 readiness yes; watched
+gates fresh, persistent skip consent invalid and unchanged. Shared usage 39%
+used at launch. Prior PR #519 staged migration is an ancestor. Scope: separately
 bounded operational check required by prior route qualification, not redoing
 its proven offline mapping. Default candidate remains listed PGLAF combined
 mirror; archive independent. One optional cold reviewer, four minutes maximum.
@@ -2632,3 +2632,9 @@ qualification and full-catalog validation distinct; do not spend a short sprint'
 budget on a large download or infer byte equivalence from common ebook IDs.
 Research PR is a nonterminal checkpoint; hosted gates and integration may follow
 in a separate grant. No automatic continuation, main promotion or WI closeout.
+
+Research PR: [#520](https://github.com/xenotaur/LCATS/pull/520), targeting
+`codex/gettenberg-acquisition`; research commit `eb428a73`. Native primary/side
+records link to the PR and retain nonterminal status. Published at approximately
+15:26 UTC, ten minutes into the grant. Final checkpoint awaits only a compact
+hosted-state read; no product implementation begins in this sprint.
