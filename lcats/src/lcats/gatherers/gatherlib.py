@@ -117,6 +117,8 @@ def gather(
     name_source=None,
     verbose=True,
     log_dir=DEFAULT_GATHER_LOG_DIR,
+    offline=False,
+    cache_dir=None,
 ):
     """Run DataGatherers for a corpus.
 
@@ -130,6 +132,9 @@ def gather(
     an unhandled download() failure still aborts the whole gather() call,
     now surfacing as run_aborted_unexpected via RunLog's own __exit__
     rather than a bare, unexplained traceback.
+
+    offline forbids HTML acquisition; cache_dir selects the LCATS cache root
+    (HTML resources live in its resources/ child). Neither requires a catalog.
 
     Three opt-in extension points (WI-GATHER-0104), each defaulting to
     today's behavior when unset, added to reconcile gatherers whose
@@ -156,6 +161,8 @@ def gather(
         target_directory,
         description=description,
         license=license_text,
+        offline=offline,
+        cache=None if cache_dir is None else pathlib.Path(cache_dir) / "resources",
     )
     log_filename = f"{names.normalize_basename(corpus)[0]}_gather_run_log.jsonl"
     with run_log.RunLog(

@@ -30,7 +30,18 @@ def _handle_info(_args):
 
 
 def _handle_gather(args):
-    return lcats.gatherers.main.run(args.gatherers, dry_run=args.dry_run)
+    return lcats.gatherers.main.run(
+        args.gatherers,
+        dry_run=args.dry_run,
+        yes=args.yes,
+        offline=args.offline,
+        catalog_archive=args.catalog_archive,
+        catalog_url=args.catalog_url,
+        main_root=args.gutenberg_main_root,
+        generated_root=args.gutenberg_generated_root,
+        allow_origins=tuple(args.allow_origin),
+        cache_dir=args.cache_dir,
+    )
 
 
 def _handle_catalog(args):
@@ -147,6 +158,37 @@ def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
         "--dry-run",
         action="store_true",
         help="Show which gatherers would run without executing downloads.",
+    )
+    gather_parser.add_argument(
+        "--yes", action="store_true", help="Approve required first catalog setup only."
+    )
+    gather_parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="Forbid network access for all selected collections.",
+    )
+    gather_parser.add_argument(
+        "--cache-dir",
+        help="Cache root for catalog, original bytes and curated HTML sources.",
+    )
+    catalog_source = gather_parser.add_mutually_exclusive_group()
+    catalog_source.add_argument(
+        "--catalog-archive", help="Local RDF archive for required first setup."
+    )
+    catalog_source.add_argument(
+        "--catalog-url", help="Explicit archive URL for required first setup."
+    )
+    gather_parser.add_argument(
+        "--gutenberg-main-root", help="Explicit digit-sharded ebook endpoint root."
+    )
+    gather_parser.add_argument(
+        "--gutenberg-generated-root", help="Explicit generated ebook endpoint root."
+    )
+    gather_parser.add_argument(
+        "--allow-origin",
+        action="append",
+        default=[],
+        help="Additional permitted Gutenberg redirect origin (repeatable).",
     )
     gather_parser.set_defaults(handler=_handle_gather)
     command_parsers["gather"] = gather_parser

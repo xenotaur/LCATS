@@ -1,11 +1,10 @@
 """Thin catalog commands using the same preparation, acquisition and lifecycle APIs."""
 
 import argparse
-import dataclasses
 import json
-import sys
 from urllib import parse
 
+from lcats.gettenberg import approval_cli
 from lcats.gettenberg import errors
 from lcats.gettenberg import preparation
 from lcats.gettenberg import resources
@@ -85,45 +84,13 @@ def _preparation(args):
     )
 
 
-def _plan_report(service, plan):
-    """Expose the source and acquisition decision before requesting approval."""
-    return {
-        **dataclasses.asdict(plan),
-        "approval_required": plan.approval_required,
-        "cache_dir": str(service.manager.cache_dir),
-        "source": (
-            str(service.archive)
-            if service.archive is not None
-            else (service.request.request_url if service.request else None)
-        ),
-        "max_archive_bytes": service.policy.max_archive_bytes,
-    }
-
-
 def _setup(args, service):
     """Prompt only for actionable missing setup, never for reuse or dry-run."""
     plan = service.plan()
-    report = _plan_report(service, plan)
+    report = approval_cli.plan_report(service, plan)
     if args.dry_run:
         return report, 2 if plan.action == "blocked" else 0
-    approved = args.yes
-    if plan.approval_required and not approved:
-        if not sys.stdin.isatty():
-            raise preparation.PreparationError(
-                "catalog setup needs approval; rerun with --yes or use an interactive terminal"
-            )
-        print(json.dumps(report, indent=2), file=sys.stderr)
-        print(
-            "Initialize this metadata catalog? [y/N] ",
-            end="",
-            file=sys.stderr,
-            flush=True,
-        )
-        approved = sys.stdin.readline().strip().lower() in ("y", "yes")
-        if not approved:
-            raise preparation.PreparationError(
-                "catalog setup declined; no changes made"
-            )
+    approved = approval_cli.confirm_setup(service, plan, yes=args.yes)
     generation = service.prepare(approved=approved)
     return {"generation_id": generation.generation_id, "reused": generation.reused}, 0
 

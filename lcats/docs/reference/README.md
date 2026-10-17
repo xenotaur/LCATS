@@ -18,3 +18,6 @@ See also: [API key setup](../secrets-setup.md) (how-to, not reference).
 - [Strict offline text decoding](gettenberg-decoding.md)
 
 - [Conservative Gutenberg boilerplate cleanup](gettenberg-cleanup.md)
+
+- [Collection preparation](gettenberg-preparation.md)
+- [Live gathering and source contracts](gettenberg-gather.md)

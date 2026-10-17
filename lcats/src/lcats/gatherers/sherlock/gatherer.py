@@ -90,9 +90,11 @@ def find_paragraphs_adventures(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Gather the Sherlock Holmes corpus via gatherlib.gather()."""
     return gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Sherlock Holmes",
         target_directory=TARGET_DIRECTORY,
         description="Sherlock Holmes stories from the Gutenberg Project.",

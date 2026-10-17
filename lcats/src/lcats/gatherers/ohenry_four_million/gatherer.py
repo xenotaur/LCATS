@@ -105,9 +105,11 @@ def find_paragraphs_ohenry_fourmillion(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the OHenry stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="OHenry",
         target_directory=TARGET_DIRECTORY,
         description="OHenry stories from the Gutenberg Project.",

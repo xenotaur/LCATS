@@ -16,23 +16,25 @@ DEFAULT_GATHER_LOG_DIR = pathlib.Path("logs") / "gather"
 GATHER_LOG_FILENAME = "mass_quantities_gather_run_log.jsonl"
 
 
-def gather():
+def gather(*, source):
     """Extract all the "single stories" we have identified in the Gutenberg Project.
 
     Relies on the story definitions in storymap.py using the gather_stories function
     to do the actual work of extracting the stories and saving them in the data directory.
 
-        This public-facing API does not return errors; it only returns successful stories
-    as the downstream API cannot yet handle errors.
+    Returns successful stories; metadata/extraction skips are retained in the
+    lower-level result. Operational source failures propagate and abort the run.
 
     Returns: A dictionary mapping story IDs to file paths.
     """
-    gathered_stories, _ = gather_stories(storymap.SINGLE_STORIES)
+    if source is None:
+        raise ValueError("an explicit GutenbergStorySource is required")
+    gathered_stories, _ = gather_stories(storymap.SINGLE_STORIES, source=source)
 
     return gathered_stories
 
 
-def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR):
+def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
     """Extract a set of stories from the Gutenberg Project.
 
     Uses the gather_story function to do the actual work of extracting the story.
@@ -47,19 +49,21 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR):
     gather_stories() itself, not around one of its two independent
     callers (gather() and main()), so every invocation -- including
     direct calls, as this function's own tests make -- shares the same
-    run-log lifecycle. parser.gather_story()'s existing narrow
-    api.load_etext()-only per-story recovery is preserved exactly as-is;
-    this adds only logging around the existing loop (Non-Goal: does not
-    change that error-handling scope).
+    run-log lifecycle. Operational source failures propagate and record an aborted
+    run; metadata/extraction skips retain per-story reasons. story_ready means
+    written or reused, never falsely claiming an existing output was downloaded.
 
     Args:
         stories: A list of story IDs to extract from Gutenberg.
         log_dir: Working root for the run log (default: logs/gather).
+        source: Explicit catalog-backed source; caller owns its catalog lifetime.
     Returns:
         A tuple of two dictionaries:
         - A dictionary mapping story IDs to file paths for successfully gathered stories.
         - A dictionary mapping story IDs to error messages for failed stories.
     """
+    if source is None:
+        raise ValueError("an explicit GutenbergStorySource is required")
     gatherer = downloaders.DataGatherer(
         storymap.TARGET_DIRECTORY,
         description="Single stories from Gutenberg",
@@ -86,25 +90,28 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR):
         for story in tqdm(stories):
             # for story in tqdm(range(1, 79061)):
             # print(story)
-            story, filename, error = parser.gather_story(gatherer, story)
+            story, filename, error = parser.gather_story(gatherer, story, source=source)
             if filename:
                 gathered_stories[story] = filename
             if error:
                 failed_stories[story] = error
-            event = "story_downloaded" if filename else "story_failed"
+            event = "story_ready" if filename else "story_failed"
             log.event(event, story=story)
 
     return gathered_stories, failed_stories
 
 
-def main():
+def main(*, source):
     """Extract the Single stories from the Gutenberg Project."""
     print("Gathering single stories en masse from Gutenberg.")
-    downloads, errors = gather_stories(storymap.SINGLE_STORIES)
+    downloads, errors = gather_stories(storymap.SINGLE_STORIES, source=source)
     # downloads, errors = gather_stories(range(1, 78290))
     print(f" - Total stories in the single corpus: {len(downloads)}")
     print(f" - Total errors encountered: {len(errors)}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    from lcats import cli
+
+    cli.main(["gather", "mass_quantities", *sys.argv[1:]])

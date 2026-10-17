@@ -10,6 +10,7 @@ import requests
 from lcats import constants
 from lcats.analysis.corpus import discovery
 from lcats.gatherers import normalization
+from lcats.gettenberg import resources as source_resources
 from lcats.utils import env
 from lcats.utils import names
 from lcats.utils import paths
@@ -49,16 +50,14 @@ def load_page(url, timeout=10, preferred_encoding="utf-8"):
 class ResourceCache(abc.ABC):
     """Utility class to cache resources in a directory."""
 
-    def __init__(
-        self, root=env.cache_resources_dir(), encoding=constants.TEXT_ENCODING
-    ):
+    def __init__(self, root=None, encoding=constants.TEXT_ENCODING):
         """Initialize the downloader with a root directory.
 
         Args:
-            root: The root directory where the data will be stored.
+            root: Storage directory; None resolves the environment at construction.
             encoding: The encoding to use for the files.
         """
-        self.root = root
+        self.root = env.cache_resources_dir() if root is None else root
         self.encoding = encoding
 
     def full_path(self, filename):
@@ -152,13 +151,23 @@ class LambdaResourceCache(ResourceCache):
 class UrlResourceCache(LambdaResourceCache):
     """Utility class to cache URL-loadable resources in a directory."""
 
-    def __init__(self, **kwargs):
-        """Initialize the downloader with a root directory."""
+    def __init__(self, *, offline=False, **kwargs):
+        """Use cached HTML offline, refusing any acquisition on a cache miss."""
+        if type(offline) is not bool:
+            raise ValueError("offline must be bool")
+        self.offline = offline
         super().__init__(
-            canonicalizer=names.url_to_filename,
-            acquirer=load_page,
-            **kwargs,
+            canonicalizer=names.url_to_filename, acquirer=load_page, **kwargs
         )
+
+    def acquire(self, resource):
+        """Enforce policy at the actual network boundary, including force calls."""
+        if self.offline:
+            raise source_resources.ResourcePolicyError(
+                "offline_cache_miss",
+                "HTML source is not cached; offline gathering cannot download it",
+            )
+        return super().acquire(resource)
 
 
 class DataGatherer:
@@ -168,29 +177,32 @@ class DataGatherer:
         self,
         name,
         description=None,
-        root=env.data_root(),
-        cache=env.cache_resources_dir(),
+        root=None,
+        cache=None,
         suffix=".json",
         license=None,
+        offline=False,
     ):
         """Initialize the gatherer with a name, description, and root directory.
 
         Args:
             name: The name of the gatherer.
             description: A description of the gatherer.
-            root: The root directory where the data will be stored.
+            root: Data directory; None resolves LCATS_DATA_DIR at construction.
+            cache: HTML cache directory; None resolves the current cache root.
+            offline: Refuse HTML acquisition while allowing cached content.
             suffix: The file extension to use for the data files.
             license: The license to include in the gatherer's directory.
         """
         self.name = name
         self.description = description
-        self.root = root
-        self.cache = cache
+        self.root = env.data_root() if root is None else root
+        self.cache = env.cache_resources_dir() if cache is None else cache
         self.suffix = suffix
         self.license = license
         self.resources = {}
         self.downloads = {}
-        self.resource_cache = UrlResourceCache(root=self.cache)
+        self.resource_cache = UrlResourceCache(root=self.cache, offline=offline)
 
     @property
     def path(self):

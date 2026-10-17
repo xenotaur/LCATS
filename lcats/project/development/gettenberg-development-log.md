@@ -2451,3 +2451,100 @@ at closeout versus27% at launch; this account-wide difference is not an attribut
 run cost. Per-run token/cost telemetry remains unavailable. Elapsed about52 minutes;
 no worker left active and no automatic continuation scheduled. Final PR description
 records completed integration gates and preserves the remaining migration scope.
+
+## Overnight live-gather launch — 2026-10-17 07:57 UTC
+
+Start07:57:23 UTC; target09:57:23; hard10:57:23. Human explicitly approved the
+proposed run. Base404c23043af7b9eeb86936a00c32194b8fbb384d clean/freshly fetched;
+main210468236ff4db78d2d7c5218562fa2d166e6400. Branch codex/gettenberg-live-gather,
+parent codex/gettenberg-acquisition. Prompt
+PROMPT(WI-GETTENBERG-0007:GETTENBERG_GATHER_MIGRATION)[2026-10-17T07:58:51+00:00].
+Idempotence clear, native readinessyes. Initial LRH status/readiness invoked one
+level above package and reported absent configuration; reran from lcats/ and
+confirmed watched claude/codex stalenessclean, skip consentinvalid and unchanged.
+No false readiness conclusion taken from the first command. LRH unchanged
+0.2.5.dev3596+gd86755f50; project Python3.11.9 and PYTHONPATH pinned to this src.
+Reuse previously read STYLE, AGENTS, lrh-implement and cold-review procedures via
+approved adapter. Skill hashes unchanged: implement48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165;
+self-review d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c.
+Paths /Users/centaur/.agents/skills/lrh-implement/SKILL.md and lrh-self-review/SKILL.md.
+Codex session-selected model, no override. Shared weekly usage32% at launch;
+per-run cost/token telemetry unavailable. Filesystem escalation remains required
+for this managed checkout; no policy or credential changes authorized.
+
+Dependency mapping: prior WI0004 canonical resolution and WI0005 explicit
+acquisition/routing/composition qualification remain valid. PR516 merge26f3828e
+and WI0006 cleanup PR517 merge2378fcc are verified ancestors. WI0007 preparation
+PR518 mergefed5030a is an ancestor with2943 canonical tests, independent review,
+verified help repair, all4CI and resolved threads (preparation integration.json).
+These support explicit-source migration; default mirror qualification remains
+unaccepted. Six assignments/45 worker minutes remain,15 reserved for review.
+
+Design decisions before code: add a catalog-backed gather source with stable
+metadata projection and plain-text-only routable selection, strict decoding,
+conservative cleanup and retained provenance. Primary titles and creator/author
+roles preserve source order; missing fields skip with a reason, no header fallback
+or guessed URL. Ambiguous cleanup refuses extraction while retaining originals.
+Keep legacy experimental parser helpers available through local imports; the
+migrated CLI path must not import gutenbergpy or initialize its cache. Inject the
+new source into the existing gather_story algorithm rather than copy its extraction,
+normalization or override logic. Existing outputs are reused; new outputs publish
+without replacing a concurrently created file. Record expected metadata/cleanup
+behavior differences, not corpus rewrites.
+
+CLI: explicit catalog archive/URL plus explicit main/generated roots; no default
+mirror. Missing required setup uses shared approval UI; --yes only setup. --offline
+must cover both new resource acquisition and curated HTML caches. Thread an explicit
+boolean through curated gatherers/gatherlib/downloaders instead of global policy.
+Validate all selections/configuration before initialization; dry-run performs only
+local inspection and never imports selected consumers. No per-story prompts,
+refresh, output replacement or dependency removal. Tests use authored RDF/text,
+HTTP boundary doubles and isolated output/cache roots; no live Gutenberg traffic.
+Canonical checks, one cold independent review, hosted first rounds, independently
+verified repairs and exact-headCI remain prerequisites to internal integration.
+
+Checkpoint — 08:39 UTC, about42 elapsed minutes:21 authored integration tests
+pass, full canonical suite running. No live Gutenberg traffic. Changed cache-dir
+plumbing for curated HTML as well as new stores; otherwise mixed offline runs
+would depend on an unrelated default cache. Omitted data/cache roots now resolve
+at construction, preserving environment overrides after imports. This is a narrow
+configuration correction needed by the live consumer tests. New provenance also
+records ebook ID and catalog archive hash. Existing output reuse is explicitly
+not content validation. Strict decode and ambiguous cleanup failures retain bytes.
+No worker assignments used. Clock observations at08:07 and08:38 did not meet the
+15-minute checkpoint cadence during the large implementation/test tool interval;
+record this instrumentation lapse rather than inventing missing observations.
+Remaining target about78 minutes, hard allowance138; scope unchanged.
+
+Checkpoint — 08:43 UTC: canonical2964 tests passed in77.873 seconds before review.
+Cold review assignment1 dispatched about08:41–08:42,15-minute allowance from45.
+Usage35% used versus32% launch (shared, not attributable). Review snapshot diff
+SHA25679138f8f6d5018d06d14e034858c4dc85e6b2ac2765ed708d83c99877d2e215d.
+Reviewer found CRLF/CR incompatibility at the decoder-to-extractor boundary.
+Coordinator independently reproduced real authored runs: LF/CRLF/CR all returned
+success but wrote1/0/0 stories. Legacy header stripping normalized newlines; the
+new byte/decoder/cleanup APIs correctly preserve them. Repair normalizes only
+at heuristic extractor handoff, with original-byte and body-preservation cases.
+Also adds online first-use archive+story acquisition composition coverage through
+a stubbed HTTP boundary, addressing the previously offline-heavy matrix.
+Earlier review freeze attempt used LRH's suggested filename rather than actual
+record-execution output filename; git add failed and produced an empty diff. It
+was detected before dispatch, corrected with actual path and nonempty hash.
+Future orchestration should consume returned artifact paths and stop on failure.
+
+Checkpoint — 08:46:23 UTC (about49 elapsed minutes): cold review and separately
+budgeted repair verification complete. Reviewer independently confirmed LF, CRLF,
+CR and mixed-line-ending extraction and byte/decoded/cleanup/provenance invariants.
+No remaining findings. Charged4 minutes each conservatively:2/6 assignments,8/45
+worker minutes,37 remain; no worker active. Canonical2966 tests77.335s, focused23,
+format/lint and diff checks pass; LRH0errors/351warnings (same as prior tranche).
+Actual CLI help and empty-directory offline planning verified;64 relative doc
+links valid. Freeze product source and proceed to first hosted review/CI rounds.
+Scope remains explicit-source live gathering; no main promotion or dependency
+removal. Review repair is one successful cycle, no design replan required.
+
+PR519 opened08:47 UTC against codex/gettenberg-acquisition at initial product
+commit546f03de188819e57625e08e227840eccdf24f36. Native primary and self-review
+records are linked and in_progress. One read-only GitHub lookup failed in the
+restricted network context; exact retry under approved network access succeeded.
+No mutation was blindly retried. First hosted review andCI rounds pending.

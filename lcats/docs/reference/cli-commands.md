@@ -38,9 +38,15 @@ Gather one or more configured corpora.
 | `--dry-run` | Show which gatherers would run without executing downloads. |
 
 Planning validates all names before execution and reports catalog requirements.
-Unknown names return exit 2. Actual metadata-dependent gathering remains on the
-legacy backend; new catalog setup does not configure it. Gather-level `--yes` and
-`--offline` are pending migration.
+Unknown names return exit 2. Live `mass_quantities` uses the new catalog and source
+store. `--yes` approves missing catalog setup only; `--offline` forbids downloads
+in every selected collection. `--cache-dir` selects the cache root for both new
+Gutenberg stores and curated HTML. Metadata-dependent runs require explicit
+`--gutenberg-main-root` and `--gutenberg-generated-root`; missing setup also needs
+`--catalog-archive` or `--catalog-url`. `--allow-origin` permits additional redirect
+origins for the new resource store. No operational default mirror is configured.
+See [gathering guide](../how-to/gettenberg-gather.md) and
+[gather reference](gettenberg-gather.md) for reuse, failures and migration boundaries.
 
 ## `catalog`
 

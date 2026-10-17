@@ -18,6 +18,7 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Gather stories with explicit sources](how-to/gettenberg-gather.md)
 - [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
 
 - [Decode cached text without network access](how-to/gettenberg-decoding.md)
@@ -35,6 +36,7 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Live gathering and source contracts](reference/gettenberg-gather.md)
 - [Collection requirements and setup policy](reference/gettenberg-preparation.md)
 
 - [Strict offline text decoding](reference/gettenberg-decoding.md)
