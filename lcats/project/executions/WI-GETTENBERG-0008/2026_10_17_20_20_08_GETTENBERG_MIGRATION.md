@@ -5,7 +5,7 @@ work_item: WI-GETTENBERG-0008
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/522
-commit: 3ed49415b900fa8bec825acf453272105860c6c0
+commit: 46960f6625b22131ecfcac1764b0da10ad8fb643
 created_at: 2026-10-17T20:20:08+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0008.md
@@ -41,3 +41,10 @@ project/development/evidence/gettenberg-migration-20261017/ before acceptance.
 WI0009 owns CI cache-maintenance replacement; WI0010 owns broader qualification.
 Main promotion, release blocker closeout and terminal native lifecycle changes
 remain human-gated. No live Gutenberg download was performed by this run.
+
+
+## Staged delivery
+
+PR #522 accepted at 858f6da2 and merged internally as 46960f66. Acceptance mapping
+is appended to WI0008; complete review/CI/merge receipts are in integration.json.
+No main promotion or terminal lifecycle update is implied by this internal merge.

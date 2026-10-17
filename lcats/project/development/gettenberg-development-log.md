@@ -2943,3 +2943,33 @@ follow. This illustrates the value of waiting for both already-running first
 hosted reviews even after one clean response and an independent clean pass.
 
 Post-Copilot canonical result: Ran 2909 tests in 78.228s, OK. Format/lint and LRH0errors/351warnings pass.
+
+### Integrated outcome and process findings — 20:57 UTC
+
+PR #522 merged into codex/gettenberg-acquisition at46960f66 after final accepted
+head858f6da2 passed all four CI checks. Both first hosted reviews completed;
+Copilot's finding was independently reproduced, repaired, reverified and resolved.
+SHA-locked merge parent pair and exact accepted tree were verified. Post-merge
+checkpoint changes only control-plane evidence and links; native records stay
+in_progress and WI0008 stays proposed pending human-approved main promotion.
+
+The run finishes early, about40 minutes after20:18:59 start, because the scoped
+acceptance is met. Five of six assignments,18 conservatively charged worker
+minutes of45, peak two agents; three repair cycles (URL behavior, notebook hygiene,
+CLI input handling). No active worker remains. Shared usage snapshots changed
+47→50→0→3 percent during the run, so no defensible attributable weekly percentage
+is reported. Per-run credit/token cost is unavailable. No automatic continuation.
+
+What helped: a mature internal catalog/source API made dependency removal mostly
+consumer simplification; disjoint experiment work plus targeted independent review
+provided useful concurrency without broad delegation. Real-corpus identity scans
+caught a fixture gap. Keep local fixture comparisons separate from full-corpus
+claims. Inspect workflow-only notebook hygiene before opening future PRs. Waiting
+for both already-running hosted reviews found a valid CLI boundary issue that the
+local reviews missed. Use an independent targeted repair check rather than another
+whole implementation pass; preserve exact-head CI and authoritative thread reads.
+
+Next scoped item: WI0009, supported CI cache maintenance. Broader live/full-catalog
+and corpus qualification remains WI0010; no such download was performed here.
+A future main promotion remains human-gated. WI-RELEASE-0037 receives evidence,
+not automatic closure. The current worktree remains on the integration branch.

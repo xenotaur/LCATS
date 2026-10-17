@@ -91,12 +91,13 @@
     "lcats/tests/gettenberg_tests/migration_test.py": "6d6f922b475a3ce6819049937734b554a59a297d54948a0e54851c35dc42317d",
     "lcats/tests/gettenberg_tests/research_clients_test.py": "2debd5e1ce8dd131965f99e71e800544674d09e3aa35c96e72bc982cf4aa02bd"
   },
-  "independent_review": "one cold diff review, one verified P2 repaired, bounded recheck clean",
+  "independent_review": "initial cold review repaired nested URLs; exact-head PR review and subsequent independently verified Copilot repair; no remaining blockers",
   "fixture_corpus_comparison": "five matching cases per baseline WI0008 boundary; full live/corpus qualification remains WI0010",
   "corpus_identity_scan": "1868 stories, 48 nested URLs, zero failures after repair",
   "network": "no Gutenberg requests; dependency resolution used package index",
   "native_lifecycle": "in_progress/proposed pending human-approved main promotion",
   "product_commit": "3ed49415b900fa8bec825acf453272105860c6c0",
   "notebook_normalization": "nbstripout IDs/key ordering only after product review; executable cell hashes unchanged; all3 client tests and verify pass",
-  "post_hosted_repair": "KMo CLI directory validation; packaged library unchanged; full2909 tests passed; independent recheck pending"
+  "post_hosted_repair": "KMo CLI directory validation; packaged library unchanged; full2909 tests and independent exact-head repair verification pass",
+  "accepted_head": "858f6da28bf0a1a1951429afa46e506ee29bdc3b"
 }

@@ -43,3 +43,14 @@ pass. Authoritative hosted threads were empty at review time, not permanently.
 Verify Copilot repair and exact final head before internal integration. One
 substitute no-progress round at this point; the new actionable finding resets it.
 Native execution remains in_progress pending human-approved main promotion.
+
+
+## Repair follow-up at final accepted head
+
+Assignment 5 independently verified 858f6da28bf0a1a1951429afa46e506ee29bdc3b.
+Missing/file corpus roots changed from successful empty results to explicit exit2;
+empty directory still succeeds. Four client tests pass, all source hashes and
+2,909-test log evidence match, and prior package/corpus evidence remains applicable.
+Verdict: Clear-satisfied, no remaining actionable findings; integrate after CI.
+Charge two worker minutes, aggregate18/45. The coordinator subsequently observed
+all four passing exact-head checks and resolved the thread before merging.
