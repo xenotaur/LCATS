@@ -155,3 +155,25 @@ archive/resource route before implicit online first use. Explicit sources work;
 no default mirror is qualified. WI0008 still owns broader legacy consumer and
 dependency removal. Native status remains proposed/in_progress until human main
 promotion; no terminal closeout or automatic next run.
+
+## Staged default-profile acceptance — 2026-10-17
+
+PR521 internally merged at `94c6d8e789fbb394ac4c7823b7e77b5208f40d74`;
+accepted head `b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8`. This supersedes the
+explicit-only/default-route remainder above. Shared CLI defaults use the published
+RDF archive and qualified PGLAF root pair; explicit overrides, first-setup approval,
+offline dominance, ready reuse, curated isolation and refresh/rebuild separation
+remain intact. Lower-level APIs stay explicit and offline by default.
+
+Acceptance mapping: default/preparation/live-gather fixtures cover source-aware
+planning, approval, offline/denial/redirect behavior and shared setup; earlier and
+current mixed/metadata fixtures preserve bucket/body/normalization/override behavior.
+Canonical 2978 tests passed; focused 59 passed independently and by coordinator;
+Black/Ruff/LRH/readiness/diff checks passed. Both hosted first reviews have no
+code findings; all four exact-head CI checks passed. Merge parents/tree verified.
+Evidence: `project/development/evidence/gettenberg-default-profile-20261017/`.
+
+These are staged WI0007 implementation criteria, not a claim of full live archive
+or corpus qualification. No live requests were made in this run; dated operational
+endpoint evidence is retained from PR520. Broader legacy/dependency removal stays
+WI0008. Native status stays nonterminal until human-approved main delivery.

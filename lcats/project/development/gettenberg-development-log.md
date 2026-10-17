@@ -2775,3 +2775,39 @@ Implementation PR [#521](https://github.com/xenotaur/LCATS/pull/521) opened agai
 codex/gettenberg-acquisition at about 19:41 UTC. Product commit dca61929; native
 primary and self-review records linked to the PR. This bookkeeping tail changes
 no reviewed source/test/docs. Await first hosted reviews and exact-current-head CI.
+
+### Staged acceptance and completion — 2026-10-17 19:47 UTC
+
+PR [#521](https://github.com/xenotaur/LCATS/pull/521) internally merged at
+`94c6d8e789fbb394ac4c7823b7e77b5208f40d74`. Accepted head
+`b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8`, freshly checked base
+`d9ca9d184ebd5ebf8a195ffd364bf87817a37292`. SHA-locked command confirmed
+MERGED; parent pair and tree==accepted-head verified. Both first hosted reviews
+clean; Copilot's earlier coverage-pending note superseded by final success. All
+four exact-head CI checks pass. No unresolved threads; empty routine gate passed.
+
+Canonical 2978 tests/59 focused, independent review, CLI previews, format/lint,
+LRH 0 errors/351 warnings, readiness and source hashes establish staged acceptance.
+Product head dca61929 is unchanged through the PR-linkage tail. Full receipts and
+acceptance mapping are in evidence/gettenberg-default-profile-20261017/ and the
+WI0007 staged acceptance section. Native statuses remain nonterminal.
+
+One assignment, two conservatively charged worker minutes, peak two agents,
+zero product repair cycles and no active workers. Approximately fifteen minutes
+elapsed, finishing before the 20-minute target/30-minute hard limit. Shared usage
+43% launch, 45% review checkpoint, 47% final; no attributable per-run cost meter.
+No live Gutenberg requests, corpus rewrite, dependency removal, main promotion,
+persistent consent update, scope expansion or automatic continuation.
+
+Process findings: a qualified endpoint decision and explicit lower-level APIs
+made default selection a small CLI change. Existing authored end-to-end fixtures
+provided realistic cache/approval/publication coverage without live downloads.
+One compact cold review and unchanged-source hosted acceptance were sufficient;
+no implementation workers or second review assignment were needed. Wrapper
+capability detection remains an LRH follow-up; do not patch unrelated harness
+commands during a bounded feature run. Post-merge evidence avoids another product
+review cycle while preserving exact accepted head/base/CI and nonterminal lifecycle.
+
+Next bounded task: WI0008 legacy-consumer/dependency migration, starting from a
+fresh inventory of remaining gutenbergpy usage. Full live-client/archive and corpus
+qualification remain separately bounded; eventual main promotion is human-gated.
