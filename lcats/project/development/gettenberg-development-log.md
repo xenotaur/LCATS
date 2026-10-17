@@ -2385,3 +2385,23 @@ worker minutes remain (15 reserved). First hosted rounds and final-headCI pendin
 A read-only gh lookup hit sandbox networking; one escalated retry succeeded.
 No policy/credential modification. PR description corrected to distinguish
 completed independent review from pending hosted reviews before publication.
+
+Hosted qualification — 02:39 UTC: all four CI checks passed on68ac68d9; both
+first hosted rounds completed. Copilot reported no code issues, with a general
+request for final human review of authorization changes. The approved charter
+explicitly delegates internal integration review to the coordinator; main approval
+remains human and is not inferred from this review. Codex identified one P2:
+nested help says cli.py setup rather than lcats catalog setup. Coordinator
+reproduced the exact usage line via python -m lcats.cli catalog setup --help.
+Fix: give the parent parser its final program name; add behavior regressions
+for status/setup/refresh/rebuild help, ensuring no cache writes. Requalify and
+use assignment2/6 for independent repair verification. No manual bot retrigger.
+
+Repair qualified — 02:42 UTC:2943 canonical tests pass in71.502s;24 focused
+pass; format/lint/LRH/readiness/diff pass. Independent assignment2 verified actual
+help for all four operations with correct command prefixes and no files created,
+24 focused tests, and all12 repaired hashes. No findings. Only parser program
+name and its test changed in product files. Shared weekly usage31% before this
+assignment (account-wide, not attributable). Two assignments used, worker occupancy
+under7 cumulative minutes conservatively, peak2 agents. No manual hosted retrigger.
+Publishing repair and waiting for its exact-headCI before resolving/integrating.

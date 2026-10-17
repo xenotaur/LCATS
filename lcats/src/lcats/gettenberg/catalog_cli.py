@@ -13,7 +13,9 @@ from lcats.gettenberg import resources
 
 def build_parser(add_help=True):
     """Build explicit catalog operations; no implicit default mirror exists."""
-    parser = argparse.ArgumentParser(add_help=add_help, description=__doc__)
+    parser = argparse.ArgumentParser(
+        prog="lcats catalog", add_help=add_help, description=__doc__
+    )
     commands = parser.add_subparsers(dest="catalog_command", required=True)
     for name in ("status", "setup", "refresh", "rebuild"):
         command = commands.add_parser(name)

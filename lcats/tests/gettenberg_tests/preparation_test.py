@@ -187,6 +187,21 @@ class PreparationTests(unittest.TestCase):
         )
         return json.loads(message), code
 
+    def test_nested_help_uses_the_executable_command_prefix(self):
+        for operation in ("status", "setup", "refresh", "rebuild"):
+            with (
+                self.subTest(operation=operation),
+                mock.patch.object(sys, "stdout", io.StringIO()) as output,
+            ):
+                with self.assertRaises(SystemExit) as exited:
+                    cli.dispatch("catalog", [operation, "--help"])
+                self.assertEqual(exited.exception.code, 0)
+                self.assertTrue(
+                    output.getvalue().startswith(f"usage: lcats catalog {operation} "),
+                    output.getvalue(),
+                )
+        self.assertFalse(self.cache.exists())
+
     def test_cli_status_and_dry_run_need_no_approval(self):
         report, code = self.command("status")
         self.assertEqual((report["state"], code), ("missing", 0))

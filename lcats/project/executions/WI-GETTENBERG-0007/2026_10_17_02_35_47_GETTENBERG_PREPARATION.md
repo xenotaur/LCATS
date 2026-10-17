@@ -39,3 +39,8 @@ First hosted rounds and exact-headCI remain pending; no integration acceptance y
 
 Qualify hosted reviews and exact-headCI. Then internal staged integration only;
 no human main promotion or terminal closeout is authorized by this record.
+
+Repair verification:2943 canonical tests pass in71.502s;24 focused tests pass.
+Independent assignment2 verified all four real CLI help outputs, no cache writes,
+all12 repaired hashes and24 focused tests. No findings remain from that check.
+Both first hosted rounds complete; thread disposition and repaired-headCI pending.
