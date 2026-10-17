@@ -131,3 +131,27 @@ default archive/resource route before implicit online first use. Broader migrate
 collection integration tests accompany that work. Explicit-source standalone
 commands do not imply default mirror qualification. Dependency removal remains
 WI0008; main promotion and terminal closeout still require human approval.
+
+## Staged live-gather acceptance — 2026-10-17
+
+PR519 internally merged at ba4b137b721b71a23f13395f49cf4585e6861bce;
+accepted head 461d845ea29c5e72485071338647ed1d5596a385. Canonical2966 tests,
+23 authored migration tests, format/lint, LRH/readiness and all four exact-headCI
+checks pass. Cold review found a physical-line-ending regression; it was
+independently reproduced, repaired at the extractor handoff and independently
+reverified. Both first hosted rounds have no code findings. Merge parents/tree
+and32 product/test/doc hashes verified. Evidence:
+project/development/evidence/gettenberg-live-gather-20261017/integration.json.
+
+Delivered: live mass_quantities access through the new catalog, original-byte
+store, strict decoder and conservative cleanup; shared first-setup approval;
+command-wide offline and cache-root plumbing; representative bucket/body/filter/
+normalization/override preservation; retained source/catalog provenance and
+nonreplacement output publication. Existing outputs are reused, no corpus rewritten.
+
+This supersedes the live-consumer/offline migration remainder in the earlier
+preparation tranche. Whole-item acceptance still needs an operational default
+archive/resource route before implicit online first use. Explicit sources work;
+no default mirror is qualified. WI0008 still owns broader legacy consumer and
+dependency removal. Native status remains proposed/in_progress until human main
+promotion; no terminal closeout or automatic next run.

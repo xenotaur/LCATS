@@ -1,0 +1,39 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/519",
+  "base_branch": "codex/gettenberg-acquisition",
+  "accepted_head": "461d845ea29c5e72485071338647ed1d5596a385",
+  "reviewed_product_head": "546f03de188819e57625e08e227840eccdf24f36",
+  "merge": "ba4b137b721b71a23f13395f49cf4585e6861bce",
+  "merged_at": "2026-10-17T08:52:40Z",
+  "parents": [
+    "404c23043af7b9eeb86936a00c32194b8fbb384d",
+    "461d845ea29c5e72485071338647ed1d5596a385"
+  ],
+  "tree_equals_accepted_head": true,
+  "product_hashes_verified": 32,
+  "independent_review": "one P1 reproduced, repaired, independently reverified; no remaining findings",
+  "hosted_first_rounds": "Copilot and Codex read in full; no code findings; all pagination exhausted",
+  "authority": "coordinator acceptance under human-approved bounded charter; integration branch only",
+  "canonical_tests": 2966,
+  "focused_tests": 23,
+  "exact_head_ci_success": 4,
+  "main_promoted": false,
+  "native_status": "in_progress",
+  "work_item_status": "proposed",
+  "assignments": 2,
+  "worker_minutes_conservatively_charged": 8,
+  "peak_agents_including_coordinator": 2,
+  "usage_percent_used": {
+    "launch": 32,
+    "checkpoint_before_review": 35,
+    "before_reverification": 36,
+    "closeout": 39
+  },
+  "usage_caveat": "shared account readings; no per-run token/cost attribution available",
+  "remaining": [
+    "Operational default archive/resource-route qualification",
+    "WI0008 legacy consumer/dependency migration",
+    "Human-approved main promotion and native closeout"
+  ],
+  "evidence_only_checkpoint": "follow-up commit containing this artifact; no product edits or new full-suite claim"
+}

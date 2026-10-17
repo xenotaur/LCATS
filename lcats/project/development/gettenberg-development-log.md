@@ -2548,3 +2548,42 @@ commit546f03de188819e57625e08e227840eccdf24f36. Native primary and self-review
 records are linked and in_progress. One read-only GitHub lookup failed in the
 restricted network context; exact retry under approved network access succeeded.
 No mutation was blindly retried. First hosted review andCI rounds pending.
+
+## Overnight live-gather acceptance — 2026-10-17 08:53 UTC
+
+PR519 internally merged08:52:40 UTC at ba4b137b721b71a23f13395f49cf4585e6861bce;
+accepted head 461d845ea29c5e72485071338647ed1d5596a385. First Codex review completed
+without findings; Copilot reported no code issues and a general human/pending-gates
+caution. Fresh exact-headCI now passes all4 checks. Coordinator accepts internal
+integration under the existing human charter; this is not new human main approval.
+All review/comment/thread pages read, none unresolved. Both bots reviewed product
+head546f03de; later461d845e only adds control-plane evidence/links. All32 source/
+test/doc hashes match the reviewed and locally validated product. Fresh base404c2304
+verified before merge; parents[base,head] and tree==head verified after.
+
+Canonical2966 tests77.335s; migration23; independent reviewer182 before repair and
+184 after; format/lint/LRH0errors351warnings/readinessyes/diffchecks pass. Both
+hosted first rounds are preserved with exact-headCI evidence. One successful
+repair cycle,2 assignments and8 conservatively charged worker minutes, peak2
+agents. No active worker, no live Gutenberg download, no main/corpus/dependency
+changes. Shared weekly usage39% used at08:53 versus32% launch; not an attributed
+run cost. Target09:57:23/hard10:57:23 remain unexhausted; scope completion ends
+this grant early. Remaining: operational default-source qualification and WI0008
+legacy/dependency migration, then human main promotion and native closeout.
+
+Process learning: boundary-preserving components can break legacy consumer
+assumptions; CRLF/CR fixture equivalence caught a false-success exclusion that
+2964 green tests did not cover. Keep an independent end-to-end reviewer and
+reserve a repair-verification assignment. Compact-context review plus a specific
+repair recheck sufficed; no additional implementation workers were needed.
+Record-execution output filenames must be consumed, not reconstructed from label
+suggestions. Gate scripts should stop on command failure and store raw validation
+output as JSON: ignored .log files and trailing blank lines in raw .txt evidence
+otherwise interrupt publication without affecting product correctness. A tools-
+version report initially omitted PYTHONPATH and inspected another editable checkout;
+rerun with this worktree pinned. All actual tests used the pinned worktree.
+First product/evidence commit messages omitted prompt ID; PR and native records
+carry it, and the final checkpoint commit includes it without rewriting history.
+CI/review evidence-only tails should be recognized by verified source hashes to
+avoid unnecessary hosted retriggers while still requiring exact-current-headCI.
+No process change is implemented in LRH by this experiment.

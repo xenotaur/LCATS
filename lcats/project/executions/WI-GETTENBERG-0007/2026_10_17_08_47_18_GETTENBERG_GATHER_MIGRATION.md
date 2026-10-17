@@ -5,7 +5,7 @@ work_item: WI-GETTENBERG-0007
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/519
-commit: 546f03de188819e57625e08e227840eccdf24f36
+commit: 461d845ea29c5e72485071338647ed1d5596a385
 created_at: 2026-10-17T08:47:18+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md
@@ -29,3 +29,14 @@ Canonical scripts/test:2966 pass in77.335s. Focused migration23 pass; independen
 # Follow-up
 
 Qualified internal integration remains subject to hosted reviews and exact-headCI. Operational default-source qualification and WI0008 legacy/dependency migration remain. Native execution/WI status stays nonterminal until human-approved main promotion. No automatic renewal.
+
+# Staged internal acceptance
+
+Merged PR519 into codex/gettenberg-acquisition at ba4b137b721b71a23f13395f49cf4585e6861bce
+on 2026-10-17T08:52:40Z. Both first hosted rounds read in full; no code
+findings. Copilot's general caution concerned still-pending gates; current checks
+are complete and the human charter delegates internal acceptance to coordinator.
+All four CI checks passed on accepted head; merge parents/tree and reviewed-source
+identity verified. Evidence-only tail does not change the reviewed product.
+See project/development/evidence/gettenberg-live-gather-20261017/integration.json.
+Status remains in_progress; main promotion and terminal closeout were not performed.

@@ -29,3 +29,9 @@ Reviewer ran182 focused tests initially and184 after repair; diff checks passed.
 # Follow-up
 
 PR/primary links backfilled after creation. Native status stays in_progress until human-approved main promotion; internal acceptance alone is not terminal closeout.
+
+# Staged internal acceptance
+
+PR519 internally integrated with both hosted first rounds and all exact-headCI
+checks clear. No manual bot retriggers or substitute hosted-review rounds.
+Native status intentionally remains in_progress pending human-approved main.
