@@ -43,7 +43,12 @@
     "experiments/05_metadata_genre_prefilter/run_prefilter.py": "27e39edf2dd32226f9ce241a41fe41c87a29f6c88abb97651ac245e7cf9ce0dd",
     "experiments/05_metadata_genre_prefilter/run_prefilter_test.py": "4e14d819074eaf4e53cfc4460fc479a956b358ebd1125428b0cb699a62550b33",
     "experiments/10_gettenberg_qualification/README.md": "2205797abafbb30c8ae3d62d6d14507548cff33e6899668aa6198405f3ecad14",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb": "111853e468a1718ff0ba9432c12969230887899a6b6abe52d6721d034f91e37c",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb": "59637560b15c344ec231aebca3dc61891213279c22b7324e5a71a846397ae51f",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/README.md": "38a65c6115eed07f536c74f3eade89bb8cf79b81b16b85320cd901aca5a49a25",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/manifest.json": "3bd23de2a45c46f83cc1278958cf380811e54d5975649115fbddc777f11015b1",
     "experiments/10_gettenberg_qualification/scripts/probe_legacy.py": "5dd2ba4f36b016759c1d70e22a67f509be3e7997c07269e9779e05eb8f7aa17d",
+    "experiments/10_gettenberg_qualification/scripts/qualify_migration.py": "681869a5f2b8d54c6ba652ccfc50d5d8b2d30b6f043131c81d94f39ccd53c0c7",
     "lcats/KMo/genre.py": "324fc2f55bb0598b1ffe99ba564af646e187be4b7c744aa2b89451132e15b9cf",
     "lcats/docs/how-to/gettenberg-catalog.md": "54107cc3ff55d86c0c343f488e932ec0970e54e75c2725bb95553c4559c177c1",
     "lcats/docs/how-to/gettenberg-migration.md": "98e235cfdb02592192d1b777c7994c982fa2e12e83d7ef0f70d6a408e3be0e4d",
@@ -83,5 +88,6 @@
   "fixture_corpus_comparison": "five matching cases per baseline WI0008 boundary; full live/corpus qualification remains WI0010",
   "corpus_identity_scan": "1868 stories, 48 nested URLs, zero failures after repair",
   "network": "no Gutenberg requests; dependency resolution used package index",
-  "native_lifecycle": "in_progress/proposed pending human-approved main promotion"
+  "native_lifecycle": "in_progress/proposed pending human-approved main promotion",
+  "product_commit": "3ed49415b900fa8bec825acf453272105860c6c0"
 }

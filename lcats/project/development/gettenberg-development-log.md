@@ -2909,3 +2909,7 @@ Python source entries match exactly; all seven repair/client tests pass. An
 unbound tools-version command briefly reported the shared base environment;
 repeated with the same LCATS PATH/PYTHONPATH used for all product checks. No
 validation claim relies on that unbound version output. Ready for first push.
+
+Internal PR#522 opened at product head3ed49415b900fa8bec825acf453272105860c6c0,
+target codex/gettenberg-acquisition. PR-linkage/evidence tail changes no product
+source. Awaiting first automatic hosted review and exact-head CI; no retrigger.
