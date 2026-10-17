@@ -2678,3 +2678,41 @@ gate passed. No reviewer finding is dismissed or deferred. This confirmation
 checkpoint will receive a cold PR-mode review and exact-head CI before merge.
 No local Python format/lint/product test rerun for data/docs-only changes; those
 checks are covered by required current-head hosted CI, not claimed as local runs.
+
+### Accepted internal integration — 2026-10-17 17:37 UTC
+
+PR [#520](https://github.com/xenotaur/LCATS/pull/520) merged into
+`codex/gettenberg-acquisition` at `eb4888e950c34130ade25f833f968047c9562525`.
+Accepted head `1dcdd77147e4994c936d2db737f6f369c5ec5920`; fresh base
+`c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833`. SHA-locked merge verified via PR
+state, exact parent pair and merge tree equality. Both hosted threads resolved;
+one cold current-head substitute review found no substantive issues; all four
+exact-head CI checks passed. Local LRH validation: 0 errors, 351 existing warnings.
+Data/docs-only scope; no new local product-test pass claimed.
+
+Acceptance-to-evidence mapping: retained-byte criterion is covered by matching
+original lengths/hashes and reviewer byte equality; policy/endpoint recommendation
+is covered by dated probe metadata plus explicit limits; review and CI gates are
+covered by [integration receipts](evidence/gettenberg-default-source-20261017/integration.json).
+Independent reviewer encountered a later GitHub connectivity failure while reading
+CI; coordinator verified CI separately. No exception was taken on acceptance.
+
+One repair cycle, one assignment, two conservatively charged worker minutes,
+peak two agents. No worker remains active. Shared usage 41% at launch and 43%
+at checkpoint; account-wide values are not attributed sprint cost. Approximately
+ten minutes elapsed, finishing before target; no renewal or scope expansion.
+Native statuses remain nonterminal. No new Gutenberg requests, product defaults,
+main promotion, corpus mutation, dependency change or persistent consent update.
+
+Process learning: a hash demonstrates identity only when original sample bytes
+remain available for audit. Retain small bounded samples with explicit encoding
+and hashes in the first research checkpoint. Base64 avoids accidental CRLF or
+truncated-line normalization in text tooling. Validate decoded bytes, not encoded
+text. A cold reviewer checked the repaired evidence; CI ran on the unchanged
+reviewed head while the coordinator waited. Final acceptance bookkeeping is
+recorded after merge to avoid an endless review/evidence-commit cycle.
+
+Next grant: implement the documented overridable default-source profile at the
+CLI/preparation boundary, including smart setup approval, offline behavior,
+curated-only isolation, fixture coverage and user documentation. This integration
+sprint does not authorize that implementation automatically.
