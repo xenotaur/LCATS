@@ -2913,3 +2913,14 @@ validation claim relies on that unbound version output. Ready for first push.
 Internal PR#522 opened at product head3ed49415b900fa8bec825acf453272105860c6c0,
 target codex/gettenberg-acquisition. PR-linkage/evidence tail changes no product
 source. Awaiting first automatic hosted review and exact-head CI; no retrigger.
+
+### Hosted CI hygiene repair — 20:45 UTC
+
+Initial lint job39067928164 failed its additional nbstripout --verify step on the
+three rewritten notebooks. Local canonical format/lint do not include this check.
+nbstripout0.9.1 normalized only cell IDs and JSON key ordering; all cell source
+hashes are unchanged. Full notebook verify and three client tests pass. No CI
+configuration or archived notebooks changed. Record this as a second repair cycle
+(hygiene), not a product behavior change; local2908-test result and wheel remain
+applicable. Future notebook assignments should inspect workflow-only hygiene
+checks before first push. Automatic first hosted review is still running.

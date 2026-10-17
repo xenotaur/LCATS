@@ -57,11 +57,11 @@
     "lcats/docs/reference/gettenberg-network.md": "b1ae9854d73c1fb5e9315887f19e9a7f832390d66149f094993c0248d5666606",
     "lcats/docs/reference/prepare-corpora-release.md": "43ff9796c19e6a4fd9cfd967e6df2b5a81333a1d00d2d838cc373eb9f90e6b9b",
     "lcats/environment.yml": "587d45cd14a9156d4101562c5e3bd538695a846a49d9dabfddfc2d3dd4b3c3ac",
-    "lcats/notebooks/01_gatherers.ipynb": "115c9f8d3d5ea71d5239a832434782a22a1710cb7761d2f6a956519e5b3da720",
-    "lcats/notebooks/02_extractors.ipynb": "7c31965d29ffd64cc40c88e55579afd4a9fbec86a6107c2a3750e3b2c4def417",
+    "lcats/notebooks/01_gatherers.ipynb": "bd3161a4d3a087596fb925cfbb49d792854c7723bdec043827b11e627e7a19dc",
+    "lcats/notebooks/02_extractors.ipynb": "3dd1f991780a6b97e41f855dede3b581b6e8e6b6bad8abcfed9b6c58dac4dfc5",
     "lcats/notebooks/10_debug_gutenberg.ipynb": null,
     "lcats/notebooks/14_fix_gettenberg.ipynb": null,
-    "lcats/notebooks/15_reconcile_files.ipynb": "b903e7fd85342ad2664f4b5a2aff045fa1135962614f13f7bc4c51967fdc1823",
+    "lcats/notebooks/15_reconcile_files.ipynb": "f74f7494f45eccf47557b694c042de3155a29a80a7599d1a76e3e43424831c76",
     "lcats/notebooks/15_reconcile_files.py": "cd0f62cf6a1bb62cd69f76764abe131aac557afa62d538f6af3be21fd5af2ed4",
     "lcats/pyproject.toml": "9edf8cda16161e43fac22467c447eab4d6fd3d9881925327bdd379be251a3e99",
     "lcats/src/lcats/analysis/corpus/clean_cli.py": "5de7b175ca29a0e809984e4620f3ba1fb64eca60592dd9fa8382ceae18f1be61",
@@ -89,5 +89,6 @@
   "corpus_identity_scan": "1868 stories, 48 nested URLs, zero failures after repair",
   "network": "no Gutenberg requests; dependency resolution used package index",
   "native_lifecycle": "in_progress/proposed pending human-approved main promotion",
-  "product_commit": "3ed49415b900fa8bec825acf453272105860c6c0"
+  "product_commit": "3ed49415b900fa8bec825acf453272105860c6c0",
+  "notebook_normalization": "nbstripout IDs/key ordering only after product review; executable cell hashes unchanged; all3 client tests and verify pass"
 }
