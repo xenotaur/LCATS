@@ -2587,3 +2587,48 @@ carry it, and the final checkpoint commit includes it without rewriting history.
 CI/review evidence-only tails should be recognized by verified source hashes to
 avoid unnecessary hosted retriggers while still requiring exact-current-headCI.
 No process change is implemented in LRH by this experiment.
+
+## Default-source qualification sprint — 2026-10-17 15:16 UTC
+
+Human grant15min target/20min hard. Start15:16:23; target15:31:23; hard15:36:23.
+Basec167d74cfef5ae2d51b6c28b4c24e0d5ddc44833 freshly fetched and clean;
+origin/main210468236ff4db78d2d7c5218562fa2d166e6400. Research branch
+codex/gettenberg-default-source-qualification. WI0007 readinessyes; watched
+gates fresh, persistent skip consent invalid and unchanged. Shared usage39%
+used at launch. Prior PR519 staged migration is an ancestor. Scope: separately
+bounded operational check required by prior route qualification, not redoing
+its proven offline mapping. Default candidate remains listed PGLAF combined
+mirror; archive independent. One optional cold reviewer, four minutes maximum.
+Prompt PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_ROUTE_PROBE)[2026-10-17T15:16:57+00:00].
+Public robot, mirror list, mirroring and offline-catalog pages re-read; catalog
+and mirror access are the documented automation routes. No human-site ebook
+crawl or archive body download. Probe bounds recorded before access in charter.
+
+### Endpoint decision and review — 2026-10-17 15:25 UTC
+
+Six requests completed: archive/main/generated HEAD 200, robots 404 (missing
+file, not a permission inference), main/generated prefix GET 206. Total bodies
+8354 bytes; no archive payload. Recommend the official archive with the listed
+PGLAF combined mirror for the next default-profile implementation. Keep main and
+generated identities separate: observed sizes and prefix hashes differ.
+
+Evidence JSON and the qualification memo retain the decision, exact probe inputs,
+headers, bounded transfer metrics and next fixture/CLI work. No product defaults
+or source changed. Coordinator checks passed for counts, body bounds/hashes,
+TLS/redirect/time constraints and project-only scope. LRH validation: zero errors,
+351 existing warnings; diff whitespace check passed.
+
+Cold independent review: one assignment, two conservatively charged worker
+minutes, peak two agents, no substantive findings. The reviewer confirmed local
+probe and code evidence; linked policy summaries were not independently re-fetched.
+Coordinator separately checked body evidence, routing source and both archive
+limits. Review frozen-diff digest and limitations are in the side execution record.
+Shared usage at pre-review checkpoint: 40% used versus 39% launch; this is an
+account-wide observation, not attributed sprint cost.
+
+Process finding: a short run can close an endpoint decision with six tiny probes
+and a precise implementation handoff. Keep endpoint reachability, transport-client
+qualification and full-catalog validation distinct; do not spend a short sprint's
+budget on a large download or infer byte equivalence from common ebook IDs.
+Research PR is a nonterminal checkpoint; hosted gates and integration may follow
+in a separate grant. No automatic continuation, main promotion or WI closeout.
