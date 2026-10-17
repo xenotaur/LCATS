@@ -318,3 +318,22 @@ qualification is separate; no live automatic/bulk acquisition in this run.
 Routine design, bounded repairs and qualified integration-branch merges are
 authorized. No main promotion, corpus changes, dependency removal, persistent
 consent changes or material redesign. Preserve nonterminal native records.
+
+## Overnight live-gather grant — approved and activated 2026-10-17
+
+Human approved "Go for it!" after a two-hour target / three-hour hard-stop proposal.
+Start07:57:23 UTC (00:57 PDT); feature freeze/target09:57:23; hard stop10:57:23.
+Normally coordinator plus one reviewer, four total maximum, six assignments,
+45 cumulative worker minutes with15 reserved for review, individual at most30.
+All repair-verification dispatches consume assignment slots. Check elapsed time
+every15 minutes and shared usage at launch/hourly/before additional delegation.
+Final hour is repairs, validation, integration and checkpointing only. Finish early
+when qualified; no renewal, scope expansion, main promotion or broad dependency
+removal. No live Gutenberg bulk downloads or corpus changes. Explicit source
+configuration only; operational default mirror qualification remains separate.
+
+Scope: WI0007 mass_quantities live access via new catalog/acquisition/decoding/
+cleanup, setup approval and genuine offline enforcement, preservation/comparison
+fixtures and docs. Narrow adjacent curated-cache policy plumbing is necessary to
+make the command-wide offline flag truthful. The approved coordinator LRH adapter
+continues; internal qualified PR merges only, native records nonterminal until main.

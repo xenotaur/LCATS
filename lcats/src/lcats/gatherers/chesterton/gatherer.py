@@ -40,9 +40,11 @@ CHESTERTON_HEADINGS = [
 ]
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Chesterton stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Chesterton",
         target_directory=TARGET_DIRECTORY,
         description="Chesterton stories from the Gutenberg Project.",

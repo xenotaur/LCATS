@@ -636,7 +636,7 @@ class TestGatherStory(unittest.TestCase):
     def test_empty_subject_returns_early(self):
         """An empty subject causes gather_story to return early with an error."""
         gatherer = mock.MagicMock()
-        with mock.patch("lcats.gatherers.parser.api.get_metadata", return_value=[]):
+        with mock.patch("lcats.gettenberg.api.get_metadata", return_value=[]):
             with capture.suppress_output():
                 result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
@@ -653,9 +653,7 @@ class TestGatherStory(unittest.TestCase):
             author=["Smith, John"],
             alias=[],
         )
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
             with capture.suppress_output():
                 result = parser.gather_story(gatherer, 42)
         self.assertEqual(result[0], 42)
@@ -672,11 +670,9 @@ class TestGatherStory(unittest.TestCase):
             author=["Smith, John"],
             alias=[],
         )
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
             with mock.patch(
-                "lcats.gatherers.parser.api.load_etext",
+                "lcats.gettenberg.api.load_etext",
                 side_effect=Exception("network error"),
             ):
                 with capture.suppress_output():
@@ -694,14 +690,12 @@ class TestGatherStory(unittest.TestCase):
             alias=[],
         )
         chaptered_bytes = b"Chapter I\n\nmore\n\n\n\nmore\n\nmore\n\nmore\n\nmore\n\nsome content\n\nChapter II\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content"
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
             with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=chaptered_bytes
+                "lcats.gettenberg.api.load_etext", return_value=chaptered_bytes
             ):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with capture.suppress_output():
@@ -720,14 +714,10 @@ class TestGatherStory(unittest.TestCase):
             alias=[],
         )
         short_text = b"The Bell\n\nJohn Smith\n\nA short story."
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
-            with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=short_text
-            ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
+            with mock.patch("lcats.gettenberg.api.load_etext", return_value=short_text):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with capture.suppress_output():
@@ -748,14 +738,10 @@ class TestGatherStory(unittest.TestCase):
         body_paragraphs = "\n\n".join(["Paragraph {}.".format(i) for i in range(15)])
         story_text = "The Bell\n\nJohn Smith\n\n{}".format(body_paragraphs)
         etext = story_text.encode("utf-8")
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
-            with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=etext
-            ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
+            with mock.patch("lcats.gettenberg.api.load_etext", return_value=etext):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with mock.patch("builtins.open", mock.mock_open()):
@@ -812,7 +798,7 @@ class TestShowDataFunctions(unittest.TestCase):
                 "lcats.gatherers.parser.csv.reader", return_value=iter(rows)
             ):
                 with mock.patch(
-                    "lcats.gatherers.parser.api.get_metadata",
+                    "lcats.gettenberg.api.get_metadata",
                     return_value=frozenset(["something"]),
                 ):
                     with capture.suppress_output():
@@ -837,7 +823,7 @@ class TestShowDataFunctions(unittest.TestCase):
                 "lcats.gatherers.parser.csv.reader", return_value=iter(rows)
             ):
                 with mock.patch(
-                    "lcats.gatherers.parser.api.get_metadata",
+                    "lcats.gettenberg.api.get_metadata",
                     return_value=frozenset(["something"]),
                 ):
                     with capture.suppress_output():
@@ -869,14 +855,12 @@ class TestTestStoryGet(unittest.TestCase):
             alias=[],
         )
         chaptered_bytes = b"Chapter I\n\nmore\n\n\n\nmore\n\nmore\n\nmore\n\nmore\n\nsome content\n\nChapter II\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content\n\nmore content"
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
             with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=chaptered_bytes
+                "lcats.gettenberg.api.load_etext", return_value=chaptered_bytes
             ):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with capture.suppress_output():
@@ -893,14 +877,12 @@ class TestTestStoryGet(unittest.TestCase):
             alias=[],
         )
         short_bytes = b"The Bell\n\nJohn Smith\n\nA"
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
             with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=short_bytes
+                "lcats.gettenberg.api.load_etext", return_value=short_bytes
             ):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with capture.suppress_output():
@@ -917,14 +899,10 @@ class TestTestStoryGet(unittest.TestCase):
             alias=[],
         )
         story_text = b"The Bell\n\nJohn Smith\n\nOnce upon a time there was a story."
-        with mock.patch(
-            "lcats.gatherers.parser.api.get_metadata", side_effect=side_effect
-        ):
-            with mock.patch(
-                "lcats.gatherers.parser.api.load_etext", return_value=story_text
-            ):
+        with mock.patch("lcats.gettenberg.api.get_metadata", side_effect=side_effect):
+            with mock.patch("lcats.gettenberg.api.load_etext", return_value=story_text):
                 with mock.patch(
-                    "lcats.gatherers.parser.headers.strip_headers",
+                    "lcats.gettenberg.headers.strip_headers",
                     side_effect=lambda x: x,
                 ):
                     with mock.patch(
@@ -942,9 +920,9 @@ class TestGrabStory(unittest.TestCase):
     def test_returns_decoded_text(self):
         """grab_story returns the decoded text of the story."""
         etext = b"Some story text"
-        with mock.patch("lcats.gatherers.parser.api.load_etext", return_value=etext):
+        with mock.patch("lcats.gettenberg.api.load_etext", return_value=etext):
             with mock.patch(
-                "lcats.gatherers.parser.headers.strip_headers",
+                "lcats.gettenberg.headers.strip_headers",
                 side_effect=lambda x: x,
             ):
                 with capture.suppress_output():

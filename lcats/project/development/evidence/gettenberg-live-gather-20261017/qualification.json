@@ -1,0 +1,116 @@
+{
+  "run": "gettenberg-live-gather-20261017",
+  "work_item": "WI-GETTENBERG-0007",
+  "base": "404c23043af7b9eeb86936a00c32194b8fbb384d",
+  "source_sha256": {
+    "docs/how-to/gettenberg-gather.md": "296cc53b1573c6d38291897e654b7bd26dd93a45bdda42459b0e64682e7575d5",
+    "docs/how-to/gettenberg-preparation.md": "578588382db51301923510694b8728635b9382863d732713ca8c84f877fd6492",
+    "docs/index.md": "910880c6e44319435ccd2ce0399600682276ca36465e122b295d205cbf88be40",
+    "docs/reference/README.md": "a992dee245aebea72d8820e254cd3b8c0333191b84f289757d5b41881b9f1953",
+    "docs/reference/cli-commands.md": "a82867b7f430f5c508e0d2ca0fc5582adb15d66e66cd5db89ead0b56c54de28d",
+    "docs/reference/gettenberg-gather.md": "f690f38d876a3c8f5977eff390565da5ab8455c5a03a54022025a81cdc152cbb",
+    "docs/reference/gettenberg-preparation.md": "6d1323b460c5c6713af668d0df562a0654881a2f2f86d2c762887382d71232bc",
+    "src/lcats/cli.py": "7c2813aa82da505258063e51b0306d0d3fd5b0af8a84f7d893c0e0f2c8f107d5",
+    "src/lcats/gatherers/anderson/gatherer.py": "051883f04828b4e00e41a60c05a90c9cfe1a0bc794e4e721ddf67aeab7f8dbcb",
+    "src/lcats/gatherers/chesterton/gatherer.py": "f1d3c3019f7e1ae4abe7ae9e40c9476fd617a4b5544a3f49912a70d616f62c7f",
+    "src/lcats/gatherers/downloaders.py": "ad9ac05b23254dd1d595a3a9217d19602c460d474d64cd53609d2e03930a5eb4",
+    "src/lcats/gatherers/gatherlib.py": "7c2de17c082470136c9079f869c50556ed73944abc73b02682b37ba01472e318",
+    "src/lcats/gatherers/grimm/gatherer.py": "41d7830752c7f6303060b6c1c249b6317758f358eab3ea38f6050d5844d7c500",
+    "src/lcats/gatherers/gutenberg_source.py": "858a9061edf008b6ebdb998d34089640c7a5a1d1d4fff1088ee732e0c8f1e979",
+    "src/lcats/gatherers/hemingway/gatherer.py": "66e073813d4d79cfc246067aeabe846ea2b58f9cd74858399bd3b5fe74af7b47",
+    "src/lcats/gatherers/london/gatherer.py": "76cde183c3a0702b3906d28fa2ec3bb172b1e0e4accf6310bcc958e3036b3403",
+    "src/lcats/gatherers/lovecraft/gatherer.py": "d6e1f285b55647b3fb56de95659b4a83a39869edd8f6a06fc25ab04d4ac1a1c7",
+    "src/lcats/gatherers/main.py": "c84dbc187e15ea6b733678f48c7c512d3459e7a565a509a3da1417bb07085244",
+    "src/lcats/gatherers/mass_quantities/gatherer.py": "f981e8617f4c9cf92bb14a9f423dcba2a2894a4405c0b5fe15969859c6d0cbc2",
+    "src/lcats/gatherers/ohenry_four_million/gatherer.py": "92207737c276713cf44f44b99f4eacf26f935a60727e9aef6b8e63efec494764",
+    "src/lcats/gatherers/ohenry_whirligigs/gatherer.py": "a5b57b541eb97e37ab3a8b6358423e00c9bc1d3cfd92f75814762bc76ad7543f",
+    "src/lcats/gatherers/parser.py": "0f86859cf1f435f8d31654b88d4178fe72b54e104d6a20e53b20d696b254b21b",
+    "src/lcats/gatherers/sherlock/gatherer.py": "5448bf75c3f428e529b2d529e284012ac93a053fccd88d5137f86a97a9b38390",
+    "src/lcats/gatherers/story_output.py": "40c40e88dc2f61294cca9ae7a64446ed5d03aa29c663d49d4624d83f5a7e254f",
+    "src/lcats/gatherers/wilde_happy_prince/gatherer.py": "48d205eb9bc59fd209d203cd2070524f8b1f66f5880e592e297a5d9b7416674b",
+    "src/lcats/gatherers/wodehouse/gatherer.py": "9a6f6cac7fb0f85cc752ed668f6b688f5980eb61aa1f1ba99e3926488b79f60c",
+    "src/lcats/gettenberg/approval_cli.py": "ec252926d97413eaccced562ba425f8459726a55612ddf8f933bcf4b3dba6e38",
+    "src/lcats/gettenberg/catalog_cli.py": "f04ebedf78863d8e5eb04d426bf72125ad40ef0b3cddc6f0778a5c6f5ff790c4",
+    "tests/cli_test.py": "7cb0d56e4e6b6022436ab02f545971445394bdca5fa4cb9fa9ca6dc976f91c00",
+    "tests/gatherers_tests/live_gather_test.py": "35d344d3d1ffe7b35faae78db74234ec7217c052145514dea7bb1340a1e42fbf",
+    "tests/gatherers_tests/mass_quantities_test.py": "f8f2c4452f294ad732bfc8599fe41ec2d8ad129c512b1956ccc623046fa8e73e",
+    "tests/gatherers_tests/parser_test.py": "b54b2aa5bcd6e142f2320dc95ed2dd84e72c9b6bbbbc0b76818a732c189c449c"
+  },
+  "canonical": {
+    "command": "scripts/test",
+    "exit": 0,
+    "tests": 2966,
+    "seconds": 77.335
+  },
+  "focused": {
+    "command": "scripts/test tests.gatherers_tests.live_gather_test",
+    "exit": 0,
+    "tests": 23
+  },
+  "format": {
+    "command": "scripts/format --check --diff",
+    "exit": 0
+  },
+  "lint": {
+    "command": "scripts/lint",
+    "exit": 0
+  },
+  "lrh": {
+    "errors": 0,
+    "warnings": 351
+  },
+  "readiness": "yes",
+  "diff_check": 0,
+  "manual_checks": [
+    "64 relative documentation file links verified",
+    "Actual gather help contains every documented new flag",
+    "Actual offline dry-run in empty directory creates no files and reports missing routes"
+  ],
+  "independent_review": {
+    "agent": "/root/live_gather_review",
+    "assignment": 1,
+    "mode": "cold-context diff",
+    "snapshot_sha256": "79138f8f6d5018d06d14e034858c4dc85e6b2ac2765ed708d83c99877d2e215d",
+    "files_reviewed": 35,
+    "tests": 182,
+    "findings": [
+      {
+        "priority": "P1",
+        "finding": "CRLF/CR story text misclassified as too short by LF paragraph heuristics",
+        "coordinator_reproduction": "Real authored LF/CRLF/CR runs returned exit0 with output counts1/0/0",
+        "repair": "Normalize CRLF/CR only at heuristic extractor handoff; retain original bytes and decoder/cleanup text",
+        "status": "repaired and independently verified"
+      }
+    ],
+    "other_actionable_findings": 0,
+    "worker_occupancy_charged_minutes": 4
+  },
+  "repair_verification": {
+    "agent": "/root/live_gather_review",
+    "assignment": 2,
+    "status": "passed",
+    "repair_diff_sha256": "03fee0ea48c006bccd2ef7e3c4e5eb917725fb8cc316ab772c39d776c9e915eb",
+    "tests": 184,
+    "scenarios": [
+      "LF",
+      "CRLF",
+      "CR",
+      "mixed physical line endings"
+    ],
+    "invariants": [
+      "identical expected extracted body",
+      "original bytes unchanged",
+      "decoded and cleanup evidence unchanged",
+      "output provenance equals source provenance"
+    ],
+    "worker_occupancy_charged_minutes": 4
+  },
+  "limits": [
+    "Explicit routes only; no operational default mirror qualified",
+    "No live Gutenberg downloads or corpus rewrite",
+    "Legacy experimental helpers and external dependency remain",
+    "No main promotion or terminal LRH closeout"
+  ],
+  "hosted_review": "not yet opened",
+  "exact_head_ci": "pending"
+}

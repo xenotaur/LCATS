@@ -42,9 +42,10 @@ Only actionable missing setup prompts, only on an interactive input stream;
 Catalog source arguments are explicit; refresh/rebuild require an active catalog.
 See the [command guide](../how-to/gettenberg-preparation.md) for flags and examples.
 
-This is a staged WI-0007 API. Gather dry-run uses collection requirements; actual
-metadata-dependent gather execution still uses legacy consumers. No gather-level
-offline or setup-approval contract is claimed until that migration is complete.
+Gather dry-run and live execution both use collection requirements. Live
+metadata-dependent gathering composes this setup policy with the new source API;
+see [gather contracts](gettenberg-gather.md). Operational default mirrors remain
+unconfigured.
 
 ## Composing collection requirements with setup policy
 
@@ -63,5 +64,4 @@ assert plan.action == "not_required"
 
 For a metadata-dependent workflow, configure an explicit archive/request, show
 `service.plan()` to the user, then call `prepare(approved=True)` only after setup
-approval. This example is the new preparation contract, not a bridge to legacy
-`mass_quantities` execution.
+approval. Live `mass_quantities` execution uses this same preparation contract.

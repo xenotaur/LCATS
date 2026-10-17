@@ -47,9 +47,11 @@ def find_paragraphs_london(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Jack London stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="london",
         target_directory=TARGET_DIRECTORY,
         description="london stories from the Gutenberg Project.",

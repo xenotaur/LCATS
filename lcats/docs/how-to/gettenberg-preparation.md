@@ -1,7 +1,7 @@
 # Plan gathering and prepare a catalog
 
 Run from `LCATS/lcats` in the project environment. These commands use
-`LCATS_CACHE_DIR` (default `cache`); catalog commands also accept `--cache-dir`.
+`LCATS_CACHE_DIR` (default `cache`); catalog and gather commands also accept `--cache-dir`.
 
 ## Inspect requirements first
 
@@ -18,13 +18,12 @@ needs metadata for enrichment/filtering of its fixed ebook IDs. No collection
 implementation is imported by dry-run, and no LCATS or plotting cache is created.
 An unknown collection fails with exit 2 before gathering starts.
 
-**Migration boundary:** actual `lcats gather` still runs the existing consumers.
-In particular, `mass_quantities` uses the legacy catalog and text APIs. Preparing
-the new catalog below does not configure those APIs. Gather-level `--yes` and
-`--offline` are not available yet; their enforcement must accompany consumer
-migration. Existing extraction, normalization, overrides and bucket paths remain
-unchanged. Do not use this staged implementation as evidence that the external
-`gutenbergpy` dependency can already be removed.
+Actual `mass_quantities` gathering now uses the new catalog, original-byte store,
+strict decoder and conservative boilerplate cleanup. Setup and offline policy
+are enforced on that live path. Curated fixed-URL HTML collections use their
+existing source cache with the same offline restriction. See
+[gather with explicit sources](gettenberg-gather.md) for the complete workflow.
+Legacy experimental helpers still exist; dependency removal is a later tranche.
 
 ## Set up from an existing archive
 
