@@ -2289,3 +2289,119 @@ recheck allowance plus interruption required one explicit renewal; the narrow
 repair and verification then completed without more design expansion. Record
 recheck budgets separately from elapsed-time budgets, and retain a specific
 resume packet (head/base, finding, reproduction, fixture gap, outstanding gates).
+
+## Preparation run launch — 2026-10-17 01:54 UTC
+
+Human approved the proposed unattended run. Start01:54:42 UTC, target03:54:42,
+hard04:54:42. Integration base549383c0a2feb5fb8ab58d9afad7c4732186a225;
+main210468236ff4db78d2d7c5218562fa2d166e6400. Clean checkout and fresh origin
+confirmed. Branch codex/gettenberg-preparation; parent codex/gettenberg-acquisition.
+Prompt PROMPT(WI-GETTENBERG-0007:GETTENBERG_PREPARATION)[2026-10-17T01:57:51+00:00];
+idempotence found no existing execution. Prior-art check present in WI.
+
+Preflight: LRH0.2.5.dev3596+gd86755f50, Python3.11.9, Black25.11.0, Ruff0.15.0.
+Project environment /Users/centaur/anaconda3/envs/LCATS, PYTHONPATH pinned to
+this checkout/src. Backend Codex, session-selected model without override.
+Read root/package/tests AGENTS and STYLE; use installed lrh-implement via the
+approved coordinator adapter (plan authority/integration base differ from its
+ordinary human/main flow). Skill path /Users/centaur/.agents/skills/lrh-implement/SKILL.md,
+SHA256 48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165.
+Watched claude/codex gates clean; skip consent invalid and unchanged. Shared
+weekly usage27% at launch; per-run tokens/cost unavailable. Managed checkout
+requires scoped filesystem escalation; no new authority inferred from it.
+
+Dependency mapping before implementation: WI0004 canonically resolved by PR508
+merge35f80fb53c1820ff70708df0ab049266f25dc3c7. WI0005 independently accepted
+acquisition/refresh/composition/routing tranches through PR516 merge
+26f3828e7235ea6f388d5a4e2671b88387a16151 support explicit SourceRequest,
+ResourceStore and CatalogManager composition (evidence directories
+gettenberg-refresh/catalog/routing-20261015). WI0006 accepted PR517 merge
+2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2, cleanup qualification/integration
+JSON,33 focused/2919 canonical tests and independent verification. All three
+merge commits are ancestors of this base. WI0005 default operational mirror
+remains unqualified; no default source is invented. Native readiness says yes
+but is not used as substitute for these staged acceptance mappings.
+
+Coordinator design decision before code: introduce small immutable collection
+requirements and a read-only preparation plan; a separate execution operation
+rechecks state and requires explicit setup approval. Fixed URL/local collections
+need no catalog unless they explicitly request discovery/enrichment. Preparation
+never refreshes a ready catalog or replaces outputs. Explicit local archive or
+caller-specified archive request/policy only; offline dominates network authority.
+Invalid catalog state fails closed. Dry-run returns before mutations or prompts.
+CLI catalog setup/status/refresh/rebuild will compose the same operations and
+expose explicit source/approval/offline/dry-run controls where implemented.
+
+Gather integration is staged: lazy collection imports and real dry-run planning
+first. Current mass_quantities parser uses legacy metadata and text APIs; do not
+prepare a new catalog then silently call those APIs. Keep actual legacy gather
+execution visibly documented until its consumer migration is qualified. Fix the
+second import-time cache path in clean_cli by importing only inside cache clearing.
+No extraction/bucket/normalization algorithm changes. Preserve remaining WI0007
+criteria explicitly; this run may deliver a qualified subset.
+
+Validation: canonical format/lint/scripts/test, LRH validate/readiness, diff check;
+real tiny offline catalog fixtures, subprocess no-side-effect tests, policy and
+approval matrices. One independent pre-push review planned; first hosted rounds,
+exact-head CI and independent repair verification required before internal merge.
+Six assignments and45 worker minutes remain;15 minutes reserved for review.
+
+Preparation checkpoint — 02:31 UTC: implementation and23 focused behavior tests
+pass. Real tiny RDF builds, HTTP-boundary acquisition, offline cached archive
+reuse, invalid evidence refusal, interactive/unattended/declined setup, explicit
+refresh/rebuild/count approval and subprocess pristine CLI checks are covered.
+A real selected Sherlock gather produces12 expected story buckets, retains
+existing output bytes on rerun, and never imports gutenbergpy. Existing algorithms
+and overrides remain unchanged. Canonical validation is running.
+
+Discovery during implementation: CLI plotting imports create a font cache even
+when gathering is dry-run. Defer visualization parser/backend loading for direct
+gather/catalog dispatch; retain normal visualization/help parsing otherwise.
+This is a narrow prerequisite to the no-write guarantee, not a plotting refactor.
+First focused failures were fixture mistakes (acquired provenance nests receipt;
+patching socket before SSL class initialization breaks its import), corrected
+without weakening the product assertions. The argparse refresh source requirement
+was moved to the mutually-exclusive group after a direct dispatch caught its
+invalid placement. No external requests or corpus changes occurred.
+
+At minute35, shared weekly usage28% (launch27%), unattributable per-run. Full
+validation includes time spent initializing the isolated plotting font cache via
+the version command. Wall-clock checks include tool waits; budget is unchanged.
+Independent-review scope is now frozen except for verified repairs: new planning
+and catalog CLI/API, lazy gather imports, clean cache import deferral, tests and
+Diataxis docs. Live metadata-dependent gather migration remains explicitly pending.
+
+Pre-push qualification — 02:35 UTC: canonical2942 tests pass in77.120s;23 focused
+and independent35 CLI/clean compatibility tests pass. Format278 files unchanged,
+lint clean, LRH0errors/351existing warnings, readinessyes, diff clean. Reference
+Python example runs in an empty temp directory without writes. Cold reviewer
+/preparation_review found no actionable issues; all12 frozen hashes match.
+Coordinator inspected the critical authority branches directly. No source changes
+during review. Skill lrh-self-review reused through the integration-base adapter;
+installed path /Users/centaur/.agents/skills/lrh-self-review/SKILL.md SHA256
+ d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c.
+Review assignment1/6 completed under4 worker minutes;5 assignments and at least41
+worker minutes remain (15 reserved). First hosted rounds and final-headCI pending.
+A read-only gh lookup hit sandbox networking; one escalated retry succeeded.
+No policy/credential modification. PR description corrected to distinguish
+completed independent review from pending hosted reviews before publication.
+
+Hosted qualification — 02:39 UTC: all four CI checks passed on68ac68d9; both
+first hosted rounds completed. Copilot reported no code issues, with a general
+request for final human review of authorization changes. The approved charter
+explicitly delegates internal integration review to the coordinator; main approval
+remains human and is not inferred from this review. Codex identified one P2:
+nested help says cli.py setup rather than lcats catalog setup. Coordinator
+reproduced the exact usage line via python -m lcats.cli catalog setup --help.
+Fix: give the parent parser its final program name; add behavior regressions
+for status/setup/refresh/rebuild help, ensuring no cache writes. Requalify and
+use assignment2/6 for independent repair verification. No manual bot retrigger.
+
+Repair qualified — 02:42 UTC:2943 canonical tests pass in71.502s;24 focused
+pass; format/lint/LRH/readiness/diff pass. Independent assignment2 verified actual
+help for all four operations with correct command prefixes and no files created,
+24 focused tests, and all12 repaired hashes. No findings. Only parser program
+name and its test changed in product files. Shared weekly usage31% before this
+assignment (account-wide, not attributable). Two assignments used, worker occupancy
+under7 cumulative minutes conservatively, peak2 agents. No manual hosted retrigger.
+Publishing repair and waiting for its exact-headCI before resolving/integrating.

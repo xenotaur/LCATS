@@ -37,6 +37,26 @@ Gather one or more configured corpora.
 | `gatherers` | Optional gatherer names. Defaults to all gatherers. |
 | `--dry-run` | Show which gatherers would run without executing downloads. |
 
+Planning validates all names before execution and reports catalog requirements.
+Unknown names return exit 2. Actual metadata-dependent gathering remains on the
+legacy backend; new catalog setup does not configure it. Gather-level `--yes` and
+`--offline` are pending migration.
+
+## `catalog`
+
+```bash
+lcats catalog status [--cache-dir PATH]
+lcats catalog setup [--archive PATH | --url URL] [--yes] [--offline] [--dry-run]
+lcats catalog refresh --url URL [--offline] [--dry-run] [--allow-count-change]
+lcats catalog rebuild [--archive PATH] [--dry-run] [--allow-count-change]
+```
+
+All operations accept `--cache-dir`. Setup/refresh accept repeatable
+`--allow-origin` for explicit redirect origins. No default mirror is selected.
+Returns JSON; exit 0 on success, 2 on failure or blocked plan. See
+[preparation guide](../how-to/gettenberg-preparation.md) for approval, cache,
+refresh and migration boundaries.
+
 ## `inspect`
 
 ```
