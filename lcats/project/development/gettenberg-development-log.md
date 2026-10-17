@@ -2444,3 +2444,10 @@ retain actual help-output tests as part of CLI usability qualification. One
 bounded re-verification assignment repaired it without a fresh human grant.
 Next coherent slice: migrate the live metadata-dependent gather access and then
 wire approval/offline policy through it, preserving selection and normalization.
+
+Final checkpoint — 02:46 UTC: evidence checkpoint1c52b177 published; local
+integration checkout clean and synchronized after push. Shared weekly usage32%
+at closeout versus27% at launch; this account-wide difference is not an attributed
+run cost. Per-run token/cost telemetry remains unavailable. Elapsed about52 minutes;
+no worker left active and no automatic continuation scheduled. Final PR description
+records completed integration gates and preserves the remaining migration scope.
