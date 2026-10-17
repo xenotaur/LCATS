@@ -2667,3 +2667,14 @@ original temporary GET samples, verify against existing lengths/hashes, and
 encode bytes in JSON to retain CRLF/truncated lines without text normalization.
 No new source bytes are acquired or substituted. Prior exact-head CI passed all
 four checks; post-repair CI and review must qualify the revised candidate.
+
+### Review repair and verification — 17:31 UTC
+
+Pushed repair `0147de2f`. All three base64-decoded original samples reproduce
+recorded SHA-256/length values; GET bodies total 8354 bytes. Both hosted comments
+are Clear-satisfied. Copilot thread was already resolved on fresh read; the
+coordinator resolved only the remaining Codex thread after the one-thread routine
+gate passed. No reviewer finding is dismissed or deferred. This confirmation
+checkpoint will receive a cold PR-mode review and exact-head CI before merge.
+No local Python format/lint/product test rerun for data/docs-only changes; those
+checks are covered by required current-head hosted CI, not claimed as local runs.
