@@ -2405,3 +2405,42 @@ name and its test changed in product files. Shared weekly usage31% before this
 assignment (account-wide, not attributable). Two assignments used, worker occupancy
 under7 cumulative minutes conservatively, peak2 agents. No manual hosted retrigger.
 Publishing repair and waiting for its exact-headCI before resolving/integrating.
+
+## Preparation run integration — 2026-10-17 02:45 UTC
+
+[PR518](https://github.com/xenotaur/LCATS/pull/518) merged at02:44:52 UTC into
+codex/gettenberg-acquisition as fed5030a60e2df42a0827a87d0e412562d865309. Accepted head
+4666837158149a1087cf431b66576579a1dc33f8; fresh base549383c0a2feb5fb8ab58d9afad7c4732186a225.
+All four exact-headCI checks passed, both first hosted reviews read in full,
+all pagination exhausted, and the single P2 help-prefix thread resolved after
+direct reproduction, repair and independent re-verification. No manual hosted
+retrigger. Merge parents equal base/head, merge tree equals accepted-head tree,
+and all12 independently verified product hashes match after fast-forward.
+[Integration evidence](evidence/gettenberg-preparation-20261017/integration.json)
+contains complete review bodies, threads, checks and criterion mapping.
+
+Canonical2943 tests in71.502s;24 focused tests; independent initial23 focused and
+35 compatibility tests; independent repaired24 focused tests all pass. Format,
+lint, LRH/readiness and diff checks pass. Evidence-only integration checkpoint
+gets LRH/readiness/diff/hash checks, not another redundant product test run.
+WI0007 remains proposed with explicit remaining criteria; all3 native records
+remain in_progress. Main remains 210468236ff4db78d2d7c5218562fa2d166e6400.
+No live Gutenberg acquisition, corpus mutation, dependency removal, CI change,
+persistent-consent restamp or main promotion. Watched skills remain clean;
+per-clone skip consent remains invalid and unchanged.
+
+Budget: about51 elapsed minutes at this checkpoint against120-minute target /
+180-minute hard stop;2 assignments of6 used, peak2 agents, under7 cumulative
+worker minutes conservatively. No active reviewer remains. Finish the scoped
+tranche early; unused time is not authority to expand the run or start another WI.
+
+Process findings: source-aware first use spans collection requirements, setup
+policy and actual consumer access. The legacy parser would bypass a new catalog
+setup, so explicit staged delivery prevents claiming a false end-to-end migration.
+Import-side-effect subprocess tests revealed both legacy and plotting cache
+initialization; ordinary in-process tests could conceal them. The first hosted
+review caught a nested argparse program-name issue missed by the cold reviewer;
+retain actual help-output tests as part of CLI usability qualification. One
+bounded re-verification assignment repaired it without a fresh human grant.
+Next coherent slice: migrate the live metadata-dependent gather access and then
+wire approval/offline policy through it, preserving selection and normalization.

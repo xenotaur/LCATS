@@ -44,3 +44,10 @@ Repair verification:2943 canonical tests pass in71.502s;24 focused tests pass.
 Independent assignment2 verified all four real CLI help outputs, no cache writes,
 all12 repaired hashes and24 focused tests. No findings remain from that check.
 Both first hosted rounds complete; thread disposition and repaired-headCI pending.
+
+Internal integration accepted: PR518 merge fed5030a60e2df42a0827a87d0e412562d865309; accepted head 4666837158149a1087cf431b66576579a1dc33f8.
+All four repaired-headCI checks pass; both first hosted rounds complete and the
+one P2 thread is resolved after independent verification. Merge parents/tree
+and12 source hashes match. See integration.json for full review/check evidence.
+Native status stays in_progress; this does not complete all WI0007 criteria or
+promote main. Earlier pending-gate statements above describe historical checkpoints.

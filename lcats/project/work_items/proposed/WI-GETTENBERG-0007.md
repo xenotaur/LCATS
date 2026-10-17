@@ -109,3 +109,25 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+## Staged preparation acceptance — 2026-10-17
+
+PR518 internally merged into codex/gettenberg-acquisition at fed5030a60e2df42a0827a87d0e412562d865309;
+accepted head 4666837158149a1087cf431b66576579a1dc33f8. Canonical2943 tests and24 focused tests pass;
+independent cold review and repair verification pass, all four exact-headCI checks
+pass, and the one hosted P2 is resolved. Merge parents and tree match verified.
+Evidence: project/development/evidence/gettenberg-preparation-20261017/integration.json.
+
+Delivered: explicit collection requirements and lazy selection, read-only gather
+planning, standalone catalog status/setup/refresh/rebuild, first-setup approval
+policy, offline acquisition enforcement and Diataxis docs. Representative curated
+gathering preserves bucket identities and output bytes; existing extraction,
+normalization and overrides are unchanged.
+
+Remaining before whole-item acceptance: migrate metadata-dependent gather execution
+to the new catalog/resource APIs, connect preparation to that live path, enforce
+gather-level --yes/--offline across actual source access, and qualify an operational
+default archive/resource route before implicit online first use. Broader migrated
+collection integration tests accompany that work. Explicit-source standalone
+commands do not imply default mirror qualification. Dependency removal remains
+WI0008; main promotion and terminal closeout still require human approval.

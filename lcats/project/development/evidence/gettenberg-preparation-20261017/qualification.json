@@ -60,8 +60,17 @@
     "no Gutenberg downloads",
     "no main promotion or dependency removal"
   ],
-  "hosted_review": "both first rounds complete; one help finding repaired and independently verified; thread resolution pending",
-  "exact_head_ci": "pending",
+  "hosted_review": "both first rounds complete; one P2 reproduced, repaired, independently verified and resolved",
+  "exact_head_ci": {
+    "head": "4666837158149a1087cf431b66576579a1dc33f8",
+    "checks": [
+      "coverage",
+      "lint",
+      "test (PR)",
+      "test (push)"
+    ],
+    "all_success": true
+  },
   "initial_source_sha256": {
     "docs/how-to/gettenberg-preparation.md": "44347dd209502d5deb3cd9444a1df021cb89e475ccd135bac38d3f15a749e85e",
     "docs/index.md": "45ca1d252d73f29357f13a0f3e4949729af43488ac0ab0d16397c5ca20859dbb",
@@ -92,5 +101,6 @@
     "all_hashes_match": true,
     "findings": [],
     "occupancy_upper_bound_minutes": 3
-  }
+  },
+  "internal_merge": "fed5030a60e2df42a0827a87d0e412562d865309"
 }

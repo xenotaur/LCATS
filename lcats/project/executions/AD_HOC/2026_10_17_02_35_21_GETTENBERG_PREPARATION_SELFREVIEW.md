@@ -32,3 +32,10 @@ branches and reproduced the focused behavior tests; no top defect to reverify.
 See project/development/evidence/gettenberg-preparation-20261017/qualification.json.
 First hosted review rounds and exact-head CI remain separate required gates.
 Native status remains in_progress until human-approved main delivery.
+
+Internal integration accepted: PR518 merge fed5030a60e2df42a0827a87d0e412562d865309; accepted head 4666837158149a1087cf431b66576579a1dc33f8.
+All four repaired-headCI checks pass; both first hosted rounds complete and the
+one P2 thread is resolved after independent verification. Merge parents/tree
+and12 source hashes match. See integration.json for full review/check evidence.
+Native status stays in_progress; this does not complete all WI0007 criteria or
+promote main. Earlier pending-gate statements above describe historical checkpoints.
