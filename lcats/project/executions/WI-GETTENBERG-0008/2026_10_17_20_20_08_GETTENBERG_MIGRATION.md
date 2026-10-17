@@ -30,7 +30,7 @@ Demand match WI-RELEASE-0037 is linked as a consumer of wheel evidence, not reso
 
 # Validation
 
-Python3.11.9, Black25.11.0, Ruff0.15.0. Canonical scripts/test2908 passed76.833s;
+Python3.11.9, Black25.11.0, Ruff0.15.0. Canonical scripts/test2909 passed (post-Copilot repair);
 format281 files, lint, explicit research-path lint/format, notebook/client smoke
 and five authored before/after comparison cases pass. LRH0errors/351existing
 warnings. Final wheel/source hashes, review and CI receipts are captured under

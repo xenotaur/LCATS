@@ -2924,3 +2924,22 @@ configuration or archived notebooks changed. Record this as a second repair cycl
 (hygiene), not a product behavior change; local2908-test result and wheel remain
 applicable. Future notebook assignments should inspect workflow-only hygiene
 checks before first push. Automatic first hosted review is still running.
+
+### Late hosted review repair — 20:51 UTC
+
+All four checks passed at b923a875 and hosted Codex completed clean on product
+3ed49415. Exact-head substitute review independently passed178 focused and60
+experiment tests, five comparisons, corpus identities, wheel/source/archive
+hashes and notebook normalization. Assignment4 charge three worker minutes;
+aggregate16/45. No merge occurred yet.
+
+Copilot's first review then identified a real medium issue: invalid corpus paths
+in KMo/genre.py returned successful empty counts. Coordinator reproduced missing
+and file paths using a real catalog, then added CLI directory validation and
+subprocess regressions preserving valid empty-directory behavior. This third
+repair cycle is in scope; no change to generic Corpora or packaged library.
+Four focused client tests pass; canonical rerun and bounded independent recheck
+follow. This illustrates the value of waiting for both already-running first
+hosted reviews even after one clean response and an independent clean pass.
+
+Post-Copilot canonical result: Ran 2909 tests in 78.228s, OK. Format/lint and LRH0errors/351warnings pass.

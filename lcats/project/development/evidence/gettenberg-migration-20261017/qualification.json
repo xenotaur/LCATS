@@ -2,9 +2,9 @@
   "base": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
   "checks": {
     "canonical_tests": {
-      "sha256": "c82195f2cf0444dbb90394afec9aab3e8fe5cc1f03c11edc6ce8ac0b6927c332",
+      "sha256": "52c16194929483cd54c2f5f92d4f108484abc096794882530220dd517c4b33d5",
       "summary": [
-        "Ran 2908 tests in 76.833s",
+        "Ran 2909 tests in 78.228s",
         "OK"
       ]
     },
@@ -36,6 +36,13 @@
     "tools": {
       "sha256": "cf5e8d5abba6e3833b2b22c45a30aad72c1375afa518560465c70ba741e9e529",
       "summary": []
+    },
+    "research_clients": {
+      "sha256": "bea20e18170e6edc74ab29156e9295f176ebce2cd7fbaa061499a4ba85756fcc",
+      "summary": [
+        "Ran 4 tests in 2.558s",
+        "OK"
+      ]
     }
   },
   "source_files": {
@@ -49,7 +56,7 @@
     "experiments/10_gettenberg_qualification/legacy-notebooks/manifest.json": "3bd23de2a45c46f83cc1278958cf380811e54d5975649115fbddc777f11015b1",
     "experiments/10_gettenberg_qualification/scripts/probe_legacy.py": "5dd2ba4f36b016759c1d70e22a67f509be3e7997c07269e9779e05eb8f7aa17d",
     "experiments/10_gettenberg_qualification/scripts/qualify_migration.py": "681869a5f2b8d54c6ba652ccfc50d5d8b2d30b6f043131c81d94f39ccd53c0c7",
-    "lcats/KMo/genre.py": "324fc2f55bb0598b1ffe99ba564af646e187be4b7c744aa2b89451132e15b9cf",
+    "lcats/KMo/genre.py": "c45b618ca64238e535331e85e030a4ef07c3935da857110b5e9397f8d43c70b4",
     "lcats/docs/how-to/gettenberg-catalog.md": "54107cc3ff55d86c0c343f488e932ec0970e54e75c2725bb95553c4559c177c1",
     "lcats/docs/how-to/gettenberg-migration.md": "98e235cfdb02592192d1b777c7994c982fa2e12e83d7ef0f70d6a408e3be0e4d",
     "lcats/docs/index.md": "ab0b2e61cac4c0107d47916a5285cb7022686b3abd4ebc845a3bba8556ef24f0",
@@ -82,7 +89,7 @@
     "lcats/tests/gettenberg_tests/headers_test.py": null,
     "lcats/tests/gettenberg_tests/metadata_test.py": null,
     "lcats/tests/gettenberg_tests/migration_test.py": "6d6f922b475a3ce6819049937734b554a59a297d54948a0e54851c35dc42317d",
-    "lcats/tests/gettenberg_tests/research_clients_test.py": "0f82ef7916eb4993c60c5746b6c46a2f0172658bfe95044d5bd20419d7f31012"
+    "lcats/tests/gettenberg_tests/research_clients_test.py": "2debd5e1ce8dd131965f99e71e800544674d09e3aa35c96e72bc982cf4aa02bd"
   },
   "independent_review": "one cold diff review, one verified P2 repaired, bounded recheck clean",
   "fixture_corpus_comparison": "five matching cases per baseline WI0008 boundary; full live/corpus qualification remains WI0010",
@@ -90,5 +97,6 @@
   "network": "no Gutenberg requests; dependency resolution used package index",
   "native_lifecycle": "in_progress/proposed pending human-approved main promotion",
   "product_commit": "3ed49415b900fa8bec825acf453272105860c6c0",
-  "notebook_normalization": "nbstripout IDs/key ordering only after product review; executable cell hashes unchanged; all3 client tests and verify pass"
+  "notebook_normalization": "nbstripout IDs/key ordering only after product review; executable cell hashes unchanged; all3 client tests and verify pass",
+  "post_hosted_repair": "KMo CLI directory validation; packaged library unchanged; full2909 tests passed; independent recheck pending"
 }

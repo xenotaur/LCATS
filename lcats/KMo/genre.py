@@ -9,6 +9,7 @@ raises an exception and exits nonzero. Classification rules live in utils.genre.
 import argparse
 import collections
 import json
+import pathlib
 
 from lcats import stories
 from lcats.gettenberg import catalog
@@ -19,8 +20,10 @@ def main(argv=None):
     """Classify a local corpus using the selected read-only catalog file."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("catalog")
-    parser.add_argument("corpus")
+    parser.add_argument("corpus", type=pathlib.Path)
     args = parser.parse_args(argv)
+    if not args.corpus.is_dir():
+        parser.error(f"corpus root must be an existing directory: {args.corpus}")
     corpus = stories.Corpora(args.corpus)
     with catalog.Catalog(args.catalog) as library:
         counts = collections.Counter(

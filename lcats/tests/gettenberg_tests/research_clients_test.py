@@ -115,6 +115,34 @@ class ResearchClientTests(unittest.TestCase):
             self.assertEqual(process.returncode, 0, process.stderr)
             self.assertEqual(sum(json.loads(process.stdout).values()), 1)
 
+    def test_genre_script_rejects_invalid_roots_but_accepts_empty_directory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            ordinary_file = root / "not-a-directory"
+            ordinary_file.write_text("fixture")
+            for path in (root / "missing", ordinary_file, root):
+                with self.subTest(path=path.name):
+                    process = subprocess.run(
+                        [
+                            sys.executable,
+                            str(PACKAGE / "KMo/genre.py"),
+                            str(self.database),
+                            str(path),
+                        ],
+                        capture_output=True,
+                        text=True,
+                        check=False,
+                    )
+                    if path == root:
+                        self.assertEqual(process.returncode, 0, process.stderr)
+                        self.assertEqual(json.loads(process.stdout), {})
+                    else:
+                        self.assertEqual(process.returncode, 2)
+                        self.assertEqual(process.stdout, "")
+                        self.assertIn(
+                            "corpus root must be an existing directory", process.stderr
+                        )
+
     @classmethod
     def setUpClass(cls):
         cls.directory = tempfile.TemporaryDirectory()
