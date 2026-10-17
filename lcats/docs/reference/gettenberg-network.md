@@ -2,7 +2,7 @@
 
 `lcats.gettenberg.resources` provides explicit HTTP(S) GET acquisition and a
 verified local cache. It does not require a Gutenberg metadata catalog or
-`gutenbergpy`. The existing `lcats gather` command has not migrated to this API.
+`gutenbergpy`. The `lcats gather` command uses this API for catalog-backed Gutenberg text.
 
 This covers acquisition and pure resource selection within WI-GETTENBERG-0005.
 Qualified offline Gutenberg routing with caller-configured mirror roots is available.

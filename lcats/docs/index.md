@@ -18,6 +18,7 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Migrate callers and research notebooks](how-to/gettenberg-migration.md)
 - [Gather stories with default or explicit sources](how-to/gettenberg-gather.md)
 - [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
 

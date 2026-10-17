@@ -1,0 +1,87 @@
+{
+  "base": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
+  "checks": {
+    "canonical_tests": {
+      "sha256": "c82195f2cf0444dbb90394afec9aab3e8fe5cc1f03c11edc6ce8ac0b6927c332",
+      "summary": [
+        "Ran 2908 tests in 76.833s",
+        "OK"
+      ]
+    },
+    "format": {
+      "sha256": "58c2b2af066c7e1be0683a4a4f4827be495476dce2bac700af7106e8806680c9",
+      "summary": [
+        "281 files would be left unchanged."
+      ]
+    },
+    "lint": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    "lrh": {
+      "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+      "summary": [
+        "Validation completed: 0 error(s), 351 warning(s)"
+      ]
+    },
+    "repair_tests": {
+      "sha256": "a2be1ab25ce24d09febe80a4d5654ddf69c24b6e1e720dc50d73ac4ce1fd2bf4",
+      "summary": [
+        "Ran 7 tests in 1.736s",
+        "OK"
+      ]
+    },
+    "tools": {
+      "sha256": "cf5e8d5abba6e3833b2b22c45a30aad72c1375afa518560465c70ba741e9e529",
+      "summary": []
+    }
+  },
+  "source_files": {
+    "experiments/05_metadata_genre_prefilter/README.md": "0f7bbfe53114009d86cc80a8ea7282a02ee7b37e6818b7492909c705031b167c",
+    "experiments/05_metadata_genre_prefilter/run_prefilter.py": "27e39edf2dd32226f9ce241a41fe41c87a29f6c88abb97651ac245e7cf9ce0dd",
+    "experiments/05_metadata_genre_prefilter/run_prefilter_test.py": "4e14d819074eaf4e53cfc4460fc479a956b358ebd1125428b0cb699a62550b33",
+    "experiments/10_gettenberg_qualification/README.md": "2205797abafbb30c8ae3d62d6d14507548cff33e6899668aa6198405f3ecad14",
+    "experiments/10_gettenberg_qualification/scripts/probe_legacy.py": "5dd2ba4f36b016759c1d70e22a67f509be3e7997c07269e9779e05eb8f7aa17d",
+    "lcats/KMo/genre.py": "324fc2f55bb0598b1ffe99ba564af646e187be4b7c744aa2b89451132e15b9cf",
+    "lcats/docs/how-to/gettenberg-catalog.md": "54107cc3ff55d86c0c343f488e932ec0970e54e75c2725bb95553c4559c177c1",
+    "lcats/docs/how-to/gettenberg-migration.md": "98e235cfdb02592192d1b777c7994c982fa2e12e83d7ef0f70d6a408e3be0e4d",
+    "lcats/docs/index.md": "ab0b2e61cac4c0107d47916a5285cb7022686b3abd4ebc845a3bba8556ef24f0",
+    "lcats/docs/reference/gettenberg-gather.md": "f1472435522dcfcafc512a596e3726962323c5e0d9b794007ce892926a610240",
+    "lcats/docs/reference/gettenberg-network.md": "b1ae9854d73c1fb5e9315887f19e9a7f832390d66149f094993c0248d5666606",
+    "lcats/docs/reference/prepare-corpora-release.md": "43ff9796c19e6a4fd9cfd967e6df2b5a81333a1d00d2d838cc373eb9f90e6b9b",
+    "lcats/environment.yml": "587d45cd14a9156d4101562c5e3bd538695a846a49d9dabfddfc2d3dd4b3c3ac",
+    "lcats/notebooks/01_gatherers.ipynb": "115c9f8d3d5ea71d5239a832434782a22a1710cb7761d2f6a956519e5b3da720",
+    "lcats/notebooks/02_extractors.ipynb": "7c31965d29ffd64cc40c88e55579afd4a9fbec86a6107c2a3750e3b2c4def417",
+    "lcats/notebooks/10_debug_gutenberg.ipynb": null,
+    "lcats/notebooks/14_fix_gettenberg.ipynb": null,
+    "lcats/notebooks/15_reconcile_files.ipynb": "b903e7fd85342ad2664f4b5a2aff045fa1135962614f13f7bc4c51967fdc1823",
+    "lcats/notebooks/15_reconcile_files.py": "cd0f62cf6a1bb62cd69f76764abe131aac557afa62d538f6af3be21fd5af2ed4",
+    "lcats/pyproject.toml": "9edf8cda16161e43fac22467c447eab4d6fd3d9881925327bdd379be251a3e99",
+    "lcats/src/lcats/analysis/corpus/clean_cli.py": "5de7b175ca29a0e809984e4620f3ba1fb64eca60592dd9fa8382ceae18f1be61",
+    "lcats/src/lcats/analysis/corpus/reconciliation.py": "ccc557fd874e9300154a23ccdf749697414c82ab2bf43a274467431835a3fccf",
+    "lcats/src/lcats/gatherers/parser.py": "b0258387b355cb78cdabb089bf044219b6d3f247f26cff51ae946b09710d4976",
+    "lcats/src/lcats/gettenberg/api.py": null,
+    "lcats/src/lcats/gettenberg/cache.py": null,
+    "lcats/src/lcats/gettenberg/headers.py": null,
+    "lcats/src/lcats/gettenberg/identifiers.py": "75c478e1e64f3891e745c203e12d4aeae3eaea5900bcfadbaaf47e821d8fadc2",
+    "lcats/src/lcats/gettenberg/metadata.py": null,
+    "lcats/src/lcats/utils/genre.py": "66af78ae4c94e133a3c2489eebbc924a0026a8c7c4373ef493a09258baf2f265",
+    "lcats/tests/analysis_tests/clean_cli_test.py": "b91b22e55174f08a80628fc8d30d0c62c3eaba7982302e860ff0fcbf922b1602",
+    "lcats/tests/analysis_tests/reconciliation_test.py": "6ca79b1415ee22eddcd0541d2f6d4ab7183e8eb5a7efe46274c4f54878606362",
+    "lcats/tests/gatherers_tests/live_gather_test.py": "79ca83b32836ea471a2c87aa4bea6311a7fe547f222fc6dfa09199c91651e527",
+    "lcats/tests/gatherers_tests/parser_test.py": "01b1accee0336979b5080ef20ed272e54523355ff6561e35b116b6cd88fb565d",
+    "lcats/tests/gettenberg_tests/api_test.py": null,
+    "lcats/tests/gettenberg_tests/cache_test.py": null,
+    "lcats/tests/gettenberg_tests/headers_test.py": null,
+    "lcats/tests/gettenberg_tests/metadata_test.py": null,
+    "lcats/tests/gettenberg_tests/migration_test.py": "6d6f922b475a3ce6819049937734b554a59a297d54948a0e54851c35dc42317d",
+    "lcats/tests/gettenberg_tests/research_clients_test.py": "0f82ef7916eb4993c60c5746b6c46a2f0172658bfe95044d5bd20419d7f31012"
+  },
+  "independent_review": "one cold diff review, one verified P2 repaired, bounded recheck clean",
+  "fixture_corpus_comparison": "five matching cases per baseline WI0008 boundary; full live/corpus qualification remains WI0010",
+  "corpus_identity_scan": "1868 stories, 48 nested URLs, zero failures after repair",
+  "network": "no Gutenberg requests; dependency resolution used package index",
+  "native_lifecycle": "in_progress/proposed pending human-approved main promotion"
+}

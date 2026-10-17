@@ -3,7 +3,7 @@
 This experiment is intentionally no-network and read-only by default. It
 discovers LCATS story buckets, records LCATS path identity as the primary story
 ID, parses Gutenberg IDs only as provenance, and can enrich rows with
-Gutenberg subject metadata from an explicitly supplied existing SQLite cache.
+Gutenberg subject metadata from an explicitly supplied LCATS-owned catalog.
 It writes experiment-local candidate and manifest artifacts only.
 
 Three modes, mutually exclusive:
@@ -18,12 +18,10 @@ Three modes, mutually exclusive:
 from __future__ import annotations
 
 import argparse
-import ast
 import collections
 import datetime
 import hashlib
 import json
-import os
 import pathlib
 import re
 import sqlite3
@@ -39,7 +37,10 @@ sys.path.insert(0, str(_REPO_ROOT / "lcats" / "src"))
 
 from lcats.analysis.corpus import discovery  # noqa: E402
 from lcats.analysis.corpus import genre_sidecar  # noqa: E402
+from lcats.gettenberg import catalog  # noqa: E402
+from lcats.gettenberg import errors  # noqa: E402
 from lcats.utils import checkpoint  # noqa: E402
+from lcats.utils import genre  # noqa: E402
 from lcats.utils import run_log  # noqa: E402
 
 CANDIDATES_FILENAME = "candidates.jsonl"
@@ -155,32 +156,6 @@ _GUTENBERG_ID_PATTERNS = (
 )
 
 
-def default_cache_root() -> pathlib.Path:
-    """Return the configured cache root without importing mutating cache code."""
-    return pathlib.Path(os.environ.get("LCATS_CACHE_DIR", "cache"))
-
-
-def default_cache_db_path() -> pathlib.Path:
-    """Return the expected Gutenberg SQLite path for side-effect-free preflight."""
-    return default_cache_root() / "gutenbergindex.db"
-
-
-def load_genre_rules() -> list[tuple[str, list[str]]]:
-    """Load GENRE_RULES from source without importing lcats.utils.genre."""
-    genre_path = _REPO_ROOT / "lcats" / "src" / "lcats" / "utils" / "genre.py"
-    tree = ast.parse(genre_path.read_text(encoding="utf-8"))
-    for node in tree.body:
-        if isinstance(node, ast.Assign):
-            for target in node.targets:
-                if isinstance(target, ast.Name) and target.id == "GENRE_RULES":
-                    rules = ast.literal_eval(node.value)
-                    return [(str(label), list(patterns)) for label, patterns in rules]
-    raise RuntimeError(f"GENRE_RULES not found in {genre_path}")
-
-
-GENRE_RULES = load_genre_rules()
-
-
 def parse_gutenberg_id(url: str | None) -> int | None:
     """Extract a Project Gutenberg ID from common LCATS source URLs."""
     if not url:
@@ -227,7 +202,7 @@ def story_row(story_path: pathlib.Path, corpus_root: pathlib.Path) -> dict[str, 
 
 
 def cache_readiness(cache_db: pathlib.Path | None) -> dict[str, Any]:
-    """Inspect a Gutenberg cache database without creating or modifying it."""
+    """Inspect an LCATS-owned catalog without creating or modifying it."""
     if cache_db is None:
         return {
             "cache_db_path": None,
@@ -248,80 +223,44 @@ def cache_readiness(cache_db: pathlib.Path | None) -> dict[str, Any]:
         "status": "missing",
         "warnings": [],
     }
-    if not cache_db.exists():
-        return status
-    if not cache_db.is_file():
-        status["status"] = "not_file"
-        status["warnings"].append("Cache database path exists but is not a file.")
-        return status
-    if cache_db.stat().st_size == 0:
-        status["status"] = "empty"
-        status["warnings"].append("Cache database exists but is empty.")
-        return status
-
     try:
-        with sqlite3.connect(f"file:{cache_db}?mode=ro", uri=True) as con:
-            tables = table_names(con)
-            has_books = "books" in tables
-            has_subjects = has_supported_subject_schema(con, tables)
-    except sqlite3.Error as exc:
+        if not cache_db.exists():
+            return status
+        if not cache_db.is_file():
+            status["status"] = "not_file"
+            status["warnings"].append("Catalog path exists but is not a file.")
+            return status
+        if cache_db.stat().st_size == 0:
+            status["status"] = "empty"
+            status["warnings"].append("Catalog exists but is empty.")
+            return status
+        with catalog.Catalog(cache_db):
+            pass
+    except errors.CatalogMissingError as exc:
+        status["warnings"].append(f"Catalog is missing: {exc}")
+        return status
+    except errors.CatalogIncompleteError as exc:
+        status["status"] = "incomplete"
+        status["warnings"].append(f"Catalog ingestion is incomplete: {exc}")
+        return status
+    except errors.CatalogSchemaError as exc:
+        # The public catalog wraps SQLite read failures with their original
+        # cause. Preserve the experiment's unreadable diagnostic without
+        # inspecting the catalog's private schema or opening SQLite ourselves.
+        unreadable = isinstance(exc.__cause__, (sqlite3.Error, OSError))
+        status["status"] = "unreadable" if unreadable else "incompatible"
+        status["warnings"].append(
+            f"Catalog could not be read or is incompatible: {exc}"
+        )
+        return status
+    except (errors.CatalogError, OSError) as exc:
         status["status"] = "unreadable"
-        status["warnings"].append(f"Cache database could not be read: {exc}")
+        status["warnings"].append(f"Catalog could not be read: {exc}")
         return status
 
-    status["ready"] = has_books and has_subjects
-    status["status"] = "ready" if status["ready"] else "missing_tables"
-    if not has_books:
-        status["warnings"].append("Cache database is missing the books table.")
-    if not has_subjects:
-        status["warnings"].append(
-            "Cache database is missing a supported subjects schema."
-        )
+    status["ready"] = True
+    status["status"] = "ready"
     return status
-
-
-def table_names(con: sqlite3.Connection) -> set[str]:
-    """Return table names present in a SQLite database."""
-    return {
-        row[0]
-        for row in con.execute("SELECT name FROM sqlite_master WHERE type='table'")
-    }
-
-
-def column_names(con: sqlite3.Connection, table_name: str) -> set[str]:
-    """Return column names for a SQLite table."""
-    return {row[1] for row in con.execute(f"PRAGMA table_info({table_name})")}
-
-
-def has_normalized_subject_schema(tables: set[str]) -> bool:
-    """Return whether gutenbergpy's normalized subject tables are present."""
-    return {"subjects", "book_subjects"}.issubset(tables)
-
-
-def has_flat_subject_schema(tables: set[str]) -> bool:
-    """Return whether a simple fixture-style subject table is present."""
-    return "subjects" in tables
-
-
-def has_supported_subject_schema(con: sqlite3.Connection, tables: set[str]) -> bool:
-    """Return whether the database has a subject schema this runner can read."""
-    if "subjects" not in tables:
-        return False
-    subject_columns = column_names(con, "subjects")
-    if has_normalized_subject_schema(tables):
-        book_columns = column_names(con, "books") if "books" in tables else set()
-        join_columns = column_names(con, "book_subjects")
-        return (
-            {"id", "gutenbergbookid"}.issubset(book_columns)
-            and {
-                "id",
-                "name",
-            }.issubset(subject_columns)
-            and {"bookid", "subjectid"}.issubset(join_columns)
-        )
-    return has_flat_subject_schema(tables) and {"bookid", "subject"}.issubset(
-        subject_columns
-    )
 
 
 def read_subjects_from_cache(
@@ -330,44 +269,16 @@ def read_subjects_from_cache(
     *,
     cache_ready: bool,
 ) -> list[str]:
-    """Read Gutenberg subjects for one ID from an existing cache in read-only mode."""
-    if book_id is None:
+    """Read deduplicated subjects through an explicit, read-only catalog."""
+    if book_id is None or not cache_ready:
         return []
-    if not cache_ready:
+    with catalog.Catalog(cache_db) as library:
+        record = library.get(book_id)
+    if record is None:
         return []
-    with sqlite3.connect(f"file:{cache_db}?mode=ro", uri=True) as con:
-        tables = table_names(con)
-        book_columns = column_names(con, "books")
-        subject_columns = column_names(con, "subjects")
-        if (
-            has_normalized_subject_schema(tables)
-            and {"id", "gutenbergbookid"}.issubset(book_columns)
-            and {"id", "name"}.issubset(subject_columns)
-        ):
-            rows = con.execute(
-                """
-                SELECT s.name AS subject
-                FROM subjects s
-                JOIN book_subjects bs ON s.id = bs.subjectid
-                JOIN books b ON bs.bookid = b.id
-                WHERE b.gutenbergbookid = ?
-                ORDER BY s.name
-                """,
-                (int(book_id),),
-            ).fetchall()
-            return sorted({row[0] for row in rows if row[0]})
-        if {"bookid", "subject"}.issubset(subject_columns):
-            rows = con.execute(
-                """
-                SELECT subject
-                FROM subjects
-                WHERE bookid = ?
-                ORDER BY subject
-                """,
-                (int(book_id),),
-            ).fetchall()
-            return sorted({row[0] for row in rows if row[0]})
-    return []
+    return sorted(
+        {term.value.text for term in record.ebook.subjects if term.value.text}
+    )
 
 
 def has_phrase(subjects: Iterable[str], phrase: str) -> bool:
@@ -381,7 +292,7 @@ def rule_matches(subjects: Iterable[str]) -> list[dict[str, Any]]:
     """Return every metadata genre-rule match with pattern evidence."""
     subject_list = list(subjects)
     matches = []
-    for label, patterns in GENRE_RULES:
+    for label, patterns in genre.GENRE_RULES:
         matched_patterns = [
             pattern for pattern in patterns if has_phrase(subject_list, pattern)
         ]
@@ -1577,7 +1488,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--cache-db",
         type=pathlib.Path,
         default=None,
-        help="Existing Gutenberg metadata SQLite DB to read in read-only mode.",
+        help="Explicit existing LCATS Gutenberg catalog; read-only, no setup or download.",
     )
     parser.add_argument(
         "--max-per-gutenberg-id",
