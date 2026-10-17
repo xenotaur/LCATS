@@ -2638,3 +2638,12 @@ Research PR: [#520](https://github.com/xenotaur/LCATS/pull/520), targeting
 records link to the PR and retain nonterminal status. Published at approximately
 15:26 UTC, ten minutes into the grant. Final checkpoint awaits only a compact
 hosted-state read; no product implementation begins in this sprint.
+
+Final hosted snapshot at approximately 15:27 UTC: PR #520 open at `b061849f`,
+first hosted review still running on research commit `eb428a73`; lint passed,
+test/coverage jobs still running. No review acceptance or integration is claimed.
+The final evidence-only checkpoint records that snapshot; its own CI will run
+normally. Working tree was clean before this log update. Grant ends after this
+checkpoint push, approximately eleven minutes elapsed, within the 15-minute
+target. Next action: review/integrate #520, then implement the scoped default
+profile under a new grant. No workers remain active.
