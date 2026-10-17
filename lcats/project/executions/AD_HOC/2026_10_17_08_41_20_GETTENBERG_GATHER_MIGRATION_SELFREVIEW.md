@@ -3,8 +3,8 @@ execution_id: 2026_10_17_08_41_20_GETTENBERG_GATHER_MIGRATION_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_GATHER_MIGRATION_SELFREVIEW)[2026-10-17T08:41:05+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of:
-pr:
+rerun_of: 2026_10_17_08_47_18_GETTENBERG_GATHER_MIGRATION
+pr: https://github.com/xenotaur/LCATS/pull/519
 commit:
 created_at: 2026-10-17T08:41:20+00:00
 agent: codex_app
@@ -28,4 +28,4 @@ Reviewer ran182 focused tests initially and184 after repair; diff checks passed.
 
 # Follow-up
 
-PR/primary links will be backfilled after creation. Native status stays in_progress until human-approved main promotion; internal acceptance alone is not terminal closeout.
+PR/primary links backfilled after creation. Native status stays in_progress until human-approved main promotion; internal acceptance alone is not terminal closeout.

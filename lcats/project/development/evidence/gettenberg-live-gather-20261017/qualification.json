@@ -111,6 +111,8 @@
     "Legacy experimental helpers and external dependency remain",
     "No main promotion or terminal LRH closeout"
   ],
-  "hosted_review": "not yet opened",
-  "exact_head_ci": "pending"
+  "hosted_review": "first rounds pending",
+  "exact_head_ci": "pending",
+  "pr": "https://github.com/xenotaur/LCATS/pull/519",
+  "product_commit": "546f03de188819e57625e08e227840eccdf24f36"
 }

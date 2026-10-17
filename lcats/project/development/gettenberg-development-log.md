@@ -2532,7 +2532,7 @@ record-execution output filename; git add failed and produced an empty diff. It
 was detected before dispatch, corrected with actual path and nonempty hash.
 Future orchestration should consume returned artifact paths and stop on failure.
 
-Checkpoint — 08:47 UTC (about50 elapsed minutes): cold review and separately
+Checkpoint — 08:46:23 UTC (about49 elapsed minutes): cold review and separately
 budgeted repair verification complete. Reviewer independently confirmed LF, CRLF,
 CR and mixed-line-ending extraction and byte/decoded/cleanup/provenance invariants.
 No remaining findings. Charged4 minutes each conservatively:2/6 assignments,8/45
@@ -2542,3 +2542,9 @@ Actual CLI help and empty-directory offline planning verified;64 relative doc
 links valid. Freeze product source and proceed to first hosted review/CI rounds.
 Scope remains explicit-source live gathering; no main promotion or dependency
 removal. Review repair is one successful cycle, no design replan required.
+
+PR519 opened08:47 UTC against codex/gettenberg-acquisition at initial product
+commit546f03de188819e57625e08e227840eccdf24f36. Native primary and self-review
+records are linked and in_progress. One read-only GitHub lookup failed in the
+restricted network context; exact retry under approved network access succeeded.
+No mutation was blindly retried. First hosted review andCI rounds pending.
