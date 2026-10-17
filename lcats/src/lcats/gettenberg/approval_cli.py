@@ -19,6 +19,8 @@ def plan_report(service, plan):
             else (service.request.request_url if service.request else None)
         ),
         "max_archive_bytes": service.policy.max_archive_bytes,
+        "online": service.policy.online,
+        "allowed_origins": list(service.policy.allowed_origins),
     }
 
 

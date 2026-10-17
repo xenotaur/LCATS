@@ -13,8 +13,8 @@ The CLI spells roots `--gutenberg-main-root` and `--gutenberg-generated-root`.
 | Input / state | Behavior |
 |---|---|
 | Curated-only selection | No catalog construction, setup or inspection |
-| Metadata-dependent selection | Explicit main/generated roots required |
-| Missing catalog | Explicit archive/URL plus interactive approval or `--yes` |
+| Metadata-dependent selection | Default PGLAF roots, or a complete explicit pair |
+| Missing catalog | Default archive or explicit source, plus interactive approval or `--yes` |
 | Ready catalog | Reuse pinned generation, no prompt or implicit refresh |
 | `--dry-run` | Local plan only; no writes, requests, consumers or prompts |
 | `--offline` | New store and curated HTML cache both refuse acquisition |
@@ -22,10 +22,32 @@ The CLI spells roots `--gutenberg-main-root` and `--gutenberg-generated-root`.
 | Damaged original, failed strict decode, ambiguous boilerplate | Abort; retain cached originals |
 
 A dry-run can successfully report blocked preparation; it is not a prediction of
-successful execution. Explicit resource/archive URLs permit their own origins;
+successful execution. Selected default or explicit resource/archive URLs permit their own origins;
 additional origins use `--allow-origin`. These network controls apply to the new
 Gutenberg store; curated HTML retains its existing HTTP implementation with an
 offline acquisition guard. This is not a general plugin or arbitrary URL command.
+
+## CLI source profile
+
+| Role | Default |
+|---|---|
+| Catalog archive | `https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2` |
+| Main ebook root | `https://gutenberg.pglaf.org/` |
+| Generated ebook root | `https://gutenberg.pglaf.org/cache/epub/` |
+
+`gettenberg.sources_cli` resolves this static profile only for CLI workflows
+requiring metadata. A local archive suppresses the default archive URL. An
+explicit URL replaces it. Both resource roots replace the default pair; exactly
+one is an input error. The library's preparation, routing and acquisition APIs
+remain explicit and offline by default. No mirror discovery, failover, implicit
+refresh, origin wildcard or human ebook-page fallback is added.
+
+Dry-run displays catalog source, both roots, permitted origins and whether first
+setup approval is needed. Offline always forbids requests even though configured
+origins remain visible. Catalog setup uses the same default archive; status and
+local rebuild select no remote source, and refresh still requires an explicit URL.
+The default is based on bounded endpoint observations, not a full-download or
+availability guarantee. Acquisition limits and integrity checks still apply.
 
 ## Catalog-backed extraction source
 
@@ -82,5 +104,5 @@ Expected differences from the legacy metadata path include stable RDF order,
 creator/author-only projection, original catalog resource identity, strict decoding,
 and explicit refusal of ambiguous boilerplate. Authored integration fixtures verify
 body, bucket, filter, normalization and override behavior; no full corpus comparison
-or operational default-mirror qualification is claimed. Legacy helper migration and
+is claimed. Default endpoint observations do not establish full acquisition. Legacy helper migration and
 external dependency removal remain WI-GETTENBERG-0008.

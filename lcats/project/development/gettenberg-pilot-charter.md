@@ -369,3 +369,17 @@ Coordinator plus at most one cold reviewer, one assignment of at most four
 worker minutes; no recursive delegation. Reserve final three minutes for a
 checkpoint. Existing coordinator adapter applies; no main promotion, terminal
 WI/execution closeout, persistent consent change or automatic continuation.
+
+## Default-profile implementation sprint — activated 2026-10-17
+
+Human granted 20 minutes target / 30 minutes maximum for the next sprint.
+Start 19:32:25 UTC; target 19:52:25; hard stop 20:02:25. Scope: the qualified
+CLI default archive/main/generated profile, smart setup/gather policy, offline
+fixture tests and Diataxis updates. No live Gutenberg requests or bulk download.
+Feature freeze at 19:47:25; remaining time is review, repairs, validation and
+checkpointing. Coordinator plus one reviewer normally; at most two assignments
+(initial cold review and one repair recheck), ten cumulative worker minutes,
+six minutes per assignment maximum. No recursive delegation or automatic renewal.
+Approved coordinator adapter remains in force; internal integration only after
+independent review and exact-head CI. No main promotion, canonical closeout,
+corpus mutation, broad dependency migration or persistent consent changes.

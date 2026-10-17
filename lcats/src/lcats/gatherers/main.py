@@ -9,6 +9,7 @@ from lcats.gettenberg import approval_cli
 from lcats.gettenberg import errors
 from lcats.gettenberg import preparation
 from lcats.gettenberg import resources
+from lcats.gettenberg import sources_cli
 
 GATHERERS = {name: f"lcats.gatherers.{name}.gatherer" for name in planning.NAMES}
 
@@ -16,18 +17,12 @@ GATHERERS = {name: f"lcats.gatherers.{name}.gatherer" for name in planning.NAMES
 def _services(
     cache_dir, archive, catalog_url, main_root, generated_root, allow_origins, offline
 ):
-    """Resolve explicit endpoints without selecting a default operational mirror."""
-    if bool(main_root) != bool(generated_root):
-        raise ValueError(
-            "provide both --gutenberg-main-root and --gutenberg-generated-root"
-        )
-    routes = resources.GutenbergRoutes(main_root, generated_root) if main_root else None
-    request = (
-        resources.SourceRequest.from_url(catalog_url, kind="archive")
-        if catalog_url
-        else None
-    )
-    urls = [url for url in (main_root, generated_root, catalog_url) if url]
+    """Select workflow defaults or overrides, then bound their network authority."""
+    routes = sources_cli.gutenberg_routes(main_root, generated_root)
+    request = sources_cli.catalog_request(archive=archive, url=catalog_url)
+    urls = [routes.main_root, routes.generated_root]
+    if request is not None:
+        urls.append(request.request_url)
     origins = [
         f"{parse.urlsplit(url).scheme}://{parse.urlsplit(url).netloc}" for url in urls
     ]
@@ -59,7 +54,8 @@ def run(
     No selection means all collections. All names and required configuration are
     checked before setup or extraction. Dry-run performs local inspection only;
     it does not resolve metadata-dependent story counts or import consumers.
-    Explicit URLs/roots permit their origins; --yes approves first setup only.
+    Selected default or explicit sources permit their origins; --yes approves
+    first setup only.
     Existing outputs are reused. Operational failures return exit2, with partial
     prior outputs/cache retained and the collection run log recording abortion.
     """
@@ -98,10 +94,15 @@ def run(
                 lines.append(
                     "Metadata-dependent selection/enrichment counts are unresolved in this plan."
                 )
-                lines.append(
-                    "Resource routes: explicit."
-                    if routes
-                    else "Resource routes: not configured; supply both Gutenberg roots before execution."
+                report = approval_cli.plan_report(service, plan)
+                lines.extend(
+                    [
+                        f"Catalog source: {report['source']}",
+                        f"Resource main root: {routes.main_root}",
+                        f"Resource generated root: {routes.generated_root}",
+                        f"Permitted origins: {', '.join(policy.allowed_origins)}",
+                        f"Catalog setup approval required: {plan.approval_required}",
+                    ]
                 )
             lines.append(
                 "Network: forbidden (offline)."
@@ -109,10 +110,6 @@ def run(
                 else "Network: permitted for missing sources during execution; catalog setup requires approval."
             )
             return "\n".join(lines), 0
-        if service is not None and routes is None:
-            raise ValueError(
-                "metadata-dependent gathering requires explicit --gutenberg-main-root and --gutenberg-generated-root; no default mirror is configured"
-            )
         with contextlib.ExitStack() as stack:
             source = None
             if service is not None:

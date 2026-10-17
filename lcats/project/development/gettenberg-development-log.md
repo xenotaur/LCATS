@@ -2716,3 +2716,57 @@ Next grant: implement the documented overridable default-source profile at the
 CLI/preparation boundary, including smart setup approval, offline behavior,
 curated-only isolation, fixture coverage and user documentation. This integration
 sprint does not authorize that implementation automatically.
+
+## Default-profile implementation sprint — 2026-10-17 19:32 UTC
+
+Human approved 20-minute target / 30-minute hard maximum. Start 19:32:25;
+target 19:52:25; hard stop 20:02:25; feature freeze 19:47:25. Fetched clean
+integration base d9ca9d184ebd5ebf8a195ffd364bf87817a37292 includes qualified
+PR #520 merge eb4888e9; earlier WI0007 preparation/live-gather acceptances are
+ancestors. WI readiness yes; prior-art check present in WI. Branch
+codex/gettenberg-default-profile; prompt
+PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_PROFILE)[2026-10-17T19:32:41+00:00].
+LRH implementation/self-review procedures reused under the approved adapter.
+Gate definitions fresh; persistent skip consent invalid and unchanged. Usage
+43% used at launch, account-wide only. No live acquisition is authorized.
+
+Plan: one shared CLI source resolver; library preparation/routes remain explicit.
+Missing source selects official catalog; neither root selects the qualified
+PGLAF pair; half override fails. Explicit local archive suppresses default URL;
+archive and resource configuration remain independent. Setup approval and offline
+policy are unchanged; curated-only selection never resolves catalog defaults.
+Dry-run exposes URLs and permitted origins without I/O. Preserve refresh/rebuild
+explicit authority. Add HTTP-boundary fixture coverage, canonical checks,
+Diataxis updates and one cold review; native records remain nonterminal.
+
+### Local qualification — 19:39 UTC
+
+Canonical suite: 2978 tests passed in 86.153 seconds. Focused preparation/live/default
+suite: 59 passed. Black checked 284 files; Ruff and format passed. LRH validation
+0 errors, 351 existing warnings; WI readiness yes. Python 3.11.9 / Black 25.11.0 /
+Ruff 0.15.0, PATH pinned to LCATS env and PYTHONPATH to this worktree's src.
+Documented gather/setup previews report identical default archive, exact roots,
+origin authority and approval; neither creates the pristine cache. No live traffic.
+
+One cold diff review dispatched at about 19:39, max six minutes, frozen diff
+3830364a6544cae8107cb005d730a9426b282274495a17a462db0a4f7d68cae3.
+Shared usage at dispatch checkpoint 45% used; not attributed run cost.
+Scope frozen pending review. Validation commands/stdout and product hashes are
+retained in evidence/gettenberg-default-profile-20261017/qualification.json.
+
+Tooling friction: this checkout's scripts/test forwards --log to unittest, which
+rejects it. Canonical scripts/test with shell log capture passed. The formatter's
+empty option array fails under the host shell when paths are supplied without
+options; scripts/format --quiet -- <changed paths> succeeds. No LRH or wrapper
+repair is included in this product slice. Future workflow adapters should discover
+supported wrapper arguments instead of assuming bundled skill examples apply.
+
+### Independent review — 19:40 UTC
+
+Cold reviewer found no actionable defects and independently ran 59 focused tests
+in 3.902 seconds. One assignment, two conservatively charged worker minutes;
+no repairs or expanded scope. Coordinator has independent canonical/CLI evidence;
+no top defect to reproduce. All-collection selection is tested as dry-run and
+representative mixed execution, not full execution of every built-in collection.
+No archive/client live qualification is claimed. Proceed to first hosted review
+and exact-head CI; no internal acceptance before those gates pass.

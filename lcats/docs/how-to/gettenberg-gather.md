@@ -1,4 +1,4 @@
-# Gather stories with explicit sources
+# Gather stories with default or explicit sources
 
 Run from `LCATS/lcats` in the project environment. The catalog and originals live
 under `--cache-dir` (otherwise `LCATS_CACHE_DIR`, default `cache`). Story outputs
@@ -18,11 +18,26 @@ existing story outputs and fails with exit 2 on a source miss. It never download
 
 ## Gather metadata-dependent stories
 
-`mass_quantities` enriches and filters its existing fixed list of ebook IDs using
-the new catalog. Select an archive and appropriate main/generated Gutenberg
-mirror roots first. **No operational default mirror is configured yet.** These
-variables are placeholders for endpoints you have deliberately selected, not
-ready-to-use recommendations:
+`mass_quantities` enriches and filters its fixed ebook IDs using the catalog.
+Start with the built-in profile:
+
+```bash
+lcats gather mass_quantities --dry-run
+lcats gather mass_quantities
+# Approved unattended first use:
+lcats gather mass_quantities --yes
+```
+
+The default catalog is the published Gutenberg RDF archive; ebook requests use
+`https://gutenberg.pglaf.org/` for main files and its `cache/epub/` directory for
+generated files. Dry-run shows these endpoints and permitted origins. Missing
+catalog setup asks for approval; a ready catalog and existing outputs are reused.
+With no collection names, `lcats gather` applies this policy to all collections.
+Curated-only selections do not resolve or inspect a catalog.
+
+To override sources, supply a local `--catalog-archive` or `--catalog-url`.
+Override both resource roots together; providing only one is an error. Catalog
+and ebook sources are independent. These example variables are placeholders:
 
 ```bash
 export ARCHIVE_URL='https://chosen.example/catalog/rdf-files.tar.bz2'
@@ -43,7 +58,7 @@ unattended setup. Redirected input is not an interactive approval; an unattended
 missing approval fails promptly. To use a local RDF archive, replace
 `--catalog-url "$ARCHIVE_URL"` with `--catalog-archive /path/to/rdf-files.tar.bz2`.
 A ready catalog is reused without prompting or consulting the archive argument.
-Explicit URLs permit their own origins. Additional redirect origins require
+Selected default or explicit URLs permit their own origins. Additional redirect origins require
 repeatable `--allow-origin https://chosen.example` flags for new resource access.
 
 The command selects a supported plain-text resource, acquires missing original
@@ -56,7 +71,8 @@ exit 2; metadata or extraction exclusions remain per-story skips in the run log.
 
 ## Repeat without network access
 
-Keep the same roots: they are part of source request identity even when offline.
+When using defaults, run `lcats gather mass_quantities --offline`. If you overrode
+the roots, keep the same roots: they are part of source identity even offline.
 
 ```bash
 lcats gather mass_quantities --offline --cache-dir /path/to/cache \
@@ -72,7 +88,7 @@ outputs. For deliberate catalog maintenance, use the separate
 
 The offline flag also covers curated HTML when both collection types are selected.
 With no names, all built-in collections are selected, so the metadata-dependent
-configuration is required before any collection runs. Dry-run does not create
+profile is resolved before any collection runs. Dry-run does not create
 files or import consumers and leaves metadata-dependent counts unresolved.
 
 ## Diagnose a failed run

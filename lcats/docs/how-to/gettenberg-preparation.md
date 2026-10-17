@@ -22,7 +22,7 @@ Actual `mass_quantities` gathering now uses the new catalog, original-byte store
 strict decoder and conservative boilerplate cleanup. Setup and offline policy
 are enforced on that live path. Curated fixed-URL HTML collections use their
 existing source cache with the same offline restriction. See
-[gather with explicit sources](gettenberg-gather.md) for the complete workflow.
+[gather with default or explicit sources](gettenberg-gather.md) for the complete workflow.
 Legacy experimental helpers still exist; dependency removal is a later tranche.
 
 ## Set up from an existing archive
@@ -45,23 +45,32 @@ A ready catalog is reused without prompting or reading the supplied archive.
 catalog, redownload existing resources, or replace extracted story outputs.
 An invalid catalog is reported as invalid, not silently rebuilt.
 
-## Use an explicitly chosen archive source
+## Use the default or an explicitly chosen archive source
 
-There is deliberately no default mirror in this tranche. Once you have chosen an
-appropriate archive URL and permission to use it, substitute it for `$ARCHIVE_URL`:
+Standalone setup uses the same published archive as smart gathering:
+
+```bash
+lcats catalog setup --dry-run
+lcats catalog setup --yes
+```
+
+The default is `https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2`.
+The first command shows the exact source, approval requirement, byte bound and
+permitted origins without requests or writes. Use `--archive` for local bytes,
+or replace the default URL with an explicitly chosen source:
 
 ```bash
 lcats catalog setup --url "$ARCHIVE_URL" --dry-run
 lcats catalog setup --url "$ARCHIVE_URL" --yes
 ```
 
-The explicit URL permits its origin. Redirects to other origins need repeated
+The selected URL permits its origin. Redirects to other origins need repeated
 `--allow-origin https://chosen.example` arguments. Existing bounded acquisition
 limits apply (256 MiB archive, 900-second acquisition budget, pacing and bounded
 retries). Planning sends no requests. `--offline` overrides online authority and
 can reuse a verified acquired archive; it cannot download a missing archive.
-No URLs are inferred from old cache files. These commands do not constitute
-qualification of a default operational mirror.
+No URLs are inferred from old cache files. Default endpoint selection does not
+guarantee availability, archive validity or successful full acquisition.
 
 ## Refresh or rebuild deliberately
 

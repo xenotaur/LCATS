@@ -300,7 +300,8 @@ are rejected in roots. Root validation raises `ResourceInputError`.
 `catalog_url` is independent, defaulting to the published
 `https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2` endpoint;
 `catalog_request()` returns an archive-kind request. An override may have a query,
-but not credentials or a fragment. There is **no operational default mirror**.
+but not credentials or a fragment. This routing API selects **no default mirror**. The CLI selects its
+[qualified default profile](gettenberg-gather.md#cli-source-profile) separately.
 
 `resolve(source_uri)` returns immutable `RouteResolution(request, code, message)`.
 Only the canonical `www.gutenberg.org` HTTP(S) origin with default ports qualifies.
