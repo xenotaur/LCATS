@@ -5,11 +5,9 @@
 # Several functions now exist with similar functionality; refactor to
 #    collapse?    fix_body, in_body, remove_non_text
 
-import json
 import os
 import difflib
 import re
-import csv
 
 from lcats import constants
 from lcats.utils import names
@@ -1363,440 +1361,123 @@ def make_single_title(title):
     return title
 
 
-def gather_story(gatherer, story, *, source=None):
-    """Extract a single story from the Gutenberg Project.
-    Args:
-        gatherer: An instance of DataGatherer to use for downloading and saving the story.
-        story: An integer representing the Gutenberg story ID to extract.
-        source: Explicit GutenbergStorySource for migrated execution; None retains
-            legacy experimental behavior. Source errors propagate, outputs reuse.
-    Returns:
-        A tuple of three elements:
-        - The story ID (int).
-        - The file path where the story was saved (str) or None if not saved.
-        - An error message (str) or None if no error occurred.
-    """
-    # A supplied source is the migrated path. Legacy experimental callers keep
-    # their old behavior until WI0008; importing this module no longer loads it.
-    metadata = None
-    if source is None:
-        from lcats.gettenberg import api
-        from lcats.gettenberg import headers
-
-        subject = api.get_metadata("subject", story)
-        if not subject:
-            return story, None, "No data for this story, skipping"
-        language = api.get_metadata("language", story)
-        title = api.get_metadata("title", story)
-        author = list(api.get_metadata("author", story))
-        alias = list(api.get_metadata("alias", story))
-    else:
-        metadata = source.metadata(story)
-        if metadata is None or not metadata.subjects:
-            return story, None, "No data for this story, skipping"
-        subject, language = metadata.subjects, metadata.languages
-        title, author, alias = (
-            list(metadata.titles),
-            list(metadata.authors),
-            list(metadata.aliases),
+def _metadata_rejection(metadata, story):
+    """Apply the shared gathering and inspection eligibility rules without I/O."""
+    if metadata is None or not metadata.subjects:
+        return "No data for this story, skipping"
+    if not metadata.titles:
+        return "No title for this story, skipping"
+    if not all(
+        (
+            subject_ok(metadata.subjects),
+            only_english(metadata.languages),
+            title_ok(metadata.titles),
+            author_ok(metadata.authors),
         )
-        if not title:
-            return story, None, "No title for this story, skipping"
-
-    is_subject_ok = subject_ok(subject)
-    is_language_ok = only_english(language)
-    is_title_ok = title_ok(title)
-    is_author_ok = author_ok(author)
-    if not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
-        print(f"Metadata not OK, skipping story: {story}")
-        print(f" - Subject: {subject}: {is_subject_ok}")
-        print(f" - Language: {language}: {is_language_ok}")
-        print(f" - Title: {title}: {is_title_ok}")
-        print(f" - Author: {author}: {is_author_ok}")
-        return story, None, "Metadata not suitable, skipping."
-
+    ):
+        return "Metadata not suitable, skipping."
     if story_excluded(story):
-        print(f"Story is on the exclusion list: {story}")
-        return story, None, "Story on exclusion list, skipping."
+        return "Story on exclusion list, skipping."
+    return None
 
-    prepared_text = None
-    if source is None:
-        try:
-            etext = api.load_etext(story)
-        except Exception:
-            return story, None, "Failed to retrieve a story, skipping."
-        stripped_text = headers.strip_headers(etext.strip()).strip()
-        clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-    else:
-        # Accepted stories use the first projected title in the same filename
-        # rule below. Check existing outputs before any source acquisition.
-        filename = names.title_and_author_to_filename(
-            list(make_single_title(title))[0],
-            author,
-            ext=constants.FILE_SUFFIX,
-            max_len=50,
-        )
-        existing = (
-            pathlib.Path(gatherer.path)
-            / os.path.splitext(filename)[0]
-            / discovery.CANONICAL_STORY_FILENAME
-        )
-        if story_output.existing(existing):
-            return story, str(existing), None
-        # Operational failures propagate to the run boundary: an offline miss
-        # must never look like a successful gather or silently try legacy access.
-        prepared_text = source.read(metadata)
-        # The byte/decoder/cleanup layers preserve physical line endings.
-        # The legacy header stripper normalized CRLF/CR before these existing
-        # paragraph heuristics; adapt here so blank-line splitting stays valid.
-        clean_text = (
-            prepared_text.cleaned.text.replace("\r\n", "\n").replace("\r", "\n").strip()
-        )
 
-    # Extract the title and body of the story.
-    short = True
-
-    body = body_of_text(clean_text, author, alias, title)
-
+def _inspect_metadata(story, metadata, source):
+    """Build the same deterministic extraction report used by gather_story."""
+    report = {
+        "gutenberg_id": story,
+        "metadata": (
+            None
+            if metadata is None
+            else {
+                "titles": list(metadata.titles),
+                "authors": list(metadata.authors),
+                "aliases": list(metadata.aliases),
+                "subjects": list(metadata.subjects),
+                "languages": list(metadata.languages),
+            }
+        ),
+        "rejection": _metadata_rejection(metadata, story),
+        "body": None,
+        "provenance": None,
+    }
+    if report["rejection"] is not None:
+        return report
+    prepared = source.read(metadata)
+    # Physical newlines remain intact in the original-byte cache. Normalize only
+    # at the paragraph parser boundary, matching the historical extraction rules.
+    text = prepared.cleaned.text.replace("\r\n", "\n").replace("\r", "\n").strip()
+    body = body_of_text(
+        text, list(metadata.authors), list(metadata.aliases), list(metadata.titles)
+    )
+    report["body"] = body
+    report["provenance"] = prepared.provenance()
     if chaptered(body):
-        return story, None, "Story has chapters, skipping."
+        report["rejection"] = "Story has chapters, skipping."
+    elif len(body.split("\n\n")) <= 10:
+        report["rejection"] = "Story is too short, skipping."
+    return report
 
-    if len(body.split("\n\n")) > 10:
-        short = False
-        title = make_single_title(title)
 
-    if short:
-        print("Story is too short, skipping: " + str(story))
-        return story, None, "Story is too short, skipping."
+def inspect_story(story, *, source):
+    """Return JSON-compatible metadata, body, rejection and source provenance.
 
-    # if we get here, we have the pieces of the story, so let's save
-    # file_name = names.title_to_filename(title, ext=constants.FILE_SUFFIX, max_len=50)
-    title = list(title)[0]
+    This replaces the notebook/debug helpers that printed partial results and
+    silently fetched metadata or text. The caller supplies a GutenbergStorySource
+    and owns its catalog lifetime and network policy. Rejected metadata causes no
+    acquisition. Eligible text may be cached according to that explicit policy;
+    no story output is written. Operational errors propagate, not eligibility
+    rejections. A rejected short/chaptered story retains its body for inspection.
+    """
+    return _inspect_metadata(story, source.metadata(story), source)
 
+
+def gather_story(gatherer, story, *, source):
+    """Extract and atomically publish a story using an explicit source.
+
+    Args:
+        gatherer: DataGatherer owning the output collection directory.
+        story: Positive Gutenberg ebook ID.
+        source: GutenbergStorySource with a pinned catalog and explicit policy.
+
+    Returns:
+        Tuple of ebook ID, saved/existing path or None, rejection or None.
+        Source, decoding, cleanup and output errors propagate to the run boundary.
+        An existing valid output is reused before source acquisition.
+    """
+    metadata = source.metadata(story)
+    rejection = _metadata_rejection(metadata, story)
+    if rejection is not None:
+        return story, None, rejection
+    title = metadata.titles[0]
+    author = list(metadata.authors)
     file_name = names.title_and_author_to_filename(
         title, author, ext=constants.FILE_SUFFIX, max_len=50
     )
-    # The story's canonical slug (no extension): names the bucket
-    # subdirectory (Decision 8 of PROP-LCATS-STORY-BUCKET-LAYOUT) and is
-    # threaded straight through as the overrides story_id -- never
-    # re-derived from the write path's leaf name, which is always the
-    # reserved canonical filename post-migration (Decision 7).
     story_slug = os.path.splitext(file_name)[0]
-
-    print(f"Gathering story {story}: {title}")
-    print(f" - File name: {file_name}")
-
-    # Structure the data into a dictionary
-    url = (
-        "https://www.gutenberg.org/cache/epub/"
-        + str(story)
-        + "/pg"
-        + str(story)
-        + ".txt"
+    existing = (
+        pathlib.Path(gatherer.path) / story_slug / discovery.CANONICAL_STORY_FILENAME
     )
-    if prepared_text is not None:
-        url = prepared_text.source_uri
+    if story_output.existing(existing):
+        return story, str(existing), None
+    report = _inspect_metadata(story, metadata, source)
+    if report["rejection"] is not None:
+        return story, None, report["rejection"]
     data_to_save = {
         "name": title,
         "author": author,
-        "body": body,
+        "body": report["body"],
         "metadata": {
             "author": author,
             "year": "Unknown",
-            "url": url,
+            "url": report["provenance"]["source_uri"],
             "name": file_name,
+            "gettenberg": report["provenance"],
         },
     }
-
-    if prepared_text is not None:
-        data_to_save["metadata"]["gettenberg"] = prepared_text.provenance()
-
-    # Apply replayable gather-time repairs (rules + per-story overrides) before
-    # the first write so the fix is reproduced on every regeneration, not stored
-    # as a one-off.
+    # Reuse the same replayable repairs and bucket slug as previous gathering.
     normalization.normalize_story_dict(
-        data_to_save,
-        collection=storymap.TARGET_DIRECTORY,
-        story_id=story_slug,
+        data_to_save, collection=storymap.TARGET_DIRECTORY, story_id=story_slug
     )
-
-    # Move all of this code up into the API so it is done consistently.
-    # Ensure the story's bucket directory exists and get its canonical file
-    # path -- use gatherer.ensure()'s own returned path (respects
-    # gatherer.root / env.data_root(), rather than reconstructing a
-    # possibly-diverging path from constants.DATA_ROOT independently).
     _, file_path = gatherer.ensure(story_slug)
-
-    if source is None:
-        with open(file_path, "w", encoding="utf-8") as json_file:
-            json.dump(data_to_save, json_file, indent=4)
-    else:
-        story_output.publish(file_path, data_to_save)
-
+    story_output.publish(file_path, data_to_save)
     return story, file_path, None
-
-
-# ---------------------------
-
-
-def test_stories(stories):
-    """Test the retrieval and processing of multiple stories."""
-    for story in stories:
-        test_story_get(story)
-
-
-def test_story_get(story):
-    """Test the retrieval and processing of a single story."""
-    from lcats.gettenberg import api
-    from lcats.gettenberg import headers
-
-    # Extract metadata and filter out stories that don't meet our criteria.
-    subject = api.get_metadata("subject", story)
-    is_subject_ok = subject_ok(subject)
-    language = api.get_metadata("language", story)
-    is_language_ok = only_english(language)
-    title = api.get_metadata("title", story)
-    is_title_ok = title_ok(title)
-    author = list(api.get_metadata("author", story))
-    is_author_ok = author_ok(author)
-    alias = list(api.get_metadata("alias", story))
-
-    if True or not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
-        # print(f"Metadata not OK, skipping story: {story}")
-        print(f" - Subject: {subject}: {is_subject_ok}")
-        print(f" - Language: {language}: {is_language_ok}")
-        print(f" - Title: {title}: {is_title_ok}")
-        print(f" - Author: {author}: {is_author_ok}")
-        # return story, None, "Metadata not suitable, skipping."
-
-    if story_excluded(story):
-        print(f"Story is on the exclusion list: {story}")
-        return story, None, "Story on exclusion list, skipping."
-
-    # Extract the text and remove stories that have chapters.
-    etext = api.load_etext(story)
-    stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-    #    if chaptered(clean_text):
-    #        print("Story has chapters, skipping: " + str(story))
-    #        return story, None, "Story has chapters, skipping."
-
-    # Extract the title and body of the story.
-    # title = list(title)[0]
-    print(story)
-    body = body_of_text(clean_text, author, alias, title, True)
-
-    if chaptered(body):
-        print("Story has chapters, skipping: " + str(story))
-        return story, None, "Story has chapters, skipping."
-
-    if len(body) < 10:
-        print("Story is too short, skipping: " + str(story))
-        return story, None, "Story is too short, skipping."
-
-    title = list(title)[0]
-    # if we get here, we have the pieces of the story, so let's save
-    file_name = names.title_and_author_to_filename(
-        title, author, ext=constants.FILE_SUFFIX, max_len=50
-    )
-
-    print(f"Gathering story {story}: {title}")
-    print(f" - File name: {file_name}")
-
-    return body
-
-
-def test_story_get_nc(story):
-    """Test the retrieval and processing of a single story."""
-    from lcats.gettenberg import api
-    from lcats.gettenberg import headers
-
-    # Extract metadata and filter out stories that don't meet our criteria.
-    subject = api.get_metadata("subject", story)
-    is_subject_ok = subject_ok(subject)
-    language = api.get_metadata("language", story)
-    is_language_ok = only_english(language)
-    title = api.get_metadata("title", story)
-    is_title_ok = title_ok(title)
-    author = list(api.get_metadata("author", story))
-    is_author_ok = author_ok(author)
-    alias = list(api.get_metadata("alias", story))
-
-    if True or not (is_subject_ok and is_language_ok and is_title_ok and is_author_ok):
-        # print(f"Metadata not OK, skipping story: {story}")
-        print(f" - Subject: {subject}: {is_subject_ok}")
-        print(f" - Language: {language}: {is_language_ok}")
-        print(f" - Title: {title}: {is_title_ok}")
-        print(f" - Author: {author}: {is_author_ok}")
-        # return story, None, "Metadata not suitable, skipping."
-
-    if story_excluded(story):
-        print(f"Story is on the exclusion list: {story}")
-        return story, None, "Story on exclusion list, skipping."
-
-    # Extract the text and remove stories that have chapters.
-    etext = api.load_etext(story)
-    stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-    #    if chaptered(clean_text):
-    #        print("Story has chapters, skipping: " + str(story))
-    #        return story, None, "Story has chapters, skipping."
-
-    # Extract the title and body of the story.
-    # title = list(title)[0]
-    print(story)
-    body = body_of_text(clean_text, author, alias, title, True)
-
-    return body
-
-    if chaptered(body):
-        print("Story has chapters, skipping: " + str(story))
-        return story, None, "Story has chapters, skipping."
-
-    if len(body) < 10:
-        print("Story is too short, skipping: " + str(story))
-        return story, None, "Story is too short, skipping."
-
-    title = list(title)[0]
-    # if we get here, we have the pieces of the story, so let's save
-    file_name = names.title_and_author_to_filename(
-        title, author, ext=constants.FILE_SUFFIX, max_len=50
-    )
-
-    print(f"Gathering story {story}: {title}")
-    print(f" - File name: {file_name}")
-
-    return body
-
-
-def show_data_not_corpora(limit=None):
-    """Show stories that appear in data but not in corpora."""
-    from lcats.gettenberg import api
-
-    # Replace with the actual path to your CSV file
-    file_path = "notebooks/output/stories_comparison.csv"
-
-    try:
-        with open(file_path, "r", newline="") as csvfile:
-            reader = csv.reader(csvfile)
-            if limit is not None:
-                reader = list(reader)[:limit]
-            # Iterate over each row in the CSV file
-            for row in reader:
-                if (
-                    row[3] == "False" and row[7] == "False"
-                ):  # appears in data and NOT in corpora
-                    # print(row)
-                    id = row[0].split("/")
-                    subs = api.get_metadata("subject", int(id[5]))
-                    title = api.get_metadata("title", int(id[5]))
-
-                    print(id[5] + " , '" + str(title) + "' , " + str(subs))
-
-    except FileNotFoundError:
-        print(f"Error: The file '{file_path}' was not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-
-def show_corpora_not_data(limit=None):
-    """Show stories that appear in corpora but not in data."""
-    from lcats.gettenberg import api
-
-    # Replace with the actual path to your CSV file
-    file_path = "notebooks/output/stories_comparison.csv"
-
-    try:
-        with open(file_path, "r", newline="") as csvfile:
-            reader = csv.reader(csvfile)
-            if limit is not None:
-                reader = list(reader)[:limit]
-            # Iterate over each row in the CSV file
-            for row in reader:
-                if (
-                    row[3] == "False" and row[7] == "True"
-                ):  # appears in corpora and NOT in data
-                    # print(row)
-                    id = row[0].split("/")
-                    subs = api.get_metadata("subject", int(id[5]))
-                    title = api.get_metadata("title", int(id[5]))
-
-                    print(id[5] + " , '" + str(title) + "' , " + str(subs))
-
-    except FileNotFoundError:
-        print(f"Error: The file '{file_path}' was not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-
-def grab_story(story):
-    """Grab the text of a story and strip and clean it."""
-    from lcats.gettenberg import api
-    from lcats.gettenberg import headers
-
-    etext = api.load_etext(story)
-    stripped_text = headers.strip_headers(etext.strip()).strip()
-    clean_text = stripped_text.decode("utf-8", errors="replace").strip()
-
-    return clean_text
-
-
-def grab_subjects():
-    """Print the subjects for all stories in SINGLE_STORIES
-    Args:
-        None
-    Returns:
-        Nothing
-    """
-    from lcats.gettenberg import api
-
-    for id in storymap.SINGLE_STORIES:
-        subject = api.get_metadata("subject", id)
-
-        if bad_subjects(subject):
-            continue
-
-        if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
-            print(str(id) + " : " + str(subject))
-
-
-def grab_all_subjects():
-    """Print the subjects for all stories in Gutenberg
-    Args:
-        None
-    Returns:
-        Nothing
-    """
-    from lcats.gettenberg import api
-
-    for id in range(1, 78877):
-        subject = api.get_metadata("subject", id)
-
-        if bad_subjects(subject):
-            continue
-
-        if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
-            print(str(id) + " : " + str(subject))
-
-
-def do1(story):
-    """
-    Utility to help debug issues
-    Args:
-        story (int):   Story id
-    Returns:
-        string: text of story
-        array:  split by triple newlines array of text
-        list:  List of authors
-        list:  List of aliases for authors
-        list:  List of titles for story
-    """
-    from lcats.gettenberg import api
-
-    st = grab_story(story)
-    br = st.split("\n\n\n")
-    a1 = api.get_metadata("author", story)
-    a2 = api.get_metadata("alias", story)
-    t1 = api.get_metadata("title", story)
-
-    return st, br, a1, a2, t1

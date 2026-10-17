@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "canonical_tests": {
+      "sha256": "b5b65ec6e61cafb4656a476316f08fd605c5414506eab7e2d991337659780b17",
+      "summary": [
+        "Ran 2907 tests in 77.489s",
+        "OK"
+      ]
+    },
+    "format": {
+      "sha256": "58c2b2af066c7e1be0683a4a4f4827be495476dce2bac700af7106e8806680c9",
+      "summary": [
+        "281 files would be left unchanged."
+      ]
+    },
+    "lint": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    "research_lint": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "summary": [
+        "All checks passed!"
+      ]
+    },
+    "notebook_tests": {
+      "sha256": "041120bb10a9f8643a33c420cffac10613313f996464c0dbe3e348a6b0fe7cad",
+      "summary": [
+        "Ran 3 tests in 1.429s",
+        "OK"
+      ]
+    },
+    "focused_tests": {
+      "sha256": "98f3f3114c24a593a44d2fe9532af4bd2bc2de8e5a142d513f00ed7bdfdb304e",
+      "summary": [
+        "Ran 174 tests in 2.101s",
+        "OK"
+      ]
+    },
+    "qualification_helpers": {
+      "sha256": "3dbdb18c03d3d13fe194408fd308a25478842ac38801177191dc993b3005fa1e",
+      "summary": [
+        "Ran 7 tests in 3.654s",
+        "OK"
+      ]
+    }
+  },
+  "note": "Observed command exits and final logs verified by coordinator; earlier failing attempts are described in runlog. Final product repair checks will supersede this snapshot."
+}

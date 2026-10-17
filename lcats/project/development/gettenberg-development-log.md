@@ -2811,3 +2811,135 @@ review cycle while preserving exact accepted head/base/CI and nonterminal lifecy
 Next bounded task: WI0008 legacy-consumer/dependency migration, starting from a
 fresh inventory of remaining gutenbergpy usage. Full live-client/archive and corpus
 qualification remain separately bounded; eventual main promotion is human-gated.
+
+## WI0008 caller migration run — 2026-10-17 20:18 UTC
+
+Human granted two-hour target / three-hour maximum. Start20:18:59 UTC; feature
+freeze22:18:59; hard stop23:18:59. Fresh base003c2e08523c9360fdda3a2bfd69b42505c4c51f,
+main210468236ff4db78d2d7c5218562fa2d166e6400; branch codex/gettenberg-migration.
+WI readiness yes; no prior matching execution; prompt minted before implementation.
+WI0003 resolved on main via #508/35f80fb5; WI0007 staged via #518/#519/#521,
+latest accepted head b9bfc092 and merge94c6d8e7 with 2978 canonical tests,
+59 focused tests, cold review and four CI checks. Both dependency commits are
+verified ancestors of this base. See WI0007's acceptance mapping and
+evidence/gettenberg-default-profile-20261017/{qualification,integration}.json.
+Gate definitions fresh; persistent skip consent invalid and unchanged. Explicit
+run grant governs the approved coordinator adapter. Shared usage47% used at
+launch; no attributable per-run cost meter. LRH0.2.5.dev3596+gd86755f50.
+
+Plan: remove obsolete api/cache/headers/SQL adapters after migrating real callers,
+retain the supported catalog/resource/cleanup interfaces; require explicit source
+for programmatic gathering. Migrate genre and read-only experiment access, preserve
+classification rules and historical outputs. Replace duplicated notebook behavior
+with tested libraries; archive upstream-internal diagnostics with historical-revision
+instructions. Unit tests and wheel smoke checks remain offline; dependency package
+installation may use the package index but no Gutenberg downloads are authorized.
+No CI edits; note cache-maintenance workflow migration for WI0009. Existing prior
+art/demand check remains applicable: reuse gatherers, reconciliation, catalog; link
+WI-RELEASE-0037 evidence without resolving it.
+
+### First implementation checkpoint — 20:34 UTC
+
+One disjoint experiment assignment returned in about four minutes (charge five
+worker minutes). Scope remained WI0008; no additional item. Existing catalog,
+resource and cleanup contracts made the active consumer changes small; most diff
+volume is removed wrappers/mock tests, thin notebook replacements and byte-identical
+archive moves. Keep one coherent dependency-removal PR with a surface-by-surface
+ledger rather than temporary compatibility APIs. No CI files or historical outputs
+changed. New library work is URL identity parsing, shared structured story inspection
+and source-group reconciliation; existing extraction/genre rules remain in use.
+
+Canonical scripts/test: 2907 tests passed in77.489s; format281 files and lint pass.
+The count falls because72 old wrapper-contract tests and obsolete debug/API mocks
+were retired, with replacement behavior coverage mapped in gettenberg-migration.md.
+174 focused migration checks passed before the three notebook/client checks were
+added; those three passed separately and are in the final canonical count.
+Experiment suite60 tests passed. All five before/after authored fixture cases match
+result and story JSON; no whole-corpus equivalence claim. Static scan402 Python/
+notebook surfaces: no active upstream imports; archived notebooks' bytes match Git.
+
+Fresh temporary venv installation resolved current declared dependencies without
+gutenbergpy. Initial wheel smoke passes outside checkout with no PYTHONPATH,
+including catalog setup/query, genre, cleanup, source inspection, package data and
+CLI previews. Rebuilding the frozen final source before accepting that evidence.
+Usage50% used at checkpoint, shared account-wide, not attributable run cost.
+
+Routine repairs: one unused test import; tutorial tar writer initially emitted PAX
+metadata rejected by the bounded ingest contract (fixed to explicit USTAR); the
+historical probe's top-level legacy imports broke its help/import test (moved
+behind explicit measurement, preserving unsupported historical runtime boundary).
+An initial no-build-isolation wheel attempt exposed the shared environment's old
+packaging license parser; standard isolated PEP517 build succeeds without changing
+the shared environment. One test command was initially run from repository root
+instead of lcats/ and was immediately corrected; no product diagnosis inferred.
+
+Product code/docs frozen for one cold independent review at about20:35 UTC.
+Assignment2of6; up to15 worker minutes, 40 remaining before dispatch. Full diff
+SHA25649976c018d4c94e5b5f02ab63de090f55cf575ab5b17f088a431c7b1b70ff0b0.
+Native evidence records are being completed while code remains frozen.
+
+### Review repair checkpoint — 20:41 UTC
+
+Cold review found one real P2: strict source identity parsing rejected48 nested
+HTML source URLs in existing O. Henry/Sherlock/Chesterton collections. Coordinator
+reproduced it, widened only the official /files/<id>/ resource path shape and
+added regression tests using those exact shapes. Host checks remain. A read-only
+scan now accepts all1868 Gutenberg story URLs; reviewer independently confirmed.
+The new notebook test's Python3.11-only cwd helper was also replaced; no claim of
+a full Python3.10 environment run. Seven repair tests pass. Repair review reports
+no remaining P0–P2. Three assignments,13 conservatively charged worker minutes,
+peak two agents, one product repair cycle; no additional worker planned.
+
+The baseline explicitly scopes WI0008's output comparison to side-by-side fixture
+corpus/gathering. Five authored cases plus actual corpus identity coverage satisfy
+that bounded migration check; broader live/full-snapshot content qualification is
+still WI0010. The reviewer finding demonstrates that fixtures alone miss real
+source shapes, so retain both the static corpus scan and authored behavior tests.
+
+Final rebuilt wheel matches every packaged Python source and omits retired
+modules/dependency. Fresh venv smoke and pip check pass outside checkout; no
+PYTHONPATH, no gutenbergpy, no Gutenberg network. Full canonical rerun is pending.
+Usage tool now reports0% weekly used after earlier47–50%; this is a changed
+account snapshot, not evidence of negative or zero run cost. Do not infer an
+attributable usage delta across these snapshots.
+
+Final local rerun:2908 tests passed76.833s; format281 files, lint and LRH0errors/
+351existingwarnings pass. WI readiness yes; diff check clean. Final wheel164
+Python source entries match exactly; all seven repair/client tests pass. An
+unbound tools-version command briefly reported the shared base environment;
+repeated with the same LCATS PATH/PYTHONPATH used for all product checks. No
+validation claim relies on that unbound version output. Ready for first push.
+
+Internal PR#522 opened at product head3ed49415b900fa8bec825acf453272105860c6c0,
+target codex/gettenberg-acquisition. PR-linkage/evidence tail changes no product
+source. Awaiting first automatic hosted review and exact-head CI; no retrigger.
+
+### Hosted CI hygiene repair — 20:45 UTC
+
+Initial lint job39067928164 failed its additional nbstripout --verify step on the
+three rewritten notebooks. Local canonical format/lint do not include this check.
+nbstripout0.9.1 normalized only cell IDs and JSON key ordering; all cell source
+hashes are unchanged. Full notebook verify and three client tests pass. No CI
+configuration or archived notebooks changed. Record this as a second repair cycle
+(hygiene), not a product behavior change; local2908-test result and wheel remain
+applicable. Future notebook assignments should inspect workflow-only hygiene
+checks before first push. Automatic first hosted review is still running.
+
+### Late hosted review repair — 20:51 UTC
+
+All four checks passed at b923a875 and hosted Codex completed clean on product
+3ed49415. Exact-head substitute review independently passed178 focused and60
+experiment tests, five comparisons, corpus identities, wheel/source/archive
+hashes and notebook normalization. Assignment4 charge three worker minutes;
+aggregate16/45. No merge occurred yet.
+
+Copilot's first review then identified a real medium issue: invalid corpus paths
+in KMo/genre.py returned successful empty counts. Coordinator reproduced missing
+and file paths using a real catalog, then added CLI directory validation and
+subprocess regressions preserving valid empty-directory behavior. This third
+repair cycle is in scope; no change to generic Corpora or packaged library.
+Four focused client tests pass; canonical rerun and bounded independent recheck
+follow. This illustrates the value of waiting for both already-running first
+hosted reviews even after one clean response and an independent clean pass.
+
+Post-Copilot canonical result: Ran 2909 tests in 78.228s, OK. Format/lint and LRH0errors/351warnings pass.

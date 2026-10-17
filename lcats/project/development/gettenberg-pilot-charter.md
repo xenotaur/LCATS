@@ -383,3 +383,23 @@ six minutes per assignment maximum. No recursive delegation or automatic renewal
 Approved coordinator adapter remains in force; internal integration only after
 independent review and exact-head CI. No main promotion, canonical closeout,
 corpus mutation, broad dependency migration or persistent consent changes.
+
+## Caller migration grant — activated 2026-10-17
+
+Human approved WI-GETTENBERG-0008 with a two-hour target and three-hour hard
+maximum. Start 20:18:59 UTC; feature freeze/target 22:18:59; hard stop 23:18:59.
+Normally coordinator plus one reviewer; four concurrent agents maximum, six
+assignments, 45 cumulative worker minutes, 15 reserved for review, individual
+assignment at most 30 minutes. No recursive delegation. Check time every 15
+minutes and shared usage at launch/hourly/before delegation. Finish early if
+qualified; no automatic renewal. Final hour is repairs, review, validation and
+checkpoint only.
+
+Scope: inventory-driven caller migration, research surface dispositions, tested
+reusable helpers, removal of the matching package/environment dependency, fresh
+wheel verification and documentation. Existing pilot coordinator adapter applies
+to planning, routine repairs and qualified internal integration. No CI edits,
+main promotion, canonical corpus mutation, bulk acquisition, package publication,
+persistent consent change or material redesign. Notebook migration/archive work
+is explicitly included under the human's prior notebook disposition authorization.
+Native records remain nonterminal until human-approved main delivery.

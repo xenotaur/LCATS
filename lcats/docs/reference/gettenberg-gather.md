@@ -77,12 +77,17 @@ require an explicit source. The latter returns successful paths and per-story sk
 reasons. Operational failures propagate and the run log records abortion.
 `story_ready` means newly published or reused, avoiding a false download claim.
 
-`parser.gather_story(gatherer, id, *, source=None)` shares the existing selection,
-body/chapter/length extraction and normalization/override logic. At that extractor
-boundary, CRLF and CR become LF, matching the former header-stripper behavior;
-original bytes and decoder/cleanup evidence retain physical line endings. A supplied source
-uses the new path. Omitting it retains legacy experimental behavior until that
-separate migration; importing the parser alone does not load `gutenbergpy`.
+`parser.gather_story(gatherer, id, *, source)` requires an explicit source and
+shares selection, body/chapter/length extraction and normalization/override rules.
+At that boundary CRLF and CR become LF; original bytes and decoder/cleanup evidence
+retain physical line endings. The first primary title supplies the filename using the existing naming helper. There is no legacy acquisition fallback.
+
+`parser.inspect_story(id, *, source)` returns JSON-compatible `gutenberg_id`,
+`metadata`, `rejection`, `body` and `provenance`. It uses the same extraction rules
+without writing a story. Missing/ineligible metadata returns a rejection without
+acquiring text. Short/chaptered bodies remain in the report for inspection.
+Eligible text uses the supplied source's explicit network/cache policy; operational
+failures propagate. This replaces the old print-only debugging helpers.
 
 ## Output and migration boundaries
 

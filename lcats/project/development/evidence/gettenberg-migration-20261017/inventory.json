@@ -1,0 +1,1122 @@
+{
+  "base": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
+  "code_universe_count": 402,
+  "code_universe": [
+    "experiments/02_llm_backend_comparison/compare_results.py",
+    "experiments/02_llm_backend_comparison/run_comparison.py",
+    "experiments/02_llm_backend_comparison/run_comparison_test.py",
+    "experiments/02_llm_backend_comparison/smoke_test.py",
+    "experiments/03_cross_segment_relation_pilot/check_segmentation_reliability.py",
+    "experiments/03_cross_segment_relation_pilot/check_segmentation_reliability_test.py",
+    "experiments/03_cross_segment_relation_pilot/classify_alignment_failures.py",
+    "experiments/03_cross_segment_relation_pilot/classify_alignment_failures_test.py",
+    "experiments/03_cross_segment_relation_pilot/evaluate_near_miss_fuzzy_matching.py",
+    "experiments/03_cross_segment_relation_pilot/evaluate_near_miss_fuzzy_matching_test.py",
+    "experiments/03_cross_segment_relation_pilot/measure_model_tiering.py",
+    "experiments/03_cross_segment_relation_pilot/measure_model_tiering_test.py",
+    "experiments/03_cross_segment_relation_pilot/measure_paragraph_boundary_overshoot.py",
+    "experiments/03_cross_segment_relation_pilot/measure_paragraph_boundary_overshoot_test.py",
+    "experiments/03_cross_segment_relation_pilot/measure_prompt_caching.py",
+    "experiments/03_cross_segment_relation_pilot/measure_prompt_caching_test.py",
+    "experiments/03_cross_segment_relation_pilot/regression_test_fuzzy_matcher_against_real_segments.py",
+    "experiments/03_cross_segment_relation_pilot/regression_test_fuzzy_matcher_against_real_segments_test.py",
+    "experiments/03_cross_segment_relation_pilot/resolve_baseline_story_list.py",
+    "experiments/03_cross_segment_relation_pilot/resolve_baseline_story_list_test.py",
+    "experiments/03_cross_segment_relation_pilot/reworded_boundary_prompt.py",
+    "experiments/03_cross_segment_relation_pilot/reworded_boundary_prompt_test.py",
+    "experiments/03_cross_segment_relation_pilot/run_boundary_prompt_ablation.py",
+    "experiments/03_cross_segment_relation_pilot/run_pilot.py",
+    "experiments/03_cross_segment_relation_pilot/run_pilot_test.py",
+    "experiments/03_cross_segment_relation_pilot/run_stability_gate.py",
+    "experiments/03_cross_segment_relation_pilot/run_stability_gate_test.py",
+    "experiments/04_genre_census/run_census.py",
+    "experiments/05_metadata_genre_prefilter/run_prefilter.py",
+    "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+    "experiments/06_linguistics_genre_sample/run_linguistics_sample.py",
+    "experiments/06_linguistics_genre_sample/run_linguistics_sample_test.py",
+    "experiments/07_linguistics_corpora/run_linguistics_corpora.py",
+    "experiments/07_linguistics_corpora/run_linguistics_corpora_test.py",
+    "experiments/08_visualize_dogfood/generators/make_worldcon_nway_genre_deviation.py",
+    "experiments/08_visualize_dogfood/results/comparative_lexical/worldcon_2026_preservation/generators/make_genre_sample_complement_pair_overlays_presentation.py",
+    "experiments/08_visualize_dogfood/results/comparative_lexical/worldcon_2026_preservation/generators/make_genre_sample_sf_reference_overlay_poster.py",
+    "experiments/08_visualize_dogfood/results/comparative_lexical/worldcon_2026_preservation/generators/make_genre_sample_sf_vs_fantasy_complement_overlay_poster.py",
+    "experiments/08_visualize_dogfood/results/comparative_lexical/worldcon_2026_preservation/generators/preservation_guard.py",
+    "experiments/09_rich_linguistics_genre_sample/audit_pos.py",
+    "experiments/09_rich_linguistics_genre_sample/audit_pos_test.py",
+    "experiments/09_rich_linguistics_genre_sample/parquet_bridge.py",
+    "experiments/09_rich_linguistics_genre_sample/parquet_bridge_test.py",
+    "experiments/09_rich_linguistics_genre_sample/run_rich_linguistics_sample.py",
+    "experiments/09_rich_linguistics_genre_sample/run_rich_linguistics_sample_test.py",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+    "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+    "experiments/10_gettenberg_qualification/scripts/measure_baseline.py",
+    "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+    "experiments/10_gettenberg_qualification/scripts/probe_parser.py",
+    "experiments/10_gettenberg_qualification/scripts/qualify_catalog.py",
+    "experiments/10_gettenberg_qualification/scripts/qualify_lifecycle.py",
+    "experiments/10_gettenberg_qualification/scripts/qualify_migration.py",
+    "lcats/KMo/analyze.py",
+    "lcats/KMo/genre.py",
+    "lcats/KMo/scenes.py",
+    "lcats/KMo/testGraph.py",
+    "lcats/experimental/annotation_feasibility_trial/collect_stats.py",
+    "lcats/experimental/annotation_feasibility_trial/select_subset.py",
+    "lcats/experimental/model_comparison/anthropic_haiku/benchmark.py",
+    "lcats/experimental/model_comparison/anthropic_haiku/setup.py",
+    "lcats/experimental/model_comparison/anthropic_opus/benchmark.py",
+    "lcats/experimental/model_comparison/anthropic_opus/setup.py",
+    "lcats/experimental/model_comparison/benchmark_summary.py",
+    "lcats/experimental/model_comparison/common/__init__.py",
+    "lcats/experimental/model_comparison/common/generate_sample_segment.py",
+    "lcats/experimental/model_comparison/common/harness.py",
+    "lcats/experimental/model_comparison/entity_diff.py",
+    "lcats/experimental/model_comparison/gemini_flash/benchmark.py",
+    "lcats/experimental/model_comparison/gemini_flash/benchmark_full_schema_32k.py",
+    "lcats/experimental/model_comparison/gemini_flash/benchmark_minimal_schema.py",
+    "lcats/experimental/model_comparison/gemini_flash/setup.py",
+    "lcats/experimental/model_comparison/ollama_deepseek_r1_14b/benchmark.py",
+    "lcats/experimental/model_comparison/ollama_deepseek_r1_14b/benchmark_entity_reminder.py",
+    "lcats/experimental/model_comparison/ollama_deepseek_r1_14b/setup.py",
+    "lcats/experimental/model_comparison/ollama_gemma4_12b/benchmark.py",
+    "lcats/experimental/model_comparison/ollama_gemma4_12b/benchmark_entity_reminder.py",
+    "lcats/experimental/model_comparison/ollama_gemma4_12b/setup.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark_entity_bestconfig.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark_entity_production_grounded.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark_genre.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark_segmentation.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/benchmark_segmentation_bestconfig.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/entity_shape_adapter.py",
+    "lcats/experimental/model_comparison/ollama_gpt_oss_20b/setup.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_30b_a3b/benchmark.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_30b_a3b/benchmark_segmentation.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_30b_a3b/setup.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_8b/benchmark.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_8b/benchmark_genre.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_8b/benchmark_segmentation.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_8b/benchmark_segmentation_engineers_thumb.py",
+    "lcats/experimental/model_comparison/ollama_qwen3_8b/setup.py",
+    "lcats/experimental/model_comparison/openai_gpt55/benchmark.py",
+    "lcats/experimental/model_comparison/openai_gpt55/setup.py",
+    "lcats/experimental/model_comparison/wi_llm_0059/run_frontier_paired.py",
+    "lcats/experimental/model_comparison/wi_llm_0059/run_local_reminder.py",
+    "lcats/experimental/science_fiction_analysis_trial/run_trial.py",
+    "lcats/experimental/science_fiction_analysis_trial/run_worldcon_spike.py",
+    "lcats/experimental/secrets_hygiene/find_secrets.py",
+    "lcats/experimental/secrets_hygiene/purge_history.py",
+    "lcats/experimental/verify_assess_api/verify_assess_api.py",
+    "lcats/notebooks/01_gatherers.ipynb",
+    "lcats/notebooks/02_extractors.ipynb",
+    "lcats/notebooks/03_datasets.ipynb",
+    "lcats/notebooks/04_rag_expt.ipynb",
+    "lcats/notebooks/05_prog_llm_csharp.ipynb",
+    "lcats/notebooks/05_prog_llm_python.ipynb",
+    "lcats/notebooks/06_story_analysis.ipynb",
+    "lcats/notebooks/07_project_reboot.ipynb",
+    "lcats/notebooks/08_cbr_rag_reboot.ipynb",
+    "lcats/notebooks/09_scene_analysis.ipynb",
+    "lcats/notebooks/11_analyze_corpus.ipynb",
+    "lcats/notebooks/12_extract_scenes.ipynb",
+    "lcats/notebooks/13_clean_corpus.ipynb",
+    "lcats/notebooks/15_reconcile_files.ipynb",
+    "lcats/notebooks/15_reconcile_files.py",
+    "lcats/scripts/utils/corpora_quality_check.py",
+    "lcats/scripts/utils/extract_special_chars.py",
+    "lcats/scripts/utils/fix_pip_vcs_pins.py",
+    "lcats/src/lcats/__init__.py",
+    "lcats/src/lcats/analysis/__init__.py",
+    "lcats/src/lcats/analysis/corpus/__init__.py",
+    "lcats/src/lcats/analysis/corpus/annotate.py",
+    "lcats/src/lcats/analysis/corpus/annotate_cli.py",
+    "lcats/src/lcats/analysis/corpus/application.py",
+    "lcats/src/lcats/analysis/corpus/assess.py",
+    "lcats/src/lcats/analysis/corpus/assess_cli.py",
+    "lcats/src/lcats/analysis/corpus/clean_cli.py",
+    "lcats/src/lcats/analysis/corpus/cli.py",
+    "lcats/src/lcats/analysis/corpus/detectors/__init__.py",
+    "lcats/src/lcats/analysis/corpus/detectors/boundary.py",
+    "lcats/src/lcats/analysis/corpus/detectors/structural.py",
+    "lcats/src/lcats/analysis/corpus/detectors/unicode.py",
+    "lcats/src/lcats/analysis/corpus/discovery.py",
+    "lcats/src/lcats/analysis/corpus/genre_sidecar.py",
+    "lcats/src/lcats/analysis/corpus/linguistics_cli.py",
+    "lcats/src/lcats/analysis/corpus/models.py",
+    "lcats/src/lcats/analysis/corpus/output.py",
+    "lcats/src/lcats/analysis/corpus/processing.py",
+    "lcats/src/lcats/analysis/corpus/promote.py",
+    "lcats/src/lcats/analysis/corpus/promote_cli.py",
+    "lcats/src/lcats/analysis/corpus/qa.py",
+    "lcats/src/lcats/analysis/corpus/reconciliation.py",
+    "lcats/src/lcats/analysis/corpus/repairs.py",
+    "lcats/src/lcats/analysis/corpus/repairs_cli.py",
+    "lcats/src/lcats/analysis/corpus/review.py",
+    "lcats/src/lcats/analysis/corpus/sidecar_validators.py",
+    "lcats/src/lcats/analysis/corpus/span_ops.py",
+    "lcats/src/lcats/analysis/corpus/specials.py",
+    "lcats/src/lcats/analysis/corpus/specials_cli.py",
+    "lcats/src/lcats/analysis/corpus/stats.py",
+    "lcats/src/lcats/analysis/corpus_survey.py",
+    "lcats/src/lcats/analysis/corpus_surveyor.py",
+    "lcats/src/lcats/analysis/event_role_world/__init__.py",
+    "lcats/src/lcats/analysis/event_role_world/baseline.py",
+    "lcats/src/lcats/analysis/event_role_world/discourse_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/entity_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/event_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/export.py",
+    "lcats/src/lcats/analysis/event_role_world/hypothesis_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/nlp_backend.py",
+    "lcats/src/lcats/analysis/event_role_world/processor.py",
+    "lcats/src/lcats/analysis/event_role_world/relation_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/schema.py",
+    "lcats/src/lcats/analysis/event_role_world/story_relation_extractor.py",
+    "lcats/src/lcats/analysis/event_role_world/surface_feature_extractor.py",
+    "lcats/src/lcats/analysis/graph_plotters.py",
+    "lcats/src/lcats/analysis/linguistics/__init__.py",
+    "lcats/src/lcats/analysis/linguistics/lexicon.py",
+    "lcats/src/lcats/analysis/linguistics/runner.py",
+    "lcats/src/lcats/analysis/linguistics/sidecar.py",
+    "lcats/src/lcats/analysis/llm_extractor.py",
+    "lcats/src/lcats/analysis/scene_analysis.py",
+    "lcats/src/lcats/analysis/science_fiction/__init__.py",
+    "lcats/src/lcats/analysis/science_fiction/evidence.py",
+    "lcats/src/lcats/analysis/science_fiction/heinlein.py",
+    "lcats/src/lcats/analysis/science_fiction/knight.py",
+    "lcats/src/lcats/analysis/science_fiction/models.py",
+    "lcats/src/lcats/analysis/science_fiction/novum.py",
+    "lcats/src/lcats/analysis/science_fiction/pipeline.py",
+    "lcats/src/lcats/analysis/science_fiction/preparation.py",
+    "lcats/src/lcats/analysis/science_fiction/rendering.py",
+    "lcats/src/lcats/analysis/science_fiction/rubric/__init__.py",
+    "lcats/src/lcats/analysis/science_fiction/rubric/definitions.py",
+    "lcats/src/lcats/analysis/science_fiction/sidecar.py",
+    "lcats/src/lcats/analysis/story_analysis.py",
+    "lcats/src/lcats/analysis/story_processors.py",
+    "lcats/src/lcats/analysis/text_segmenter.py",
+    "lcats/src/lcats/chunking.py",
+    "lcats/src/lcats/cli.py",
+    "lcats/src/lcats/constants.py",
+    "lcats/src/lcats/datasets/torchdata.py",
+    "lcats/src/lcats/dev/__init__.py",
+    "lcats/src/lcats/dev/versioning.py",
+    "lcats/src/lcats/extraction.py",
+    "lcats/src/lcats/gatherers/__init__.py",
+    "lcats/src/lcats/gatherers/anderson/gatherer.py",
+    "lcats/src/lcats/gatherers/chesterton/gatherer.py",
+    "lcats/src/lcats/gatherers/downloaders.py",
+    "lcats/src/lcats/gatherers/extractors.py",
+    "lcats/src/lcats/gatherers/gatherlib.py",
+    "lcats/src/lcats/gatherers/grimm/gatherer.py",
+    "lcats/src/lcats/gatherers/gutenberg_source.py",
+    "lcats/src/lcats/gatherers/hemingway/gatherer.py",
+    "lcats/src/lcats/gatherers/london/gatherer.py",
+    "lcats/src/lcats/gatherers/lovecraft/__init__.py",
+    "lcats/src/lcats/gatherers/lovecraft/gatherer.py",
+    "lcats/src/lcats/gatherers/main.py",
+    "lcats/src/lcats/gatherers/mass_quantities/__init__.py",
+    "lcats/src/lcats/gatherers/mass_quantities/gatherer.py",
+    "lcats/src/lcats/gatherers/mass_quantities/storymap.py",
+    "lcats/src/lcats/gatherers/normalization.py",
+    "lcats/src/lcats/gatherers/ohenry_four_million/__init__.py",
+    "lcats/src/lcats/gatherers/ohenry_four_million/gatherer.py",
+    "lcats/src/lcats/gatherers/ohenry_whirligigs/__init__.py",
+    "lcats/src/lcats/gatherers/ohenry_whirligigs/gatherer.py",
+    "lcats/src/lcats/gatherers/overrides.py",
+    "lcats/src/lcats/gatherers/parser.py",
+    "lcats/src/lcats/gatherers/planning.py",
+    "lcats/src/lcats/gatherers/sherlock/__init__.py",
+    "lcats/src/lcats/gatherers/sherlock/gatherer.py",
+    "lcats/src/lcats/gatherers/story_output.py",
+    "lcats/src/lcats/gatherers/wilde_happy_prince/gatherer.py",
+    "lcats/src/lcats/gatherers/wodehouse/gatherer.py",
+    "lcats/src/lcats/gettenberg/__init__.py",
+    "lcats/src/lcats/gettenberg/_catalog_provenance.py",
+    "lcats/src/lcats/gettenberg/_decode_types.py",
+    "lcats/src/lcats/gettenberg/_lifecycle_io.py",
+    "lcats/src/lcats/gettenberg/_resource_containers.py",
+    "lcats/src/lcats/gettenberg/_resource_decoding.py",
+    "lcats/src/lcats/gettenberg/_resource_encoding.py",
+    "lcats/src/lcats/gettenberg/_resource_io.py",
+    "lcats/src/lcats/gettenberg/_resource_provenance.py",
+    "lcats/src/lcats/gettenberg/_resource_refresh.py",
+    "lcats/src/lcats/gettenberg/_resource_routing.py",
+    "lcats/src/lcats/gettenberg/_resource_selection.py",
+    "lcats/src/lcats/gettenberg/_resource_transport.py",
+    "lcats/src/lcats/gettenberg/_resource_types.py",
+    "lcats/src/lcats/gettenberg/_store.py",
+    "lcats/src/lcats/gettenberg/approval_cli.py",
+    "lcats/src/lcats/gettenberg/catalog.py",
+    "lcats/src/lcats/gettenberg/catalog_cli.py",
+    "lcats/src/lcats/gettenberg/cleanup.py",
+    "lcats/src/lcats/gettenberg/errors.py",
+    "lcats/src/lcats/gettenberg/identifiers.py",
+    "lcats/src/lcats/gettenberg/ingestion.py",
+    "lcats/src/lcats/gettenberg/lifecycle.py",
+    "lcats/src/lcats/gettenberg/models.py",
+    "lcats/src/lcats/gettenberg/preparation.py",
+    "lcats/src/lcats/gettenberg/rdf.py",
+    "lcats/src/lcats/gettenberg/resources.py",
+    "lcats/src/lcats/gettenberg/sources_cli.py",
+    "lcats/src/lcats/inspect.py",
+    "lcats/src/lcats/llm/__init__.py",
+    "lcats/src/lcats/llm/anthropic_backend.py",
+    "lcats/src/lcats/llm/backend.py",
+    "lcats/src/lcats/llm/fake_backend.py",
+    "lcats/src/lcats/llm/openai_backend.py",
+    "lcats/src/lcats/llm/tool_schema.py",
+    "lcats/src/lcats/pipeline.py",
+    "lcats/src/lcats/stories.py",
+    "lcats/src/lcats/utils/__init__.py",
+    "lcats/src/lcats/utils/canonical_author.py",
+    "lcats/src/lcats/utils/capture.py",
+    "lcats/src/lcats/utils/checkpoint.py",
+    "lcats/src/lcats/utils/compat.py",
+    "lcats/src/lcats/utils/env.py",
+    "lcats/src/lcats/utils/genre.py",
+    "lcats/src/lcats/utils/names.py",
+    "lcats/src/lcats/utils/paths.py",
+    "lcats/src/lcats/utils/run_log.py",
+    "lcats/src/lcats/utils/secrets.py",
+    "lcats/src/lcats/utils/test_utils.py",
+    "lcats/src/lcats/utils/tokenizer_test_utils.py",
+    "lcats/src/lcats/utils/values.py",
+    "lcats/src/lcats/version.py",
+    "lcats/src/lcats/visualize/__init__.py",
+    "lcats/src/lcats/visualize/analysis.py",
+    "lcats/src/lcats/visualize/cli.py",
+    "lcats/src/lcats/visualize/comparison.py",
+    "lcats/src/lcats/visualize/nway_outputs.py",
+    "lcats/src/lcats/visualize/rendering.py",
+    "lcats/src/lcats/visualize/sources.py",
+    "lcats/tests/__init__.py",
+    "lcats/tests/analysis_tests/__init__.py",
+    "lcats/tests/analysis_tests/annotate_cli_test.py",
+    "lcats/tests/analysis_tests/annotate_test.py",
+    "lcats/tests/analysis_tests/application_test.py",
+    "lcats/tests/analysis_tests/assess_cli_test.py",
+    "lcats/tests/analysis_tests/assess_test.py",
+    "lcats/tests/analysis_tests/clean_cli_test.py",
+    "lcats/tests/analysis_tests/corpus_cli_test.py",
+    "lcats/tests/analysis_tests/corpus_package_test.py",
+    "lcats/tests/analysis_tests/corpus_survey_test.py",
+    "lcats/tests/analysis_tests/corpus_surveyor_test.py",
+    "lcats/tests/analysis_tests/discovery_test.py",
+    "lcats/tests/analysis_tests/event_role_world_test.py",
+    "lcats/tests/analysis_tests/genre_sidecar_test.py",
+    "lcats/tests/analysis_tests/graph_plotters_test.py",
+    "lcats/tests/analysis_tests/linguistics_test.py",
+    "lcats/tests/analysis_tests/llm_extractor_test.py",
+    "lcats/tests/analysis_tests/model_comparison_harness_test.py",
+    "lcats/tests/analysis_tests/output_test.py",
+    "lcats/tests/analysis_tests/processing_test.py",
+    "lcats/tests/analysis_tests/promote_test.py",
+    "lcats/tests/analysis_tests/reconciliation_test.py",
+    "lcats/tests/analysis_tests/repairs_cli_test.py",
+    "lcats/tests/analysis_tests/repairs_test.py",
+    "lcats/tests/analysis_tests/review_test.py",
+    "lcats/tests/analysis_tests/scene_analysis_test.py",
+    "lcats/tests/analysis_tests/science_fiction/__init__.py",
+    "lcats/tests/analysis_tests/science_fiction/evidence_test.py",
+    "lcats/tests/analysis_tests/science_fiction/experiment_runner_test.py",
+    "lcats/tests/analysis_tests/science_fiction/heinlein_test.py",
+    "lcats/tests/analysis_tests/science_fiction/knight_test.py",
+    "lcats/tests/analysis_tests/science_fiction/models_test.py",
+    "lcats/tests/analysis_tests/science_fiction/novum_test.py",
+    "lcats/tests/analysis_tests/science_fiction/preparation_test.py",
+    "lcats/tests/analysis_tests/science_fiction/rendering_test.py",
+    "lcats/tests/analysis_tests/science_fiction/sidecar_pipeline_test.py",
+    "lcats/tests/analysis_tests/science_fiction/worldcon_spike_test.py",
+    "lcats/tests/analysis_tests/span_ops_test.py",
+    "lcats/tests/analysis_tests/specials_cli_test.py",
+    "lcats/tests/analysis_tests/specials_test.py",
+    "lcats/tests/analysis_tests/story_analysis_test.py",
+    "lcats/tests/analysis_tests/story_processors_test.py",
+    "lcats/tests/analysis_tests/text_segmenter_test.py",
+    "lcats/tests/chunking_test.py",
+    "lcats/tests/cli_test.py",
+    "lcats/tests/datasets_tests/torchdata_test.py",
+    "lcats/tests/dev_tests/__init__.py",
+    "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+    "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+    "lcats/tests/dev_tests/versioning_test.py",
+    "lcats/tests/experiment_metadata_genre_prefilter_test.py",
+    "lcats/tests/experiment_tests/run_census_test.py",
+    "lcats/tests/extraction_test.py",
+    "lcats/tests/gather_promote_e2e_test.py",
+    "lcats/tests/gatherers_tests/__init__.py",
+    "lcats/tests/gatherers_tests/downloaders_test.py",
+    "lcats/tests/gatherers_tests/extractors_test.py",
+    "lcats/tests/gatherers_tests/gatherlib_test.py",
+    "lcats/tests/gatherers_tests/live_gather_test.py",
+    "lcats/tests/gatherers_tests/lovecraft_gatherer_test.py",
+    "lcats/tests/gatherers_tests/mass_quantities_test.py",
+    "lcats/tests/gatherers_tests/normalization_test.py",
+    "lcats/tests/gatherers_tests/overrides_test.py",
+    "lcats/tests/gatherers_tests/parser_test.py",
+    "lcats/tests/gatherers_tests/sherlock_gatherer_test.py",
+    "lcats/tests/gettenberg_tests/__init__.py",
+    "lcats/tests/gettenberg_tests/catalog_receipts_test.py",
+    "lcats/tests/gettenberg_tests/catalog_test.py",
+    "lcats/tests/gettenberg_tests/cleanup_test.py",
+    "lcats/tests/gettenberg_tests/decoding_test.py",
+    "lcats/tests/gettenberg_tests/default_sources_test.py",
+    "lcats/tests/gettenberg_tests/lifecycle_io_test.py",
+    "lcats/tests/gettenberg_tests/lifecycle_test.py",
+    "lcats/tests/gettenberg_tests/migration_test.py",
+    "lcats/tests/gettenberg_tests/preparation_test.py",
+    "lcats/tests/gettenberg_tests/qualification_helpers_test.py",
+    "lcats/tests/gettenberg_tests/rdf_test.py",
+    "lcats/tests/gettenberg_tests/refresh_test.py",
+    "lcats/tests/gettenberg_tests/research_clients_test.py",
+    "lcats/tests/gettenberg_tests/resources_test.py",
+    "lcats/tests/gettenberg_tests/routing_test.py",
+    "lcats/tests/gettenberg_tests/selection_test.py",
+    "lcats/tests/inspect_test.py",
+    "lcats/tests/llm_tests/__init__.py",
+    "lcats/tests/llm_tests/anthropic_backend_test.py",
+    "lcats/tests/llm_tests/backend_test.py",
+    "lcats/tests/llm_tests/openai_backend_test.py",
+    "lcats/tests/pipeline_test.py",
+    "lcats/tests/stories_test.py",
+    "lcats/tests/test_utils_test.py",
+    "lcats/tests/tokenizer_test_utils_test.py",
+    "lcats/tests/utils_tests/__init__.py",
+    "lcats/tests/utils_tests/canonical_author_test.py",
+    "lcats/tests/utils_tests/capture_test.py",
+    "lcats/tests/utils_tests/checkpoint_test.py",
+    "lcats/tests/utils_tests/compat_test.py",
+    "lcats/tests/utils_tests/corpora_quality_check_test.py",
+    "lcats/tests/utils_tests/env_test.py",
+    "lcats/tests/utils_tests/extract_special_chars_test.py",
+    "lcats/tests/utils_tests/names_test.py",
+    "lcats/tests/utils_tests/paths_test.py",
+    "lcats/tests/utils_tests/run_log_test.py",
+    "lcats/tests/utils_tests/secrets_test.py",
+    "lcats/tests/utils_tests/values_test.py",
+    "lcats/tests/version_test.py",
+    "lcats/tests/visualize_tests/__init__.py",
+    "lcats/tests/visualize_tests/analysis_test.py",
+    "lcats/tests/visualize_tests/cli_test.py",
+    "lcats/tests/visualize_tests/comparison_test.py",
+    "lcats/tests/visualize_tests/nway_outputs_test.py",
+    "lcats/tests/visualize_tests/rendering_test.py",
+    "lcats/tests/visualize_tests/sources_test.py",
+    "lcats/tools/build_genre_seed_manifest.py",
+    "lcats/tools/create_request.py",
+    "lcats/tools/rewrite_genre_cache_db_path.py",
+    "lcats/tools/sourcetree_surveyor.py"
+  ],
+  "legacy_pattern_hits": [
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter.py",
+      "cell": null,
+      "line": 218,
+      "text": "# absolute path like \"/Users/<name>/.../gutenbergindex.db\" would be"
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 104,
+      "text": "cache_db = cache_root / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 203,
+      "text": "cache_db = pathlib.Path(tmp) / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 238,
+      "text": "cache_db = pathlib.Path(tmp) / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 243,
+      "text": "self.assertEqual(status[\"cache_db_path\"], \"gutenbergindex.db\")"
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 271,
+      "text": "cache_db = pathlib.Path(tmp) / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 352,
+      "text": "\"cache_db_path\": \"/missing/gutenbergindex.db\","
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 364,
+      "text": "pathlib.Path(\"/missing/gutenbergindex.db\"),"
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 411,
+      "text": "{\"cache_db_path\": \"/cache/gutenbergindex.db\", \"status\": \"ready\"},"
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 427,
+      "text": "cache_db = pathlib.Path(tmp) / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 436,
+      "text": "cache_db = root / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 446,
+      "text": "cache_db = root / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 540,
+      "text": "\"print('lcats.gettenberg.cache' in sys.modules)\\n\""
+    },
+    {
+      "path": "experiments/05_metadata_genre_prefilter/run_prefilter_test.py",
+      "cell": null,
+      "line": 1820,
+      "text": "cache_db = root / \"cache\" / \"gutenbergindex.db\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 5,
+      "line": 5,
+      "text": "from gutenbergpy import gutenbergcache as gc"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 1,
+      "text": "gc.GutenbergCacheSettings.set("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 2,
+      "text": "CacheFilename=str(_GUTENBERG_ROOT / \"gutenbergindex.db\"),"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 7,
+      "text": "print(\"CACHE_FILENAME:\", gc.GutenbergCacheSettings.CACHE_FILENAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 8,
+      "text": "print(\"CACHE_RDF_UNPACK_DIRECTORY:\", gc.GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 9,
+      "text": "print(\"CACHE_RDF_ARCHIVE_NAME:\", gc.GutenbergCacheSettings.CACHE_RDF_ARCHIVE_NAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 14,
+      "line": 10,
+      "text": "print(\"TEXT_FILES_CACHE_FOLDER:\", gc.GutenbergCacheSettings.TEXT_FILES_CACHE_FOLDER)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 16,
+      "line": 4,
+      "text": "gc.GutenbergCache.create("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 17,
+      "line": 1,
+      "text": "cache = gc.GutenbergCache.get_cache()"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 2,
+      "text": "print(\"CACHE_FILENAME       =\", gc.GutenbergCacheSettings.CACHE_FILENAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 3,
+      "text": "print(\"CACHE_ARCHIVE_NAME   =\", gc.GutenbergCacheSettings.CACHE_RDF_ARCHIVE_NAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 4,
+      "text": "print(\"CACHE_UNPACK_DIR     =\", gc.GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 5,
+      "text": "print(\"TEXT_FILES_CACHE_DIR =\", gc.GutenbergCacheSettings.TEXT_FILES_CACHE_FOLDER)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 19,
+      "text": "print(\"DB:\",    file_info(gc.GutenbergCacheSettings.CACHE_FILENAME))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 20,
+      "text": "print(\"RDF:\",   file_info(gc.GutenbergCacheSettings.CACHE_RDF_ARCHIVE_NAME))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 21,
+      "text": "print(\"UNPACK:\", file_info(gc.GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 19,
+      "line": 22,
+      "text": "print(\"TABLES:\", list_tables(gc.GutenbergCacheSettings.CACHE_FILENAME))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 20,
+      "line": 1,
+      "text": "count_books   = list(cache.native_query(\"SELECT COUNT(*) FROM books;\"))[0][0]"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 20,
+      "line": 2,
+      "text": "count_authors = list(cache.native_query(\"SELECT COUNT(*) FROM authors;\"))[0][0]"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 20,
+      "line": 3,
+      "text": "count_titles  = list(cache.native_query(\"SELECT COUNT(*) FROM titles;\"))[0][0]"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 21,
+      "line": 1,
+      "text": "subjects_pragma = list(cache.native_query(\"PRAGMA table_info(subjects);\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 21,
+      "line": 2,
+      "text": "books_pragma  = list(cache.native_query(\"PRAGMA table_info(books);\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 21,
+      "line": 3,
+      "text": "book_subjects_pragma = list(cache.native_query(\"PRAGMA table_info(book_subjects);\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 23,
+      "line": 15,
+      "text": "rows = cache.native_query("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 23,
+      "line": 26,
+      "text": "rows = cache.native_query("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 23,
+      "line": 37,
+      "text": "rows = cache.native_query("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "cell": 23,
+      "line": 49,
+      "text": "rows = cache.native_query("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 9,
+      "line": 8,
+      "text": "from lcats.gettenberg import api"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 9,
+      "line": 9,
+      "text": "from lcats.gettenberg import cache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 9,
+      "line": 10,
+      "text": "from lcats.gettenberg import metadata"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 9,
+      "line": 11,
+      "text": "from lcats.gettenberg import headers"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 12,
+      "line": 4,
+      "text": "import gutenbergpy, gutenbergpy.parse.rdfparser, gutenbergpy.caches.sqlitecache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 12,
+      "line": 5,
+      "text": "print(\"gutenbergpy     :\", gutenbergpy.__file__)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 12,
+      "line": 6,
+      "text": "print(\"rdfparser       :\", gutenbergpy.parse.rdfparser.__file__)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 12,
+      "line": 7,
+      "text": "print(\"sqlitecache     :\", gutenbergpy.caches.sqlitecache.__file__)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 32,
+      "line": 4,
+      "text": "rows = cache.native_query("
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 34,
+      "line": 1,
+      "text": "from lcats.gettenberg import cache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 1,
+      "text": "from lcats.gettenberg import cache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 2,
+      "text": "from gutenbergpy import gutenbergcache as gc"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 6,
+      "text": "print(\"  CACHE_FILENAME:\",           gc.GutenbergCacheSettings.CACHE_FILENAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 7,
+      "text": "print(\"  CACHE_RDF_ARCHIVE_NAME:\",   gc.GutenbergCacheSettings.CACHE_RDF_ARCHIVE_NAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 8,
+      "text": "print(\"  CACHE_RDF_UNPACK_DIRECTORY:\", gc.GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 9,
+      "text": "print(\"  TEXT_FILES_CACHE_FOLDER:\",  gc.GutenbergCacheSettings.TEXT_FILES_CACHE_FOLDER)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 39,
+      "line": 11,
+      "text": "db = pathlib.Path(gc.GutenbergCacheSettings.CACHE_FILENAME)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 41,
+      "line": 2,
+      "text": "unpack = Path(gc.GutenbergCacheSettings.CACHE_RDF_UNPACK_DIRECTORY)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 43,
+      "line": 2,
+      "text": "from lcats.gettenberg import api, headers"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 45,
+      "line": 3,
+      "text": "list(gutenberg_cache.native_query(\"\"\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 46,
+      "line": 3,
+      "text": "list(gutenberg_cache.native_query(\"\"\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 47,
+      "line": 3,
+      "text": "sample = [row[0] for row in gutenberg_cache.native_query(\"SELECT gutenbergbookid FROM books LIMIT 500\")]"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 47,
+      "line": 5,
+      "text": "return next(iter(gutenberg_cache.native_query(f\"\"\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 50,
+      "line": 2,
+      "text": "pk = list(gutenberg_cache.native_query(\"SELECT id FROM books WHERE gutenbergbookid=24927\"))[0][0]"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 50,
+      "line": 5,
+      "text": "list(gutenberg_cache.native_query(f\"SELECT name FROM titles WHERE bookid={pk}\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 50,
+      "line": 8,
+      "text": "list(gutenberg_cache.native_query(\"\"\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 51,
+      "line": 1,
+      "text": "import inspect, gutenbergpy.parse.parseitemtitles as pit"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 51,
+      "line": 2,
+      "text": "import gutenbergpy.parse.rdfparser as rp"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 51,
+      "line": 3,
+      "text": "import gutenbergpy.caches.sqlitecache as sc"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 7,
+      "text": "from gutenbergpy import gutenbergcache as gc"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 8,
+      "text": "from gutenbergpy.parse.rdfparser import RdfParser"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 11,
+      "text": "\"\"\"Run gutenbergpy's RDF parser on one RDF file and return the parser object.\"\"\""
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 25,
+      "text": "S = gc.GutenbergCacheSettings"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 28,
+      "text": "gc.GutenbergCacheSettings.set(CacheUnpackDir=str(tmp / \"epub\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 52,
+      "line": 38,
+      "text": "gc.GutenbergCacheSettings.set(CacheUnpackDir=old_unpack)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 7,
+      "text": "from gutenbergpy import gutenbergcache as gc"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 8,
+      "text": "from gutenbergpy.parse.rdfparser import RdfParser"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 9,
+      "text": "import gutenbergpy.caches.sqlitecache as sqlitecache  # the DB writer used by the parser"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 21,
+      "text": "S = gc.GutenbergCacheSettings"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 49,
+      "text": "gc.GutenbergCacheSettings.set(CacheUnpackDir=str(tmp / \"epub\"))"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "cell": 55,
+      "line": 54,
+      "text": "gc.GutenbergCacheSettings.set(CacheUnpackDir=old_unpack)"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "cell": null,
+      "line": 1,
+      "text": "\"\"\"Measure the historical gutenbergpy/wrapper query behavior."
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "cell": null,
+      "line": 25,
+      "text": "from gutenbergpy.caches import sqlitecache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "cell": null,
+      "line": 26,
+      "text": "from lcats.gettenberg import api"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "cell": null,
+      "line": 27,
+      "text": "from lcats.gettenberg import cache"
+    },
+    {
+      "path": "experiments/10_gettenberg_qualification/scripts/probe_legacy.py",
+      "cell": null,
+      "line": 30,
+      "text": "\"historical probe requires its recorded LCATS checkout and gutenbergpy environment\""
+    },
+    {
+      "path": "lcats/scripts/utils/fix_pip_vcs_pins.py",
+      "cell": null,
+      "line": 6,
+      "text": "URL (e.g. `gutenbergpy @ git+https://.../@<commit>`). `pip freeze` renders"
+    },
+    {
+      "path": "lcats/src/lcats/analysis/corpus/clean_cli.py",
+      "cell": null,
+      "line": 96,
+      "text": "for name in (\"gutenbergindex.db\", \"rdf-files.tar.bz2\"):"
+    },
+    {
+      "path": "lcats/src/lcats/gettenberg/lifecycle.py",
+      "cell": null,
+      "line": 685,
+      "text": "for name in (\"gutenbergindex.db\", \"rdf-files.tar.bz2\", \"texts\", \"tmp\"):"
+    },
+    {
+      "path": "lcats/tests/analysis_tests/clean_cli_test.py",
+      "cell": null,
+      "line": 23,
+      "text": "self.index_db = self.cache_root / \"gutenbergindex.db\""
+    },
+    {
+      "path": "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+      "cell": null,
+      "line": 47,
+      "text": "def _valid_record(lcats_id, cache_path=\"/Users/x/cache/gutenbergindex.db\"):"
+    },
+    {
+      "path": "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+      "cell": null,
+      "line": 130,
+      "text": "_record(\"c/one\", \"/Users/x/cache/gutenbergindex.db\"),"
+    },
+    {
+      "path": "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+      "cell": null,
+      "line": 131,
+      "text": "_record(\"c/two\", \"C:\\\\Users\\\\x\\\\cache\\\\gutenbergindex.db\"),"
+    },
+    {
+      "path": "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+      "cell": null,
+      "line": 137,
+      "text": "self.assertEqual(value, \"gutenbergindex.db\")"
+    },
+    {
+      "path": "lcats/tests/dev_tests/build_genre_seed_manifest_test.py",
+      "cell": null,
+      "line": 140,
+      "text": "evidence = [_record(\"c/one\", \"gutenbergindex.db\"), _record(\"c/two\", None)]"
+    },
+    {
+      "path": "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+      "cell": null,
+      "line": 39,
+      "text": "original = _sidecar({\"cache_db_path\": \"/Users/x/proj/cache/gutenbergindex.db\"})"
+    },
+    {
+      "path": "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+      "cell": null,
+      "line": 44,
+      "text": "\"gutenbergindex.db\","
+    },
+    {
+      "path": "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+      "cell": null,
+      "line": 48,
+      "text": "original = _sidecar({\"cache_db_path\": \"C:\\\\Users\\\\x\\\\cache\\\\gutenbergindex.db\"})"
+    },
+    {
+      "path": "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+      "cell": null,
+      "line": 53,
+      "text": "\"gutenbergindex.db\","
+    },
+    {
+      "path": "lcats/tests/dev_tests/rewrite_genre_cache_db_path_test.py",
+      "cell": null,
+      "line": 57,
+      "text": "original = _sidecar({\"cache_db_path\": \"gutenbergindex.db\"})"
+    },
+    {
+      "path": "lcats/tests/gatherers_tests/live_gather_test.py",
+      "cell": null,
+      "line": 477,
+      "text": "if fullname == \"gutenbergpy\" or fullname.startswith(\"gutenbergpy.\") or fullname in (\"lcats.gettenberg.api\", \"lcats.gettenberg.headers\", \"lcats.gettenberg.cache\"):"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/cleanup_test.py",
+      "cell": null,
+      "line": 399,
+      "text": "def test_import_and_cleanup_need_no_gutenbergpy_files_or_network(self):"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/cleanup_test.py",
+      "cell": null,
+      "line": 404,
+      "text": "if fullname == \"gutenbergpy\" or fullname.startswith(\"gutenbergpy.\"):"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/cleanup_test.py",
+      "cell": null,
+      "line": 408,
+      "text": "assert \"gutenbergpy\" not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/lifecycle_test.py",
+      "cell": null,
+      "line": 190,
+      "text": "for name in (\"gutenbergindex.db\", \"rdf-files.tar.bz2\"):"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/lifecycle_test.py",
+      "cell": null,
+      "line": 208,
+      "text": "(self.cache / \"gutenbergindex.db\").read_bytes(), b\"legacy unverified\""
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/migration_test.py",
+      "cell": null,
+      "line": 121,
+      "text": "if fullname == \"gutenbergpy\" or fullname.startswith(\"gutenbergpy.\"):"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/migration_test.py",
+      "cell": null,
+      "line": 130,
+      "text": "assert \"gutenbergpy\" not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/preparation_test.py",
+      "cell": null,
+      "line": 370,
+      "text": "assert \"gutenbergpy\" not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/preparation_test.py",
+      "cell": null,
+      "line": 433,
+      "text": "assert 'gutenbergpy' not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/rdf_test.py",
+      "cell": null,
+      "line": 571,
+      "text": "assert \"lcats.gettenberg.cache\" not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/rdf_test.py",
+      "cell": null,
+      "line": 572,
+      "text": "assert \"gutenbergpy\" not in sys.modules"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/resources_test.py",
+      "cell": null,
+      "line": 763,
+      "text": "# The public facade must not accidentally import the legacy gutenbergpy"
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/resources_test.py",
+      "cell": null,
+      "line": 765,
+      "text": "code = \"from lcats.gettenberg import resources; import sys; assert 'gutenbergpy' not in sys.modules; assert 'lcats.gettenberg.lifecycle' not in sys.modules\""
+    }
+  ],
+  "active_upstream_imports": [],
+  "retired_wrapper_tests": [
+    {
+      "path": "lcats/tests/gettenberg_tests/api_test.py",
+      "test_methods": 17
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/cache_test.py",
+      "test_methods": 19
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/headers_test.py",
+      "test_methods": 6
+    },
+    {
+      "path": "lcats/tests/gettenberg_tests/metadata_test.py",
+      "test_methods": 30
+    }
+  ],
+  "archive_original_bytes_verified": true,
+  "historical_results_changed": [],
+  "limits": "Static scans include comments/test sentinels and cannot prove absence of arbitrary dynamic imports. Historical probe and archived notebooks intentionally retain legacy imports; CI migration is WI0009."
+}

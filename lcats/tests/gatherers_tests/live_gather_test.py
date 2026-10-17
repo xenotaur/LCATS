@@ -152,6 +152,54 @@ class LiveGatherTests(unittest.TestCase):
         with capture.capture_output():
             return main.run(["mass_quantities"], **options)
 
+    def test_inspection_matches_gathered_body_without_writing_output(self):
+        source, artifact = self.acquire()
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIsNone(report["rejection"])
+        self.assertEqual(report["body"], BODY)
+        self.assertEqual(report["provenance"]["original_sha256"], artifact.sha256)
+        self.assertEqual(report["metadata"]["aliases"], ["J. Smith"])
+        json.dumps(report)
+        self.assertFalse(self.data.exists())
+        self.run_gather()
+        output = next(self.data.rglob("story.json"))
+        self.assertEqual(json.loads(output.read_text())["body"], report["body"])
+
+    def test_inspection_missing_and_ineligible_records_do_not_acquire(self):
+        self.write_archive(language="fr")
+        source = self.source()
+        missing = parser.inspect_story(999999, source=source)
+        rejected = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIn("No data", missing["rejection"])
+        self.assertIn("not suitable", rejected["rejection"])
+        self.assertIsNone(missing["body"])
+        self.assertIsNone(rejected["provenance"])
+        self.assertFalse(self.data.exists())
+
+    def test_short_body_is_reported_and_never_published(self):
+        source, _ = self.acquire(b"The Bell\n\nJohn Smith\n\nA short story.")
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIn("too short", report["rejection"])
+        self.assertIn("short story", report["body"])
+        self.run_gather()
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+
+    def test_chaptered_body_is_reported_and_never_published(self):
+        content = (
+            "The Bell\n\nJohn Smith\n\nChapter I\n\n"
+            + BODY
+            + "\n\nChapter II\n\n"
+            + BODY
+        )
+        source, _ = self.acquire(content.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIn("chapters", report["rejection"])
+        self.run_gather()
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+
     def test_projection_preserves_author_roles_order_and_missing_record(self):
         source = self.source()
         record = source.metadata(BOOK_ID)

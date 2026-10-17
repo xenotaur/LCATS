@@ -81,3 +81,24 @@ safety, CLI usage, relative URI paths and optimized-Python acceptance behavior.
 Full-archive runs are explicit qualification, not unit-test side effects. Any
 change to measurement/acceptance logic requires affected checks and accurately
 attributed new evidence; old results do not become measurements of new code.
+
+## Caller migration comparison
+
+`qualify_migration.py` compares the parser at integration base `003c2e085` with
+the current parser using five authored fixture cases and the same explicit
+catalog/source adapter. Run from `lcats/`, with the development environment and
+`PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_migration.py /tmp/new-migration-result.json
+```
+
+The pinned Git commit must be available locally (a shallow clone may need that
+history fetched first). The runner reuses the source checkout's test fixture
+builders and in-memory HTTP boundary. It blocks real sockets, creates only
+temporary catalogs/caches/output buckets, and refuses to overwrite the result
+file. Compare JSON includes source hashes and one/two-sided source groups. Five
+matching fixtures establish consumer preservation, not whole-corpus equivalence
+or qualification of the old wrapper's known failures. No historical result is
+rewritten. [Legacy notebooks](legacy-notebooks/README.md) record the relocation
+and supported replacements for upstream-specific diagnostics.

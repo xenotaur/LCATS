@@ -165,7 +165,10 @@ broad retention/deletion policy is outside this API. Preserve the archive and
 manifest elsewhere if long-term reproducibility must outlive this cache.
 
 Legacy `gutenbergindex.db`, `rdf-files.tar.bz2`, `texts/` and `tmp/` at the LCATS
-cache root are reported as unverified legacy artifacts and left unchanged.
+cache root are reported as unverified legacy artifacts and left unchanged by
+CatalogManager. The separate destructive `lcats clean --cache-only` command removes
+all known caches, including those legacy artifacts and published generations; stop
+other LCATS processes first.
 Local capture/build time is recorded separately from retrieval provenance;
 unknown retrieval dates and HTTP validators remain unknown.
 

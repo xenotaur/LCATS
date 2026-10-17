@@ -2,16 +2,22 @@
 
 from __future__ import annotations
 
+import html
 import importlib.util
+import io
 import json
 import pathlib
 import sqlite3
 import subprocess
 import sys
+import tarfile
 import tempfile
 import unittest
 import unittest.mock
 
+from lcats.gettenberg import catalog
+from lcats.gettenberg import errors
+from lcats.gettenberg import ingestion
 from lcats.utils import capture
 
 _RUNNER_PATH = pathlib.Path(__file__).resolve().parent / "run_prefilter.py"
@@ -43,48 +49,34 @@ def _write_story(
     return story_path
 
 
-def _write_normalized_cache(
+def _write_catalog(
     cache_db: pathlib.Path, subjects_by_gutenberg_id: dict[int, list[str]]
 ) -> None:
-    cache_db.parent.mkdir(parents=True)
-    with sqlite3.connect(cache_db) as con:
-        con.execute("CREATE TABLE books (id INTEGER, gutenbergbookid INTEGER)")
-        con.execute("CREATE TABLE subjects (id INTEGER, name TEXT)")
-        con.execute("CREATE TABLE book_subjects (bookid INTEGER, subjectid INTEGER)")
-        subject_id = 1
-        for book_id, (gutenberg_id, subjects) in enumerate(
-            subjects_by_gutenberg_id.items(), start=1
-        ):
-            con.execute(
-                "INSERT INTO books (id, gutenbergbookid) VALUES (?, ?)",
-                (book_id, gutenberg_id),
-            )
-            for subject in subjects:
-                con.execute(
-                    "INSERT INTO subjects (id, name) VALUES (?, ?)",
-                    (subject_id, subject),
-                )
-                con.execute(
-                    "INSERT INTO book_subjects (bookid, subjectid) VALUES (?, ?)",
-                    (book_id, subject_id),
-                )
-                subject_id += 1
-
-
-def _write_flat_cache(
-    cache_db: pathlib.Path, subjects_by_gutenberg_id: dict[int, list[str]]
-) -> None:
-    cache_db.parent.mkdir(parents=True)
-    with sqlite3.connect(cache_db) as con:
-        con.execute("CREATE TABLE books (id INTEGER)")
-        con.execute("CREATE TABLE subjects (bookid INTEGER, subject TEXT)")
+    """Ingest locally authored RDF, preserving duplicates in the source fixture."""
+    cache_db.parent.mkdir(parents=True, exist_ok=True)
+    archive_path = cache_db.with_suffix(".tar.bz2")
+    with tarfile.open(archive_path, "w:bz2", format=tarfile.USTAR_FORMAT) as archive:
         for gutenberg_id, subjects in subjects_by_gutenberg_id.items():
-            con.execute("INSERT INTO books (id) VALUES (?)", (gutenberg_id,))
-            for subject in subjects:
-                con.execute(
-                    "INSERT INTO subjects (bookid, subject) VALUES (?, ?)",
-                    (gutenberg_id, subject),
-                )
+            subject_xml = "".join(
+                "<dcterms:subject><rdf:Description>"
+                '<dcam:memberOf rdf:resource="http://purl.org/dc/terms/LCSH"/>'
+                f"<rdf:value>{html.escape(subject)}</rdf:value>"
+                "</rdf:Description></dcterms:subject>"
+                for subject in subjects
+            )
+            data = (
+                '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" '
+                'xmlns:pgterms="http://www.gutenberg.org/2009/pgterms/" '
+                'xmlns:dcterms="http://purl.org/dc/terms/" '
+                'xmlns:dcam="http://purl.org/dc/dcam/">'
+                f'<pgterms:ebook rdf:about="https://www.gutenberg.org/ebooks/{gutenberg_id}">'
+                f"<dcterms:title>Authored fixture {gutenberg_id}</dcterms:title>"
+                f"{subject_xml}</pgterms:ebook></rdf:RDF>"
+            ).encode("utf-8")
+            member = tarfile.TarInfo(f"{gutenberg_id}/pg{gutenberg_id}.rdf")
+            member.size = len(data)
+            archive.addfile(member, io.BytesIO(data))
+    ingestion.build_catalog(archive_path, cache_db)
 
 
 class TestGutenbergIdParsing(unittest.TestCase):
@@ -209,7 +201,7 @@ class TestMetadataEvidence(unittest.TestCase):
     def test_ready_cache_is_opened_read_only_and_subjects_are_read(self):
         with tempfile.TemporaryDirectory() as tmp:
             cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
-            _write_normalized_cache(
+            _write_catalog(
                 cache_db,
                 {
                     1661: [
@@ -219,12 +211,16 @@ class TestMetadataEvidence(unittest.TestCase):
                 },
             )
 
-            before = cache_db.stat().st_mtime_ns
+            before = (cache_db.stat().st_mtime_ns, cache_db.read_bytes())
+            siblings = sorted(path.name for path in cache_db.parent.iterdir())
             status = run_prefilter.cache_readiness(cache_db)
             subjects = run_prefilter.read_subjects_from_cache(
                 cache_db, 1661, cache_ready=status["ready"]
             )
-            after = cache_db.stat().st_mtime_ns
+            after = (cache_db.stat().st_mtime_ns, cache_db.read_bytes())
+            self.assertEqual(
+                sorted(path.name for path in cache_db.parent.iterdir()), siblings
+            )
 
             self.assertTrue(status["ready"])
             self.assertEqual(status["status"], "ready")
@@ -240,57 +236,102 @@ class TestMetadataEvidence(unittest.TestCase):
         machine-specific path (review finding, PR #362)."""
         with tempfile.TemporaryDirectory() as tmp:
             cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
-            _write_normalized_cache(cache_db, {1661: ["Crime -- Fiction"]})
+            _write_catalog(cache_db, {1661: ["Crime -- Fiction"]})
 
             status = run_prefilter.cache_readiness(cache_db)
 
             self.assertEqual(status["cache_db_path"], "gutenbergindex.db")
             self.assertNotIn(tmp, status["cache_db_path"])
 
-    def test_flat_fixture_cache_schema_is_supported(self):
+    def test_catalog_subjects_are_sorted_and_deduplicated(self):
         with tempfile.TemporaryDirectory() as tmp:
-            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
-            _write_flat_cache(cache_db, {84: ["Horror tales", "Gothic fiction"]})
+            cache_db = pathlib.Path(tmp) / "cache" / "catalog.sqlite"
+            _write_catalog(
+                cache_db, {84: ["Horror tales", "Gothic fiction", "Horror tales"]}
+            )
 
+            with catalog.Catalog(cache_db) as library:
+                self.assertEqual(len(library.get(84).ebook.subjects), 3)
             self.assertTrue(run_prefilter.cache_readiness(cache_db)["ready"])
             self.assertEqual(
                 run_prefilter.read_subjects_from_cache(cache_db, 84, cache_ready=True),
                 ["Gothic fiction", "Horror tales"],
             )
+            for book_id in (999, None):
+                with self.subTest(book_id=book_id):
+                    self.assertEqual(
+                        run_prefilter.read_subjects_from_cache(
+                            cache_db, book_id, cache_ready=True
+                        ),
+                        [],
+                    )
 
-    def test_subject_table_without_supported_columns_is_not_ready(self):
+    def test_legacy_database_is_incompatible_and_not_modified(self):
         with tempfile.TemporaryDirectory() as tmp:
-            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
-            cache_db.parent.mkdir()
-            with sqlite3.connect(cache_db) as con:
-                con.execute("CREATE TABLE books (id INTEGER)")
-                con.execute("CREATE TABLE subjects (id INTEGER)")
-
-            status = run_prefilter.cache_readiness(cache_db)
-
-            self.assertFalse(status["ready"])
-            self.assertEqual(status["status"], "missing_tables")
-            self.assertIn("supported subjects schema", status["warnings"][0])
-
-    def test_normalized_cache_missing_join_columns_is_not_ready(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            cache_db = pathlib.Path(tmp) / "cache" / "gutenbergindex.db"
-            cache_db.parent.mkdir()
+            cache_db = pathlib.Path(tmp) / "gutenbergindex.db"
+            # This intentionally invalid input verifies rejection, not a
+            # supported SQL fixture for the catalog reader.
             with sqlite3.connect(cache_db) as con:
                 con.execute("CREATE TABLE books (id INTEGER, gutenbergbookid INTEGER)")
                 con.execute("CREATE TABLE subjects (id INTEGER, name TEXT)")
-                con.execute("CREATE TABLE book_subjects (id INTEGER)")
-
+                con.execute(
+                    "CREATE TABLE book_subjects (bookid INTEGER, subjectid INTEGER)"
+                )
+            before = cache_db.read_bytes()
             status = run_prefilter.cache_readiness(cache_db)
 
             self.assertFalse(status["ready"])
-            self.assertEqual(status["status"], "missing_tables")
+            self.assertEqual(status["status"], "incompatible")
+            self.assertIn("not an LCATS Gutenberg catalog", status["warnings"][0])
+            self.assertEqual(cache_db.read_bytes(), before)
             self.assertEqual(
                 run_prefilter.read_subjects_from_cache(
                     cache_db, 1661, cache_ready=status["ready"]
                 ),
                 [],
             )
+
+    def test_unreadable_empty_and_directory_catalogs_report_diagnostics(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for name, content, expected in (
+                ("corrupt.sqlite", b"not a database", "unreadable"),
+                ("empty.sqlite", b"", "empty"),
+                ("directory", None, "not_file"),
+            ):
+                with self.subTest(expected=expected):
+                    path = root / name
+                    if content is None:
+                        path.mkdir()
+                    else:
+                        path.write_bytes(content)
+                    status = run_prefilter.cache_readiness(path)
+                    self.assertFalse(status["ready"])
+                    self.assertEqual(status["status"], expected)
+                    self.assertTrue(status["warnings"])
+
+    def test_incomplete_ingestion_is_reported_without_repair(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            archive_path = root / "invalid.tar.bz2"
+            cache_db = root / "incomplete.sqlite"
+            with tarfile.open(
+                archive_path, "w:bz2", format=tarfile.USTAR_FORMAT
+            ) as archive:
+                data = b"not RDF"
+                member = tarfile.TarInfo("invalid.rdf")
+                member.size = len(data)
+                archive.addfile(member, io.BytesIO(data))
+            with self.assertRaises(errors.CatalogBuildError):
+                ingestion.build_catalog(archive_path, cache_db)
+            before = cache_db.read_bytes()
+
+            status = run_prefilter.cache_readiness(cache_db)
+
+            self.assertFalse(status["ready"])
+            self.assertEqual(status["status"], "incomplete")
+            self.assertTrue(status["warnings"])
+            self.assertEqual(cache_db.read_bytes(), before)
 
     def test_enrich_rows_reuses_existing_cache_status(self):
         rows = [
@@ -422,6 +463,71 @@ class TestMetadataEvidence(unittest.TestCase):
                     cache_db=cache_db,
                 )
             self.assertFalse(output_dir.exists())
+
+    def test_cli_reads_catalog_and_preserves_volume_evidence(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            corpus_root = root / "corpora"
+            output_dir = root / "results"
+            # URI punctuation must remain part of the explicit filename.
+            cache_db = root / "cache" / "catalog ?#.sqlite"
+            _write_catalog(
+                cache_db,
+                {84: ["Science fiction", "Adventure stories", "Science fiction"]},
+            )
+            for slug in ("first", "second"):
+                _write_story(
+                    corpus_root,
+                    "mass_quantities",
+                    slug,
+                    url="https://www.gutenberg.org/ebooks/84",
+                )
+            before = cache_db.read_bytes()
+
+            subprocess.run(
+                [
+                    sys.executable,
+                    str(_RUNNER_PATH),
+                    "--dry-run",
+                    "--corpus-root",
+                    str(corpus_root),
+                    "--cache-db",
+                    str(cache_db),
+                    "--output",
+                    str(output_dir),
+                ],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+
+            summary = json.loads(
+                (output_dir / "summary.json").read_text(encoding="utf-8")
+            )
+            rows = [
+                json.loads(line)
+                for line in (output_dir / "candidates.jsonl")
+                .read_text(encoding="utf-8")
+                .splitlines()
+            ]
+            self.assertEqual(summary["cache"]["status"], "ready")
+            self.assertEqual(len(rows), 2)
+            self.assertEqual(
+                [row["story_id"] for row in rows],
+                ["mass_quantities/first", "mass_quantities/second"],
+            )
+            for row in rows:
+                self.assertEqual(
+                    row["gutenberg_subjects"], ["Adventure stories", "Science fiction"]
+                )
+                self.assertEqual(
+                    row["metadata_assessment"]["result"]["target_candidates"],
+                    ["science fiction", "adventure"],
+                )
+                self.assertEqual(
+                    row["metadata_assessment"]["scope"], "gutenberg_volume"
+                )
+            self.assertEqual(cache_db.read_bytes(), before)
 
     def test_import_does_not_load_mutating_gettenberg_cache_module(self):
         script = (
@@ -1725,7 +1831,7 @@ class TestFullScanIntegration(unittest.TestCase):
                 "no_url_story",
                 url=None,
             )
-            _write_normalized_cache(
+            _write_catalog(
                 cache_db,
                 {1000 + index: ["science fiction"] for index in range(3)},
             )

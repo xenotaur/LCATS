@@ -1,0 +1,24 @@
+{
+  "failed_run": 39067928164,
+  "failed_step": "nbstripout --verify notebooks/*.ipynb",
+  "normalizer": "nbstripout0.9.1",
+  "verify_exit": 0,
+  "client_tests": "3 passed",
+  "notebooks": {
+    "01_gatherers.ipynb": {
+      "before_cells_sha256": "4cefd7576b2e6a2a82ea6413e59ba9648de1f507edf150f1bfaf96b9cda573dd",
+      "after_cells_sha256": "4cefd7576b2e6a2a82ea6413e59ba9648de1f507edf150f1bfaf96b9cda573dd",
+      "changes": "cell IDs and JSON key ordering only"
+    },
+    "02_extractors.ipynb": {
+      "before_cells_sha256": "d346ec690168fa2f03910489ad27adc7406b7d5148f6b0da7ab9b772724fb2d5",
+      "after_cells_sha256": "d346ec690168fa2f03910489ad27adc7406b7d5148f6b0da7ab9b772724fb2d5",
+      "changes": "cell IDs and JSON key ordering only"
+    },
+    "15_reconcile_files.ipynb": {
+      "before_cells_sha256": "28eb0d0eaefde46a33f4c5eeab3cbf4311f1c8becc63c4a5ad1f6e7967a760f9",
+      "after_cells_sha256": "28eb0d0eaefde46a33f4c5eeab3cbf4311f1c8becc63c4a5ad1f6e7967a760f9",
+      "changes": "cell IDs and JSON key ordering only"
+    }
+  }
+}

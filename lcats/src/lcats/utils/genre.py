@@ -1,7 +1,7 @@
 # code modified from OpenAI suggested
 
 import re
-from lcats.gettenberg import api
+from lcats.gettenberg import identifiers
 
 GENRE_RULES = [
     (
@@ -231,51 +231,37 @@ def classify_exclusive(subjects):
     return matching_genres[0], matching_genres
 
 
-def find_all_stories_for_genre(stories, genre):
-    """
-    Args:
-        stories (list[story]):   All the stories we want to genre tag
-        genre (str):   String representing the canonical genres
-    Returns:
-        stories (list[story]):   All the stories that are identified as that genre.
-    """
-    return [story for story in stories if get_genre_for_story(story) == genre]
+def find_all_stories_for_genre(stories, genre, *, catalog):
+    """Filter stories using one caller-owned, read-only Catalog session."""
+    return [
+        story
+        for story in stories
+        if get_genre_for_story(story, catalog=catalog) == genre
+    ]
 
 
 def get_id_for_story(story):
+    """Read a Gutenberg ID from canonical source provenance; never guess a host.
+
+    Raises:
+        ValueError: Source URL is missing or not a recognized Gutenberg identity.
     """
-    Args:
-        story (story):  The story from the corpora we are interested in
-    Returns:
-        int:   The gutenberg id for that story
+    return identifiers.ebook_id_from_url(story.metadata.get("url"))
+
+
+def get_genre_by_id(book_id, *, catalog):
+    """Classify catalog subjects without setup, downloads or global cache state.
+
+    Missing records and records without subjects classify as Unclassified.
+    Catalog errors propagate so corruption is not mistaken for absent metadata.
     """
-
-    pieces = story.metadata["url"].split("/")
-
-    if pieces[3] == "files":
-        return int(pieces[4])
-    else:
-        return int(pieces[5])
+    record = catalog.get(book_id)
+    subjects = (
+        [] if record is None else [term.value.text for term in record.ebook.subjects]
+    )
+    return classify_exclusive(subjects)[0]
 
 
-def get_genre_by_id(id):
-    """
-    Args:
-        id (int):   gutenberg story id
-    Returns:
-        string:   Canonical genre
-    """
-
-    return classify_exclusive(api.get_metadata("subject", id))[0]
-
-
-def get_genre_for_story(story):
-    """
-    Args:
-        story (story):   A story we want to genre identify
-
-    Returns:
-        string:  Canonical genre
-    """
-
-    return get_genre_by_id(get_id_for_story(story))
+def get_genre_for_story(story, *, catalog):
+    """Classify a story using its source URL and a caller-owned Catalog."""
+    return get_genre_by_id(get_id_for_story(story), catalog=catalog)
