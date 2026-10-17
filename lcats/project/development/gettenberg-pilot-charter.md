@@ -337,3 +337,35 @@ cleanup, setup approval and genuine offline enforcement, preservation/comparison
 fixtures and docs. Narrow adjacent curated-cache policy plumbing is necessary to
 make the command-wide offline flag truthful. The approved coordinator LRH adapter
 continues; internal qualified PR merges only, native records nonterminal until main.
+
+## Default-source qualification sprint — activated 2026-10-17
+
+Human granted a 15-minute target, 20-minute hard maximum for the next item.
+Start 15:16:23 UTC; target 15:31:23; hard 15:36:23. Scope: WI0007 operational
+default-endpoint investigation and a concrete implementation decision/handoff.
+No product default enabled, full catalog download, corpus mutation, dependency
+removal or main promotion. Feature/research freeze at 15:28:23; reserve final
+minutes for validation and checkpoint. No automatic continuation.
+
+Coordinator plus at most one independent reviewer; one assignment, at most four
+worker minutes. Before live endpoint probes, re-read official policy. At most
+six sequential endpoint HTTP requests, one attempt each, 20 seconds each, at least
+two seconds apart, TLS verified, no automatic redirects or alternate mirrors on
+denial. HEAD for archive; representative main/generated bodies only as bounded
+4 KiB Range probes with a 4 KiB maximum file size. Stop on denial and report it.
+Documentation reads are separate public-page reads. A HEAD success proves no
+archive validity or full file availability. Preserve response metadata and limits.
+Research artifacts remain nonterminal; a review PR/checkpoint may remain unmerged
+when hosted gates do not fit. Prior approved LRH coordinator adapter continues.
+
+## Endpoint integration sprint — activated 2026-10-17
+
+Human authorized the next sprint after the coordinator identified review and
+internal integration of PR #520 as the next task. Start 17:27:56 UTC; 15-minute
+target 17:42:56; hard stop 17:47:56. Scope: verify hosted feedback/CI, repair
+research evidence, qualify and merge #520 into `codex/gettenberg-acquisition`,
+and preserve the integration record. No default activation or new acquisition.
+Coordinator plus at most one cold reviewer, one assignment of at most four
+worker minutes; no recursive delegation. Reserve final three minutes for a
+checkpoint. Existing coordinator adapter applies; no main promotion, terminal
+WI/execution closeout, persistent consent change or automatic continuation.

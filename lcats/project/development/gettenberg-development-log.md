@@ -2587,3 +2587,94 @@ carry it, and the final checkpoint commit includes it without rewriting history.
 CI/review evidence-only tails should be recognized by verified source hashes to
 avoid unnecessary hosted retriggers while still requiring exact-current-headCI.
 No process change is implemented in LRH by this experiment.
+
+## Default-source qualification sprint — 2026-10-17 15:16 UTC
+
+Human grant: 15-minute target / 20-minute hard maximum. Start 15:16:23; target 15:31:23; hard 15:36:23.
+Base c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833 freshly fetched and clean;
+origin/main 210468236ff4db78d2d7c5218562fa2d166e6400. Research branch
+codex/gettenberg-default-source-qualification. WI0007 readiness yes; watched
+gates fresh, persistent skip consent invalid and unchanged. Shared usage 39%
+used at launch. Prior PR #519 staged migration is an ancestor. Scope: separately
+bounded operational check required by prior route qualification, not redoing
+its proven offline mapping. Default candidate remains listed PGLAF combined
+mirror; archive independent. One optional cold reviewer, four minutes maximum.
+Prompt PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_ROUTE_PROBE)[2026-10-17T15:16:57+00:00].
+Public robot, mirror list, mirroring and offline-catalog pages re-read; catalog
+and mirror access are the documented automation routes. No human-site ebook
+crawl or archive body download. Probe bounds recorded before access in charter.
+
+### Endpoint decision and review — 2026-10-17 15:25 UTC
+
+Six requests completed: archive/main/generated HEAD 200, robots 404 (missing
+file, not a permission inference), main/generated prefix GET 206. Total bodies
+8354 bytes; no archive payload. Recommend the official archive with the listed
+PGLAF combined mirror for the next default-profile implementation. Keep main and
+generated identities separate: observed sizes and prefix hashes differ.
+
+Evidence JSON and the qualification memo retain the decision, exact probe inputs,
+headers, bounded transfer metrics and next fixture/CLI work. No product defaults
+or source changed. Coordinator checks passed for counts, body bounds/hashes,
+TLS/redirect/time constraints and project-only scope. LRH validation: zero errors,
+351 existing warnings; diff whitespace check passed.
+
+Cold independent review: one assignment, two conservatively charged worker
+minutes, peak two agents, no substantive findings. The reviewer confirmed local
+probe and code evidence; linked policy summaries were not independently re-fetched.
+Coordinator separately checked body evidence, routing source and both archive
+limits. Review frozen-diff digest and limitations are in the side execution record.
+Shared usage at pre-review checkpoint: 40% used versus 39% launch; this is an
+account-wide observation, not attributed sprint cost.
+
+Process finding: a short run can close an endpoint decision with six tiny probes
+and a precise implementation handoff. Keep endpoint reachability, transport-client
+qualification and full-catalog validation distinct; do not spend a short sprint's
+budget on a large download or infer byte equivalence from common ebook IDs.
+Research PR is a nonterminal checkpoint; hosted gates and integration may follow
+in a separate grant. No automatic continuation, main promotion or WI closeout.
+
+Research PR: [#520](https://github.com/xenotaur/LCATS/pull/520), targeting
+`codex/gettenberg-acquisition`; research commit `eb428a73`. Native primary/side
+records link to the PR and retain nonterminal status. Published at approximately
+15:26 UTC, ten minutes into the grant. Final checkpoint awaits only a compact
+hosted-state read; no product implementation begins in this sprint.
+
+Final hosted snapshot at approximately 15:27 UTC: PR #520 open at `b061849f`,
+first hosted review still running on research commit `eb428a73`; lint passed,
+test/coverage jobs still running. No review acceptance or integration is claimed.
+The final evidence-only checkpoint records that snapshot; its own CI will run
+normally. Working tree was clean before this log update. Grant ends after this
+checkpoint push, approximately eleven minutes elapsed, within the 15-minute
+target. Next action: review/integrate #520, then implement the scoped default
+profile under a new grant. No workers remain active.
+
+## Endpoint integration sprint — 2026-10-17 17:28 UTC
+
+Human grant: next sprint to review/integrate #520; 15-minute target, 20-minute
+hard maximum. Start 17:27:56 UTC, target 17:42:56, hard stop 17:47:56. PR head
+`5ca898780e92863ac98abf920ec808b66909eb8e`; fetched integration base
+`c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833`; main remains `210468236f`.
+Gate definitions fresh; persistent skip consent invalid and unchanged. Explicit
+run authority and approved coordinator adapter govern internal integration.
+LRH version 0.2.5.dev3596+gd86755f50; loaded lrh-land, lrh-review-response and
+lrh-confirm-fixes procedures reused under that adapter. Shared usage 41% used;
+per-run credit/token attribution unavailable. One optional four-minute cold
+review assignment; no implementation workers or live Gutenberg requests.
+
+First hosted rounds landed: Codex found P2 missing retained response bytes;
+Copilot found a spacing typo. Both are present, valid and feasible. Preserve
+original temporary GET samples, verify against existing lengths/hashes, and
+encode bytes in JSON to retain CRLF/truncated lines without text normalization.
+No new source bytes are acquired or substituted. Prior exact-head CI passed all
+four checks; post-repair CI and review must qualify the revised candidate.
+
+### Review repair and verification — 17:31 UTC
+
+Pushed repair `0147de2f`. All three base64-decoded original samples reproduce
+recorded SHA-256/length values; GET bodies total 8354 bytes. Both hosted comments
+are Clear-satisfied. Copilot thread was already resolved on fresh read; the
+coordinator resolved only the remaining Codex thread after the one-thread routine
+gate passed. No reviewer finding is dismissed or deferred. This confirmation
+checkpoint will receive a cold PR-mode review and exact-head CI before merge.
+No local Python format/lint/product test rerun for data/docs-only changes; those
+checks are covered by required current-head hosted CI, not claimed as local runs.

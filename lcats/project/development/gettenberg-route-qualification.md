@@ -149,3 +149,12 @@ continues to accept caller-supplied permitted URLs independently of this mapping
 
 Implementation/review/test outcomes are recorded in the run's execution and
 qualification evidence; this research section alone is not independent acceptance.
+
+## Bounded endpoint follow-up — 2026-10-17
+
+The [default-source investigation](gettenberg-default-source-qualification.md)
+records six bounded live checks of the official archive and PGLAF mirror. Main
+and generated representative routes were reachable with no redirects; archive
+HEAD advertised 126,790,723 bytes. The profile is recommended for implementation,
+not activated or accepted as a full download/integrity/availability guarantee.
+Read the investigation's limitations and next-slice acceptance before wiring defaults.
