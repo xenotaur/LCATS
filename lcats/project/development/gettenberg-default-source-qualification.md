@@ -21,7 +21,12 @@ This closes the bounded endpoint investigation left by the
 replace that document's pinned upstream mapping evidence or offline route tests.
 Base: `c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833`. Full request arguments, response
 headers, timestamps, relevant transfer metrics and prefix hashes are in
-[evidence](evidence/gettenberg-default-source-20261017/probe.json).
+[evidence](evidence/gettenberg-default-source-20261017/probe.json). Original GET
+response bytes are retained in
+[response-bodies.json](evidence/gettenberg-default-source-20261017/response-bodies.json),
+keyed by probe name. Base64 preserves original CRLF and truncated final lines;
+decode each `data` value before checking its byte count and SHA-256. No refetch
+is needed to audit these dated samples.
 
 ## Authority and observations
 

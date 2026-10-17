@@ -357,3 +357,15 @@ Documentation reads are separate public-page reads. A HEAD success proves no
 archive validity or full file availability. Preserve response metadata and limits.
 Research artifacts remain nonterminal; a review PR/checkpoint may remain unmerged
 when hosted gates do not fit. Prior approved LRH coordinator adapter continues.
+
+## Endpoint integration sprint — activated 2026-10-17
+
+Human authorized the next sprint after the coordinator identified review and
+internal integration of PR #520 as the next task. Start 17:27:56 UTC; 15-minute
+target 17:42:56; hard stop 17:47:56. Scope: verify hosted feedback/CI, repair
+research evidence, qualify and merge #520 into `codex/gettenberg-acquisition`,
+and preserve the integration record. No default activation or new acquisition.
+Coordinator plus at most one cold reviewer, one assignment of at most four
+worker minutes; no recursive delegation. Reserve final three minutes for a
+checkpoint. Existing coordinator adapter applies; no main promotion, terminal
+WI/execution closeout, persistent consent change or automatic continuation.

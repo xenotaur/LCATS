@@ -137,7 +137,12 @@
       },
       "body_bytes": 162,
       "body_sha256": "766c1d6bcb81d3e983fb7adbc19c616d7fc01dafb7893738edc242e2adc59c07",
-      "interpretation": "404: no robots file obtained; not an access denial or permission grant. Published mirror policy is the positive evidence."
+      "interpretation": "404: no robots file obtained; not an access denial or permission grant. Published mirror policy is the positive evidence.",
+      "retained_body": {
+        "file": "response-bodies.json",
+        "key": "mirror-robots",
+        "encoding": "base64"
+      }
     },
     {
       "name": "main-head",
@@ -286,7 +291,12 @@
         "curl_version": "libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.69.0"
       },
       "body_bytes": 4096,
-      "body_sha256": "3b49a3cba89fcd6ca39b2907c3c6386c8b471574bd4b756ff50630deee2fd103"
+      "body_sha256": "3b49a3cba89fcd6ca39b2907c3c6386c8b471574bd4b756ff50630deee2fd103",
+      "retained_body": {
+        "file": "response-bodies.json",
+        "key": "main-prefix",
+        "encoding": "base64"
+      }
     },
     {
       "name": "generated-prefix",
@@ -341,7 +351,12 @@
         "curl_version": "libcurl/8.7.1 (SecureTransport) LibreSSL/3.3.6 zlib/1.2.12 nghttp2/1.69.0"
       },
       "body_bytes": 4096,
-      "body_sha256": "8839f8464d68156b6a180f4b57ee187b45416049987e30544941da3a72bb720a"
+      "body_sha256": "8839f8464d68156b6a180f4b57ee187b45416049987e30544941da3a72bb720a",
+      "retained_body": {
+        "file": "response-bodies.json",
+        "key": "generated-prefix",
+        "encoding": "base64"
+      }
     }
   ],
   "total_response_body_bytes": 8354,

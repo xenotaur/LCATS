@@ -2647,3 +2647,23 @@ normally. Working tree was clean before this log update. Grant ends after this
 checkpoint push, approximately eleven minutes elapsed, within the 15-minute
 target. Next action: review/integrate #520, then implement the scoped default
 profile under a new grant. No workers remain active.
+
+## Endpoint integration sprint — 2026-10-17 17:28 UTC
+
+Human grant: next sprint to review/integrate #520; 15-minute target, 20-minute
+hard maximum. Start 17:27:56 UTC, target 17:42:56, hard stop 17:47:56. PR head
+`5ca898780e92863ac98abf920ec808b66909eb8e`; fetched integration base
+`c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833`; main remains `210468236f`.
+Gate definitions fresh; persistent skip consent invalid and unchanged. Explicit
+run authority and approved coordinator adapter govern internal integration.
+LRH version 0.2.5.dev3596+gd86755f50; loaded lrh-land, lrh-review-response and
+lrh-confirm-fixes procedures reused under that adapter. Shared usage 41% used;
+per-run credit/token attribution unavailable. One optional four-minute cold
+review assignment; no implementation workers or live Gutenberg requests.
+
+First hosted rounds landed: Codex found P2 missing retained response bytes;
+Copilot found a spacing typo. Both are present, valid and feasible. Preserve
+original temporary GET samples, verify against existing lengths/hashes, and
+encode bytes in JSON to retain CRLF/truncated lines without text normalization.
+No new source bytes are acquired or substituted. Prior exact-head CI passed all
+four checks; post-repair CI and review must qualify the revised candidate.

@@ -155,6 +155,6 @@ qualification evidence; this research section alone is not independent acceptanc
 The [default-source investigation](gettenberg-default-source-qualification.md)
 records six bounded live checks of the official archive and PGLAF mirror. Main
 and generated representative routes were reachable with no redirects; archive
-HEAD advertised126,790,723 bytes. The profile is recommended for implementation,
+HEAD advertised 126,790,723 bytes. The profile is recommended for implementation,
 not activated or accepted as a full download/integrity/availability guarantee.
 Read the investigation's limitations and next-slice acceptance before wiring defaults.
