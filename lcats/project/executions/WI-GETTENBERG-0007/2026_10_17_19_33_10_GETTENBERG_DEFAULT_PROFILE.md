@@ -4,8 +4,8 @@ prompt_id: PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_PROFILE)[2026-10-17T19:3
 work_item: WI-GETTENBERG-0007
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/521
+commit: dca61929
 created_at: 2026-10-17T19:33:10+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

@@ -3,9 +3,9 @@ execution_id: 2026_10_17_19_39_21_GETTENBERG_DEFAULT_PROFILE_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_DEFAULT_PROFILE_SELFREVIEW)[2026-10-17T19:38:57+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of:
-pr:
-commit:
+rerun_of: 2026_10_17_19_33_10_GETTENBERG_DEFAULT_PROFILE
+pr: https://github.com/xenotaur/LCATS/pull/521
+commit: dca61929
 created_at: 2026-10-17T19:39:21+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

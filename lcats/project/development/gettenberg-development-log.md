@@ -2770,3 +2770,8 @@ no top defect to reproduce. All-collection selection is tested as dry-run and
 representative mixed execution, not full execution of every built-in collection.
 No archive/client live qualification is claimed. Proceed to first hosted review
 and exact-head CI; no internal acceptance before those gates pass.
+
+Implementation PR [#521](https://github.com/xenotaur/LCATS/pull/521) opened against
+codex/gettenberg-acquisition at about 19:41 UTC. Product commit dca61929; native
+primary and self-review records linked to the PR. This bookkeeping tail changes
+no reviewed source/test/docs. Await first hosted reviews and exact-current-head CI.
