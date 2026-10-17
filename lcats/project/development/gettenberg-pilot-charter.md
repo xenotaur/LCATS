@@ -299,3 +299,22 @@ coordinator plan/repair/integration adapter applies to lrh-implement; the human'
 run grant authorizes bounded engineering choices without another per-item gate.
 Independent review and canonical validation remain required before integration.
 Finish early if the scoped tranche is complete; preserve unfinished WI criteria.
+
+## Preparation run grant — approved and activated 2026-10-17
+
+The human approved the longer unattended WI-GETTENBERG-0007 run with
+"Go for it!" Start 01:54:42 UTC; two-hour target/feature freeze 03:54:42;
+three-hour hard stop 04:54:42, including reviews and checkpointing. Normally
+coordinator plus one independent reviewer; four agents maximum, six assignments.
+Additional repair-verification dispatches count toward those six assignments;
+the earlier two-recheck allowance is superseded for this run. Retain the
+conservative 45 cumulative worker-minute limit, 15 reserved for review, and
+30-minute individual limit. Check time every 15 minutes and usage at launch,
+minute30 and before additional delegation. No automatic renewal.
+
+Core scope: source-aware preparation and explicit setup policy. CLI wiring may
+proceed where prerequisite evidence and budget support it. Default mirror
+qualification is separate; no live automatic/bulk acquisition in this run.
+Routine design, bounded repairs and qualified integration-branch merges are
+authorized. No main promotion, corpus changes, dependency removal, persistent
+consent changes or material redesign. Preserve nonterminal native records.

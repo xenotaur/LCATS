@@ -18,6 +18,8 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
+
 - [Decode cached text without network access](how-to/gettenberg-decoding.md)
 - [Acquire and reuse original source bytes](how-to/gettenberg-resources.md)
 - [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
@@ -32,6 +34,8 @@ cd LCATS/lcats
 - [Run the cross-segment relation density pilot](../../experiments/03_cross_segment_relation_pilot/running_the_pilot.md) — manual runbook: environment setup, zero-cost smoke testing (including spaCy/Stanza), the real run (safely resumable after a crash or interrupt via per-stage checkpointing), and closing out the work item
 
 ### Reference
+
+- [Collection requirements and setup policy](reference/gettenberg-preparation.md)
 
 - [Strict offline text decoding](reference/gettenberg-decoding.md)
 - [Original-byte acquisition and network policy](reference/gettenberg-network.md)

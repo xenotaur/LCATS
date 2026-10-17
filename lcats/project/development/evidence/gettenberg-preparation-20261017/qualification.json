@@ -1,0 +1,65 @@
+{
+  "run": "gettenberg-preparation-20261017",
+  "work_item": "WI-GETTENBERG-0007",
+  "base": "549383c0a2feb5fb8ab58d9afad7c4732186a225",
+  "source_sha256": {
+    "docs/how-to/gettenberg-preparation.md": "44347dd209502d5deb3cd9444a1df021cb89e475ccd135bac38d3f15a749e85e",
+    "docs/index.md": "45ca1d252d73f29357f13a0f3e4949729af43488ac0ab0d16397c5ca20859dbb",
+    "docs/reference/cli-commands.md": "1d4bfdf78f4af35086c35811b35b4bdd921bfa4bb59acc1d2f80730d31dcda99",
+    "docs/reference/cli-status.md": "1039946cb14648b30a6c42a72940eda1a1fa9a34066d12596d44e7038d061333",
+    "docs/reference/gettenberg-preparation.md": "869c29992de5e204f85994f95fb1825cfb4966edf3709a09845ac529008659fa",
+    "src/lcats/analysis/corpus/clean_cli.py": "7ae7ca07af4b7262a8e48dda13b68c13012d3a4ebba2da40f3187fef5efdf40f",
+    "src/lcats/cli.py": "679ed018d590737e72085783c7bc63c8072f8306cb6abfefe6267d9fc50846de",
+    "src/lcats/gatherers/main.py": "c4f30855f5af1a9486176c859c19a0d6b854b291ea2604bd1cfdfa66ca537e57",
+    "src/lcats/gatherers/planning.py": "b6843d82e3a370d923801c48d834c393ce5c4c6232125bd669bcc4570dede924",
+    "src/lcats/gettenberg/catalog_cli.py": "583ad3995047b3cac3042629d304570a2cda57b7a2ac58f4835476bfde9fb432",
+    "src/lcats/gettenberg/preparation.py": "155915dd675af5d23aeba9f53112b658cb9c80b0bf9dd11b57f523c51a507bd4",
+    "tests/gettenberg_tests/preparation_test.py": "3468c8c50c523822fdd8c54d47a8f23a9f9ffdf17c0ea4c83bb29e86fde9db1b"
+  },
+  "canonical": {
+    "command": "scripts/test",
+    "exit": 0,
+    "tests": 2942,
+    "seconds": 77.12
+  },
+  "focused": {
+    "command": "scripts/test tests/gettenberg_tests/preparation_test.py",
+    "exit": 0,
+    "tests": 23
+  },
+  "format": {
+    "exit": 0,
+    "files": 278
+  },
+  "lint": {
+    "exit": 0
+  },
+  "lrh": {
+    "errors": 0,
+    "warnings": 351
+  },
+  "readiness": "yes",
+  "diff_check": 0,
+  "independent_review": {
+    "agent": "/root/preparation_review",
+    "mode": "cold-context diff",
+    "source_edits": false,
+    "findings": [],
+    "focused_tests": 23,
+    "compatibility_tests": 35,
+    "hashes_verified": 12,
+    "dispatch_utc": "2026-10-17T02:32:45Z",
+    "completed_utc": "2026-10-17T02:35:00Z",
+    "occupancy_accounting": "completion timestamp conservatively rounded up; under 4 worker minutes"
+  },
+  "documentation_example": "Python reference example executed in an empty temporary directory; no files created",
+  "limits": [
+    "staged subset, not whole WI0007",
+    "legacy metadata-dependent gather execution remains",
+    "no default mirror selected",
+    "no Gutenberg downloads",
+    "no main promotion or dependency removal"
+  ],
+  "hosted_review": "pending",
+  "exact_head_ci": "pending"
+}

@@ -13,7 +13,6 @@ import shutil
 import sys
 
 from lcats.gatherers import main as gatherers_main
-from lcats.gettenberg import cache as gettenberg_cache
 from lcats.utils import env
 from lcats.utils import paths
 
@@ -82,6 +81,9 @@ def _clean_data(gatherer_names):
 
 def _clean_cache():
     """Clear every cache mechanism: resources, and the Gutenberg cache."""
+    # Legacy cache import creates directories; defer it until explicit clearing.
+    from lcats.gettenberg import cache as gettenberg_cache
+
     paths.makedirs(env.cache_resources_dir())
     paths.clear_directory_contents(env.cache_resources_dir())
     print(f"cleared: {env.cache_resources_dir()}")
