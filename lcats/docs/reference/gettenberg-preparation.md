@@ -39,13 +39,14 @@ or blocked plans. `status` with missing state is a successful observation (0);
 invalid state is 2. `--dry-run` is supported for all three mutating commands.
 Only actionable missing setup prompts, only on an interactive input stream;
 `--yes` supplies that approval explicitly. Prompts go to stderr, JSON to stdout.
-Catalog source arguments are explicit; refresh/rebuild require an active catalog.
+CLI setup defaults to the published Gutenberg RDF archive unless a local archive
+or URL overrides it. Refresh still requires an explicit URL; refresh/rebuild
+require an active catalog. The library itself still selects no source.
 See the [command guide](../how-to/gettenberg-preparation.md) for flags and examples.
 
 Gather dry-run and live execution both use collection requirements. Live
 metadata-dependent gathering composes this setup policy with the new source API;
-see [gather contracts](gettenberg-gather.md). Operational default mirrors remain
-unconfigured.
+see [gather contracts](gettenberg-gather.md) for CLI defaults and overrides.
 
 ## Composing collection requirements with setup policy
 

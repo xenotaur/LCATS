@@ -8,10 +8,11 @@ from lcats.gettenberg import approval_cli
 from lcats.gettenberg import errors
 from lcats.gettenberg import preparation
 from lcats.gettenberg import resources
+from lcats.gettenberg import sources_cli
 
 
 def build_parser(add_help=True):
-    """Build explicit catalog operations; no implicit default mirror exists."""
+    """Build catalog operations with a published default source for setup only."""
     parser = argparse.ArgumentParser(
         prog="lcats catalog", add_help=add_help, description=__doc__
     )
@@ -39,7 +40,7 @@ def build_parser(add_help=True):
                 )
             source.add_argument(
                 "--url",
-                help="Explicit catalog archive URL.",
+                help="Archive URL; setup defaults to the published Gutenberg RDF archive.",
             )
             command.add_argument(
                 "--allow-origin",
@@ -65,19 +66,28 @@ def build_parser(add_help=True):
 
 
 def _preparation(args):
-    """Translate explicit CLI authority into a bounded network policy."""
+    """Resolve setup defaults only; status/rebuild and refresh stay explicit."""
     url = getattr(args, "url", None)
-    request = resources.SourceRequest.from_url(url, kind="archive") if url else None
+    archive = getattr(args, "archive", None)
+    request = (
+        sources_cli.catalog_request(archive=archive, url=url)
+        if args.catalog_command == "setup"
+        else (resources.SourceRequest.from_url(url, kind="archive") if url else None)
+    )
     origins = ()
     if request is not None:
         parts = parse.urlsplit(request.request_url)
         origins = (f"{parts.scheme}://{parts.netloc}", *args.allow_origin)
     elif getattr(args, "allow_origin", None):
-        raise errors.CatalogInputError("--allow-origin requires --url")
-    policy = resources.NetworkPolicy(online=bool(url), allowed_origins=origins)
+        raise errors.CatalogInputError(
+            "--allow-origin requires a URL source, not a local archive"
+        )
+    policy = resources.NetworkPolicy(
+        online=request is not None, allowed_origins=origins
+    )
     return preparation.CatalogPreparation(
         args.cache_dir,
-        archive=getattr(args, "archive", None),
+        archive=archive,
         request=request,
         policy=policy,
         offline=getattr(args, "offline", False),

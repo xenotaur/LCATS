@@ -176,13 +176,16 @@ def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
         "--catalog-archive", help="Local RDF archive for required first setup."
     )
     catalog_source.add_argument(
-        "--catalog-url", help="Explicit archive URL for required first setup."
+        "--catalog-url",
+        help="Archive URL; defaults to the published Gutenberg RDF archive.",
     )
     gather_parser.add_argument(
-        "--gutenberg-main-root", help="Explicit digit-sharded ebook endpoint root."
+        "--gutenberg-main-root",
+        help="Main ebook root; defaults to https://gutenberg.pglaf.org/. Override both roots together.",
     )
     gather_parser.add_argument(
-        "--gutenberg-generated-root", help="Explicit generated ebook endpoint root."
+        "--gutenberg-generated-root",
+        help="Generated ebook root; defaults to https://gutenberg.pglaf.org/cache/epub/.",
     )
     gather_parser.add_argument(
         "--allow-origin",

@@ -6,7 +6,7 @@ This page summarizes top-level `lcats` CLI command status based on implementatio
 
 - `help`
 - `info`
-- `catalog` — new catalog status/setup/refresh/rebuild with explicit sources
+- `catalog` — new catalog status/setup/refresh/rebuild with default setup or explicit sources
 - `gather`
 - `inspect`
 - `display`

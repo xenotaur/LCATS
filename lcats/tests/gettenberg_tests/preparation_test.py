@@ -304,7 +304,12 @@ class PreparationTests(unittest.TestCase):
 
     def test_cli_source_argument_errors_do_not_initialize(self):
         for args in (
-            ("--allow-origin", "https://fixture.invalid"),
+            (
+                "--archive",
+                str(self.archive),
+                "--allow-origin",
+                "https://fixture.invalid",
+            ),
             ("--url", "file:///bad"),
             ("--url", self.request.request_url, "--offline", "--yes"),
         ):
@@ -361,7 +366,7 @@ socket.socket = lambda *a, **k: (_ for _ in ()).throw(AssertionError("network"))
 from lcats import cli
 for command, args in (("gather", ["--dry-run", "sherlock"]), ("gather", ["--dry-run"]), ("catalog", ["status"]), ("catalog", ["setup", "--dry-run"])):
     message, status = cli.dispatch(command, args)
-    assert status == (2 if args == ["setup", "--dry-run"] else 0), message
+    assert status == 0, message
 assert "gutenbergpy" not in sys.modules
 assert "matplotlib" not in sys.modules
 """

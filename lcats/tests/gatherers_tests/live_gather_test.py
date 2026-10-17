@@ -406,9 +406,10 @@ class LiveGatherTests(unittest.TestCase):
         self.assertFalse((self.cache / "gettenberg").exists())
         self.assertFalse(list(self.data.rglob("story.json")))
 
-    def test_missing_routes_and_unknown_selection_fail_before_setup(self):
+    def test_partial_routes_and_unknown_selection_fail_before_setup(self):
         self.assertEqual(
-            self.run_gather(yes=True, main_root=None, generated_root=None)[1], 2
+            self.run_gather(yes=True, main_root=None, generated_root=GENERATED_ROOT)[1],
+            2,
         )
         with capture.capture_output():
             message, code = main.run(
