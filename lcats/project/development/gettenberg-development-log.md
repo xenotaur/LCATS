@@ -3344,3 +3344,58 @@ The 05:55 draft timestamp on the preceding record was corrected to its actual
 06:46 write checkpoint; coordinator reproduction completed at 05:52 UTC. Timing
 claims use observed timestamps, not an assumption that tool/session latency is
 zero. The original 07:14 target / 08:14 hard stop remain unchanged.
+
+### LRH process findings from this qualification checkpoint
+
+- Move a bounded real-corpus replay earlier into migration acceptance. The existing
+  authored end-to-end fixtures and green canonical suite did not expose the
+  cleanup/extractor interaction. Fixture suites should grow from minimized,
+  independently understood counterexamples, not merely assert old/new equality.
+- Make measurement scope machine-readable and narrow. Public record replay
+  reparses raw RDF; it does not independently verify indexed values. Index counts
+  complement semantic fixtures but do not prove all values. Distinguish full build
+  from audit time, retained bytes from peak disk, and old decoded cache from
+  original transport bytes. This prevented several tempting overclaims.
+- Separate checkpoint reviewability from work-item acceptance. A PR can contain
+  valuable, tested measurement/documentation work and still be explicitly barred
+  from integration. A future LRH runner should expose both states rather than
+  infer acceptance from green CI or a clean code review.
+- Freeze and preserve evidence when a design-level composition flaw appears.
+  The coordinator completed independent unaffected checks, recorded the material
+  failure and proposed repair boundaries without turning an evaluation into an
+  unbounded parser rewrite. Keep original before/after reports and input hashes.
+- The 2–3 hour grant is a ceiling, not a mandate to consume remaining time after
+  a material acceptance blocker. Review/CI latency belongs in elapsed run time;
+  do not silently renew the clock or treat it as additional worker capacity.
+- Account-level weekly usage rose from 14% at launch to 24% at the 06:48 checkpoint.
+  This shared-account delta is not an attributable run cost. Two assignments used
+  a conservatively charged 19 worker minutes; neither count measures token cost.
+  A future runner should report attributable model usage when available.
+
+### First hosted rounds and evidence-runner repair — 06:55 UTC
+
+Codex first review on 48733d6a completed clean at 06:51:05. Copilot first review
+at 06:51:48 identified one valid runner flaw: missing/empty collections produced
+completed=true with zero rows. Independently reproduced all three invalid-input
+cases (missing, empty, flat-JSON-only); initial stub lacked historical source
+identity and was corrected before the intended red assertions were established.
+A narrow guard now records completed=false/error and raises for these cases.
+Per-story comparison and every product source remain unchanged. Focused 12 tests
+passed. Original full reports/source ledger remain immutable; a new runner-repair
+addendum verifies the same 1,659 measured paths and records old/new runner hashes.
+
+Review response uses PROMPT(AD_HOC:GETTENBERG_QUALIFICATION_REVIEW)[2026-10-18T06:52:49+00:00].
+No prior slug record; PR/local identity match at 4df20a9b. Coordinator approves
+this routine evidence-integrity repair under the pilot adapter, with no invented
+human reply or persistent consent change. Before repair, exact-head inventory at
+4df20a9b contained four successful expected jobs and no missing workflow runs.
+Repeat canonical checks and obtain independent verification of the repair before
+resolving the bot thread. The material corpus integration blocker remains open.
+
+### Repair validation — 06:57 UTC
+
+Canonical 2,945 tests passed in 88.062 seconds; package format/lint, explicit
+12-runner Black/Ruff and LRH validation passed (0 errors, 351 existing warnings).
+No product bytes changed, so installed-wheel/source-record evidence remains bound
+to the same candidate. Commit/push the runner repair and associated evidence;
+perform a bounded cold verification of the repair and updated provenance next.

@@ -7,22 +7,22 @@ WI0010 and main promotion open until this is repaired and independently reviewed
 
 ## Observed evidence
 
-The pre-repair comparison uses1,659 existing mass_quantities stories and matching
+The pre-repair comparison uses 1,659 existing mass_quantities stories and matching
 legacy decoded UTF-8 cache entries, with current metadata on both paths. It compares
 old cleanup/new cleanup followed by the identical current extractor and replayable
-normalization.1,605 inputs reached comparison;54 were explicitly refused. Among
-compared inputs,892 bodies differ:884 preserve the old body as an exact prefix and
-append text;8 change an earlier position. The source bytes/corpus files are unchanged.
+normalization. 1,605 inputs reached comparison; 54 were explicitly refused. Among
+compared inputs, 892 bodies differ: 884 preserve the old body as an exact prefix and
+append text; 8 change an earlier position. The source bytes/corpus files are unchanged.
 This is not proof that the old extractor's output is always correct.
 
-The suffix triage contains687 end-notice starts,122 transcriber-note starts,
-57 byline/separator starts and18 other starts. These are mechanical review labels,
+The suffix triage contains 687 end-notice starts, 122 transcriber-note starts,
+57 byline/separator starts and 18 other starts. These are mechanical review labels,
 not a blanket decision to delete those suffixes. The eight earlier differences
-are IDs22579,23148,35401,70645,23104,50103,42640 and32655. Two particularly severe
+are IDs 22579, 23148, 35401, 70645, 23104, 50103, 42640 and 32655. Two particularly severe
 examples deserve explicit narrative-preservation tests:
 
-- **35401, Friend Island:** old normalized extraction26,080 characters; new2,620.
-- **50103, The Dwindling Years:** old31,972; new900, beginning at a transcriber note.
+- **35401, Friend Island:** old normalized extraction 26,080 characters; new 2,620.
+- **50103, The Dwindling Years:** old 31,972; new 900, beginning at a transcriber note.
 
 The existing `find_author_line` and `find_title_line` deliberately return the last
 matching location, and `body_of_text` uses those locations to discard a prefix.
@@ -62,7 +62,7 @@ before changing it; broad new refusals would need a human decision.
 2. Reproduce all eight earlier-position changes on the immutable cached inputs and
    document the correct expected narrative boundaries. Retained corpus is evidence,
    not automatically an oracle; preserve justified repairs and explain corrections.
-3. Rerun all1,659 comparisons with the new source hashes. Every material difference
+3. Rerun all 1,659 comparisons with the new source hashes. Every material difference
    has an explicit reviewed disposition; no bulk suppression or normalized-away
    comparison. Keep cleanup refusal, eligibility rejection and operational failure
    separate from a matched story. Record the remaining wrapped/mismatched forms.

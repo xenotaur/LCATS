@@ -29,5 +29,16 @@
   "lrh": {
     "errors": 0,
     "preexisting_warnings": 351
+  },
+  "post_review_repair": {
+    "canonical_tests": 2945,
+    "seconds": 88.062,
+    "focused_tests": 12,
+    "package_format": "passed",
+    "package_lint": "passed",
+    "experiment_format": "passed (12 files)",
+    "experiment_lint": "passed",
+    "lrh_errors": 0,
+    "lrh_preexisting_warnings": 351
   }
 }

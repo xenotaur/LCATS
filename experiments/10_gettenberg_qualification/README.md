@@ -183,3 +183,11 @@ opens both databases read-only, verifies the new database's archive identity and
 records database hashes. Aggregate multiplicity does not prove each indexed value;
 semantic query fixtures remain necessary. `Catalog.get()` reparses retained RDF,
 so the snapshot replay alone must not be described as a normalized-table audit.
+
+The cached-corpus runner rejects missing/non-directory collections and empty
+canonical story selections, writes `completed: false` with an error, and exits
+nonzero. A directory containing only flat JSON is empty under the canonical
+bucket selector. Existing full reports retain their original runner hashes;
+`results/gettenberg-qualification-20261018/runner-repair-addendum.json` records
+the later invalid-input guard repair and confirms the measured selection still
+contains exactly the same 1,659 paths. No historical report is rewritten.

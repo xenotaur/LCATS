@@ -180,6 +180,15 @@ def main(argv=None):
     signal.signal(signal.SIGALRM, timeout)
     signal.alarm(600)
     try:
+        # An absent/empty selection is missing evidence, never a completed
+        # comparison. Keep these checks inside the failure-reporting boundary.
+        if not args.collection.is_dir():
+            raise ValueError("collection directory is missing or not a directory")
+        paths = sorted(discovery.iter_collection_story_files(args.collection))
+        if not paths:
+            raise ValueError("collection contains no canonical story files")
+        if len(paths) > 10000:
+            raise ValueError("collection exceeds 10000-story bound")
         manager = lifecycle.CatalogManager(args.catalog_cache)
         with (
             manager.open() as catalog,
@@ -197,9 +206,6 @@ def main(argv=None):
                 ),
             )
             result["catalog_archive_sha256"] = catalog.info["report"]["archive_sha256"]
-            paths = sorted(discovery.iter_collection_story_files(args.collection))
-            if len(paths) > 10000:
-                raise ValueError("collection exceeds 10000-story bound")
             for path in paths:
                 result["rows"].append(
                     compare(path, args.text_cache, source, textget.strip_headers)

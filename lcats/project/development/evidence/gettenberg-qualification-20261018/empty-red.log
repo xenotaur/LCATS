@@ -1,0 +1,29 @@
+FFF
+======================================================================
+FAIL: test_missing_or_empty_collection_records_failure_not_completion (tests.gettenberg_tests.qualification_evidence_test.QualificationEvidenceTests.test_missing_or_empty_collection_records_failure_not_completion) (collection='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/tests/gettenberg_tests/qualification_evidence_test.py", line 137, in test_missing_or_empty_collection_records_failure_not_completion
+    with self.assertRaisesRegex(ValueError, "collection"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_empty_collection_records_failure_not_completion (tests.gettenberg_tests.qualification_evidence_test.QualificationEvidenceTests.test_missing_or_empty_collection_records_failure_not_completion) (collection='empty')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/tests/gettenberg_tests/qualification_evidence_test.py", line 137, in test_missing_or_empty_collection_records_failure_not_completion
+    with self.assertRaisesRegex(ValueError, "collection"):
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_missing_or_empty_collection_records_failure_not_completion (tests.gettenberg_tests.qualification_evidence_test.QualificationEvidenceTests.test_missing_or_empty_collection_records_failure_not_completion) (collection='flat')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/tests/gettenberg_tests/qualification_evidence_test.py", line 137, in test_missing_or_empty_collection_records_failure_not_completion
+    with self.assertRaisesRegex(ValueError, "collection"):
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.464s
+
+FAILED (failures=3)

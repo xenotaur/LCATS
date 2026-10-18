@@ -1,6 +1,6 @@
 # Gettenberg replacement qualification and delivery plan
 
-WI-GETTENBERG-0010; bounded run2026-10-18. **In progress; not yet an acceptance
+WI-GETTENBERG-0010; bounded run 2026-10-18. **In progress; not yet an acceptance
 or main-delivery claim.** Integration base ed20e9c297bf5e50e1911b84722e53f5db3edee3.
 The [charter](gettenberg-pilot-charter.md) governs internal acceptance; the human
 retains main promotion. Native WI0005–0010 records remain nonterminal until then.
@@ -14,7 +14,7 @@ product source hashes. The final source ledger binds earlier unaffected-componen
 measurements to the reviewed candidate; a Git parent alone is not that proof.
 Historical files are never rewritten to claim that new code produced old results.
 
-Use the cached125,955,051-byte archive SHA256
+Use the cached 125,955,051-byte archive SHA256
 `358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28`.
 Original retrieval time/URL remain unknown. No Gutenberg requests are needed.
 The original cache and canonical corpus remain unchanged. Synthetic fixtures,
@@ -62,16 +62,16 @@ checks and review:
 
 ## Measured resources
 
-Full lifecycle setup passed78,937 records,2,018,879 resources,109,170 contributions
-and223 diagnostics. Setup440.847s,89,030,656-byte process peak RSS, cached reuse
-0.0024s, zero network bytes. This meets the existing600s/512MiB targets.
+Full lifecycle setup passed 78,937 records, 2,018,879 resources, 109,170 contributions
+and 223 diagnostics. Setup 440.847s, 89,030,656-byte process peak RSS, cached reuse
+0.0024s, zero network bytes. This meets the existing 600s/512MiB targets.
 
-The genuine historical gutenbergpy0.3.6 unpack+parse+SQLite build on the same
-archive took191.583s and804,323,328-byte process peak RSS. It produced exactly
+The genuine historical gutenbergpy 0.3.6 unpack+parse+SQLite build on the same
+archive took 191.583s and 804,323,328-byte process peak RSS. It produced exactly
 the historical database hash `188b422247c48807459f3aedac6dad462244e91a2885543e3051555c0e0a39f5`.
 That reproduces the existing database from this archive; it does not recover an
-unknown original retrieval date. The old build retains2,547,965,086 logical bytes
-when archive and extracted RDF are kept; database alone342,450,176 bytes.
+unknown original retrieval date. The old build retains 2,547,965,086 logical bytes
+when archive and extracted RDF are kept; database alone 342,450,176 bytes.
 
 These single local observations include concurrent light qualification work;
 they are not a controlled benchmark or proof of general speedup. The new build
@@ -82,15 +82,15 @@ Repeated query results and final retained sizes appear below.
 
 ## Corpus qualification and repair
 
-The local mass_quantities corpus has1,659 stories; every ID has a legacy gzip
+The local mass_quantities corpus has 1,659 stories; every ID has a legacy gzip
 text entry. Those cache entries contain already decoded/re-encoded UTF-8. They
 cannot qualify original transport bytes or encoding detection. Compare cleanup
 and extraction on the exact same decoded inputs and current catalog metadata;
 compare retained corpus output separately. Earlier authored live-gather fixtures
 cover the original-byte store through publication without that provenance gap.
 
-Initial census:1,605 accepted envelopes and54 conservative refusals. Inspection
-found31 comma-form Gutenberg banners,17 exact END: FULL LICENSE separators,
+Initial census: 1,605 accepted envelopes and 54 conservative refusals. Inspection
+found 31 comma-form Gutenberg banners, 17 exact END: FULL LICENSE separators,
 five wrapped book marker pairs, and one mismatched title pair. Authored tests
 reproduced the first two issues. Policy `gutenberg-boundaries-v2` adds those exact
 historical forms while preserving unique matched book delimiters, prefix/suffix
@@ -127,8 +127,8 @@ is still blocked by downstream narrative loss.
 ## Qualification blocker and current checkpoint
 
 **Do not merge this qualification PR into the integration branch.** The full
-pre-repair corpus comparison found892 changed normalized bodies among1,605
-compared inputs.884 changes are suffix additions, but8 affect earlier body
+pre-repair corpus comparison found 892 changed normalized bodies among 1,605
+compared inputs. 884 changes are suffix additions, but 8 affect earlier body
 positions; two severe truncations are documented in the
 [repair scope](gettenberg-corpus-repair-plan.md). Canonical tests passing does not
 satisfy the real-corpus gate. The v2 banner/license-marker repair is deliberately
@@ -149,31 +149,32 @@ measurement, validation and review checkpoints.
 retain the raw reports; full corpus JSON is compressed verbatim, with readable
 [review index](../../../experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/corpus-review-index.json).
 [Source ledger](../../../experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/source-ledger.json)
-identifies current product/runner bytes. Lifecycle measurements predate the pure
+identifies measured product/runner bytes. The [runner repair addendum](../../../experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/runner-repair-addendum.json)
+records the later invalid-input guard change; all product bytes are unchanged. Lifecycle measurements predate the pure
 cleanup change; every catalog implementation file is unchanged. The later
 snapshot audit uses the current sources.
 
-- Full snapshot:78,937 public record reconstructions, all original bytes and
-  diagnostics identical;547.627s,130,252,800-byte RSS. No unmodeled predicates or
-  attributes;223 diagnostics are URI whitespace normalization (222 file,1 webpage).
+- Full snapshot: 78,937 public record reconstructions, all original bytes and
+  diagnostics identical; 547.627s, 130,252,800-byte RSS. No unmodeled predicates or
+  attributes; 223 diagnostics are URI whitespace normalization (222 file, 1 webpage).
   This public API reparses retained RDF; it is not by itself an audit of normalized
-  query tables. A separate40-field index multiplicity audit passes. Semantic
+  query tables. A separate 40-field index multiplicity audit passes. Semantic
   fixtures complement both; no claim of independent parser implementation is made.
-- New English query returns62,726 IDs versus legacy62,689. The37 additions have
+- New English query returns 62,726 IDs versus legacy 62,689. The 37 additions have
   English as a later language value that the old first-language schema omitted;
-  no old IDs disappear. Three new paginated queries:0.0475/0.0400/0.0412s. These
+  no old IDs disappear. Three new paginated queries: 0.0475/0.0400/0.0412s. These
   differ in API/query shape from old SQL timings and are observations, not a
   controlled benchmark. Per-ID language evidence accompanies the index audit.
-- New retained logical bytes:2,303,344,639, including2,177,388,544-byte database and
- 125,955,051-byte archive. This is below4 GiB retained output, but peak temporary
+- New retained logical bytes: 2,303,344,639, including 2,177,388,544-byte database and
+ 125,955,051-byte archive. This is below 4 GiB retained output, but peak temporary
   disk usage was not sampled and is **not claimed**. Combined isolated experiment
-  occupied about5.2 GiB when checked, below the15 GiB run bound.
-- After the narrow v2 repair:1,646 compared,13 refused,902 changed bodies,904
-  differences from retained corpus.696 appended end notices,122 transcriber notes,
- 57 byline/separator starts,19 other suffixes,8 earlier-body changes,742 identical
-  bodies and2 retained-corpus-only differences. All1,659 cache/corpus hashes match
-  before/after. The13 remaining refusals are explicitly listed; some newly exposed
-  header/marker failures follow the first corrected failure, so54−48 is not the
+  occupied about 5.2 GiB when checked, below the 15 GiB run bound.
+- After the narrow v2 repair: 1,646 compared, 13 refused, 902 changed bodies, 904
+  differences from retained corpus. 696 appended end notices, 122 transcriber notes,
+ 57 byline/separator starts, 19 other suffixes, 8 earlier-body changes, 742 identical
+  bodies and 2 retained-corpus-only differences. All 1,659 cache/corpus hashes match
+  before/after. The 13 remaining refusals are explicitly listed; some newly exposed
+  header/marker failures follow the first corrected failure, so 54−48 is not the
   actual refusal result. No blanket acceptance is inferred from these categories.
 
 The corpus gate remains blocked. This checkpoint can be reviewed and preserved

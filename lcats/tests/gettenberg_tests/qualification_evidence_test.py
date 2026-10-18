@@ -5,11 +5,15 @@ import gzip
 import importlib.util
 import json
 import pathlib
+import signal
+import sys
+import tarfile
 import tempfile
 import types
 import unittest
 from unittest import mock
 
+from lcats.gettenberg import lifecycle
 from lcats.gettenberg import rdf
 from tests.gettenberg_tests import catalog_test
 
@@ -101,6 +105,44 @@ class QualificationEvidenceTests(unittest.TestCase):
         target.write_bytes(gzip.compress(b"\xff"))
         with self.assertRaises(UnicodeDecodeError):
             module.cached_text(self.root, 84)
+
+    def test_missing_or_empty_collection_records_failure_not_completion(self):
+        module = load("qualify_cached_corpus")
+        archive = self.root / "fixture.tar.bz2"
+        archive.write_bytes(
+            catalog_test.archive_bytes(
+                [("84.rdf", catalog_test.record(84), tarfile.REGTYPE)]
+            )
+        )
+        cache = self.root / "cache"
+        lifecycle.CatalogManager(cache).setup(archive)
+        empty = self.root / "empty"
+        empty.mkdir()
+        flat = self.root / "flat"
+        flat.mkdir()
+        (flat / "story.json").write_text("{}")
+        # Historical gutenbergpy is deliberately absent from production/CI.
+        # Stub that external import only; discovery, catalog and failure-report
+        # writing remain real, and no cleaner should run for an invalid input.
+        legacy = types.ModuleType("gutenbergpy")
+        legacy.textget = types.SimpleNamespace(
+            __file__=__file__,
+            strip_headers=lambda _data: self.fail("unexpected cleaner call"),
+        )
+        self.addCleanup(signal.signal, signal.SIGALRM, signal.getsignal(signal.SIGALRM))
+        with mock.patch.dict(sys.modules, {"gutenbergpy": legacy}):
+            for collection in (self.root / "missing", empty, flat):
+                with self.subTest(collection=collection.name):
+                    output = self.root / f"{collection.name}-result.json"
+                    with self.assertRaisesRegex(ValueError, "collection"):
+                        module.main(
+                            [str(cache), str(self.root), str(collection), str(output)]
+                        )
+                    report = json.loads(output.read_text())
+                    self.assertFalse(report["completed"])
+                    self.assertEqual(report["rows"], [])
+                    self.assertIn("collection", report["error"])
+                    self.assertNotIn("body_differences", report)
 
     def test_missing_cache_and_cleanup_refusal_are_not_comparison_passes(self):
         module = load("qualify_cached_corpus")
