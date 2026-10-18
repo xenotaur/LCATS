@@ -222,3 +222,10 @@ cover both changed runners. Their offline tests are in
 is additional evidence, not a replacement for those tests. Source anchors are
 coordinator annotations, not independent literary ground truth. Preserving those
 eight spans does not accept all1,659 corpus outputs or editorial interpretations.
+
+The current corpus replay records `chapter_assessment` from the same metadata-aware
+policy used by actual publication. `new_rejection` describes body eligibility;
+`metadata_rejection` remains separate, and `publication_rejection` combines them
+in the live path's precedence. A changed body rejection is not necessarily a
+changed publication outcome. Earlier reports retain their original meanings and
+bytes; do not reinterpret their body-only counts as final publication eligibility.

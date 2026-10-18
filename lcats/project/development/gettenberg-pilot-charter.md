@@ -477,3 +477,24 @@ original cached inputs/corpus and historical results; no Gutenberg requests, CI
 changes, persistent policy changes, main promotion or terminal closeout. The pilot
 coordinator adapter covers routine planning/repair/review; unresolved corpus
 acceptance keeps PR524 unmerged. Local isolated output bound15GiB,6GiB free minimum.
+
+## Editorial/chapter qualification continuation —2026-10-18
+
+Human grants a two-to-three-hour run with an absolute1p.m. Pacific hard stop.
+Start17:16:51 UTC (10:16:51 Pacific); target/feature freeze19:16:51; hard stop
+20:00:00 UTC (13:00 Pacific). Reserve19:40 onward for checkpoint/validation only.
+Continue PR524 from33b3f813. Coordinator-led development; no exploratory workers
+or follow-up dispatches. At most one fresh cold review, maximum30 elapsed dispatch
+minutes, only when at least60 minutes remain before hard stop. No recursive
+workers or automatic renewal. Check clock after tool returns and at least every
+five minutes; no worker-side deadline substitutes for coordinator enforcement.
+If review does not fit or complete, retain that missing gate explicitly.
+
+Scope: source-grounded editorial/chapter boundary corrections, regression and
+publication tests, full immutable cached-corpus replay and source-attributed
+qualification/wheel evidence, documentation and runlog. No weakening acceptance,
+blanket deletion of uncertain narrative, new Gutenberg requests, canonical corpus
+mutation, CI changes, main promotion, package publication or persistent consent
+changes. Existing pilot adapter covers routine implementation and checkpointing;
+internal integration still requires all pre-integration gates. Native records
+remain nonterminal. Isolated outputs at most15GiB, free disk at least6GiB.

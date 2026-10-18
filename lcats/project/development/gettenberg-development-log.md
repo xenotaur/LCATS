@@ -3615,3 +3615,40 @@ Final eight-case source/runner hashes were checked against current files and mat
 No final full-corpus replay, fresh wheel, exact-head hosted checks or independent
 repair recheck is claimed. Publishing an unaccepted checkpoint to the existing PR;
 no integration/main movement. Further work requires a new bounded grant.
+
+## 2026-10-18 10:16 Pacific — editorial/chapter continuation
+
+Start17:16:51 UTC, two-hour target19:16:51, absolute hard stop20:00 UTC (13:00
+Pacific). Fresh user grant. Clean PR524 head33b3f813, integration unchanged.
+All four exact-head CI checks succeeded; the previous hosted runner-review thread
+is resolved. That is not independent approval of the narrative candidate. WI0010
+readiness yes/no warnings. Watched gates fresh, persistent consent invalid and
+untouched. Account-wide weekly usage34% at launch, not attributable run cost.
+
+Use lrh-implement under the approved pilot coordinator adapter, continue the
+existing PR and repair scope. No new external dependency/prior-art duplication.
+Coordinator implements; at most one fresh cold final review if timing permits,
+no follow-up dispatch. The earlier scheduler delays remain unexplained.
+
+First implementation choice: retain all text selected by opening-prefix policy,
+but exclude complete metadata title/byline matches from the weak all-capital
+chapter-title heuristic. Explicit section/contents markers still count. Record
+classification policy and evidence in inspection/publication provenance. This
+repairs the identified42640 composition failure without treating old truncated
+outputs as the oracle or removing uncertain front matter. Reproduce distinctions
+between actual multi-section inputs and metadata false positives. The experiment
+must use the same metadata-aware classifier as actual publication.
+
+### Editorial continuation: source counterexample before review
+
+The first final-source replay completed in210.519s,1,646 comparisons/13 cleanup
+refusals,1,642 body differences. Eight anchored cases all preserve narrative and
+publish/reuse safely. Metadata-aware classification reduces32 body rejections to15,
+but this is not17 accepted corrections: direct source inspection found63230,
+*Two Stories*, contains two actual works. Its CONTENTS heading shares a paragraph
+with two entries; the old detector only recognizes a whole-paragraph contents
+label. Removing author headings exposes its historical two-heading exception.
+Add an authored regression and recognize only the explicit contents-first-line
+form with at least two nonempty following lines. Do not infer collections from a
+word inside narrative or weaken the general chapter rules. Preserve this first
+replay as pre-contents-fix evidence; final-source replay must be regenerated.

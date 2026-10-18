@@ -178,6 +178,75 @@ class QualificationEvidenceTests(unittest.TestCase):
         self.assertFalse(row["body_equal"])
         self.assertTrue(row["retained_corpus_matches"])
 
+    def test_corpus_chapter_evidence_matches_inspection_and_keeps_metadata_rejection(
+        self,
+    ):
+        from lcats.gatherers import parser
+        from tests.gatherers_tests import live_gather_test
+
+        module = load("qualify_cached_corpus")
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        source = fixture.source()
+        metadata = source.metadata(live_gather_test.BOOK_ID)
+        # An unknown preface prevents destructive heading removal. Repeated book
+        # titles remain in the body, but are not evidence of unnamed chapters.
+        body = "Preface retained.\n\n" + "\n\n".join(
+            ("THE BELL\n\n" if i % 4 == 0 else "") + paragraph
+            for i, paragraph in enumerate(live_gather_test.PARAGRAPHS)
+        )
+        path = self.root / "story.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "body": body,
+                    "metadata": {
+                        "url": f"https://www.gutenberg.org/ebooks/{live_gather_test.BOOK_ID}"
+                    },
+                }
+            )
+        )
+        (self.root / f"{live_gather_test.BOOK_ID}.txt.gz").write_bytes(
+            gzip.compress(body.encode())
+        )
+        # HistoricalText is the runner's explicit decoded-cache boundary; using
+        # it exercises real inspection without fabricating original-byte receipts.
+        narrative = load("qualify_narrative_cases")
+        historical_source = narrative.HistoricalSource(
+            source,
+            narrative.HistoricalText(
+                live_gather_test.BOOK_ID,
+                narrative.cleanup.strip_boilerplate(body),
+                module.digest(
+                    (self.root / f"{live_gather_test.BOOK_ID}.txt.gz").read_bytes()
+                ),
+                module.digest(body),
+            ),
+        )
+        report = parser.inspect_story(
+            live_gather_test.BOOK_ID, source=historical_source
+        )
+        row = module.compare(path, self.root, source, lambda data: data)
+        self.assertIsNone(report["rejection"])
+        self.assertIsNone(row["publication_rejection"])
+        self.assertEqual(
+            row["chapter_assessment"], report["provenance"]["chapter_assessment"]
+        )
+        self.assertFalse(row["chapter_assessment"]["chaptered"])
+        self.assertTrue(row["chapter_assessment"]["ignored_metadata_paragraphs"])
+
+        ineligible = dataclasses.replace(metadata, languages=("fr",))
+        row = module.compare(
+            path,
+            self.root,
+            types.SimpleNamespace(metadata=lambda _id: ineligible),
+            lambda data: data,
+        )
+        self.assertIsNone(row["new_rejection"])
+        self.assertEqual(row["publication_rejection"], row["metadata_rejection"])
+        self.assertIsNotNone(row["publication_rejection"])
+
     def test_narrative_case_publication_checks_source_identity_and_full_span(self):
         from tests.gatherers_tests import live_gather_test
 

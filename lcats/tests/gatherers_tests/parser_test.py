@@ -223,6 +223,61 @@ class TestChaptered(unittest.TestCase):
         text = "Part I\n\nsome content\n\nPart II\n\nmore"
         self.assertTrue(parser.chaptered(text))
 
+    def test_metadata_headings_are_not_unnamed_chapters(self):
+        text = "THE BELL\n\nThe visitor arrived.\n\nTHE BELL\n\nShe read a sign.\n\nDANGER AHEAD\n\nThen she left."
+        self.assertTrue(parser.chaptered(text))
+        report = parser.assess_chapters(
+            text, titles=["The Bell"], authors=["Smith, John"]
+        )
+        self.assertFalse(report["chaptered"])
+        self.assertEqual(report["ignored_metadata_paragraphs"], [0, 2])
+        self.assertEqual(report["possible_title_paragraphs"], [4])
+
+    def test_byline_and_signature_exclusion_requires_whole_metadata(self):
+        text = "BY JOHN SMITH\n\nA visitor arrived.\n\n—JOHN SMITH\n\nShe returned.\n\nJOHN SMITH WAS WAITING\n\nThey spoke."
+        report = parser.assess_chapters(text, authors=["Smith, John"])
+        self.assertEqual(report["ignored_metadata_paragraphs"], [0, 2])
+        self.assertEqual(report["possible_title_paragraphs"], [4])
+        self.assertFalse(report["chaptered"])
+
+    def test_explicit_chapters_survive_metadata_exclusion(self):
+        text = (
+            "THE BELL\n\nChapter I\n\nA visitor arrived.\n\nChapter II\n\nShe returned."
+        )
+        report = parser.assess_chapters(
+            text, titles=["The Bell", "Chapter I", "Chapter II"]
+        )
+        self.assertTrue(report["chaptered"])
+        self.assertEqual([r["paragraph"] for r in report["explicit_markers"]], [1, 3])
+
+    def test_contents_list_with_shared_paragraph_rejects_multiple_works(self):
+        text = (
+            "CONTENTS\nFirst Tale By John Smith\nSecond Tale By Jane Doe\n\n"
+            "FIRST TALE\n\nA first narrative.\n\nSECOND TALE\n\nA second narrative."
+        )
+        report = parser.assess_chapters(text, titles=("Two Tales",))
+        self.assertTrue(report["chaptered"])
+        self.assertEqual(
+            report["explicit_markers"],
+            [{"paragraph": 0, "kind": "contents_list", "weight": 0}],
+        )
+        self.assertFalse(
+            parser.chaptered(
+                "Contents of the box\nwere scattered on the floor.\nNothing was missing."
+            )
+        )
+        self.assertFalse(parser.chaptered("Contents\nShe read the single word aloud."))
+
+    def test_contents_remains_explicit_even_when_book_title_matches(self):
+        report = parser.assess_chapters(
+            "Contents\n\nA visitor arrived.", titles=["Contents"]
+        )
+        self.assertTrue(report["chaptered"])
+        self.assertEqual(
+            report["explicit_markers"],
+            [{"paragraph": 0, "kind": "contents", "weight": 0}],
+        )
+
 
 class TestHowManyTitles(unittest.TestCase):
     """Tests for parser.how_many_titles."""

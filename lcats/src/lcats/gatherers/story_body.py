@@ -58,6 +58,18 @@ def _heading(value, titles, authors):
     return key in titles or re.sub(r"^by\s+", "", key) in authors
 
 
+def is_metadata_heading(text, titles=(), authors=(), aliases=()):
+    """Match a complete book heading/byline for structural classification.
+
+    This does not delete text or advance a body boundary. Signature dashes are
+    allowed here because a closing byline is not an unnamed chapter heading.
+    Fuzzy matches and matches to individual lines within prose are not accepted.
+    """
+    return _heading(
+        text.strip().lstrip("—–-"), _titles(titles), _authors(authors, aliases)
+    )
+
+
 def _editorial(value):
     """Recognize only explicit opening production credits or illustration labels."""
     # A label followed by prose in the SAME paragraph is not an editorial

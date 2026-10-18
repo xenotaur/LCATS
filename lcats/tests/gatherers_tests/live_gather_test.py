@@ -192,6 +192,24 @@ class LiveGatherTests(unittest.TestCase):
         self.run_gather()
         self.assertEqual(output.read_bytes(), original)
 
+    def test_retained_book_headings_do_not_reject_narrative_as_chapters(self):
+        body = (
+            "A preface is retained.\n\nTHE BELL\n\n"
+            + BODY
+            + "\n\nTHE BELL\n\nThe visitor read a sign.\n\nDANGER AHEAD"
+        )
+        source, _ = self.acquire(body.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIsNone(report["rejection"])
+        self.assertEqual(report["body"], body)
+        self.assertFalse(report["provenance"]["chapter_assessment"]["chaptered"])
+        self.run_gather()
+        output = next(self.data.rglob("story.json"))
+        data = json.loads(output.read_text())
+        self.assertEqual(data["body"], body)
+        self.assertEqual(data["metadata"]["gettenberg"], report["provenance"])
+
     def test_heading_and_notice_only_source_is_never_published(self):
         text = (
             "The Bell\n\nJohn Smith\n\n"
@@ -238,6 +256,27 @@ class LiveGatherTests(unittest.TestCase):
         self.assertIn("chapters", report["rejection"])
         self.run_gather()
         self.assertEqual(list(self.data.rglob("story.json")), [])
+
+    def test_shared_paragraph_contents_prevents_publishing_two_works(self):
+        body = (
+            "CONTENTS\nFirst Tale\nSecond Tale\n\nFIRST TALE\n\n"
+            + BODY
+            + "\n\nSECOND TALE\n\n"
+            + BODY
+        )
+        content = "The Bell\n\nJohn Smith\n\n" + body
+        source, artifact = self.acquire(content.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertEqual(report["body"], body)
+        self.assertIn("chapters", report["rejection"])
+        self.assertEqual(
+            report["provenance"]["chapter_assessment"]["explicit_markers"],
+            [{"paragraph": 0, "kind": "contents_list", "weight": 0}],
+        )
+        self.run_gather()
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+        self.assertEqual(artifact.path.read_bytes(), content.encode())
 
     def test_projection_preserves_author_roles_order_and_missing_record(self):
         source = self.source()

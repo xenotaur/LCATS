@@ -60,26 +60,33 @@ def possible_internal_chapter_name(line):
     return False
 
 
-def chaptered(text):
-    """Return True if the text contains chapters, False otherwise.
+def assess_chapters(text, *, titles=(), authors=(), aliases=()):
+    """Explain the existing chapter heuristic with metadata headings excluded.
 
-    Works for chapters in Roman numerals and w/o names.   Needs to be expanded.
-
-    Args:
-        text (str): The full text of the story.
-    Returns:
-        bool: True if the text contains chapters, False otherwise.
+    Only the weak all-capital-title heuristic excludes complete metadata
+    matches. Explicit contents/section markers retain their historical weights.
+    Paragraph indexes refer to ``text.split("\\n\\n")``; text is never changed.
+    This remains a heuristic, not a literary determination that a book has
+    chapters. Evidence makes false positives inspectable without truncation.
     """
     result = 0
 
     possible_titles = 0
+    possible_title_indexes = []
+    ignored_metadata = []
+    explicit_markers = []
+    has_contents = False
 
     text_array = text.split("\n\n")
 
     # if several lines are simply all caps, then it's probably chapter names
     multiple_lines_all_caps = False
     for index, line in enumerate(text_array):
-        if possible_internal_chapter_name(line):
+        previous_weight = result
+        is_metadata = story_body.is_metadata_heading(line, titles, authors, aliases)
+        if is_metadata:
+            ignored_metadata.append(index)
+        if possible_internal_chapter_name(line) and not is_metadata:
             if index < len(text_array) - 2 and text_array[index + 1].isupper():
                 multiple_lines_all_caps = True
             elif index > 0 and text_array[index - 1].isupper():
@@ -93,21 +100,26 @@ def chaptered(text):
             #    multiple_lines_all_caps = False
 
             if not multiple_lines_all_caps:
-                if index == 0:
-                    possible_titles = possible_titles + 1
-                else:
-                    if (
-                        len(text_array[index - 1]) > 0
-                        and text_array[index - 1][-1] != ":"
-                    ):
-                        possible_titles = possible_titles + 1
-                    else:
-                        possible_titles = possible_titles + 1
+                possible_titles += 1
+                possible_title_indexes.append(index)
 
         line = line.strip().lower()
 
-        if line in ["table of contents", "contents", "contents.", "contents:"]:
-            return True
+        contents_labels = {"table of contents", "contents", "contents.", "contents:"}
+        # Some books put a contents heading and its entries in one paragraph.
+        # Require an exact first-line label and at least two nonempty entries;
+        # a narrative mention of "contents" is not structural evidence.
+        lines = [part.strip() for part in line.splitlines() if part.strip()]
+        contents_kind = None
+        if line in contents_labels:
+            contents_kind = "contents"
+        elif len(lines) >= 3 and lines[0] in contents_labels:
+            contents_kind = "contents_list"
+        if contents_kind is not None:
+            has_contents = True
+            explicit_markers.append(
+                {"paragraph": index, "kind": contents_kind, "weight": 0}
+            )
 
         if line.startswith("i ~"):
             result = result + 1
@@ -163,12 +175,36 @@ def chaptered(text):
         ]:
             result = result + 1
 
-    # A single I or II might be an anomoly so this is to see if both exist
+        if result > previous_weight:
+            explicit_markers.append(
+                {
+                    "paragraph": index,
+                    "kind": "numbered_section",
+                    "weight": result - previous_weight,
+                }
+            )
 
-    if result == 0 and possible_titles == 2:
-        return False
-    else:
-        return result >= 2 or possible_titles >= 2
+    # Preserve the legacy two-unnamed-heading exception. Changing general
+    # chapter eligibility is separate from recognizing book metadata correctly.
+    detected = has_contents or (
+        not (result == 0 and possible_titles == 2)
+        and (result >= 2 or possible_titles >= 2)
+    )
+    return {
+        "policy": "metadata-aware-chapters-v1",
+        "chaptered": detected,
+        "paragraph_basis": "body.split('\\n\\n')",
+        "explicit_markers": explicit_markers,
+        "possible_title_paragraphs": possible_title_indexes,
+        "ignored_metadata_paragraphs": ignored_metadata,
+    }
+
+
+def chaptered(text, *, titles=(), authors=(), aliases=()):
+    """Return the explained chapter decision; metadata is optional for callers."""
+    return assess_chapters(text, titles=titles, authors=authors, aliases=aliases)[
+        "chaptered"
+    ]
 
 
 def is_number(string):
@@ -1290,7 +1326,11 @@ def _inspect_metadata(story, metadata, source):
         **prepared.provenance(),
         "body_extraction": extraction.provenance(),
     }
-    if chaptered(body):
+    chapter_assessment = assess_chapters(
+        body, titles=metadata.titles, authors=metadata.authors, aliases=metadata.aliases
+    )
+    report["provenance"]["chapter_assessment"] = chapter_assessment
+    if chapter_assessment["chaptered"]:
         report["rejection"] = "Story has chapters, skipping."
     elif len(body.split("\n\n")) <= 10:
         report["rejection"] = "Story is too short, skipping."

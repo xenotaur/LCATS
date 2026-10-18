@@ -129,6 +129,13 @@ def compare(path, text_cache, source, legacy_clean, *, baseline_parser=None):
         # Reporting a conservative refusal is not equivalent to matching output.
         return {**row, "status": "cleanup_refused", "body_equal": None}
     new_body = extract(cleaned.text, metadata)
+    chapter_assessment = parser.assess_chapters(
+        new_body,
+        titles=metadata.titles,
+        authors=metadata.authors,
+        aliases=metadata.aliases,
+    )
+    row["chapter_assessment"] = chapter_assessment
     before = normalized_body(old_body, metadata, path.parent.name)
     after = normalized_body(new_body, metadata, path.parent.name)
     row.update(
@@ -144,10 +151,14 @@ def compare(path, text_cache, source, legacy_clean, *, baseline_parser=None):
         old_body_characters=len(before),
         new_rejection=(
             "chapters"
-            if parser.chaptered(new_body)
+            if chapter_assessment["chaptered"]
             else "short" if len(new_body.split("\n\n")) <= 10 else None
         ),
     )
+    # Body classification and metadata eligibility are separate observations.
+    # Preserve both, and report the actual publication rejection without implying
+    # that a metadata-ineligible corpus member would be newly published.
+    row["publication_rejection"] = row["metadata_rejection"] or row["new_rejection"]
     if before != after:
         # Keep a bounded first-difference excerpt, not copies of complete stories.
         index = next(

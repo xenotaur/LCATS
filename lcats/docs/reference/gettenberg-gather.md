@@ -114,9 +114,30 @@ separators and uncertain editorial material are retained, including ambiguous
 “Illustrated by” prose. Diagnostics mark possible retained notes/unclassified
 openings; they are not a complete editorial classification or acceptance signal.
 
-This policy fixes destructive heading searches but does **not** establish corpus
-readiness. Retained front matter can interact with the existing chapter detector;
-inspection exposes any rejection. Do not bulk regenerate an accepted corpus from
+`parser.assess_chapters(body, *, titles=(), authors=(), aliases=())` returns
+JSON-compatible evidence under policy `metadata-aware-chapters-v1`.
+`parser.chaptered(...)` returns its boolean decision. Inspection and publication
+include `chapter_assessment` in provenance, with these fields:
+
+| Field | Meaning |
+|---|---|
+| `chaptered` | Heuristic rejection decision, not a literary ground truth. |
+| `paragraph_basis` | Indexes address `body.split('\n\n')` before corpus normalization. |
+| `explicit_markers` | Contents/numbered-section indexes and historical scoring weights. |
+| `possible_title_paragraphs` | Isolated short all-capital headings counted by the heuristic. |
+| `ignored_metadata_paragraphs` | Complete catalog title/byline matches excluded from the weak heading heuristic. |
+
+Metadata matching accepts the same case, wrapping, title/subtitle and inverted
+name forms as body extraction, plus signature dashes. It does not delete text.
+Explicit contents and numbered sections retain their existing weights even when
+their text matches metadata. A contents label on the first line of a paragraph
+with at least two following nonempty lines is also explicit evidence
+(`contents_list`); a mention inside prose is not. The existing exception for exactly two unnamed
+headings is unchanged. Other front matter can still cause false positives; the
+paragraph evidence makes these inspectable.
+
+These policies fix destructive heading searches and metadata false positives but
+do **not** establish corpus readiness. Inspection exposes any rejection. Do not bulk regenerate an accepted corpus from
 this unqualified candidate. Existing outputs are reused, not silently rewritten.
 
 ## Output and migration boundaries
