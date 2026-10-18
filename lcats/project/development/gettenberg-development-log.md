@@ -3124,3 +3124,18 @@ format/lint and LRH0errors/351warnings pass. Runtime repair validation follows.
 Runtime repair canonical suite passed2927 tests in92.126s;18 focused tests, lint
 and LRH0errors/351warnings pass. Ready to push both repairs and verify the final
 head independently. No product changes are planned during that review.
+
+
+### Exact-head review and hosted synchronization — 02:12 UTC
+
+Assignment4 was a fresh cold PR-mode review at9608b76; no actionable findings.
+Reviewer independently verified18 tests0.807s, changed-file lint/Black,11 shell
+steps, repaired source hashes, trigger/job inventory and dependency fingerprint.
+Charge4 minutes, cumulative32/45,4/6 assignments, peak two agents. Shared usage10%.
+
+At02:11:33 the remote branch was9608b76 but PR REST/GraphQL metadata remained
+ff78d679, including an uncached read. Exact-head push test39088847557 passed;
+PR test/coverage/lint had not appeared. Cause is unverified. No stale rollup is
+accepted and no review is manually retriggered. Commit the completed PR-review
+record as the normal final bookkeeping tail, then recheck synchronization and
+all expected checks at that new head. Product files remain unchanged.

@@ -21,15 +21,17 @@ pilot. Fresh integration base0504cae5; CI changes authorized, live maintenance n
 
 Implemented supported catalog maintenance, structured exact-ref cache selection,
 compatibility-aware source/catalog keys, offline unit CI and operator documentation.
-Cold product review complete; hosted review/CI and internal integration pending.
+Cold product review and both first hosted reviews complete. Two verified
+follow-up repairs passed independent review; final hosted CI/integration pending.
 See the runlog for bounded plan, prerequisite acceptance and source policy.
 
 # Validation
 
 Project Python3.11.9, Black25.11.0, Ruff0.15.0; imports pinned to this checkout.
-Readiness yes. Full suite2925 passed85.804s;16 focused tests; corrected canonical
+Readiness yes. Final full suite2927 passed92.126s;18 focused tests; canonical
 format/lint pass; all11 shell steps pass bash syntax; LRH0errors/351warnings.
-Independent product review complete after Black-only repair with AST equality.
+Independent product/runtime review complete at9608b76. Earlier formatting,
+workflow-context and dependency-identity findings were repaired, not waived.
 Hosted review and exact-head CI still required before integration. Evidence directory:
 project/development/evidence/gettenberg-ci-maintenance-20261017/.
 

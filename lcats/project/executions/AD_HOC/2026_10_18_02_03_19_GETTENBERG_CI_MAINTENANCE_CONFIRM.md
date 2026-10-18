@@ -22,7 +22,8 @@ This record is a checkpoint, not a premature ready-to-merge verdict.
 Both first hosted reviews completed. Codex dependency-identity finding is valid
 and repaired locally; authoritative thread remains open until pushed-head
 re-verification. Copilot reports no open issues. Independent workflow repair
-review passed. Final runtime repair review and exact-head CI remain pending.
+and final runtime/product review passed at9608b76. Exact-head CI remains pending
+because GitHub PR metadata still references the previous head.
 No human-reviewer thread or main-merge authorization is inferred.
 
 # Validation
