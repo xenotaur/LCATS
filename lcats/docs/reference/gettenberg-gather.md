@@ -128,11 +128,16 @@ include `chapter_assessment` in provenance, with these fields:
 | `ignored_metadata_paragraphs` | Complete catalog title/byline matches excluded from the weak heading heuristic. |
 
 Metadata matching accepts the same case, wrapping, title/subtitle and inverted
-name forms as body extraction, plus signature dashes. It does not delete text.
+name forms as body extraction, plus signature dashes and curly/straight quote
+equivalence. Quote equivalence applies only to classification; it does not broaden
+body-prefix deletion. Classification itself does not delete text.
 Explicit contents and numbered sections retain their existing weights even when
 their text matches metadata. A contents label on the first line of a paragraph
-with at least two following nonempty lines is also explicit evidence
-(`contents_list`); a mention inside prose is not. The existing exception for exactly two unnamed
+with at least two distinct entries corroborated by later standalone all-capital
+headings is also explicit evidence (`contents_list`). These markers include
+`supporting_paragraphs` indexes. An optional “By ...” attribution is separated from
+the entry title. Mere following lines, duplicate entries, one matching heading,
+or headings only before the list do not suffice. This remains a heuristic. The existing exception for exactly two unnamed
 headings is unchanged. Other front matter can still cause false positives; the
 paragraph evidence makes these inspectable.
 

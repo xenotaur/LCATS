@@ -11,6 +11,8 @@ import re
 import unicodedata
 
 POLICY_VERSION = "opening-prefix-v1"
+# Classification equivalence only: do not broaden destructive prefix selection.
+_CLASSIFICATION_QUOTES = str.maketrans({"’": "'", "‘": "'", "“": '"', "”": '"'})
 _PARAGRAPH = re.compile(r"\S(?:.*?\S)?(?=\n[ \t]*\n|\Z)", re.DOTALL)
 _END_NOTICE = re.compile(
     r"End of (?:the )?Project Gutenberg(?: EBook of |['’]s )(.+), by (.+)",
@@ -63,10 +65,16 @@ def is_metadata_heading(text, titles=(), authors=(), aliases=()):
 
     This does not delete text or advance a body boundary. Signature dashes are
     allowed here because a closing byline is not an unnamed chapter heading.
+    Curly/straight quotation marks are equivalent for classification only.
     Fuzzy matches and matches to individual lines within prose are not accepted.
     """
     return _heading(
-        text.strip().lstrip("—–-"), _titles(titles), _authors(authors, aliases)
+        text.translate(_CLASSIFICATION_QUOTES).strip().lstrip("—–-"),
+        _titles(value.translate(_CLASSIFICATION_QUOTES) for value in _values(titles)),
+        _authors(
+            (value.translate(_CLASSIFICATION_QUOTES) for value in _values(authors)),
+            (value.translate(_CLASSIFICATION_QUOTES) for value in _values(aliases)),
+        ),
     )
 
 

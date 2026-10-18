@@ -108,6 +108,15 @@ class BodyExtractionTests(unittest.TestCase):
             with self.subTest(text=text):
                 self.assertEqual(self.extract(text).text, "")
 
+    def test_classification_quote_equivalence_does_not_broaden_body_deletion(self):
+        text = "A PILOT’S TALE\n\nA visitor arrived."
+        titles = ("A Pilot's Tale",)
+        self.assertTrue(story_body.is_metadata_heading("A PILOT’S TALE", titles))
+        self.assertEqual(story_body.extract(text, titles, ()).text, text)
+        self.assertFalse(
+            story_body.is_metadata_heading("She read A PILOT’S TALE", titles)
+        )
+
     def test_mononym_alias_and_non_ascii_heading(self):
         self.assertEqual(
             story_body.extract(

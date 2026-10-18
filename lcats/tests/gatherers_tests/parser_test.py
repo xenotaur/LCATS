@@ -250,6 +250,38 @@ class TestChaptered(unittest.TestCase):
         self.assertTrue(report["chaptered"])
         self.assertEqual([r["paragraph"] for r in report["explicit_markers"]], [1, 3])
 
+    def test_metadata_apostrophe_variants_do_not_become_chapters(self):
+        text = "THE BEGGAR’S PURSE\n\nAn opening.\n\nNOTICE\n\nA notice.\n\nTHE BEGGAR’S PURSE\n\nNarrative."
+        report = parser.assess_chapters(
+            text, titles=("The Beggar's Purse: A Fairy Tale",)
+        )
+        self.assertFalse(report["chaptered"])
+        self.assertEqual(report["ignored_metadata_paragraphs"], [0, 4])
+        self.assertEqual(report["possible_title_paragraphs"], [2])
+
+    def test_wrapped_contents_prose_is_not_a_corroborated_list(self):
+        text = (
+            "Contents\nspilled over the deck.\nThe crew watched in silence.\n\n"
+            + "\n\n".join("An ordinary narrative paragraph." for _ in range(12))
+        )
+        report = parser.assess_chapters(text)
+        self.assertFalse(report["chaptered"])
+        self.assertEqual(report["explicit_markers"], [])
+
+    def test_compact_contents_needs_two_distinct_later_headings(self):
+        for text in (
+            "CONTENTS\nFirst Tale\nFirst Tale\n\nFIRST TALE",
+            "CONTENTS\nFirst Tale\nSecond Tale\n\nFIRST TALE",
+            "FIRST TALE\n\nSome prose.\n\nSECOND TALE\n\nCONTENTS\nFirst Tale\nSecond Tale",
+        ):
+            with self.subTest(text=text):
+                self.assertFalse(
+                    any(
+                        marker["kind"] == "contents_list"
+                        for marker in parser.assess_chapters(text)["explicit_markers"]
+                    )
+                )
+
     def test_contents_list_with_shared_paragraph_rejects_multiple_works(self):
         text = (
             "CONTENTS\nFirst Tale By John Smith\nSecond Tale By Jane Doe\n\n"
@@ -259,7 +291,14 @@ class TestChaptered(unittest.TestCase):
         self.assertTrue(report["chaptered"])
         self.assertEqual(
             report["explicit_markers"],
-            [{"paragraph": 0, "kind": "contents_list", "weight": 0}],
+            [
+                {
+                    "paragraph": 0,
+                    "kind": "contents_list",
+                    "weight": 0,
+                    "supporting_paragraphs": [1, 3],
+                }
+            ],
         )
         self.assertFalse(
             parser.chaptered(

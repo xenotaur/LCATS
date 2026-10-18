@@ -257,6 +257,17 @@ class LiveGatherTests(unittest.TestCase):
         self.run_gather()
         self.assertEqual(list(self.data.rglob("story.json")), [])
 
+    def test_wrapped_contents_prose_survives_actual_publication(self):
+        body = (
+            "Contents\nspilled over the deck.\nThe crew watched in silence.\n\n" + BODY
+        )
+        source, _ = self.acquire(("The Bell\n\nJohn Smith\n\n" + body).encode())
+        source.policy = resources.NetworkPolicy()
+        self.assertIsNone(parser.inspect_story(BOOK_ID, source=source)["rejection"])
+        self.run_gather()
+        output = next(self.data.rglob("story.json"))
+        self.assertEqual(json.loads(output.read_text())["body"], body)
+
     def test_shared_paragraph_contents_prevents_publishing_two_works(self):
         body = (
             "CONTENTS\nFirst Tale\nSecond Tale\n\nFIRST TALE\n\n"
@@ -272,7 +283,14 @@ class LiveGatherTests(unittest.TestCase):
         self.assertIn("chapters", report["rejection"])
         self.assertEqual(
             report["provenance"]["chapter_assessment"]["explicit_markers"],
-            [{"paragraph": 0, "kind": "contents_list", "weight": 0}],
+            [
+                {
+                    "paragraph": 0,
+                    "kind": "contents_list",
+                    "weight": 0,
+                    "supporting_paragraphs": [1, 17],
+                }
+            ],
         )
         self.run_gather()
         self.assertEqual(list(self.data.rglob("story.json")), [])

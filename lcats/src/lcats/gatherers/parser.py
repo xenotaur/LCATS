@@ -78,6 +78,13 @@ def assess_chapters(text, *, titles=(), authors=(), aliases=()):
     has_contents = False
 
     text_array = text.split("\n\n")
+    # Corroborate compact contents entries with later standalone headings. A
+    # wrapped sentence beginning "Contents" must not become structural evidence.
+    heading_indexes = {}
+    for position, paragraph in enumerate(text_array):
+        if possible_internal_chapter_name(paragraph):
+            key = " ".join(paragraph.lower().split())
+            heading_indexes.setdefault(key, []).append(position)
 
     # if several lines are simply all caps, then it's probably chapter names
     multiple_lines_all_caps = False
@@ -107,19 +114,30 @@ def assess_chapters(text, *, titles=(), authors=(), aliases=()):
 
         contents_labels = {"table of contents", "contents", "contents.", "contents:"}
         # Some books put a contents heading and its entries in one paragraph.
-        # Require an exact first-line label and at least two nonempty entries;
-        # a narrative mention of "contents" is not structural evidence.
+        # Require an exact first-line label and at least two distinct entries
+        # corroborated by later headings. An optional "By ..." attribution is
+        # outside the entry title; unrecognized formats remain unclassified.
         lines = [part.strip() for part in line.splitlines() if part.strip()]
         contents_kind = None
+        supporting_headings = {}
         if line in contents_labels:
             contents_kind = "contents"
         elif len(lines) >= 3 and lines[0] in contents_labels:
-            contents_kind = "contents_list"
+            for entry in lines[1:]:
+                heading = " ".join(re.split(r"\s+by\s+", entry, maxsplit=1)[0].split())
+                later = next(
+                    (i for i in heading_indexes.get(heading, ()) if i > index), None
+                )
+                if later is not None:
+                    supporting_headings[heading] = later
+            if len(supporting_headings) >= 2:
+                contents_kind = "contents_list"
         if contents_kind is not None:
             has_contents = True
-            explicit_markers.append(
-                {"paragraph": index, "kind": contents_kind, "weight": 0}
-            )
+            marker = {"paragraph": index, "kind": contents_kind, "weight": 0}
+            if contents_kind == "contents_list":
+                marker["supporting_paragraphs"] = sorted(supporting_headings.values())
+            explicit_markers.append(marker)
 
         if line.startswith("i ~"):
             result = result + 1
