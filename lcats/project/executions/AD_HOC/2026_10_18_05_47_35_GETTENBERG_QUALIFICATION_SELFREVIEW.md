@@ -4,8 +4,8 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_QUALIFICATION_SELFREVIEW)[2026-10-18T05:46:5
 work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_18_05_18_55_GETTENBERG_QUALIFICATION
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/524
+commit: 48733d6abe27c4ecce4e2a83fcb20abd0ea634fa
 created_at: 2026-10-18T05:47:35+00:00
 agent: codex_app
 instruction_source: WI-GETTENBERG-0010 independent pre-push diff review under approved pilot adapter

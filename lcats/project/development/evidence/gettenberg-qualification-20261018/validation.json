@@ -25,5 +25,9 @@
       "No independent repeat of full builds, snapshot replay or bulk corpus extraction."
     ]
   },
-  "acceptance": "blocked by real-corpus differences; checkpoint must remain unmerged"
+  "acceptance": "blocked by real-corpus differences; checkpoint must remain unmerged",
+  "lrh": {
+    "errors": 0,
+    "preexisting_warnings": 351
+  }
 }

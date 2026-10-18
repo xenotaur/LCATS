@@ -3312,7 +3312,7 @@ deadline06:06:57,20 minutes allocated; total2/6 assignments,12 used worker minut
 frozen. Reviewer must verify evidence claims and the explicit unaccepted checkpoint.
 Canonical2944 tests89.551s passed; final entry-point-inclusive repeat is running.
 
-### Independent review and final local checks — 05:55 UTC
+### Independent review and final local checks — recorded 06:46 UTC
 
 Assignment2 completed at 05:53 UTC, charged 7 worker minutes conservatively;
 19 of 45 cumulative worker minutes used, 2 of 6 assignments, no active workers.
@@ -3328,3 +3328,19 @@ failures. Coordinator canonical suite passed 2,944 tests in 108.968 seconds;
 package and explicit 12-runner experiment format/lint passed. No new product fix
 was made after evidence freeze. Preserve a reviewable unaccepted PR, await its
 first hosted review rounds and record exact-head CI; do not integrate it.
+
+### Review checkpoint PR — 06:48 UTC
+
+Opened [PR524](https://github.com/xenotaur/LCATS/pull/524) against
+codex/gettenberg-acquisition at 48733d6a, explicitly unaccepted/do-not-merge.
+Backfilled both native execution records with PR identity and reviewed product
+commit; both remain in_progress. No integration or main ref moved. Four expected
+hosted jobs are running (push tests, PR tests, coverage, lint); first hosted review
+rounds pending, with no manual retriggers. Local validation: LRH 0 errors and
+351 pre-existing warnings. An attempted root-level `lrh validate --project-root`
+was rejected by this CLI; the correct package-cwd `lrh validate` passed.
+
+The 05:55 draft timestamp on the preceding record was corrected to its actual
+06:46 write checkpoint; coordinator reproduction completed at 05:52 UTC. Timing
+claims use observed timestamps, not an assumption that tool/session latency is
+zero. The original 07:14 target / 08:14 hard stop remain unchanged.
