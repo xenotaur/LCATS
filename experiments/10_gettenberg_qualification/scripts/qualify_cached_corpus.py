@@ -7,6 +7,9 @@ ResourceStore or invent retrieval receipts. It compares old/new cleanup followed
 by the same extraction/normalization on identical decoded inputs and current
 catalog metadata, then separately compares retained corpus bodies. It is not a
 replay of the broken legacy metadata wrapper or proof of original wire encoding.
+With --baseline-parser-ref, the old-cleanup path uses the pinned pre-repair parser
+instead; both its commit and source hash are recorded. This is required when
+measuring a body-extractor repair rather than cleanup alone.
 No network; no corpus writes; output must be new. POSIX alarm: 600 seconds.
 """
 
@@ -16,12 +19,15 @@ import contextlib
 import gzip
 import hashlib
 import io
+import importlib.util
 import json
 import pathlib
 import resource
 import signal
 import socket
 import sys
+import subprocess
+import tempfile
 import time
 from unittest import mock
 
@@ -83,7 +89,7 @@ def normalized_body(body, metadata, story_id):
     return data["body"]
 
 
-def compare(path, text_cache, source, legacy_clean):
+def compare(path, text_cache, source, legacy_clean, *, baseline_parser=None):
     """Return one fully attributed comparison, including explicit refusals/gaps."""
     raw = path.read_bytes()
     story = json.loads(raw)
@@ -108,7 +114,15 @@ def compare(path, text_cache, source, legacy_clean):
     row["cleanup_diagnostics"] = [d.code for d in cleaned.diagnostics]
     row["cleanup_slice"] = [cleaned.content_start, cleaned.content_end]
     old_cleaned = legacy_clean(text.encode("utf-8")).decode("utf-8")
-    old_body = extract(old_cleaned, metadata)
+    if baseline_parser is None:
+        old_body = extract(old_cleaned, metadata)
+    else:
+        old_body = baseline_parser.body_of_text(
+            old_cleaned.replace("\r\n", "\n").replace("\r", "\n").strip(),
+            list(metadata.authors),
+            list(metadata.aliases),
+            list(metadata.titles),
+        )
     row["legacy_extracted_sha256"] = digest(old_body)
     if not cleaned.changed and any(d.code != "no_markers" for d in cleaned.diagnostics):
         # The actual source adapter refuses these cases before heuristic parsing.
@@ -158,6 +172,11 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ("catalog_cache", "text_cache", "collection", "output"):
         ap.add_argument(name, type=lambda value: pathlib.Path(value).resolve())
+    ap.add_argument(
+        "--baseline-parser-ref",
+        choices=("335855c04cd7ba936815d2635969d94fdd278c71",),
+        help="use the pinned pre-narrative-repair parser on the legacy path",
+    )
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output exists")
@@ -176,10 +195,33 @@ def main(argv=None):
             for p in sorted(pathlib.Path("src/lcats").rglob("*.py"))
         },
     }
+    baseline_parser = None
+    # The optional comparison executes only this locally pinned, reviewed
+    # historical module, never a user-supplied path/ref or downloaded source.
+    baseline_temporary = tempfile.TemporaryDirectory()
     start = time.monotonic()
     signal.signal(signal.SIGALRM, timeout)
     signal.alarm(600)
     try:
+        if args.baseline_parser_ref:
+            baseline_bytes = subprocess.check_output(
+                [
+                    "git",
+                    "show",
+                    f"{args.baseline_parser_ref}:lcats/src/lcats/gatherers/parser.py",
+                ],
+                cwd=pathlib.Path(__file__).resolve().parents[3],
+                timeout=30,
+            )
+            baseline_path = pathlib.Path(baseline_temporary.name) / "baseline_parser.py"
+            baseline_path.write_bytes(baseline_bytes)
+            spec = importlib.util.spec_from_file_location(
+                "baseline_parser", baseline_path
+            )
+            baseline_parser = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(baseline_parser)
+            result["baseline_parser_ref"] = args.baseline_parser_ref
+            result["baseline_parser_sha256"] = digest(baseline_bytes)
         # An absent/empty selection is missing evidence, never a completed
         # comparison. Keep these checks inside the failure-reporting boundary.
         if not args.collection.is_dir():
@@ -208,7 +250,13 @@ def main(argv=None):
             result["catalog_archive_sha256"] = catalog.info["report"]["archive_sha256"]
             for path in paths:
                 result["rows"].append(
-                    compare(path, args.text_cache, source, textget.strip_headers)
+                    compare(
+                        path,
+                        args.text_cache,
+                        source,
+                        textget.strip_headers,
+                        baseline_parser=baseline_parser,
+                    )
                 )
         result["summary"] = dict(
             collections.Counter(r["status"] for r in result["rows"])
@@ -225,6 +273,7 @@ def main(argv=None):
         raise
     finally:
         signal.alarm(0)
+        baseline_temporary.cleanup()
         result["seconds"] = time.monotonic() - start
         rss = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
         result["peak_rss_bytes"] = rss if sys.platform == "darwin" else rss * 1024

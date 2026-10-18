@@ -604,12 +604,12 @@ class TestBodyOfTextAdditional(unittest.TestCase):
         result = parser.body_of_text(text, [], [], "The Bell")
         self.assertIn("This is the body.", result)
 
-    def test_preface_before_title_is_skipped_via_else_continue(self):
-        """Text before title (not blank/title/author) is skipped via else:continue (line 628)."""
+    def test_unknown_preface_before_title_is_preserved(self):
+        """Unknown opening prose is evidence, not permission to skip to a later title."""
         text = "Preface text\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
         result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
         self.assertIn("This is the body.", result)
-        self.assertNotIn("Preface text", result)
+        self.assertIn("Preface text", result)
 
 
 if __name__ == "__main__":

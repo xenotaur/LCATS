@@ -460,3 +460,20 @@ policy/consent changes, main promotion or terminal closeout. Keep material
 uncertainty explicit; unresolved acceptance prevents integration. Same isolated
 15 GiB output bound / 6 GiB free minimum. Existing scoped coordinator adapter
 covers routine plan, repair and review decisions without invented human replies.
+
+## Narrative repair continuation — 2026-10-18 morning
+
+Human granted approximately one hour with a 90-minute hard stop. Start15:50:56 UTC
+(08:50:56 Pacific), target/feature freeze16:50:56, hard stop17:20:56 (10:20 Pacific).
+Continue PR524 from335855c04cd7ba936815d2635969d94fdd278c71. Coordinator-led implementation;
+no exploratory worker. At most one independent reviewer at a time, 10 minutes per
+assignment, at most two assignments and20 cumulative worker minutes. No recursive
+delegation. Check time on every tool return during review and at least every five
+minutes otherwise; interrupt a worker at its deadline. Reserve final15 minutes for
+validation/checkpoint. No automatic renewal. Earlier stop on acceptance or blocker.
+
+Same focused narrative-repair scope and prohibitions as the prior grant. Preserve
+original cached inputs/corpus and historical results; no Gutenberg requests, CI
+changes, persistent policy changes, main promotion or terminal closeout. The pilot
+coordinator adapter covers routine planning/repair/review; unresolved corpus
+acceptance keeps PR524 unmerged. Local isolated output bound15GiB,6GiB free minimum.

@@ -166,6 +166,45 @@ class LiveGatherTests(unittest.TestCase):
         output = next(self.data.rglob("story.json"))
         self.assertEqual(json.loads(output.read_text())["body"], report["body"])
 
+    def test_closing_byline_cannot_publish_an_editorial_fragment(self):
+        # The prior parser selected this late author and returned only the note.
+        # More than ten note paragraphs also defeated its short-story rejection.
+        note = "Transcriber's Note\n\n" + "\n\n".join(
+            f"Editorial correction number {i}." for i in range(15)
+        )
+        text = CONTENT + "\n\nJohn Smith\n\n" + note
+        source, artifact = self.acquire(text.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertIsNone(report["rejection"])
+        self.assertTrue(report["body"].startswith(BODY))
+        self.assertTrue(report["body"].endswith(note))
+        self.run_gather()
+        output = next(self.data.rglob("story.json"))
+        data = json.loads(output.read_text())
+        self.assertTrue(data["body"].startswith(PARAGRAPHS[0]))
+        self.assertIn(PARAGRAPHS[-1], data["body"])
+        evidence = data["metadata"]["gettenberg"]["body_extraction"]
+        self.assertEqual(evidence, report["provenance"]["body_extraction"])
+        self.assertEqual(artifact.path.read_bytes(), text.encode())
+        # Reusing this temporary bucket preserves an existing published story.
+        original = output.read_bytes()
+        self.run_gather()
+        self.assertEqual(output.read_bytes(), original)
+
+    def test_heading_and_notice_only_source_is_never_published(self):
+        text = (
+            "The Bell\n\nJohn Smith\n\n"
+            "End of the Project Gutenberg EBook of The Bell, by John Smith"
+        )
+        source, _ = self.acquire(text.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertEqual(report["body"], "")
+        self.assertIn("too short", report["rejection"])
+        self.run_gather()
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+
     def test_inspection_missing_and_ineligible_records_do_not_acquire(self):
         self.write_archive(language="fr")
         source = self.source()

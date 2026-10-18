@@ -144,6 +144,120 @@ class QualificationEvidenceTests(unittest.TestCase):
                     self.assertIn("collection", report["error"])
                     self.assertNotIn("body_differences", report)
 
+    def test_distinct_baseline_extractor_cannot_be_silently_replaced_by_current(self):
+        module = load("qualify_cached_corpus")
+        narrative = "\n\n".join(f"Narrative paragraph {i}." for i in range(15))
+        metadata = types.SimpleNamespace(
+            titles=("Story",),
+            authors=("Smith, John",),
+            aliases=(),
+            languages=("en",),
+            subjects=("PS", "Short stories"),
+        )
+        text = "Story\n\nJohn Smith\n\n" + narrative
+        path = self.root / "story.json"
+        path.write_text(
+            json.dumps(
+                {
+                    "body": narrative,
+                    "metadata": {"url": "https://www.gutenberg.org/ebooks/84"},
+                }
+            )
+        )
+        (self.root / "84.txt.gz").write_bytes(gzip.compress(text.encode()))
+        source = types.SimpleNamespace(metadata=lambda _id: metadata)
+        # A deliberately distinct deterministic baseline demonstrates that the
+        # comparison routes each side separately, rather than silently running
+        # the repaired extractor on both sides and reporting false equivalence.
+        baseline = types.SimpleNamespace(body_of_text=lambda *_args: "Old fragment.")
+        row = module.compare(
+            path, self.root, source, lambda data: data, baseline_parser=baseline
+        )
+        self.assertEqual(row["legacy_extracted_sha256"], module.digest("Old fragment."))
+        self.assertEqual(row["new_extracted_sha256"], module.digest(narrative))
+        self.assertFalse(row["body_equal"])
+        self.assertTrue(row["retained_corpus_matches"])
+
+    def test_narrative_case_publication_checks_source_identity_and_full_span(self):
+        from tests.gatherers_tests import live_gather_test
+
+        module = load("qualify_narrative_cases")
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        source = fixture.source()
+        raw = live_gather_test.ENVELOPE.encode()
+        (self.root / f"{live_gather_test.BOOK_ID}.txt.gz").write_bytes(
+            gzip.compress(raw)
+        )
+        case = {
+            "id": live_gather_test.BOOK_ID,
+            "decoded_utf8_sha256": module.corpus.digest(raw),
+            "opening_anchor": live_gather_test.PARAGRAPHS[0],
+            "closing_anchor": live_gather_test.PARAGRAPHS[-1],
+        }
+        row = module.check_case(case, self.root, source, self.root / "publication")
+        self.assertTrue(row["complete_span_preserved"])
+        self.assertTrue(row["publication_preserves_normalized_span"])
+        self.assertTrue(row["existing_output_unchanged"])
+        self.assertEqual(
+            row["provenance"]["input_kind"], "historical_decoded_utf8_cache"
+        )
+        with self.assertRaisesRegex(ValueError, "source identity"):
+            module.check_case(
+                {**case, "decoded_utf8_sha256": "0" * 64},
+                self.root,
+                source,
+                self.root / "bad",
+            )
+        with self.assertRaisesRegex(ValueError, "anchor"):
+            module.check_case(
+                {**case, "opening_anchor": "missing"},
+                self.root,
+                source,
+                self.root / "bad",
+            )
+
+    def test_narrative_case_rejection_is_failed_publication_not_success(self):
+        from tests.gatherers_tests import live_gather_test
+
+        module = load("qualify_narrative_cases")
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        fixture.source()
+        raw = ("The Bell\n\nJohn Smith\n\nA short narrative.").encode()
+        (self.root / f"{live_gather_test.BOOK_ID}.txt.gz").write_bytes(
+            gzip.compress(raw)
+        )
+        cases = self.root / "cases.json"
+        cases.write_text(
+            json.dumps(
+                {
+                    "cases": [
+                        {
+                            "id": live_gather_test.BOOK_ID,
+                            "decoded_utf8_sha256": module.corpus.digest(raw),
+                            "opening_anchor": "A short",
+                            "closing_anchor": "narrative.",
+                        }
+                    ]
+                }
+            )
+        )
+        output = self.root / "cases-result.json"
+        self.addCleanup(signal.signal, signal.SIGALRM, signal.getsignal(signal.SIGALRM))
+        status = module.main(
+            [str(fixture.cache), str(self.root), str(cases), str(output)]
+        )
+        result = json.loads(output.read_text())
+        self.assertEqual(status, 1)
+        self.assertTrue(result["completed"])
+        self.assertFalse(result["all_publication_checks_passed"])
+        self.assertIn("too short", result["cases"][0]["rejection"])
+        self.assertTrue(result["cases"][0]["complete_span_preserved"])
+        self.assertFalse(result["cases"][0]["publication_preserves_normalized_span"])
+
     def test_missing_cache_and_cleanup_refusal_are_not_comparison_passes(self):
         module = load("qualify_cached_corpus")
         path = self.root / "story.json"

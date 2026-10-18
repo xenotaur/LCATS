@@ -11,6 +11,7 @@ import re
 
 from lcats import constants
 from lcats.utils import names
+from lcats.gatherers import story_body
 from lcats.gatherers import normalization
 from lcats.gatherers import story_output
 from lcats.analysis.corpus import discovery
@@ -1214,137 +1215,14 @@ def remove_non_text(pieces, author, alias, title, three_newlines_flag=False):
 
 
 def body_of_text(text, author, alias, title, debug=False):
-    """Return the body of the story, i.e., the material after the title and author.
-    Args:
-        text (str): A string representing a story from Gutenberg in plain text.
-        author (list[str]): A list of authors of the story.
-        alias (list[str]): A list of aliases for the author(s) of the story.
-        title (list[str]): A list of titles for the story.
-        debug (bool): A boolean indicating whether to print debug information.
-    Returns:
-        str: A string representing the body of the story.
+    """Return a conservatively selected body using the opening-prefix policy.
+
+    Kept as the shared string-returning entry point for existing callers. The
+    inspection/publication path also records the policy and exact selected span.
+    ``debug`` remains accepted; extraction no longer prints or retries a global
+    heading search when a story is short.
     """
-    number_of_titles_found = 0
-    seen_author = False
-    seen_title = False
-    dont_look_flag = False
-
-    # title = make_title(list(title)[0])
-    number_of_titles = how_many_titles(text, title)
-
-    # do a 3 split first
-    pieces = text.split("\n\n\n")
-
-    aut = find_author_line(pieces, author, alias, title, True)
-    tit = find_title_line(pieces, title, author, alias, True)
-
-    new_text = text
-
-    loc3 = max(aut, tit)
-    if aut > -1 and tit > -1:
-        # we have found both....
-        dont_look_flag = True
-
-    if loc3 > -1:
-        pieces = pieces[loc3 + 1 :]
-        if len(pieces) == 1:
-            new_text = pieces[0]
-        else:
-            story_parts = remove_non_text(pieces, author, alias, title, True)
-            new_text = "\n\n\n".join(story_parts)
-
-    # now, repeat with 2 split
-    pieces = new_text.split("\n\n")
-
-    gut = find_gutenberg_line(pieces)
-    if gut != -1:  # how did the gutenberg.py miss this???
-        pieces = pieces[: gut - 1]
-
-    if not dont_look_flag:
-        aut = find_author_line(pieces, author, alias, title)
-        tit = find_title_line(pieces, title, author, alias)
-
-        loc2 = max(aut, tit)
-        # if loc3 > -1 and loc2 > 0:
-        #    loc2 = -1
-
-        if loc2 > -1:
-            pieces = pieces[loc2 + 1 :]
-            if len(pieces) == 1:
-                pieces = pieces[0].split("\n\n")
-
-    story_parts = remove_non_text(pieces, author, alias, title)
-    new_text = "\n\n".join(story_parts)
-
-    # fix the separator line
-    paragraph_array = new_text.split("\n\n")
-
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array
-        ]
-    )
-
-    final_body = fix_body(body.removeprefix("\n"), title, author, alias)
-
-    if len(final_body.split("\n\n")) > 10:
-        return final_body
-
-    # too small?
-    print("Suspected small text, trying fall back extraction.")
-
-    paragraph_array = text.split("\n\n")
-
-    for index, line in enumerate(paragraph_array):
-        #   KMM Useful for debugging
-        if debug:
-            print(
-                str(index)
-                + " : "
-                + str(number_of_titles)
-                + " - "
-                + str(seen_title)
-                + ", "
-                + str(seen_author)
-                + " -- "
-                + line[:60]
-            )
-        if (number_of_titles > 1) and (number_of_titles_found == number_of_titles):
-            break
-        if (number_of_titles == 0) and seen_author:
-            break
-        # added the n_o_t == 1
-        if (
-            number_of_titles == 1
-            and seen_title
-            and seen_author
-            and in_body(line, title, author, alias)
-        ):
-            break
-        if line_contains_title(line, title):
-            seen_title = True
-            number_of_titles_found = number_of_titles_found + 1
-        elif line_contains_author(line, author, alias):
-            seen_author = True
-        elif is_blank_line(line):
-            continue
-        elif (number_of_titles > 1) and (number_of_titles_found != number_of_titles):
-            continue
-        elif in_body(line, title, author, alias) and (seen_title or seen_author):
-            break  # ???
-        else:
-            continue
-
-    # should be in the body
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array[index:]
-        ]
-    )
-
-    return fix_body(body.removeprefix("\n"), title, author, alias)
+    return story_body.extract(text, title, author, alias).text
 
 
 def make_single_title(title):
@@ -1403,14 +1281,15 @@ def _inspect_metadata(story, metadata, source):
     if report["rejection"] is not None:
         return report
     prepared = source.read(metadata)
-    # Physical newlines remain intact in the original-byte cache. Normalize only
-    # at the paragraph parser boundary, matching the historical extraction rules.
-    text = prepared.cleaned.text.replace("\r\n", "\n").replace("\r", "\n").strip()
-    body = body_of_text(
-        text, list(metadata.authors), list(metadata.aliases), list(metadata.titles)
+    extraction = story_body.extract(
+        prepared.cleaned.text, metadata.titles, metadata.authors, metadata.aliases
     )
+    body = extraction.text
     report["body"] = body
-    report["provenance"] = prepared.provenance()
+    report["provenance"] = {
+        **prepared.provenance(),
+        "body_extraction": extraction.provenance(),
+    }
     if chaptered(body):
         report["rejection"] = "Story has chapters, skipping."
     elif len(body.split("\n\n")) <= 10:

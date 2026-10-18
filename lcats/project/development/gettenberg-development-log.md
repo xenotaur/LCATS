@@ -3489,3 +3489,129 @@ to check time immediately on entry before work and after tool returns. A written
 deadline is cooperative guidance; the coordinator must check/intervene, and a
 future LRH runtime should enforce cancellation independently of model sampling.
 Do not silently weaken this charter in response to the failure.
+
+## 2026-10-18 08:50 Pacific — narrative repair continuation
+
+User renewed the grant:60-minute target,90-minute hard stop (15:50:56–17:20:56 UTC).
+Clean branch335855c0, PR524 open against acquisition integration. WI0010 is prompt
+ready, no readiness warnings; existing qualification dependency mapping retained.
+Installed watched gates fresh; persistent skip consent invalid and untouched.
+Account-wide weekly usage30% at launch; not attributable per-run cost. No new
+exploratory delegation: coordinator implements, a short reviewer examines a diff.
+Prior-art/demand remains the existing gatherer repair and WI0010, no new dependency.
+Use lrh-implement under the approved pilot adapter, continue existing PR.
+
+Source reproduction of all eight earlier differences confirms that wrapped prose
+starting with “by” matches the loose author detector (35401,32655), closing
+bylines become heading candidates (22579,23148,23104,50103), and a body paragraph
+ending with the title matches title detection (70645).42640 has repeated genuine
+front titles and an editorial colophon. Old output is not a correctness oracle.
+
+Plan: replace destructive global last-heading searches at the gathering boundary
+with a conservative, versioned opening-prefix interpretation. Only whole known
+heading/editorial paragraphs may advance that prefix; unknown content ends the
+search permanently. Preserve ambiguous material, including trailing editorial
+notes, with diagnostics. Strip only a terminal Gutenberg end notice corroborated
+by title/author metadata; keep pure cleanup unchanged. Expose selected character
+span and policy in provenance. Add authored narrative-preservation and real
+publication tests, replay immutable sources, canonical checks, and independent
+review. Any remaining editorial differences remain an explicit acceptance gap.
+
+### Implementation and evidence — morning continuation
+
+Replaced the global last-title/byline searches and short-body fallback in the
+shared body entry point with `gatherers.story_body` opening-prefix-v1. Selection
+is a contiguous span of normalized cleanup output; publication carries its exact
+span, policy and diagnostic provenance. Only full metadata headings and recognized
+standalone editorial paragraphs advance the opening prefix. Unknown material ends
+that search permanently. Corroborated terminal Gutenberg end notices may be removed;
+uncertain notes/bylines/typography remain. Pure gettenberg cleanup is unchanged.
+
+Authored tests cover repeated metadata inside narrative, wrapped prose beginning
+with “by”, late named bylines followed by more than ten note paragraphs, wrapped
+headings/notices, ambiguous notices, footnotes, source spans and actual temporary
+publication/reuse. The old test expecting arbitrary preface deletion now requires
+preservation: this is an intentional behavior correction, not a compatibility claim.
+
+Initial canonical run:2,959 tests passed in97.219 seconds. Later experiment tests:
+15 passed in7.022 seconds. A final canonical checkpoint run follows the review fix.
+Toolchain Python3.11.9, Black25.11.0, Ruff0.15.0. Imports bound to this worktree.
+
+An initial full replay compared1,646 records with13 explicit cleanup refusals from
+all1,659 cached inputs. Against pinned pre-repair parser335855c0 plus old cleanup,
+1,642 bodies differ. This replay predates the editorial-recognition review repair;
+it is archived as **initial-policy** evidence, not final-head qualification.
+It also exposes31 changed chapter outcomes. Some show actual section headings/
+contents that the old extraction lost; others are metadata/front-matter false
+positives. They are not blanket accepted or blanket classified as regressions.
+No comparison normalization hides these differences. Every material disposition
+and a final full replay remain outstanding.
+
+The final source-anchored audit verifies every character between reviewed opening
+and ending anchors for22579,23148,35401,70645,23104,50103,42640,32655. All eight spans
+survive. Seven also pass real temporary publication, normalized-span preservation,
+provenance equality and existing-output reuse.42640 retains its narrative but is
+rejected by the existing chapter heuristic: repeated book headings in retained
+front matter count as chapters. The audit correctly exits1 and records
+`all_publication_checks_passed: false`. Neither the filter nor acceptance criteria
+were weakened. These coordinator-selected anchors are not independent literary
+annotation. Runner/source hashes in the final audit match current files.
+
+Results, full compressed initial replay, manifest and reproduction instructions:
+`experiments/10_gettenberg_qualification/results/gettenberg-narrative-20261018/`.
+No original cache or corpus files changed; no Gutenberg requests occurred. The new
+runner labels historical decoded UTF-8 honestly and does not fabricate wire receipts.
+
+### Independent review and timing stop —09:33 Pacific /16:33 UTC
+
+One cold-context reviewer examined the scoped diff under the pilot adaptation of
+lrh-self-review (base335855c0, not the entire integration stack). It verified the
+old parser turns the late-byline fixture into a483-character editorial fragment,
+while the candidate retains1,030 characters including all narrative. It reported
+one P2: prefix-based illustration recognition could delete mixed narrative in the
+same paragraph, or ordinary prose beginning “Illustrated by”. Coordinator directly
+reproduced both defects, changed recognition to complete bracketed labels and
+anchored production-credit paragraphs, retained ambiguous “Illustrated by” prose,
+and added passing regressions. The reviewer ran47 focused tests on its initial
+reviewed state; this is not evidence for the later repair.
+
+First assignment dispatched15:59:39; completion observed by16:02:40: conservatively
+charged4 minutes. The second/final repair-review assignment dispatched16:07:10,
+deadline16:17:15. Its first reported clock reading was16:33:00, after that deadline;
+it stopped without substantive inspection/tests. Coordinator confirmed16:33:25.
+Elapsed dispatch occupancy is conservatively charged27 minutes, total31 against
+the20-minute worker ceiling. Actual model work/queue time cannot be separated;
+the cause of the delay is not established. No claim that31 minutes were computation.
+This exhausted allowance stops development: only validation and checkpoint
+publication remain. No workers or qualifications are renewed. The run's wall-clock
+hard stop remains17:20:56. The second attempt supplies **no** independent verification
+of the repair or new runner. The requested recheck remains open.
+
+Process finding: a worker-side entry deadline correctly stops late work but cannot
+bound dispatch occupancy or guarantee a timely return to the coordinator. Written
+instructions are not an external watchdog. Use coordinator-only bounded development
+until scheduling/deadline enforcement is understood; schedule independent review as
+a separately bounded step. Do not silently redefine occupancy as active compute to
+hide this overrun. Account-wide usage was30% at launch and32% before second dispatch;
+these shared-account readings do not establish attributable per-run cost.
+
+### Acceptance and next scope
+
+This is a tested **unaccepted repair candidate**, not an integration milestone.
+Remaining work: independently verify the final repair/new runner; decide and test
+metadata-aware editorial/chapter handling; disposition the full corpus differences;
+rerun final full-corpus and fresh-wheel qualification; then exact-head hosted gates.
+WI0010, PR524 and native execution records remain nonterminal. Integration/main,
+CI, persistent consent and canonical corpus are unchanged. No merge is authorized
+by a passing unit suite or by the eight narrative-preservation checks alone.
+
+### Checkpoint validation —16:36 UTC
+
+Final canonical `scripts/test`:2,963 tests passed in79.988 seconds. Package and
+all13 experiment runners pass explicit format/lint;15 focused experiment tests
+passed earlier. `lrh validate`:0 errors,351 existing warnings; `git diff --check`
+clean. Archived raw test log and hash manifest accompany the experiment results.
+Final eight-case source/runner hashes were checked against current files and match.
+No final full-corpus replay, fresh wheel, exact-head hosted checks or independent
+repair recheck is claimed. Publishing an unaccepted checkpoint to the existing PR;
+no integration/main movement. Further work requires a new bounded grant.

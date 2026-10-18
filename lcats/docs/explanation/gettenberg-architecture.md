@@ -82,7 +82,12 @@ adapter. Marker-free text can proceed to collection extraction.
 
 Collection extraction applies eligibility, body/chapter rules, normalization and
 per-story overrides after those stages. Its provenance connects the published
-story to the catalog, selected resource, acquisition, decode and cleanup inputs.
+story to the catalog, selected resource, acquisition, decode, cleanup and body
+selection inputs. The opening-prefix body policy stops interpreting headings at
+the first unknown paragraph; it favors retaining uncertain editorial text over
+losing narrative when a title or author recurs later. Its contiguous span makes
+that choice inspectable. Editorial purity and chapter eligibility still require
+corpus qualification; narrative preservation alone does not establish them.
 An existing regular story output is reused without replacement or validation.
 That reuse is an operational choice, not evidence of corpus equivalence.
 

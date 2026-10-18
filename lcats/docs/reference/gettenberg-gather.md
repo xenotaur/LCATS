@@ -66,7 +66,7 @@ prepare a catalog or fetch text. Default network policy is offline.
   artifact, strict decoded text and cleanup result. Only qualified plain-text
   resources are selected, preferring declared UTF-8. It does not try HTML or
   guessed download URLs on failure. Marker-free text is accepted; ambiguous or
-  damaged recognized envelopes are refused before heuristic extraction.
+  damaged recognized envelopes are refused before body extraction.
 - `StoryText.provenance()` is JSON-compatible: ebook ID, catalog archive SHA-256,
   catalog source URI, request/final URLs, original/receipt SHA-256, decode identity,
   encoding, cleanup policy version and diagnostics. It records derivation inputs,
@@ -88,6 +88,36 @@ without writing a story. Missing/ineligible metadata returns a rejection without
 acquiring text. Short/chaptered bodies remain in the report for inspection.
 Eligible text uses the supplied source's explicit network/cache policy; operational
 failures propagate. This replaces the old print-only debugging helpers.
+
+## Conservative body boundaries
+
+`gatherers.story_body.extract(text, titles, authors, aliases=())` returns a
+`BodyExtraction` with `text`, `content_start`, `content_end`, `diagnostics` and
+`policy_version`. Policy `opening-prefix-v1` selects a contiguous span after
+normalizing CRLF/CR to LF. Offsets refer to this normalized **cleanup output**,
+before corpus normalization or per-story overrides; they are not wire offsets.
+`parser.body_of_text` delegates to this policy. Inspection and publication add
+`body_extraction` to the existing source provenance.
+
+Only whole catalog title/byline matches and explicitly recognized standalone
+production credits or bracketed illustration labels advance the opening prefix.
+A title/byline may span up to four adjacent paragraphs. The first unknown
+paragraph ends the search permanently. A later repeated title, closing byline or
+wrapped line beginning with “by” cannot discard preceding narrative. Unknown
+opening prose remains visible, even when a recognizable title follows it.
+
+A terminal plain Gutenberg end notice is removed only if its complete title and
+author match catalog values. Wrapped notices are supported. Mismatched or
+nonterminal notices remain. This is separate from gettenberg envelope cleanup,
+whose policy is unchanged. Notes, footnotes, epigraphs, closing bylines, scene
+separators and uncertain editorial material are retained, including ambiguous
+“Illustrated by” prose. Diagnostics mark possible retained notes/unclassified
+openings; they are not a complete editorial classification or acceptance signal.
+
+This policy fixes destructive heading searches but does **not** establish corpus
+readiness. Retained front matter can interact with the existing chapter detector;
+inspection exposes any rejection. Do not bulk regenerate an accepted corpus from
+this unqualified candidate. Existing outputs are reused, not silently rewritten.
 
 ## Output and migration boundaries
 

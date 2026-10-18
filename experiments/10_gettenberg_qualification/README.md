@@ -191,3 +191,34 @@ bucket selector. Existing full reports retain their original runner hashes;
 `results/gettenberg-qualification-20261018/runner-repair-addendum.json` records
 the later invalid-input guard repair and confirms the measured selection still
 contains exactly the same 1,659 paths. No historical report is rewritten.
+
+## Narrative preservation repair qualification
+
+Use `qualify_cached_corpus.py` with
+`--baseline-parser-ref 335855c04cd7ba936815d2635969d94fdd278c71` to compare old
+cleanup plus the pinned pre-repair parser against current cleanup/extraction.
+The local Git object must exist; this option never fetches it. The baseline source
+hash is recorded separately. Omitting the option retains the cleanup-only
+comparison (the same current extractor on both sides). Neither comparison alone
+proves narrative correctness.
+
+`qualify_narrative_cases.py CATALOG_CACHE TEXT_CACHE CASES_JSON NEW_OUTPUT_JSON`
+checks complete narrative spans between coordinator-reviewed source anchors, then
+runs real inspection, normalization and publication into temporary buckets. Input
+hashes must match, both anchors must be unique and ordered, and every character
+between them must survive extraction. Published provenance explicitly says
+`historical_decoded_utf8_cache`; no HTTP receipt is invented. Reusing the temporary
+output must leave its bytes unchanged. The runner blocks sockets, removes its
+temporary collection and enforces a120-second POSIX alarm. A missing/mismatched
+input or lost span aborts with failure JSON. Eligibility rejections remain failed
+publication checks while other cases continue; `completed: true` means the audit
+finished, and exit status1 / `all_publication_checks_passed: false` remains a
+failure. Results and anchors are under `results/gettenberg-narrative-20261018/`.
+
+Run the documented commands from `lcats/` with `PYTHONPATH="$PWD/src"` and the
+project environment. The same explicit experiment format/lint commands above
+cover both changed runners. Their offline tests are in
+`tests/gettenberg_tests/qualification_evidence_test.py`; the real eight-case replay
+is additional evidence, not a replacement for those tests. Source anchors are
+coordinator annotations, not independent literary ground truth. Preserving those
+eight spans does not accept all1,659 corpus outputs or editorial interpretations.

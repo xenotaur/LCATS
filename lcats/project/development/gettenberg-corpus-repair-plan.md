@@ -1,6 +1,6 @@
 # Corpus compatibility repair scope after WI0010 qualification
 
-Status: implementation authorized by the renewed bounded run on 2026-10-18;
+Status: opening-prefix-v1 repair candidate implemented during the morning continuation;
 **not yet accepted corpus output**. The WI0010 qualification run discovered a blocking composition problem
 between conservative cleanup and the existing heuristic story extractor. Keep
 WI0010 and main promotion open until this is repaired and independently reviewed.
@@ -88,3 +88,23 @@ assignment exceeded its deadline and the cumulative worker allowance. The execut
 record and runlog retain the overrun and preliminary source observations. This
 plan remains unimplemented; no new regression or corpus acceptance evidence was
 produced. Continuation requires a new grant under the charter's stop rule.
+
+## Morning continuation candidate —2026-10-18
+
+The opening-prefix-v1 implementation and authored tests replace destructive
+last-heading searches with a conservative, inspectable span. All eight reviewed
+narrative spans survive; seven pass actual temporary publication.42640 remains
+rejected by the existing chapter heuristic because retained front matter contains
+repeated book headings. Full replay of an earlier policy revision shows broad
+editorial/typography differences and31 changed eligibility outcomes; neither is
+accepted. See the experiment results and runlog for exact source attribution.
+
+An independent review found an editorial-prefix deletion defect, directly reproduced
+and repaired by the coordinator. The repair-review assignment arrived after its
+deadline and stopped; independent final verification is missing. Development stopped
+at the worker allowance, preserving the candidate rather than integrating it.
+Next scope must address metadata/editorial interpretation and chapter classification
+without reverting to unsafe narrative deletion or accepting all old outputs as an
+oracle. Final full replay, reviewed dispositions and fresh-wheel evidence remain
+required. This section supersedes the earlier implementation-pending checkpoint;
+historical measurements and failed review attempts remain unchanged.
