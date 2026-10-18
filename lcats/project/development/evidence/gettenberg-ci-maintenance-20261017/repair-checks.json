@@ -1,0 +1,69 @@
+{
+  "workflow_focused": {
+    "exit_code": 0,
+    "sha256": "efb1862d53bf15382cf37b10229b98059ef4475dc70a9183b3454c38e5e4a4d7",
+    "summary": [
+      "Ran 17 tests in 0.755s",
+      "OK"
+    ]
+  },
+  "workflow_full": {
+    "exit_code": 0,
+    "sha256": "eb1d6222b3d4dd8d4a2fa3752e9293d55cd2f8790360b1bd5c97bca34b1abdab",
+    "summary": [
+      "Ran 2926 tests in 87.491s",
+      "OK"
+    ]
+  },
+  "workflow_format": {
+    "exit_code": 0,
+    "sha256": "8d97a0c2b530defc9afe1203932c716b2a9a3e9d808bba5b33136101d73fde89",
+    "summary": [
+      "284 files would be left unchanged."
+    ]
+  },
+  "workflow_lint": {
+    "exit_code": 0,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "summary": [
+      "All checks passed!"
+    ]
+  },
+  "workflow_lrh": {
+    "exit_code": 0,
+    "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "summary": [
+      "Validation completed: 0 error(s), 351 warning(s)"
+    ]
+  },
+  "runtime_focused": {
+    "exit_code": 0,
+    "sha256": "cf9d1707e7298e650271fb6dd897c4a46f53be3a438ff0f6a6c458c86304495c",
+    "summary": [
+      "Ran 18 tests in 0.727s",
+      "OK"
+    ]
+  },
+  "runtime_lint": {
+    "exit_code": 0,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "summary": [
+      "All checks passed!"
+    ]
+  },
+  "runtime_full": {
+    "exit_code": 0,
+    "sha256": "18f773beca21c27a76a28dbb6ea40da3d5bcfe05c946e402caecc5bd3fb67fde",
+    "summary": [
+      "Ran 2927 tests in 92.126s",
+      "OK"
+    ]
+  },
+  "runtime_lrh": {
+    "exit_code": 0,
+    "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "summary": [
+      "Validation completed: 0 error(s), 351 warning(s)"
+    ]
+  }
+}

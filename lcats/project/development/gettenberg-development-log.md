@@ -2973,3 +2973,169 @@ Next scoped item: WI0009, supported CI cache maintenance. Broader live/full-cata
 and corpus qualification remains WI0010; no such download was performed here.
 A future main promotion remains human-gated. WI-RELEASE-0037 receives evidence,
 not automatic closure. The current worktree remains on the integration branch.
+
+
+## WI0009 CI-maintenance run — 2026-10-17 17:52 Pacific
+
+Grant: two-hour target/three-hour maximum, UTC00:52:10–02:52:10–03:52:10 on
+October18. Base0504cae5; main21046823; branch codex/gettenberg-ci-maintenance.
+Readiness yes, no matching prior execution. Prompt minted before implementation.
+WI0004 resolved on main35f80fb5; WI0007 independently staged at94c6d8e7; both
+verified ancestors. WI0008 also staged46960f66. Existing LRH coordinator adapter
+continues, native lifecycle nonterminal. Gate definitions fresh; persistent skip
+consent invalid and untouched. Launch account usage4%; per-run cost unavailable.
+
+Prior art: replace existing cache_maintenance workflow, reuse catalog_cli,
+resources and lifecycle; no duplicate downloader. No sibling consumer identified.
+Existing WI0009 owns this CI work; related migration/release records receive links,
+not automatic closeout. Official gh cache list/delete documentation confirms JSON
+IDs/key/ref and deletion by ID. Actions cache documentation confirms immutable
+keys, prefix fallback to newest compatible entries and current/default branch
+visibility; use explicit namespace/ref checks rather than table parsing.
+
+Implementation plan: remove Gutenberg restore/save from ordinary test/coverage
+jobs while keeping triggers, check names and canonical commands. A manual workflow
+defaults to preview; setup/rebuild/refresh invoke supported catalog commands and
+propagate failures. A tested dev helper supplies compatibility/input cache keys,
+structured deletion plans and explicit apply operations. Separate source-resource
+and derived-catalog caches preserve archive reuse across parser/schema changes.
+Catalog restore fallback never crosses compatibility boundaries. Keys include
+source profile, parser/schema, implementation fingerprint and activated archive
+hash, plus run identity for immutable snapshots. Deletion uses a fixed namespace,
+fully paginated JSON, exact ref and numeric cache IDs. No delete/download is run
+against production during this task; tests use real local archives plus process/
+HTTP boundary fakes. Include workflow structure/command failure checks and docs.
+
+Validation: canonical tools/format/lint/test, notebook verify if relevant,
+LRH/readiness/diff, real fixture maintenance and key tests, command subprocess
+failure tests, independent cold review, first hosted reviews and exact-head CI.
+No CI trigger/check weakening, corpus changes, package publication, new items,
+main promotion or persistent policy update. Use established shell log redirection
+because the local scripts/test wrapper does not implement LRH's generic --log.
+
+### Implementation checkpoint — 01:08 UTC
+
+Sixteen focused tests pass. They exercise actual tiny archive/catalog behavior,
+resource-only offline bootstrap after copying partitions, count-change guarding,
+workflow bash execution with success/error exits, exact-ref/prefix pagination,
+partial deletion reporting and failed-save verification. Only HTTP/process
+boundaries are substituted. Canonical suite is running; final rerun will qualify
+the frozen revision. Format284 files and lint pass. LRH has0errors/351warnings.
+
+Initial local failures exposed an overbroad repo-name pattern and the mistaken
+assumption that resources lived directly under cache root. Fixed both. Actual
+layout shares gettenberg/archives between acquisition and lifecycle; source cache
+now holds resources+archives, catalog cache only active.json+generations. This
+avoids duplicate archive storage and allows parser/schema misses to reuse bytes.
+A save-verification read catches warning-only upload failures; missing expected
+keys fail the applied job. No new linting tool or dependency was introduced.
+
+Read-only live GitHub metadata preview found two main-ref legacy caches, selected
+numeric IDs, and deleted none. Documented catalog setup preview creates no cache.
+All11 workflow shell steps parse with bash -n; JSON/YAML structural tests preserve
+ordinary check names/triggers. A full live maintenance rehearsal remains unrun.
+
+Cold independent review dispatched at about01:09 UTC, assignment1/6, maximum15
+worker minutes. Product/docs/workflows frozen at full diff SHA256
+3c99e2902c89cdf1572d597f55e5e105e7e2780c256be9ce129c9d1f421b94b4.
+Coordinator owns implementation; no implementation worker was needed because
+workflow and helper interfaces are tightly coupled. Shared usage6% at review
+checkpoint versus4% launch; account-wide, not attributable per-run consumption.
+
+
+### Review timing and validation correction — 01:54 UTC
+
+The first reviewer stopped at01:30:02, after its01:25 assignment deadline.
+Charge22 worker minutes conservatively (planned15), including the overrun.
+It completed useful product checks and16 focused tests, but explicitly reported
+partial review rather than acceptance. The clock advanced unexpectedly between
+observations; the cause is unverified. A prompt deadline alone did not enforce
+the limit. Future orchestration should provide an external cancellable timer.
+The overall hard stop remains03:52:10; no automatic extension is inferred.
+
+Assignment2 continues the same frozen product review from01:53:05 to02:00:05
+maximum (seven minutes), covering remaining workflow/action/docs semantics.
+After reserving this continuation,16 worker minutes remain of45. Shared usage7%.
+No product edits occurred during either review assignment.
+
+Correction: the final suite passed2925 tests in85.804s, but inspection of the
+actual final-format log found one file requiring Black after two late edits.
+The earlier commentary claiming all final checks passed was inaccurate. Preserve
+that failure in the evidence and rerun format/lint after applying Black. The
+original16-test and full-suite results remain valid test evidence, not formatting
+evidence. No validation failure is waived.
+
+
+### Local acceptance — 01:56 UTC
+
+Independent continuation completed by01:56, charged3 minutes; total25/45 worker
+minutes,2/6 assignments, peak two agents. No behavioral findings. Its P2 formatting
+finding matched the coordinator's directly inspected failure. Applied Black only;
+AST comparison against the frozen source passed. Canonical format/lint and16
+focused tests now exit0. Full canonical suite2925/85.804s remains the behavioral
+qualification; no behavior changed after it. Local receipts preserve the earlier
+format failure separately. All product/docs review limits remain explicit.
+
+Internal base still0504cae5. No required-status-check rules are configured on
+that branch, so CI fallback will require every reported check and treat empty
+results as pending. Gate definitions are fresh; persistent consent remains
+invalid and unchanged. Proceed to first hosted reviews and exact-head CI.
+
+Internal PR [#523](https://github.com/xenotaur/LCATS/pull/523) opened at implementation
+commita8416d3b. PR links backfilled in primary/self-review records. Hosted review
+and exact-head CI pending; no main promotion or live maintenance is authorized.
+
+
+### Hosted workflow rejection and repair — 01:59 UTC
+
+The generic LRH CI predicate reported green atff78d679 because only lint existed
+in the PR check rollup. Expected test/coverage checks were absent. A separate
+workflow-run inventory exposed three failed workflow-file runs before job start:
+39088343004 (coverage),39088343448 (tests),39088343856 (maintenance). This is not
+acceptance: job-level env used runner.temp, a context GitHub disallows there.
+Verified against the official context-availability table; YAML parsing, bash -n
+and the prior cold review missed it.
+
+Replace these roots with github.workspace/.lcats-* (available at job evaluation),
+and add a regression check of allowed job-env expression contexts across all
+three workflows. No new lint tool or dependency introduced. Require the expected
+check inventory AND absence of failed validation runs on the final SHA, not just
+a nonempty all-green check rollup. This is an LRH predicate improvement candidate.
+No maintenance workflow is dispatched; checking its hosted syntax has no catalog
+or cache mutation effects. Independent targeted repair review remains required.
+
+
+### First hosted reviews and runtime identity repair — 02:03 UTC
+
+Both first hosted reviews completed: Codex on a8416d3b found P2 dependency identity;
+Copilot on ff78d679 reported no open issues and noted the live-operation boundary.
+Coordinator verified lxml>=5.2.2 in pyproject and etree usage in rdf.py, confirming
+that code-only hashing could reuse a catalog across a dependency upgrade. Include
+Python/SQLite/lxml and runtime/compiled libxml versions in the catalog fingerprint.
+A regression test changes external parser version metadata while leaving code and
+explicit schema/parser versions fixed; source identity must remain unchanged.
+
+Workflow repair independently accepted in assignment3, charged3 minutes, total
+28/45 worker minutes and3/6 assignments. The reviewer reproduced all three old
+context failures and checked44 location-specific expressions; it acknowledged
+its prior context-location gap. Canonical workflow-repair suite2926/87.491s,
+format/lint and LRH0errors/351warnings pass. Runtime repair validation follows.
+
+Runtime repair canonical suite passed2927 tests in92.126s;18 focused tests, lint
+and LRH0errors/351warnings pass. Ready to push both repairs and verify the final
+head independently. No product changes are planned during that review.
+
+
+### Exact-head review and hosted synchronization — 02:12 UTC
+
+Assignment4 was a fresh cold PR-mode review at9608b76; no actionable findings.
+Reviewer independently verified18 tests0.807s, changed-file lint/Black,11 shell
+steps, repaired source hashes, trigger/job inventory and dependency fingerprint.
+Charge4 minutes, cumulative32/45,4/6 assignments, peak two agents. Shared usage10%.
+
+At02:11:33 the remote branch was9608b76 but PR REST/GraphQL metadata remained
+ff78d679, including an uncached read. Exact-head push test39088847557 passed;
+PR test/coverage/lint had not appeared. Cause is unverified. No stale rollup is
+accepted and no review is manually retriggered. Commit the completed PR-review
+record as the normal final bookkeeping tail, then recheck synchronization and
+all expected checks at that new head. Product files remain unchanged.
