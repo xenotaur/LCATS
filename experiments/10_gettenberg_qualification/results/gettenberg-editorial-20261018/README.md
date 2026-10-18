@@ -6,7 +6,7 @@ Product commit `68156dbc39e9194d294c70bdc5d4048721cbae71`. This remains an
 - `corpus.json.gz`: exact final repaired full replay: 1,659 inputs, 1,646 comparisons,
   13 cleanup refusals, 1,642 changed normalized bodies, 15 chapter rejections.
   Runtime 210.403s. No new Gutenberg requests or canonical output writes.
-- `corpus-summary.json`: one review-index row per input. Its classification labels
+- `corpus-summary.json.gz`: one review-index row per input. Its classification labels
   are mechanical triage; the 1,642 body differences are still unaccepted. Metadata
   eligibility, body rejection and publication rejection remain separate.
 - `narrative-cases-result.json`: all eight existing source-anchored narratives
@@ -59,3 +59,7 @@ See the [human milestone](../../../../lcats/project/development/gettenberg-edito
 for the unresolved publication-policy decision and proposed next scope. The cold
 review verified the earlier candidate and found two P2s; the coordinator reproduced
 and repaired both. No independent re-review of those repairs is claimed.
+
+The per-input review index was relocated from `corpus-summary.json` to
+`corpus-summary.json.gz` without changing its decompressed bytes, keeping generated
+rows out of the code-review diff. No measurement or disposition changed.

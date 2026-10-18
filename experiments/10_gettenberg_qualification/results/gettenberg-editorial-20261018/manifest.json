@@ -2,8 +2,8 @@
   "scope": "Byte identities; no acceptance inference",
   "files": {
     "README.md": {
-      "bytes": 4407,
-      "sha256": "0eed79f9f96cd48b7ed5bf23f349c3f5759e4b7b409aa63fda97109496ffab52"
+      "bytes": 4639,
+      "sha256": "6a8399233d50886966d6ef5a14d05982940d5b1443bc4f61bf29802f3f38f794"
     },
     "canonical-test.log.gz": {
       "bytes": 656,
@@ -13,10 +13,6 @@
     "chapter-dispositions.json": {
       "bytes": 88015,
       "sha256": "82db50c21389315b1199023ccc1c06bd2198a0b8a8185c1fe67600522e016e61"
-    },
-    "corpus-summary.json": {
-      "bytes": 445905,
-      "sha256": "dbb23c9cb0c7ed8cd17fb27016d8606bec9eec2fa4437686e7593e907dde85f0"
     },
     "corpus.json.gz": {
       "bytes": 817315,
@@ -52,6 +48,11 @@
     "wheel.json": {
       "bytes": 1109,
       "sha256": "9b9efef3ab60173604acb30fff0fc96e1d036454e416be485d86c405d34dc272"
+    },
+    "corpus-summary.json.gz": {
+      "bytes": 32822,
+      "sha256": "eaa0ffa8df711214662067cd31b06b8110e80d118fb9bfa8424c0362ffe7270c",
+      "decompressed_sha256": "dbb23c9cb0c7ed8cd17fb27016d8606bec9eec2fa4437686e7593e907dde85f0"
     }
   }
 }
