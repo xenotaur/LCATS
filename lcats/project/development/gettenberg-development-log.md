@@ -3428,3 +3428,64 @@ Recommended next human decision: authorize the focused narrative-preservation
 repair scope in gettenberg-corpus-repair-plan.md, then repair/requalify this open
 checkpoint before integration. Do not approve old/new body equality blindly or
 solve retained editorial text by broadly stripping narrative. WI0010 remains open.
+
+## Bounded corpus repair run — 2026-10-18
+
+Start 08:24:26 UTC / 01:24 Pacific; target 10:24:26, hard stop 11:24:26 UTC.
+User renewed the bounded run after the focused repair was recommended. Continue
+clean PR524 head de8c326a on codex/gettenberg-qualification. Original user checkout
+is on unrelated xenotaur/audit/wi-genre-0078 with untracked lcats/logs; untouched.
+Native WI0010 readiness is yes; its qualification acceptance remains blocked.
+Prior-art demand/duplication is recorded in WI0010 and the repair plan: improve
+the existing gatherer rather than vendor upstream stripping or add a dependency.
+
+LRH 0.2.5.dev3596+gd86755f50; installed watched skills fresh, persistent consent
+invalid and unchanged. This explicit run uses the approved pilot adapter. Shared
+weekly usage 28% used at launch; attributable token/cost unavailable. Available
+disk about 215 GiB. Existing full catalog and all historical source caches remain
+available. Use LCATS environment plus this worktree's src on PYTHONPATH.
+
+Plan: inspect all eight earlier-body changes, choose and record the smallest
+narrative-safe preparation/heading boundary, add independent counterexamples,
+replay all 1,659 sources, verify actual temporary publication and installed wheel,
+then cold review and final-head checks. No old/new equality shortcut or broad
+refusal policy. Expected edits: gatherer logic/tests, experiment runner/results,
+Diataxis docs and control-plane evidence. Keep acceptance blocked unless proved.
+
+### Budget-enforcement failure and checkpoint — 09:16 UTC / 02:16 Pacific
+
+Assignment1 narrative_case_audit was dispatched around 08:25 UTC: read-only review
+of eight earlier-body differences, 15-minute allowance, deadline 08:41 UTC. The
+worker reported at about 09:15 that its deadline was already past. Coordinator's
+clock check returned 09:15:41 and the worker was immediately interrupted. Agent
+status confirms interrupted; no worker remains running. No implementation started.
+
+Charge 51 worker minutes conservatively for approximately 50 minutes of elapsed
+dispatch occupancy. That exceeds both the assignment limit and this run's total
+45-minute worker allowance. The charter's first-exhausted-limit rule ends execution;
+remaining coordinator wall-clock time is not an automatic renewal. This is a real
+coordination failure, not a successful bounded assignment. The unexplained gap
+must not be called active model time or attributed to a specific tool. No evidence
+supports a causal explanation yet. Account weekly usage is 29% versus 28% at launch;
+that shared-account delta is not attributable per-run token/cost consumption.
+
+Preliminary findings: worker confirms opening loss for35401, footer-only new output
+for50103, and substantial opening loss in the legacy output for70645. Other five
+cases were described as editorial/whitespace changes, without established narrative
+loss. Coordinator source inspection agrees that heading/footer interference needs
+a context-aware repair and that old output is not an oracle. The eight-case audit,
+chosen implementation, regression fixtures and full requalification remain undone.
+The worker wrote no report file; retain these observations with that limitation.
+
+Checkpoint only: populate the native execution, validate documentation, and push
+this stop record to PR524. No product/test/experiment/cache/corpus edits; no main
+or integration changes, new Gutenberg requests, policy changes or terminal closeout.
+Prior test/CI results remain attached to their original heads. Do not represent
+this run as implementing the repair or satisfying any new acceptance criterion.
+
+Process recommendation for the next grant: coordinator-led implementation, with
+only a short independent review delegated after the change exists. Require agents
+to check time immediately on entry before work and after tool returns. A written
+deadline is cooperative guidance; the coordinator must check/intervene, and a
+future LRH runtime should enforce cancellation independently of model sampling.
+Do not silently weaken this charter in response to the failure.

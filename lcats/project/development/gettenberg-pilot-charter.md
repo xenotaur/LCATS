@@ -440,3 +440,23 @@ target. A historical build comparison may use at most20 minutes if feasible.
 No production cache deletion, canonical corpus mutation, CI modification,
 publication or persistent-consent changes. Missing qualification stays an explicit
 gap; WI0010's first three acceptance criteria remain prerequisites to integration.
+
+## Corpus narrative-preservation repair grant — 2026-10-18
+
+Human authorized another two-to-three-hour bounded run after the qualification
+checkpoint identified this next repair. Start 08:24:26 UTC (01:24 Pacific),
+target/feature freeze 10:24:26 UTC, hard stop 11:24:26 UTC. Continue PR524 from
+de8c326ad0fab90e8f25c8813057ce2ad1eb4e36; do not merge the unqualified checkpoint.
+Same ceilings: four concurrent agents including coordinator, six assignments,
+45 cumulative worker minutes with 15 reserved for review, maximum 30 per worker.
+No recursive delegation or automatic renewal. Normally use one worker at a time.
+
+Scope: implement the focused gatherer narrative-preservation repair, authored
+regressions, immutable cached-corpus replay and representative actual publication
+into temporary buckets, updated documentation/provenance and fresh wheel evidence.
+Preserve pure conservative cleanup, original cache/corpus and historical reports.
+No new Gutenberg requests, CI changes, canonical corpus mutation, persistent
+policy/consent changes, main promotion or terminal closeout. Keep material
+uncertainty explicit; unresolved acceptance prevents integration. Same isolated
+15 GiB output bound / 6 GiB free minimum. Existing scoped coordinator adapter
+covers routine plan, repair and review decisions without invented human replies.

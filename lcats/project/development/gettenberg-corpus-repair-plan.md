@@ -1,7 +1,7 @@
 # Corpus compatibility repair scope after WI0010 qualification
 
-Status: proposed next tranche, **not authorized implementation or accepted corpus
-output**. The WI0010 qualification run discovered a blocking composition problem
+Status: implementation authorized by the renewed bounded run on 2026-10-18;
+**not yet accepted corpus output**. The WI0010 qualification run discovered a blocking composition problem
 between conservative cleanup and the existing heuristic story extractor. Keep
 WI0010 and main promotion open until this is repaired and independently reviewed.
 
@@ -80,3 +80,11 @@ before changing it; broad new refusals would need a human decision.
 The current run's narrow v2 cleanup change recognizes comma-form Gutenberg banners
 and exact END: FULL LICENSE separators. It deliberately does not implement this
 broader repair. Its before/after reports quantify the smaller change separately.
+
+## 2026-10-18 investigation checkpoint
+
+The renewed run stopped before implementation because its read-only audit
+assignment exceeded its deadline and the cumulative worker allowance. The execution
+record and runlog retain the overrun and preliminary source observations. This
+plan remains unimplemented; no new regression or corpus acceptance evidence was
+produced. Continuation requires a new grant under the charter's stop rule.
