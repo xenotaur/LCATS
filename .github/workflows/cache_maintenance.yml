@@ -1,76 +1,161 @@
 name: Cache maintenance (Gutenberg)
 
+# Manual only. Preview never restores large caches or contacts Gutenberg.
 on:
   workflow_dispatch:
     inputs:
-      action:
-        description: "What to do"
+      operation:
+        description: "Inspect/delete GitHub caches, or maintain a catalog"
         required: true
+        default: inspect
         type: choice
-        options:
-          - delete
-          - rebuild
-          - delete_and_rebuild
-      key_prefix:
-        description: "Cache key prefix to delete (e.g., ubuntu-latest-gutenberg-)"
+        options: [inspect, setup, rebuild, refresh, delete]
+      dry_run:
+        description: "Preview only (no Gutenberg cache restore, acquisition, build, save or deletion)"
         required: true
-        default: "Linux-gutenberg-"
-        type: string
+        default: true
+        type: boolean
+      cache_kind:
+        description: "Namespace to inspect/delete on the selected branch ref"
+        required: true
+        default: catalog
+        type: choice
+        options: [catalog, source, legacy]
+      allow_count_change:
+        description: "Explicitly accept changed ebook counts during refresh/rebuild"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  actions: write # Needed only by an explicitly applied delete operation.
+
+concurrency:
+  group: gettenberg-maintenance-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   cache_maintenance:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
     defaults:
       run:
         working-directory: lcats
+        shell: bash
     env:
-      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-gutenberg-cache
+      LCATS_CACHE_DIR: ${{ runner.temp }}/lcats-gettenberg-maintenance
+      OPERATION: ${{ inputs.operation }}
+      CACHE_KIND: ${{ inputs.cache_kind }}
+      CACHE_REF: ${{ github.ref }}
+      CACHE_REPO: ${{ github.repository }}
+      ALLOW_COUNT_CHANGE: ${{ inputs.allow_count_change }}
+      GH_TOKEN: ${{ github.token }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Install GitHub CLI
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gh
-
-      - name: Authenticate gh
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh auth status
-
-      - name: Delete caches by key prefix
-        if: ${{ github.event.inputs.action == 'delete' || github.event.inputs.action == 'delete_and_rebuild' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          KEY_PREFIX: ${{ github.event.inputs.key_prefix }}
-        run: |
-          # List and delete caches whose keys start with KEY_PREFIX
-          # (gh cache list supports filtering; if your gh version doesn't, you can grep)
-          gh cache list --limit 200 | awk '{print $1}' | grep "^${KEY_PREFIX}" | while read -r key; do
-            echo "Deleting cache key: $key"
-            gh cache delete "$key" --confirm
-          done
-
-      - name: Set up Python
-        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
-          cache-dependency-path: |
-            lcats/pyproject.toml
+          cache: pip
+          cache-dependency-path: lcats/pyproject.toml
 
-      - name: Install deps
-        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
-        run: |
-          python -m pip install --upgrade pip
-          pip install -e ".[test]"
+      - name: Install LCATS
+        run: python -m pip install -e .
 
-      - name: Rebuild cache by running a targeted test
-        if: ${{ github.event.inputs.action == 'rebuild' || github.event.inputs.action == 'delete_and_rebuild' }}
+      - name: Compute compatibility and source namespaces
+        id: keys
+        run: python tools/gettenberg_ci.py keys --github-output "$GITHUB_OUTPUT"
+
+      - name: Preview selected operation and exact-ref cache inventory
+        if: ${{ inputs.dry_run || inputs.operation == 'inspect' }}
         run: |
-          # Choose a minimal test that forces cache creation without running everything.
-          python -m unittest tests/gettenberg_tests/cache_test.py -v || true
-          # If you want rebuild to fail the job when rebuild fails, remove "|| true".
+          python -c 'import os; print("Preview only; requested operation:", os.environ["OPERATION"]); print("No catalog cache is restored or modified. Catalog state is evaluated after restore on an applied run.")'
+          python tools/gettenberg_ci.py caches --repo "$CACHE_REPO" --ref "$CACHE_REF" --kind "$CACHE_KIND" --dry-run
+
+      - name: Delete selected cache IDs
+        if: ${{ !inputs.dry_run && inputs.operation == 'delete' }}
+        run: python tools/gettenberg_ci.py caches --repo "$CACHE_REPO" --ref "$CACHE_REF" --kind "$CACHE_KIND" --apply
+
+      # Source receipts/blobs survive catalog schema or parser changes. Catalog
+      # restore keys deliberately have no broader fallback to other versions.
+      - name: Restore reusable source archive and receipts
+        if: ${{ !inputs.dry_run && contains(fromJSON('["setup","rebuild","refresh"]'), inputs.operation) }}
+        id: source
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/resources
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/archives
+          key: ${{ steps.keys.outputs.source_prefix }}lookup
+          restore-keys: ${{ steps.keys.outputs.source_prefix }}
+
+      - name: Restore compatible catalog generations
+        if: ${{ !inputs.dry_run && contains(fromJSON('["setup","rebuild","refresh"]'), inputs.operation) }}
+        id: catalog
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/active.json
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/generations
+          key: ${{ steps.keys.outputs.catalog_prefix }}lookup
+          restore-keys: ${{ steps.keys.outputs.catalog_prefix }}
+
+      - name: Run supported catalog maintenance
+        if: ${{ !inputs.dry_run && contains(fromJSON('["setup","rebuild","refresh"]'), inputs.operation) }}
+        id: maintain
+        run: |
+          args=(catalog "$OPERATION" --cache-dir "$LCATS_CACHE_DIR" --apply)
+          if [[ "$ALLOW_COUNT_CHANGE" == true ]]; then args+=(--allow-count-change); fi
+          python tools/gettenberg_ci.py "${args[@]}" > maintenance.json
+          cat maintenance.json
+          python -c 'import json, os; d=json.load(open("maintenance.json")); f=open(os.environ["GITHUB_OUTPUT"], "a"); print("changed=" + str(not d["result"]["reused"]).lower(), file=f); f.close()'
+
+      - name: Compute verified-operation save keys
+        if: ${{ steps.maintain.outcome == 'success' }}
+        id: save
+        run: python tools/gettenberg_ci.py keys --cache-dir "$LCATS_CACHE_DIR" --run-id "$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT" --github-output "$GITHUB_OUTPUT"
+
+      - name: Save archive and receipt snapshot
+        id: save_source
+        if: ${{ steps.save.outcome == 'success' && (inputs.operation == 'refresh' || steps.source.outputs.cache-matched-key == '') }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/resources
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/archives
+          key: ${{ steps.save.outputs.source_key }}
+
+      - name: Save changed catalog generation
+        id: save_catalog
+        if: ${{ steps.save.outcome == 'success' && (steps.maintain.outputs.changed == 'true' || steps.catalog.outputs.cache-matched-key == '') }}
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/active.json
+            ${{ env.LCATS_CACHE_DIR }}/gettenberg/generations
+          key: ${{ steps.save.outputs.catalog_key }}
+
+      - name: Verify newly saved snapshots exist
+        if: ${{ steps.save_source.outcome == 'success' || steps.save_catalog.outcome == 'success' }}
+        env:
+          SOURCE_SAVED: ${{ steps.save_source.outcome }}
+          CATALOG_SAVED: ${{ steps.save_catalog.outcome }}
+          SOURCE_KEY: ${{ steps.save.outputs.source_key }}
+          CATALOG_KEY: ${{ steps.save.outputs.catalog_key }}
+        run: |
+          args=(verify-saved --repo "$CACHE_REPO" --ref "$CACHE_REF")
+          if [[ "$SOURCE_SAVED" == success ]]; then args+=(--key "$SOURCE_KEY"); fi
+          if [[ "$CATALOG_SAVED" == success ]]; then args+=(--key "$CATALOG_KEY"); fi
+          python tools/gettenberg_ci.py "${args[@]}"
+
+      - name: Retain maintenance diagnostic
+        if: ${{ always() && steps.maintain.outcome != 'skipped' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: gettenberg-maintenance-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lcats/maintenance.json
+          if-no-files-found: ignore

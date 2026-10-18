@@ -1,0 +1,17 @@
+{
+  "start_utc": "2026-10-18T00:52:10Z",
+  "target_utc": "2026-10-18T02:52:10Z",
+  "deadline_utc": "2026-10-18T03:52:10Z",
+  "base": "0504cae5d6258708ebd3dfa311fb014826b25efb",
+  "main": "210468236ff4db78d2d7c5218562fa2d166e6400",
+  "backend": "codex_app",
+  "model": "session selected, no override",
+  "usage_used_percent": 4,
+  "dependencies": {
+    "WI0004": "resolved on main35f80fb5, verified ancestor",
+    "WI0007": "staged acceptance94c6d8e7, verified ancestor",
+    "WI0008": "staged46960f66 at current base"
+  },
+  "gates": "watched skill definitions fresh; persistent skip consent invalid and unchanged; explicit pilot grant applies",
+  "skill_sha256": "48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165"
+}

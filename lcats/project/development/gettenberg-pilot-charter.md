@@ -403,3 +403,23 @@ main promotion, canonical corpus mutation, bulk acquisition, package publication
 persistent consent change or material redesign. Notebook migration/archive work
 is explicitly included under the human's prior notebook disposition authorization.
 Native records remain nonterminal until human-approved main delivery.
+
+
+## CI-maintenance grant — activated 2026-10-17 (Pacific)
+
+Human authorized another two-to-three-hour bounded run after WI0009 was named
+as the next item. Start 2026-10-18 00:52:10 UTC (October17 17:52 Pacific), target/
+feature freeze02:52:10 UTC, hard stop03:52:10 UTC. Same limits as the preceding
+run: normally coordinator plus one reviewer; four concurrent agents maximum,
+six assignments,45 cumulative worker minutes with15 reserved for review, maximum
+30 minutes per assignment. No recursive delegation or automatic renewal. Check
+time at least every15 minutes and usage at launch/hourly/before delegation.
+
+Scope is WI-GETTENBERG-0009: CI cache-maintenance commands, tested helpers, ordinary
+unit-CI isolation and documentation. It explicitly permits relevant CI edits.
+No production cache deletion or live Gutenberg acquisition during validation;
+maintenance rehearsal requiring either remains separately human-authorized.
+Preserve required checks/triggers, source archives, existing data and credentials.
+Existing coordinator adapter permits routine repairs and qualified internal
+integration; main promotion, publication, policy changes and native terminal
+closeout remain outside this grant. Finish early when scoped acceptance is met.

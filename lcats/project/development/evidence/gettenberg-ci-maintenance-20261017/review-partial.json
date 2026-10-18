@@ -1,0 +1,14 @@
+{
+  "assignment": 1,
+  "start_utc_approx": "2026-10-18T01:09:00Z",
+  "deadline_utc": "2026-10-18T01:25:00Z",
+  "reported_stop_utc": "2026-10-18T01:30:02Z",
+  "charged_worker_minutes": 22,
+  "complete": false,
+  "findings": [],
+  "focused_tests": "16 passed in 1.568s",
+  "limitations": [
+    "Control-plane claims and upstream action semantics not fully audited",
+    "Deadline overrun; cause unverified"
+  ]
+}

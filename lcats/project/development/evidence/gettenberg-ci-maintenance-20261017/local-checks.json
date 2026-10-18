@@ -1,0 +1,55 @@
+{
+  "format_repair": {
+    "exit_code": 0,
+    "sha256": "22e615185a5ec101f139df81db609b9a5e5600f5f0716fc507aa9661a9383782",
+    "summary": [
+      "reformatted src/lcats/dev/gettenberg_ci.py",
+      "1 file reformatted."
+    ]
+  },
+  "format": {
+    "exit_code": 0,
+    "sha256": "8d97a0c2b530defc9afe1203932c716b2a9a3e9d808bba5b33136101d73fde89",
+    "summary": [
+      "284 files would be left unchanged."
+    ]
+  },
+  "lint": {
+    "exit_code": 0,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "summary": [
+      "All checks passed!"
+    ]
+  },
+  "focused": {
+    "exit_code": 0,
+    "sha256": "b3379c11b315f09cb8227906706ce48ead82f0b856ef38493a1e480895ebb883",
+    "summary": [
+      "Ran 16 tests in 0.807s",
+      "OK"
+    ]
+  },
+  "full_suite": {
+    "exit_code": 0,
+    "sha256": "2464821fdbe72b725b379d9b51993163e4875300ebbb84ea7192fa1a093cc2de",
+    "summary": [
+      "Ran 2925 tests in 85.804s",
+      "OK"
+    ]
+  },
+  "lrh": {
+    "exit_code": 0,
+    "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "summary": [
+      "Validation completed: 0 error(s), 351 warning(s)"
+    ]
+  },
+  "superseded_format_failure": {
+    "exit_code": 1,
+    "sha256": "7e27c44cbe33157575bb8892991fde4f4f4aa65a6012ca24a63bd70cdfffee05",
+    "summary": [
+      "would reformat /Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/dev/gettenberg_ci.py",
+      "1 file would be reformatted, 283 files would be left unchanged."
+    ]
+  }
+}

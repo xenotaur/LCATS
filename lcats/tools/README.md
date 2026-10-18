@@ -151,3 +151,21 @@ These tools are designed to work with AI coding assistants by:
 - Supporting reproducible development workflows
 
 The generated requests can be pasted directly into AI chat sessions to provide detailed context for complex development tasks.
+
+
+## Gutenberg CI maintenance (`gettenberg_ci.py`)
+
+Thin wrapper for tested `lcats.dev.gettenberg_ci` behavior. Run from `lcats/` in
+the installed project environment. Preview is the default; `--apply` explicitly
+permits catalog changes or namespace/ref-scoped GitHub cache deletion. Catalog
+operations write only the chosen cache root; failures return nonzero. No automatic
+story collection or corpus publication. GitHub CLI authentication is required
+only for cache inventory/deletion/save verification.
+
+```bash
+python tools/gettenberg_ci.py --help
+python tools/gettenberg_ci.py catalog setup --cache-dir /tmp/lcats-preview --dry-run
+```
+
+See [the maintenance runbook](../docs/how-to/gettenberg-ci-maintenance.md) for
+operations, retention, platform assumptions, cache keys and offline qualification.
