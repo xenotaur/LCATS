@@ -4,8 +4,8 @@ prompt_id: PROMPT(WI-GETTENBERG-0009:GETTENBERG_CI_MAINTENANCE)[2026-10-18T00:53
 work_item: WI-GETTENBERG-0009
 status: in_progress
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/523
+commit: a8416d3b
 created_at: 2026-10-18T00:54:29+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0009.md

@@ -3080,3 +3080,7 @@ Internal base still0504cae5. No required-status-check rules are configured on
 that branch, so CI fallback will require every reported check and treat empty
 results as pending. Gate definitions are fresh; persistent consent remains
 invalid and unchanged. Proceed to first hosted reviews and exact-head CI.
+
+Internal PR [#523](https://github.com/xenotaur/LCATS/pull/523) opened at implementation
+commita8416d3b. PR links backfilled in primary/self-review records. Hosted review
+and exact-head CI pending; no main promotion or live maintenance is authorized.
