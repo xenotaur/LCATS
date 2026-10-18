@@ -1,0 +1,580 @@
+{
+  "snapshot_sha256": "3a7afcee94421e75d4572376839bde59e253961cfadeecced00688cee7a573a6",
+  "database_sha256": "3f9a8380c2c8ef41bf071fdaa7be77d174ad67446e2c7fed6efdc06fb72f5c17",
+  "legacy_database_sha256": "188b422247c48807459f3aedac6dad462244e91a2885543e3051555c0e0a39f5",
+  "qualified": true,
+  "scope": "Compare normalized index multiplicities with a completed snapshot XML inventory.\n\nFrom lcats/: python qualify_index_counts.py SNAPSHOT_JSON NEW_DATABASE LEGACY_DATABASE NEW_JSON\nRead-only SQLite access, no network/writes except new JSON. Uses explicit known\nschema queries only. Raw-source public get() reparses RDF, so that audit alone\ncannot establish normalized-index fidelity. These aggregate checks complement\nsemantic query fixtures; they do not prove every indexed value individually.\n",
+  "comparisons": [
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}ebook",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM ebooks"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}title",
+      "xml": 78941,
+      "index": 78941,
+      "sql": "SELECT COUNT(*) FROM titles WHERE kind='primary'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}alternative",
+      "xml": 5340,
+      "index": 5340,
+      "sql": "SELECT COUNT(*) FROM titles WHERE kind='alternative'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}language",
+      "xml": 79162,
+      "index": 79162,
+      "sql": "SELECT COUNT(*) FROM languages"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}subject",
+      "xml": 265507,
+      "index": 265507,
+      "sql": "SELECT COUNT(*) FROM subjects"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}bookshelf",
+      "xml": 206275,
+      "index": 206275,
+      "sql": "SELECT COUNT(*) FROM shelves"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}type",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM types"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}file",
+      "xml": 2018879,
+      "index": 2018879,
+      "sql": "SELECT COUNT(*) FROM resources"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}format",
+      "xml": 2196609,
+      "index": 2196609,
+      "sql": "SELECT COUNT(*) FROM formats"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}extent",
+      "xml": 2022362,
+      "index": 2022362,
+      "sql": "SELECT COUNT(*) FROM resource_sizes"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}modified",
+      "xml": 2022372,
+      "index": 2022372,
+      "sql": "SELECT COUNT(*) FROM resource_modified"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}isFormatOf",
+      "xml": 2018879,
+      "index": 2018879,
+      "sql": "SELECT COUNT(*) FROM resource_links WHERE kind='is_format_of'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}agent",
+      "xml": 109138,
+      "index": 109138,
+      "sql": "SELECT COUNT(*) FROM agents"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}name",
+      "xml": 109138,
+      "index": 109138,
+      "sql": "SELECT COUNT(*) FROM agent_literals WHERE kind='names'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}alias",
+      "xml": 164426,
+      "index": 164426,
+      "sql": "SELECT COUNT(*) FROM agent_literals WHERE kind='aliases'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}birthdate",
+      "xml": 89286,
+      "index": 89286,
+      "sql": "SELECT COUNT(*) FROM agent_literals WHERE kind='birth_dates'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}deathdate",
+      "xml": 87927,
+      "index": 87927,
+      "sql": "SELECT COUNT(*) FROM agent_literals WHERE kind='death_dates'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}webpage",
+      "xml": 89631,
+      "index": 89631,
+      "sql": "SELECT COUNT(*) FROM agent_links WHERE kind='webpages'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}publisher",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM ebook_literals WHERE kind='publishers'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}rights",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM ebook_literals WHERE kind='rights'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}issued",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM ebook_literals WHERE kind='issued'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}tableOfContents",
+      "xml": 8334,
+      "index": 8334,
+      "sql": "SELECT COUNT(*) FROM ebook_literals WHERE kind='contents'"
+    },
+    {
+      "element": "{http://purl.org/dc/terms/}license",
+      "xml": 78937,
+      "index": 78937,
+      "sql": "SELECT COUNT(*) FROM ebook_links WHERE kind='licenses'"
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc010",
+      "xml": 13153,
+      "index": 13153
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc020",
+      "xml": 1,
+      "index": 1
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc250",
+      "xml": 331,
+      "index": 331
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc260",
+      "xml": 12565,
+      "index": 12565
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc300",
+      "xml": 7,
+      "index": 7
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc440",
+      "xml": 5638,
+      "index": 5638
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc508",
+      "xml": 75952,
+      "index": 75952
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc520",
+      "xml": 76918,
+      "index": 76918
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc546",
+      "xml": 148,
+      "index": 148
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc901",
+      "xml": 9236,
+      "index": 9236
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc902",
+      "xml": 9,
+      "index": 9
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc903",
+      "xml": 2,
+      "index": 2
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc904",
+      "xml": 7957,
+      "index": 7957
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc905",
+      "xml": 12252,
+      "index": 12252
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc906",
+      "xml": 12201,
+      "index": 12201
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc907",
+      "xml": 12203,
+      "index": 12203
+    },
+    {
+      "element": "{http://www.gutenberg.org/2009/pgterms/}marc908",
+      "xml": 74369,
+      "index": 74369
+    }
+  ],
+  "english": {
+    "legacy_count": 62689,
+    "new_count": 62726,
+    "legacy_query_seconds": [
+      0.1773064169992722,
+      0.11551337499986403,
+      0.11587966600018262
+    ],
+    "legacy_query": "SELECT books.gutenbergbookid FROM books JOIN languages ON books.languageid=languages.id WHERE languages.name='en' ORDER BY books.gutenbergbookid",
+    "new_only": [
+      417,
+      3208,
+      3209,
+      3210,
+      3211,
+      3212,
+      3213,
+      3214,
+      3215,
+      3216,
+      3217,
+      3218,
+      3219,
+      3220,
+      3221,
+      3222,
+      3223,
+      3224,
+      3225,
+      3298,
+      3299,
+      5740,
+      8565,
+      9842,
+      14865,
+      19704,
+      21053,
+      21917,
+      22627,
+      28219,
+      29124,
+      31963,
+      49503,
+      55888,
+      57044,
+      59863,
+      67451
+    ],
+    "old_only": [],
+    "new_only_languages_in_source_order": {
+      "417": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3208": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3209": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3210": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3211": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3212": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3213": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3214": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3215": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3216": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3217": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3218": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3219": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3220": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3221": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3222": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3223": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3224": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3225": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3298": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "3299": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "5740": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "8565": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "9842": [
+        [
+          "cy"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "14865": [
+        [
+          "cy"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "19704": [
+        [
+          "cy"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "21053": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "21917": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "22627": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "28219": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "29124": [
+        [
+          "da"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "31963": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "49503": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "55888": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "57044": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "59863": [
+        [
+          "de"
+        ],
+        [
+          "en"
+        ]
+      ],
+      "67451": [
+        [
+          "bo"
+        ],
+        [
+          "en"
+        ]
+      ]
+    }
+  }
+}

@@ -98,5 +98,5 @@ Previously completed story files and source bytes remain available for a retry.
 Invalid UTF-8 or ambiguous boilerplate is not silently replaced, guessed or sent
 through the old API. Keep the original-byte receipt and catalog provenance when
 investigating a record. Do not regenerate an existing corpus just to migrate its
-metadata. This tranche changes live gathering; legacy experimental callers and
-removal of the external dependency remain separate work.
+metadata. The retired helper API and external dependency have been removed; see the
+[migration guide](gettenberg-migration.md) for replacement research entry points.

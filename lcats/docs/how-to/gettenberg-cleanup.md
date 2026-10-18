@@ -73,5 +73,6 @@ assert result.original[record["content_start"]:record["content_end"]] == result.
 
 For complete in-memory evidence, `dataclasses.asdict(result)` is JSON-compatible
 and includes the original text. This library does not write that record for you.
-Legacy `headers.strip_headers` and `lcats gather` still use their existing path;
-consumer migration is a separate planned step.
+Live metadata-dependent gathering uses this cleanup through its story source.
+The retired `headers.strip_headers` API has been removed; see the
+[migration guide](gettenberg-migration.md).

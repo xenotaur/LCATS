@@ -88,6 +88,7 @@ replacement regression checks use real RDF/SQLite fixtures. The historical
 `probe_legacy.py` runner likewise requires the old checkout for measurements;
 importing it or asking for help does not load the retired dependency.
 
-CI cache-maintenance migration is tracked separately in WI-GETTENBERG-0009.
+See [CI cache maintenance](gettenberg-ci-maintenance.md) for the maintained
+workflow and its approval boundaries.
 Dependency removal alone does not claim that live full-catalog, whole-corpus or
 release qualification has completed.

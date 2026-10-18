@@ -75,5 +75,6 @@ accepts the fetched artifact and independently validates it; choosing a route
 cannot bypass catalog validation or count-change approval.
 
 See [the route reference](../reference/gettenberg-network.md#qualified-offline-gutenberg-routing)
-for supported aliases, roots, diagnostics and limitations. `lcats gather` has not
-yet migrated to this API; these examples are library workflows.
+for supported aliases, roots, diagnostics and limitations. These examples are
+library workflows; [live gathering](gettenberg-gather.md) composes these APIs
+with the CLI source profile and collection extraction.

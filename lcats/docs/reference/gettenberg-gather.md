@@ -109,5 +109,6 @@ Expected differences from the legacy metadata path include stable RDF order,
 creator/author-only projection, original catalog resource identity, strict decoding,
 and explicit refusal of ambiguous boilerplate. Authored integration fixtures verify
 body, bucket, filter, normalization and override behavior; no full corpus comparison
-is claimed. Default endpoint observations do not establish full acquisition. Legacy helper migration and
-external dependency removal remain WI-GETTENBERG-0008.
+is claimed. Default endpoint observations do not establish full acquisition. The retired
+helper API and external dependency have been removed; see the
+[migration guide](../how-to/gettenberg-migration.md).

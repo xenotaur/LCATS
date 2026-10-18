@@ -423,3 +423,20 @@ Preserve required checks/triggers, source archives, existing data and credential
 Existing coordinator adapter permits routine repairs and qualified internal
 integration; main promotion, publication, policy changes and native terminal
 closeout remain outside this grant. Finish early when scoped acceptance is met.
+
+## Qualification run grant — 2026-10-18
+
+Human: “Please do another 2-3 hour bounded run, thank you!” Activate WI-GETTENBERG-0010
+from integration ed20e9c297bf5e50e1911b84722e53f5db3edee3. Start05:14:34 UTC,
+target/feature freeze07:14:34, hard stop08:14:34. Normal coordinator plus one
+worker; maximum four concurrent agents, six assignments,45 cumulative worker
+minutes with15 reserved for review,30 minutes per assignment. Existing pilot
+adapters apply; main promotion and terminal closeout remain human gated.
+
+Use the already recorded local archive and cached story sources only. No new
+Gutenberg requests. Isolated temporary experiment outputs:15 GiB maximum, at
+least6 GiB free, one bulk build at a time,900 seconds per new build,512 MiB RSS
+target. A historical build comparison may use at most20 minutes if feasible.
+No production cache deletion, canonical corpus mutation, CI modification,
+publication or persistent-consent changes. Missing qualification stays an explicit
+gap; WI0010's first three acceptance criteria remain prerequisites to integration.

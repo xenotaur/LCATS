@@ -102,3 +102,84 @@ matching fixtures establish consumer preservation, not whole-corpus equivalence
 or qualification of the old wrapper's known failures. No historical result is
 rewritten. [Legacy notebooks](legacy-notebooks/README.md) record the relocation
 and supported replacements for upstream-specific diagnostics.
+
+## Final replacement qualification (WI-GETTENBERG-0010)
+
+Run from `lcats/` with the project environment and this checkout's `src` on
+`PYTHONPATH`. These commands consume retained local inputs only; they never fetch
+Gutenberg data or modify existing corpus/cache files. Choose new output paths.
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_lifecycle.py ARCHIVE NEW_CACHE LIFECYCLE_JSON
+python ../experiments/10_gettenberg_qualification/scripts/qualify_snapshot.py ARCHIVE NEW_CACHE SNAPSHOT_JSON
+python ../experiments/10_gettenberg_qualification/scripts/qualify_legacy_build.py ARCHIVE NEW_LEGACY_DIRECTORY LEGACY_JSON
+python ../experiments/10_gettenberg_qualification/scripts/qualify_cached_corpus.py NEW_CACHE LEGACY_TEXTS ../corpora/mass_quantities CORPUS_JSON
+```
+
+The lifecycle and snapshot runners require the recorded archive SHA. Snapshot
+qualification checks **every** catalog record against the current parser's typed
+values, diagnostics and original RDF bytes, then compares complete ID sets and
+inventories every XML element/attribute. This checks storage fidelity, not an
+independent implementation of RDF semantics; the semantic fixture suite remains
+necessary. Its three English query timings use bounded public pagination.
+
+The historical build runner requires an environment **already containing** the
+recorded `gutenbergpy`; do not add that dependency back to LCATS. It fingerprints
+the actual historical source, copies the pinned archive to a new directory and
+runs upstream unpack/parse/SQLite creation unchanged, with progress output sent
+to the null device. The pinned archive was previously audited as regular bounded
+RDF files; the old extractor must never receive arbitrary archives. It preserves
+its extracted files and records retained logical disk bytes, database hash/counts
+and normalized process peak RSS. Input copying and network time are excluded from
+its build time. Retained files are useful evidence, not a production cache.
+
+Cached corpus comparison reads legacy `<id>.txt.gz` files: these contain text
+already decoded and re-encoded as UTF-8 by the old downloader. They **cannot prove
+wire-byte or encoding equivalence**. No invented HTTP receipts are written. On
+identical cached decoded input/current catalog metadata, the runner compares old
+and new cleanup followed by the same real extractor and normalization. Retained
+corpus bodies are a separate comparison, because editorial changes and catalog
+snapshot differences may intervene. Missing inputs, metadata rejections and
+cleanup refusals stay explicit; `completed` means the experiment ran, not that
+all outputs matched. Review every material difference before acceptance. The
+runner writes hashes and bounded difference excerpts, not duplicate story files.
+
+All new runners refuse existing output files. POSIX alarms bound snapshot work to
+900 seconds, historical build to1,200 and corpus comparison to600; expanded member
+and text limits are separate. At least6 GiB free is needed before a full build;
+allow15 GiB for the combined isolated experiment and wheel environment. Run one
+bulk build at a time. Process RSS uses bytes on macOS and KiB conversion on Linux;
+these are single local observations, not controlled performance claims. Failures
+retain JSON and partial isolated output for diagnosis. Inspect results and exit
+status together. Do not overwrite historical results when retrying.
+
+For packaging, build a wheel normally, install it into a fresh virtual environment
+with declared dependencies, and run the installed smoke outside the checkout:
+
+```bash
+env -u PYTHONPATH /path/to/venv/bin/python /absolute/path/to/qualify_installed.py NEW_JSON
+/path/to/venv/bin/python -m pip check
+```
+
+`qualify_installed.py` requires no legacy dependency, makes no requests, checks
+installed imports and metadata, builds a temporary authored catalog and exercises
+queries, raw-source fidelity, genre, cleanup and packaged JSON. Separately compare
+wheel source bytes with the candidate checkout, run installed CLI previews, and
+record exact hashes. A smoke pass alone does not establish wheel/source identity.
+The runner imports safely and supports `--help` in an ordinary environment.
+
+`summarize_corpus.py INPUT_JSON NEW_SUMMARY_JSON` produces a compact per-story
+review index, preserving refusals/missing inputs and distinguishing appended
+suffixes from earlier body differences. Its labels are mechanical triage, never
+narrative-safety acceptance. Full reports may be archived as gzip-compressed
+verbatim JSON to keep review diffs manageable; the result manifest records both
+compressed and decompressed hashes. Decompression recovers the original report
+bytes exactly. No story source files or canonical outputs are copied into results.
+
+`qualify_index_counts.py SNAPSHOT_JSON NEW_DATABASE LEGACY_DATABASE NEW_JSON`
+complements raw-source replay with40 aggregate normalized-index checks, including
+all observed MARC fields, and a source-attributed English query comparison. It
+opens both databases read-only, verifies the new database's archive identity and
+records database hashes. Aggregate multiplicity does not prove each indexed value;
+semantic query fixtures remain necessary. `Catalog.get()` reparses retained RDF,
+so the snapshot replay alone must not be described as a normalized-table audit.

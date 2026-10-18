@@ -14,9 +14,14 @@ cd LCATS/lcats
 
 ### Tutorials
 
+- [Build and reuse your first Gutenberg catalog offline](tutorials/gettenberg-first-catalog.md) — setup, queries, reuse and candidate recovery without downloads
+
 - [Quickstart](tutorials/quickstart.md) — from a fresh clone to your first working `lcats` command
 
 ### How-to guides
+
+- [Route a Gutenberg resource before downloading](how-to/gettenberg-routing.md)
+- [Remove a verified Gutenberg envelope](how-to/gettenberg-cleanup.md)
 
 - [Maintain Gutenberg CI caches](how-to/gettenberg-ci-maintenance.md)
 
@@ -39,6 +44,8 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Conservative Gutenberg boilerplate cleanup](reference/gettenberg-cleanup.md)
+
 - [Live gathering and source contracts](reference/gettenberg-gather.md)
 - [Collection requirements and setup policy](reference/gettenberg-preparation.md)
 
@@ -59,6 +66,8 @@ cd LCATS/lcats
 - [Metadata genre prefilter](../../experiments/05_metadata_genre_prefilter/README.md) — the metadata-rule evidence pilot backing the genre-balanced corpus selection
 
 ### Explanation
+
+- [Why gettenberg separates metadata, original bytes and stories](explanation/gettenberg-architecture.md) — identities, authority and failure boundaries
 
 - [Why stories live in per-story bucket directories](explanation/story-bucket-layout.md) — the storage-layout migration, what changed, and why
 - [Corpus analysis subsystem architecture](explanation/corpus-analysis-architecture.md) — design principles, data flow, and current capabilities of the text-quality/artifact-detection layer

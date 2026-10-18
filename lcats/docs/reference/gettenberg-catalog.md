@@ -2,7 +2,8 @@
 
 This interface builds an explicitly named **inactive candidate** from a local
 Gutenberg RDF tar.bz2 archive. It does not download, refresh, select a cache,
-activate a generation, prompt, or change existing LCATS gather callers.
+activate a generation or prompt. [Catalog lifecycle](gettenberg-lifecycle.md)
+and [live gathering](gettenberg-gather.md) compose this interface.
 
 ## Build a candidate
 
@@ -184,6 +185,7 @@ True
 
 ```
 
-This interface does not yet establish generation activation, recovery across
-refreshes, remote downloading, CLI first use, caller migration or corpus
-selection equivalence. Those remain separately scoped work items.
+Generation activation and recovery belong to [catalog lifecycle](gettenberg-lifecycle.md);
+remote acquisition belongs to [the resource store](gettenberg-network.md).
+[CLI preparation](gettenberg-preparation.md) composes first use. These interface
+contracts alone do not establish whole-corpus selection equivalence.

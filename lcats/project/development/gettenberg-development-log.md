@@ -3183,3 +3183,148 @@ Diataxis examples, full-snapshot/corpus/resource qualification and a reviewable
 main-promotion/closeout plan. Live/bulk work needs its own explicit resource
 grant; no production cache deletion or archive download was performed here.
 Native records remain in_progress and WI0009 proposed pending human main approval.
+
+## WI0010 qualification run — 2026-10-18 05:14:34 UTC
+
+Human renewed a two-hour target / three-hour maximum. Charter amendment records
+bounds. Base ed20e9c297bf5e50e1911b84722e53f5db3edee3; main210468236ff4db78d2d7c5218562fa2d166e6400.
+WI0008 merge46960f6625b22131ecfcac1764b0da10ad8fb643 and WI0009 merge09763715d62c6143e3a896ce75eda256a94f4ab3
+are verified ancestors with staged acceptance/review/canonical evidence. Native
+records remain nonterminal. WI0010 is prompt-ready; prior-art check present.
+Reuse experiment10, existing tests and APIs, with no competing framework.
+
+Coordinator approves the bounded plan under the charter adapter: full pinned
+snapshot/accounting, cached real-source corpus comparison, exercised Diataxis
+docs, fresh package independence, completion matrix and promotion/closeout plan.
+Branch codex/gettenberg-qualification; expected changes docs/tests/experiment10
+and control-plane evidence. Canonical checks plus explicit experiment smoke,
+Black/Ruff and independent review are required. No CI changes or main merge.
+
+Launch: shared account weekly usage14% (not attributable); per-run cost unavailable.
+Project Python3.11.9, Black25.11.0, Ruff0.15.0; LRH0.2.5.dev3596+gd86755f50.
+Installed targets fresh; persistent skip consent invalid, unchanged. The shared
+editable environment initially resolved another checkout; commands explicitly
+set this worktree's src on PYTHONPATH and verify imports. The first no-record
+check returned1 and stopped the shell before mutations; this is expected absence,
+not an existing execution. Continue from verified clean state. No assignments yet.
+
+### Assignment1 — 05:19 UTC
+
+Dispatched qualification_docs from ed20e9c, docs plus one new documentation test
+only; no product/control-plane edits, commits or network. Deadline05:34 UTC,
+15 worker minutes allocated,30 remain including review. Acceptance: useful tutorial
+and explanation, executable offline examples and accurate existing guide links.
+Coordinator owns experiment/resource/corpus work. Pinned full lifecycle build
+started05:18:55; no other bulk build is concurrent.
+
+### Qualification findings and environment recovery — 05:29 UTC
+
+Cached corpus census:1659 mass_quantities stories, all with legacy gzip UTF-8
+text. Initial cleanup:1605 accepted envelopes,54 refusals (31 comma-form banners,
+17 license END markers,5 wrapped book markers,1 mismatched title). Keep refusal
+and missing data separate from output equality. Investigate exact safe historical
+variants before proposing any repair; never silently relax ambiguous boundaries.
+
+Nonisolated wheel build failed because shared environment packaging lacks
+packaging.licenses required by setuptools77+. The attempted install had no wheel
+and made no dependency changes. Retry with declared isolated build dependencies;
+do not change project requirements or suppress the failure. Helper regressions:
+10 tests passed. Full catalog build remains bounded by its existing alarm/limits.
+
+### Bounded cleanup repair decision — 05:30 UTC
+
+Coordinator approves two observed historical spelling variants within the existing
+conservative boundary contract, not a relaxation of ambiguous book markers:
+recognize a leading Gutenberg eBook comma banner and ignore the exact historical
+END: FULL LICENSE separator just as START: FULL LICENSE is already ignored.
+Both still require the same unique matched book pair and suffix corroboration;
+near matches, arbitrary prefix prose, wrapped/mismatched book markers remain refused.
+Authored regressions reproduced both failures before editing. Increment cleanup
+policy to v2 so provenance distinguishes changed decisions. This is a scoped
+qualification-driven repair, and changes src/cleanup.py plus its tests/reference;
+no dependency or catalog schema change. Re-run real corpus, focused and canonical
+checks and include the repair in independent review. Preserve pre-repair evidence.
+
+### Documentation delivery and first full-catalog result — 05:32 UTC
+
+Assignment1 completed05:31 UTC, charged12 minutes,33/45 worker minutes remain;
+1/6 assignments used, no active workers. Added offline tutorial/architecture,
+corrected stale migration claims, and executed preparation/gather/migration/
+reference/maintenance examples with fixture transports. Worker reports35 focused
+tests passed; coordinator will independently include them in canonical validation.
+
+Full lifecycle:78937 records,2018879 resources,109170 contributions,223 diagnostics;
+440.847s setup,89,030,656 bytes process peak RSS,0 network bytes,0.0024s reuse.
+These satisfy existing600s/512MiB targets. Historical full build uses the same
+hash in an isolated directory and original upstream implementation, with network
+blocked and a1200s alarm. Measurements are single local observations, not a
+controlled speed benchmark; concurrent light qualification work is disclosed.
+
+### Installed-wheel qualification — 05:33 UTC
+
+Declared isolated build succeeded. A fresh venv resolved normal wheel dependencies,
+then installed the repaired wheel without changing those dependencies. Outside
+checkout, with PYTHONPATH unset: installed smoke passed catalog/raw-source/query,
+genre, cleanup, packaged JSON and no gutenbergpy; pip check, CLI help and gather
+dry-run passed. Compare every packaged Python source byte with the worktree;
+record wheel/hash/count and result separately. No new Gutenberg requests occurred.
+
+### Corpus gate failure and bounded replan — 05:37 UTC
+
+Pre-repair full comparison completed:1605 compared,54 cleanup refusals,892
+normalized-body differences and894 differences against retained corpus.884 of892
+are appended suffixes;8 change an earlier body position. Two severe examples:
+35401 Friend Island shrinks26080→2620 characters;50103 The Dwindling Years shrinks
+31972→900 and begins with a transcriber note. The current heuristic extractor is
+sensitive to retained end notices/titles/authors; merely retaining more text at
+the pure-cleanup boundary does not preserve the published story downstream.
+This is a genuine qualification blocker, not an acceptable unexplained difference.
+
+Coordinator freezes additional product changes and replans this run as a reviewed
+qualification checkpoint: complete full snapshot/resource evidence, classify all
+corpus differences, document repair requirements and preserve the small already
+verified v2 repair. WI0010's first gate remains unsatisfied; do not internally merge
+this PR, promote main, resolve items or claim replacement completion. No acceptance
+criterion is weakened. Broader source-aware editorial-boundary/extraction changes
+need a focused repair tranche with no-body-loss regressions and rerun of this corpus.
+The post-v2 comparison is already running to measure what the narrow repair changes.
+Safe independent documentation/package/snapshot verification continues within grant.
+
+### Frozen evidence and assignment2 — 05:47 UTC
+
+All full audits completed within bounds. Snapshot:78937 public source/typed-record
+reconstructions,547.627s/130,252,800-byte RSS; exact XML element/attribute inventory
+matches baseline. Catalog.get reparses retained RDF, so a separate40-field
+normalized-index count audit complements replay and semantic query fixtures.
+English37 additional IDs all have English after another language; no old IDs lost.
+
+After v2:1646 compared,13 refusals,902 normalized-body differences,904 retained-
+corpus differences. All1659 input cache/corpus hashes match before/after. Remaining
+refusals include secondary failures exposed by correcting the first failure, so
+subtracting repaired category counts from54 would be incorrect. Full reports are
+archived compressed verbatim with hashes; readable per-story triage remains data,
+not acceptance. Source ledger binds unchanged catalog files to lifecycle evidence.
+
+Assignment2 qualification_review: cold pre-push diff review, no edits/network/bulk
+reruns. Captured4113-line diff against ed20e9c including new files. Start05:47 UTC,
+deadline06:06:57,20 minutes allocated; total2/6 assignments,12 used worker minutes,
+33 remain before this assignment,13 reserved afterward. Product/experiment/docs
+frozen. Reviewer must verify evidence claims and the explicit unaccepted checkpoint.
+Canonical2944 tests89.551s passed; final entry-point-inclusive repeat is running.
+
+### Independent review and final local checks — 05:55 UTC
+
+Assignment2 completed at 05:53 UTC, charged 7 worker minutes conservatively;
+19 of 45 cumulative worker minutes used, 2 of 6 assignments, no active workers.
+Cold review found no new actionable defect and independently replayed all eight
+earlier-body differences. Coordinator independently read the heading-selection
+code and replayed the two severe truncations: all retained row fields matched,
+including new_rejection=None. This confirms the existing qualification blocker.
+
+Reviewer verified all manifest/source/input hashes, corpus classifications and
+refusals, query differences, wheel sources and installed smoke. Its broader tests
+hit sandbox loopback-bind errors; these are explicitly recorded as environment
+failures. Coordinator canonical suite passed 2,944 tests in 108.968 seconds;
+package and explicit 12-runner experiment format/lint passed. No new product fix
+was made after evidence freeze. Preserve a reviewable unaccepted PR, await its
+first hosted review rounds and record exact-head CI; do not integrate it.

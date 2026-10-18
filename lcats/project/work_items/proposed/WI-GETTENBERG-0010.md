@@ -107,3 +107,16 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+
+## Qualification checkpoint — 2026-10-18
+
+The [qualification matrix](../../development/gettenberg-qualification.md) records
+full local catalog/resource and installed-package evidence plus executed Diataxis
+examples. Real cached-corpus comparison exposed a blocking cleanup/extractor
+composition problem, including earlier-body changes and severe truncations.
+The [repair scope](../../development/gettenberg-corpus-repair-plan.md) defines the
+next narrative-preservation investigation and acceptance. This item is not accepted
+or resolved; its first pre-integration gate remains unsatisfied. Keep the
+qualification PR unmerged until repaired and requalified. No acceptance criterion
+or main-promotion requirement changes.

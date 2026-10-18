@@ -1,0 +1,31 @@
+{
+  "scope": "Retained logical file bytes after setup; not peak temporary disk usage or allocated filesystem blocks",
+  "new_retained_bytes": 2303344639,
+  "new_files": [
+    [
+      "gettenberg/active.json",
+      295
+    ],
+    [
+      "gettenberg/archive-publication.sqlite",
+      0
+    ],
+    [
+      "gettenberg/writer.sqlite",
+      0
+    ],
+    [
+      "gettenberg/archives/358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28.tar.bz2",
+      125955051
+    ],
+    [
+      "gettenberg/generations/68a8e5f2260d4f44a002d5399c85ec20/catalog.sqlite",
+      2177388544
+    ],
+    [
+      "gettenberg/generations/68a8e5f2260d4f44a002d5399c85ec20/manifest.json",
+      749
+    ]
+  ],
+  "combined_experiment_under_15_GiB": true
+}
