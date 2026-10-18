@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_18_05_18_55_GETTENBERG_QUALIFICATION
 pr: https://github.com/xenotaur/LCATS/pull/524
-commit:
+commit: 83a772f9e3aab9f1c45fa88fffba9fcfe6451ff4
 created_at: 2026-10-18T06:55:11+00:00
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/524#discussion_r4306065592
@@ -28,4 +28,4 @@ Focused evidence/helper suite: 12 tests passed in 6.190 seconds. Canonical scrip
 
 # Follow-up
 
-Independent verification and thread resolution pending at this record's creation. Keep WI0010 and all native records nonterminal: the broader corpus narrative-loss blocker still prevents integration. No main promotion or closeout.
+Cold independent verification confirmed the repair on 83a772f9; the bot thread was resolved. See the linked PR's GETTENBERG_QUALIFICATION_CONFIRM record. Keep WI0010 and all native records nonterminal: the broader corpus narrative-loss blocker still prevents integration. No main promotion or closeout.

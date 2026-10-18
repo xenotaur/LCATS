@@ -22,7 +22,7 @@ Partial qualification checkpoint. Full catalog setup and historical comparison s
 
 # Validation
 
-Final canonical scripts/test: 2,944 tests passed in 108.968 seconds; package format/lint and all 12 experiment runners' Black/Ruff checks passed. Full catalog lifecycle, same-archive legacy build, exhaustive source reconstruction, 40 normalized-index count checks, before/after cached corpus comparisons and fresh installed wheel completed. Cold review found no new defects and independently reproduced the known corpus blocker; coordinator repeated the two severe truncations. Evidence: project/development/gettenberg-qualification.md and project/development/evidence/gettenberg-qualification-20261018/. Hosted checks/reviews will be recorded at the final candidate head.
+Initial frozen-candidate scripts/test: 2,944 tests passed in 108.968 seconds; package format/lint and all 12 experiment runners' Black/Ruff checks passed. Full catalog lifecycle, same-archive legacy build, exhaustive source reconstruction, 40 normalized-index count checks, before/after cached corpus comparisons and fresh installed wheel completed. Cold review found no new defects and independently reproduced the known corpus blocker; coordinator repeated the two severe truncations. Evidence: project/development/gettenberg-qualification.md and project/development/evidence/gettenberg-qualification-20261018/. After the hosted empty-input finding, 2,945 tests passed in 88.062 seconds; independent confirmation verified the guard repair and its provenance addendum. First hosted rounds completed and the one bot thread was resolved. Final bookkeeping-head CI is reported separately in the PR body; this is not an integration acceptance claim.
 
 # Follow-up
 

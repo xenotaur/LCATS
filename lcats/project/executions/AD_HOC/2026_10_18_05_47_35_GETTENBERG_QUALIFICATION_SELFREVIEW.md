@@ -28,4 +28,4 @@ Reviewer: 50 changed cleanup/documentation/evidence tests and 7 helper tests pas
 
 # Follow-up
 
-First hosted review rounds and exact-head CI remain to be recorded. Keep this record in_progress until human-approved main delivery/native closeout. Repair and requalify corpus extraction before internal integration.
+Both first hosted rounds completed. Copilot found an empty-input runner gap, repaired and independently confirmed in the linked REVIEW/CONFIRM records. Keep this record in_progress until human-approved main delivery/native closeout. Repair and requalify corpus extraction before internal integration.

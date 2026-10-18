@@ -1,0 +1,19 @@
+{
+  "head": "83a772f9e3aab9f1c45fa88fffba9fcfe6451ff4",
+  "thread": "PRRT_kwDOKlhIbM6toJc_",
+  "classification": "Clear-satisfied",
+  "resolved": true,
+  "independent_tests": {
+    "focused": 12,
+    "seconds": 6.095,
+    "legacy_import_blocked": 12,
+    "blocked_seconds": 5.908
+  },
+  "product_hashes_verified": 165,
+  "manifest_entries_verified": 11,
+  "historical_result_files_unchanged": 15,
+  "selected_paths": 1659,
+  "new_findings": 0,
+  "merge_ready": false,
+  "reason": "Corpus narrative-loss gate remains unsatisfied."
+}

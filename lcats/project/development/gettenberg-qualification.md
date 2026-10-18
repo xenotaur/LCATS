@@ -186,7 +186,15 @@ how to proceed; the current PR never claims whole-WI acceptance.
 Cold review found no new defects in this unaccepted checkpoint, independently
 reproduced all eight earlier-body differences, and verified the report/source/input
 hashes, query deltas and wheel contents. The coordinator directly replayed both
-severe truncations. Canonical validation passed 2,944 tests; package and all 12
+severe truncations. After the hosted runner-guard repair, canonical validation
+passed 2,945 tests; package and all 12
 experiment runners passed formatting/lint. See the [validation evidence](evidence/gettenberg-qualification-20261018/validation.json).
 Hosted review and exact-head CI are recorded separately in the runlog; neither a
 green test suite nor clean checkpoint review overrides the corpus acceptance gate.
+
+The first hosted Codex review completed clean. Copilot identified one missing/empty
+corpus-selection guard; it was repaired, reproduced red/green, independently
+confirmed with legacy imports blocked, and resolved. All product sources and
+historical measurement files remain unchanged. The runner addendum above records
+the new guard's provenance. The final PR body records final-head CI; the work
+item's corpus gate remains blocked regardless of those check results.

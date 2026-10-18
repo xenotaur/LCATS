@@ -3399,3 +3399,32 @@ Canonical 2,945 tests passed in 88.062 seconds; package format/lint, explicit
 No product bytes changed, so installed-wheel/source-record evidence remains bound
 to the same candidate. Commit/push the runner repair and associated evidence;
 perform a bounded cold verification of the repair and updated provenance next.
+
+### Assignment3 confirmation and bounded stop — 07:02 UTC
+
+Assignment3 qualification_repair_review ran approximately 06:57–06:59 UTC with
+an eight-minute ceiling; charged 3 minutes conservatively. Total 22 of 45 worker
+minutes, 3 of 6 assignments, maximum two concurrent agents including coordinator.
+No workers remain active. Reviewed exact head 83a772f9. Twelve focused tests passed,
+then passed again with gutenbergpy imports blocked; parent-runner regression
+failed all three intended assertions. Verified all measured source/report hashes,
+unchanged original result bytes and exactly 1,659 retained selected paths.
+
+Coordinator approved the one Clear-satisfied bot-thread batch under the charter;
+live isResolved-only inventory included the outdated thread. GraphQL resolution
+returned true. No hosted reviewer was retriggered. A native CONFIRM record captures
+classification, independent evidence and the NOT READY verdict. There is no merge
+command: the material corpus blocker still violates WI0010's pre-integration gate.
+
+Integration remains ed20e9c; main remains 21046823. Product/source measurements,
+installed wheel and canonical corpus remain unchanged by the runner repair. Final
+bookkeeping changes are records, evidence and prose only; final-head CI is checked
+after pushing and recorded in the PR body, avoiding a self-referential commit
+claim. End implementation here; finish bounded verification and handoff before
+the original deadline. No automatic renewal, main promotion, terminal closeout,
+Gutenberg request, corpus publication or persistent consent change occurred.
+
+Recommended next human decision: authorize the focused narrative-preservation
+repair scope in gettenberg-corpus-repair-plan.md, then repair/requalify this open
+checkpoint before integration. Do not approve old/new body equality blindly or
+solve retained editorial text by broadly stripping narrative. WI0010 remains open.
