@@ -3084,3 +3084,43 @@ invalid and unchanged. Proceed to first hosted reviews and exact-head CI.
 Internal PR [#523](https://github.com/xenotaur/LCATS/pull/523) opened at implementation
 commita8416d3b. PR links backfilled in primary/self-review records. Hosted review
 and exact-head CI pending; no main promotion or live maintenance is authorized.
+
+
+### Hosted workflow rejection and repair — 01:59 UTC
+
+The generic LRH CI predicate reported green atff78d679 because only lint existed
+in the PR check rollup. Expected test/coverage checks were absent. A separate
+workflow-run inventory exposed three failed workflow-file runs before job start:
+39088343004 (coverage),39088343448 (tests),39088343856 (maintenance). This is not
+acceptance: job-level env used runner.temp, a context GitHub disallows there.
+Verified against the official context-availability table; YAML parsing, bash -n
+and the prior cold review missed it.
+
+Replace these roots with github.workspace/.lcats-* (available at job evaluation),
+and add a regression check of allowed job-env expression contexts across all
+three workflows. No new lint tool or dependency introduced. Require the expected
+check inventory AND absence of failed validation runs on the final SHA, not just
+a nonempty all-green check rollup. This is an LRH predicate improvement candidate.
+No maintenance workflow is dispatched; checking its hosted syntax has no catalog
+or cache mutation effects. Independent targeted repair review remains required.
+
+
+### First hosted reviews and runtime identity repair — 02:03 UTC
+
+Both first hosted reviews completed: Codex on a8416d3b found P2 dependency identity;
+Copilot on ff78d679 reported no open issues and noted the live-operation boundary.
+Coordinator verified lxml>=5.2.2 in pyproject and etree usage in rdf.py, confirming
+that code-only hashing could reuse a catalog across a dependency upgrade. Include
+Python/SQLite/lxml and runtime/compiled libxml versions in the catalog fingerprint.
+A regression test changes external parser version metadata while leaving code and
+explicit schema/parser versions fixed; source identity must remain unchanged.
+
+Workflow repair independently accepted in assignment3, charged3 minutes, total
+28/45 worker minutes and3/6 assignments. The reviewer reproduced all three old
+context failures and checked44 location-specific expressions; it acknowledged
+its prior context-location gap. Canonical workflow-repair suite2926/87.491s,
+format/lint and LRH0errors/351warnings pass. Runtime repair validation follows.
+
+Runtime repair canonical suite passed2927 tests in92.126s;18 focused tests, lint
+and LRH0errors/351warnings pass. Ready to push both repairs and verify the final
+head independently. No product changes are planned during that review.

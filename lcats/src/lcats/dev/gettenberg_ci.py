@@ -11,8 +11,11 @@ import hashlib
 import json
 import pathlib
 import re
+import sqlite3
 import subprocess
 import sys
+
+from lxml import etree
 
 from lcats.gettenberg import _store
 from lcats.gettenberg import catalog_cli
@@ -32,13 +35,23 @@ NAMESPACES = {
 
 
 def compatibility_fingerprint():
-    """Hash shipped catalog code as well as explicit schema/parser versions.
+    """Hash shipped catalog code and the runtime that parses/stores its records.
 
     Including code prevents an accidental omitted version bump from restoring a
     compiled catalog built by different ingestion/validation logic. Source blobs
     have a separate stable namespace, so this does not require another download.
     """
-    digest = hashlib.sha256()
+    # Unpinned dependency upgrades can alter parsing even when LCATS source and
+    # explicit parser versions are unchanged. Include both runtime and compiled
+    # libxml versions, plus Python/SQLite used by ingestion and catalog storage.
+    runtime = {
+        "python": tuple(sys.version_info[:3]),
+        "sqlite": sqlite3.sqlite_version,
+        "lxml": etree.LXML_VERSION,
+        "libxml_runtime": etree.LIBXML_VERSION,
+        "libxml_compiled": etree.LIBXML_COMPILED_VERSION,
+    }
+    digest = hashlib.sha256(json.dumps(runtime, sort_keys=True).encode("utf-8"))
     folder = pathlib.Path(lifecycle.__file__).parent
     for path in sorted(folder.glob("*.py")):
         digest.update(path.name.encode("utf-8") + b"\0" + path.read_bytes())

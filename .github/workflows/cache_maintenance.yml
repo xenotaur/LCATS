@@ -44,7 +44,7 @@ jobs:
         working-directory: lcats
         shell: bash
     env:
-      LCATS_CACHE_DIR: ${{ runner.temp }}/lcats-gettenberg-maintenance
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-gettenberg-maintenance
       OPERATION: ${{ inputs.operation }}
       CACHE_KIND: ${{ inputs.cache_kind }}
       CACHE_REF: ${{ github.ref }}

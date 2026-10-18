@@ -111,12 +111,14 @@ The workflow uses two disjoint cache partitions under `LCATS_CACHE_DIR`:
 | Snapshot | Paths | Restore identity |
 |---|---|---|
 | Source | `gettenberg/resources/`, `gettenberg/archives/` | Versioned source namespace and canonical archive request identity |
-| Catalog | `gettenberg/active.json`, `gettenberg/generations/` | Versioned catalog namespace, schema/parser versions, shipped gettenberg code fingerprint and source request identity |
+| Catalog | `gettenberg/active.json`, `gettenberg/generations/` | Versioned catalog namespace, schema/parser versions, shipped gettenberg code/runtime fingerprint and source request identity |
 
 Archive storage is shared by lifecycle and acquisition, so the source partition
 holds the bytes once; the catalog partition does not duplicate them. Candidate
 and lock directories are not cached. Catalog fallback never crosses compatibility
-prefixes. A parser/schema change can therefore restore source bytes without
+prefixes. The fingerprint includes Python, SQLite, lxml and both runtime and
+compiled libxml versions, so dependency upgrades also invalidate compiled catalogs.
+A parser/schema change can therefore restore source bytes without
 restoring an incompatible compiled catalog. Receipt and lifecycle validation still
 apply after restoration; a matching cache key is not an integrity verdict.
 

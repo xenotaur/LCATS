@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 import pathlib
+import re
 import shutil
 import socket
 import subprocess
@@ -14,6 +15,7 @@ import unittest
 from unittest import mock
 
 import yaml
+from lxml import etree
 
 from lcats.dev import gettenberg_ci
 from lcats.gettenberg import _resource_transport
@@ -182,6 +184,20 @@ class MaintenanceTests(unittest.TestCase):
         for run_id in (None, "run\ninjected=yes", "../123", "1-2-extra"):
             with self.subTest(run_id=run_id), self.assertRaises(ValueError):
                 gettenberg_ci.cache_keys(cache_dir=self.cache, run_id=run_id)
+
+    def test_parser_dependency_changes_invalidate_catalog_but_preserve_sources(self):
+        original = gettenberg_ci.cache_keys()
+        self.assertEqual(original, gettenberg_ci.cache_keys())
+        # Substitute external parser version metadata, not the fingerprint under
+        # test. The LCATS files and explicit schema/parser versions stay fixed.
+        for attribute in ("LXML_VERSION", "LIBXML_VERSION", "LIBXML_COMPILED_VERSION"):
+            with (
+                self.subTest(attribute=attribute),
+                mock.patch.object(etree, attribute, (99, 0, 0)),
+            ):
+                changed = gettenberg_ci.cache_keys()
+            self.assertNotEqual(changed["catalog_prefix"], original["catalog_prefix"])
+            self.assertEqual(changed["source_prefix"], original["source_prefix"])
 
     def test_restored_catalog_and_resource_paths_are_portable(self):
         self.seed_source()
@@ -407,6 +423,20 @@ class GithubCacheTests(unittest.TestCase):
 
 
 class WorkflowContractTests(unittest.TestCase):
+    def test_job_environment_uses_contexts_available_before_runner_assignment(self):
+        # GitHub validates job-level env before assigning a runner. In particular,
+        # runner.temp is legal in step env but rejects an entire job here, before
+        # test/check results exist. YAML parsing alone cannot catch that failure.
+        # https://docs.github.com/en/actions/reference/workflows-and-actions/contexts
+        allowed = {"github", "needs", "strategy", "matrix", "vars", "secrets", "inputs"}
+        for filename in ("tests.yml", "coverage.yml", "cache_maintenance.yml"):
+            for job in workflow(filename)["jobs"].values():
+                for value in job.get("env", {}).values():
+                    for expression in re.findall(r"\$\{\{(.*?)\}\}", value):
+                        contexts = set(re.findall(r"\b([A-Za-z_]+)\.", expression))
+                        with self.subTest(filename=filename, expression=expression):
+                            self.assertLessEqual(contexts, allowed)
+
     def test_ordinary_checks_keep_triggers_and_commands_without_gutenberg_caches(self):
         for filename, job_name in (("tests.yml", "test"), ("coverage.yml", "coverage")):
             with self.subTest(filename=filename):
@@ -417,7 +447,8 @@ class WorkflowContractTests(unittest.TestCase):
                 )
                 job = config["jobs"][job_name]
                 self.assertEqual(
-                    job["env"]["LCATS_CACHE_DIR"], "${{ runner.temp }}/lcats-unit-cache"
+                    job["env"]["LCATS_CACHE_DIR"],
+                    "${{ github.workspace }}/.lcats-unit-cache",
                 )
                 self.assertFalse(
                     any(

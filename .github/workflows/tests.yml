@@ -22,7 +22,7 @@ jobs:
         working-directory: lcats
     env:
       # Unit tests use temporary authored fixtures, never the maintained catalog.
-      LCATS_CACHE_DIR: ${{ runner.temp }}/lcats-unit-cache
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-unit-cache
 
     steps:
       - uses: actions/checkout@v4
