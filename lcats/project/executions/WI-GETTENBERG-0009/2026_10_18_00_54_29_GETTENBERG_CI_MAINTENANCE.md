@@ -22,7 +22,8 @@ pilot. Fresh integration base0504cae5; CI changes authorized, live maintenance n
 Implemented supported catalog maintenance, structured exact-ref cache selection,
 compatibility-aware source/catalog keys, offline unit CI and operator documentation.
 Cold product review and both first hosted reviews complete. Two verified
-follow-up repairs passed independent review; final hosted CI/integration pending.
+follow-up repairs passed independent review. Final head6a988655 passed four
+hosted checks and merged internally at09763715. Parents/tree verified.
 See the runlog for bounded plan, prerequisite acceptance and source policy.
 
 # Validation
@@ -32,7 +33,8 @@ Readiness yes. Final full suite2927 passed92.126s;18 focused tests; canonical
 format/lint pass; all11 shell steps pass bash syntax; LRH0errors/351warnings.
 Independent product/runtime review complete at9608b76. Earlier formatting,
 workflow-context and dependency-identity findings were repaired, not waived.
-Hosted review and exact-head CI still required before integration. Evidence directory:
+Both first hosted reviews completed, valid finding fixed/resolved, final
+independent review and exact-head CI passed. Evidence directory:
 project/development/evidence/gettenberg-ci-maintenance-20261017/.
 
 # Follow-up

@@ -104,3 +104,31 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+
+## Staged acceptance — 2026-10-17 Pacific
+
+Coordinator accepted PR [#523](https://github.com/xenotaur/LCATS/pull/523) under
+the approved two-hour target/three-hour maximum grant. Accepted head`6a9886557ae5bd4c52e5e995eaf2ef319e9add7b`,
+internal merge`09763715d62c6143e3a896ce75eda256a94f4ab3`, base`0504cae5d6258708ebd3dfa311fb014826b25efb`.
+Merge parents and accepted tree verified. This is staged evidence, not canonical
+resolution or human main approval.
+
+| Acceptance | Evidence |
+|---|---|
+| Ordinary unit CI remains offline | Gutenberg cache actions removed from test/coverage; authored fixture suite; unchanged check/trigger inventory |
+| Supported maintenance and failure propagation | gettenberg_ci helper delegates catalog operations; real tiny archive/SQLite tests, actual workflow bash success/failure, exact-ref numeric-ID deletion and partial failures |
+| Compatible keys and reusable archives | Separate source/catalog snapshots; schema/parser/code/runtime/request identity; activated archive digest and run identity; portable source-only offline rebuild test |
+| No weakened checks; dry-run and failure qualification | workflow-inventory.json;18 maintenance tests; all11 shell steps; context-regression.json; final four hosted checks and zero failed workflow-file runs |
+
+Evidence root: development/evidence/gettenberg-ci-maintenance-20261017/. Final
+canonical suite2927 tests92.126s; format/lint pass; LRH0errors/351existingwarnings.
+Independent product, repair and final-tail review passed. Both first hosted
+reviews completed; the valid Codex dependency finding was fixed and resolved.
+Hosted workflow-context rejection was fixed, not waived. Source hashes and exact
+CI/review/merge identities are retained.
+
+No production cache deletion, live Gutenberg acquisition, full maintenance
+rehearsal, publication, corpus mutation or main promotion occurred. Live/full-size
+qualification remains WI0010. Native status stays proposed and executions stay
+in_progress until human-approved main delivery.

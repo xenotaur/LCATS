@@ -3139,3 +3139,47 @@ PR test/coverage/lint had not appeared. Cause is unverified. No stale rollup is
 accepted and no review is manually retriggered. Commit the completed PR-review
 record as the normal final bookkeeping tail, then recheck synchronization and
 all expected checks at that new head. Product files remain unchanged.
+
+
+### Integrated outcome and retrospective — 02:16 UTC
+
+PR523 merged into codex/gettenberg-acquisition at09763715 at02:15:45 UTC, about
+84 minutes after00:52:10 launch. Accepted head6a988655 passed all four checks:
+push test39089256583, PR test39089259069, coverage39089259076, lint39089259063.
+No failed workflow-file runs remained at that head; authoritative threads showed
+zero unresolved. Both first hosted reviews completed; the one valid Codex P2 was
+fixed and resolved. SHA-locked merge, exact parent pair and accepted tree verified.
+Main remains unchanged. The final control-plane checkpoint follows this merge.
+
+The final tail review completed by02:13:07 and is conservatively charged2 minutes.
+Total5/6 assignments,34/45 worker minutes, peak two agents, no active workers.
+Three repair topics: Black formatting, job-env context availability, parser runtime
+identity. Run finishes early once checkpointing completes; no next item starts.
+Shared weekly usage4%→13%; this is account-wide, not attributable per-run usage.
+Token/credit cost is unavailable. First reviewer assignment overran; it was
+recorded and charged rather than described as successful deadline enforcement.
+
+Process findings for LRH:
+
+- A nonempty green check rollup is insufficient: rejected workflow files can
+  disappear from the check list. Require an expected check inventory and inspect
+  failed workflow runs at the exact SHA, in addition to branch-rule semantics.
+- YAML parsing and shell syntax do not validate Actions expression locations.
+  The focused regression checks job-env context roots; it is not a general
+  Actions validator. A future repository-approved workflow checker merits
+  consideration; this run introduced no new lint tool.
+- Read actual final validation exits/logs after late edits. A compressed or
+  remembered summary is not evidence; preserve failed checks and their repair.
+- Bound worker execution with an external cancellable timer where available;
+  a prompt deadline alone did not prevent this run's overrun.
+- Include external parser/runtime identity in compiled-artifact caches while
+  keeping reusable source bytes independent. Hosted review found this gap.
+- PR metadata can lag the branch ref. After the normal bookkeeping push the
+  PR synchronized; cause remains unverified. Never use stale-head CI, and do not
+  claim that a metadata mismatch alone proves a particular GitHub failure.
+
+Next scoped item is WI-GETTENBERG-0010: completion-to-evidence mapping, executed
+Diataxis examples, full-snapshot/corpus/resource qualification and a reviewable
+main-promotion/closeout plan. Live/bulk work needs its own explicit resource
+grant; no production cache deletion or archive download was performed here.
+Native records remain in_progress and WI0009 proposed pending human main approval.
