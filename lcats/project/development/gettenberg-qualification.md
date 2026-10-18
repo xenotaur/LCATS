@@ -198,3 +198,20 @@ confirmed with legacy imports blocked, and resolved. All product sources and
 historical measurement files remain unchanged. The runner addendum above records
 the new guard's provenance. The final PR body records final-head CI; the work
 item's corpus gate remains blocked regardless of those check results.
+
+## Editorial continuation checkpoint —2026-10-18
+
+The [new evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-editorial-20261018/README.md)
+refreshes all1,659 cached comparisons, eight real temporary publication cases and
+installed-wheel/source identity for product68156dbc.2976 canonical tests pass;
+all166 Python modules match the wheel and installed package without gutenbergpy.
+The source ledger shows catalog/resource/cleanup bytes unchanged from the earlier
+full-snapshot qualification, so those component measurements remain attributable.
+
+Criterion8 remains open:1,642 changed bodies lack complete reviewed dispositions,
+five chapter false positives remain, and a long editorial-only input can publish.
+The cold review's two P2 findings are coordinator-repaired; independent re-review
+is not claimed. Criterion9 therefore is not accepted merely because local checks
+pass. The [human milestone](gettenberg-editorial-milestone.md) proposes a publication
+readiness decision before the next implementation grant. No integration, main
+promotion, WI resolution or terminal closeout occurs at this checkpoint.

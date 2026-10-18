@@ -108,3 +108,17 @@ without reverting to unsafe narrative deletion or accepting all old outputs as a
 oracle. Final full replay, reviewed dispositions and fresh-wheel evidence remain
 required. This section supersedes the earlier implementation-pending checkpoint;
 historical measurements and failed review attempts remain unchanged.
+
+## Editorial/chapter checkpoint and decision boundary —2026-10-18
+
+Product68156dbc has metadata-aware chapter evidence and coordinator-verified fixes
+for the two cold-review P2s. All eight anchored cases now publish safely. Final
+full replay and wheel/source verification are archived in the
+[editorial results](../../../experiments/10_gettenberg_qualification/results/gettenberg-editorial-20261018/README.md).
+They do not establish corpus acceptance:1,642 changed bodies, five known editorial
+chapter false positives and an authored long editorial-only publication remain.
+
+The [human milestone](gettenberg-editorial-milestone.md) documents the concrete
+readiness-policy choice. Development stops expanding heuristics at this boundary;
+no broad new refusal/deletion default is introduced without the decision required
+above. The next grant should resolve that contract before more implementation.

@@ -1,0 +1,57 @@
+{
+  "scope": "Byte identities; no acceptance inference",
+  "files": {
+    "README.md": {
+      "bytes": 4407,
+      "sha256": "0eed79f9f96cd48b7ed5bf23f349c3f5759e4b7b409aa63fda97109496ffab52"
+    },
+    "canonical-test.log.gz": {
+      "bytes": 656,
+      "sha256": "bdb6811af4fa61b283553497ebd975828d95a0884471810506f3b5d912d69e1c",
+      "decompressed_sha256": "650fb384ea5e360d446bfbbd01530275955ce4e628daa92e2659260879b4932c"
+    },
+    "chapter-dispositions.json": {
+      "bytes": 88015,
+      "sha256": "82db50c21389315b1199023ccc1c06bd2198a0b8a8185c1fe67600522e016e61"
+    },
+    "corpus-summary.json": {
+      "bytes": 445905,
+      "sha256": "dbb23c9cb0c7ed8cd17fb27016d8606bec9eec2fa4437686e7593e907dde85f0"
+    },
+    "corpus.json.gz": {
+      "bytes": 817315,
+      "sha256": "f20fe9874d883742646b2749a486fa68ede378db75b5b67a36842a87c0a4ae54",
+      "decompressed_sha256": "2a8a7e94cba67380ff633980e9e9bf32a99ab994f34c531576ff522aa2b3a538"
+    },
+    "narrative-cases-result.json": {
+      "bytes": 14222,
+      "sha256": "517b8c3fe537699855a3fc7c46bb9d09db45f60dfa8c0b639ea131df388c2792"
+    },
+    "pre-contents-corpus.json.gz": {
+      "bytes": 817169,
+      "sha256": "61cc86025c98ee5f4fd0042ac3d160a2d6f5ef6d6ad5de29131fe9246612bd01",
+      "decompressed_sha256": "0f5c35fcd0696eddb9f92a05fbe9d835f09fe650b6d35145cd41383b4f7b5ee9"
+    },
+    "pre-review-corpus.json.gz": {
+      "bytes": 817252,
+      "sha256": "89e66cc4da874100b0661b04104dc851aa4dbae33d9e174731acfde3e3d64209",
+      "decompressed_sha256": "be4bcbbd0ba74bb73735c33b009204c87890e5fe73d6e19b42b643203716bea4"
+    },
+    "publication-probes.json": {
+      "bytes": 22207,
+      "sha256": "b0d75ffc853ae4e1934b9e9e6da75d4ca99cf36f592d0e663f70f43d3099f3e6"
+    },
+    "source-ledger.json": {
+      "bytes": 21364,
+      "sha256": "bb7bace65d6f567501aaa779b025c53380225b2dab6b1e64c729c0e561a41444"
+    },
+    "validation.json": {
+      "bytes": 1327,
+      "sha256": "9062c65581a532606828efdf5688bf9be8fb76a50bc20acfb1c4533d63a32666"
+    },
+    "wheel.json": {
+      "bytes": 1109,
+      "sha256": "9b9efef3ab60173604acb30fff0fc96e1d036454e416be485d86c405d34dc272"
+    }
+  }
+}

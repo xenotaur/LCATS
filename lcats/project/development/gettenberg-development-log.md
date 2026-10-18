@@ -3652,3 +3652,93 @@ Add an authored regression and recognize only the explicit contents-first-line
 form with at least two nonempty following lines. Do not infer collections from a
 word inside narrative or weaken the general chapter rules. Preserve this first
 replay as pre-contents-fix evidence; final-source replay must be regenerated.
+
+### Frozen implementation and cold-review dispatch
+
+Commit800bac30e8ee6af375185848ce8dd630019e6ff5 freezes the implementation.
+Canonical2971 tests pass in80.032s; package format/lint and explicit experiment
+checks pass. Final-source full replay210.635s:1646 compared,13 refused,1642 body
+differences,16 chapter rejections. All eight anchored publication cases pass.
+Cold report-only reviewer editorial_chapter_review dispatched17:54:21 UTC,
+deadline18:24:21, no followup permitted. Reviews the local PR candidate and actual
+sources; prior conversation withheld. This substitutes for a further manual
+hosted retrigger under the existing pilot adapter; earlier first hosted round
+already occurred. Account-wide weekly usage35% at17:53; no task-cost inference.
+The usage-status call coincided with a substantial clock jump; cause unverified.
+
+### Cold review findings and coordinator re-verification
+
+Reviewer returned before18:00 UTC, within its18:24:21 deadline; charge6 elapsed
+worker minutes conservatively. Two P2 findings:44327 curly/ASCII apostrophe book
+headings evade metadata matching; three-line ordinary prose beginning “Contents”
+can be rejected as a contents list. Coordinator directly reproduced both,
+including exact cached44327 source, before accepting findings. Repair classification
+quote equivalence only (do not broaden body deletion), and require at least two
+contents entries corroborated by later standalone headings. Add adversarial and
+actual-publication regressions. No second worker or followup dispatch.
+
+Reviewer independently verified eight source identities/full spans and matching
+product hashes. It also exposed an acceptance limitation: title/author followed
+only by a long unbracketed transcriber note can pass length/chapter eligibility.
+This is not a demonstrated introduced regression, but prevents claiming a general
+editorial-only rejection guarantee. Uncertain-note retention cannot alone certify
+narrative presence. Broad new refusals or editorial deletion would require a
+separate policy decision under the repair plan; retain this as a human milestone,
+not a reason to weaken the gate or integrate the candidate.
+
+### Final repaired qualification and human milestone
+
+Product68156dbc39e9194d294c70bdc5d4048721cbae71 has2976 canonical tests passing
+in82.217s;191 focused tests; package/13 experiment-runner format/lint; LRH0errors/
+351 existing warnings. Final full replay210.403s:1659 inputs,1646 compared,13 refused,
+1642 changed bodies,15 chapter rejections. All8 anchored narrative/publication/reuse
+checks pass. Review repairs changed zero extracted or normalized body hashes.
+
+Source annotations inspect31 cases with chapter evidence on final bodies:16 weak
+metadata-heading rejections corrected,10 source-supported divided works/collections,
+5 unresolved editorial false positives. These counts isolate final-body
+classification; earlier32-rejection observations used a different prefix candidate
+and are not interchangeable. No claim that all16 bodies are accepted follows.
+Actual historical replay44327 publishes;63230 rejects. The authored editorial-only
+probe actually publishes15 correction paragraphs; qualification remains failed at
+that boundary. Coordinator repaired only the review's concrete classification
+bugs, not the broader policy by adding unapproved refusals or destructive stripping.
+
+A fresh isolated dependency environment installed the initial wheel, then replaced
+it with the repaired wheel. All166 wheel and installed Python modules equal the
+candidate, no extra modules or legacy/VCS requirements, no installed gutenbergpy;
+installed smoke/CLI help and pip check pass. Earlier catalog/resource/cleanup
+measurement sources are unchanged; only parser.py changed and story_body.py was
+added relative to that ledger. New corpus/package evidence is therefore separate.
+
+Results, intermediate reports and byte manifests live under
+experiments/10_gettenberg_qualification/results/gettenberg-editorial-20261018/.
+The control plane contains only documentation/data. Manual chapter annotations and
+publication probes are labeled as such, with exact input identities and method;
+they are not falsely attributed to an automated independent acceptance runner.
+
+The human milestone is project/development/gettenberg-editorial-milestone.md.
+It proposes explicit preserved-candidate versus publication-readiness states,
+plus narrowly reviewed editorial recognition/recipes. The repair plan already
+requires a human decision for broad new refusals. Stop feature expansion at this
+policy boundary rather than consume the remaining grant on increasingly broad
+heuristics. Finish checkpoint validation and push only; no integration or renewal.
+
+Process observations: the single fresh cold review completed promptly and found
+both a real-source typographic defect and an adversarial false rejection. Direct
+source-context review prevented treating a multi-work collection as a successful
+false-positive repair. Keeping final-source body hashes across review repairs
+proved classification-only changes without replaying old outputs as an oracle.
+The substantial usage-status call delay is an observation, not a diagnosed cause;
+account percentages remain account-wide, not this run's cost. Avoid followup worker
+turns in this pilot until their timing behavior is better understood.
+
+Checkpoint verification at18:11 UTC: artifact manifest and166 current product
+hashes match; package-root LRH validation0errors/351 existing warnings and diff
+checks pass. An initial checkpoint validation invoked from the repository root
+reported the missing project; rerunning from lcats/ succeeded, as required by
+AGENTS.md. Combined isolated outputs are approximately5.7GiB, with229GiB free,
+within the15GiB/6GiB bounds. No tracked corpora or CI changes. Final checkpoint
+push will request hosted checks; their observed status is linked from PR524 rather
+than pre-claimed in this record. This is an early policy-boundary stop, not expiry
+of the two-hour target or1p.m. hard stop. No automatic renewal or new workers.
