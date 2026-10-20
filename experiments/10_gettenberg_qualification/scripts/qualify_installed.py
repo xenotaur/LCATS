@@ -30,6 +30,7 @@ def main(argv=None):
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output exists")
+    from lcats import cli
     from lcats.gatherers import parser
     from lcats.gatherers import readiness
     from lcats.gatherers.mass_quantities import gatherer
@@ -122,16 +123,94 @@ def main(argv=None):
                 raise ValueError(
                     f"installed readiness outcomes differ: {outcomes.counts}"
                 )
-            report = json.loads(
-                pathlib.Path(outcomes.outcomes[1].review_path).read_text()
-            )["report"]
-            decision = readiness.ReviewDecision.for_report(
-                report,
-                start=report["body"].index(narrative),
-                end=len(report["body"]),
-                reviewer="authored wheel fixture",
-                rationale="Select the known full authored narrative.",
+            candidate = pathlib.Path(outcomes.outcomes[1].review_path)
+            report = json.loads(candidate.read_text())["report"]
+
+            def review_command(arguments):
+                """Exercise the installed CLI entry point, including its exit code."""
+                output = io.StringIO()
+                with contextlib.redirect_stdout(output):
+                    try:
+                        cli.main(["gather-review", *arguments])
+                    except SystemExit as exc:
+                        if exc.code != 0:
+                            raise ValueError(
+                                f"installed review CLI failed: {output.getvalue()}"
+                            ) from exc
+                return json.loads(output.getvalue())
+
+            start = report["body"].index(narrative)
+            packet = review_command(
+                [
+                    "show",
+                    str(candidate),
+                    "--start",
+                    str(start),
+                    "--end",
+                    str(len(report["body"])),
+                ]
             )
+            if (
+                packet["window"]["text"] != narrative
+                or packet["omitted_before"] != start
+            ):
+                raise ValueError("installed review preview changed exact text")
+            disposition = review_command(
+                [
+                    "record",
+                    str(candidate),
+                    "--outcome",
+                    "approve",
+                    "--start",
+                    str(start),
+                    "--end",
+                    str(len(report["body"])),
+                    "--reviewer",
+                    "authored wheel fixture",
+                    "--rationale",
+                    "Select the known full authored narrative.",
+                    "--directory",
+                    str(root / "dispositions"),
+                ]
+            )["disposition"]
+            for outcome in ("exclude", "defer"):
+                review_command(
+                    [
+                        "record",
+                        str(candidate),
+                        "--outcome",
+                        outcome,
+                        "--reviewer",
+                        "authored wheel fixture",
+                        "--rationale",
+                        "Demonstrate a conflicting audit record without publication.",
+                        "--directory",
+                        str(root / "dispositions"),
+                    ]
+                )
+            inventory = review_command(
+                [
+                    "list",
+                    str(candidate.parent),
+                    "--dispositions",
+                    str(root / "dispositions"),
+                ]
+            )
+            if inventory["counts"] != {"conflict": 1}:
+                raise ValueError("installed inventory hid conflicting intents")
+            export = review_command(
+                [
+                    "export",
+                    disposition,
+                    "--candidates",
+                    str(candidate.parent),
+                    "--output",
+                    str(root / "selected-approvals.json"),
+                ]
+            )
+            decision = readiness.load_decisions(export["review_decisions"])[85]
+            if len(list((root / "data").rglob("story.json"))) != 1:
+                raise ValueError("review commands changed story outputs")
             selected = parser.inspect_story(85, source=source, review_decision=decision)
             if selected["status"] != "ready":
                 raise ValueError("installed explicit review selection failed")
@@ -162,6 +241,7 @@ def main(argv=None):
             "packaged JSON",
             "readiness withholding, immutable candidate and runtime logs",
             "explicit reviewed selection/publication",
+            "installed gather-review list/show/approve/exclude/defer/export and conflict visibility",
         ],
     }
     with args.output.open("x", encoding="utf-8") as stream:

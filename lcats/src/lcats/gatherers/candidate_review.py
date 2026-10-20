@@ -102,6 +102,8 @@ def _validate_candidate(record, path):
             or report["rejection"] is not None
             or not isinstance(body, str)
             or not body
+            or not isinstance(report["selected_span"], list)
+            or any(type(v) is not int for v in report["selected_span"])
             or report["selected_span"] != [0, len(body)]
             or not isinstance(report["metadata"], dict)
             or set(evidence) != _ASSESSMENT_KEYS | _IDENTITY_KEYS
@@ -119,6 +121,8 @@ def _validate_candidate(record, path):
         ):
             raise ValueError("invalid candidate assessment")
         for finding in assessment["findings"]:
+            if not isinstance(finding, dict):
+                raise ValueError("invalid candidate finding")
             span = finding["span"]
             if (
                 not isinstance(span, list)
@@ -126,7 +130,10 @@ def _validate_candidate(record, path):
                 or any(type(v) is not int for v in span)
                 or not 0 <= span[0] <= span[1] <= len(body)
                 or not isinstance(finding["kind"], str)
+                or not finding["kind"]
                 or not isinstance(finding["message"], str)
+                or not isinstance(finding["severity"], str)
+                or not isinstance(finding["evidence"], dict)
             ):
                 raise ValueError("invalid candidate finding/span")
         source_context = {
@@ -213,7 +220,9 @@ def _publish_equal(path, record, limit):
     parent.mkdir(parents=True, exist_ok=True)
     story_output.publish(path, record)
     existing, _ = _read_json(path, limit)
-    if existing != record:
+    # Python equality conflates true/1 and 1/1.0; canonical JSON keeps schema
+    # types distinct so a corrupt existing artifact cannot be reported reused.
+    if readiness.identity(existing) != readiness.identity(record):
         raise ValueError(f"existing review output differs; choose a new path: {path}")
     return str(path)
 

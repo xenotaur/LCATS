@@ -132,3 +132,19 @@ availability or release readiness. Those require separate measured evidence on
 identified inputs. Start with the [offline tutorial](../tutorials/gettenberg-first-catalog.md),
 then use the [gathering contracts](../reference/gettenberg-gather.md) for the
 consumer-specific behavior and defaults.
+
+
+## Review intent is not publication
+
+Saved candidates can outlive a source revision. A review record therefore names an
+exact candidate generation and selected text, not merely an ebook ID. New metadata
+or extraction policy can invalidate an approval even if the prose looks unchanged.
+The offline review workflow validates saved-artifact consistency; gathering checks
+the current acquisition and derivation again before it can publish.
+
+Immutable records also expose disagreement: approve/exclude/defer decisions and
+conflicting spans stay inspectable. There is no implicit latest-writer-wins rule.
+Export names specific approvals and leaves authority for that selection with the
+caller. Exclude/defer document intent without silently editing collection membership.
+This separation makes a large queue auditable while preserving uncertain narrative;
+it does not by itself reduce the queue or establish whole-corpus acceptance.

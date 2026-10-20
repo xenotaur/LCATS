@@ -377,8 +377,7 @@ class DocumentationTests(unittest.TestCase):
                 capture.capture_output(),
             ):
                 # The general walkthrough uses already-clean fixture outputs.
-                # The explicit-review Python example is exercised separately.
-                (root / "review-decisions.json").write_text("[]", encoding="utf-8")
+                # The separate review CLI guide is exercised below.
                 executed = 0
                 for command in commands:
                     tokens = shlex.split(command)
@@ -399,7 +398,7 @@ class DocumentationTests(unittest.TestCase):
                     expected = 2 if command == "lcats gather mass_quantities" else 0
                     self.assertEqual(code, expected, (command, message))
                     executed += 1
-                self.assertEqual(executed, 10)
+                self.assertEqual(executed, 9)
                 outputs = sorted((root / "data").glob("*/*/story.json"))
                 self.assertEqual(len(outputs), 2)
                 mass_output = next(
@@ -411,35 +410,107 @@ class DocumentationTests(unittest.TestCase):
                     json.loads(mass_output.read_text())["body"], live_gather_test.BODY
                 )
 
-    def test_gather_review_python_example_and_command_publish_selected_narrative(self):
-        path = DOCS / "how-to/gettenberg-gather.md"
+    def test_review_guide_commands_publish_only_explicit_selected_narrative(self):
+        path = DOCS / "how-to/gettenberg-review.md"
         blocks = re.findall(
-            r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
+            r"```bash\n(.*?)```", path.read_text(encoding="utf-8"), re.S
         )
-        self.assertEqual(len(blocks), 1)
+        commands = [
+            line
+            for block in blocks
+            for line in block.replace("\\\n", " ").splitlines()
+            if line.strip() and not line.startswith("#")
+        ]
         fixture = live_gather_test.LiveGatherTests()
         fixture.setUp()
         self.addCleanup(fixture.doCleanups)
+        # Long enough to execute both documented preview windows. This prose is
+        # wholly authored, so its full reviewed span is known without heuristics.
+        body = "\n\n".join(
+            p + " The travelers watched the quiet river." * 20
+            for p in live_gather_test.PARAGRAPHS
+        )
         fixture.acquire(
             (
-                live_gather_test.CONTENT + "\n\nTranscriber's Note\n\nA correction."
+                "The Bell\n\nJohn Smith\n\n"
+                + body
+                + "\n\nTranscriber's Note\n\nA correction."
             ).encode()
         )
         message, code = fixture.run_gather()
         self.assertEqual(code, 3, message)
         candidate = next((fixture.root / "logs").rglob("*.candidate.json"))
-        namespace = dict(
-            candidate_path=candidate,
-            reviewed_start=0,
-            reviewed_end=len(live_gather_test.BODY),
-            reviewer_name="documentation fixture reviewer",
-            review_rationale="The full authored narrative precedes the note.",
+        dispositions = fixture.root / "dispositions"
+        dispositions.mkdir()
+        output = fixture.root / "review-decisions.json"
+        substitutions = {
+            "$candidate": str(candidate),
+            "$start": "0",
+            "$end": str(len(body)),
+            "$reviewer": "documentation fixture reviewer",
+            "$rationale": "Complete authored narrative before the editorial note.",
+            "/path/to/candidates": str(candidate.parent),
+            "/path/to/dispositions": str(dispositions),
+            "/path/to/review-decisions.json": str(output),
+        }
+        executed = []
+        with mock.patch.object(
+            socket, "socket", side_effect=AssertionError("network forbidden")
+        ):
+            for command in commands:
+                tokens = shlex.split(command)
+                if tokens[0].startswith("candidate="):
+                    continue  # Only the documented local path assignment is substituted.
+                self.assertEqual(tokens[0], "lcats")
+                args = [substitutions.get(token, token) for token in tokens[2:]]
+                if tokens[1] == "gather":
+                    # Preserve the fixture's source configuration as the guide
+                    # requires, using real command-line options and dispatch.
+                    args += [
+                        "--cache-dir",
+                        str(fixture.cache),
+                        "--gutenberg-main-root",
+                        live_gather_test.MAIN_ROOT,
+                        "--gutenberg-generated-root",
+                        live_gather_test.GENERATED_ROOT,
+                    ]
+                    with capture.capture_output():
+                        message, code = cli.dispatch("gather", args)
+                    self.assertEqual(code, 0, message)
+                else:
+                    self.assertEqual(tokens[1], "gather-review")
+                    message, code = cli.dispatch("gather-review", args)
+                    self.assertEqual(code, 0, (command, message))
+                    result = json.loads(message)
+                    if args[0] == "show":
+                        window = result["window"]
+                        report = json.loads(candidate.read_text())["report"]
+                        self.assertEqual(
+                            window["text"],
+                            report["body"][window["start"] : window["end"]],
+                        )
+                    elif args[0] == "record" and result["outcome"] == "approve":
+                        substitutions["/path/to/selected.disposition.json"] = result[
+                            "disposition"
+                        ]
+                    self.assertEqual(list(fixture.data.rglob("story.json")), [])
+                executed.append(tokens[1] if tokens[1] == "gather" else args[0])
+        self.assertEqual(
+            executed,
+            [
+                "list",
+                "list",
+                "show",
+                "show",
+                "record",
+                "record",
+                "record",
+                "export",
+                "gather",
+            ],
         )
-        exec(compile(blocks[0], str(path), "exec"), namespace)
-        message, code = fixture.run_gather(review_decisions="review-decisions.json")
-        self.assertEqual(code, 0, message)
-        output = next(fixture.data.rglob("story.json"))
-        self.assertEqual(json.loads(output.read_text())["body"], live_gather_test.BODY)
+        published = next(fixture.data.rglob("story.json"))
+        self.assertEqual(json.loads(published.read_text())["body"], body)
 
     def test_ci_maintenance_preview_command_examples(self):
         path = DOCS / "how-to/gettenberg-ci-maintenance.md"

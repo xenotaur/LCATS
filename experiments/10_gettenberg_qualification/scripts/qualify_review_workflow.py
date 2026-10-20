@@ -13,7 +13,6 @@ local work directory; only the compact report/annotations are archival evidence.
 
 import argparse
 import collections
-import dataclasses
 import gzip
 import hashlib
 import importlib.util
@@ -22,6 +21,7 @@ import pathlib
 import shutil
 import signal
 import socket
+import time
 from unittest import mock
 
 from lcats import cli
@@ -65,6 +65,30 @@ def exercise(queue, decisions, annotations, work):
                 "qualification queue must have one exact generation per ID"
             )
         paths[book_id] = path
+    # Exercise bounded text display through the same CLI used by a reviewer.
+    # This verifies display fidelity; replaying a prior review is not a new review.
+    previews = []
+    for book_id in sorted(set(decisions) | {a["gutenberg_id"] for a in annotations}):
+        path = paths[book_id]
+        body = candidate_review.load_candidate(path)["report"]["body"]
+        windows = [(0, min(4000, len(body))), (max(0, len(body) - 4000), len(body))]
+        for start, end in windows:
+            packet = run_cli(
+                ["show", str(path), "--start", str(start), "--end", str(end)]
+            )
+            if (
+                packet["window"]["text"] != body[start:end]
+                or packet["omitted_before"] != start
+                or packet["omitted_after"] != len(body) - end
+            ):
+                raise ValueError("CLI preview changed text or omission counts")
+        previews.append(
+            {
+                "id": book_id,
+                "windows_checked": windows,
+                "text_and_omissions_equal": True,
+            }
+        )
     reviewed = []
     approval_paths = []
     for book_id, decision in decisions.items():
@@ -150,22 +174,94 @@ def exercise(queue, decisions, annotations, work):
     )
     return {
         "inventory": inventory,
+        "preview_checks": previews,
         "reviewed_records": reviewed,
         "export": export,
         "exported_decisions_equal_explicit_inputs": True,
     }
 
 
-def _read_baseline(path):
-    """Bound decompression of the retained census, not an arbitrary giant JSON."""
+def _unique_object(pairs):
+    """Reject duplicate evidence fields instead of silently taking the last value."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"duplicate evidence field: {key}")
+        result[key] = value
+    return result
+
+
+def _read_json(path, limit):
+    """Read plain/gzipped evidence with a bound on decompressed bytes."""
     opener = gzip.open if path.suffix == ".gz" else open
     with opener(path, "rb") as stream:
-        data = stream.read(64 * 1024**2 + 1)
-    if len(data) > 64 * 1024**2:
-        raise ValueError("baseline census exceeds 64MiB")
-    report = json.loads(data)
-    if report.get("completed") is not True:
+        data = stream.read(limit + 1)
+    if len(data) > limit:
+        raise ValueError(f"evidence exceeds {limit} bytes")
+    return json.loads(data, object_pairs_hook=_unique_object)
+
+
+def _read_annotations(path):
+    """Load only bounded, explicit non-approval source-review inputs."""
+    values = _read_json(path, 1024**2)
+    if not isinstance(values, list) or len(values) > 100:
+        raise ValueError("annotations must be a list of at most 100 reviewed records")
+    fields = {
+        "gutenberg_id",
+        "outcome",
+        "reviewer",
+        "rationale",
+        "source_identity_sha256",
+        "candidate_sha256",
+        "assessment_sha256",
+    }
+    seen = set()
+    for value in values:
+        if not isinstance(value, dict) or set(value) != fields:
+            raise ValueError("invalid annotation schema")
+        book_id = value["gutenberg_id"]
+        if type(book_id) is not int or book_id <= 0 or book_id in seen:
+            raise ValueError("annotations require unique positive integer IDs")
+        seen.add(book_id)
+        if not isinstance(value["outcome"], str) or value["outcome"] not in {
+            "exclude",
+            "defer",
+        }:
+            raise ValueError("annotations require non-approval outcomes")
+        for key, limit in (("reviewer", 256), ("rationale", 4000)):
+            if (
+                not isinstance(value[key], str)
+                or not value[key].strip()
+                or len(value[key]) > limit
+            ):
+                raise ValueError(f"invalid annotation {key}")
+        for key in ("source_identity_sha256", "candidate_sha256", "assessment_sha256"):
+            digest = value[key]
+            if (
+                not isinstance(digest, str)
+                or len(digest) != 64
+                or any(c not in "0123456789abcdef" for c in digest)
+            ):
+                raise ValueError("invalid annotation identity")
+    return values
+
+
+def _read_baseline(path):
+    """Bound decompression of the retained census, not an arbitrary giant JSON."""
+    report = _read_json(path, 64 * 1024**2)
+    if not isinstance(report, dict) or report.get("completed") is not True:
         raise ValueError("baseline census is incomplete")
+    rows = report.get("rows")
+    if not isinstance(rows, list) or not 0 < len(rows) <= 10000:
+        raise ValueError("baseline requires 1–10000 source rows")
+    seen = set()
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("invalid baseline row")
+        book_id = row.get("id")
+        if type(book_id) is not int or book_id <= 0 or book_id in seen:
+            raise ValueError("baseline requires unique positive integer IDs")
+        seen.add(book_id)
     return report
 
 
@@ -189,7 +285,8 @@ def main(argv=None):
     if shutil.disk_usage(args.work.parent).free < 6 * 1024**3:
         ap.error("less than 6GiB free")
     result = {"completed": False, "network_bytes": 0, "rows": [], "scope": __doc__}
-    signal.signal(signal.SIGALRM, timeout)
+    start = time.monotonic()
+    old_handler = signal.signal(signal.SIGALRM, timeout)
     signal.alarm(600)
     try:
         baseline = _read_baseline(args.baseline)
@@ -198,11 +295,7 @@ def main(argv=None):
         if not 0 < len(paths) <= 10000 or len(paths) != len(prior):
             raise ValueError("source selection does not match bounded baseline census")
         decisions = readiness.load_decisions(args.approvals)
-        annotations = json.loads(args.annotations.read_text(encoding="utf-8"))
-        if not isinstance(annotations, list) or len(annotations) > 100:
-            raise ValueError(
-                "annotations must be a list of at most 100 reviewed records"
-            )
+        annotations = _read_annotations(args.annotations)
         args.work.mkdir()
         queue = args.work / "candidates"
         queue.mkdir()
@@ -231,15 +324,20 @@ def main(argv=None):
                     "https://www.gutenberg.org/cache/epub/",
                 ),
             )
+            seen = set()
             for path in paths:
                 raw = path.read_bytes()
                 saved = json.loads(raw)
                 book_id = helpers.corpus.identifiers.ebook_id_from_url(
                     saved["metadata"]["url"]
                 )
-                text, compressed, decoded = helpers.corpus.cached_text(
-                    args.text_cache, book_id
-                )
+                if book_id in seen or book_id not in prior:
+                    raise ValueError("duplicate or unexpected corpus ID")
+                seen.add(book_id)
+                cached = helpers.corpus.cached_text(args.text_cache, book_id)
+                if cached is None:
+                    raise ValueError(f"missing cached source: {book_id}")
+                text, compressed, decoded = cached
                 before = prior[book_id]
                 if (
                     before["corpus_sha256"] != hashlib.sha256(raw).hexdigest()
@@ -277,6 +375,8 @@ def main(argv=None):
                 if row["status"] != before["status"]:
                     raise ValueError("readiness changed from baseline")
                 result["rows"].append(row)
+            if seen != set(prior):
+                raise ValueError("source ID set differs from baseline")
             result.update(exercise(queue, decisions, annotations, args.work))
         result["source_counts"] = dict(
             collections.Counter(r["status"] for r in result["rows"])
@@ -290,6 +390,8 @@ def main(argv=None):
         raise
     finally:
         signal.alarm(0)
+        signal.signal(signal.SIGALRM, old_handler)
+        result["elapsed_seconds"] = time.monotonic() - start
         with args.output.open("x", encoding="utf-8") as stream:
             json.dump(result, stream, indent=2)
             stream.write("\n")

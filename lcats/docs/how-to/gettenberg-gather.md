@@ -79,43 +79,17 @@ the complete candidate, source identity, findings and exact character spans.
 The original resource remains in the cache. Review files are not accepted story
 buckets and are never automatically promoted. `--yes` does not bypass this step.
 
-After reviewing the actual text and establishing a complete narrative span, create
-an explicit decision. The offsets below must be supplied from your review; do not
-copy example offsets from another edition or automatically approve all findings.
+Use the [candidate-review workflow](gettenberg-review.md) to inspect exact Unicode
+text windows, record explicit approve/exclude/defer dispositions, and export selected
+approvals for `lcats gather --review-decisions`. No catalog or network access is
+needed to review saved candidates. The workflow checks content identities and keeps
+conflicting decisions visible; it never infers approval from a filename or finding.
 
-```python
-import dataclasses
-import json
-import pathlib
-from lcats.gatherers import readiness
-
-record = json.loads(pathlib.Path(candidate_path).read_text(encoding="utf-8"))
-report = record["report"]
-decision = readiness.ReviewDecision.for_report(
-    report,
-    start=reviewed_start,
-    end=reviewed_end,
-    reviewer=reviewer_name,
-    rationale=review_rationale,
-)
-pathlib.Path("review-decisions.json").write_text(
-    json.dumps([dataclasses.asdict(decision)], indent=2), encoding="utf-8"
-)
-```
-
-Then rerun using the same cache/source configuration:
-
-```bash
-lcats gather mass_quantities --offline --review-decisions review-decisions.json
-```
-
-Multiple decisions may share one JSON list. Changed sources, metadata, assessment
-policy or selected text invalidate a decision; inspect the new candidate and review
-it again. Short/clearly divided works cannot be made eligible with this mechanism.
-Unresolved candidates remain withheld. Older review files remain as evidence after
-successful publication; use the new batch summary and run log for current outcomes.
-This command preserves existing story files: review decisions do not replace them.
-For requalification, use inspection or a separate disposable output root.
+Gather independently revalidates exported approvals against current sources and
+preserves existing story files. Use inspection or a separate disposable output root
+for requalification. `exclude` and `defer` remain audit records, not changes to the
+collection definition. See the [API reference](../reference/gettenberg-review.md)
+for immutable record semantics, bounds and the Python interface.
 
 ## Repeat without network access
 

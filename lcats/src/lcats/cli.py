@@ -455,7 +455,9 @@ def usage() -> str:
 
 def dispatch(command, args):
     """Dispatch a command and list of arguments using the configured parser."""
-    parser = build_parser(include_visualize=command not in ("gather", "catalog"))
+    parser = build_parser(
+        include_visualize=command not in ("gather", "catalog", "gather-review")
+    )
     argv = [command, *args]
     if command in parser.command_parsers and command != "help":
         parsed = parser.command_parsers[command].parse_args(args)
@@ -474,7 +476,8 @@ def main(argv=None):
     """Main entry point for the LCATS command-line interface."""
     argv = list(argv) if argv is not None else sys.argv[1:]
     parser = build_parser(
-        include_visualize=not argv or argv[0] not in ("gather", "catalog")
+        include_visualize=not argv
+        or argv[0] not in ("gather", "catalog", "gather-review")
     )
 
     if not argv:

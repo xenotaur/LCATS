@@ -3932,3 +3932,67 @@ checks and runner tests; execute all documented CLI flows; replay cached candida
 with exact prior identities and explicit annotations; complete docs, canonical and
 installed checks, cold review/repair, then update PR524. Do not treat the earlier
 38-test result or the two source annotations as whole-candidate acceptance.
+
+
+## Review-tooling completion grant — 2026-10-20 16:09 UTC
+
+Human request: "Let's do ~2h run for the review tooling". Start 16:09:49 UTC
+(09:09 Pacific); feature freeze 17:39:49; hard stop 18:09:49 UTC (11:09 Pacific).
+Continue clean local e3179686 on codex/gettenberg-qualification, two commits ahead
+of PR524. Finish the scope in gettenberg-review-workflow.md: bounds/schema tests,
+runner tests, Diataxis docs, cached replay, installed package and canonical checks,
+one cold independent review and bounded repair, then a PR checkpoint. No integration,
+corpus acceptance, main promotion or native closeout. Preserve prior evidence.
+
+Coordinator approves this concrete continuation under the charter adapter. Prior
+art/demand check present in WI0010; prompt readiness passes without warnings.
+Prompt GETTENBERG_REVIEW_WORKFLOW_RESUME has no prior execution. Use lrh-implement's
+compatible procedures (coordinator plan gate, existing branch/PR, native nonterminal
+record), not an unchanged skill chain. CLI 0.2.5.dev3596+gd86755f50; watched gate
+definitions clean, persistent skip consent invalid and unchanged. Project Python
+is /Users/centaur/anaconda3/envs/LCATS/bin/python with PYTHONPATH pinned to this
+worktree's src: default editable import points to another clone. Package commands
+use the pinned environment. STYLE.md and AGENTS.md read.
+
+Weekly account usage starts at 11%; retain conservative 25% drop-stretch / 35%
+feature-freeze / 40% stop triggers. Account-wide observations are not per-task cost.
+One reviewer up to 20 minutes, optional recheck up to 10 (two assignments, 30 worker
+minutes total; two concurrent agents including coordinator). No recursive delegation.
+Check clock after tools and at least every five minutes, usage every 15 minutes.
+Final 30 minutes reserved for repair, validation and checkpoint. Cached sources only,
+15 GiB isolated-output ceiling, 6 GiB free-disk minimum; no Gutenberg, canonical
+data writes, CI changes, package publication, consent changes or automatic renewal.
+
+Loaded skill SHA256: `48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165` (`~/.agents/skills/lrh-implement/SKILL.md`).
+
+
+### Review-tooling validation checkpoint — 16:20 UTC
+
+Full immutable replay completed in 19.675s: 1,659 sources reproduce the prior
+1,640 review / 13 refusal / 5 ready / 1 ineligible census. The queue records only
+the eight explicit existing approvals and two source-bound annotations (one exclude,
+one defer), leaving 1,630 unreviewed. Exported decisions equal prior inputs exactly;
+20 bounded first/last preview windows preserve text and omitted counts. Scan reads
+59,323,700 JSON bytes; no story publication. Isolated work about 62 MiB, free disk
+227 GiB. No inference about the 1,642 historical body differences.
+
+Initial format/lint failed on sandbox IPC/cache permissions, not code; elevated
+retry passed. GitHub read-only retry confirmed PR524 OPEN on expected integration
+base and unchanged a93cd649. Subsequent self-inspection found Python equality could
+report a bool/int or int/float-corrupted existing output as equal. A direct regression
+failed before changing reuse comparison to canonical JSON identity; preserve the
+red/green evidence. This does not alter candidate extraction/readiness. Final full
+validation/replay must use the repaired product; initial canonical run is superseded.
+Weekly usage at 16:18:58 was 12%, from 11% launch (account-wide, not exclusive).
+
+Canonical validation exposed two documentation-test failures: the old guide's
+Python approval example and its gather command had moved to the new CLI guide.
+Updated the executable documentation tests to run every new guide command against
+a real authored original-byte fixture (including window display, three dispositions,
+export and actual gather publication). All 12 documentation checks pass; the old
+gather guide now has nine commands and the new review guide has nine. No assertion
+was dropped to hide product failure. Full canonical validation is rerunning.
+
+Test-folder AGENTS.md additionally requires unittest, deterministic checks and
+format/lint/test; those instructions are satisfied. The new CLI avoids loading
+visualization parser dependencies, consistent with existing gather/catalog commands.

@@ -283,3 +283,55 @@ python -m black --check --diff ../experiments/10_gettenberg_qualification/script
 python -m ruff check ../experiments/10_gettenberg_qualification/scripts
 python -m unittest tests.gettenberg_tests.qualification_evidence_test
 ```
+
+## Saved-candidate review workflow qualification
+
+`qualify_review_workflow.py` reconstructs the candidate queue from the exact inputs
+of a completed readiness census and exercises `gather-review` inspection, immutable
+dispositions, inventory and explicit approval export. It cannot create new approvals
+from finding patterns: pass already reviewed decisions and source-bound exclude/defer
+annotations. Exported decisions must equal those inputs exactly. Preview checks
+verify text/offset fidelity; they are not a new source review or corpus acceptance.
+
+From `lcats/`, in the project environment with `PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_review_workflow.py \
+  /tmp/catalog-cache /path/to/texts ../corpora/mass_quantities \
+  /path/to/census-final.json.gz /tmp/new-review-work /tmp/new-workflow-result.json \
+  --approvals /path/to/review-decisions-derivation-bound.json \
+  --annotations /path/to/reviewed-annotations.json
+```
+
+Both work and output must be new, outside collection roots, with existing parent
+directories. Use the same catalog snapshot and immutable historical decoded gzip
+cache as the census. Baseline JSON is bounded to 64 MiB expanded, annotation JSON to
+1 MiB / 100 records, and supplied approvals to 8 MiB / 10,000 records. Source IDs
+must be unique and match the census exactly (1–10,000). Shared gzip source reads are
+bounded to 32 MiB compressed/expanded; product review limits also apply. A POSIX
+600-second alarm and 6 GiB free-space preflight bound this local experiment. The
+full local 1,659-source run fits these bounds; this is not a general-scale benchmark.
+
+Annotation objects have `gutenberg_id`, `outcome` (`exclude`/`defer`), `reviewer`,
+`rationale`, and the candidate's `source_identity_sha256`, `candidate_sha256`, and
+`assessment_sha256`. Duplicate/unknown fields, repeated IDs or changed identities
+fail. Historical decoded-input decisions are not valid approvals for original-byte
+live acquisition. Exclude/defer remain intent records, not collection edits.
+
+No source downloads, catalog refresh, canonical corpus writes or story publication
+occur. A temporary queue retains full candidates; archive the compact result,
+explicit input annotations and source hashes rather than duplicating story bodies.
+Operational failures exit nonzero and preserve a partial `completed:false` JSON;
+preflight argument errors create no output. A completed workflow is not acceptance
+of the unresolved historical body differences. Existing result paths are never
+reused. The signal handler is restored after execution.
+
+```bash
+python -m unittest tests.gettenberg_tests.review_workflow_evidence_test
+python -m black --check --diff ../experiments/10_gettenberg_qualification/scripts
+python -m ruff check ../experiments/10_gettenberg_qualification/scripts
+```
+
+`qualify_installed.py` also runs the installed `gather-review` entry point for
+list/show/approve/exclude/defer/export, checks conflicting intent remains visible,
+and feeds the explicit exported approval into actual temporary publication.

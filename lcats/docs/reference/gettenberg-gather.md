@@ -149,6 +149,8 @@ The hash covers the whole record. Repeated equal evidence is reused; corrupt or
 conflicting existing evidence fails. Different sources/policies keep distinct files.
 Queue files are historical evidence, not a live unresolved-count index: successful
 later review does not delete old candidates. Use the latest batch outcomes/log.
+The [saved-candidate workflow](gettenberg-review.md) validates artifacts, records
+explicit dispositions and exports named approvals without publishing.
 
 `ReviewDecision.for_report(report, *, start, end, reviewer, rationale)` constructs
 an explicitly requested decision after review. It performs no autonomous approval.

@@ -366,3 +366,91 @@ class CandidateReviewTests(unittest.TestCase):
             candidate_review.load_disposition(path)["approval"],
             dataclasses.asdict(decision),
         )
+
+    def test_malformed_candidate_shapes_fail_as_cli_input_errors(self):
+        original = json.loads(self.path.read_text())
+        for field, value in (
+            ("report", []),
+            ("provenance", []),
+            ("metadata", None),
+            ("selected_span", [False, len(self.text)]),
+            ("findings", [None]),
+            ("findings", [{"kind": "cue", "span": [0, 1], "message": "x"}]),
+        ):
+            record = copy.deepcopy(original)
+            if field == "report":
+                record[field] = value
+            elif field == "findings":
+                record["report"]["provenance"]["publication_readiness"][field] = value
+            else:
+                record["report"][field] = value
+            path = self.write_candidate(record)
+            message, code = cli.dispatch("gather-review", ["show", str(path)])
+            with self.subTest(field=field, value=value):
+                self.assertEqual(code, 2, message)
+
+    def test_preview_window_limit_and_symlink_input_are_rejected(self):
+        with mock.patch.object(candidate_review, "MAX_WINDOW", 10):
+            with self.assertRaisesRegex(ValueError, "at most 10"):
+                candidate_review.preview(self.path, end=11)
+        alias = self.root / self.path.name
+        alias.symlink_to(self.path)
+        with self.assertRaisesRegex(ValueError, "non-symlink"):
+            candidate_review.load_candidate(alias)
+
+    def test_aggregate_export_bound_counts_candidates_as_well_as_decisions(self):
+        path = self.record()
+        with mock.patch.object(candidate_review, "MAX_SCAN_BYTES", path.stat().st_size):
+            with self.assertRaisesRegex(ValueError, "candidate scan"):
+                candidate_review.export_approvals(
+                    [path], candidates=self.queue, output=self.root / "out.json"
+                )
+        self.assertFalse((self.root / "out.json").exists())
+
+    def test_identical_intents_with_different_reviewers_do_not_conflict(self):
+        self.record()
+        self.record(reviewer="second reviewer", rationale="Independent same span.")
+        inventory = candidate_review.inventory(
+            self.queue, dispositions=self.dispositions
+        )
+        self.assertEqual(inventory["counts"], {"approve": 1})
+        self.assertEqual(len(inventory["candidates"][0]["dispositions"]), 2)
+        self.record(start=self.start + 1)
+        self.assertEqual(
+            candidate_review.inventory(self.queue, dispositions=self.dispositions)[
+                "counts"
+            ],
+            {"conflict": 1},
+        )
+
+    def test_empty_export_and_wrong_attribution_cannot_create_outputs(self):
+        with self.assertRaisesRegex(ValueError, "at least one"):
+            candidate_review.export_approvals(
+                [], candidates=self.queue, output=self.root / "out.json"
+            )
+        original = json.loads(self.record().read_text())
+        altered = {**original, "reviewer": "another reviewer"}
+        path = self.dispositions / f"1-{readiness.identity(altered)}.disposition.json"
+        path.write_text(json.dumps(altered))
+        with self.assertRaisesRegex(ValueError, "attribution"):
+            candidate_review.load_disposition(path)
+        self.assertFalse((self.root / "out.json").exists())
+
+    def test_json_number_type_changes_are_not_equal_output_reuse(self):
+        path = self.record()
+        original = json.loads(path.read_text())
+        altered = {**original, "schema_version": True}
+        path.write_text(json.dumps(altered))
+        with self.assertRaisesRegex(ValueError, "differs"):
+            self.record()
+        self.assertEqual(json.loads(path.read_text())["schema_version"], True)
+        path.write_text(json.dumps(original))
+        output = self.root / "out.json"
+        candidate_review.export_approvals([path], candidates=self.queue, output=output)
+        altered = json.loads(output.read_text())
+        altered[0]["gutenberg_id"] = float(altered[0]["gutenberg_id"])
+        output.write_text(json.dumps(altered))
+        with self.assertRaisesRegex(ValueError, "differs"):
+            candidate_review.export_approvals(
+                [path], candidates=self.queue, output=output
+            )

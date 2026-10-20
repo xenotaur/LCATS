@@ -556,3 +556,17 @@ checkpoint. No minimum usage or guaranteed cost percentage. Normally coordinator
 alone; one cold reviewer up to 20 minutes and optional repair recheck up to 10,
 two assignments / 30 worker minutes maximum, at most two agents including coordinator.
 No recursive workers. Same 15 GiB isolated-output / 6 GiB free-disk limits.
+
+
+## Review-tooling completion grant — 2026-10-20 16:09 UTC
+
+Human request: "Let's do ~2h run for the review tooling". Start 16:09:49 UTC
+(09:09 Pacific); feature freeze 17:39:49; hard stop 18:09:49 UTC (11:09 Pacific).
+Continue clean local e3179686 on codex/gettenberg-qualification, two commits ahead
+of PR524. Finish the scope in gettenberg-review-workflow.md: bounds/schema tests,
+runner tests, Diataxis docs, cached replay, installed package and canonical checks,
+one cold independent review and bounded repair, then a PR checkpoint. No integration,
+corpus acceptance, main promotion or native closeout. Preserve prior evidence.
+
+
+Resource/authority details and telemetry: development log entry at this timestamp.

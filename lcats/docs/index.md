@@ -26,6 +26,7 @@ cd LCATS/lcats
 - [Maintain Gutenberg CI caches](how-to/gettenberg-ci-maintenance.md)
 
 - [Migrate callers and research notebooks](how-to/gettenberg-migration.md)
+- [Review withheld Gutenberg candidates](how-to/gettenberg-review.md)
 - [Gather stories with default or explicit sources](how-to/gettenberg-gather.md)
 - [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
 
@@ -46,6 +47,7 @@ cd LCATS/lcats
 
 - [Conservative Gutenberg boilerplate cleanup](reference/gettenberg-cleanup.md)
 
+- [Saved-candidate review commands and records](reference/gettenberg-review.md)
 - [Live gathering and source contracts](reference/gettenberg-gather.md)
 - [Collection requirements and setup policy](reference/gettenberg-preparation.md)
 
