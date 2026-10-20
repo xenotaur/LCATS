@@ -3860,3 +3860,32 @@ The reviewer caught both a real identity defect and unfinished evidence bookkeep
 At 07:48:33 UTC usage was 7% consumed from 0% launch. The scope is complete locally;
 checkpoint push and hosted checks remain. Finish early rather than using the rest
 of the grant to expand heuristic deletion or infer corpus acceptance.
+
+
+### Bounded-run stop checkpoint — 2026-10-20 07:55 UTC
+
+Substantive scope completed and pushed as c7980542 (product dfbe837e). Stop reason:
+scoped readiness implementation, source qualification and independent repair review
+are complete; do not consume the remaining overnight allowance by expanding scope.
+Elapsed to this checkpoint about 47 minutes from 07:08:09. Weekly usage observed
+at 07:55:13 is 8% consumed versus 0% launch; this account-wide delta is not an
+exclusive per-task charge. The 25/35/40% soft/freeze/stop triggers were not reached.
+Current isolated run output is 506 MiB; retained prior qualification outputs plus
+this run total about 6.2 GiB, below the 15 GiB bound. Free disk 233 GiB exceeds 6 GiB.
+
+All three worker assignments are finished, with no active worker or background
+implementation. Local validation/evidence and compressed/decompressed manifest
+are complete. PR524 remains OPEN against codex/gettenberg-acquisition; hosted
+inspection found one resolved thread and no unresolved thread. Four expected
+checks appeared on the first checkpoint (lint passed; three checks pending).
+Final exact-head CI links/status are recorded in the PR description after the
+last documentation-only checkpoint; this avoids recursively committing a claim
+about the commit that would itself change the checked head. Waiting/checkpointing
+remains inside this grant, with no renewal or further implementation planned.
+
+Next meaningful scope: a bounded, source-grounded review/disposition workflow for
+the 1,640 queued candidates and 1,642 historical body differences. These sets are
+not interchangeable; neither case sampling nor recurring-note similarity is a
+complete disposition. Keep genuine scene/chapter divisions and the historical
+source-provenance limits explicit. No integration, main promotion or native
+terminal closeout occurred.
