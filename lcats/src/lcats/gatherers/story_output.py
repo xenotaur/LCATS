@@ -21,11 +21,12 @@ def publish(path, data):
     the original-byte store's filesystem requirement. File contents are fsynced;
     this does not promise power-loss durability of directory entries. Temporary
     files are removed on serialization/publication failure. Existing files are
-    intentionally preserved without claiming their JSON is valid.
+    intentionally preserved without claiming their JSON is valid. Return True
+    for a new publication, False when an existing/concurrent output was reused.
     """
     path = pathlib.Path(path)
     if existing(path):
-        return
+        return False
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(
@@ -42,9 +43,11 @@ def publish(path, data):
             os.fsync(stream.fileno())
         try:
             os.link(temporary, path)
+            return True
         except FileExistsError:
             if not existing(path):
                 raise
+            return False
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)

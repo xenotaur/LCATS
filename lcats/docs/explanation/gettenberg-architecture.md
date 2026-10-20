@@ -90,8 +90,24 @@ that choice inspectable. Chapter assessment excludes complete book-title/byline
 matches from its weak all-capital-heading heuristic while retaining explicit
 section markers. Its paragraph-index evidence travels with inspection/publication
 provenance; no story text is deleted to make a classification pass.
-Editorial purity and chapter eligibility still require
-corpus qualification; narrative preservation alone does not establish them.
+Publication readiness is a separate decision after candidate extraction. Explicit
+editorial cues and ambiguous chapter evidence yield `needs_review`; originals and
+candidate text remain intact outside accepted story buckets. A complete narrative
+can survive extraction while still needing review because advertisements or notes
+were also retained. Conversely, a long editorial note is not made a story merely
+by satisfying the paragraph-count rule.
+
+Reviewed selections bind exact source context, candidate, assessment and selected
+text identities. They cannot silently survive source/policy drift, and they cannot
+override definite collection exclusions. The reviewer may resolve uncertainty
+without changing the extractor into a broad deletion heuristic. Batch reports
+separate publication, reuse, ineligibility, review and cleanup refusal; operational
+failures still abort. Download consent grants no content approval.
+
+This policy makes uncertainty observable; it does not prove every unflagged text
+is narrative. Corpus qualification and per-input material dispositions remain
+necessary. The initial historical census required review for nearly all inputs;
+no automatic-coverage target or corpus-wide acceptance follows from the gate.
 An existing regular story output is reused without replacement or validation.
 That reuse is an operational choice, not evidence of corpus equivalence.
 

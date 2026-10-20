@@ -6,11 +6,15 @@
 #    collapse?    fix_body, in_body, remove_non_text
 
 import os
+import dataclasses
 import difflib
 import re
 
 from lcats import constants
 from lcats.utils import names
+from lcats.gatherers import readiness
+from lcats.gatherers import gather_result
+from lcats.gatherers import review_store
 from lcats.gatherers import story_body
 from lcats.gatherers import normalization
 from lcats.gatherers import story_output
@@ -1313,10 +1317,12 @@ def _metadata_rejection(metadata, story):
     return None
 
 
-def _inspect_metadata(story, metadata, source):
+def _inspect_metadata(story, metadata, source, *, review_decision=None):
     """Build the same deterministic extraction report used by gather_story."""
     report = {
         "gutenberg_id": story,
+        "status": "ineligible",
+        "selected_span": None,
         "metadata": (
             None
             if metadata is None
@@ -1333,6 +1339,8 @@ def _inspect_metadata(story, metadata, source):
         "provenance": None,
     }
     if report["rejection"] is not None:
+        if review_decision is not None:
+            raise ValueError("review decision cannot override metadata ineligibility")
         return report
     prepared = source.read(metadata)
     extraction = story_body.extract(
@@ -1348,43 +1356,108 @@ def _inspect_metadata(story, metadata, source):
         body, titles=metadata.titles, authors=metadata.authors, aliases=metadata.aliases
     )
     report["provenance"]["chapter_assessment"] = chapter_assessment
-    if chapter_assessment["chaptered"]:
-        report["rejection"] = "Story has chapters, skipping."
-    elif len(body.split("\n\n")) <= 10:
-        report["rejection"] = "Story is too short, skipping."
+    assessment = readiness.assess(
+        body,
+        chapter_assessment,
+        titles=metadata.titles,
+        authors=metadata.authors,
+        aliases=metadata.aliases,
+    )
+    source_identity = readiness.identity(
+        {
+            "gutenberg_id": story,
+            "metadata": report["metadata"],
+            "source": prepared.provenance(),
+        }
+    )
+    evidence = {
+        **assessment.to_dict(),
+        "source_identity_sha256": source_identity,
+        "candidate_sha256": readiness.text_sha256(body),
+        "assessment_sha256": readiness.identity(assessment.to_dict()),
+    }
+    report["provenance"]["publication_readiness"] = evidence
+    report["status"] = assessment.status
+    report["selected_span"] = [0, len(body)]
+    if review_decision is not None:
+        if not isinstance(review_decision, readiness.ReviewDecision):
+            raise ValueError("review_decision must be a ReviewDecision")
+        selected = review_decision.select(
+            gutenberg_id=story,
+            source_identity_sha256=source_identity,
+            candidate=body,
+            assessment=assessment,
+        )
+        selected_chapters = assess_chapters(
+            selected,
+            titles=metadata.titles,
+            authors=metadata.authors,
+            aliases=metadata.aliases,
+        )
+        selected_assessment = readiness.assess(
+            selected,
+            selected_chapters,
+            titles=metadata.titles,
+            authors=metadata.authors,
+            aliases=metadata.aliases,
+        )
+        if (
+            assessment.status == "ineligible"
+            or selected_assessment.status == "ineligible"
+        ):
+            raise ValueError("review decision cannot override a collection exclusion")
+        evidence["review_decision"] = dataclasses.asdict(review_decision)
+        evidence["selected_assessment"] = selected_assessment.to_dict()
+        evidence["selected_chapter_assessment"] = selected_chapters
+        report["selected_span"] = [
+            review_decision.selected_start,
+            review_decision.selected_end,
+        ]
+        report["status"] = "ready"
+    if assessment.exclusion:
+        report["rejection"] = (
+            "Story has chapters, skipping."
+            if assessment.exclusion == "divided_work"
+            else "Story is too short, skipping."
+        )
     return report
 
 
-def inspect_story(story, *, source):
-    """Return JSON-compatible metadata, body, rejection and source provenance.
+def inspect_story(story, *, source, review_decision=None):
+    """Inspect candidate text, readiness, selection and provenance without output I/O.
 
-    This replaces the notebook/debug helpers that printed partial results and
-    silently fetched metadata or text. The caller supplies a GutenbergStorySource
-    and owns its catalog lifetime and network policy. Rejected metadata causes no
-    acquisition. Eligible text may be cached according to that explicit policy;
-    no story output is written. Operational errors propagate, not eligibility
-    rejections. A rejected short/chaptered story retains its body for inspection.
+    The body is always the complete preserved candidate, even when a reviewed
+    decision selects a smaller publication span. ``status`` distinguishes ready,
+    needs_review and ineligible; a review requirement is not a rejection/error.
+    Metadata ineligibility avoids acquisition. Operational and cleanup errors
+    propagate. A stale review decision raises ValueError rather than falling back.
     """
-    return _inspect_metadata(story, source.metadata(story), source)
+    return _inspect_metadata(
+        story, source.metadata(story), source, review_decision=review_decision
+    )
 
 
-def gather_story(gatherer, story, *, source):
-    """Extract and atomically publish a story using an explicit source.
+def gather_story(
+    gatherer,
+    story,
+    *,
+    source,
+    review_decision=None,
+    review_dir=review_store.DEFAULT_DIRECTORY,
+):
+    """Publish qualified text, preserve a review candidate, or report exclusion.
 
-    Args:
-        gatherer: DataGatherer owning the output collection directory.
-        story: Positive Gutenberg ebook ID.
-        source: GutenbergStorySource with a pinned catalog and explicit policy.
-
-    Returns:
-        Tuple of ebook ID, saved/existing path or None, rejection or None.
-        Source, decoding, cleanup and output errors propagate to the run boundary.
-        An existing valid output is reused before source acquisition.
+    Returns GatherResult with published/reused/ineligible/needs_review status.
+    Existing regular outputs are reused without requalification or replacement.
+    An explicit decision is always checked, including on reuse. Source/cleanup,
+    stale approval and output errors propagate to the batch boundary.
     """
     metadata = source.metadata(story)
     rejection = _metadata_rejection(metadata, story)
     if rejection is not None:
-        return story, None, rejection
+        if review_decision is not None:
+            raise ValueError("review decision cannot override metadata ineligibility")
+        return gather_result.GatherResult(story, "ineligible", reason=rejection)
     title = metadata.titles[0]
     author = list(metadata.authors)
     file_name = names.title_and_author_to_filename(
@@ -1394,15 +1467,28 @@ def gather_story(gatherer, story, *, source):
     existing = (
         pathlib.Path(gatherer.path) / story_slug / discovery.CANONICAL_STORY_FILENAME
     )
-    if story_output.existing(existing):
-        return story, str(existing), None
-    report = _inspect_metadata(story, metadata, source)
-    if report["rejection"] is not None:
-        return story, None, report["rejection"]
+    if story_output.existing(existing) and review_decision is None:
+        return gather_result.GatherResult(story, "reused", path=str(existing))
+    report = _inspect_metadata(story, metadata, source, review_decision=review_decision)
+    if report["status"] == "ineligible":
+        return gather_result.GatherResult(
+            story, "ineligible", reason=report["rejection"]
+        )
+    if report["status"] == "needs_review":
+        review_path = review_store.save(
+            report, directory=review_dir, data_root=gatherer.root
+        )
+        return gather_result.GatherResult(
+            story,
+            "needs_review",
+            review_path=review_path,
+            reason="Unresolved editorial or structural evidence; see review candidate.",
+        )
+    start, end = report["selected_span"]
     data_to_save = {
         "name": title,
         "author": author,
-        "body": report["body"],
+        "body": report["body"][start:end],
         "metadata": {
             "author": author,
             "year": "Unknown",
@@ -1411,10 +1497,12 @@ def gather_story(gatherer, story, *, source):
             "gettenberg": report["provenance"],
         },
     }
-    # Reuse the same replayable repairs and bucket slug as previous gathering.
+    # Reviewed selection precedes the existing explicitly recorded normalization.
     normalization.normalize_story_dict(
         data_to_save, collection=storymap.TARGET_DIRECTORY, story_id=story_slug
     )
     _, file_path = gatherer.ensure(story_slug)
-    story_output.publish(file_path, data_to_save)
-    return story, file_path, None
+    published = story_output.publish(file_path, data_to_save)
+    return gather_result.GatherResult(
+        story, "published" if published else "reused", path=str(file_path)
+    )

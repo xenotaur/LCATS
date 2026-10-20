@@ -3742,3 +3742,81 @@ within the15GiB/6GiB bounds. No tracked corpora or CI changes. Final checkpoint
 push will request hosted checks; their observed status is linked from PR524 rather
 than pre-claimed in this record. This is an early policy-boundary stop, not expiry
 of the two-hour target or1p.m. hard stop. No automatic renewal or new workers.
+
+
+## Readiness implementation run — 2026-10-20
+
+Human approved the milestone's explicit review outcome and authorized the proposed
+four-hour target/five-hour maximum run. Start07:08:09 UTC; target11:08:09; hard
+stop12:08:09. Base ebc8a3b69a8f3e49727f0b8564e7f9fb4effcc63; PR524 remains open
+against codex/gettenberg-acquisition. No integration authorized in this grant.
+Prompt PROMPT(WI-GETTENBERG-0010:GETTENBERG_READINESS)[2026-10-20T07:08:35+00:00];
+idempotence check found none (its exit1 means absent); WI prompt-ready, no warnings.
+An earlier label call produced an unused label; no execution attached to it.
+Native primary2026_10_20_07_09_31_GETTENBERG_READINESS remains in_progress.
+
+Read root/package AGENTS and canonical STYLE, lrh-implement and four references.
+Use approved pilot adaptation for continuing PR/branch and routine plan confirmation;
+no repeated human gate. Prior-art/demand check present in WI; existing corpus
+Finding/span detectors and overrides inspected as related facilities, not safe
+automatic deletion or existing readiness contracts. LRH0.2.5.dev3596+gd86755f50;
+gate definitions fresh for watched claude/codex installs, persistent skip consent
+invalid and untouched. Python3.11.9 inLCATS environment; bind PYTHONPATH to this
+worktree. Initial remote read hit sandbox connection failure; one escalated exact
+read succeeded and confirmed the checkpoint head/base.
+
+Account weekly usage0% at launch. Three assignments/60 cumulative worker minutes,
+concurrency2 maximum. First assignment: compact-context read-only real-source audit
+readiness_source_audit, dispatch07:09 UTC, deadline07:29:45, maximum20min. No files
+owned by worker. Coordinator owns design/product/control-plane edits.
+
+### Source audit and pre-gate census
+
+Source audit completed by07:16 UTC; charge8 worker minutes conservatively, leaving
+52 of60. All13 requested decoded source hashes matched. Important correction to
+historical triage:27612's counted headings are false signals, but four uncounted
+italic scene headings exist. Treat this as review uncertainty, never automatic
+acceptance. All8 positive narrative anchors warrant review for retained editorial
+content;35401 and42640 lack the old editorial diagnostic but contain magazine/date
+and publication/copyright information respectively. Record this limitation in the
+new contract; do not retroactively rewrite historical annotations.
+
+Pure readiness assessment plus inspection is implemented before enabling the
+publication gate.14 authored tests pass. First immutable1,659-input census completes
+in13.931s:1636 needs_review,13 cleanup_refused,9 ready,1 ineligible (63230 corroborated
+multi-work contents). All8 anchor cases and5 disputed chapter cases need review.
+Finding occurrences (not distinct inputs):1446 editorial_note,1011 retained_metadata_heading,
+613 publication_metadata,526 opening_label,285 illustration_label,143 retained_notice,
+58 ambiguous_structure,4 advertisement. This high workload is a measured consequence
+of preserving unknown material, not a reason to silently broaden deletion/acceptance.
+No automatic-coverage target was promised. Proceed with explicit gate and reviewed
+source-bound selections; do not claim the corpus qualified. Pre-gate source hashes
+and raw report remain in the isolated run directory for archival at checkpoint.
+
+Weekly usage2% at07:16 UTC. No usage trigger reached.
+
+
+### Readiness implementation and source evidence — 07:40 UTC
+
+Pure assessment was measured before default activation, then narrow boxed-note,
+transcription and bibliography cues were repaired from direct source inspection.
+Final census: 1,640 needs_review, 13 cleanup_refused, five ready, one ineligible.
+All 1,659 input/corpus identities and candidate/normalized body hashes equal the
+previous editorial report. Full comparison still has 1,642 changed bodies.
+Eight explicit source-bound coordinator reviews select whole narrative paragraphs;
+22579 intentionally retains an interior illustration label. No human signatures
+are implied. A 28-case actual-publication check passes with 13 published, 14 review
+candidates, one excluded; all eight older narrative anchors survive.
+
+The new gate distinguishes published/reused/ineligible/needs_review/cleanup_refused;
+CLI exit 3 reports unresolved review/refusal, and --yes remains setup approval only.
+Review candidates are immutable and outside collection roots. Structured results
+replace the old tuple API. The mass-quantities tests now exercise the real parser
+and store through an authored acquisition boundary instead of mirroring tuple mocks.
+An actual replay caught JSON span tuple/list drift; a red/green regression fixes it.
+
+At 07:38:47 UTC weekly usage was 5% consumed, versus 0% at launch. Source audit
+used one assignment, charged eight worker minutes; no active worker. Final tests,
+independent review and fresh installed-wheel validation are next. High review volume
+is disclosed, not treated as completed corpus qualification or a reason to delete
+uncertain prose.

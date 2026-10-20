@@ -498,3 +498,38 @@ mutation, CI changes, main promotion, package publication or persistent consent
 changes. Existing pilot adapter covers routine implementation and checkpointing;
 internal integration still requires all pre-integration gates. Native records
 remain nonterminal. Isolated outputs at most15GiB, free disk at least6GiB.
+
+
+## Publication-readiness grant — 2026-10-20
+
+Human approved the explicit review outcome direction and this bounded overnight
+run. Start07:08:09 UTC (00:08 Pacific), four-hour target/feature freeze11:08:09,
+five-hour hard stop12:08:09 (05:08 Pacific). Final hour reserved for review, repair,
+validation and checkpointing; finish earlier on scoped completion or design blocker.
+Continue PR524 on codex/gettenberg-qualification from ebc8a3b6. No integration
+or main promotion in this run. No automatic renewal.
+
+Scope: record approval, specify and implement preserved-candidate/readiness states,
+source-bound reviewed decisions, batch/CLI results, known-case regressions, full
+immutable1,659-input assessment before default gate activation, independent review,
+canonical checks, installed-wheel verification and Diataxis/evidence updates.
+Stretch only after core qualification: reviewed dispositions for understood corpus
+difference groups. Sampling never accepts every member of a group.
+
+Usage launch: weekly0% consumed. Target around/below25%, no minimum spending. At25%
+drop stretch work;35% freeze features;40% checkpoint/stop substantive work, leaving
+margin below50%. Check account usage every15 minutes and before delegation or
+substantial new blocks; if unavailable, checkpoint instead of blind continuation.
+These are observed account-wide triggers, not enforceable per-task spending limits.
+Other sessions count toward them. No resets, paid purchases or model changes.
+
+Coordinator plus at most one worker at a time; three assignments maximum,60 total
+worker elapsed minutes. Plan20min source audit,30min independent review,10min
+repair recheck if needed. No recursive delegation. Keep assignment contexts compact.
+Check clock after tools and everyfive minutes; stop before grant boundaries.
+
+Use cached sources only; no Gutenberg requests, canonical corpus mutation, CI
+changes, package publication, persistent policy/consent changes or terminal native
+closeout. Original sources and historical evidence remain untouched. Same isolated
+15GiB output bound /6GiB free minimum. Approved coordinator adapter governs routine
+planning/implementation/repair decisions without invented human responses.

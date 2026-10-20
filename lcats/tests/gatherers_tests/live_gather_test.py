@@ -7,6 +7,7 @@ legacy imports to catch import-order dependencies hidden by the full suite.
 """
 
 import contextlib
+import dataclasses
 import hashlib
 import io
 import json
@@ -24,6 +25,7 @@ from lcats.gatherers import downloaders
 from lcats.gatherers import gutenberg_source
 from lcats.gatherers import main
 from lcats.gatherers import parser
+from lcats.gatherers import readiness
 from lcats.gatherers import overrides
 from lcats.gatherers.sherlock import gatherer as sherlock
 from lcats.gatherers import story_output
@@ -179,18 +181,44 @@ class LiveGatherTests(unittest.TestCase):
         self.assertIsNone(report["rejection"])
         self.assertTrue(report["body"].startswith(BODY))
         self.assertTrue(report["body"].endswith(note))
-        self.run_gather()
+        message, code = self.run_gather(yes=True)
+        self.assertEqual(code, 3, message)
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+        candidate = next((self.root / "logs").rglob("*.candidate.json"))
+        saved = json.loads(candidate.read_text())["report"]
+        self.assertEqual(saved["body"], report["body"])
+        self.assertEqual(artifact.path.read_bytes(), text.encode())
+        # Explicitly review the exact narrative span, then publish via the CLI.
+        approval = self.review_decision(report, 0, len(BODY))
+        decisions = self.root / "decisions.json"
+        decisions.write_text(
+            json.dumps([dataclasses.asdict(approval)]), encoding="utf-8"
+        )
+        message, code = self.run_gather(review_decisions=decisions)
+        self.assertEqual(code, 0, message)
         output = next(self.data.rglob("story.json"))
         data = json.loads(output.read_text())
-        self.assertTrue(data["body"].startswith(PARAGRAPHS[0]))
-        self.assertIn(PARAGRAPHS[-1], data["body"])
-        evidence = data["metadata"]["gettenberg"]["body_extraction"]
-        self.assertEqual(evidence, report["provenance"]["body_extraction"])
-        self.assertEqual(artifact.path.read_bytes(), text.encode())
-        # Reusing this temporary bucket preserves an existing published story.
+        self.assertEqual(data["body"], BODY)
+        self.assertEqual(
+            data["metadata"]["gettenberg"]["publication_readiness"]["review_decision"][
+                "reviewer"
+            ],
+            "authored fixture reviewer",
+        )
         original = output.read_bytes()
         self.run_gather()
         self.assertEqual(output.read_bytes(), original)
+        self.assertEqual(json.loads(candidate.read_text())["report"], saved)
+
+    def review_decision(self, report, start, end):
+        """Explicit fixture approval; runtime code never generates approvals."""
+        return readiness.ReviewDecision.for_report(
+            report,
+            start=start,
+            end=end,
+            reviewer="authored fixture reviewer",
+            rationale="Known complete fixture narrative span.",
+        )
 
     def test_retained_book_headings_do_not_reject_narrative_as_chapters(self):
         body = (
@@ -204,11 +232,11 @@ class LiveGatherTests(unittest.TestCase):
         self.assertIsNone(report["rejection"])
         self.assertEqual(report["body"], body)
         self.assertFalse(report["provenance"]["chapter_assessment"]["chaptered"])
-        self.run_gather()
-        output = next(self.data.rglob("story.json"))
-        data = json.loads(output.read_text())
-        self.assertEqual(data["body"], body)
-        self.assertEqual(data["metadata"]["gettenberg"], report["provenance"])
+        message, code = self.run_gather()
+        self.assertEqual(code, 3, message)
+        self.assertEqual(list(self.data.rglob("story.json")), [])
+        candidate = next((self.root / "logs").rglob("*.candidate.json"))
+        self.assertEqual(json.loads(candidate.read_text())["report"]["body"], body)
 
     def test_heading_and_notice_only_source_is_never_published(self):
         text = (
@@ -295,6 +323,89 @@ class LiveGatherTests(unittest.TestCase):
         self.run_gather()
         self.assertEqual(list(self.data.rglob("story.json")), [])
         self.assertEqual(artifact.path.read_bytes(), content.encode())
+
+    def test_editorial_only_body_is_withheld_even_with_yes_and_preserved(self):
+        text = "The Bell\n\nJohn Smith\n\nTranscriber's Note\n\n" + "\n\n".join(
+            f"Correction {i} updates the punctuation." for i in range(15)
+        )
+        source, artifact = self.acquire(text.encode())
+        source.policy = resources.NetworkPolicy()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        self.assertEqual(report["status"], "needs_review")
+        self.assertIsNone(report["rejection"])
+        message, code = self.run_gather(yes=True)
+        self.assertEqual(code, 3, message)
+        self.assertIn("needs_review", message)
+        self.assertFalse(list(self.data.rglob("story.json")))
+        candidate = next((self.root / "logs").rglob("*.candidate.json"))
+        self.assertEqual(
+            json.loads(candidate.read_text())["report"]["body"], report["body"]
+        )
+        self.assertEqual(artifact.path.read_bytes(), text.encode())
+        original = candidate.read_bytes()
+        self.run_gather(yes=True)
+        self.assertEqual(candidate.read_bytes(), original)
+        self.assertEqual(len(list((self.root / "logs").rglob("*.candidate.json"))), 1)
+
+    def test_stale_review_aborts_without_output_even_with_yes(self):
+        source, _ = self.acquire()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        decision = self.review_decision(report, 0, len(report["body"]))
+        stale = dataclasses.replace(decision, source_identity_sha256="b" * 64)
+        path = self.root / "decisions.json"
+        path.write_text(json.dumps([dataclasses.asdict(stale)]), encoding="utf-8")
+        message, code = self.run_gather(yes=True, review_decisions=path)
+        self.assertEqual(code, 2)
+        self.assertIn("stale", message)
+        self.assertFalse(list(self.data.rglob("story.json")))
+
+    def test_review_cannot_override_short_or_divided_work(self):
+        for text in (
+            "The Bell\n\nJohn Smith\n\nToo short.",
+            "The Bell\n\nJohn Smith\n\nChapter I\n\n"
+            + BODY
+            + "\n\nChapter II\n\n"
+            + BODY,
+        ):
+            with self.subTest(text=text[:45]):
+                self.cache = self.root / hashlib.sha256(text.encode()).hexdigest()
+                self.manager = lifecycle.CatalogManager(self.cache)
+                self.store = resources.ResourceStore(self.cache)
+                source, _ = self.acquire(text.encode())
+                report = parser.inspect_story(BOOK_ID, source=source)
+                with self.assertRaisesRegex(ValueError, "eligible"):
+                    self.review_decision(report, 0, len(report["body"]))
+                # Even a hand-constructed record with correct hashes cannot
+                # bypass the inspection boundary's collection exclusions.
+                evidence = report["provenance"]["publication_readiness"]
+                approval = readiness.ReviewDecision(
+                    gutenberg_id=BOOK_ID,
+                    source_identity_sha256=evidence["source_identity_sha256"],
+                    candidate_sha256=evidence["candidate_sha256"],
+                    assessment_sha256=evidence["assessment_sha256"],
+                    selected_start=0,
+                    selected_end=len(report["body"]),
+                    selected_sha256=readiness.text_sha256(report["body"]),
+                    reviewer="authored adversarial fixture",
+                    rationale="Attempted override",
+                )
+                with self.assertRaisesRegex(ValueError, "exclusion"):
+                    parser.inspect_story(
+                        BOOK_ID, source=source, review_decision=approval
+                    )
+
+    def test_stale_explicit_review_is_checked_even_on_existing_output(self):
+        source, _ = self.acquire()
+        report = parser.inspect_story(BOOK_ID, source=source)
+        approval = self.review_decision(report, 0, len(report["body"]))
+        self.run_gather()
+        output = next(self.data.rglob("story.json"))
+        original = output.read_bytes()
+        stale = dataclasses.replace(approval, assessment_sha256="c" * 64)
+        gatherer = downloaders.DataGatherer("mass_quantities", root=self.data)
+        with self.assertRaisesRegex(ValueError, "stale"):
+            parser.gather_story(gatherer, BOOK_ID, source=source, review_decision=stale)
+        self.assertEqual(output.read_bytes(), original)
 
     def test_projection_preserves_author_roles_order_and_missing_record(self):
         source = self.source()
@@ -418,7 +529,7 @@ class LiveGatherTests(unittest.TestCase):
                 self.store = resources.ResourceStore(self.cache)
                 _, artifact = self.acquire(body)
                 message, code = self.run_gather()
-                self.assertEqual(code, 2, message)
+                self.assertEqual(code, 2 if body.startswith(b"invalid") else 3, message)
                 self.assertEqual(artifact.path.read_bytes(), body)
                 self.assertFalse(list(self.data.rglob("story.json")))
 
@@ -430,9 +541,10 @@ class LiveGatherTests(unittest.TestCase):
             capture.capture_output(),
             mock.patch.object(socket, "socket", side_effect=AssertionError("network")),
         ):
-            _, path, reason = parser.gather_story(gatherer, BOOK_ID, source=source)
-        self.assertIsNone(path)
-        self.assertIn("Metadata not suitable", reason)
+            result = parser.gather_story(gatherer, BOOK_ID, source=source)
+        self.assertIsNone(result.path)
+        self.assertEqual(result.status, "ineligible")
+        self.assertIn("Metadata not suitable", result.reason)
         self.assertFalse(self.data.exists())
 
     def test_html_only_metadata_never_falls_back(self):

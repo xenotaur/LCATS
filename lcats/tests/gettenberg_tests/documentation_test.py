@@ -161,8 +161,9 @@ class DocumentationTests(unittest.TestCase):
                     self.assertEqual(
                         report["provenance"]["original_sha256"], original.sha256
                     )
-                    self.assertIsNone(result[2])
-                    output = pathlib.Path(result[1])
+                    self.assertEqual(result.status, "published")
+                    self.assertIsNone(result.reason)
+                    output = pathlib.Path(result.path)
                     saved = output.read_bytes()
                     self.assertEqual(json.loads(saved)["body"], report["body"])
                     # Repeating the documented workflow preserves published output.
@@ -375,6 +376,9 @@ class DocumentationTests(unittest.TestCase):
                 ),
                 capture.capture_output(),
             ):
+                # The general walkthrough uses already-clean fixture outputs.
+                # The explicit-review Python example is exercised separately.
+                (root / "review-decisions.json").write_text("[]", encoding="utf-8")
                 executed = 0
                 for command in commands:
                     tokens = shlex.split(command)
@@ -395,7 +399,7 @@ class DocumentationTests(unittest.TestCase):
                     expected = 2 if command == "lcats gather mass_quantities" else 0
                     self.assertEqual(code, expected, (command, message))
                     executed += 1
-                self.assertEqual(executed, 9)
+                self.assertEqual(executed, 10)
                 outputs = sorted((root / "data").glob("*/*/story.json"))
                 self.assertEqual(len(outputs), 2)
                 mass_output = next(
@@ -406,6 +410,36 @@ class DocumentationTests(unittest.TestCase):
                 self.assertEqual(
                     json.loads(mass_output.read_text())["body"], live_gather_test.BODY
                 )
+
+    def test_gather_review_python_example_and_command_publish_selected_narrative(self):
+        path = DOCS / "how-to/gettenberg-gather.md"
+        blocks = re.findall(
+            r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
+        )
+        self.assertEqual(len(blocks), 1)
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        fixture.acquire(
+            (
+                live_gather_test.CONTENT + "\n\nTranscriber's Note\n\nA correction."
+            ).encode()
+        )
+        message, code = fixture.run_gather()
+        self.assertEqual(code, 3, message)
+        candidate = next((fixture.root / "logs").rglob("*.candidate.json"))
+        namespace = dict(
+            candidate_path=candidate,
+            reviewed_start=0,
+            reviewed_end=len(live_gather_test.BODY),
+            reviewer_name="documentation fixture reviewer",
+            review_rationale="The full authored narrative precedes the note.",
+        )
+        exec(compile(blocks[0], str(path), "exec"), namespace)
+        message, code = fixture.run_gather(review_decisions="review-decisions.json")
+        self.assertEqual(code, 0, message)
+        output = next(fixture.data.rglob("story.json"))
+        self.assertEqual(json.loads(output.read_text())["body"], live_gather_test.BODY)
 
     def test_ci_maintenance_preview_command_examples(self):
         path = DOCS / "how-to/gettenberg-ci-maintenance.md"

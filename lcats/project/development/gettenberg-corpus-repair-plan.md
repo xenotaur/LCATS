@@ -122,3 +122,13 @@ The [human milestone](gettenberg-editorial-milestone.md) documents the concrete
 readiness-policy choice. Development stops expanding heuristics at this boundary;
 no broad new refusal/deletion default is introduced without the decision required
 above. The next grant should resolve that contract before more implementation.
+
+
+## Approved readiness continuation — 2026-10-20
+
+The human approved the [explicit review outcome milestone](gettenberg-editorial-milestone.md).
+The bounded run may specify and implement publication readiness, measure its impact
+on the immutable cached corpus before default activation, and repair known cases.
+Preserved candidates are not accepted corpus entries; unresolved material differences
+remain explicit. No main promotion or acceptance relaxation follows from this approval.
+See the [charter](gettenberg-pilot-charter.md) for time/usage/worker bounds.

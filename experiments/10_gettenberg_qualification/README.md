@@ -229,3 +229,57 @@ policy used by actual publication. `new_rejection` describes body eligibility;
 in the live path's precedence. A changed body rejection is not necessarily a
 changed publication outcome. Earlier reports retain their original meanings and
 bytes; do not reinterpret their body-only counts as final publication eligibility.
+
+
+## Publication-readiness qualification
+
+The readiness policy separates preserved candidates from publication. From `lcats/`
+with this worktree on `PYTHONPATH`, use the existing read-only catalog and decoded
+UTF-8 cache. All output paths below must be new; input corpus/cache are never written.
+No network requests are made. POSIX alarms bound census to600s and case checks to180s.
+The census allows1–10000 canonical stories and the case runner1–100 source-bound cases;
+shared gzip input reads are bounded to32MiB compressed/expanded. Operational failures
+save `completed:false` partial JSON and exit nonzero; cleanup refusals are explicit
+census rows. A completed census is measurement, not corpus acceptance.
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/assess_cached_readiness.py \
+  /tmp/catalog-cache /path/to/texts ../corpora/mass_quantities /tmp/new-readiness.json
+
+python ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py \
+  /tmp/catalog-cache /path/to/texts /path/to/readiness-cases.json /tmp/new-cases.json \
+  --review-decisions /path/to/review-decisions.json
+
+python ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py \
+  /tmp/catalog-cache /path/to/texts \
+  ../experiments/10_gettenberg_qualification/results/gettenberg-narrative-20261018/narrative-cases.json \
+  /tmp/new-narratives.json --review-decisions /path/to/review-decisions.json
+```
+
+The case manifest binds each ID/decoded hash to an expected raw status; the runner
+verifies actual temporary publication or preserved review candidates, provenance
+and unchanged reuse. The narrative runner separately verifies every character
+between independently selected opening/closing anchors. A raw needs_review case
+is not a successful publication check without a valid explicit decision. Decisions
+are reviewed input data, never generated automatically by these runners. Historical
+decoded-cache identities do not authorize live original-byte publication.
+
+The eight2026-10-20 decisions select whole paragraphs around the older anchors to
+retain final dialogue punctuation.22579 explicitly keeps an interior illustration
+label; it is not silently deleted or claimed absent. No decisions are provided for
+the five disputed chapter cases.27612 also has genuine italic scene headings, so
+its false counted evidence does not establish that it is unchaptered.
+
+`qualify_installed.py` now also exercises withheld editorial content, explicit
+reviewed selection/publication and runtime log guards outside a source checkout.
+The historical `qualify_migration.py` equality runner still asserts old/new equality;
+new provenance intentionally makes it fail, with results preserved as differences.
+Do not reinterpret that failure as replacement readiness acceptance.
+
+Changed runner checks (explicit experiment coverage):
+
+```bash
+python -m black --check --diff ../experiments/10_gettenberg_qualification/scripts
+python -m ruff check ../experiments/10_gettenberg_qualification/scripts
+python -m unittest tests.gettenberg_tests.qualification_evidence_test
+```

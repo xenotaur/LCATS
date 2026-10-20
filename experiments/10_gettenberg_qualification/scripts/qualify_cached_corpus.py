@@ -35,6 +35,7 @@ from lcats.analysis.corpus import discovery
 from lcats.gatherers import gutenberg_source
 from lcats.gatherers import normalization
 from lcats.gatherers import parser
+from lcats.gatherers import readiness
 from lcats.gettenberg import cleanup
 from lcats.gettenberg import identifiers
 from lcats.gettenberg import lifecycle
@@ -136,6 +137,17 @@ def compare(path, text_cache, source, legacy_clean, *, baseline_parser=None):
         aliases=metadata.aliases,
     )
     row["chapter_assessment"] = chapter_assessment
+    assessment = readiness.assess(
+        new_body,
+        chapter_assessment,
+        titles=metadata.titles,
+        authors=metadata.authors,
+        aliases=metadata.aliases,
+    )
+    row["publication_readiness"] = assessment.to_dict()
+    row["publication_status"] = (
+        "ineligible" if row["metadata_rejection"] else assessment.status
+    )
     before = normalized_body(old_body, metadata, path.parent.name)
     after = normalized_body(new_body, metadata, path.parent.name)
     row.update(
@@ -151,8 +163,8 @@ def compare(path, text_cache, source, legacy_clean, *, baseline_parser=None):
         old_body_characters=len(before),
         new_rejection=(
             "chapters"
-            if chapter_assessment["chaptered"]
-            else "short" if len(new_body.split("\n\n")) <= 10 else None
+            if assessment.exclusion == "divided_work"
+            else "short" if assessment.exclusion == "too_short" else None
         ),
     )
     # Body classification and metadata eligibility are separate observations.

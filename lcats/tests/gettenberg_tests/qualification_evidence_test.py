@@ -327,6 +327,112 @@ class QualificationEvidenceTests(unittest.TestCase):
         self.assertTrue(result["cases"][0]["complete_span_preserved"])
         self.assertFalse(result["cases"][0]["publication_preserves_normalized_span"])
 
+    def test_readiness_census_matches_inspection_and_preserves_input_hashes(self):
+        from tests.gatherers_tests import live_gather_test
+        from lcats.gatherers import parser
+        from lcats.gatherers import readiness
+
+        module = load("assess_cached_readiness")
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        source = fixture.source()
+        raw = (
+            "The Bell\n\nJohn Smith\n\nTranscriber's Note\n\n" + live_gather_test.BODY
+        ).encode()
+        cached = self.root / f"{live_gather_test.BOOK_ID}.txt.gz"
+        cached.write_bytes(gzip.compress(raw))
+        story = self.root / "fixture" / "story.json"
+        story.parent.mkdir()
+        story.write_text(
+            json.dumps(
+                {"body": "old body", "metadata": {"url": live_gather_test.SOURCE_URI}}
+            ),
+            encoding="utf-8",
+        )
+        original = story.read_bytes()
+        row = module.assess_path(story, self.root, source)
+        self.assertEqual(row["status"], "needs_review")
+        self.assertEqual(
+            row["decoded_utf8_sha256"], readiness.text_sha256(raw.decode())
+        )
+        self.assertEqual(story.read_bytes(), original)
+        decoded, compressed_sha, decoded_sha = module.helpers.corpus.cached_text(
+            self.root, live_gather_test.BOOK_ID
+        )
+        replay = module.helpers.HistoricalSource(
+            source,
+            module.helpers.HistoricalText(
+                live_gather_test.BOOK_ID,
+                module.cleanup.strip_boilerplate(decoded),
+                compressed_sha,
+                decoded_sha,
+            ),
+        )
+        report = parser.inspect_story(live_gather_test.BOOK_ID, source=replay)
+        self.assertEqual(row["provenance"], report["provenance"])
+        bad = live_gather_test.ENVELOPE.replace("*** END OF", "*** START OF").encode()
+        cached.write_bytes(gzip.compress(bad))
+        self.assertEqual(
+            module.assess_path(story, self.root, source)["status"], "cleanup_refused"
+        )
+        cached.unlink()
+        with self.assertRaisesRegex(ValueError, "missing cached"):
+            module.assess_path(story, self.root, source)
+
+    def test_readiness_case_runner_verifies_withholding_and_detects_wrong_expectation(
+        self,
+    ):
+        from tests.gatherers_tests import live_gather_test
+        from lcats.gatherers import readiness
+
+        module = load("qualify_readiness_cases")
+        fixture = live_gather_test.LiveGatherTests()
+        fixture.setUp()
+        self.addCleanup(fixture.doCleanups)
+        source = fixture.source()
+        raw = (
+            "The Bell\n\nJohn Smith\n\nTranscriber's Note\n\n" + live_gather_test.BODY
+        ).encode()
+        (self.root / f"{live_gather_test.BOOK_ID}.txt.gz").write_bytes(
+            gzip.compress(raw)
+        )
+        case = {
+            "id": live_gather_test.BOOK_ID,
+            "decoded_utf8_sha256": readiness.text_sha256(raw.decode()),
+            "expected_status": "needs_review",
+        }
+        row = module.check_case(case, self.root, source, self.root / "outputs")
+        self.assertTrue(row["review_candidate_preserved"])
+        self.assertEqual(row["outcome"], "needs_review")
+        self.assertEqual(list((self.root / "outputs").rglob("story.json")), [])
+        with self.assertRaisesRegex(ValueError, "raw readiness"):
+            module.check_case(
+                {**case, "expected_status": "ready"},
+                self.root,
+                source,
+                self.root / "bad",
+            )
+        with self.assertRaisesRegex(ValueError, "source identity"):
+            module.check_case(
+                {**case, "decoded_utf8_sha256": "0" * 64},
+                self.root,
+                source,
+                self.root / "bad",
+            )
+
+    def test_readiness_census_empty_selection_is_not_completed(self):
+        module = load("assess_cached_readiness")
+        self.addCleanup(signal.signal, signal.SIGALRM, signal.getsignal(signal.SIGALRM))
+        output = self.root / "empty.json"
+        with self.assertRaisesRegex(ValueError, "canonical inputs"):
+            module.main(
+                [str(self.root / "cache"), str(self.root), str(self.root), str(output)]
+            )
+        report = json.loads(output.read_text())
+        self.assertFalse(report["completed"])
+        self.assertEqual(report["rows"], [])
+
     def test_missing_cache_and_cleanup_refusal_are_not_comparison_passes(self):
         module = load("qualify_cached_corpus")
         path = self.root / "story.json"

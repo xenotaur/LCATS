@@ -1,8 +1,10 @@
 # Human milestone: narrative preservation versus publication readiness
 
-2026-10-18; WI-GETTENBERG-0010; PR524. **Decision pending; no integration or
-acceptance change authorized by this note.** The current bounded run stops feature
-expansion at this boundary and finishes validation/evidence checkpointing.
+2026-10-18; WI-GETTENBERG-0010; PR524. **Recommended explicit review outcome
+approved by the human on 2026-10-20.** The human subsequently authorized the
+readiness implementation/measurement run recorded in the charter and runlog.
+This approves the direction below, not corpus acceptance, integration, or main
+promotion. Historical findings below describe the 2026-10-18 checkpoint.
 
 ## What the new evidence establishes
 

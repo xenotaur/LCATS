@@ -9,6 +9,9 @@ check separately. This smoke alone does not prove wheel/source equivalence.
 """
 
 import argparse
+import contextlib
+import os
+import types
 import importlib.metadata
 import importlib.util
 import io
@@ -27,6 +30,9 @@ def main(argv=None):
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output exists")
+    from lcats.gatherers import parser
+    from lcats.gatherers import readiness
+    from lcats.gatherers.mass_quantities import gatherer
     from lcats.gettenberg import catalog
     from lcats.gettenberg import cleanup
     from lcats.gettenberg import lifecycle
@@ -67,6 +73,77 @@ def main(argv=None):
             genre.get_genre_by_id(84, catalog=library)
         if cleanup.strip_boilerplate("Authored story.").text != "Authored story.":
             raise ValueError("installed cleanup mismatch")
+        # Exercise readiness, candidate storage and runtime log guards from the
+        # installed wheel, with only the acquisition boundary authored in memory.
+        # This catches accidental dependence on a checkout's pyproject.toml.
+        narrative = "\n\n".join(
+            f"The traveler waited at the gate on day {i}." for i in range(15)
+        )
+
+        class FixtureSource:
+            def metadata(self, book_id):
+                return types.SimpleNamespace(
+                    titles=(f"Authored fixture {book_id}",),
+                    authors=("Smith, John",),
+                    aliases=(),
+                    subjects=("PS", "Short stories"),
+                    languages=("en",),
+                )
+
+            def read(self, metadata):
+                text = (
+                    narrative
+                    if metadata.titles[0].endswith("84")
+                    else "Transcriber's Note\n\n" + narrative
+                )
+                return types.SimpleNamespace(
+                    cleaned=cleanup.strip_boilerplate(text),
+                    provenance=lambda: {
+                        "source_uri": "https://fixture.invalid/authored",
+                        "input_kind": "authored_decoded_text",
+                        "decoded_utf8_sha256": readiness.text_sha256(text),
+                    },
+                )
+
+        with (
+            mock.patch.dict(
+                os.environ,
+                LCATS_DATA_DIR=str(root / "data"),
+                LCATS_CORPORA_DIR=str(root / "corpora"),
+            ),
+            contextlib.redirect_stdout(io.StringIO()),
+            contextlib.redirect_stderr(io.StringIO()),
+        ):
+            source = FixtureSource()
+            outcomes = gatherer.gather_stories(
+                [84, 85], log_dir=root / "logs", source=source
+            )
+            if outcomes.counts != {"published": 1, "needs_review": 1}:
+                raise ValueError(
+                    f"installed readiness outcomes differ: {outcomes.counts}"
+                )
+            report = json.loads(
+                pathlib.Path(outcomes.outcomes[1].review_path).read_text()
+            )["report"]
+            decision = readiness.ReviewDecision.for_report(
+                report,
+                start=report["body"].index(narrative),
+                end=len(report["body"]),
+                reviewer="authored wheel fixture",
+                rationale="Select the known full authored narrative.",
+            )
+            selected = parser.inspect_story(85, source=source, review_decision=decision)
+            if selected["status"] != "ready":
+                raise ValueError("installed explicit review selection failed")
+            reviewed = gatherer.gather_stories(
+                [85],
+                log_dir=root / "logs",
+                source=source,
+                review_decisions={85: decision},
+            )
+            published = json.loads(pathlib.Path(reviewed.gathered[85]).read_text())
+            if published["body"] != narrative:
+                raise ValueError("installed reviewed publication changed narrative")
         package = imported.parents[1]
         for relative in ("gatherers/overrides", "analysis/corpus/allowlists"):
             if not tuple((package / relative).glob("*.json")):
@@ -83,6 +160,8 @@ def main(argv=None):
             "genre",
             "cleanup",
             "packaged JSON",
+            "readiness withholding, immutable candidate and runtime logs",
+            "explicit reviewed selection/publication",
         ],
     }
     with args.output.open("x", encoding="utf-8") as stream:

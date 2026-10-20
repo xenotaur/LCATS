@@ -2,9 +2,11 @@
 
 import contextlib
 import importlib
+import pathlib
 from urllib import parse
 
 from lcats.gatherers import planning
+from lcats.gatherers import readiness
 from lcats.gettenberg import approval_cli
 from lcats.gettenberg import errors
 from lcats.gettenberg import preparation
@@ -48,6 +50,7 @@ def run(
     generated_root=None,
     allow_origins=(),
     cache_dir=None,
+    review_decisions=None,
 ):
     """Gather selected collections, with setup approval and true offline access.
 
@@ -56,7 +59,8 @@ def run(
     it does not resolve metadata-dependent story counts or import consumers.
     Selected default or explicit sources permit their origins; --yes approves
     first setup only.
-    Existing outputs are reused. Operational failures return exit2, with partial
+    Review candidates are withheld and summarized (exit3), independently of --yes.
+    Existing outputs are reused without requalification. Operational failures return exit2, with partial
     prior outputs/cache retained and the collection run log recording abortion.
     """
     try:
@@ -64,6 +68,13 @@ def run(
             if type(value) is not bool:
                 raise ValueError("dry_run, yes and offline must be bool")
         requirements = planning.select(gatherers)
+        decisions = None
+        if review_decisions is not None:
+            if not any(item.name == "mass_quantities" for item in requirements):
+                raise ValueError(
+                    "--review-decisions requires mass_quantities selection"
+                )
+            decisions = readiness.load_decisions(review_decisions)
         needs_catalog = any(item.needs_catalog for item in requirements)
         service = routes = policy = None
         if needs_catalog:
@@ -110,6 +121,8 @@ def run(
                 else "Network: permitted for missing sources during execution; catalog setup requires approval."
             )
             return "\n".join(lines), 0
+        summaries = []
+        needs_attention = False
         with contextlib.ExitStack() as stack:
             source = None
             if service is not None:
@@ -124,11 +137,27 @@ def run(
             for item in requirements:
                 print(f"Running gatherer: {item.name}")
                 module = importlib.import_module(GATHERERS[item.name])
-                if item.needs_catalog:
+                if item.name == "mass_quantities":
+                    result = module.gather(source=source, review_decisions=decisions)
+                    summaries.append(f"{item.name}: {result.counts}")
+                    needs_attention = needs_attention or result.requires_attention
+                    review_paths = [
+                        o.review_path for o in result.outcomes if o.review_path
+                    ]
+                    if review_paths:
+                        summaries.append(
+                            f"Review candidates: {pathlib.Path(review_paths[0]).parent}"
+                        )
+                elif item.needs_catalog:
                     module.gather(source=source)
                 else:
                     module.gather(offline=offline, cache_dir=cache_dir)
-        return "Gathering complete.", 0
+        message = (
+            "Gathering complete; some inputs need attention."
+            if needs_attention
+            else "Gathering complete."
+        )
+        return "\n".join([message, *summaries]), 3 if needs_attention else 0
     except (
         errors.GettenbergError,
         resources.ResourceError,

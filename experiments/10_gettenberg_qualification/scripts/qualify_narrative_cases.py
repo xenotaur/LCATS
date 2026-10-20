@@ -3,11 +3,13 @@
 From lcats/: python ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py CATALOG_CACHE TEXT_CACHE CASES_JSON OUTPUT_JSON
 CASES_JSON records reviewed opening/closing anchors and decoded-input hashes.
 Read-only historical UTF-8 gzip inputs are not original HTTP representations.
-No network or canonical writes: outputs live in an automatically removed temporary
+Optional --review-decisions supplies explicit source-bound approvals, whose bytes
+are identified in the result. Candidate preservation and approved publication are
+reported separately. No network or canonical writes: outputs live in an automatically removed temporary
 collection. Requires POSIX SIGALRM; 120-second total ceiling. Existing reports are
 never overwritten. Missing/ambiguous anchors, mismatched input hashes, publication
 rejections or lost narrative fail nonzero with a JSON report. Eligibility
-rejections remain per-case failed publication checks; other failures abort. A pass proves
+rejections and needs_review remain per-case failed publication checks; other failures abort. A pass proves
 these specific narrative spans survive, not corpus-wide editorial acceptance.
 """
 
@@ -28,6 +30,7 @@ from lcats.gatherers import downloaders
 from lcats.gatherers import gutenberg_source
 from lcats.gatherers import normalization
 from lcats.gatherers import parser
+from lcats.gatherers import readiness
 from lcats.gatherers import story_body
 from lcats.gettenberg import cleanup
 from lcats.gettenberg import lifecycle
@@ -81,7 +84,7 @@ class HistoricalSource:
         return self.text
 
 
-def check_case(case, text_cache, source, output_root):
+def check_case(case, text_cache, source, output_root, *, review_decision=None):
     """Check every character between independently reviewed narrative anchors."""
     book_id = case["id"]
     cached = corpus.cached_text(text_cache, book_id)
@@ -104,7 +107,9 @@ def check_case(case, text_cache, source, output_root):
     replay = HistoricalSource(
         source, HistoricalText(book_id, cleaned, compressed_sha, decoded_sha)
     )
-    report = parser.inspect_story(book_id, source=replay)
+    report = parser.inspect_story(
+        book_id, source=replay, review_decision=review_decision
+    )
     if report["body"] is None or narrative not in report["body"]:
         raise ValueError(
             f"narrative missing or rejected: {book_id}: {report['rejection']}"
@@ -119,19 +124,23 @@ def check_case(case, text_cache, source, output_root):
         "publication_preserves_normalized_span": False,
         "existing_output_unchanged": None,
         "rejection": report["rejection"],
+        "status": report["status"],
         "body_characters": len(report["body"]),
         "provenance": report["provenance"],
     }
     # Preserve rejection as a failed publication check, while still measuring
     # the narrative span and proceeding to the remaining independently selected
     # cases. Completion of the audit is not acceptance of these changed outputs.
-    if report["rejection"] is not None:
+    if report["status"] != "ready":
         return row
     gatherer = downloaders.DataGatherer("mass_quantities", root=output_root)
     pathlib.Path(gatherer.path).mkdir(parents=True, exist_ok=True)
-    _, path, rejection = parser.gather_story(gatherer, book_id, source=replay)
-    if rejection or path is None:
-        raise ValueError(f"publication rejected: {book_id}: {rejection}")
+    outcome = parser.gather_story(
+        gatherer, book_id, source=replay, review_decision=review_decision
+    )
+    path = outcome.path
+    if outcome.status != "published" or path is None:
+        raise ValueError(f"publication rejected: {book_id}: {outcome.status}")
     published_bytes = pathlib.Path(path).read_bytes()
     published = json.loads(published_bytes)
     normalized_narrative, _ = normalization.normalize_body(narrative)
@@ -157,6 +166,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ("catalog_cache", "text_cache", "cases", "output"):
         ap.add_argument(name, type=lambda value: pathlib.Path(value).resolve())
+    ap.add_argument("--review-decisions", type=pathlib.Path)
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output exists")
@@ -168,6 +178,17 @@ def main(argv=None):
     try:
         cases_bytes = args.cases.read_bytes()
         cases = json.loads(cases_bytes)["cases"]
+        decisions = (
+            readiness.load_decisions(args.review_decisions)
+            if args.review_decisions
+            else {}
+        )
+        if set(decisions) - {case["id"] for case in cases}:
+            raise ValueError("review decisions contain unselected IDs")
+        if args.review_decisions:
+            result["review_decisions_sha256"] = corpus.digest(
+                args.review_decisions.read_bytes()
+            )
         if not cases or len(cases) > 100 or len({c["id"] for c in cases}) != len(cases):
             raise ValueError("cases must contain 1–100 unique ebook IDs")
         result["cases_sha256"] = corpus.digest(cases_bytes)
@@ -179,6 +200,7 @@ def main(argv=None):
                 pathlib.Path(parser.__file__),
                 pathlib.Path(story_body.__file__),
                 pathlib.Path(normalization.__file__),
+                pathlib.Path(readiness.__file__),
             )
         }
         with (
@@ -201,7 +223,11 @@ def main(argv=None):
             for case in cases:
                 result["cases"].append(
                     check_case(
-                        case, args.text_cache, source, pathlib.Path(output_directory)
+                        case,
+                        args.text_cache,
+                        source,
+                        pathlib.Path(output_directory),
+                        review_decision=decisions.get(case["id"]),
                     )
                 )
         result["completed"] = True

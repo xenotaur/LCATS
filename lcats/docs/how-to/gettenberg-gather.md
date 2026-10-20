@@ -67,7 +67,55 @@ existing story extraction, normalization and overrides. It writes
 `data/mass_quantities/<story-slug>/story.json`, retaining acquisition and derivation
 provenance. Existing regular output files are reused without replacement or a
 claim that their contents are valid. Source/decode/integrity failures abort with
-exit 2; metadata or extraction exclusions remain per-story skips in the run log.
+exit 2. Ambiguous cleanup and editorial/structural review needs are recorded
+separately; the batch continues and exits 3. Ordinary collection exclusions remain
+per-story outcomes. A successful command does not requalify reused files.
+
+## Review a withheld candidate
+
+When the summary reports `needs_review`, inspect the corresponding
+`logs/gather/review/mass_quantities/<id>-<hash>.candidate.json`. Its report preserves
+the complete candidate, source identity, findings and exact character spans.
+The original resource remains in the cache. Review files are not accepted story
+buckets and are never automatically promoted. `--yes` does not bypass this step.
+
+After reviewing the actual text and establishing a complete narrative span, create
+an explicit decision. The offsets below must be supplied from your review; do not
+copy example offsets from another edition or automatically approve all findings.
+
+```python
+import dataclasses
+import json
+import pathlib
+from lcats.gatherers import readiness
+
+record = json.loads(pathlib.Path(candidate_path).read_text(encoding="utf-8"))
+report = record["report"]
+decision = readiness.ReviewDecision.for_report(
+    report,
+    start=reviewed_start,
+    end=reviewed_end,
+    reviewer=reviewer_name,
+    rationale=review_rationale,
+)
+pathlib.Path("review-decisions.json").write_text(
+    json.dumps([dataclasses.asdict(decision)], indent=2), encoding="utf-8"
+)
+```
+
+Then rerun using the same cache/source configuration:
+
+```bash
+lcats gather mass_quantities --offline --review-decisions review-decisions.json
+```
+
+Multiple decisions may share one JSON list. Changed sources, metadata, assessment
+policy or selected text invalidate a decision; inspect the new candidate and review
+it again. Short/clearly divided works cannot be made eligible with this mechanism.
+Unresolved candidates remain withheld. Older review files remain as evidence after
+successful publication; use the new batch summary and run log for current outcomes.
+This command preserves existing story files: review decisions do not replace them.
+For requalification, use inspection or a separate disposable output root.
 
 ## Repeat without network access
 

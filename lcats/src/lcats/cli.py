@@ -41,6 +41,7 @@ def _handle_gather(args):
         generated_root=args.gutenberg_generated_root,
         allow_origins=tuple(args.allow_origin),
         cache_dir=args.cache_dir,
+        review_decisions=args.review_decisions,
     )
 
 
@@ -192,6 +193,11 @@ def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
         action="append",
         default=[],
         help="Additional permitted Gutenberg redirect origin (repeatable).",
+    )
+    gather_parser.add_argument(
+        "--review-decisions",
+        metavar="JSON",
+        help="Explicit source-bound content review decisions for mass_quantities; --yes does not approve content.",
     )
     gather_parser.set_defaults(handler=_handle_gather)
     command_parsers["gather"] = gather_parser
