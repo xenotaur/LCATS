@@ -23,7 +23,7 @@ the Codex agent; none of these records is a claimed human signature.
   illustration caption cannot be removed using one contiguous selection without
   losing story text. The old corpus already includes that caption. No approval.
 
-The [reconciliation](reconciliation-repaired.json) binds all eight judgments to
+The [reconciliation](reconciliation-repaired.json.gz) binds all eight judgments to
 source/candidate/assessment/disposition/corpus identities and exact source excerpts.
 All eight belong to the 1,642 changed-body set. Seven approve/exclude dispositions
 are covered by this tranche; 1,635 changed IDs are **not covered by this tranche**,
@@ -86,7 +86,7 @@ The first runner could silently omit an unreviewed comparison row with missing
 body_equal. Actual archived data was intact; a deliberately damaged copy reproduced
 the under-count. The repaired runner validates every population row, source/corpus
 binding and supplied totals before deriving coverage. Red/green logs and regression
-tests are retained. Final reports are reconciliation-repaired.json,
+tests are retained. Final reports are reconciliation-repaired.json.gz,
 repaired-workflow.json.gz and publication-repaired.json.gz; their runner hashes
 match the independently rechecked code. Earlier reports remain historical evidence.
 The source decisions, selected story bytes and all population counts are unchanged.
@@ -97,3 +97,6 @@ existing warnings). Two local edit attempts failed before the intended final
 operation because of a wrong relative path/name; corrected commands completed.
 No source/corpus edits occurred. These operational slips motivate pinning cwd and
 keeping small reusable evidence runners; they are not product test failures.
+
+Population ledgers are losslessly gzipped to keep the PR diff reviewable;
+compression-map.json preserves old/new names and expanded hashes.

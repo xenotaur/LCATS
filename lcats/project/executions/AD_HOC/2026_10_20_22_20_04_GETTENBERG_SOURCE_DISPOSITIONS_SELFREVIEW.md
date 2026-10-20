@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_20_21_51_30_GETTENBERG_SOURCE_DISPOSITIONS
 pr: https://github.com/xenotaur/LCATS/pull/524
-commit:
+commit: a778e0f4d0052bbe5a3985d5470d5154f989fe44
 created_at: 2026-10-20T22:20:04+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-development-log.md

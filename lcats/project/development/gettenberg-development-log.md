@@ -4184,3 +4184,13 @@ rows, and separate excluded intent from operational collection policy. Interior
 editorial material needs a later source-bound solution or continuing deferral,
 not truncation or unsourced deletion. Preserve this pilot evidence for LRH; no
 claim that one run demonstrates a speedup or predicts task-exclusive usage.
+
+
+### Reviewed checkpoint publication —22:24 UTC
+
+Implementation/evidence commita778e0f4d0052bbe5a3985d5470d5154f989fe44. Independent review and canonical validation
+complete; native records link this commit and remain in_progress. Losslessly
+compressed the two population-ID ledgers to reduce review noise; compression map
+and expanded hashes preserve original evidence bytes. Final metadata commit and
+exact-head hosted checks will be reported in PR524; no recursive commit of its
+own CI claim. No integration/main promotion.
