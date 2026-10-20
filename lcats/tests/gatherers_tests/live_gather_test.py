@@ -28,6 +28,7 @@ from lcats.gatherers import parser
 from lcats.gatherers import readiness
 from lcats.gatherers import overrides
 from lcats.gatherers.sherlock import gatherer as sherlock
+from lcats.gatherers import story_body
 from lcats.gatherers import story_output
 from lcats.gatherers.mass_quantities import storymap
 from lcats.gettenberg import _resource_transport
@@ -346,6 +347,44 @@ class LiveGatherTests(unittest.TestCase):
         self.run_gather(yes=True)
         self.assertEqual(candidate.read_bytes(), original)
         self.assertEqual(len(list((self.root / "logs").rglob("*.candidate.json"))), 1)
+
+    def test_review_rejects_policy_and_evidence_drift_with_unchanged_text(self):
+        source, _ = self.acquire(BODY.encode())
+        report = parser.inspect_story(BOOK_ID, source=source)
+        decision = self.review_decision(report, 0, len(report["body"]))
+        extraction = story_body.extract
+        chapters = parser.assess_chapters
+
+        def new_extraction(*args, **kwargs):
+            return dataclasses.replace(
+                extraction(*args, **kwargs), policy_version="opening-prefix-v2"
+            )
+
+        def new_chapters(*args, **kwargs):
+            return {**chapters(*args, **kwargs), "policy": "metadata-aware-chapters-v2"}
+
+        def changed_chapter_evidence(*args, **kwargs):
+            return {**chapters(*args, **kwargs), "ignored_metadata_paragraphs": [0]}
+
+        for module, name, changed in (
+            (story_body, "extract", new_extraction),
+            (parser, "assess_chapters", new_chapters),
+            (parser, "assess_chapters", changed_chapter_evidence),
+        ):
+            with (
+                self.subTest(change=changed.__name__),
+                mock.patch.object(module, name, side_effect=changed),
+            ):
+                current = parser.inspect_story(BOOK_ID, source=source)
+                self.assertEqual(current["body"], report["body"])
+                self.assertEqual(
+                    current["provenance"]["publication_readiness"]["assessment_sha256"],
+                    report["provenance"]["publication_readiness"]["assessment_sha256"],
+                )
+                with self.assertRaisesRegex(ValueError, "stale"):
+                    parser.inspect_story(
+                        BOOK_ID, source=source, review_decision=decision
+                    )
 
     def test_stale_review_aborts_without_output_even_with_yes(self):
         source, _ = self.acquire()

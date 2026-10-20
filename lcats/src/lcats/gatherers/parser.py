@@ -1367,7 +1367,9 @@ def _inspect_metadata(story, metadata, source, *, review_decision=None):
         {
             "gutenberg_id": story,
             "metadata": report["metadata"],
-            "source": prepared.provenance(),
+            # Bind the whole derivation context, not only acquired source bytes.
+            # A policy/evidence change invalidates review even if text is equal.
+            "source": report["provenance"],
         }
     )
     evidence = {

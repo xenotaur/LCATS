@@ -2,7 +2,7 @@
 
 ## Command coordinator
 
-`lcats.gatherers.main.run(names=None, dry_run=False, *, yes=False, offline=False,
+`lcats.gatherers.main.run(gatherers=None, dry_run=False, *, yes=False, offline=False,
 catalog_archive=None, catalog_url=None, main_root=None, generated_root=None,
 allow_origins=(), cache_dir=None, review_decisions=None)` returns `(message, exit_code)`.
 Completed runs without review/refusals return 0; operational/input failures return 2;
@@ -131,11 +131,13 @@ cues support `divided_work`; <=10 split paragraphs remains `too_short`. These ar
 collection rules and bounded heuristics, not a guarantee of narrative purity.
 A ready result means no unresolved findings under this policy. No detection deletes
 text. In particular, uppercase signs and numbered advertisements are not alone
-proof of narrative chapters. Genuine unnamed sections can remain `needs_review`.
+proof of narrative chapters. Genuine named sections can remain `needs_review`.
 
 Provenance adds `publication_readiness` containing the raw assessment, source-context
 SHA-256, candidate SHA-256 and assessment SHA-256. Source context binds the ebook ID,
-metadata projection and complete source provenance. A reviewed decision and selected
+metadata projection and complete pre-readiness provenance, including extraction
+policy/offsets/diagnostics and chapter-assessment policy/evidence. Identical text
+does not preserve an approval across a change to that derivation context. A reviewed decision and selected
 assessment/chapter evidence are retained alongside the original findings; the raw
 assessment status can therefore remain `needs_review` while the inspection's resolved
 status is `ready`. Existing normalization/overrides run after the approved selection.

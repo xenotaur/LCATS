@@ -40,7 +40,8 @@ approved any individual source annotation by approving the direction.
 - Explicit reviewed decisions use JSON records with ebook ID, source-context hash,
   candidate hash, assessment hash, selected contiguous span/hash, reviewer and
   rationale. Unknown/duplicate fields, wrong types, changed source/context/policy,
-  mismatched selection or stale findings fail visibly. No blanket approve flag.
+  mismatched selection or stale findings fail visibly. Source context also binds
+  extraction and chapter policy/evidence even when the candidate text is unchanged. No blanket approve flag.
   Reviewer identifies the actual person/agent; it never implies a human signature.
   Decisions may resolve uncertain findings but cannot override metadata, too-short
   or corroborated multi-work exclusions. Reassess selected text before publication;
