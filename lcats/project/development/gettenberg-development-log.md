@@ -4307,3 +4307,15 @@ blurbs. Keep exact transformation evidence separate from literary/publication ju
 and historical accounting. The batch milestone recommends an explicit ordered-span
 and blurb-policy discussion before more tiny disposition runs. It does not approve
 that extension or automatically qualify688 cases. No integration/main promotion.
+
+
+### Batch checkpoint publication —23:38 UTC
+
+Implementation/evidence commit 6380f3380ec868fe81cc53839b73874f8b88e065. Native primary/side records link
+that commit and remain in_progress. Final LRH validation0errors/351existingwarnings;
+source/corpus preservation rechecked after canonical tests. Combined inventory
+replayed:1,621unreviewed/10approve/7exclude/2defer, zero conflicts. Archive manifest
+covers50 files with compressed and expanded hashes. Temporary output480MiB plus
+reused2.3GiB cache/queue, free disk212GiB, within grant. No further implementation
+or acceptance expansion; push/check exact final PR head only. Main and integration
+remain pending. Account-wide usage27% vs23% launch, not task-exclusive cost.
