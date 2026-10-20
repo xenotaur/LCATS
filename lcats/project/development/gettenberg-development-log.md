@@ -3996,3 +3996,70 @@ was dropped to hide product failure. Full canonical validation is rerunning.
 Test-folder AGENTS.md additionally requires unittest, deterministic checks and
 format/lint/test; those instructions are satisfied. The new CLI avoids loading
 visualization parser dependencies, consistent with existing gather/catalog commands.
+
+
+### Qualified review-tooling checkpoint — 2026-10-20 17:17 UTC
+
+Product d3bdff07: 3,027 canonical tests (89.079s), 41 focused checks, 12 executable
+documentation checks, package and 16 experiment runner format/lint; LRH zero errors
+/ 351 existing warnings. Final replay 20.694s reproduces every prior classification
+and exactly exports eight prior approvals. 28 actual publication cases pass with
+that export (13 published, 14 withheld, one ineligible). Post-run hashes recheck
+all 1,659 canonical/source files unchanged. One ad-hoc preservation command lacked
+the pinned environment and failed importing identifiers from another clone; it did
+not produce evidence and was rerun successfully with the project Python/PYTHONPATH.
+
+Cold reviewer assignment at ~16:53:35, received by17:13:34, within20-minute ceiling;
+41 independent tests, full queue reload and report-ledger/approval equality checks.
+No actionable findings. Coordinator directly repeated focused checks and ledger
+checks; no most-severe defect exists to reproduce. Only one worker assignment,
+no recursive workers, no repair recheck, at most20 worker minutes. Review scope is
+the complete tooling delta from a93cd649, not whole-corpus or integration approval.
+Compatible lrh-self-review diff procedure under existing-PR pilot adapter; no claim
+that an unchanged main-based skill chain ran. Native side record links its parent.
+
+Online isolated wheel build failed on PyPI DNS. Recovered previously downloaded
+complete wheel ZIPs into a temporary offline wheelhouse; an initial first-tag-only
+filename caused universal py2.py3 wheels to be missed. Corrected recovery preserves
+all WHEEL compatibility tags, checked as a lossless tag-set compression. Declared
+isolated build and fresh-venv dependency resolution then pass entirely offline.
+All171 Python modules and two JSON resources byte-equal source/wheel/installed.
+Installed review commands, conflicting intent, explicit publication, CLI help and
+pip check pass outside checkout, with no legacy package/VCS dependency. No global
+environment/dependency changes. Retained all failures separately from final success.
+
+Clock observations jumped16:20→16:51 and16:53→17:11 between calls; cause unknown.
+Process inspection showed ordinary short runtimes, not a demonstrated stuck test.
+Time grant remains absolute, with no inferred renewal. This reinforces the need for
+external deadline enforcement that survives app/model/tool scheduling gaps. At
+17:17:05 weekly usage15%, from11% launch; account-wide delta4 points is not an
+exclusive per-task cost. No usage reset or paid purchase.
+
+Evidence archived under experiments/10_gettenberg_qualification/results/
+gettenberg-review-workflow-20261020; code remains in library/tests/experiment runners,
+not the control plane. Final evidence/PR checkpointing and hosted checks remain.
+No integration, main promotion, corpus regeneration or native terminal closeout.
+
+Loaded independent-review skill SHA256: `d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c` (`~/.agents/skills/lrh-self-review/SKILL.md`).
+
+
+### Substantive-work stop and PR checkpoint — 17:21 UTC
+
+Scoped implementation, documentation, cached replay, installed package qualification
+and independent review are complete. Stop new implementation now; use remaining
+grant only for evidence/PR publication and checking hosted status. Hard stop remains
+18:09:49 UTC. No active worker, automatic renewal or additional work item.
+
+Account observation15% at17:17:05 versus11% launch. Current isolated run artifacts
+about1.36GiB including offline wheelhouse/venv, below15GiB ceiling; earlier inputs
+and evidence preserved. At pre-push inspection PR524 is OPEN on the expected base
+with remote head a93cd649, one resolved hosted thread and zero unresolved threads.
+Old hosted review at48733d6a is not a review of this product. Exact-head hosted CI
+status will be recorded in the PR body after the final checkpoint commit, avoiding
+a recursively stale claim in the commit itself.
+
+Next recommended scope: a bounded source-grounded disposition tranche, selecting
+an explicit small set of unresolved candidates and historical changes, with exact
+coverage accounting and review evidence. Do not interpret the ten replayed intents
+or 28 smoke cases as accepting the whole corpus. WI0010 and main promotion remain
+open; no source downloads, canonical output mutation or integration in this run.

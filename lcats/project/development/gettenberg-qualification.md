@@ -243,3 +243,21 @@ Criterion 8 remains open: 1,642 changed bodies need complete accepted dispositio
 and the very high review volume needs an efficient, source-grounded workflow.
 This implementation is a safety and observability milestone, not full corpus
 acceptance or permission to integrate. Main promotion/native closeout remain open.
+
+
+## Saved-candidate review tooling checkpoint — 2026-10-20
+
+Product d3bdff07 completes the workflow described in gettenberg-review-workflow.md.
+Offline inventory, exact Unicode preview, immutable approve/exclude/defer records and
+explicit approval export have executable docs and independent review. Full replay
+retains all 1,640 candidates; eight prior approvals, one exclusion and one deferral
+are represented exactly, leaving 1,630 unreviewed. Exclude/defer are audit intent only.
+Exported approvals pass the actual 28-case publication check. 3,027 canonical tests;
+171 installed modules and two JSON resources byte-equal source/wheel; no legacy/VCS
+dependency. See the [archived tooling evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-review-workflow-20261020/README.md).
+
+This does not accept the 1,642 changed historical bodies or authorize integration.
+Criterion 8, WI0010 and main promotion/native closeout remain open. The next scoped
+step is evidence-grounded corpus dispositions using the now-qualified workflow, with
+explicit coverage/accounting rather than treating sampled decisions as all-member
+acceptance. No canonical corpus or original-source bytes changed.

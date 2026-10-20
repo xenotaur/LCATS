@@ -47,3 +47,13 @@ body differences. Full corpus acceptance remains open.
 Canonical checks, explicit experiment checks, installed package smoke and one cold
 independent review are required. Record all findings and repair verification in the
 runlog. No integration, corpus promotion, policy/consent changes or terminal closeout.
+
+
+## Qualified tooling checkpoint
+
+Completed in d3bdff07 under the renewed 2026-10-20 grant.
+[Usage](../../docs/how-to/gettenberg-review.md), [reference](../../docs/reference/gettenberg-review.md),
+and [archived evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-review-workflow-20261020/README.md)
+cover the workflow and limits. Independent review is clear, with 3,027 canonical
+tests and full cached-source reconstruction. This completes tooling qualification
+only; corpus acceptance and integration remain open.
