@@ -14,6 +14,7 @@ import lcats.gatherers.main
 import lcats.inspect
 from lcats import version
 from lcats.gettenberg import catalog_cli
+from lcats.gatherers import review_cli
 
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
@@ -43,6 +44,10 @@ def _handle_gather(args):
         cache_dir=args.cache_dir,
         review_decisions=args.review_decisions,
     )
+
+
+def _handle_gather_review(args):
+    return review_cli.run(parsed_args=args)
 
 
 def _handle_catalog(args):
@@ -201,6 +206,14 @@ def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
     )
     gather_parser.set_defaults(handler=_handle_gather)
     command_parsers["gather"] = gather_parser
+
+    review_parser = subparsers.add_parser(
+        "gather-review",
+        parents=[review_cli.build_parser(add_help=False)],
+        help="Inspect saved candidates and record explicit review dispositions.",
+    )
+    review_parser.set_defaults(handler=_handle_gather_review)
+    command_parsers["gather-review"] = review_parser
 
     catalog_parser = subparsers.add_parser(
         "catalog",

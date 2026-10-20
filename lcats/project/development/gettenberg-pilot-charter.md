@@ -533,3 +533,26 @@ changes, package publication, persistent policy/consent changes or terminal nati
 closeout. Original sources and historical evidence remain untouched. Same isolated
 15GiB output bound /6GiB free minimum. Approved coordinator adapter governs routine
 planning/implementation/repair decisions without invented human responses.
+
+## Candidate-review workflow continuation — 2026-10-20
+
+Human requested the next bounded run. Coordinator chooses a tighter scope/budget
+within the prior grant ceilings: start 09:28:23 UTC (02:28 Pacific), 90-minute
+feature target 10:58:23 UTC, two-hour hard stop 11:28:23 UTC (04:28 Pacific).
+Final 30 minutes are review, repair, validation and checkpoint only. Finish earlier
+on scoped completion or a design blocker; no automatic renewal. Continue PR524
+from a93cd649, with no integration or main promotion.
+
+Scope is gettenberg-review-workflow.md: local candidate inventory/preview,
+explicit immutable dispositions and approval export, bounded cached-source replay,
+documentation, tests, installed smoke and evidence. Existing readiness/publication
+policy and corpus acceptance are unchanged. No Gutenberg requests, canonical data
+writes, CI changes, package publication, persistent consent or native closeout.
+
+Usage starts at 9% weekly consumed. Retain conservative account-wide thresholds:
+at 25% drop stretch, 35% feature freeze, 40% substantive stop/checkpoint. Check every
+15 minutes and before delegation/substantial blocks; unavailable telemetry means
+checkpoint. No minimum usage or guaranteed cost percentage. Normally coordinator
+alone; one cold reviewer up to 20 minutes and optional repair recheck up to 10,
+two assignments / 30 worker minutes maximum, at most two agents including coordinator.
+No recursive workers. Same 15 GiB isolated-output / 6 GiB free-disk limits.

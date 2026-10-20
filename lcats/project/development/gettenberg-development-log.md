@@ -3889,3 +3889,46 @@ not interchangeable; neither case sampling nor recurring-note similarity is a
 complete disposition. Keep genuine scene/chapter divisions and the historical
 source-provenance limits explicit. No integration, main promotion or native
 terminal closeout occurred.
+
+## Candidate-review workflow run — 2026-10-20 09:28 UTC
+
+Human request: "Do the next run." Start a93cd649 with clean worktree and PR524
+OPEN on the expected integration base. WI0010 prompt-ready without warnings;
+prior-art/demand check present. Current corpus review models address different
+repair-operation identities; reuse the existing gather readiness/store primitives
+for this source-bound workflow instead. Plan/acceptance recorded before code in
+gettenberg-review-workflow.md. Coordinator authorizes routine implementation under
+the pilot adapter, not an invented human reply. Native records remain nonterminal.
+Gate definitions are not stale; persistent skip consent remains invalid and unchanged.
+
+Budget: 90-minute target / two-hour hard stop at 11:28:23 UTC; baseline weekly usage
+9%. One planned 20-minute independent review plus optional 10-minute recheck.
+Expected edits: gather review library/CLI/tests, Diataxis docs, thin archival runner
+and evidence, native records/runlog. Validate canonical scripts, explicit changed
+experiment paths, documented CLI flows, cached-source replay and installed wheel.
+No broad automatic acceptance or canonical regeneration is included.
+
+
+### Hard-stop observation and incomplete checkpoint — 2026-10-20 15:04 UTC
+
+Latest clock read 15:04:22 UTC is beyond the 11:28:23 UTC hard stop. The preceding
+explicit reading was 09:36:49 UTC; the cause of the large wall-clock gap is unknown.
+The coordinator stopped substantive work immediately on observing it. No renewal,
+review dispatch, integration or qualification claim is inferred from elapsed time.
+Weekly usage is now 10% consumed, versus 9% at launch (account-wide observation).
+
+Implemented an initial candidate-review library/CLI and behavior tests, plus a thin
+cached-source workflow runner. Initial 38 focused tests passed before additional
+input-bound/type edits. Those edits and the runner are not finally validated.
+Direct source review reverified 32878's six real named divisions (explicit exclusion)
+and 70391's note/sign contexts (defer, no selected publication span). Observations
+and input annotations are preserved in the experiment's incomplete result directory.
+No full-source replay, new publication, installed wheel or independent review ran.
+No worker was spawned in this run. PR524's remote qualified checkpoint remains
+unchanged at a93cd649; the new work is a local, explicitly unqualified checkpoint.
+
+Resume only under a new human grant: review current diff; finish malformed/boundary
+checks and runner tests; execute all documented CLI flows; replay cached candidates
+with exact prior identities and explicit annotations; complete docs, canonical and
+installed checks, cold review/repair, then update PR524. Do not treat the earlier
+38-test result or the two source annotations as whole-candidate acceptance.
