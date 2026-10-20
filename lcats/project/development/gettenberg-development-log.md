@@ -4063,3 +4063,124 @@ an explicit small set of unresolved candidates and historical changes, with exac
 coverage accounting and review evidence. Do not interpret the ten replayed intents
 or 28 smoke cases as accepting the whole corpus. WI0010 and main promotion remain
 open; no source downloads, canonical output mutation or integration in this run.
+
+
+### Source-disposition tranche grant — 2026-10-20 21:49 UTC
+
+Human authorized the recommended next tranche and requested retry after internet
+recovery. Start21:49:00 UTC (14:49 Pacific), feature freeze23:19, hard stop23:49
+(16:49 Pacific). Stop earlier on scoped completion/blocker; no automatic renewal.
+Base3d01fb82, existing PR524, clean synchronized branch. GitHub sandbox connection
+failed; one elevated read-only retry confirmed remote state. Weekly account usage
+16% consumed at launch; retain25% drop stretch,35% freeze,40% checkpoint thresholds;
+observe every15min/before substantial blocks. No guaranteed task-specific cost cap.
+
+Scoped plan: source-grounded dispositions for IDs27612,61198,64292,27709,61353,
+32769 (known structural questions), plus23762 and63889 (two shortest currently
+unreviewed candidates). Selection is purposive, not statistically representative.
+Read narrative boundaries and source structure; approval requires complete narrative
+review. Exclusion may be established by decisive positive structure evidence without
+claiming complete literary review. Bind evidence to exact source/candidate/assessment
+and compare each selected historical body; maintain explicit covered/uncovered sets.
+Reuse existing review and qualification runners. Add a durable thin experiment
+runner only if needed for auditable reconciliation; no production-policy changes.
+
+Expected artifacts: experiment inputs/results/review rationale and any thin tested
+runner; qualification matrix, charter, runlog and native execution records. Validate
+reconstruction against full1659-source census, CLI dispositions/export, selected
+publication checks, source/corpus preservation, canonical package checks, LRH and
+one cold review (20min + optional10min repair recheck; two assignments/30worker-min
+maximum, coordinator plus one reviewer, no recursion). Final30min checkpoint only.
+
+Prior-art/demand check is present in WI0010; readiness prompt-ready, no warnings.
+Staged dependencies remain the previously independently qualified WI0008/0009
+ancestors recorded in qualification matrix; no new dependency acceptance claimed.
+Apply approved coordinator adapter to lrh-implement plan/branch gates; do not claim
+an unchanged main-based skill chain or invent a human reply. Persistent skip consent
+invalid and gate fingerprints clean; neither changed. No integration, main promotion,
+canonical corpus writes, Gutenberg requests, CI changes, release or native closeout.
+
+Recovery discovery: prior /tmp catalog/queue have disappeared; original archive
+still hashes358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28.
+Rebuild locally with600s bound and network disabled, then reproduce archived census
+and reviews before new disposition work. Outputs isolated under
+/tmp/gettenberg-dispositions-20261020;15GiB maximum /6GiB free minimum.
+
+
+### Source-disposition verification — 2026-10-20 22:04 UTC
+
+Local catalog recovery completed in495.059s, all78,937 records, pinned archive,
+no network. Initial full replay19.796s reproduced the1659-source census and prior
+ten intents. Source review produced six exclusions (27612,61198,64292,27709,61353,
+32769), one approved complete narrative (23762), one deferral (63889). Full narrative
+read for the latter two; exclusion reviews inspect decisive named/numbered divisions
+and neighboring narrative, not a claimed full literary reading of all six books.
+
+New thin experiment runner reconciles these judgments with source/candidate/
+disposition/corpus identities, exact source excerpt offsets and historical body
+comparisons. Seven changed IDs have approve/exclude dispositions in this tranche;
+1,635 changed IDs are not covered by it, including63889. Do not subtract earlier
+approval smoke cases without their own historical-difference reconciliation.
+One approval selects[619,10495),9,876 characters; exact retained-body prefix, leaving
+only10 characters: three newlines and THE END. Candidate tail also contains the
+Gutenberg end notice. Corrected initial rationale to name that notice explicitly;
+retained superseded input, created a new immutable record, reran final publication.
+Narrative span unchanged. Interior caption in63889 cannot be removed by one
+contiguous selection; deferred rather than silently deleting or approving it.
+
+Final cumulative replay20.165s:1,622 unreviewed /9 approve /7 exclude /2 defer,
+zero conflicts; unchanged raw census1640 review /13 refusal /5 ready /1 ineligible.
+Eight-case actual gather check: one temporary publication, seven needs_review.
+Exclude/defer records do not operationally change membership or suppress gathering.
+All1659 original compressed sources/canonical files hash-equal baseline; all171
+product modules byte-equal prior qualified checkpoint. No fresh wheel claim needed
+for this experiment/test-only change. New evidence in experiments/10_gettenberg_qualification/
+results/gettenberg-dispositions-20261020, not executable code in project/.
+
+3,033 canonical tests passed106.916s, six focused evidence tests pass, package
+format/lint and explicit runner format/lint pass. Initial focused test used wrong
+fixture opening; corrected to actual Paragraph0 and retained failure evidence.
+Sandbox Ruff cache write failed; --no-cache read-only retry passed. No suppression.
+
+Cold review dispatched22:04UTC, at most20minutes (22:24 deadline), no recursion.
+Scope is this tranche only, including source decisions, proof accounting and tests.
+Weekly account usage19% consumed at dispatch vs16% launch; not exclusive task cost.
+No new scope while review/checkpoint proceeds. Hard stop23:49 unchanged.
+
+
+### Source-disposition review repair and substantive stop —22:21 UTC
+
+One cold reviewer P2: deleting body_equal on unreviewed comparison ID50921 silently
+reduced coverage totals1642→1641 and dropped an unresolved ID. Coordinator reproduced
+the actual malformed-input result, then validates every population row's explicit
+status/equality type and census source/corpus bindings, plus supplied summary/totals.
+Added missing/type/status/identity regressions. Coordinator green reproduction and
+independent narrow recheck pass; actual unchanged inputs still1642/7/1635. Two
+assignments total (initial under14min, recheck under2min), no recursive review.
+
+Reviewer independently read23762/63889 in full, checked decisive structural evidence
+for six exclusions, replayed reconciliation/publication, verified all1659 source/
+corpus hashes and product ledger. Minor63889 wording corrected:522 frontmatter
+characters plus two40-character asterism insertions; coordinator exact diff confirms.
+These source judgments are agent-authored and not human signatures.
+
+After repair:3034 canonical tests97.312s, seven focused tests, package and explicit
+experiment format/lint pass. Final replay22.238s and publication evidence carry the
+rechecked runner hash; counts unchanged. Fresh post-run source/corpus hashes pass.
+LRH0errors/351existingwarnings fromlcats/. An initial root-cwd LRH invocation failed
+missing focus; retained separately and corrected. Two edit attempts failed at wrong
+relative path/name; corrected with no source/corpus changes.
+
+Observed clock22:04→22:14 between tool checkpoints; cause unknown, no inferred
+renewal. Absolute deadline23:49 still governs. Weekly account usage20% at22:15
+vs16% launch, not exclusive per-task cost. Isolated output~2.3GiB, free disk~214GiB,
+within15GiB/6GiB limits. No new scope: stop substantive development and checkpoint
+PR524. Main promotion, integration and native terminal closeout remain unauthorized.
+
+Process findings: cached-source recovery should be documented and resumable after
+temporary directories disappear; eight per-input reviews are not a corpus-wide
+throughput result. Use explicit full population ledgers that reject incomplete
+rows, and separate excluded intent from operational collection policy. Interior
+editorial material needs a later source-bound solution or continuing deferral,
+not truncation or unsourced deletion. Preserve this pilot evidence for LRH; no
+claim that one run demonstrates a speedup or predicts task-exclusive usage.

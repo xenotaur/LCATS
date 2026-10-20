@@ -261,3 +261,24 @@ Criterion 8, WI0010 and main promotion/native closeout remain open. The next sco
 step is evidence-grounded corpus dispositions using the now-qualified workflow, with
 explicit coverage/accounting rather than treating sampled decisions as all-member
 acceptance. No canonical corpus or original-source bytes changed.
+
+
+## First source-disposition tranche — 2026-10-20
+
+Eight named source reviews and a tested per-ID reconciliation runner are recorded
+in the [tranche evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/README.md).
+Six divided works have explicit exclude intent;23762 has a complete reviewed
+narrative selection;63889 is deferred for an interior illustration caption that a
+contiguous selection cannot remove safely. Actual gather publishes the one approved
+span into temporary output and withholds the other seven. No canonical files change.
+
+The ledger covers seven of the1,642 changed IDs **within this tranche**, and lists
+the remaining1,635 explicitly. Prior smoke approvals are not silently counted as
+reviewed historical differences. Cumulative intent inventory is1,622 unreviewed /
+9 approve /7 exclude /2 defer; source classifications remain unchanged.
+3,034 canonical tests pass; independent source review and coverage-defect repair
+recheck pass. Product modules match the previously qualified wheel
+source bytes; this run adds experiment/test/evidence, not product policy.
+Criterion8, WI0010, integration and human main-promotion/native closeout remain open.
+[Independent review](../../../experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/review.md)
+and hosted status are separate checkpoint evidence.

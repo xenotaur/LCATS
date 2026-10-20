@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 32769,
+    "candidate_record_sha256": "debb5e36e009efe84554c5ba9500d2b6ec83a09f9fb46a4f6a640cf49dfbc0c3",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Contents corroborated by actual I AT BIRMINGHAM TOWN HALL and II THE PROCLAMATION narrative headings. Retained corpus is trailing ads; exclude divided narrative.",
+    "approval": null
+}

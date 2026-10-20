@@ -570,3 +570,14 @@ corpus acceptance, main promotion or native closeout. Preserve prior evidence.
 
 
 Resource/authority details and telemetry: development log entry at this timestamp.
+
+
+## Source-disposition tranche — 2026-10-20 afternoon
+
+Human authorized the next recommended tranche and network retry. Start21:49 UTC
+(14:49 Pacific), feature freeze23:19, hard stop23:49 UTC (16:49 Pacific). Scope:
+eight named source reviews and historical-difference accounting, reconstructed
+immutable cached queue, explicit disposition/publication checks, evidence and
+independent review. Detailed plan/budgets in development log at this timestamp.
+Retain approved coordinator adapter, prior resource/authority prohibitions and
+nonterminal WI0010; no integration/main promotion or automatic renewal.

@@ -335,3 +335,57 @@ python -m ruff check ../experiments/10_gettenberg_qualification/scripts
 `qualify_installed.py` also runs the installed `gather-review` entry point for
 list/show/approve/exclude/defer/export, checks conflicting intent remains visible,
 and feeds the explicit exported approval into actual temporary publication.
+
+
+## Source-disposition tranche reconciliation
+
+`reconcile_review_tranche.py` links explicit review judgments to the immutable
+readiness census, historical body comparison, exact candidate and disposition,
+compressed/decoded source identities, canonical story bytes and source excerpts.
+It checks evidence consistency; it cannot establish literary completeness or
+authenticate a reviewer. The reviewer must inspect the source before supplying
+inputs. Positive structural evidence can justify exclusion without claiming a
+full-narrative review. Approval requires review of the entire selected narrative.
+
+Run from `lcats/` in the project environment, with `PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py \
+  /path/to/census-final.json.gz /path/to/full-corpus-final.json.gz \
+  /path/to/reviews.json /tmp/review-work/candidates /path/to/dispositions \
+  /path/to/texts ../corpora/mass_quantities /tmp/new-tranche-result.json
+python -m unittest tests.gettenberg_tests.disposition_tranche_evidence_test
+python -m black --check --diff ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py
+python -m ruff check ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py
+```
+
+`reviews.json` is a list of 1–100 explicit records: `id`, `candidate` and
+`disposition` basenames, nonempty `review_scope` and `historical_rationale`, and
+`source_anchors` (1–50 objects with `start`, `end`, `text`). Source offsets are
+Unicode positions in the exact decompressed UTF-8 cache, preserving CRLF. Candidate
+selection offsets have a different basis: normalized candidate Unicode text.
+Each anchor is at most 4,000 characters. Candidate/disposition loaders verify the
+complete identity chain; approvals are re-derived from the exact candidate.
+Use a completed census and comparison with the same unique 1–10,000 source IDs.
+Every comparison row must explicitly be `compared` with boolean `body_equal`, or
+`cleanup_refused` with null `body_equal` and a matching census refusal. Population
+source/corpus identities and any supplied summary/totals must also agree.
+JSON inputs are bounded to 64 MiB expanded and gzip source inputs to 32 MiB; a POSIX
+180-second alarm bounds the run. This is a trusted local experiment, not an
+untrusted upload service. Original source/corpus files are read only. No network,
+catalog access, disposition creation, story publication or corpus modification.
+Output must be new and outside the collection. Runtime failures preserve a partial
+`completed:false` report and exit nonzero; preflight failure produces no output.
+
+The ledger lists every population ID, changed-body ID, reviewed ID, disposition-
+covered changed ID, and remaining changed ID. Only approve/exclude count as covered
+**by this named tranche**; defer stays unresolved. This does not combine earlier
+tranches, adjudicate conflicting records, or accept the corpus. Exclusion is audit
+intent only: current gathering still withholds the candidate until collection
+policy changes separately. Sampling never accepts unreviewed population members.
+For approvals, the report additionally checks whether the selected body is an exact
+prefix of the retained body and records the remaining suffix when short enough.
+
+Replay actual gather outcomes separately with `qualify_readiness_cases.py` and the
+exported approvals. Record source-review rationale and evidence alongside results.
+The first tranche is in `results/gettenberg-dispositions-20261020/`.

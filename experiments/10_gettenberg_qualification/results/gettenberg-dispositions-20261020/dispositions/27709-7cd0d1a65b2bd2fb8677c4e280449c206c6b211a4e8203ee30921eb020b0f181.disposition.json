@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 27709,
+    "candidate_record_sha256": "ecbb2bef40f0ad042280dc7b9102d963fc5490b5d8ecc47227cee8ea33dad3cd",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Farce with I\u2013XII dramatic divisions and cast labels; retained corpus is trailing publisher advertisements, not the play. Exclude divided work.",
+    "approval": null
+}
