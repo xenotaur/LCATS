@@ -4,7 +4,41 @@ This run implements the human-approved explicit review outcome, not whole-corpus
 acceptance. See the [readiness contract](../../../../lcats/project/development/gettenberg-readiness-contract.md)
 and [runlog](../../../../lcats/project/development/gettenberg-development-log.md).
 
-## Results and limits
+## Final candidate
+
+Product `dfbe837e54380f9ec7d2f015515e9ccd42622afe` is authoritative. Use
+`census-final.json.gz`, `full-corpus-final.json.gz`, `readiness-cases-final.json.gz`,
+`narratives-final.json.gz` and `review-decisions-derivation-bound.json` to reproduce
+it. Unsuffixed files below preserve initial measurements. The first census
+predates a final readiness-source edit; its source hash differs while classifications
+match. All final report source ledgers match current product/runner bytes.
+
+Independent review found one P2: unchanged text could retain approval across an
+extraction/chapter policy change. The coordinator reproduced it; a regression
+failed three drift subcases before repair. Full pre-readiness provenance is now
+bound into review identity. A bounded independent recheck confirmed resolution,
+including offset/diagnostic drift probes, with no new findings. Eight previously
+reviewed recipes were explicitly reissued after verifying unchanged source,
+metadata, extraction/chapter evidence, candidate/assessment and selected text.
+Old decisions remain archived and correctly fail at the repaired identity.
+
+Final validation: 2,998 canonical tests pass (97.466s), 90 focused repair checks,
+package format/lint and all 15 experiment runners' format/lint. LRH has zero errors
+and 351 pre-existing warnings. The wheel and installed package contain exactly
+the same 169 Python modules as the source tree; no extra modules or legacy/VCS
+dependency. Installed withholding/reviewed publication, CLI help and pip check
+pass outside the checkout. A fresh venv resolved declared dependencies for the
+initial candidate; the repaired wheel replaced it without dependency changes.
+Its dirty version suffix reflects concurrent control-plane edits; exact product
+byte equality is verified separately. The first nonisolated build failed due to
+old packaging in the development environment; standard isolated builds succeeded.
+
+`migration.json` retains the historical equality probe: all five outcomes match,
+but three published JSON comparisons differ in provenance. It remains
+`qualified:false`; the assertion was not relaxed. Readiness/publication acceptance
+uses the separate tests and source replays, not this negative equality result.
+
+## Initial measurements and unchanged classifications
 
 - `census.json.gz`: 1,659 immutable cached sources: 1,640 needs_review,
   13 cleanup_refused, five automatically ready, one ineligible. The ready IDs are
@@ -62,4 +96,5 @@ consumes the case/decision manifests; `qualify_narrative_cases.py` uses the pres
 `--baseline-parser-ref 335855c04cd7ba936815d2635969d94fdd278c71`.
 Do not substitute these decisions for independent review of other source contexts.
 
-Validation and independent code review are recorded separately as they finish.
+Final logs, validation.json, source-ledger.json, wheel-final.json and manifest.json
+record validation and provenance. Full candidate bodies are not duplicated here.

@@ -3820,3 +3820,43 @@ used one assignment, charged eight worker minutes; no active worker. Final tests
 independent review and fresh installed-wheel validation are next. High review volume
 is disclosed, not treated as completed corpus qualification or a reason to delete
 uncertain prose.
+
+
+### Independent repair and final local qualification — 2026-10-20
+
+Product dfbe837e follows cold review of 6c641850. One P2: source identity omitted
+body-extraction and chapter policy/evidence; a policy change with identical text
+left a prior decision valid. Coordinator reproduced this directly, wrote a test
+with three failing drift subcases, then bound the whole pre-readiness provenance.
+All 90 focused checks pass. Independent repair recheck also tested offset/diagnostic
+drift and ordinary unchanged selection, finding no new issue. Three assignments
+(source audit, review, recheck), 15 charged worker minutes, one worker at a time;
+no further delegation is available or needed in this grant.
+
+The eight reviewed decisions were explicitly rebound after verifying unchanged
+source, metadata, derivation evidence, candidate, assessment and selected text.
+Older decisions remain archived and correctly fail under the repaired binding.
+Final census remains 1,640 review / 13 cleanup refusals / five ready / one excluded.
+The full comparison's 1,659 rows equal the initial candidate exactly; candidate
+preservation does not resolve 1,642 changed-body dispositions. All eight narratives
+and the 28-case real-outcome check pass. No canonical corpus writes or Gutenberg
+requests. Current source ledgers verify every measured product/runner file.
+
+Canonical: 2,998 tests, 97.466s; package format/lint; 15 experiment runners' explicit
+format/lint; LRH zero errors / 351 existing warnings. Fresh installed qualification
+has all 169 source/wheel/installed modules equal, no extra modules or legacy/VCS
+requirements, pip check and CLI help pass. The repaired wheel replaced the initial
+candidate in the fresh venv without dependency changes. Dirty version suffix comes
+from simultaneous control-plane edits, with exact product equality verified.
+
+Operational notes for LRH: standard isolated builds avoid the development env's
+old packaging dependency (nonisolated attempt failed). `lrh validate` runs from
+lcats/ without --project-root; the attempted unsupported flag was corrected.
+Source ledgers may include absolute runner paths as well as package-relative paths;
+verify actual files rather than assuming one namespace. Keep initial reports and
+final reruns separately, and require the final manifest before checkpoint claims.
+The reviewer caught both a real identity defect and unfinished evidence bookkeeping.
+
+At 07:48:33 UTC usage was 7% consumed from 0% launch. The scope is complete locally;
+checkpoint push and hosted checks remain. Finish early rather than using the rest
+of the grant to expand heuristic deletion or infer corpus acceptance.

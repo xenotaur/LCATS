@@ -33,9 +33,9 @@ approved any individual source annotation by approving the direction.
   with content-derived names and a non-story filename. Reports contain provenance,
   candidate text, findings and identities. Preserve different generations and fail
   visibly on corrupt/colliding existing evidence; no automatic deletion.
-- Batch API retains all outcome categories. CLI summarizes counts/paths, exits3
-  when review/cleanup refusals remain,0 on completed eligible/ineligible/reuse-only
-  runs,2 on operational error. No per-story prompts. `--yes` remains setup approval
+- Batch API retains all outcome categories. CLI summarizes counts/paths, exits 3
+  when review/cleanup refusals remain, 0 on completed eligible/ineligible/reuse-only
+  runs, 2 on operational error. No per-story prompts. `--yes` remains setup approval
   only. Unrelated collections have no new Gutenberg dependency or gate.
 - Explicit reviewed decisions use JSON records with ebook ID, source-context hash,
   candidate hash, assessment hash, selected contiguous span/hash, reviewer and
@@ -53,7 +53,7 @@ approved any individual source annotation by approving the direction.
 
 ## Measurement and activation
 
-Build the pure assessment and run an immutable1,659-input census before wiring the
+Build the pure assessment and run an immutable 1,659-input census before wiring the
 default gate. Record per-input identities/status/reasons and distinguish automatic
 assessment from reviewed decisions. Inspect known cases plus common cue groups;
 report volume and limitations without an invented automatic-coverage target. Then

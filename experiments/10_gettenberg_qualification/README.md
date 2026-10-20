@@ -236,9 +236,9 @@ bytes; do not reinterpret their body-only counts as final publication eligibilit
 The readiness policy separates preserved candidates from publication. From `lcats/`
 with this worktree on `PYTHONPATH`, use the existing read-only catalog and decoded
 UTF-8 cache. All output paths below must be new; input corpus/cache are never written.
-No network requests are made. POSIX alarms bound census to600s and case checks to180s.
-The census allows1–10000 canonical stories and the case runner1–100 source-bound cases;
-shared gzip input reads are bounded to32MiB compressed/expanded. Operational failures
+No network requests are made. POSIX alarms bound census to 600s and case checks to 180s.
+The census allows 1–10000 canonical stories and the case runner 1–100 source-bound cases;
+shared gzip input reads are bounded to 32MiB compressed/expanded. Operational failures
 save `completed:false` partial JSON and exit nonzero; cleanup refusals are explicit
 census rows. A completed census is measurement, not corpus acceptance.
 
@@ -264,10 +264,10 @@ is not a successful publication check without a valid explicit decision. Decisio
 are reviewed input data, never generated automatically by these runners. Historical
 decoded-cache identities do not authorize live original-byte publication.
 
-The eight2026-10-20 decisions select whole paragraphs around the older anchors to
-retain final dialogue punctuation.22579 explicitly keeps an interior illustration
+The eight 2026-10-20 decisions select whole paragraphs around the older anchors to
+retain final dialogue punctuation. 22579 explicitly keeps an interior illustration
 label; it is not silently deleted or claimed absent. No decisions are provided for
-the five disputed chapter cases.27612 also has genuine italic scene headings, so
+the five disputed chapter cases. 27612 also has genuine italic scene headings, so
 its false counted evidence does not establish that it is unchaptered.
 
 `qualify_installed.py` now also exercises withheld editorial content, explicit

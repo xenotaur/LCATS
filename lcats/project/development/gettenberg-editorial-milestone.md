@@ -105,3 +105,16 @@ bounded coordinator adapter does not substitute for that decision.
 
 Main promotion and terminal closeout remain separate human gates. This milestone
 neither resolves WI0010 nor changes its acceptance criteria.
+
+
+## Approved direction implemented — 2026-10-20
+
+The explicit review outcome is implemented and independently reviewed in the
+[readiness contract](gettenberg-readiness-contract.md) and
+[qualification checkpoint](gettenberg-qualification.md#explicit-review-outcome-checkpoint--2026-10-20).
+The earlier examples and "current behavior" above describe the pre-gate checkpoint.
+The long authored editorial-only case is now withheld. Uncertain candidates remain
+available outside accepted buckets; source-bound decisions resolve reviewed spans.
+The next unresolved question is corpus disposition and review throughput, not
+whether uncertain editorial material may silently publish. Approval of this direction
+does not approve individual corpus outputs or authorize main promotion.

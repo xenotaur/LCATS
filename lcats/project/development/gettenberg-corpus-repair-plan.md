@@ -132,3 +132,14 @@ on the immutable cached corpus before default activation, and repair known cases
 Preserved candidates are not accepted corpus entries; unresolved material differences
 remain explicit. No main promotion or acceptance relaxation follows from this approval.
 See the [charter](gettenberg-pilot-charter.md) for time/usage/worker bounds.
+
+
+### Readiness implementation checkpoint
+
+Product dfbe837e implements the approved explicit review outcome. See the
+[qualification update](gettenberg-qualification.md#explicit-review-outcome-checkpoint--2026-10-20).
+Uncertain candidate text is retained but withheld; reviewed selections bind source,
+metadata, extraction/chapter evidence, assessment and exact selected text. The next
+bounded scope should prioritize evidence-backed dispositions and usable review
+throughput. No blanket approval of recurring note patterns or canonical regeneration
+follows from this implementation. The 1,642 changed bodies remain unaccepted.

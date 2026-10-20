@@ -215,3 +215,31 @@ is not claimed. Criterion9 therefore is not accepted merely because local checks
 pass. The [human milestone](gettenberg-editorial-milestone.md) proposes a publication
 readiness decision before the next implementation grant. No integration, main
 promotion, WI resolution or terminal closeout occurs at this checkpoint.
+
+
+## Explicit review outcome checkpoint — 2026-10-20
+
+The human-approved direction is implemented in product `dfbe837e`: preservation
+and publication readiness are separate, with immutable candidates and explicit
+source-bound review selections. The authored editorial-only control is withheld.
+The [readiness contract](gettenberg-readiness-contract.md) and
+[archived results](../../../experiments/10_gettenberg_qualification/results/gettenberg-readiness-20261020/README.md)
+record current API, evidence and limitations. Historical checkpoints above retain
+their original meanings and do not describe the current publication gate.
+
+Current immutable census: 1,640 needs_review, 13 cleanup_refused, five ready and
+one ineligible. Eight explicitly reviewed narratives publish in temporary buckets;
+all previous unique narrative anchors survive. A 28-case check exercises 13 actual
+publications, 14 review candidates and one exclusion. Candidate extraction and all
+input identities remain unchanged. Known ambiguous chapter sources now require
+review, including real named divisions: eliminating false positives is not proof
+that a work is unchaptered. 27612 has real italic headings despite misleading
+counted all-caps evidence, correcting the earlier coarse triage.
+
+Independent review found one P2 approval-staleness defect, directly reproduced and
+repaired. A bounded recheck independently confirmed the repair without new findings.
+Current tests/package/CI are indexed in the result directory and PR body.
+Criterion 8 remains open: 1,642 changed bodies need complete accepted dispositions,
+and the very high review volume needs an efficient, source-grounded workflow.
+This implementation is a safety and observability milestone, not full corpus
+acceptance or permission to integrate. Main promotion/native closeout remain open.
