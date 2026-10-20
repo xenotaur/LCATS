@@ -282,3 +282,21 @@ source bytes; this run adds experiment/test/evidence, not product policy.
 Criterion8, WI0010, integration and human main-promotion/native closeout remain open.
 [Independent review](../../../experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/review.md)
 and hosted status are separate checkpoint evidence.
+
+
+## Qualified batch-review method —2026-10-20
+
+Human-approved narrow rules with per-input evidence are implemented as an opt-in
+proposal API and archival qualification runner. [Evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-batch-20261020/README.md)
+checks all1,659 inputs and cumulative review intent. One newly recorded boundary-rule
+disposition70154 brings explicit historical coverage to8 of1,642 changed bodies;
+1,634 remain unresolved.46 boundary matches,12 selected readiness passes,1 complete
+historical explanation;688 other recognized notices are interior. No default gather
+change or automatic acceptance of unmatched material.
+
+Three independently reproduced review defects were repaired and rechecked.3,053
+canonical tests,26 focused checks, installed-wheel equality across172 modules,
+actual temporary publication/withholding and original-input preservation pass.
+See the [batch milestone](gettenberg-batch-review-milestone.md) before another tranche:
+ordered retained spans and treatment of blurbs need a scoped design decision.
+WI0010 acceptance, integration, main promotion and native closeout stay open.

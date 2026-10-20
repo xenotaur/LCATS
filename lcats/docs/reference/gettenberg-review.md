@@ -92,3 +92,34 @@ must be outside configured data/corpora roots. Symlink output files and aliases 
 protected roots fail. These are local misuse guards, not a sandbox against another
 process concurrently replacing directories. Configure actual collection roots before
 using custom locations. Preserve original sources and historical records.
+
+
+## Opt-in boundary rule proposals
+
+Import `from lcats.gatherers import review_rules` and call
+`review_rules.evaluate_boundary_notice(candidate_path)`. This reads a validated
+saved candidate and returns evidence; it does not record approval or change gather.
+`publication_notice(text)` tests only the complete notice grammar.
+
+`delimited-publication-notice-v1` recognizes a complete bracketed transcriber
+publication/copyright notice in the first or last paragraph. The publication name
+must be in the explicit finite list in the module, followed by one named month or
+season and a 1900–1999 year, then the exact research/copyright sentence. Case,
+physical whitespace and the supported apostrophe variants affect recognition only.
+The complete paragraph is bounded to 1,000 characters. Unknown publications, date
+forms, additional prose, incomplete brackets and interior notes do not match.
+No surrounding title, byline, blurb or caption is discarded. At most one matching
+notice per boundary is considered; the selected text is a contiguous exact substring.
+
+The JSON result records the rule version, ebook and candidate/source/assessment
+identities, applicability, selected span/hash, exact removed text/spans/hashes,
+selected structural/readiness assessments and blockers. `approval_eligible` means
+that this narrow edit leaves no readiness findings or recognized retained editorial
+labels; it is not a literary-quality certificate or historical reconciliation.
+The original assessment is recomputed and must match the saved evidence.
+
+The qualification experiment additionally requires an unreviewed input and exact
+historical-baseline equality after the separately recorded existing normalization
+before it may record this rule's decision. It keeps unexplained differences,
+existing decisions and conflicts out of the automatic recording set. See the
+[batch procedure](../how-to/gettenberg-review.md#qualify-a-batch-offline).

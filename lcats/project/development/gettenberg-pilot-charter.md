@@ -581,3 +581,29 @@ immutable cached queue, explicit disposition/publication checks, evidence and
 independent review. Detailed plan/budgets in development log at this timestamp.
 Retain approved coordinator adapter, prior resource/authority prohibitions and
 nonterminal WI0010; no integration/main promotion or automatic renewal.
+
+
+## Batch qualification grant — 2026-10-20 23:13 UTC
+
+Human approved a two-hour target / three-hour maximum and explicitly approved
+qualifying narrow rules with per-input evidence, keeping exceptions unresolved.
+Start23:13:08 UTC; target/feature freeze01:13:08 UTC on October21; hard stop02:13:08.
+Continue PR524 from0c9d4b3e on codex/gettenberg-qualification. No automatic renewal,
+integration, main promotion, canonical corpus changes or native terminal closeout.
+
+Scope: reconcile cumulative review inventory, classify the entire immutable corpus,
+qualify one narrowly bounded editorial rule with authored counterexamples and
+per-input proofs, measure coverage/exceptions, document method and process findings.
+No approval solely from warning categories or representative samples. Record rule
+qualification separately from publication readiness and historical reconciliation.
+Keep original sources, old corpus and historical evidence unchanged; cached inputs
+only, no Gutenberg requests, CI changes, package publication or consent changes.
+
+Coordinator implements; one independent reviewer up to20min and optional narrow
+repair recheck up to10min, at most two assignments/30 cumulative worker minutes,
+at most two concurrent agents, no recursive delegation. Reserve final30min for
+checkpointing. Existing scoped LRH coordinator adapter covers routine plan/repair
+and continuation-branch decisions. Usage starts23% weekly consumed account-wide;
+retain25% drop stretch,35% feature freeze,40% substantive stop/checkpoint. Check
+every15min and before substantial blocks/delegation; unavailable telemetry means
+checkpoint. Same isolated15GiB output /6GiB free-disk limits.

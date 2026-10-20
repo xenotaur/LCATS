@@ -33,6 +33,7 @@ def main(argv=None):
     from lcats import cli
     from lcats.gatherers import parser
     from lcats.gatherers import readiness
+    from lcats.gatherers import review_rules
     from lcats.gatherers.mass_quantities import gatherer
     from lcats.gettenberg import catalog
     from lcats.gettenberg import cleanup
@@ -95,7 +96,12 @@ def main(argv=None):
                 text = (
                     narrative
                     if metadata.titles[0].endswith("84")
-                    else "Transcriber's Note\n\n" + narrative
+                    else (
+                        "[Transcriber's Note: This etext was produced from Galaxy Science Fiction "
+                        "October 1954. Extensive research did not uncover any evidence that the "
+                        "U.S. copyright on this publication was renewed.]\n\n"
+                        + narrative
+                    )
                 )
                 return types.SimpleNamespace(
                     cleaned=cleanup.strip_boilerplate(text),
@@ -139,6 +145,12 @@ def main(argv=None):
                             ) from exc
                 return json.loads(output.getvalue())
 
+            proposal = review_rules.evaluate_boundary_notice(candidate)
+            if not proposal["approval_eligible"]:
+                raise ValueError("installed narrow-rule proposal failed")
+            a, b = proposal["selected_span"]
+            if report["body"][a:b] != narrative:
+                raise ValueError("installed narrow rule changed narrative")
             start = report["body"].index(narrative)
             packet = review_command(
                 [
@@ -242,6 +254,7 @@ def main(argv=None):
             "readiness withholding, immutable candidate and runtime logs",
             "explicit reviewed selection/publication",
             "installed gather-review list/show/approve/exclude/defer/export and conflict visibility",
+            "opt-in narrow boundary-rule exact selection without publication",
         ],
     }
     with args.output.open("x", encoding="utf-8") as stream:

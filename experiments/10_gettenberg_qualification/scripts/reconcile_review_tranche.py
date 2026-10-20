@@ -83,8 +83,8 @@ def named_file(root, name):
     return root / name
 
 
-def reconcile(census, comparison, reviews, queue, dispositions, text_cache, collection):
-    """Bind each explicit disposition to source/corpus evidence and return coverage."""
+def validated_population(census, comparison):
+    """Check complete population accounting before any tranche or batch analysis."""
     baseline, historical = indexed_rows(census), indexed_rows(comparison)
     if baseline.keys() != historical.keys():
         raise ValueError("population ID sets differ")
@@ -98,6 +98,20 @@ def reconcile(census, comparison, reviews, queue, dispositions, text_cache, coll
             status == "cleanup_refused" and row["body_equal"] is not None
         ):
             raise ValueError("invalid historical body_equal type")
+        if status == "compared":
+            digests = [
+                row.get(key)
+                for key in ("normalized_before_sha256", "normalized_after_sha256")
+            ]
+            if any(
+                not isinstance(d, str)
+                or len(d) != 64
+                or any(c not in "0123456789abcdef" for c in d)
+                for d in digests
+            ):
+                raise ValueError("invalid normalized comparison digest")
+            if row["body_equal"] != (digests[0] == digests[1]):
+                raise ValueError("historical equality flag differs from body hashes")
         if (status == "cleanup_refused") != (before["status"] == "cleanup_refused"):
             raise ValueError("population cleanup status differs")
         for old_key, baseline_key in (
@@ -117,6 +131,12 @@ def reconcile(census, comparison, reviews, queue, dispositions, text_cache, coll
         collections.Counter(row["status"] for row in historical.values())
     ):
         raise ValueError("historical comparison summary differs")
+    return baseline, historical
+
+
+def reconcile(census, comparison, reviews, queue, dispositions, text_cache, collection):
+    """Bind each explicit disposition to source/corpus evidence and return coverage."""
+    baseline, historical = validated_population(census, comparison)
     if not isinstance(reviews, list) or not 1 <= len(reviews) <= 100:
         raise ValueError("requires 1–100 explicit reviews")
     seen, rows = set(), []

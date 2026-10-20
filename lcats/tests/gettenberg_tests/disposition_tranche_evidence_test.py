@@ -40,6 +40,8 @@ class DispositionTrancheEvidenceTests(unittest.TestCase):
             "decoded_utf8_sha256": fixture.row["decoded_utf8_sha256"],
             "corpus_sha256": fixture.row["corpus_sha256"],
             "body_equal": False,
+            "normalized_before_sha256": "0" * 64,
+            "normalized_after_sha256": "1" * 64,
             "status": "compared",
             "legacy_matches_retained": True,
             "old_body_characters": 8,

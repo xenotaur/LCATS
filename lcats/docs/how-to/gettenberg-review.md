@@ -111,3 +111,29 @@ inventory also does not certify publication: inspect the new gather outcome/log.
 See the [reference](../reference/gettenberg-review.md) for limits and API contracts,
 and the [architecture explanation](../explanation/gettenberg-architecture.md) for
 why preservation, review intent and publication are separate.
+
+
+## Qualify a batch offline
+
+For repository qualification, use the [archival batch runner](../../../experiments/10_gettenberg_qualification/README.md#batch-review-qualification).
+It combines the immutable census/comparison, saved candidate queue, cumulative
+review dispositions and previously reviewed source evidence. It does not download
+metadata or regenerate your collection.
+
+Start with a new output directory and the default measurement mode. Inspect its
+summary and compressed per-input ledger: a matched notice, a ready selection and
+an explained historical difference are separate results. Repeated warning labels
+or sample readings never approve a group. Keep exceptions unresolved.
+
+After qualifying the rule and reviewing its evidence, repeat with a new output
+directory and `--record-qualified` to create only the explicitly eligible,
+source-bound dispositions and export. Existing approve/exclude/defer/conflict
+records are preserved. A dry run proposes decisions but does not count newly
+proposed rule decisions as resolved. A failed/partial run is not acceptance evidence.
+
+The first rule handles boundary notices only. It cannot remove an interior note
+without also discarding other text under the existing contiguous-selection model.
+Unlabelled blurbs can escape readiness detectors, so the runner also refuses to
+resolve an unexplained historical difference merely because reassessment is ready.
+This workflow does not approve the complete corpus, authorize main promotion, or
+make an historical decoded-cache approval valid for newly acquired wire bytes.

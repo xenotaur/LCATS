@@ -68,3 +68,11 @@ and reviewed temporary publication; five ambiguous chapter sources and genuine
 multi-work negative; batch partial-run/reuse/cleanup/CLI outcomes; full corpus census;
 canonical scripts and explicit experiment checks; fresh installed wheel; independent
 review and bounded fixes. Historical output bytes and source identities remain intact.
+
+
+## Approved batch-method extension — 2026-10-20
+
+See [batch review contract](gettenberg-batch-review-contract.md). The human approved
+qualified narrow rules with per-input evidence. Repeated warning patterns alone
+still cannot accept a group; exceptions stay unresolved. Historical text above
+describes the initial individual-review method.

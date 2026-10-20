@@ -1,0 +1,69 @@
+{
+  "review_scope": "Current delta from 0c9d4b3e, original review snapshot; read-only review, no network or repository edits",
+  "status": "changes_requested",
+  "findings": [
+    {
+      "priority": 1,
+      "file": "lcats/src/lcats/gatherers/review_rules.py",
+      "snapshot_lines": [
+        16,
+        138
+      ],
+      "title": "Trailing whitespace can cause silent final-paragraph deletion",
+      "reproduction": "Using existing BoundaryReviewRulesTests fixture, evaluate(NOTICE + '\\n\\n' + BODY + '\\n') returns approval_eligible True and selected_span [194,1170], but BODY ends at1246. Removed suffix contains entire narrative paragraph13 plus whitespace.",
+      "cause": "_PARAGRAPH does not match a final paragraph followed by whitespace because it requires a nonwhitespace character immediately before end-of-string. Selection end falls back to previous paragraph.",
+      "recommendation": "Parse complete paragraph coverage robustly and verify every removed nonwhitespace piece is an exact recognized notice; test trailing spaces/newlines and other boundary whitespace."
+    },
+    {
+      "priority": 1,
+      "file": "experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py",
+      "snapshot_lines": [
+        78,
+        99
+      ],
+      "title": "Known prior intent is ignored when omitted from cumulative directory",
+      "reproduction": "Using ReviewBatchEvidenceTests fixture, record an exclude disposition in a separate prior directory, pass an explicit source-anchored prior review and that prior directory, but leave cumulative dispositions empty. evaluate returns inventory unreviewed:1 and emits one new approval with qualified_boundary_rule resolution.",
+      "recommendation": "Require all explicitly supplied prior dispositions to be present in cumulative inventory, or reconcile their intents into it before deciding; include prior defer and conflicts."
+    },
+    {
+      "priority": 2,
+      "file": "experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py",
+      "snapshot_lines": [
+        75,
+        150
+      ],
+      "title": "Inconsistent historical equality flag can undercount changed population",
+      "reproduction": "Using ReviewBatchEvidenceTests fixture, set old['body_equal']=True while normalized_before_sha256 != normalized_after_sha256. evaluate succeeds and summary reports historical_changed=0 and unresolved=[], despite recomputed normalization matching the unequal after hash.",
+      "scope_note": "Shared validation existed before delta; new batch consumption exposes same integrity gap.",
+      "recommendation": "For every compared row require valid before/after digests and body_equal equal to digest equality."
+    }
+  ],
+  "verification": {
+    "focused_tests": "23 focused unittest tests passed using project Python and workspace PYTHONPATH",
+    "independent_dry_run": "/tmp/gettenberg-batch-independent-audit-20261020",
+    "population": 1659,
+    "changed": 1642,
+    "unchanged": 4,
+    "cleanup_refused": 13,
+    "historical_resolved": 7,
+    "historical_unresolved": 1635,
+    "rule_matched": 46,
+    "readiness_eligible": 12,
+    "new_rule_qualified_ids": [
+      70154
+    ],
+    "cumulative_dispositions": 18,
+    "explicit_prior_reviews": 8,
+    "all_prior_records_present_unchanged": true,
+    "all_real_removed_nonwhitespace_is_matching_notice": true,
+    "representative_source_cases": [
+      70154,
+      32484,
+      31948,
+      23337
+    ],
+    "70154_selected_equals_raw_historical_and_retained_corpus_without_normalization": true,
+    "actual_comparison_equality_flags_consistent": true,
+    "limitations": "No complete literary reading, no publication, no canonical-suite claim; coordinator handles full suite. Findings refer to original frozen snapshot; coordinator may be applying fixes concurrently."
+  }
+}

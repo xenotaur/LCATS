@@ -389,3 +389,47 @@ prefix of the retained body and records the remaining suffix when short enough.
 Replay actual gather outcomes separately with `qualify_readiness_cases.py` and the
 exported approvals. Record source-review rationale and evidence alongside results.
 The first tranche is in `results/gettenberg-dispositions-20261020/`.
+
+
+## Batch review qualification
+
+`qualify_review_batch.py` measures every immutable input and reconciles existing
+review intents before proposing narrowly qualified decisions. Run from `lcats/`
+with the project Python and `PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py \
+  CENSUS_JSON_GZ COMPARISON_JSON_GZ CANDIDATES DISPOSITIONS TEXT_CACHE \
+  COLLECTION NEW_OUTPUT_DIRECTORY \
+  --prior-reviews SOURCE_REVIEWS_JSON --prior-dispositions SOURCE_DISPOSITIONS
+```
+
+The census/comparison are the completed full-population baseline; candidate and
+cumulative disposition directories must match that generation. `SOURCE_REVIEWS_JSON`
+is the explicit source-anchor/rationale input accepted by `reconcile_review_tranche.py`
+(or an explicit empty list when no prior tranche exists). Original files are read-only.
+The runner validates every source/corpus hash, exact queue/population sets, recorded
+normalization and existing disposition bindings. Sidecars are not corpus members.
+
+Outputs are `summary.json`, losslessly compressed `ledger.json.gz`, and
+`proposed-decisions.json`. By default, proposed rule decisions do not enter resolved
+coverage. After rule qualification and review, use a fresh output directory and
+`--record-qualified` to record eligible immutable dispositions and `approvals.json`.
+The rule must match, the selected text must pass stricter readiness checks, its
+existing normalization must exactly reproduce the historical baseline, and no
+prior intent may exist. Other differences remain unresolved; equality alone is
+not approval. The ledger keeps raw selected/removal hashes and normalization
+provenance separately. Every corpus input remains visible, including refusals.
+
+No network, catalog rebuild or story publication. Existing bounded candidate/source
+readers apply; at most 10,000 population rows, 6 GiB free minimum and a 600-second POSIX
+alarm. Partial failures preserve `completed:false` and exit nonzero. Never consume
+a partial export as acceptance evidence. Existing outputs are refused.
+
+Smoke tests and explicit experiment checks:
+
+```bash
+python -m unittest tests.gatherers_tests.review_rules_test tests.gettenberg_tests.review_batch_evidence_test tests.gettenberg_tests.disposition_tranche_evidence_test
+python -m black --check ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
+python -m ruff check --no-cache ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
+```

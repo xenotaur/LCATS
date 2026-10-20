@@ -1,0 +1,14 @@
+[
+  {
+    "gutenberg_id": 70154,
+    "source_identity_sha256": "0191aee2785e25946933a1241a77e1d792a26904af940904445542637ed0ff04",
+    "candidate_sha256": "78c73e91b6dfbc374c273834ce4a18ecc0387be153fbab0c0edf7c77c3ddee91",
+    "assessment_sha256": "5812513e40b3a99a93e150a5e81f41a2f80a4798d5155368222dcf8239696d7e",
+    "selected_start": 227,
+    "selected_end": 20509,
+    "selected_sha256": "4131c83bd597b5a4eea63bc72190ed25e7d6e7d84ebc0f0b7068cd218b5e81f8",
+    "reviewer": "Codex agent: qualified boundary rule",
+    "rationale": "Qualified delimited-publication-notice-v1: complete boundary notice only; exact retained substring reassessed ready, no retained editorial labels; existing normalization exactly matches recorded historical baseline. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 1
+  }
+]

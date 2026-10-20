@@ -57,3 +57,11 @@ and [archived evidence](../../../experiments/10_gettenberg_qualification/results
 cover the workflow and limits. Independent review is clear, with 3,027 canonical
 tests and full cached-source reconstruction. This completes tooling qualification
 only; corpus acceptance and integration remain open.
+
+
+## Approved batch-method extension — 2026-10-20
+
+See [batch review contract](gettenberg-batch-review-contract.md). The human approved
+qualified narrow rules with per-input evidence. Repeated warning patterns alone
+still cannot accept a group; exceptions stay unresolved. Historical text above
+describes the initial individual-review method.

@@ -4194,3 +4194,116 @@ compressed the two population-ID ledgers to reduce review noise; compression map
 and expanded hashes preserve original evidence bytes. Final metadata commit and
 exact-head hosted checks will be reported in PR524; no recursive commit of its
 own CI claim. No integration/main promotion.
+
+
+## Batch qualification grant — 2026-10-20 23:13 UTC
+
+Human approved a two-hour target / three-hour maximum and explicitly approved
+qualifying narrow rules with per-input evidence, keeping exceptions unresolved.
+Start23:13:08 UTC; target/feature freeze01:13:08 UTC on October21; hard stop02:13:08.
+Continue PR524 from0c9d4b3e on codex/gettenberg-qualification. No automatic renewal,
+integration, main promotion, canonical corpus changes or native terminal closeout.
+
+Scope: reconcile cumulative review inventory, classify the entire immutable corpus,
+qualify one narrowly bounded editorial rule with authored counterexamples and
+per-input proofs, measure coverage/exceptions, document method and process findings.
+No approval solely from warning categories or representative samples. Record rule
+qualification separately from publication readiness and historical reconciliation.
+Keep original sources, old corpus and historical evidence unchanged; cached inputs
+only, no Gutenberg requests, CI changes, package publication or consent changes.
+
+Coordinator implements; one independent reviewer up to20min and optional narrow
+repair recheck up to10min, at most two assignments/30 cumulative worker minutes,
+at most two concurrent agents, no recursive delegation. Reserve final30min for
+checkpointing. Existing scoped LRH coordinator adapter covers routine plan/repair
+and continuation-branch decisions. Usage starts23% weekly consumed account-wide;
+retain25% drop stretch,35% feature freeze,40% substantive stop/checkpoint. Check
+every15min and before substantial blocks/delegation; unavailable telemetry means
+checkpoint. Same isolated15GiB output /6GiB free-disk limits.
+
+Prompt PROMPT(WI-GETTENBERG-0010:GETTENBERG_BATCH_QUALIFICATION)[2026-10-20T23:13:25+00:00].
+Idempotence clear; WI0010 prompt-ready, no warnings; prior-art/demand check present.
+Reuse candidate_review/readiness, replay and reconciliation helpers. Prior rule
+finding categories are classification inputs only, not an existing batch approver.
+No new sibling consumer or external dependency. Expected edits: tested domain rule
+in src/lcats if reusable, thin experiment ledger/runner and tests, archived evidence,
+Diataxis docs and control-plane/native records. Validate all1659 inputs, source/corpus
+hashes, real temporary publication where qualified, canonical package and explicit
+experiment checks, installed-wheel check if product changes, LRH and cold review.
+Persistent skip consent invalid but watched fingerprints clean; neither changed.
+User grant and coordinator adapter satisfy plan/branch continuation; no fabricated
+skill-chain human response and no claim this work branched from current main.
+
+
+### Batch investigation and independent review —23:31 UTC
+
+Initial text audit found805 complete notices using a looser discovery expression;
+that is not the qualified grammar. The finite-publication/single-month v1 grammar
+recognizes734 notices:45 leading,1 trailing,688 interior (all interior starts within
+first1,500 candidate characters). Of46 boundary matches,12 pass selected readiness
+and the extra retained-label guard; only70154 also explains the entire historical
+difference. Several others retain apparent blurbs; no approval is inferred from
+ready alone. Exact70154 selected hash equals old extracted, normalized baseline
+and retained corpus hash; no normalization applies. Selected[227,20509),20,282 chars;
+removed227 chars consist of the complete notice plus separator whitespace.
+
+Full1659-input audit17.421s, zero network. Prior inventory18 intents:9approve,
+7exclude,2defer; earlier8 approvals remain historical-difference gaps, not extra
+resolved IDs. Existing7 source-review resolutions remain covered. Default dry-run
+count was clarified to exclude newly proposed rule decisions from resolved coverage.
+Initial real audit failed because find_corpus_stories includes84 JSON sidecars;
+replaced it with canonical iter_collection_story_files and added a sidecar/missing-
+story regression. Failure evidence retained. Initial short-body test fixture was
+ineligible before review; replaced with eligible input whose selected span is short.
+
+Cold review dispatched23:25 UTC (20min ceiling), returned before23:31. Two P1s:
+trailing whitespace could cause last narrative paragraph loss; incomplete cumulative
+inventory could override an exclusion supplied in prior source evidence. One P2:
+inconsistent comparison equality flag could undercount changed bodies. Coordinator
+independently reproduced all three and saved red evidence. Repairs preserve nonremoved
+exterior whitespace and require every removed piece to match the complete notice;
+require cumulative inclusion of every known prior disposition, including deferrals;
+validate before/after SHA256 fields and equality flags for every compared row.
+Authored regressions added. A secondary whitespace fixture exposed existing readiness
+classification on an invalid-for-storage ready input; changed to an eligible two-note
+fixture, without suppressing the original narrative-preservation assertion.
+
+Independent real-data audit found no such loss/inconsistency in actual inputs and
+confirmed the source bindings and70154 exact equality. One narrow10-minute repair
+recheck dispatched23:31, deadline23:41:30, second/final assignment. No new scope.
+Initial canonical suite passed before repairs; repaired checks/wheel/full replay
+must replace it for final evidence. Weekly account usage24% vs23% start at23:25;
+shared usage, not exclusive task billing. No rule-based approvals recorded yet.
+
+
+### Batch qualification complete; checkpoint only —23:35 UTC
+
+All three findings repaired and independently rechecked before recording.26 focused
+tests and3,053 canonical tests pass(103.680s); package/changed-experiment format/lint
+pass. Final full replay17.741s records one new rule disposition70154. Coverage is
+8 explicit historical resolutions /1,634 unresolved changed bodies, not whole-corpus
+acceptance. Prior18 intents preserved; new separate approval yields19 total intents
+if combined. Default measurement mode keeps the unrecorded proposal unresolved.
+
+Five-case actual gather replay publishes70154 temporarily and withholds32484,31948,
+23337,63889. Original1659 compressed/decoded sources and canonical files rechecked
+unchanged. Fresh wheel built/installed in isolated venv;172 Python modules and2 JSON
+resources byte-equal source/wheel/install. Installed rule proposal, review workflow,
+publication and pip check pass. Initial wheel/suite preceded repairs; repaired build
+and tests are final. No Gutenberg requests; PyPI build/dependency access succeeded.
+
+Two review assignments total: initial23:25–before23:31, narrow recheck23:31–before23:33,
+within30 worker-minute allowance. No further assignments. Account-wide usage27% at
+23:33 vs23% launch: stretch dropped under existing25% threshold, substantive scope
+complete. Continue only documentation/evidence/native validation and PR checkpoint;
+no automatic time renewal or further source acceptance. Time budget is a ceiling,
+not a requirement to spend two hours when the next step needs a design decision.
+
+Process finding: full-population proof evaluation costs seconds; the low acceptance
+yield is semantic/model scope, not machine throughput or concurrency.734 recognized
+notices include688 interior cases, which cannot be omitted using the current one-span
+selection while preserving all surrounding text. Ready classification can miss plain
+blurbs. Keep exact transformation evidence separate from literary/publication judgment
+and historical accounting. The batch milestone recommends an explicit ordered-span
+and blurb-policy discussion before more tiny disposition runs. It does not approve
+that extension or automatically qualify688 cases. No integration/main promotion.
