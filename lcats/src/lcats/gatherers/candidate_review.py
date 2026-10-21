@@ -235,11 +235,12 @@ def record_disposition(
     rationale,
     start=None,
     end=None,
+    omissions=None,
     directory=DEFAULT_DISPOSITIONS,
 ):
     """Record one explicit, attributed disposition without changing any story.
 
-    Approve requires a selected span. Exclude/defer are audit records only: they
+    Approve requires a selected span or evidenced omissions (v2). Exclude/defer are audit records only: they
     neither change collection definitions nor authorize publication. Repeated
     identical records are idempotent; different records remain separate evidence.
     """
@@ -249,16 +250,25 @@ def record_disposition(
         raise ValueError("outcome must be approve, exclude or defer")
     approval = None
     if outcome == "approve":
-        approval = dataclasses.asdict(
-            readiness.ReviewDecision.for_report(
+        if omissions is not None:
+            if start is not None or end is not None:
+                raise ValueError("choose omissions or a single span, not both")
+            decision = readiness.OrderedReviewDecision.for_report(
+                record["report"],
+                omissions=omissions,
+                reviewer=reviewer,
+                rationale=rationale,
+            )
+        else:
+            decision = readiness.ReviewDecision.for_report(
                 record["report"],
                 start=start,
                 end=end,
                 reviewer=reviewer,
                 rationale=rationale,
             )
-        )
-    elif start is not None or end is not None:
+        approval = dataclasses.asdict(decision)
+    elif start is not None or end is not None or omissions is not None:
         raise ValueError("only approval may select a publication span")
     disposition = {
         "schema_version": 1,
@@ -301,7 +311,7 @@ def _load_disposition(path):
         raise ValueError("disposition outcome must be a string")
     if record["outcome"] == "approve":
         try:
-            decision = readiness.ReviewDecision(**record["approval"])
+            decision = readiness.decision_from_dict(record["approval"])
         except TypeError as exc:
             raise ValueError("invalid approval fields") from exc
         if (
@@ -336,14 +346,8 @@ def _match(disposition, candidate):
     ):
         raise ValueError("disposition refers to a different candidate")
     if disposition["outcome"] == "approve":
-        d = readiness.ReviewDecision(**disposition["approval"])
-        expected = readiness.ReviewDecision.for_report(
-            report,
-            start=d.selected_start,
-            end=d.selected_end,
-            reviewer=d.reviewer,
-            rationale=d.rationale,
-        )
+        d = readiness.decision_from_dict(disposition["approval"])
+        expected = readiness.decision_for_report(d, report)
         if d != expected:
             raise ValueError(
                 "approval is stale or selected text does not match candidate"
@@ -438,10 +442,7 @@ def inventory(candidates, *, dispositions=None):
                 (
                     None
                     if d["approval"] is None
-                    else (
-                        d["approval"]["selected_start"],
-                        d["approval"]["selected_end"],
-                    )
+                    else readiness.decision_intent(d["approval"])
                 ),
             )
             for _, d in decisions
@@ -480,3 +481,11 @@ def inventory(candidates, *, dispositions=None):
         "candidates": rows,
         "meaning": "recorded reviewer intent, not publication, current-source validation or corpus acceptance",
     }
+
+
+def load_omissions(path):
+    """Load a bounded explicit omission list; construction validates each entry."""
+    value, _ = _read_json(path, MAX_DISPOSITION_BYTES)
+    if not isinstance(value, list) or not 1 <= len(value) <= 256:
+        raise ValueError("omission specification must contain 1–256 entries")
+    return value

@@ -4334,3 +4334,111 @@ Finish metadata/PR reporting now; no new implementation, review assignment or sc
 Earlier statement of an early finish referred to substantive scope, not total observed
 wall time. The final checkpoint records this distinction rather than claiming a
 30-minute total run or unexplained agent hours. No integration/main promotion.
+
+
+## Ordered retained spans grant — 2026-10-21 10:15 UTC
+
+Human approved the batch milestone recommendations and a longer overnight run
+under six hours. Start10:15:47 UTC (03:15 Pacific), target/feature freeze15:15:47,
+hard stop16:00:47 UTC (09:00 Pacific). Final45min reserved for verification and
+checkpoint; finish earlier on scoped completion. Continue PR524 fromc90b3fc3.
+No automatic renewal, integration/main promotion or terminal native closeout.
+
+Scope: versioned source-bound ordered retained spans; exact reconstruction and
+evidence for every omission; confirmed publisher blurbs retained separately as
+editorial metadata, ambiguous cases unresolved. First automatic rule extends only
+the already qualified publication-notice grammar to interior complete paragraphs.
+Transformation qualification, publication readiness and historical reconciliation
+remain separate. No general blurb classifier or quota for resolutions. Implement
+review/CLI/publication integration, authored preservation/counterexample tests,
+full cached-population measurement, canonical and installed-wheel verification,
+independent review, Diataxis docs and runlog. Preserve original source/corpus bytes.
+
+Coordinator implementation; one independent reviewer at a time, initial20min and
+optional10min repair recheck, two assignments/30 worker minutes maximum. No recursive
+delegation. Same15GiB isolated outputs/6GiB free minimum. Cached sources only, no
+Gutenberg requests, CI changes, package publication or persistent consent changes.
+Account-wide usage starts30% consumed; retain35% feature freeze/40% substantive
+stop, no stretch scope. Check time after tools and usage every15min/before major
+blocks. If a budget truncates delivery, checkpoint actual state without claiming
+completion. Scoped coordinator adapter satisfies routine plan/branch/repair gates.
+
+Preflight: WI0010 prompt-ready without warnings; prior-art check present in WI.
+Existing single-span review is extended, not duplicated; demand is WI0010 and
+approved batch milestone. Active worktree clean atc90b3fc3; unrelated default
+checkout untouched. Installed watched skill fingerprints clean; persistent skip
+consent invalid and unchanged. Explicit run grant supplies authority. Project
+Python / LCATS environment, PYTHONPATH bound to this worktree. Prompt:
+`PROMPT(WI-GETTENBERG-0010:GETTENBERG_ORDERED_SPANS)[2026-10-21T10:16:07+00:00]`;
+idempotence check found no prior execution. lrh-implement plus pilot coordinator
+adapter used; no separate branch/renewed user gate for this continuation.
+
+
+### Ordered-span implementation and qualification — 2026-10-21 10:37 UTC
+
+Scoped implementation complete well before the overnight ceiling; no scope expansion
+or minimum-time spending. Versioned ordered retained spans and evidenced omissions
+preserve exact source order/characters. Confirmed blurbs publish separately with text,
+source offsets, hashes and attribution. V1 bytes remain untouched. The CLI, export,
+inventory, direct inspection and batch gather all support v2. No default extractor
+change or general blurb classifier. Related analysis/corpus/span_ops was inspected:
+its general insert/replace/remove repair model and coercive payload readers do not
+satisfy this strict source-bound retention contract; do not broaden review into it.
+
+Initial authored fixture assumed the upstream parser retained exterior whitespace;
+corrected that fixture and added direct candidate-selection whitespace coverage.
+Full-suite sandbox attempt had 102 permission errors (local HTTP fixtures/write
+boundaries), then approved local execution exposed one executable-doc fixture gap:
+new --omissions path needed substitution and the expected command sequence update.
+Both are retained as failed evidence, not claimed passes. Initial wheel verifier
+included generated egg-info JSON; corrected its boundary to the distributed package.
+
+Cold review under lrh-self-review found two P2s: versionless v1 records failed
+historical reconciliation, and equivalent v1/v2 approvals became false conflicts.
+Coordinator reproduced both; regression tests and independent narrow recheck pass.
+Different blurb placement still conflicts. First assignment 10:26:50–before10:31;
+second 10:34–before10:35; under eight worker minutes across two assignments, one
+worker at a time. The scoped pilot adapter reviews this run's full tracked/new-file
+diff against c90b3fc3 rather than repeating all previously reviewed PR changes.
+
+Final canonical suite: 3,075 tests /104.557 seconds. Package and all three changed
+experiment runners pass format/lint. Fresh isolated build/install:172 modules and2
+JSON resources exactly equal source/wheel/install; no legacy/VCS dependency. Installed
+smoke exercises v2 CLI recording/export and true noncontiguous batch publication with
+separate exact blurb metadata. Authored runner smoke exercises explicit ordered
+recording mode even though the real measurement yields zero new approvals.
+
+All1,659 cached inputs rechecked in22.722 seconds.734 transformations qualified:
+688 interior/two-span,46 boundary/one-span.216 pass selected mechanical checks,
+including204 interior cases. Existing8 historical resolutions preserved;1,634 remain
+unresolved. No new disposition recorded;19 prior intents stay intact. All proposals
+remain explicitly unapproved. Real five-case replay retains70154 approval and withholds
+four exceptions in disposable output. Original compressed/decoded source and canonical
+corpus identities rechecked unchanged after final tests. No Gutenberg requests.
+
+Usage observed30%→33% weekly consumed at10:33 (shared account, not exclusive run cost).
+No feature stretch; proceed only native validation, commits, PR checkpoint and hosted
+status. Build/install used PyPI; a sandboxed GitHub status query failed to connect and
+its single approved network retry succeeded. No credential/consent changes. Free disk
+was218.96GiB; isolated outputs below15GiB. LRH CLI0.2.5.dev3596+gd86755f50.
+Loaded skill SHA256: lrh-implement48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165;
+lrh-self-review d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c.
+
+Process finding: broadening the representation makes734 safe transformations expressible,
+but does not establish literary roles or explain all historical differences. The ledger
+makes this lack of new approvals explicit rather than converting technical success into
+corpus acceptance. Further editorial classification is separate future scope; no automatic
+continuation to consume the overnight allowance. Evidence lives with the documented
+experiment; no executable code added to project/. WI0010 and promotion gates stay open.
+
+
+### Ordered-span local checkpoint — 2026-10-21 10:39 UTC
+
+LRH validation: 0 errors / 351 pre-existing warnings. Final isolated outputs are
+479 MiB, below the 15 GiB bound; prior shared cache/queue were reused read-only.
+Account-wide weekly usage now 34% consumed versus 30% at launch. Scope is complete;
+only commit/push and hosted verification remain. Independent review and recheck are
+finished, with no worker left running. Full final evidence and hashes are archived
+under experiments/10_gettenberg_qualification/results/gettenberg-ordered-20261021/.
+Hosted checks will be reported against the exact pushed head in PR524; prior-head
+success is not treated as evidence for these changes. Main/integration remain pending.

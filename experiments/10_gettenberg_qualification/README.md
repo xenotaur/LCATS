@@ -433,3 +433,35 @@ python -m unittest tests.gatherers_tests.review_rules_test tests.gettenberg_test
 python -m black --check ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
 python -m ruff check --no-cache ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
 ```
+
+
+### Ordered-span qualification
+
+The same batch invocation accepts `--rule ordered` to measure the approved interior
+notice extension; omit it to retain the historical boundary-rule behavior. Use a
+new output directory and cumulative dispositions including previous batch approvals.
+The ledger records exact ordered ranges, each removed notice and its hash, current
+assessment, normalization, prior intent and historical reconciliation. Summary
+`rule_transformation_qualified` counts safe transformations independently from
+`rule_readiness_eligible` and recorded historical resolutions. No general blurb
+classification, new network access or corpus mutation is performed.
+
+V2 explicit approvals use the same optional `--record-qualified` gate. A dry run's
+unrecorded proposals remain unresolved, and no output is accepted merely to increase
+coverage. `reconcile_review_tranche.py` validates both v1/v2 source-reviewed records.
+The installed smoke exercises v2 CLI recording/export, batch gathering, noncontiguous
+narrative reconstruction and exact separately preserved blurb metadata.
+
+```bash
+scripts/format --check --diff \
+  ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py \
+  ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py \
+  ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
+scripts/lint \
+  ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py \
+  ../experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py \
+  ../experiments/10_gettenberg_qualification/scripts/qualify_installed.py
+python -m unittest tests.gatherers_tests.ordered_review_test \
+  tests.gettenberg_tests.review_batch_evidence_test \
+  tests.gettenberg_tests.disposition_tranche_evidence_test
+```

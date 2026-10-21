@@ -40,6 +40,9 @@ def build_parser(*, add_help=True):
     record.add_argument("--start", type=int)
     record.add_argument("--end", type=int)
     record.add_argument(
+        "--omissions", help="JSON list of evidenced omissions for v2 approval."
+    )
+    record.add_argument(
         "--directory", default=str(candidate_review.DEFAULT_DISPOSITIONS)
     )
     export = commands.add_parser(
@@ -72,6 +75,11 @@ def run(argv=None, *, parsed_args=None):
                 rationale=args.rationale,
                 start=args.start,
                 end=args.end,
+                omissions=(
+                    candidate_review.load_omissions(args.omissions)
+                    if args.omissions is not None
+                    else None
+                ),
                 directory=args.directory,
             )
             result = {"disposition": path, "outcome": args.outcome, "published": False}

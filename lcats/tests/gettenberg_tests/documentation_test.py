@@ -430,12 +430,13 @@ class DocumentationTests(unittest.TestCase):
             p + " The travelers watched the quiet river." * 20
             for p in live_gather_test.PARAGRAPHS
         )
+        notice = (
+            "[Transcriber's Note: This etext was produced from Galaxy Science Fiction "
+            "October 1954. Extensive research did not uncover any evidence that the "
+            "U.S. copyright on this publication was renewed.]"
+        )
         fixture.acquire(
-            (
-                "The Bell\n\nJohn Smith\n\n"
-                + body
-                + "\n\nTranscriber's Note\n\nA correction."
-            ).encode()
+            ("The Bell\n\nJohn Smith\n\n" + body + "\n\n" + notice).encode()
         )
         message, code = fixture.run_gather()
         self.assertEqual(code, 3, message)
@@ -443,7 +444,21 @@ class DocumentationTests(unittest.TestCase):
         dispositions = fixture.root / "dispositions"
         dispositions.mkdir()
         output = fixture.root / "review-decisions.json"
+        # Execute the new documented command using the same JSON shape, with
+        # fixture-specific reviewed offsets instead of fictional example offsets.
+        omission_example = json.loads(
+            re.search(
+                r"```json\n(.*?)```", path.read_text(encoding="utf-8"), re.S
+            ).group(1)
+        )
+        omission_example[0].update(
+            start=len(body),
+            end=len(json.loads(candidate.read_text())["report"]["body"]),
+        )
+        omission_path = fixture.root / "omissions.json"
+        omission_path.write_text(json.dumps(omission_example), encoding="utf-8")
         substitutions = {
+            "/path/to/omissions.json": str(omission_path),
             "$candidate": str(candidate),
             "$start": "0",
             "$end": str(len(body)),
@@ -502,6 +517,7 @@ class DocumentationTests(unittest.TestCase):
                 "list",
                 "show",
                 "show",
+                "record",
                 "record",
                 "record",
                 "record",

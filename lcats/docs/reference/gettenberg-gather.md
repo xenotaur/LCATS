@@ -81,7 +81,7 @@ prepare a catalog or fetch text. Default network policy is offline.
 `gather_stories(ids, log_dir=..., *, source, review_decisions=None)` return a
 `gather_result.BatchResult`. Its `outcomes` tuple retains every completed
 `GatherResult`; `counts`, `gathered`, `requires_attention` and `to_dict()` support
-batch reporting. Review decisions are an ID-to-`ReviewDecision` mapping; IDs outside
+batch reporting. Review decisions are an ID-to-`ReviewDecision` or `OrderedReviewDecision` mapping; IDs outside
 the selection are errors. Selections are bounded to 100,000 entries.
 
 `parser.gather_story(gatherer, id, *, source, review_decision=None, review_dir=...)`
@@ -162,11 +162,17 @@ agents; attribution is not an authenticated human signature.
 
 `load_decisions(path)` rejects unknown/duplicate fields, duplicate IDs, invalid
 hashes/types/spans and files over 8 MiB or 10,000 records. Current inspection
-recomputes all identities and validates the selected substring. Drift fails visibly;
+recomputes all identities and validates the selected text. Drift fails visibly;
 there is no fallback to approval by ID. A decision can resolve uncertain findings,
 but cannot override metadata, short-story or corroborated divided-work exclusions.
 Decisions made against historical decoded-cache evidence cannot be silently reused
 for live original-byte sources: their source contexts differ.
+
+V2 `OrderedReviewDecision.for_report(report, *, omissions, reviewer, rationale)`
+derives an ordered retained selection from explicitly evidenced omissions. See the
+[ordered selection contract](gettenberg-review.md#ordered-retained-spans-and-editorial-metadata)
+for fields, limits, exact reconstruction, blurb metadata and v1 preservation.
+Both decision types work through CLI export, batch gather and direct inspection.
 
 ## Conservative body boundaries
 

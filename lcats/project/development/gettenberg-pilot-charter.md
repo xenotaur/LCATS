@@ -607,3 +607,31 @@ and continuation-branch decisions. Usage starts23% weekly consumed account-wide;
 retain25% drop stretch,35% feature freeze,40% substantive stop/checkpoint. Check
 every15min and before substantial blocks/delegation; unavailable telemetry means
 checkpoint. Same isolated15GiB output /6GiB free-disk limits.
+
+
+## Ordered retained spans grant — 2026-10-21 10:15 UTC
+
+Human approved the batch milestone recommendations and a longer overnight run
+under six hours. Start10:15:47 UTC (03:15 Pacific), target/feature freeze15:15:47,
+hard stop16:00:47 UTC (09:00 Pacific). Final45min reserved for verification and
+checkpoint; finish earlier on scoped completion. Continue PR524 fromc90b3fc3.
+No automatic renewal, integration/main promotion or terminal native closeout.
+
+Scope: versioned source-bound ordered retained spans; exact reconstruction and
+evidence for every omission; confirmed publisher blurbs retained separately as
+editorial metadata, ambiguous cases unresolved. First automatic rule extends only
+the already qualified publication-notice grammar to interior complete paragraphs.
+Transformation qualification, publication readiness and historical reconciliation
+remain separate. No general blurb classifier or quota for resolutions. Implement
+review/CLI/publication integration, authored preservation/counterexample tests,
+full cached-population measurement, canonical and installed-wheel verification,
+independent review, Diataxis docs and runlog. Preserve original source/corpus bytes.
+
+Coordinator implementation; one independent reviewer at a time, initial20min and
+optional10min repair recheck, two assignments/30 worker minutes maximum. No recursive
+delegation. Same15GiB isolated outputs/6GiB free minimum. Cached sources only, no
+Gutenberg requests, CI changes, package publication or persistent consent changes.
+Account-wide usage starts30% consumed; retain35% feature freeze/40% substantive
+stop, no stretch scope. Check time after tools and usage every15min/before major
+blocks. If a budget truncates delivery, checkpoint actual state without claiming
+completion. Scoped coordinator adapter satisfies routine plan/branch/repair gates.

@@ -171,3 +171,118 @@ def evaluate_boundary_notice(path):
         approval_eligible=not blockers,
     )
     return result
+
+
+ORDERED_NOTICE_RULE = "ordered-publication-notice-v1"
+
+
+def evaluate_publication_notices(path):
+    """Propose exact removal of complete notice paragraphs anywhere in a candidate.
+
+    Recognition uses the unchanged finite grammar from the boundary rule. Each
+    omission includes the notice and its following separator (or trailing white
+    space), leaving the preceding separator intact. All other characters stay in
+    source order. No opening prose is classified as a blurb by its position.
+
+    This establishes transformation evidence only. Surviving findings, unexplained
+    historical differences and prior dispositions must be considered separately;
+    neither a match nor mechanical readiness authorizes recording/publication.
+    At most 256 notices are proposed; larger inputs remain unresolved.
+    """
+    record = candidate_review.load_candidate(path)
+    report = record["report"]
+    body, metadata = report["body"], report["metadata"]
+    chapters, assessment = _assessment(body, metadata)
+    evidence = report["provenance"]["publication_readiness"]
+    if (
+        chapters != report["provenance"]["chapter_assessment"]
+        or readiness.identity(assessment.to_dict()) != evidence["assessment_sha256"]
+    ):
+        raise ValueError("candidate assessment differs from current rule context")
+    result = {
+        "rule": ORDERED_NOTICE_RULE,
+        "gutenberg_id": report["gutenberg_id"],
+        "candidate_record_sha256": readiness.identity(record),
+        **{
+            key: evidence[key]
+            for key in (
+                "source_identity_sha256",
+                "candidate_sha256",
+                "assessment_sha256",
+            )
+        },
+        "matched": False,
+        "transformation_qualified": False,
+        "selected_readiness_eligible": False,
+        "publication_approved": False,
+        "selected_spans": None,
+        "selected_sha256": None,
+        "omissions": [],
+        "removed": [],
+        "blockers": [],
+    }
+    paragraphs = list(_PARAGRAPH.finditer(body.rstrip()))
+    omissions = []
+    for i, paragraph in enumerate(paragraphs):
+        if not publication_notice(paragraph.group()):
+            continue
+        start = paragraph.start() if i else 0
+        end = paragraphs[i + 1].start() if i + 1 < len(paragraphs) else len(body)
+        # The exact removed substring must contain nothing but a complete notice
+        # and separators, even if paragraph segmentation changes in the future.
+        if not publication_notice(body[start:end].strip()):
+            raise ValueError("removed span contains unrecognized text")
+        omissions.append(
+            {
+                "start": start,
+                "end": end,
+                "kind": "publication_notice",
+                "reason": "Complete delimited publication notice, with following separator.",
+                "evidence": ORDERED_NOTICE_RULE
+                + "; full paragraph matches finite publication/date grammar",
+            }
+        )
+    if not omissions:
+        result["blockers"] = ["no_matching_publication_notice"]
+        return result
+    result["matched"] = True
+    if len(omissions) > 256:
+        result["blockers"] = ["too_many_notices"]
+        return result
+    if sum(o["end"] - o["start"] for o in omissions) == len(body):
+        result["blockers"] = ["no_retained_text"]
+        return result
+    # Use the same strict partition validator as publication, without saving or
+    # exposing an approval. The returned packet is explicitly a proposal only.
+    selection = readiness.OrderedReviewDecision.for_report(
+        report,
+        omissions=omissions,
+        reviewer="Rule proposal only",
+        rationale="Transformation validation; no publication approval.",
+    )
+    selected = selection.reconstruct(body)
+    selected_chapters, selected_assessment = _assessment(selected, metadata)
+    blockers = []
+    if selected_assessment.status != "ready":
+        blockers.append("selected_" + selected_assessment.status)
+    if _RETAINED_LABEL.search(selected):
+        blockers.append("retained_editorial_label")
+    result.update(
+        transformation_qualified=True,
+        selected_spans=[list(v) for v in selection.selected_spans],
+        selected_sha256=selection.selected_sha256,
+        omissions=omissions,
+        removed=[
+            {
+                "span": [v.start, v.end],
+                "text": body[v.start : v.end],
+                "sha256": v.sha256,
+            }
+            for v in selection.omitted_spans
+        ],
+        selected_chapter_assessment=selected_chapters,
+        selected_assessment=selected_assessment.to_dict(),
+        selected_readiness_eligible=not blockers,
+        blockers=blockers,
+    )
+    return result

@@ -62,7 +62,9 @@ def gather_stories(
         raise ValueError("review decisions contain IDs outside the selected collection")
     if any(
         type(key) is not int
-        or not isinstance(value, readiness.ReviewDecision)
+        or not isinstance(
+            value, (readiness.ReviewDecision, readiness.OrderedReviewDecision)
+        )
         or value.gutenberg_id != key
         for key, value in decisions.items()
     ):

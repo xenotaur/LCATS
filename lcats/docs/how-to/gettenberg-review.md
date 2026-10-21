@@ -74,6 +74,46 @@ input reuses the same record; changing intent creates another record. Exclude/de
 are audit records: they do not edit the collection definition, delete a candidate,
 or suppress subsequent gathering. Preserve old records and inspect conflicts.
 
+## Remove an evidenced interior block and preserve confirmed blurbs
+
+Use ordered spans when a known editorial block sits between narrative paragraphs.
+Inspect both sides first. Save a JSON list of omissions; each entry needs reviewed
+character offsets, an editorial kind, a reason and source-specific evidence. For
+example, this fictional specification omits characters 120–346 of its candidate:
+
+```json
+[
+  {
+    "start": 120,
+    "end": 347,
+    "kind": "publication_notice",
+    "reason": "Complete bracketed publication notice and following separator.",
+    "evidence": "Reviewed the exact paragraph and the narrative on both sides."
+  }
+]
+```
+
+Replace the example offsets and evidence with those from your actual candidate.
+Retained text is the exact complement, joined in source order. No separator is
+invented; include only the separator belonging to the omission and preserve the
+one needed between the retained paragraphs. Then record the reviewed whole-body
+approval using this specification instead of `--start`/`--end`:
+
+```bash
+lcats gather-review record "$candidate" --outcome approve \
+  --omissions /path/to/omissions.json \
+  --reviewer "$reviewer" --rationale "$rationale" \
+  --directory /path/to/dispositions
+```
+
+Use `publisher_blurb` only when positive evidence establishes that role. On eventual
+publication, the exact omitted blurb is preserved in `metadata.editorial`, with
+source offsets and attribution. Do not classify opening prose by position alone:
+authored framing, an epigraph or a narrative opening may belong in the story.
+When uncertain, record `defer`. An omitted notice does not establish that the rest
+of the candidate is ready to publish. This command creates evidence only; export
+and gathering remain separate steps.
+
 ## Export explicitly selected approvals
 
 Choose the exact approval records to export. Never use a wildcard over an unreviewed
@@ -131,8 +171,9 @@ source-bound dispositions and export. Existing approve/exclude/defer/conflict
 records are preserved. A dry run proposes decisions but does not count newly
 proposed rule decisions as resolved. A failed/partial run is not acceptance evidence.
 
-The first rule handles boundary notices only. It cannot remove an interior note
-without also discarding other text under the existing contiguous-selection model.
+The default rule handles boundary notices. Opt into the ordered interior extension
+with the runner's `--rule ordered`; it preserves all surrounding unclassified text.
+Its transformation and selected-readiness counts are separate from approvals.
 Unlabelled blurbs can escape readiness detectors, so the runner also refuses to
 resolve an unexplained historical difference merely because reassessment is ready.
 This workflow does not approve the complete corpus, authorize main promotion, or

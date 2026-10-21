@@ -300,3 +300,21 @@ actual temporary publication/withholding and original-input preservation pass.
 See the [batch milestone](gettenberg-batch-review-milestone.md) before another tranche:
 ordered retained spans and treatment of blurbs need a scoped design decision.
 WI0010 acceptance, integration, main promotion and native closeout stay open.
+
+
+## Ordered retained-span qualification — 2026-10-21
+
+The human-approved milestone is implemented with v2 source-bound ordered selections,
+explicit omission evidence, separate confirmed-blurb metadata and preserved v1
+records. CLI/export, inventory, inspection and actual batch publication support both.
+[Evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-ordered-20261021/README.md)
+qualifies734 exact notice transformations, including688 interior cases;216 pass
+selected readiness checks. No new complete historical resolution:8 resolved and
+1,634 unresolved changed bodies, with existing19 intents preserved. Blurb classification
+requires positive per-input evidence; the rule retains all unclassified text.
+
+3,075 canonical tests, exact source/wheel/install equality across172 modules and2
+JSON resources, installed v2 publication/blurb smoke, full cached replay and original
+source/corpus preservation pass. Two independently reproduced P2 compatibility fixes
+pass narrow independent recheck. Criterion8, WI0010, integration/main promotion and
+native closeout remain open; safe transformations are not corpus acceptance.

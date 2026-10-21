@@ -2,6 +2,7 @@
 
 From lcats/ with project Python/PYTHONPATH:
 python ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py CENSUS COMPARISON QUEUE DISPOSITIONS TEXT_CACHE COLLECTION NEW_OUTPUT_DIRECTORY --prior-reviews REVIEWS --prior-dispositions DIRECTORY [--record-qualified]
+--rule ordered opts into the interior notice extension; default boundary is unchanged.
 No catalog, downloads or story publication. Rechecks every source/corpus identity,
 validates population/queue completeness, replays prior tranche reconciliation and
 preserves existing approve/exclude/defer/conflict intent. Default is measurement;
@@ -70,8 +71,12 @@ def evaluate(
     collection,
     prior_reviews,
     prior_dispositions,
+    *,
+    rule="boundary",
 ):
     """Return a full evidence ledger and qualified decisions without writing them."""
+    if rule not in {"boundary", "ordered"}:
+        raise ValueError("unknown qualification rule")
     baseline, historical = tranche.validated_population(census, comparison)
     if not isinstance(prior_reviews, list) or len(prior_reviews) > 100:
         raise ValueError("prior reviews must be an explicit list of at most 100")
@@ -208,7 +213,11 @@ def evaluate(
                         ),
                     }
                 )
-        proposal = review_rules.evaluate_boundary_notice(path)
+        proposal = (
+            review_rules.evaluate_boundary_notice(path)
+            if rule == "boundary"
+            else review_rules.evaluate_publication_notices(path)
+        )
         row["rule_evidence"] = proposal
         # An earlier tranche has explicit source-grounded historical rationale.
         # It is not silently carried across a now-conflicting cumulative intent.
@@ -225,9 +234,9 @@ def evaluate(
             approval = candidate_review.load_disposition(item["dispositions"][0])[
                 "approval"
             ]
-            selected = report["body"][
-                approval["selected_start"] : approval["selected_end"]
-            ]
+            selected = readiness.selected_text(
+                readiness.decision_from_dict(approval), report["body"]
+            )
             row["prior_selected_normalized"] = normalized(selected, before["path"])
             if (
                 row["historical_body_changed"]
@@ -235,9 +244,18 @@ def evaluate(
                 == old["normalized_before_sha256"]
             ):
                 row["historical_resolution"] = "prior_review_baseline_reconciled"
-        if proposal["selected_span"] is not None:
-            start, end = proposal["selected_span"]
-            selected_normalized = normalized(report["body"][start:end], before["path"])
+        spans = (
+            proposal.get("selected_spans")
+            if rule == "ordered"
+            else (
+                [proposal["selected_span"]]
+                if proposal["selected_span"] is not None
+                else None
+            )
+        )
+        if spans is not None:
+            selected = "".join(report["body"][a:b] for a, b in spans)
+            selected_normalized = normalized(selected, before["path"])
             row["rule_selected_normalized"] = selected_normalized
             equal = selected_normalized["sha256"] == old["normalized_before_sha256"]
             row["rule_explains_entire_historical_difference"] = equal
@@ -245,26 +263,36 @@ def evaluate(
             # assessment can miss an unlabelled blurb; unexplained added text is
             # not resolved merely because this notice was safely recognized.
             if (
-                proposal["approval_eligible"]
+                (
+                    proposal["approval_eligible"]
+                    if rule == "boundary"
+                    else proposal["selected_readiness_eligible"]
+                )
                 and equal
                 and item["state"] == "unreviewed"
                 and row["historical_body_changed"]
             ):
-                decision = readiness.ReviewDecision.for_report(
-                    report,
-                    start=start,
-                    end=end,
-                    reviewer="Codex agent: qualified boundary rule",
-                    rationale=(
-                        f"Qualified {proposal['rule']}: complete boundary notice only; "
-                        "exact retained substring reassessed ready, no retained editorial labels; "
+                attribution = {
+                    "reviewer": "Codex agent: qualified " + rule + " rule",
+                    "rationale": (
+                        f"Qualified {proposal['rule']}: only complete publication notices removed; "
+                        "exact retained characters reassessed ready, no retained editorial labels; "
                         "existing normalization exactly matches recorded historical baseline. "
                         "Per-input proof in batch ledger; no claim of complete literary reading."
                     ),
+                }
+                decision = (
+                    readiness.OrderedReviewDecision.for_report(
+                        report, omissions=proposal["omissions"], **attribution
+                    )
+                    if rule == "ordered"
+                    else readiness.ReviewDecision.for_report(
+                        report, start=spans[0][0], end=spans[0][1], **attribution
+                    )
                 )
                 decisions.append(dataclasses.asdict(decision))
                 row["new_rule_qualified"] = True
-                row["historical_resolution"] = "qualified_boundary_rule"
+                row["historical_resolution"] = "qualified_" + rule + "_rule"
         rows.append(row)
     return rows, decisions, inventory["counts"]
 
@@ -277,7 +305,7 @@ def summarize(rows, *, record_qualified=False):
         for r in rows
         if r["historical_resolution"] is not None
         and (
-            record_qualified or r["historical_resolution"] != "qualified_boundary_rule"
+            record_qualified or not r["historical_resolution"].startswith("qualified_")
         )
     }
     return {
@@ -293,7 +321,15 @@ def summarize(rows, *, record_qualified=False):
             r.get("rule_evidence", {}).get("matched", False) for r in rows
         ),
         "rule_readiness_eligible": sum(
-            r.get("rule_evidence", {}).get("approval_eligible", False) for r in rows
+            r.get("rule_evidence", {}).get(
+                "approval_eligible",
+                r.get("rule_evidence", {}).get("selected_readiness_eligible", False),
+            )
+            for r in rows
+        ),
+        "rule_transformation_qualified": sum(
+            r.get("rule_evidence", {}).get("transformation_qualified", False)
+            for r in rows
         ),
         "new_rule_qualified_ids": [r["id"] for r in rows if r["new_rule_qualified"]],
         "notice_positions": dict(
@@ -338,6 +374,7 @@ def main(argv=None):
     ap.add_argument("--prior-reviews", type=pathlib.Path, required=True)
     ap.add_argument("--prior-dispositions", type=pathlib.Path, required=True)
     ap.add_argument("--record-qualified", action="store_true")
+    ap.add_argument("--rule", choices=("boundary", "ordered"), default="boundary")
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output directory must be new")
@@ -353,6 +390,7 @@ def main(argv=None):
         "network_bytes": 0,
         "scope": __doc__,
         "record_qualified": args.record_qualified,
+        "rule": args.rule,
     }
     started = time.monotonic()
     previous = signal.signal(signal.SIGALRM, timeout)
@@ -369,6 +407,8 @@ def main(argv=None):
                 pathlib.Path(__file__),
                 pathlib.Path(tranche.__file__),
                 pathlib.Path(review_rules.__file__),
+                pathlib.Path(readiness.__file__),
+                pathlib.Path(candidate_review.__file__),
                 pathlib.Path(normalization.__file__),
             )
         }
@@ -384,6 +424,7 @@ def main(argv=None):
                 args.collection,
                 reports[2],
                 args.prior_dispositions,
+                rule=args.rule,
             )
             result.update(summarize(rows, record_qualified=args.record_qualified))
             result["prior_candidate_inventory"] = inventory
@@ -402,8 +443,19 @@ def main(argv=None):
                         candidate_review.record_disposition(
                             candidate,
                             outcome="approve",
-                            start=decision["selected_start"],
-                            end=decision["selected_end"],
+                            **(
+                                {
+                                    "omissions": [
+                                        {k: v for k, v in o.items() if k != "sha256"}
+                                        for o in decision["omitted_spans"]
+                                    ]
+                                }
+                                if decision["schema_version"] == 2
+                                else {
+                                    "start": decision["selected_start"],
+                                    "end": decision["selected_end"],
+                                }
+                            ),
                             reviewer=decision["reviewer"],
                             rationale=decision["rationale"],
                             directory=args.output / "dispositions",

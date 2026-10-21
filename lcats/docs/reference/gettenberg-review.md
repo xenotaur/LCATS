@@ -9,7 +9,7 @@ from `lcats gather`, whose exit 3 means a completed batch needs attention.
 |---|---|
 | `list [CANDIDATES] [--dispositions DIRECTORY]` | Candidate generations, finding counts, disposition states, unmatched identities and scan bytes |
 | `show CANDIDATE [--start N] [--end N]` | Exact Unicode text window, metadata, full record identity, overlapping findings and omitted-text counts |
-| `record CANDIDATE --outcome approve\|exclude\|defer --reviewer TEXT --rationale TEXT [--start N --end N] [--directory DIRECTORY]` | Immutable disposition path and `published:false` |
+| `record CANDIDATE --outcome approve\|exclude\|defer --reviewer TEXT --rationale TEXT [--start N --end N | --omissions FILE] [--directory DIRECTORY]` | Immutable disposition path and `published:false` |
 | `export DISPOSITION... --candidates DIRECTORY --output FILE` | Explicitly selected approvals in gather's existing `--review-decisions` JSON format; `published:false` |
 
 Default relative paths are `logs/gather/review/mass_quantities` for candidates and
@@ -25,7 +25,7 @@ Import `from lcats.gatherers import candidate_review`.
 |---|---|
 | `load_candidate(path)` | Validate current-format saved report, body/assessment/source-context hashes and content-addressed filename |
 | `preview(path, *, start=0, end=None)` | JSON-compatible text window; default end is at most start + 4000 |
-| `record_disposition(candidate, *, outcome, reviewer, rationale, start=None, end=None, directory=DEFAULT_DISPOSITIONS)` | Return immutable path; approval requires an explicit nonempty span |
+| `record_disposition(candidate, *, outcome, reviewer, rationale, start=None, end=None, omissions=None, directory=DEFAULT_DISPOSITIONS)` | Return immutable path; approval requires a nonempty span or evidenced omissions |
 | `load_disposition(path)` | Validate disposition schema, attribution, approval fields and content-addressed filename; matching candidate is checked by inventory/export |
 | `inventory(candidates, *, dispositions=None)` | Summarize each exact generation; never choose a latest record or resolve a conflict |
 | `export_approvals(dispositions, *, candidates, output)` | Validate exact candidates and selected text, sort exported approvals by ID, return output path |
@@ -58,8 +58,8 @@ never overwritten. Atomic creation requires filesystem hard-link support, as in
 story publication; directory entries are not promised power-loss durability.
 
 Inventory state is `unreviewed` with no matching dispositions, otherwise the sole
-recorded outcome, or `conflict` when outcomes/spans differ. Identical content intent
-from different reviewers is not a conflict; their individual records remain listed.
+recorded outcome, or `conflict` when outcomes, complete retained selections or separately preserved blurb ranges differ. Identical content intent
+from different reviewers or v1/v2 versions is not a conflict; their individual records remain listed.
 Records for missing candidate generations appear in `unmatched_disposition_candidates`.
 These are reviewer-intent states, not current collection membership or publication.
 
@@ -123,3 +123,65 @@ historical-baseline equality after the separately recorded existing normalizatio
 before it may record this rule's decision. It keeps unexplained differences,
 existing decisions and conflicts out of the automatic recording set. See the
 [batch procedure](../how-to/gettenberg-review.md#qualify-a-batch-offline).
+
+
+## Ordered retained spans and editorial metadata
+
+`readiness.OrderedReviewDecision.for_report(report, *, omissions, reviewer, rationale)`
+constructs an explicit v2 approval. `omissions` is a list of 1–256 objects, each with
+exactly `start`, `end`, `kind`, `reason` and `evidence`. Offsets are nonnegative
+Unicode character integers in the unchanged candidate, end-exclusive; booleans and
+floats are rejected. The supported kinds are `publication_notice` and
+`publisher_blurb`. Reason and evidence must each contain 1–4,000 nonblank characters.
+This is attributed review evidence, not independently authenticated classification.
+
+The constructor derives each omitted text hash and the ordered retained complement.
+It rejects overlaps, reordering, out-of-bounds ranges and an empty selection. Adjacent
+omissions are permitted; unclassified characters are retained. Concatenation inserts
+nothing: choose source paragraph boundaries that preserve appropriate existing
+separators. Existing collection normalization is applied separately afterward.
+
+The serialized v2 decision contains `schema_version: 2`, `gutenberg_id`,
+`source_identity_sha256`, `candidate_sha256`, `assessment_sha256`,
+`candidate_characters`, `selected_spans`, `omitted_spans`, `selected_sha256`,
+`reviewer` and `rationale`. Each omitted object adds `sha256` to its five input fields.
+Retained spans must be exactly the complement of the ordered omissions; loaders
+reject incomplete partitions. There are at most 257 retained spans. Source/context,
+full candidate, every omission and reconstructed output are checked before use.
+The 64 KiB disposition and 8 MiB export limits still apply even below the span limit.
+
+`readiness.decision_from_dict(value)` and `load_decisions(path)` accept v1 and v2.
+V1 evidence keeps its original schema and bytes; it is never silently restamped or
+rewritten. A disposition's outer schema remains v1 with a versioned nested approval.
+`candidate_review.load_omissions(path)` reads the CLI specification as bounded,
+strict JSON (64 KiB, regular non-symlink file); decision construction validates fields.
+
+A v2 inspected report has `selected_span: null`, `selected_spans` and `editorial`.
+Published `metadata.editorial` contains confirmed blurbs only, with exact text,
+source-relative start/end, kind, reason/evidence, text hash, candidate/source hashes,
+reviewer and explicit offset basis. These offsets refer to the original candidate,
+not the concatenated or normalized published body. Publication notices remain in
+review provenance; raw inputs and saved candidates remain intact. A blurb changes
+placement only after explicit review; no classifier infers its role from position.
+V1 and v2 decisions may both resolve reviewed uncertainty, but neither overrides a
+collection exclusion. Automatic rule proposals do not supply that judgment.
+
+## Opt-in ordered notice proposals
+
+`review_rules.evaluate_publication_notices(candidate_path)` applies
+`ordered-publication-notice-v1` to complete matching paragraphs anywhere in the
+candidate, using exactly the boundary rule's finite notice grammar. Each omission
+contains the notice and following separator or final whitespace; the preceding
+separator remains. At the leading boundary, exterior leading whitespace belongs
+to that notice. Nonmatching paragraphs are never omitted. At most 256 notices may
+be proposed; an all-omitted candidate or larger set remains unresolved.
+
+The result binds source/candidate/assessment identities and records `omissions`,
+`selected_spans`, output hash, exact removed text/hashes and recomputed assessments.
+`transformation_qualified` means the exact transformation satisfies this rule;
+`selected_readiness_eligible` means no remaining mechanical readiness findings or
+recognized retained editorial labels. `publication_approved` is always false.
+Missing matches or unusable selections have `selected_spans: null` and blockers.
+Apparent blurbs, credits and unrelated differences remain for separate review.
+The function writes nothing. The experiment's explicit recording mode additionally
+requires no prior intent and complete historical-baseline reconciliation, as above.

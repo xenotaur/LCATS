@@ -190,20 +190,14 @@ def reconcile(census, comparison, reviews, queue, dispositions, text_cache, coll
         approval = disposition["approval"]
         selected = None
         if disposition["outcome"] == "approve":
-            decision = readiness.ReviewDecision(**approval)
-            selected = readiness.ReviewDecision.for_report(
-                report,
-                start=decision.selected_start,
-                end=decision.selected_end,
-                reviewer=decision.reviewer,
-                rationale=decision.rationale,
-            )
+            decision = readiness.decision_from_dict(approval)
+            selected = readiness.decision_for_report(decision, report)
             if decision != selected:
                 raise ValueError("approval differs from exact candidate")
         selected_text = (
             None
             if approval is None
-            else report["body"][decision.selected_start : decision.selected_end]
+            else readiness.selected_text(decision, report["body"])
         )
         retained = json.loads(raw)["body"]
         retained_suffix = None
@@ -229,8 +223,17 @@ def reconcile(census, comparison, reviews, queue, dispositions, text_cache, coll
                 "candidate_characters": len(report["body"]),
                 "selected_span": (
                     None
-                    if approval is None
+                    if approval is None or decision.schema_version == 2
                     else [approval["selected_start"], approval["selected_end"]]
+                ),
+                "selected_spans": (
+                    None
+                    if approval is None
+                    else (
+                        approval["selected_spans"]
+                        if decision.schema_version == 2
+                        else [[approval["selected_start"], approval["selected_end"]]]
+                    )
                 ),
                 "review_scope": review["review_scope"],
                 "historical_rationale": review["historical_rationale"],

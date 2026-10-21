@@ -58,7 +58,7 @@ class ReviewBatchEvidenceTests(unittest.TestCase):
         }
         self.comparison = {"completed": True, "rows": [self.old]}
 
-    def evaluate(self):
+    def evaluate(self, **options):
         return self.module.evaluate(
             self.census,
             self.comparison,
@@ -68,6 +68,7 @@ class ReviewBatchEvidenceTests(unittest.TestCase):
             self.fixture.collection,
             [],
             self.dispositions,
+            **options,
         )
 
     def test_exact_rule_and_historical_delta_have_individual_evidence(self):
@@ -251,3 +252,106 @@ class ReviewBatchEvidenceTests(unittest.TestCase):
         # at entry; verify exclusive writer semantics without noisy stderr.
         with self.assertRaises(FileExistsError):
             self.module._write(output / "summary.json", {})
+
+    def test_ordered_rule_keeps_transformation_and_unrecorded_resolution_separate(self):
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertTrue(rows[0]["rule_evidence"]["transformation_qualified"])
+        self.assertFalse(rows[0]["rule_evidence"]["publication_approved"])
+        self.assertEqual(decisions[0]["schema_version"], 2)
+        self.assertEqual(
+            self.module.summarize(rows)["historical_unresolved_ids"],
+            [self.before["id"]],
+        )
+        self.assertEqual(
+            self.module.summarize(rows, record_qualified=True)[
+                "historical_unresolved_ids"
+            ],
+            [],
+        )
+        decision = readiness.decision_from_dict(decisions[0])
+        self.assertEqual(
+            readiness.selected_text(decision, self.report["body"]),
+            review_rules_test.BODY,
+        )
+
+    def test_ordered_transformation_does_not_override_prior_deferral_or_unexplained_delta(
+        self,
+    ):
+        self.record("defer")
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertTrue(rows[0]["rule_evidence"]["transformation_qualified"])
+        self.assertEqual(decisions, [])
+        self.assertIsNone(rows[0]["historical_resolution"])
+        self.old["normalized_before_sha256"] = "0" * 64
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertFalse(rows[0]["rule_explains_entire_historical_difference"])
+        self.assertEqual(decisions, [])
+
+    def test_equivalent_v1_v2_approvals_do_not_create_a_false_inventory_conflict(self):
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        v2 = readiness.decision_from_dict(decisions[0])
+        start, end = v2.selected_spans[0]
+        for selection in (
+            {"start": start, "end": end},
+            {"omissions": rows[0]["rule_evidence"]["omissions"]},
+        ):
+            candidate_review.record_disposition(
+                self.candidate,
+                outcome="approve",
+                reviewer="fixture reviewer",
+                rationale="Equivalent exact narrative, no separately retained blurbs.",
+                directory=self.dispositions,
+                **selection,
+            )
+        inventory = candidate_review.inventory(
+            self.candidate.parent, dispositions=self.dispositions
+        )
+        self.assertEqual(inventory["counts"], {"approve": 1})
+        self.assertEqual(len(inventory["candidates"][0]["dispositions"]), 2)
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertEqual(
+            rows[0]["historical_resolution"], "prior_review_baseline_reconciled"
+        )
+        self.assertEqual(decisions, [])
+
+    def test_ordered_recording_mode_exports_a_replayable_v2_decision(self):
+        # Exercise the runner's mutation branch on an authored one-story corpus;
+        # real-corpus measurement can legitimately produce no new approvals.
+        root = self.fixture.root
+        for name, value in (
+            ("census", self.census),
+            ("comparison", self.comparison),
+            ("reviews", []),
+        ):
+            (root / (name + ".json")).write_text(json.dumps(value), encoding="utf-8")
+        output = root / "batch-recorded"
+        self.module.main(
+            [
+                str(root / "census.json"),
+                str(root / "comparison.json"),
+                str(self.candidate.parent),
+                str(self.dispositions),
+                str(root),
+                str(self.fixture.collection),
+                str(output),
+                "--prior-reviews",
+                str(root / "reviews.json"),
+                "--prior-dispositions",
+                str(self.dispositions),
+                "--rule",
+                "ordered",
+                "--record-qualified",
+            ]
+        )
+        summary = json.loads((output / "summary.json").read_text())
+        self.assertTrue(summary["completed"])
+        self.assertEqual(summary["historical_unresolved_ids"], [])
+        self.assertFalse(summary["corpus_accepted"])
+        decision = readiness.load_decisions(output / "approvals.json")[
+            self.before["id"]
+        ]
+        self.assertEqual(decision.schema_version, 2)
+        self.assertEqual(
+            readiness.selected_text(decision, self.report["body"]),
+            review_rules_test.BODY,
+        )

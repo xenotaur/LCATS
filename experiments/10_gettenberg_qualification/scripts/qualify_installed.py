@@ -31,6 +31,7 @@ def main(argv=None):
     if args.output.exists():
         ap.error("output exists")
     from lcats import cli
+    from lcats.gatherers import candidate_review
     from lcats.gatherers import parser
     from lcats.gatherers import readiness
     from lcats.gatherers import review_rules
@@ -103,6 +104,17 @@ def main(argv=None):
                         + narrative
                     )
                 )
+                if metadata.titles[0].endswith("86"):
+                    paragraphs = narrative.split("\n\n")
+                    text = (
+                        "Publisher teaser: an authored fixture.\n\n"
+                        + "\n\n".join(paragraphs[:7])
+                        + "\n\n"
+                        + "[Transcriber's Note: This etext was produced from Galaxy Science Fiction "
+                        "October 1954. Extensive research did not uncover any evidence that the "
+                        "U.S. copyright on this publication was renewed.]\n\n"
+                        + "\n\n".join(paragraphs[7:])
+                    )
                 return types.SimpleNamespace(
                     cleaned=cleanup.strip_boilerplate(text),
                     provenance=lambda: {
@@ -235,6 +247,80 @@ def main(argv=None):
             published = json.loads(pathlib.Path(reviewed.gathered[85]).read_text())
             if published["body"] != narrative:
                 raise ValueError("installed reviewed publication changed narrative")
+            # Exercise v2 through batch gather, CLI record/export and final output.
+            pending = gatherer.gather_stories(
+                [86], log_dir=root / "logs-v2", source=source
+            )
+            if pending.counts != {"needs_review": 1}:
+                raise ValueError("installed ordered fixture was not withheld")
+            candidate_v2 = pathlib.Path(pending.outcomes[0].review_path)
+            report_v2 = candidate_review.load_candidate(candidate_v2)["report"]
+            proposal_v2 = review_rules.evaluate_publication_notices(candidate_v2)
+            if (
+                not proposal_v2["transformation_qualified"]
+                or proposal_v2["publication_approved"]
+            ):
+                raise ValueError(
+                    "installed ordered proposal conflated transformation/approval"
+                )
+            teaser = "Publisher teaser: an authored fixture.\n\n"
+            omissions = [
+                {
+                    "start": 0,
+                    "end": len(teaser),
+                    "kind": "publisher_blurb",
+                    "reason": "Authored publisher teaser fixture.",
+                    "evidence": "The fixture defines this paragraph as editorial.",
+                },
+                *proposal_v2["omissions"],
+            ]
+            specification = root / "omissions.json"
+            specification.write_text(json.dumps(omissions), encoding="utf-8")
+            disposition_v2 = review_command(
+                [
+                    "record",
+                    str(candidate_v2),
+                    "--outcome",
+                    "approve",
+                    "--omissions",
+                    str(specification),
+                    "--reviewer",
+                    "authored wheel fixture",
+                    "--rationale",
+                    "All authored narrative retained.",
+                    "--directory",
+                    str(root / "dispositions-v2"),
+                ]
+            )["disposition"]
+            export_v2 = review_command(
+                [
+                    "export",
+                    disposition_v2,
+                    "--candidates",
+                    str(candidate_v2.parent),
+                    "--output",
+                    str(root / "selected-v2.json"),
+                ]
+            )
+            decision_v2 = readiness.load_decisions(export_v2["review_decisions"])[86]
+            if len(decision_v2.selected_spans) != 2:
+                raise ValueError("installed ordered selection lost its interior gap")
+            accepted = gatherer.gather_stories(
+                [86],
+                log_dir=root / "logs-v2",
+                source=source,
+                review_decisions={86: decision_v2},
+            )
+            saved = json.loads(pathlib.Path(accepted.gathered[86]).read_text())
+            if (
+                saved["body"] != narrative
+                or saved["metadata"]["editorial"][0]["text"] != teaser
+            ):
+                raise ValueError(
+                    "installed ordered publication lost narrative/editorial text"
+                )
+            if decision_v2.candidate_sha256 != readiness.text_sha256(report_v2["body"]):
+                raise ValueError("installed ordered decision lost source identity")
         package = imported.parents[1]
         for relative in ("gatherers/overrides", "analysis/corpus/allowlists"):
             if not tuple((package / relative).glob("*.json")):
@@ -255,6 +341,7 @@ def main(argv=None):
             "explicit reviewed selection/publication",
             "installed gather-review list/show/approve/exclude/defer/export and conflict visibility",
             "opt-in narrow boundary-rule exact selection without publication",
+            "ordered interior rule, v2 CLI/export/batch publication and separate exact blurb metadata",
         ],
     }
     with args.output.open("x", encoding="utf-8") as stream:

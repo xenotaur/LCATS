@@ -209,3 +209,18 @@ class DispositionTrancheEvidenceTests(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
             self.module.main(args)
         self.assertEqual(output.read_bytes(), saved)
+
+    def test_versionless_v1_approval_keeps_historical_reconciliation_compatibility(
+        self,
+    ):
+        review = self.review("approve")
+        root = self.fixture.root / "dispositions"
+        record = candidate_review.load_disposition(root / review["disposition"])
+        del record["approval"]["schema_version"]
+        name = f"{self.identifier}-{readiness.identity(record)}.disposition.json"
+        path = root / name
+        path.write_text(json.dumps(record), encoding="utf-8")
+        before = path.read_bytes()
+        review["disposition"] = name
+        self.assertTrue(self.run_review(review)["rows"][0]["approval_verified"])
+        self.assertEqual(path.read_bytes(), before)

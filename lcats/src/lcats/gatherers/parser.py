@@ -1382,7 +1382,9 @@ def _inspect_metadata(story, metadata, source, *, review_decision=None):
     report["status"] = assessment.status
     report["selected_span"] = [0, len(body)]
     if review_decision is not None:
-        if not isinstance(review_decision, readiness.ReviewDecision):
+        if not isinstance(
+            review_decision, (readiness.ReviewDecision, readiness.OrderedReviewDecision)
+        ):
             raise ValueError("review_decision must be a ReviewDecision")
         selected = review_decision.select(
             gutenberg_id=story,
@@ -1411,10 +1413,15 @@ def _inspect_metadata(story, metadata, source, *, review_decision=None):
         evidence["review_decision"] = dataclasses.asdict(review_decision)
         evidence["selected_assessment"] = selected_assessment.to_dict()
         evidence["selected_chapter_assessment"] = selected_chapters
-        report["selected_span"] = [
-            review_decision.selected_start,
-            review_decision.selected_end,
-        ]
+        if isinstance(review_decision, readiness.OrderedReviewDecision):
+            report["selected_span"] = None
+            report["selected_spans"] = [list(v) for v in review_decision.selected_spans]
+            report["editorial"] = review_decision.editorial(body)
+        else:
+            report["selected_span"] = [
+                review_decision.selected_start,
+                review_decision.selected_end,
+            ]
         report["status"] = "ready"
     if assessment.exclusion:
         report["rejection"] = (
@@ -1486,11 +1493,12 @@ def gather_story(
             review_path=review_path,
             reason="Unresolved editorial or structural evidence; see review candidate.",
         )
-    start, end = report["selected_span"]
+    spans = report.get("selected_spans") or [report["selected_span"]]
+    selected_body = "".join(report["body"][start:end] for start, end in spans)
     data_to_save = {
         "name": title,
         "author": author,
-        "body": report["body"][start:end],
+        "body": selected_body,
         "metadata": {
             "author": author,
             "year": "Unknown",
@@ -1499,6 +1507,8 @@ def gather_story(
             "gettenberg": report["provenance"],
         },
     }
+    if report.get("editorial"):
+        data_to_save["metadata"]["editorial"] = report["editorial"]
     # Reviewed selection precedes the existing explicitly recorded normalization.
     normalization.normalize_story_dict(
         data_to_save, collection=storymap.TARGET_DIRECTORY, story_id=story_slug

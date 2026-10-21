@@ -53,3 +53,16 @@ flags/hashes fail the entire run rather than disappearing from unresolved counts
 The first measurement is a throughput/limitations result, not acceptance of the
 other 1,635 differences or of arbitrary future sources. Generalized internal edits,
 blurb policy and whole-corpus acceptance require further scoped decisions.
+
+
+## Approved ordered-span extension — 2026-10-21
+
+The human approved the [milestone contract](gettenberg-batch-review-milestone.md#approved-scoped-implementation-contract--2026-10-21).
+V2 reviewed selections preserve exact ordered ranges and evidence for every omission;
+confirmed publisher blurbs move to separate editorial metadata, while uncertain
+cases stay unresolved. Historical v1 records remain unchanged. The first automatic
+extension uses the existing complete publication-notice grammar at interior paragraph
+positions. No blurb classifier, default extraction change, corpus acceptance or gate
+relaxation is authorized. Rule proposals do not authorize publication. The runner
+continues its stricter no-prior-intent/readiness/full-baseline recording gate and
+reports transformation coverage separately, including when no new approvals result.

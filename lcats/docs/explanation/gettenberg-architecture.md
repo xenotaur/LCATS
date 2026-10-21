@@ -104,6 +104,20 @@ without changing the extractor into a broad deletion heuristic. Batch reports
 separate publication, reuse, ineligibility, review and cleanup refusal; operational
 failures still abort. Download consent grants no content approval.
 
+The v2 review model can omit a proven editorial paragraph from inside a candidate
+without discarding narrative on either side. Every omission has evidence; retained
+ranges preserve source order and exact characters, with no invented separators.
+This changes reviewed selection, not the conservative opening-prefix extractor.
+Confirmed publisher blurbs remain accessible as separate editorial metadata. Uncertain
+opening prose remains unresolved rather than being classified by its position.
+
+Three judgments remain distinct: an operation can be qualified, its resulting body
+can still need editorial review, and its difference from the historical corpus can
+still need explanation. A notice rule proves only its exact omissions. Passing cue
+checks is not proof that the remaining prose contains no blurb, and old output
+identity is evidence rather than a literary oracle. The ledger records all three
+judgments so successful transformation measurements cannot silently approve a corpus.
+
 This policy makes uncertainty observable; it does not prove every unflagged text
 is narrative. Corpus qualification and per-input material dispositions remain
 necessary. The initial historical census required review for nearly all inputs;

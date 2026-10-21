@@ -76,3 +76,12 @@ See [batch review contract](gettenberg-batch-review-contract.md). The human appr
 qualified narrow rules with per-input evidence. Repeated warning patterns alone
 still cannot accept a group; exceptions stay unresolved. Historical text above
 describes the initial individual-review method.
+
+
+## Ordered-span extension — 2026-10-21
+
+The human-approved [batch milestone](gettenberg-batch-review-milestone.md) extends
+explicit review selection to v2 ordered retained spans with evidenced omissions.
+The original contiguous candidate extraction and all source/publication guards stay
+in effect. See the [reference](../../docs/reference/gettenberg-review.md#ordered-retained-spans-and-editorial-metadata)
+for reconstruction and confirmed-blurb preservation; v1 review evidence is preserved.

@@ -310,6 +310,290 @@ class ReviewDecision:
         return selected
 
 
+@dataclasses.dataclass(frozen=True, slots=True)
+class OmittedSpan:
+    """One evidenced omission, located in the unchanged Unicode candidate.
+
+    A publisher blurb is preserved separately during publication. Evidence is an
+    attributed explanation/reference, not an authenticated signature or a license
+    to classify other sources by analogy.
+    """
+
+    start: int
+    end: int
+    kind: str
+    reason: str
+    evidence: str
+    sha256: str
+
+    def __post_init__(self):
+        if (
+            type(self.start) is not int
+            or type(self.end) is not int
+            or not 0 <= self.start < self.end
+        ):
+            raise ValueError("omission requires nonempty integer character offsets")
+        if self.kind not in ("publication_notice", "publisher_blurb"):
+            raise ValueError("unsupported omission kind")
+        for value in (self.reason, self.evidence):
+            if not isinstance(value, str) or not value.strip() or len(value) > 4000:
+                raise ValueError(
+                    "omission reason/evidence must contain 1–4000 characters"
+                )
+        if not isinstance(self.sha256, str) or not _SHA256.fullmatch(self.sha256):
+            raise ValueError("omission requires lowercase SHA256")
+
+
+@dataclasses.dataclass(frozen=True, slots=True)
+class OrderedReviewDecision:
+    """Explicit v2 publication approval with exact, ordered retained spans.
+
+    This is a reviewer decision, not a rule proposal. Every omitted character is
+    accounted for, and retained characters are concatenated without substitutions
+    or invented separators. Construct from omissions with ``for_report``; loading
+    also checks the redundant retained ranges against the complete partition.
+    """
+
+    gutenberg_id: int
+    source_identity_sha256: str
+    candidate_sha256: str
+    assessment_sha256: str
+    candidate_characters: int
+    selected_spans: tuple[tuple[int, int], ...]
+    omitted_spans: tuple[OmittedSpan, ...]
+    selected_sha256: str
+    reviewer: str
+    rationale: str
+    schema_version: int = 2
+
+    def __post_init__(self):
+        if type(self.schema_version) is not int or self.schema_version != 2:
+            raise ValueError("unsupported ordered review schema_version")
+        if type(self.candidate_characters) is not int or self.candidate_characters <= 0:
+            raise ValueError("candidate_characters must be positive")
+        # Reuse v1 identity/attribution validation without changing its schema.
+        ReviewDecision(
+            self.gutenberg_id,
+            self.source_identity_sha256,
+            self.candidate_sha256,
+            self.assessment_sha256,
+            0,
+            self.candidate_characters,
+            self.selected_sha256,
+            self.reviewer,
+            self.rationale,
+        )
+        if (
+            not isinstance(self.selected_spans, (tuple, list))
+            or not 1 <= len(self.selected_spans) <= 257
+            or not isinstance(self.omitted_spans, (tuple, list))
+            or not 1 <= len(self.omitted_spans) <= 256
+        ):
+            raise ValueError(
+                "ordered selection requires retained spans and 1–256 omissions"
+            )
+        spans = []
+        for span in self.selected_spans:
+            if (
+                not isinstance(span, (tuple, list))
+                or len(span) != 2
+                or any(type(v) is not int for v in span)
+                or not 0 <= span[0] < span[1] <= self.candidate_characters
+            ):
+                raise ValueError("invalid retained span")
+            spans.append(tuple(span))
+        try:
+            omissions = tuple(
+                v if isinstance(v, OmittedSpan) else OmittedSpan(**v)
+                for v in self.omitted_spans
+            )
+        except TypeError as exc:
+            raise ValueError("invalid omission fields") from exc
+        expected = []
+        cursor = 0
+        for omission in omissions:
+            if omission.start < cursor or omission.end > self.candidate_characters:
+                raise ValueError(
+                    "omissions must be ordered, disjoint and within candidate"
+                )
+            if cursor < omission.start:
+                expected.append((cursor, omission.start))
+            cursor = omission.end
+        if cursor < self.candidate_characters:
+            expected.append((cursor, self.candidate_characters))
+        if spans != expected:
+            raise ValueError(
+                "retained spans and omissions must partition the candidate exactly"
+            )
+        object.__setattr__(self, "selected_spans", tuple(spans))
+        object.__setattr__(self, "omitted_spans", omissions)
+
+    @classmethod
+    def for_report(cls, report, *, omissions, reviewer, rationale):
+        """Approve explicitly evidenced omissions and derive their exact complement.
+
+        Args:
+            report: Source-bound eligible inspection report.
+            omissions: Ordered mappings with start, end, kind, reason and evidence.
+                Hashes are derived from the candidate, not supplied by the caller.
+            reviewer: Attribution for this explicit publication decision.
+            rationale: Explanation of the whole selected body's suitability.
+        """
+        if report.get("status") not in {"ready", "needs_review"}:
+            raise ValueError(
+                "only eligible candidate reports can receive a review decision"
+            )
+        body = report["body"]
+        if not isinstance(omissions, (tuple, list)) or not 1 <= len(omissions) <= 256:
+            raise ValueError("supply 1–256 explicit omissions")
+        removed, spans, cursor = [], [], 0
+        for entry in omissions:
+            if not isinstance(entry, dict) or set(entry) != {
+                "start",
+                "end",
+                "kind",
+                "reason",
+                "evidence",
+            }:
+                raise ValueError("omission requires start/end/kind/reason/evidence")
+            start, end = entry["start"], entry["end"]
+            if (
+                type(start) is not int
+                or type(end) is not int
+                or not cursor <= start < end <= len(body)
+            ):
+                raise ValueError(
+                    "omissions must be ordered, disjoint and within candidate"
+                )
+            if cursor < start:
+                spans.append((cursor, start))
+            removed.append(OmittedSpan(**entry, sha256=text_sha256(body[start:end])))
+            cursor = end
+        if cursor < len(body):
+            spans.append((cursor, len(body)))
+        selected = "".join(body[a:b] for a, b in spans)
+        evidence = report["provenance"]["publication_readiness"]
+        return cls(
+            gutenberg_id=report["gutenberg_id"],
+            source_identity_sha256=evidence["source_identity_sha256"],
+            candidate_sha256=evidence["candidate_sha256"],
+            assessment_sha256=evidence["assessment_sha256"],
+            candidate_characters=len(body),
+            selected_spans=tuple(spans),
+            omitted_spans=tuple(removed),
+            selected_sha256=text_sha256(selected),
+            reviewer=reviewer,
+            rationale=rationale,
+        )
+
+    def select(self, *, gutenberg_id, source_identity_sha256, candidate, assessment):
+        """Revalidate source/context, partition and all exact text hashes."""
+        if (
+            self.gutenberg_id != gutenberg_id
+            or self.source_identity_sha256 != source_identity_sha256
+            or self.candidate_sha256 != text_sha256(candidate)
+            or self.assessment_sha256 != identity(assessment.to_dict())
+            or self.candidate_characters != len(candidate)
+        ):
+            raise ValueError(
+                "stale review decision: source, candidate or assessment identity changed"
+            )
+        return self.reconstruct(candidate)
+
+    def reconstruct(self, candidate):
+        """Return the exact selection only after checking candidate and omission hashes."""
+        if (
+            len(candidate) != self.candidate_characters
+            or text_sha256(candidate) != self.candidate_sha256
+        ):
+            raise ValueError("candidate identity changed")
+        for omission in self.omitted_spans:
+            if text_sha256(candidate[omission.start : omission.end]) != omission.sha256:
+                raise ValueError("omitted text identity changed")
+        selected = "".join(candidate[a:b] for a, b in self.selected_spans)
+        if text_sha256(selected) != self.selected_sha256:
+            raise ValueError("review decision selected text identity changed")
+        return selected
+
+    def editorial(self, candidate):
+        """Preserve confirmed blurbs separately with source bindings and attribution."""
+        self.reconstruct(candidate)
+        return [
+            {
+                **dataclasses.asdict(v),
+                "text": candidate[v.start : v.end],
+                "offset_basis": "candidate_body_unicode_characters",
+                "source_identity_sha256": self.source_identity_sha256,
+                "candidate_sha256": self.candidate_sha256,
+                "reviewer": self.reviewer,
+            }
+            for v in self.omitted_spans
+            if v.kind == "publisher_blurb"
+        ]
+
+
+def decision_from_dict(value):
+    """Load either strict version without rewriting historical v1 evidence."""
+    if not isinstance(value, dict):
+        raise ValueError("review decision must be an object")
+    version = value.get("schema_version", 1)
+    if type(version) is not int or version not in (1, 2):
+        raise ValueError("unsupported review decision schema_version")
+    try:
+        return (ReviewDecision if version == 1 else OrderedReviewDecision)(**value)
+    except TypeError as exc:
+        raise ValueError(f"invalid review decision fields: {exc}") from exc
+
+
+def decision_for_report(decision, report):
+    """Recreate a decision against a saved report, checking every binding on equality."""
+    if isinstance(decision, OrderedReviewDecision):
+        return OrderedReviewDecision.for_report(
+            report,
+            omissions=[
+                {k: v for k, v in dataclasses.asdict(o).items() if k != "sha256"}
+                for o in decision.omitted_spans
+            ],
+            reviewer=decision.reviewer,
+            rationale=decision.rationale,
+        )
+    return ReviewDecision.for_report(
+        report,
+        start=decision.selected_start,
+        end=decision.selected_end,
+        reviewer=decision.reviewer,
+        rationale=decision.rationale,
+    )
+
+
+def decision_intent(value):
+    """Compare retained ranges and blurb placement across versions, not attribution."""
+    decision = decision_from_dict(value)
+    if isinstance(decision, OrderedReviewDecision):
+        return (
+            decision.selected_spans,
+            tuple(
+                (o.start, o.end)
+                for o in decision.omitted_spans
+                if o.kind == "publisher_blurb"
+            ),
+        )
+    return (((decision.selected_start, decision.selected_end),), ())
+
+
+def selected_text(decision, candidate):
+    """Reconstruct an already source-validated decision for evidence consumers."""
+    if isinstance(decision, OrderedReviewDecision):
+        return decision.reconstruct(candidate)
+    selected = candidate[decision.selected_start : decision.selected_end]
+    if (
+        text_sha256(candidate) != decision.candidate_sha256
+        or text_sha256(selected) != decision.selected_sha256
+    ):
+        raise ValueError("review decision text identity changed")
+    return selected
+
+
 def load_decisions(path):
     """Load a strict JSON list of decisions; reject duplicates and malformed files.
 
@@ -337,7 +621,7 @@ def load_decisions(path):
         if not isinstance(value, dict):
             raise ValueError("each review decision must be an object")
         try:
-            decision = ReviewDecision(**value)
+            decision = decision_from_dict(value)
         except TypeError as exc:
             raise ValueError(f"invalid review decision fields: {exc}") from exc
         if decision.gutenberg_id in result:
