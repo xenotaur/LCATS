@@ -2,8 +2,8 @@
   "files": [
     {
       "path": "README.md",
-      "bytes": 6118,
-      "sha256": "6c8da4dbac0b1928811d15f01ca4a2a95ad3f502283937f6c1d1841a2fdc2a0f"
+      "bytes": 6129,
+      "sha256": "f74c2462228d4996a6cf94411e434c0d137782ef0f9e133b84d0853712a74472"
     },
     {
       "path": "approvals.json",
@@ -242,6 +242,11 @@
       "path": "missing-prior-red.json",
       "bytes": 138,
       "sha256": "9cc6e437c06c34acdad4ba09c90edcebdc223d35db8e0525e67622f4c8196327"
+    },
+    {
+      "path": "pre-closeout-ci.json",
+      "bytes": 1262,
+      "sha256": "85d6bbdecc8731870bbbba438f75b452171c0e9aca5976682b04a0a745612d00"
     },
     {
       "path": "preservation-final.json",

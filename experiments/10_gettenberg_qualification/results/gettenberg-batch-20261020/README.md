@@ -26,12 +26,12 @@ integration/main promotion. See the [decision checkpoint](../../../../lcats/proj
 Final run 17.741 seconds; no Gutenberg/network requests, catalog rebuild or canonical
 publication. Cumulative input inventory is 18 intents: 9 approve, 7 exclude, 2 defer;
 1,622 candidate inputs unreviewed. The new separate disposition adds one approval;
-the independently replayed [combined inventory](combined-inventory.json.gz) is10 approve, 7 exclude, 2 defer,
+the independently replayed [combined inventory](combined-inventory.json.gz) is 10 approve, 7 exclude, 2 defer,
 1,621 unreviewed. This is intent accounting, distinct from historical resolution.
 Earlier eight approval smoke cases remain historical-difference gaps; none were
 silently subtracted. All 1,659 inputs, including 13 cleanup refusals, remain in the ledger.
 
-70154 (*Murderer's Chain*) selects exact candidate Unicode [227, 20509),20,282 chars.
+70154 (*Murderer's Chain*) selects exact candidate Unicode [227, 20509), 20,282 chars.
 The removed 227 characters are the complete bracketed publication notice and separator
 whitespace. The selected raw SHA256 equals historical extracted body, normalized
 baseline and stored corpus body. Normalization provenance is null. This is an
@@ -49,7 +49,7 @@ sampling, a regex match, old-output equality, or a ready assessment.
 
 3,053 canonical tests pass in 103.680s; 26 focused tests pass. Package format/lint and
 explicit checks of all three changed experiment runners pass. LRH validation has
-zero errors and351 pre-existing warnings. Fresh isolated build
+zero errors and 351 pre-existing warnings. Fresh isolated build
 and dependency installation succeed. All 172 Python modules and 2 JSON resources are
 byte-equal across source, wheel and installed package. Installed rule proposal,
 review CLI, withholding/publication, CLI/API imports and pip check pass. The wheel's
@@ -57,8 +57,8 @@ dirty version reflects uncommitted control-plane edits; source byte equality is 
 qualification identity. Build/dependency installation may contact PyPI; corpus replay
 and installed smoke disable network and make no Gutenberg requests.
 
-[Actual gather replay](publication.json.gz):70154 publishes temporarily;32484
-(unexplained blurb/difference),31948(sidenote),23337(interior note) and63889(prior defer)
+[Actual gather replay](publication.json.gz): 70154 publishes temporarily; 32484
+(unexplained blurb/difference), 31948 (sidenote), 23337 (interior note) and 63889 (prior defer)
 remain needs_review. This uses the normal source-bound decision/publication path;
 the temporary outputs are removed by the runner. All original compressed/decoded
 sources and canonical files hash-equal the baseline ([post-test preservation](preservation-final.json)).
