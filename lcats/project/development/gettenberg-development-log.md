@@ -4442,3 +4442,8 @@ finished, with no worker left running. Full final evidence and hashes are archiv
 under experiments/10_gettenberg_qualification/results/gettenberg-ordered-20261021/.
 Hosted checks will be reported against the exact pushed head in PR524; prior-head
 success is not treated as evidence for these changes. Main/integration remain pending.
+
+Implementation/evidence commit: `80f40a0baa9ada150d99d9fb6b323ef472f90882`. Native primary and independent-review
+records link that commit and remain in_progress. No implementation or editorial
+acceptance work continues after this checkpoint. Hosted status is checked after
+pushing the metadata-linked head; no main/integration merge is performed.
