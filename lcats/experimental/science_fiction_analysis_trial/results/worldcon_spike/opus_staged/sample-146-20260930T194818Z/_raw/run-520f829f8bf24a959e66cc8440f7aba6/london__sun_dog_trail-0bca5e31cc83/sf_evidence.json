@@ -1,0 +1,109 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 22463,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1587,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "london/sun_dog_trail",
+  "story_path": "london/sun_dog_trail/story.json",
+  "text": "",
+  "title": "London - The Sun-dog Trail",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The narrator observes Sitka Charley's intense contemplation and is curious about it.",
+        "quote": "Something was going on in that\nmind of his, and, whatever it was, I knew it was well worth\nknowing.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley contrasts static pictures with life, saying pictures lack beginning and end.",
+        "quote": "That picture is all end,\n\" he said.\n\"It has no beginning.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley draws a distinction between life, where events resolve, and pictures, where nothing happens.",
+        "quote": "It is not life,\" he delivered himself\ndogmatically.\n\"In life little girl die or get\nwell.\n\nSomething happen in life.\n\nIn picture nothing\nhappen.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley reasons from observed physical evidence to conclude the woman is crying rather than asleep.",
+        "quote": "Perhaps she is asleep,\" he repeated.\n\nHe\nstudied it closely.\n\n\"No, she is not asleep.\n\nThe\nshoulders show that she is not asleep.\n\nI have seen the\nshoulders of a woman who cried.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley deduces details of the depicted card game from visible clues in the painting.",
+        "quote": "There are no chips on the table,\" Sitka Charley\nexplained.\n\n\"The men are playing with markers.\nThat means the roof is the limit.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The impending freeze-up of the waterways threatens to strand travelers and force a long overland journey.",
+        "quote": "Maybe one\nday, maybe three days, maybe six days, any day maybe freeze-up\ncome, then no more water, all ice, everybody walk, Dawson six\nhundred miles, long time walk.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley explains the physiological danger of breathing extreme cold air, causing lung damage and later illness.",
+        "quote": "Better that we\ndon\ttravel to-day,\" I say, \"else will the\nfrost be unwarmed in the breathing and bite all the edges of our\nlungs.\n\nAfter that we will have bad cough, and maybe next\nspring will come pneumonia.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Sitka Charley describes a moment of insight during hardship that changed his view of money and life.",
+        "quote": "And after that\nnever again do I care for money.\n\nFor that day a large\nwisdom came to me.\n\nThere was a great light, and I saw\nclear, and I knew that it was not for money that a man must live,\nbut for a happiness that no man can give, or buy, or sell",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The travelers find McKeon dead in his snow-buried cabin, removing their expected food source.",
+        "quote": "I go\ninside.\n\nMcKeon is dead.\n\nMaybe two or three weeks he\nis dead.\n\nA sickness had come upon him so that he could not\nleave the cabin.\n\nThe wind and the snow had covered the\ncabin.\n\nHe had eaten his grub and died.",
+        "raw_id": "ev09"
+      }
+    ]
+  }
+}

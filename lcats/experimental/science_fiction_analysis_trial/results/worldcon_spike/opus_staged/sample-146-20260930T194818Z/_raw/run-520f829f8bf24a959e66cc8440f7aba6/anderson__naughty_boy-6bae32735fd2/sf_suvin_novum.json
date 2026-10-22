@@ -1,0 +1,78 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 5727,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1083,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/naughty_boy",
+  "story_path": "anderson/naughty_boy/story.json",
+  "text": "",
+  "title": "Anderson - The Naughty Boy",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-cupid",
+        "character_reaction_evidence_ids": [
+          "sfev-fefbe20f046fee1d",
+          "sfev-6cb8c6c7d700f653",
+          "sfev-b5b6993bc9e89c92"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-050f4a730a913492",
+            "sfev-09b676e63e6a05e5"
+          ],
+          "rationale": "Cupid is a supernatural mythological figure whose powers are presented through fairy-tale/allegorical convention with no immanent, systematic, nonsupernatural account. The magic arrows and disguises are explicitly supernatural, failing Suvin's cognition criterion.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "Cupid appears as a literal, animate mythological being who wanders the empirical world (universities, churches, palaces, theaters), disguising himself among ordinary people and shooting magic arrows that cause love and heartache in real persons across generations.",
+        "estrangement_rationale": "The reader-facing contrast between an ordinary storm-stricken cold child and the revealed love-deity, and the storyworld consequence that his arrows govern human love across generations, produce estrangement. However, this estrangement is achieved through supernatural/mythic means rather than cognitive extrapolation.",
+        "evidence_ids": [
+          "sfev-050f4a730a913492",
+          "sfev-09b676e63e6a05e5",
+          "sfev-6cb8c6c7d700f653",
+          "sfev-b5b6993bc9e89c92",
+          "sfev-fefbe20f046fee1d"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The entire narrative logic is governed by Cupid: his arrival, his arrow-shot, and his perpetual pursuit of everyone constitute the whole story and its moral frame.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-09b676e63e6a05e5",
+            "sfev-6cb8c6c7d700f653",
+            "sfev-b5b6993bc9e89c92",
+            "sfev-050f4a730a913492"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.55,
+          "counterevidence_ids": [],
+          "rationale": "The presence of a physically embodied Cupid whose arrows really pierce hearts and shape the emotional fate of every person constitutes a totalizing difference from the empirical norm, in which love is not caused by a wandering deity's projectiles.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-050f4a730a913492",
+            "sfev-09b676e63e6a05e5",
+            "sfev-6cb8c6c7d700f653"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-050f4a730a913492",
+          "sfev-09b676e63e6a05e5"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-6cb8c6c7d700f653",
+          "sfev-050f4a730a913492"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 28111,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2686,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/the_westminster_alice__saki",
+  "story_path": "mass_quantities/the_westminster_alice__saki/story.json",
+  "text": "",
+  "title": "The Westminster Alice",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-looking-glass-allegory",
+        "character_reaction_evidence_ids": [
+          "sfev-f7d58d6c3b9c80fc",
+          "sfev-d165fdbf14f9b818"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.45,
+          "counterevidence_ids": [
+            "sfev-24ee95062da084f6"
+          ],
+          "rationale": "The world follows a consistent internal allegorical/satirical logic (the 'Rules of the Game', characters as card-pack constructs, the Red King's dream premise) but this logic is drawn directly from Carroll's fantasy nonsense conceits rather than a systematic, immanent, nonsupernatural cognitive account; the dream-contingent existence in particular leans toward the fantastic rather than an estranging science or social organization.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-4a01d16c3986977a",
+            "sfev-399294e4c1679b69"
+          ]
+        },
+        "description": "The entire storyworld is a Looking-Glass/Wonderland political allegory in which Edwardian British politicians and institutions are transformed into Carrollian chesspiece and playing-card creatures made of pasteboard and Brummagem ware, governed by an inverted 'topsy-turvy' logic where inaction, non-decision, and make-believe are the operative rules.",
+        "estrangement_rationale": "The reader encounters familiar political realities defamiliarized as a nonsense looking-glass world, with the introductory verse explicitly signalling the inversion and the tea-table's seven-year-old menu contrasting promise with inaction.",
+        "evidence_ids": [
+          "sfev-24ee95062da084f6",
+          "sfev-4a01d16c3986977a",
+          "sfev-399294e4c1679b69",
+          "sfev-d165fdbf14f9b818",
+          "sfev-f7d58d6c3b9c80fc",
+          "sfev-4da33a6dc5be1815"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The Looking-Glass allegorical frame governs every episode and determines the overriding narrative logic; it is not an incidental device but the organizing principle of the whole text.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-24ee95062da084f6",
+            "sfev-4a01d16c3986977a",
+            "sfev-399294e4c1679b69",
+            "sfev-d165fdbf14f9b818"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [],
+          "rationale": "The introductory verse and narrative frame a totalizing inversion of the empirical world ('Turvey-wise', 'Backwards through a Looking-Glass'), and the figures are literally reconstituted as pasteboard/Brummagem-ware card beings and dream-contingent creatures, altering the ontological basis of the whole story universe.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-24ee95062da084f6",
+            "sfev-4a01d16c3986977a",
+            "sfev-399294e4c1679b69"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-24ee95062da084f6",
+          "sfev-4da33a6dc5be1815"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-4a01d16c3986977a",
+          "sfev-399294e4c1679b69"
+        ]
+      },
+      {
+        "candidate_id": "cand-will-based-reality",
+        "character_reaction_evidence_ids": [
+          "sfev-92b26c241008494d"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-92b26c241008494d",
+            "sfev-a9a6b8139d48bb68"
+          ],
+          "rationale": "No coherent, systematic, immanent account of belief-governed reality is developed; it is offered as ridicule and immediately shown not to work, lacking the internal consistency a novum's cognitive logic requires.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "A social/mental principle in which reality is governed by belief and reasoning rather than material fact: the White Queen proposes ending a war simply by convincing her reasoning faculty it does not exist, and creatures fear they will cease to exist when the Red King wakes from his dream.",
+        "estrangement_rationale": "The reader is estranged by political inaction literalized as the doctrine that wars can be wished out of existence, contrasting sharply with material reality.",
+        "evidence_ids": [
+          "sfev-a9a6b8139d48bb68",
+          "sfev-399294e4c1679b69",
+          "sfev-92b26c241008494d"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-a9a6b8139d48bb68"
+          ],
+          "rationale": "The belief-as-reality motif is a localized satirical exchange in one episode and does not determine the overriding logic of the whole narrative.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.4,
+          "counterevidence_ids": [
+            "sfev-92b26c241008494d"
+          ],
+          "rationale": "The idea that belief governs material reality would be a world-altering difference from the empirical norm, but here it is presented as satirical mockery of 'Christian Science' and political evasion rather than an established operative law of the storyworld; Alice's objection undercuts its actual efficacy.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-a9a6b8139d48bb68",
+            "sfev-399294e4c1679b69"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-a9a6b8139d48bb68"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-399294e4c1679b69"
+        ]
+      },
+      {
+        "candidate_id": "cand-white-knight-war-inventions",
+        "character_reaction_evidence_ids": [
+          "sfev-edd25f250a1a5506"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.4,
+          "counterevidence_ids": [],
+          "rationale": "The Knight gives a pseudo-rational explanation for his gun design, but it is comic absurdity rather than a systematic imaginary science governing the world.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-4029533e2d69dd7b"
+          ]
+        },
+        "description": "The White Knight's self-invented military technology and doctrine of waging war 'not under modern conditions', including short-range guns deliberately useless to the enemy.",
+        "estrangement_rationale": "The reader is estranged by the defamiliarization of military planning into deliberately self-defeating gadgetry, but this remains an incidental gadget rather than a world premise.",
+        "evidence_ids": [
+          "sfev-4029533e2d69dd7b",
+          "sfev-505b12f8ab196523",
+          "sfev-edd25f250a1a5506"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [
+            "sfev-505b12f8ab196523"
+          ],
+          "rationale": "The Knight's inventions are an incidental episodic satirical device and do not determine the overriding narrative logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "sfev-4029533e2d69dd7b",
+            "sfev-505b12f8ab196523"
+          ],
+          "rationale": "These are satirical gadgets and antiquated tactics; they do not constitute a totalizing, world-altering difference from the empirical norm but rather mock incompetent military planning within an otherwise recognizable world.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-505b12f8ab196523"
+        ],
+        "storyworld_consequence_evidence_ids": []
+      }
+    ]
+  }
+}

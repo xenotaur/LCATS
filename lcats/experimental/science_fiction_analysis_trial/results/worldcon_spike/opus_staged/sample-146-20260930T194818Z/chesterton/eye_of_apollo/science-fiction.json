@@ -1,0 +1,622 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "chesterton__eye_of_apollo-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The one materially grounded scientific fact is the physiological reality that staring at the sun with the naked eye damages sight and causes blindness, which is the causal linchpin of the plot. This natural process is real science rather than decorative, but it is presented briefly and folded into a detective denouement rather than developed as a scientific subject, so materiality is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-1ef23908d1916f5c",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-6b9c87c993372794",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "substantial",
+            "rationale": "The lift is an engineered device that is causally central to the murder: Kalon uses the silent, self-operated lift mechanism to lure the blind victim into the empty shaft. The lift is not decorative but the actual instrument of the crime. However, an elevator is an ordinary contemporary engineered system rather than a speculative invention, so the qualification for technology/invention is genuine but interpretively uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-5681a83fcda135dd",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-31d8cd415d39276d",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in contemporary Westminster with no speculative future, remote past, or temporal displacement. No evidence supports any temporal novum.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The narrative does not systematically develop consequences from an identifiable scientific or social premise; the sun-cult and levitation claims are occult pseudo-doctrine debunked as fraud rather than extrapolated. There is no reasoned working-out of implications constituting extrapolation.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Father Brown drives the resolution through systematic inference from observation: he infers Kalon's guilt from the physical detail that the priest did not react to the crash (anticipation), and reconstructs Joan's crime from the material clue of the unfilled fountain pen and the victim's blindness. This is observation-driven evidential reasoning materially producing understanding and action.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4db53d34ae973e64",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-79bcc343e76759c3",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-dd9bc3aa16c0bcd2",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. Kalon's talk of walking 'palaces of crystal' and levitation is rhetorical fraud, not an actual other place or visitor.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The death of Pauline is a single murder\\u2014a personal tragedy rather than a large-scale natural, technological, cosmic, biological, or human-caused disaster. It does not meet the scale threshold for catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-5681a83fcda135dd",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-0dbb95a36a339101",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-9edfd16c8a040e70",
+        "failures": [],
+        "interval": {
+          "definite_count": 1,
+          "possible_count": 3,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-9edfd16c8a040e70",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 19314,
+            "output": 1409
+          }
+        },
+        "status": "complete",
+        "story_hash": "4347003a91fa2b3dfd9da00c22b8e025193a1fb0cd725ca0faf37cec9c70e783"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "chesterton__eye_of_apollo-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-cult-of-apollo",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-a2ef9254f8f059fc",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "The cult's doctrines (levitation, conquest of matter) are offered by Kalon as occult wisdom but are explicitly framed as fraudulent within the narrative; the only genuine causal mechanism (sun-staring causing blindness) is mundane medical fact. The claimed supernatural 'science' is neither coherent nor immanent, but a con man's cover story.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-1ef23908d1916f5c",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ]
+            },
+            "description": "The 'New Religion of Apollo' led by Kalon, a sun-worship cult teaching that a truly healthy person can stare at the sun and master matter, including levitation.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-31d8cd415d39276d",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                },
+                {
+                  "evidence_id": "sfev-0dbb95a36a339101",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "The contrast between the blinking Father Brown and the unblinking sun-staring prophet dramatizes the strangeness of the cult, and Pauline's blindness/death are its storyworld consequences. These support estrangement but not a qualifying novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-6b9c87c993372794",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-5681a83fcda135dd",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                },
+                {
+                  "evidence_id": "sfev-1ef23908d1916f5c",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-6b9c87c993372794",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-1ef23908d1916f5c",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-a2ef9254f8f059fc",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-5681a83fcda135dd",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-79bcc343e76759c3",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                },
+                {
+                  "evidence_id": "sfev-dd9bc3aa16c0bcd2",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "The cult's sun-gazing practice is causally central to the victim's blindness and thereby to the murder mechanism, so it is more than incidental. However, the overriding narrative logic is a detective-story unmasking of ordinary greed and fraud, not a cult-governed speculative world; the religion functions as motive-and-method rather than as a world-determining novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-6b9c87c993372794",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                },
+                {
+                  "evidence_id": "sfev-1ef23908d1916f5c",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The Apollo cult is presented as a modern quackish religion of the ordinary Edwardian London world, not a totalizing world-altering difference from the empirical norm. It is one of the 'new religions' contemporary readers would recognize; the story universe remains fully naturalistic. No feature of the cult changes the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-levitation",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-a2ef9254f8f059fc",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "The levitation account is framed as occult wisdom and a deliberate alibi-fiction, not a coherent immanent systematic mechanism. It is presented as supernatural pretense that the detective demolishes.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "Kalon's claim that adepts can attain the power of levitation as part of an occult 'conquest of matter,' offered as an explanation for Pauline's fall.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The levitation claim briefly estranges by proposing conquest of matter, but it is immediately naturalized as a lie, so it contributes only surface estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-a2ef9254f8f059fc",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-5681a83fcda135dd",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-a2ef9254f8f059fc",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              },
+              {
+                "evidence_id": "sfev-5681a83fcda135dd",
+                "evidence_set_id": "sfes-9edfd16c8a040e70"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-5681a83fcda135dd",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "Levitation is an incidental rhetorical device Kalon deploys to deflect suspicion; it does not govern the narrative logic, which is a naturalistic murder solved by deduction.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-a2ef9254f8f059fc",
+                  "evidence_set_id": "sfes-9edfd16c8a040e70"
+                }
+              ],
+              "rationale": "Levitation would be a world-altering difference, but the story explicitly discredits it: Pauline died by a mundane fall down a lift shaft, and Kalon himself abandons the levitation story. No such power operates in the story universe, which remains empirically ordinary.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-9edfd16c8a040e70",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-9edfd16c8a040e70",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 19661,
+            "output": 1797
+          }
+        },
+        "status": "complete",
+        "story_hash": "4347003a91fa2b3dfd9da00c22b8e025193a1fb0cd725ca0faf37cec9c70e783"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-9edfd16c8a040e70",
+    "knight_analysis_id": "chesterton__eye_of_apollo-knight-v1",
+    "suvin_novum_analysis_id": "chesterton__eye_of_apollo-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-9edfd16c8a040e70",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 14905,
+            "paragraph_ids": [
+              "p00025"
+            ],
+            "start_char": 14734
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0dbb95a36a339101",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Flambeau reacts to discovering Pauline's dead body.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For the last four minutes Flambeau had looked down on it; had seen the brained and bleeding figure of that beautiful woman who denied the existence of tragedy."
+        },
+        {
+          "anchor": {
+            "end_char": 33763,
+            "paragraph_ids": [
+              "p00089"
+            ],
+            "start_char": 33595
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1ef23908d1916f5c",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Brown explains that staring at the sun damaged Pauline's sight, tying the cult practice to a physical cause of blindness.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It came with this precious prophet, or whatever he calls himself, who taught her to stare at the hot sun with the naked eye. It was called accepting Apollo."
+        },
+        {
+          "anchor": {
+            "end_char": 6689,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 6454
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-31d8cd415d39276d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Pauline expresses fervent enthusiasm for modern machinery and mechanical science.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Her bright black eyes blazed with abstract anger against those who rebuke mechanic science and ask for the return of romance. Everyone, she said, ought to be able to manage machines, just as she could manage the lift."
+        },
+        {
+          "anchor": {
+            "end_char": 37531,
+            "paragraph_ids": [
+              "p00100"
+            ],
+            "start_char": 37352
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4db53d34ae973e64",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Brown identifies the murderer by inferring from Kalon's lack of reaction to the noise.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There came a crash and a scream down the street, and the priest of Apollo did not start or look round. I did not know what it was. But I knew that he was expecting it."
+        },
+        {
+          "anchor": {
+            "end_char": 15673,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 15566
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5681a83fcda135dd",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Pauline dies by falling down the lift shaft.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "that beautiful and defiant body had been dashed down the open well of the lift to death at the bottom"
+        },
+        {
+          "anchor": {
+            "end_char": 12886,
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "start_char": 12728
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6b9c87c993372794",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narration contrasts the blinking priest with the sun-staring prophet.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Father Brown could not look at anything without blinking; but the priest of Apollo could look on the blaze at noon without a quiver of the eyelid."
+        },
+        {
+          "anchor": {
+            "end_char": 36315,
+            "paragraph_ids": [
+              "p00093"
+            ],
+            "start_char": 36059
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-79bcc343e76759c3",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Brown deduces the mechanism of the second crime from the physical clue of an unfilled fountain pen.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By habit and her strong will and memory she could still write almost as well as if she saw; but she could not tell when her pen needed dipping. Therefore, her fountain pens were carefully filled by her sister\\u2014all except this fountain pen."
+        },
+        {
+          "anchor": {
+            "end_char": 24340,
+            "paragraph_ids": [
+              "p00044"
+            ],
+            "start_char": 24032
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a2ef9254f8f059fc",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Kalon offers a pseudo-scientific/occult explanation of levitation as a mastery over matter to account for the death.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is well known to all students of the higher truths that certain adepts and illuminati have in history attained the power of levitation\\u2014that is, of being self-sustained upon the empty air. It is but a part of that general conquest of matter which is the main element in our occult wisdom."
+        },
+        {
+          "anchor": {
+            "end_char": 35950,
+            "paragraph_ids": [
+              "p00092"
+            ],
+            "start_char": 35807
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-dd9bc3aa16c0bcd2",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Father Brown reconstructs a motive by reasoning from an observed detail about the victim's blindness.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I thought of the blindness, and felt sure she had wanted Pauline to sign in solitude because she had wanted her not to sign at all."
+        }
+      ],
+      "story_hash": "4347003a91fa2b3dfd9da00c22b8e025193a1fb0cd725ca0faf37cec9c70e783",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "chesterton/eye_of_apollo",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "4347003a91fa2b3dfd9da00c22b8e025193a1fb0cd725ca0faf37cec9c70e783",
+  "story_path": "chesterton/eye_of_apollo/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

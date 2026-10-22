@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15702,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1801,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/honour_of_israel_gow",
+  "story_path": "chesterton/honour_of_israel_gow/story.json",
+  "text": "",
+  "title": "Chesterton - The Honour Of Israel Gow",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.72,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00026"
+        ],
+        "paraphrase": "The investigators catalogue an inventory of unexplained objects found in the castle to be examined.",
+        "quote": "I will read the inventory,\" began Craven gravely, picking up one of the papers, \"the inventory of what we found loose and unexplained in the castle.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.68,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00030"
+        ],
+        "paraphrase": "The central puzzle is framed as the challenge of finding a connection among the disparate items.",
+        "quote": "By no stretch of fancy can\n      the human mind connect together snuff and diamonds and wax and loose\n      clockwork.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00041"
+        ],
+        "paraphrase": "Father Brown distinguishes between plausible false explanations and the single real explanation being sought.",
+        "quote": "Ten false philosophies\n      will fit the universe; ten false theories will fit Glengyle Castle. But we\n      want the real explanation of the castle and the universe.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.66,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00060"
+        ],
+        "paraphrase": "Flambeau expresses fear about what will be found in the grave.",
+        "quote": "\"I am afraid of finding it,\" said Flambeau.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00072"
+        ],
+        "paraphrase": "Craven reacts with shock upon discovering the corpse has no head.",
+        "quote": "\"God!\" cried the man by the coffin, \"but he hasn\\u2019t got a head.\"",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.62,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00094"
+        ],
+        "paraphrase": "Father Brown reacts with startled self-reproach at suddenly grasping the solution.",
+        "quote": "Father Brown\\u2019s pipe fell out of his mouth and broke into three pieces on\n      the gravel path. He stood rolling his eyes, the exact picture of an idiot.\n      \"Lord, what a turnip I am!\"",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00034"
+        ],
+        "paraphrase": "Father Brown offers a technical explanation linking diamonds and steel wheels to glass-cutting tools.",
+        "quote": "Diamonds and small steel wheels are the only two instruments\n      with which you can cut out a pane of glass.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "The final explanation reveals every strange item is what remains after all gold parts were removed.",
+        "quote": "Diamonds without their gold rings; candles without their gold candlesticks; snuff\n      without the gold snuff-boxes; pencil-leads without the gold pencil-cases;\n      a walking stick without its gold top; clockwork without the gold clocks",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00099"
+        ],
+        "paraphrase": "The apparent crime is reframed as an act of scrupulous, literal honesty rather than theft.",
+        "quote": "This is not a story of crime,\" he said; \"rather it is the story of a\n      strange and crooked honesty. We are dealing with the one man on earth,\n      perhaps, who has taken no more than his due.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00106"
+        ],
+        "paraphrase": "The backstory explains the earl's obsession and his decision to make the deaf servant his heir.",
+        "quote": "He swore he was Diogenes, that had long sought an honest man,\n      and at last had found one. He made a new will, which I have seen.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.72,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00107"
+        ],
+        "paraphrase": "The final detail explains the missing head as motivated by removing a gold tooth.",
+        "quote": "He will put the skull back in the grave, when he\n      has taken the gold out of the tooth.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00086"
+        ],
+        "paraphrase": "Father Brown deduces from the gardener's methodical digging pattern that something is hidden in one spot.",
+        "quote": "There must be a mighty fine potato just here.",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "failure_kind": "ValueError",
+  "failure_message": "present Novum dimensions require supporting evidence",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-97931b41b5a84183b56b87ff9754b2fe/mass_quantities__the_relics_of_general_chasse_a_tale_of_antwerp__trollope-fba0e53a4609/sf_suvin_novum.json",
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope",
+  "story_path": "mass_quantities/the_relics_of_general_chasse_a_tale_of_antwerp__trollope/story.json",
+  "title": "The Relics of General Chasse: A Tale of Antwerp",
+  "tool_result": null
+}

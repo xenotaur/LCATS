@@ -1,0 +1,91 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 6470,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1067,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "anderson/happy_family",
+  "story_path": "anderson/happy_family/story.json",
+  "text": "",
+  "title": "Anderson - The Happy Family",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a fable about snails; it presents no scientific fact, theory, discovery, natural process, or speculative science in a material way. Mentions of rain and sun are decorative, not scientific content.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, technique, engineered system, or invention appears or affects the setting, problem, or outcome. The 'house' is the snail's shell, a natural feature, not an invention.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "There is no speculative future, remote past, or temporal displacement. The tale unfolds in a vaguely present/former time with no time travel.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "incidental",
+        "rationale": "The snails reason from a premise (never being boiled) to a conclusion (the manor-house is ruined and humans are extinct). This is a flawed extrapolative inference used satirically, so its status as genuine consequence-development from an identifiable premise is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-5cd8432310bb3c98"
+        ]
+      },
+      {
+        "confidence": 0.45,
+        "counterevidence_ids": [
+          "sfev-8381665f90d6c954"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "Mother Snail voices curiosity about the world's extent, and the snails draw a conclusion from observed absence of boiling. This resembles observation and inference, but it is self-centered, unsystematic pseudo-reasoning that satirizes rather than materially demonstrates scientific method.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-4f794ea8e94cbd19",
+          "sfev-5cd8432310bb3c98"
+        ]
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear. The ants and gnats are ordinary garden creatures, not cosmic visitors.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [
+          "sfev-5cd8432310bb3c98"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The snails' belief that all humans are extinct is a mistaken, satirical inference presented ironically, not an actual, impending, or causally central large-scale disaster. No real catastrophe occurs or drives the narrative.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

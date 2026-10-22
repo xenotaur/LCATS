@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 15465,
+  "model": "claude-opus-4-8",
+  "output_tokens": 776,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "wodehouse/bill_the_bloodhound",
+  "story_path": "wodehouse/bill_the_bloodhound/story.json",
+  "text": "",
+  "title": "Wodehouse - Bill the Bloodhound",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00016"
+        ],
+        "paraphrase": "Henry is dismayed when Alice's criticism of detective work matches his own sense of his job.",
+        "quote": "She had defined his own trade to a nicety. There might\n      be detectives whose work was above this reproach, but he was a confirmed\n      creeper, and he knew it.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "Henry is shocked to learn the company saw through all his disguises.",
+        "quote": "It was a stunning blow. If there was one thing on which Henry prided\n      himself it was the impenetrability of his disguises.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The narrator directly addresses the reader to contrast Henry with a real detective.",
+        "quote": "If I simply said he\n      was a detective, and let it go at that, I should be obtaining the reader's\n      interest under false pretences. He was really only a sort of detective, a\n      species of sleuth.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00145"
+        ],
+        "paraphrase": "Jelliffe proposes that Henry change professions from detective to stage mascot.",
+        "quote": "As a\n      sleuth you are poor. You couldn't detect a bass-drum in a telephone-booth.\n      You have no future. You are merely among those present. But as a mascot\\u2014my\n      boy, you're the only thing in sight.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00147"
+        ],
+        "paraphrase": "Prompted by a vision of Alice, Henry immediately decides to accept the stage career.",
+        "quote": "'Don't go,' he said. 'Don't go. I'll let you know now.'",
+        "raw_id": "ev05"
+      }
+    ]
+  }
+}

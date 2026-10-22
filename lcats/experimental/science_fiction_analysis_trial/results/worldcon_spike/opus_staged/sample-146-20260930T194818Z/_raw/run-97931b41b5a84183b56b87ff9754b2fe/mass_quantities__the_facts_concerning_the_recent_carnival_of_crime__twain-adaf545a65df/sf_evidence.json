@@ -1,0 +1,179 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16893,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2370,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+  "story_path": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json",
+  "text": "",
+  "title": "The Facts Concerning the Recent Carnival of Crime in Connecticut",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "A tiny deformed being suddenly enters the narrator's room.",
+        "quote": "Straightway the door opened, and a shriveled, shabby dwarf entered. He\nwas not more than two feet high.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00047"
+        ],
+        "paraphrase": "The strange being reveals itself to be the narrator's Conscience personified.",
+        "quote": "Well, I am your Conscience!",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00065"
+        ],
+        "paraphrase": "The Conscience explains it is an unsubstantial spirit made visible only to the narrator.",
+        "quote": "No. It only made me visible to you. I am unsubstantial, just as other\nspirits are.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00058"
+        ],
+        "paraphrase": "The Conscience states the rule that only its owner can perceive it.",
+        "quote": "For a very good reason. I am invisible to all but you.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00051"
+        ],
+        "paraphrase": "The Conscience explains that its weight and position depend on the narrator's emotional state.",
+        "quote": "Otherwise it must have occurred to you that if you attempted this\nmurder with a sad heart and a heavy conscience, I would droop under the\nburdening in influence instantly.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00100"
+        ],
+        "paraphrase": "The Conscience explains its size changes over a person's life according to their conscientiousness.",
+        "quote": "When you\nwere eight or nine years old, I was seven feet high, and as pretty as a\npicture.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "The Conscience describes a mechanism by which repeated sinning makes it shrivel and grow callous.",
+        "quote": "The more I weakened, the more stubbornly you\nfastened on to those particular sins; till at last the places on my\nperson that represent those vices became as callous as shark-skin.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00052"
+        ],
+        "paraphrase": "The narrator deliberately formulates questions to investigate the nature of the visible Conscience.",
+        "quote": "By and by I got to musing\nover the hour's strange adventure, and of course my human curiosity\nbegan to work. I set myself to framing in my mind some questions for\nthis fiend to answer.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00106"
+        ],
+        "paraphrase": "The Conscience explains a cooperative system among consciences to divert would-be moral pleaders.",
+        "quote": "Whenever a person whose conscience I am acquainted\nwith tries to plead with you about the vices you are callous to, I get\nmy friend to give his client a pang concerning some villainy of his\nown, and that shuts off his meddling",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "The narrator reacts to learning the being's identity with joyful rage and an attempt to attack it.",
+        "quote": "In an instant I was in a blaze of joy and exultation. I sprang at the\ncreature, roaring:",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00129"
+        ],
+        "paraphrase": "Under the aunt's pleading, the Conscience is overwhelmed and falls asleep, defenseless.",
+        "quote": "With a long-drawn sigh my conquered Conscience closed his eyes\nand fell fast asleep!",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00130"
+        ],
+        "paraphrase": "The narrator destroys and burns his Conscience.",
+        "quote": "I tore him to shreds and fragments. I rent the\nfragments to bits. I cast the bleeding rubbish into the fire",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00133"
+        ],
+        "paraphrase": "Freed from his Conscience, the narrator commits many crimes without remorse.",
+        "quote": "I killed thirty-eight persons during the first two weeks--all of them\non account of ancient grudges. I burned a dwelling that interrupted my\nview. I swindled a widow and some orphans out of their last cow",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00132"
+        ],
+        "paraphrase": "The narrator declares his transformed state as a man now entirely without a conscience.",
+        "quote": "You behold before you a man whose life-conflict is\ndone, whose soul is at peace; a man whose heart is dead to sorrow, dead\nto suffering, dead to remorse; a man WITHOUT A CONSCIENCE!",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00086"
+        ],
+        "paraphrase": "A disproportion is drawn between a man's conscience-driven suicide and the trivial harm that provoked it.",
+        "quote": "That man walked the\nfloor in torture for forty-eight hours, without eating or sleeping, and\nthen blew his brains out. The child was perfectly well again in three\nweeks.",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00120"
+        ],
+        "paraphrase": "A publisher's conscience is described as so tiny it required a powerful microscope to view.",
+        "quote": "The management had provided a microscope\nwith a magnifying power of only thirty thousand diameters, and so nobody\ngot to see him, after all.",
+        "raw_id": "ev16"
+      }
+    ]
+  }
+}

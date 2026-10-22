@@ -1,0 +1,91 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14950,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1035,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "wodehouse/one_touch_of_nature",
+  "story_path": "wodehouse/one_touch_of_nature/story.json",
+  "text": "",
+  "title": "Wodehouse - One Touch Of Nature",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a contemporary comedic tale about baseball fans and a fugitive; no scientific facts, theories, discoveries, or speculative sciences are materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary contemporary items appear (telephone, pistol, train, champagne). None is a speculative or engineered invention that materially shapes the setting or outcome; these are mundane tools.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The 'five centuries' phrase in ev07 is clearly a hyperbolic figure of speech for five years of exile (ev01), not actual temporal displacement, a speculative future, or remote past. The setting is contemporary.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-e2ccadfc5c4aa2a6",
+          "sfev-1c09d3513b7b4e3f"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The plot follows from an ordinary crime and personal circumstances (a bank robbery and social exile), not consequences extrapolated from an identifiable scientific, technological, social, or historical premise in a speculative sense.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-0cca2feece86668b"
+        ]
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Waterall's recognition of a face by memory (ev04) is a personal knack and ordinary recall, not observation, hypothesis, testing, measurement, or systematic evidential inference driving understanding.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-36fee5e6655ae30b"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "Locations are ordinary Earthly places (London, New York, Algiers). No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The only calamities are a personal bank robbery and individual misfortune (exile, potential arrest); there is no large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-0cca2feece86668b"
+        ]
+      }
+    ]
+  }
+}

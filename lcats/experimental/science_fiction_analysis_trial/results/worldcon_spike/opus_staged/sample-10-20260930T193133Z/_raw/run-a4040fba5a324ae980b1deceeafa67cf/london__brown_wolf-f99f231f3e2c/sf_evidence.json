@@ -1,0 +1,79 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 17179,
+  "model": "claude-opus-4-8",
+  "output_tokens": 855,
+  "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+  "stage": "sf_evidence",
+  "story_id": "london/brown_wolf",
+  "story_path": "london/brown_wolf/story.json",
+  "text": "",
+  "title": "London - Brown Wolf",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Walt and Madge cherished the dog, partly because winning his affection had been difficult.",
+        "quote": "The man and woman loved the dog very much; perhaps this was\nbecause it had been such a task to win his love.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Irvine explains the dog's repeated flights northward as a homing instinct.",
+        "quote": "He was possessed of an obsession that drove him\nnorth.\nThe homing instinct, Irvine called it",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Miller contrasts the harsh Klondike, where dogs may be eaten, with the mild conditions of California.",
+        "quote": "Things is different down here,\nMiller\nexplained.\n\nYou don\ndon\nt have to eat dogs.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Walt and Madge are astonished when the previously silent dog barks upon meeting Miller.",
+        "quote": "Walt and Madge stared at each other.\nThe miracle had\nhappened.\nWolf had barked.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Miller physically examines the dog's paw pads to assess how long it has been off the trail.",
+        "quote": "He\nlifted one of Wolf\ns fore legs and examined the foot-pads,\npressing them and denting them with his thumb.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The dog becomes distressed by the unresponsiveness of the humans as he tries to make a choice.",
+        "quote": "He was depressed by the\ncoldness of these humans who had never been cold before.",
+        "raw_id": "ev06"
+      }
+    ]
+  }
+}

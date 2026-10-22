@@ -1,0 +1,96 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 10249,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1146,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "anderson/story_of_a_mother",
+  "story_path": "anderson/story_of_a_mother/story.json",
+  "text": "",
+  "title": "Anderson - The Story Of a Mother",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-1c82f78115897760",
+          "sfev-237599a5aa138692"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The plant-heartbeat and gardener conceits are allegorical/supernatural, not scientific facts, theories, or speculative sciences. No material scientific content is represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No device, technique, or engineered invention affects the setting or outcome. The clock and greenhouse are ordinary or magical props, not inventions materially driving the story.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The setting is a folkloric present with no speculative future, remote past, or temporal displacement. The vision of a child's future in the well is prophecy/allegory, not time travel.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-1c82f78115897760",
+          "sfev-75113df5e228724d"
+        ],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The story is a moral/religious allegory; it does not extrapolate consequences from an identifiable scientific, technological, social, or historical premise.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [
+          "sfev-237599a5aa138692"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "The mother listening for her child's heartbeat among plants is intuitive maternal recognition within a magical framework, not observation, hypothesis, testing, or systematic evidential inference driving understanding.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "incidental",
+        "rationale": "A strange mile-broad house across a lake and Death's greenhouse leading to the 'unknown land' of Paradise are nonordinary otherworldly environments, and Night and Death function as visitors. However these are religious/allegorical realms rather than cosmic or dimensional environments in the SF sense, so materiality and interpretation are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-e542123ba613f213",
+          "sfev-75113df5e228724d"
+        ]
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [
+          "sfev-28dd2f7ad98d5dcd",
+          "sfev-b53373aaff750fe4"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The central event is a single child's death and the mother's grief\\u2014a personal misfortune without large-scale disaster. No natural, technological, cosmic, biological, or human-caused catastrophe of broad scale is present.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

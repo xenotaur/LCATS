@@ -1,0 +1,18 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 27790,
+  "model": "claude-opus-4-8",
+  "output_tokens": 35,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/dough_or_dynamite__tuttle",
+  "story_path": "mass_quantities/dough_or_dynamite__tuttle/story.json",
+  "text": "",
+  "title": "Dough or Dynamite",
+  "tool_result": {
+    "evidence": []
+  }
+}

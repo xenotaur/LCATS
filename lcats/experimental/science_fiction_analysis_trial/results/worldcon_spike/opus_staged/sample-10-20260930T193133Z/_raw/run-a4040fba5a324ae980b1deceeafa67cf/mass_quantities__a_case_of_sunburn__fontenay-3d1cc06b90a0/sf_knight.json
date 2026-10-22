@@ -1,0 +1,109 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 23322,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1486,
+  "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_case_of_sunburn__fontenay",
+  "story_path": "mass_quantities/a_case_of_sunburn__fontenay/story.json",
+  "text": "",
+  "title": "A Case of Sunburn",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "central",
+        "rationale": "The story materially deploys speculative science: a protective 'blue mist' atmosphere, magnetic-field amplification affecting solar radiation, Earth-sun conjunction astronomy, and orbital mechanics governing spacecraft trajectories. These natural processes and speculative sciences drive the plot's resolution.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-bc0db716b5246ade",
+          "sfev-c4cef864b25e1845",
+          "sfev-0cea44c231a55e04",
+          "sfev-5b22fc9e2da02f2f",
+          "sfev-c0447ade19a86f07"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The Egg, an engineered magnetic-field-amplifying device, is the pivotal invention whose placement in an Earthward orbit strips away Mars' protective mist and decides the war. G-boats, heat-guns, and scrambler beams are engineered systems materially affecting the action.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-36e09c7d8a27a96e",
+          "sfev-d480365c828f4ad1",
+          "sfev-0cea44c231a55e04"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "substantial",
+        "rationale": "The story is explicitly set in a speculative future (Earth date June 1, 2020, with a colonized Mars established in 1985 and its own Martian dating system), constituting a future setting rather than a mere incidental date.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-9a4c496936e0f028",
+          "sfev-c2f2c9b43a19bd4a"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The plot systematically extrapolates the consequences of a scientific premise: because Earth's magnetic field disrupts the protective mist during conjunction, amplifying that field via the Egg strips the mist entirely, incapacitating the enemy through mass sunburn. This is a developed causal chain from an identifiable premise.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-48737fa8ed7cca93",
+          "sfev-c4cef864b25e1845",
+          "sfev-d7af350446f90fd1"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "Jonner uses systematic elimination and observation to deduce the spy's identity, showing evidential inference. However, this is closer to detective reasoning than scientific investigation, and its materiality to the core science-driven resolution is limited, so interpretation is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-e76211bc932c0a6c"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "The entire story is set on colonized Mars with its moon Phobos as a space station, a substantially nonordinary cosmic environment with dome-cities, marsuits, and its own atmosphere, integral to the setting and action.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-c2f2c9b43a19bd4a",
+          "sfev-d480365c828f4ad1",
+          "sfev-9a4c496936e0f028"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "central",
+        "rationale": "A large-scale technologically-caused disaster is central and actual: the complete stripping of Mars' protective mist inflicts severe burns and blindness across the surface population, disabling Marscorp's army and deciding the war.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-d7af350446f90fd1",
+          "sfev-98090e6b9da201d8",
+          "sfev-36e09c7d8a27a96e"
+        ]
+      }
+    ]
+  }
+}

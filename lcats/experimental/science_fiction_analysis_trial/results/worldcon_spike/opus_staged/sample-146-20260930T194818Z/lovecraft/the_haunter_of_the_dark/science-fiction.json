@@ -1,0 +1,1034 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_haunter_of_the_dark-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Scientific vocabulary appears (radioactivity/phosphorescence speculation about the glowing stone; naturalistic chemical explanations of mephitic vapors and spontaneous combustion), but these are gestures within a supernatural horror frame rather than materially represented science driving the narrative.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-63b56cee3e3afc4a",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-294355a4079a03e8",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "substantial",
+            "rationale": "The Shining Trapezohedron functions as an artifact/device\ne2014a 'window on all time and space' with stated operating rules (banished by light, awakened by gazing)\ne2014that materially drives the action and outcome, though it is an occult artifact rather than an engineered invention, making the technology reading uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f031e475f512c24b",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-3c9ea6afc3e5e52d",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.62,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story traces a deep-time history across eons and lost ages (crinoid things of Antarctica, serpent-men of Valusia, Lemuria, Atlantis) and invokes a remote past, plus a collapse of spatial/temporal distance in Blake's final experience.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-d8dec12dfa7d469f",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-63629086f997e466",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "From the established premise that the entity flees light and roams in darkness, the plot develops direct consequences: a power outage frees the entity to descend, and the rapport drives Blake's sleepwalking, culminating in his death\ne2014a systematically extrapolated chain from a stated rule.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3c9ea6afc3e5e52d",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-afebf33820a2e386",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-bb04baa13d3683b5",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.62,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Blake systematically researches books and newspaper files and methodically eliminates candidate languages to crack the cryptogram, and the frame narrator conducts a dispassionate, evidence-based study of the diary\ne2014observation and systematic inference materially advancing understanding.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e6cc5feb7d7db3b0",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-86682db7cd9bb715",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-838693c14500408a",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The narrative invokes other worlds and nonordinary cosmic environments (the Trapezohedron fashioned on dark Yuggoth, the Old Ones, black gulfs of chaos) and an alien visiting entity\ne2014the Haunter\ne2014that manifests from beyond, materially figuring in the plot.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-f031e475f512c24b",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-63629086f997e466",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-90c323f7e9c77a8b",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ]
+          },
+          {
+            "confidence": 0.58,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The violent wind and crashing louver-boarding are localized disturbances tied to one man's death and a single church, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. No material catastrophe of broader scale is present.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-4b373b09bb57a571",
+        "failures": [],
+        "interval": {
+          "definite_count": 4,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4b373b09bb57a571",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 30872,
+            "output": 1527
+          }
+        },
+        "status": "complete",
+        "story_hash": "62dda70ae1f216b5f27fb916daf4c0c5b6a63608a5a0e475c84654c455131d8c"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_haunter_of_the_dark-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-haunter-trapezohedron",
+            "cognitive_validation": {
+              "confidence": 0.62,
+              "counterevidence": [],
+              "rationale": "The story develops a coherent, systematic, immanent logic: the entity is summoned by gazing into the stone, cannot exist in light, flees weak light, is banished by strong light, and must be re-summoned. Blake even speculates in materialist terms (radioactivity, phosphorescence) and decodes the artifact's history through a systematic cipher/Aklo-language inquiry. This imaginary-science framework is non-supernatural in presentation and governs events consistently; present-day buildability is not required.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3c9ea6afc3e5e52d",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-7ce14ae8d6bf365c",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-63b56cee3e3afc4a",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-d973cc1ee57c7a54",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ]
+            },
+            "description": "The Shining Trapezohedron and the Haunter of the Dark it summons: a crystal artifact from Yuggoth that functions as a 'window on all time and space,' capable of calling forth a cosmic entity that can exist only in darkness, is repelled by light, establishes psychic rapport with the gazer, and ultimately destroys Blake. Governed by a coherent internal rule-set (gaze summons it, light banishes it, darkness frees it, re-summoning required).",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-3b6b7ece80d3dc83",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-8df2809a768d92f0",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-90c323f7e9c77a8b",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-b38c76e3acfadac5",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ],
+              "rationale": "The story repeatedly juxtaposes a skeptical, materialist frame (lightning/electrical shock, mephitic vapors, charlatanry) against the diary's account of a cosmic entity, inviting the reader to weigh empirical norm against the novum. Storyworld consequences (steeple disturbances, the entity's descent during blackouts, the violent release and wind) and character reactions (Blake's fever of horror, frantic calls to the power company, his death mask of fright) register the estranging difference.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-1e120298ecb4d6a0",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-161f231b46472c79",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-88e5026ae12ca0ae",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-294355a4079a03e8",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-0bc1f4c98a23d3b2",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-a7edd6f40cd24b11",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-afebf33820a2e386",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-bb04baa13d3683b5",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-23b099593a45a501",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-fa610e304b0e4f76",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-f031e475f512c24b",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-d8dec12dfa7d469f",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-3c9ea6afc3e5e52d",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-7ce14ae8d6bf365c",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-63629086f997e466",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-d973cc1ee57c7a54",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              },
+              {
+                "evidence_id": "sfev-63b56cee3e3afc4a",
+                "evidence_set_id": "sfes-4b373b09bb57a571"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The artifact and the entity it calls forth govern the entire narrative logic: Blake's investigation, the storyworld disturbances on Federal Hill, the power-outage escalations, the sleepwalking rapport, and Blake's death all follow from the summoning and the light/darkness rule. The whole plot is determined by this candidate, not an incidental device.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-a7edd6f40cd24b11",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-afebf33820a2e386",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-bb04baa13d3683b5",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-63629086f997e466",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-88e5026ae12ca0ae",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-294355a4079a03e8",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ],
+              "rationale": "The artifact is presented as a window on all time and space with a cosmic, eons-spanning provenance (Yuggoth, crinoid things, serpent-men, Atlantis) and summons an entity whose existence collapses spatial distance ('far is near and near is far'). This constitutes a totalizing difference from the empirical norm, altering the story universe's ontology. The narrator's naturalistic framings are offered as competing readings but the diary-based storyworld consistently treats the difference as real.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-f031e475f512c24b",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-d8dec12dfa7d469f",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-3c9ea6afc3e5e52d",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                },
+                {
+                  "evidence_id": "sfev-63629086f997e466",
+                  "evidence_set_id": "sfes-4b373b09bb57a571"
+                }
+              ]
+            },
+            "qualified_novum": true
+          }
+        ],
+        "dominant_novum_id": "cand-haunter-trapezohedron",
+        "evidence_set_id": "sfes-4b373b09bb57a571",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4b373b09bb57a571",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 31219,
+            "output": 1702
+          }
+        },
+        "status": "complete",
+        "story_hash": "62dda70ae1f216b5f27fb916daf4c0c5b6a63608a5a0e475c84654c455131d8c"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-4b373b09bb57a571",
+    "knight_analysis_id": "lovecraft__the_haunter_of_the_dark-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__the_haunter_of_the_dark-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-4b373b09bb57a571",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 51220,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 51021
+          },
+          "confidence": 0.76,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0bc1f4c98a23d3b2",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The official verdict attributes Blake's death to electrical shock, contrasting the supernatural account.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Shortly afterward the coroner's physician made an examination,\nand despite the unbroken window reported electrical shock, or nervous\ntension induced by an electrical discharge, as the cause of death."
+        },
+        {
+          "anchor": {
+            "end_char": 3129,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 2877
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-161f231b46472c79",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator explicitly contrasts a skeptical, materialist account with the supernatural interpretation, inviting reader judgment.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Between these two schools of opinion the reader must judge for himself.\nThe papers have given the tangible details from a skeptical angle,\nleaving for others the drawing of the picture as Robert Blake saw\nit\\u2014or thought he saw it\\u2014or pretended to see it."
+        },
+        {
+          "anchor": {
+            "end_char": 555,
+            "paragraph_ids": [
+              "p00006"
+            ],
+            "start_char": 373
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1e120298ecb4d6a0",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The framing narrator presents a rational/skeptical explanation for Blake's death as the common belief.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Cautious investigators will hesitate to challenge the common belief\nthat Robert Blake was killed by lightning, or by some profound nervous\nshock derived from an electrical discharge."
+        },
+        {
+          "anchor": {
+            "end_char": 48172,
+            "paragraph_ids": [
+              "p00084"
+            ],
+            "start_char": 47960
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-23b099593a45a501",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The entity's release produces a violent wind and disturbance affecting the crowd.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "At the same time the\nair trembled with a vibration as of flapping wings, and a sudden\neast-blowing wind more violent than any previous blast snatched off the\nhats and wrenched the dripping umbrellas of the crowd."
+        },
+        {
+          "anchor": {
+            "end_char": 46973,
+            "paragraph_ids": [
+              "p00082"
+            ],
+            "start_char": 46844
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-294355a4079a03e8",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Naturalistic chemical/physical explanations are proposed for the church phenomena.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Mephitic vapors\\u2014spontaneous\ncombustion\\u2014pressure of gases born of long decay\\u2014any one of numberless\nphenomena might be responsible."
+        },
+        {
+          "anchor": {
+            "end_char": 35224,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 35117
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3b6b7ece80d3dc83",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Blake reacts with extreme horror to the news reports.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Then something in the Journal on the morning of July 17 threw the\ndiarist into a veritable fever of horror."
+        },
+        {
+          "anchor": {
+            "end_char": 26104,
+            "paragraph_ids": [
+              "p00045"
+            ],
+            "start_char": 25892
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3c9ea6afc3e5e52d",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A stated operating principle: the entity cannot exist in light, flees weak light, is banished by strong light, and must be re-summoned.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Fr. O'Malley tells of devil-worship with box found in great Egyptian\nruins\\u2014says they call up something that can't exist in light. Flees a\nlittle light, and banished by strong light. Then has to be summoned\nagain."
+        },
+        {
+          "anchor": {
+            "end_char": 54047,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 53934
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-63629086f997e466",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Blake reports collapse of spatial distance, perceiving the distant tower as if near.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev23",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Sense of distance gone\\u2014far is near and near is far. No light\\u2014no\nglass\\u2014see that steeple\\u2014that tower\\u2014window\\u2014can hear"
+        },
+        {
+          "anchor": {
+            "end_char": 29883,
+            "paragraph_ids": [
+              "p00060"
+            ],
+            "start_char": 29814
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-63b56cee3e3afc4a",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Blake speculates in scientific terms about radioactivity/phosphorescence of the glowing stone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev20",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Was there a subtle phosphorescence of radio-activity about the thing?"
+        },
+        {
+          "anchor": {
+            "end_char": 32731,
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "start_char": 32557
+          },
+          "confidence": 0.66,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7ce14ae8d6bf365c",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The diary explains a rule: the entity is awakened by gazing into the stone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There are references to a Haunter of the Dark awaked by\ngazing into the Shining Trapezohedron, and insane conjectures about the\nblack gulfs of chaos from which it was called."
+        },
+        {
+          "anchor": {
+            "end_char": 3292,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 3130
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-838693c14500408a",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator frames the account as a close, dispassionate study of documentary evidence (the diary).",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Now, studying the\ndiary closely, dispassionately, and at leisure, let us summarize the\ndark chain of events from the expressed point of view of their chief\nactor."
+        },
+        {
+          "anchor": {
+            "end_char": 31474,
+            "paragraph_ids": [
+              "p00062"
+            ],
+            "start_char": 31291
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-86682db7cd9bb715",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Blake methodically eliminates possible languages while attempting to crack the cryptogram.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The cipher, he soon\nsaw, was no simple one; and after a long period of endeavor he felt\nsure that its language could not be English, Latin, Greek, French,\nSpanish, Italian, or German."
+        },
+        {
+          "anchor": {
+            "end_char": 46684,
+            "paragraph_ids": [
+              "p00082"
+            ],
+            "start_char": 46552
+          },
+          "confidence": 0.74,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-88e5026ae12ca0ae",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator offers a natural-causes framing against the supernatural interpretation of events at the church.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Of course there was nothing which can be proved\nas being outside the order of nature. The possible causes of such an\nevent are many."
+        },
+        {
+          "anchor": {
+            "end_char": 39577,
+            "paragraph_ids": [
+              "p00072"
+            ],
+            "start_char": 39381
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8df2809a768d92f0",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Blake frantically contacts the power company fearing a blackout, showing mounting terror.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It has been verified that on three\noccasions\\u2014during thunderstorms\\u2014he telephoned the electric light\ncompany in a frantic vein and asked that desperate precautions against\na lapse of power be taken."
+        },
+        {
+          "anchor": {
+            "end_char": 29164,
+            "paragraph_ids": [
+              "p00059"
+            ],
+            "start_char": 28976
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-90c323f7e9c77a8b",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Blake experiences sudden panic and senses an alien presence near the stone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev21",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Then all at once the spell was broken by an access of gnawing,\nindeterminate panic fear. Blake choked and turned away from the stone,\nconscious of some formless alien presence close to him"
+        },
+        {
+          "anchor": {
+            "end_char": 34278,
+            "paragraph_ids": [
+              "p00066"
+            ],
+            "start_char": 34063
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a7edd6f40cd24b11",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "After Blake enters the church, new disturbances begin in the steeple, changing conditions in the neighborhood.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It appears that a new fear had been\ngrowing on Federal Hill since a stranger had entered the dreaded\nchurch. The Italians whispered of unaccustomed stirrings and bumpings\nand scrapings in the dark windowless steeple"
+        },
+        {
+          "anchor": {
+            "end_char": 35773,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 35538
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-afebf33820a2e386",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "A power outage leads to the entity emerging, following the established rule that darkness frees it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Those living near the dreaded church had sworn that the thing\nin the steeple had taken advantage of the street lamps' absence and\ngone down into the body of the church, flopping and bumping around in\na viscous, altogether dreadful way."
+        },
+        {
+          "anchor": {
+            "end_char": 51020,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 50873
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b38c76e3acfadac5",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Blake's body shows an expression of extreme fright, and witnesses recoil.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev24",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the intruders saw the glassy, bulging eyes, and the marks of stark,\nconvulsive fright on the twisted features, they turned away in sickened\ndismay."
+        },
+        {
+          "anchor": {
+            "end_char": 40697,
+            "paragraph_ids": [
+              "p00072"
+            ],
+            "start_char": 40461
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bb04baa13d3683b5",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "As a consequence of the rapport, Blake begins sleepwalking toward the church, drawn by the entity.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev22",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There is mention of a night when he awaked to find\nhimself fully dressed, outdoors, and headed automatically down College\nHill toward the west. Again and again he dwells on the fact that the\nthing in the steeple knows where to find him."
+        },
+        {
+          "anchor": {
+            "end_char": 33476,
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "start_char": 33206
+          },
+          "confidence": 0.62,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d8dec12dfa7d469f",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "A long history spanning eons and distant places/beings is traced for the artifact.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was treasured and placed in its curious box by the crinoid\nthings of Antarctica, salvaged from their ruins by the serpent-men of\nValusia, and peered at eons later in Lemuria by the first human beings.\nIt crossed strange lands and stranger seas, and sank with Atlantis"
+        },
+        {
+          "anchor": {
+            "end_char": 32373,
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "start_char": 32209
+          },
+          "confidence": 0.62,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d973cc1ee57c7a54",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Blake decodes the cipher and identifies the language as the invented Aklo tongue of ancient cults.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was in June that Blake's diary told of his victory over the\ncryptogram. The text was, he found, in the dark Aklo language used by\ncertain cults of evil antiquity"
+        },
+        {
+          "anchor": {
+            "end_char": 31290,
+            "paragraph_ids": [
+              "p00062"
+            ],
+            "start_char": 31038
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e6cc5feb7d7db3b0",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Blake systematically researches books, newspaper files, and works to decipher a cryptogram.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "During the days which followed, Blake told no one of his expedition.\nInstead, he read much in certain books, examined long years of\nnewspaper files downtown, and worked feverishly at the cryptogram in\nthat leather volume from the cobwebbed vestry room."
+        },
+        {
+          "anchor": {
+            "end_char": 33205,
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "start_char": 32999
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f031e475f512c24b",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The stone is explained as a device functioning as a window onto all time and space, with an origin on Yuggoth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Of the Shining Trapezohedron he speaks often, calling it a window\non all time and space, and tracing its history from the days it was\nfashioned on dark Yuggoth, before ever the Old Ones brought it to\nearth."
+        },
+        {
+          "anchor": {
+            "end_char": 47593,
+            "paragraph_ids": [
+              "p00083"
+            ],
+            "start_char": 47453
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fa610e304b0e4f76",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A violent event occurs as the tower louver-boarding breaks and crashes down.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Then at last there was a sound of splintering wood, and\na large, heavy object crashed down in the yard beneath the frowning\neasterly fa\\u00e7ade."
+        }
+      ],
+      "story_hash": "62dda70ae1f216b5f27fb916daf4c0c5b6a63608a5a0e475c84654c455131d8c",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_haunter_of_the_dark",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "62dda70ae1f216b5f27fb916daf4c0c5b6a63608a5a0e475c84654c455131d8c",
+  "story_path": "lovecraft/the_haunter_of_the_dark/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

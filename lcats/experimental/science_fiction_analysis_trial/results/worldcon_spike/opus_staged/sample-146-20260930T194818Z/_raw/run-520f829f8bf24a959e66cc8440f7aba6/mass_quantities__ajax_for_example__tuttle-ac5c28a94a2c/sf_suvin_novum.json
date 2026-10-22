@@ -1,0 +1,160 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 28397,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1802,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/ajax_for_example__tuttle",
+  "story_path": "mass_quantities/ajax_for_example__tuttle/story.json",
+  "text": "",
+  "title": "Ajax, for example",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-hipwiggler",
+        "character_reaction_evidence_ids": [
+          "p00123",
+          "p00311"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "p00112",
+            "p00108",
+            "p00335",
+            "p00416"
+          ],
+          "rationale": "No coherent, systematic, immanent account is offered; the creature's described 'biology' (sleeps only between twelve and one, caught via nonsense ritual, 'hootchie-kootchie family') is deliberate tall-tale nonsense presented as a running joke, not as an imaginary but consistent natural or social logic.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "description": "The 'hipwiggler,' a supposedly deadly nocturnal creature that eats a sleeping man from head to toe and is caught by making a 'loofmad' noise on a persimmon stump. It is a fabricated tall-tale invented by Magpie to prank the visiting scientist.",
+        "estrangement_rationale": "The hipwiggler produces a mock-estrangement: the reader recognizes it as a fabricated tall tale, and the humor lies in Ajax's earnest scientific credulity toward an impossible creature. This is a comic device, not a genuine novum.",
+        "evidence_ids": [
+          "p00106",
+          "p00108",
+          "p00112",
+          "p00121",
+          "p00220",
+          "p00306",
+          "p00311",
+          "p00333",
+          "p00370",
+          "p00372",
+          "p00416"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "counterevidence_ids": [
+            "p00052",
+            "p00419",
+            "p00421"
+          ],
+          "rationale": "The hipwiggler drives several comic episodes and motivates Ajax's quest that leads to the polecat/goat climax, so it has notable presence; but the story's overriding logic is the satire of 'too much education' (the loco-weed/sheep study), of which the hipwiggler is one gag among many rather than the governing device.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "p00306",
+            "p00311",
+            "p00333",
+            "p00370"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "p00106",
+            "p00108",
+            "p00298",
+            "p00372",
+            "p00416"
+          ],
+          "rationale": "The hipwiggler is explicitly a hoax invented on the spot to torment Ajax; it does not exist in the storyworld (Mighty reveals the 'specimen' is merely a polecat, and the old-timers have never seen or heard of one). It effects no totalizing or world-altering difference from the empirical norm because it is fictional even within the fiction. The comic realist frontier world remains unchanged.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "p00106",
+          "p00108",
+          "p00112"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "p00121",
+          "p00220",
+          "p00370",
+          "p00372"
+        ]
+      },
+      {
+        "candidate_id": "cand-educated-fool",
+        "character_reaction_evidence_ids": [
+          "p00006",
+          "p00080",
+          "p00128",
+          "p00145"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "Since this is a character type and satirical theme rather than a proposed novum with an immanent explanatory logic, cognitive validation does not apply in the Suvinian sense.",
+          "status": "not_assessable",
+          "supporting_evidence_ids": []
+        },
+        "description": "The figure of Ajax, the hyper-educated scientist whose book-learning renders him incapable of practical survival or plain communication in the frontier world -- the thematic conceit of 'too much education' as a disabling condition.",
+        "estrangement_rationale": "The estrangement here is purely social comedy -- the clash of Latinate erudition with vernacular frontier speech -- not a cognitive-scientific novum that alters the story's empirical world.",
+        "evidence_ids": [
+          "p00002",
+          "p00008",
+          "p00020",
+          "p00063",
+          "p00201",
+          "p00235",
+          "p00295",
+          "p00419",
+          "p00421",
+          "p00422"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The satire of over-education governs the entire narrative frame, from Ike's opening thesis to the closing 'astragalas splendens'/loco-weed punchline, but this is a thematic/character conceit, not a science-fictional novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "p00002",
+            "p00235",
+            "p00295",
+            "p00419",
+            "p00421",
+            "p00422"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "p00002",
+            "p00235",
+            "p00421"
+          ],
+          "rationale": "The 'educated fool' is a social/comic archetype, not a totalizing or world-altering difference from the empirical norm. The story universe is ordinary early-20th-century Montana; no aspect of reality is altered.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "p00008",
+          "p00020",
+          "p00063",
+          "p00201"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "p00177",
+          "p00393",
+          "p00404"
+        ]
+      }
+    ]
+  }
+}

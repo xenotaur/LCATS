@@ -1,0 +1,139 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 7651,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1779,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/in_the_dark__clark",
+  "story_path": "mass_quantities/in_the_dark__clark/story.json",
+  "text": "",
+  "title": "In the Dark",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.85,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00025"
+        ],
+        "paraphrase": "Gregg explains the properties of an acid strong enough to dissolve everything but gold, used to eliminate the body.",
+        "quote": "The vat contained an acid powerful enough to destroy anything--except gold. In fact, the vat itself had to be lined with gold-leaf. I knew that in twenty-four hours there wouldn't be a recognizable body left, and in a week there wouldn't be anything at all.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00046"
+        ],
+        "paraphrase": "The acid is described as dissolving tissue, bone, and ores, keeping them in suspension.",
+        "quote": "The stuff utterly dissolves animal tissue, bone, even the common ores--keeps them in suspension.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00043"
+        ],
+        "paraphrase": "Gregg frames what he witnessed as contradicting known natural laws.",
+        "quote": "It is a physiological absurdity--it contradicts the laws of natural science.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00050"
+        ],
+        "paraphrase": "Gregg describes observing a reverse of decomposition occurring in the vat.",
+        "quote": "For hours at a time I've watched the change.... Did you ever see a body decompose? Of course not! Neither have I. But you must know in a general way what the process is. Well, this has been the exact opposite!",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00051"
+        ],
+        "paraphrase": "The dissolved remains reform into a skeleton.",
+        "quote": "First, I stared at the heap of grave-mold as it shaped itself into _bones_, a skeleton.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.82,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00052"
+        ],
+        "paraphrase": "Hair and flesh regenerate on the reforming body as Gregg watches.",
+        "quote": "I watched the coming of hair, a yellow tangle of it sprouting from the bare round skull, until--oh, God!--the flesh began making itself before my eyes!",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.82,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00056"
+        ],
+        "paraphrase": "The body progressively returns to life, showing color, open eyes, and breathing.",
+        "quote": "I've watched her limbs grow rosy! Her lips are scarlet! Her eyes are bright--they opened yesterday--and her breasts were rising and falling--oh, almost imperceptibly--but that was last night.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00062"
+        ],
+        "paraphrase": "Terrified of the reviving body emerging, Gregg refuses to remain.",
+        "quote": "Soon she's going to get out of that vat!_\" Gregg bleated.\n\"Jeannette, forgive me--God, forgive me--but I will not--I cannot--I dare not stay here to see her then!",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00048"
+        ],
+        "paraphrase": "Gregg repeatedly returns to observe and test whether what he saw was real.",
+        "quote": "I replaced the lid. I spent a week convincing myself that it was all impossible, that I _couldn't_ have seen anything of the sort. Then I went to the vat again----",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00061"
+        ],
+        "paraphrase": "Gregg cocks a revolver, leading to his suicide.",
+        "quote": "The loud click was the cocking of the revolver.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00065"
+        ],
+        "paraphrase": "The ending reveals Gregg had been blind for years, undercutting the reliability of what he described seeing.",
+        "quote": "Asa Gregg was blind ... had been, since that night three years past when the acid splashed....",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The watchman is frightened by recurring groaning sounds in the building.",
+        "quote": "Every night lately he heard the same peculiar noise somewhere in this wing of the building.... Like a body groaning and turning in restless sleep, it was. It scared him.",
+        "raw_id": "ev12"
+      }
+    ]
+  }
+}

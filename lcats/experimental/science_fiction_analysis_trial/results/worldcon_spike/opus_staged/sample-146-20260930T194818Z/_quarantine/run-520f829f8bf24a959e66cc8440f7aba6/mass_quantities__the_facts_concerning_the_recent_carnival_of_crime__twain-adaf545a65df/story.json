@@ -1,0 +1,11 @@
+{
+  "failure_kind": "BadRequestError",
+  "failure_message": "Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CfaLGUHTQhCb8eawkSfP4'}",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__the_facts_concerning_the_recent_carnival_of_crime__twain-adaf545a65df/sf_evidence-backend-error.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "story",
+  "story_id": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain",
+  "story_path": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain/story.json",
+  "title": "The Facts Concerning the Recent Carnival of Crime in Connecticut",
+  "tool_result": null
+}

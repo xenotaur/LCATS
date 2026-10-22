@@ -1,0 +1,187 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "wodehouse__wilton_s_holiday-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied for this comedic seaside romance, so no criterion can be materially substantiated. The story contains no scientific content in any case.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The story features only ordinary contemporary items (banjo, bathing-machines) that do not constitute material invention.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The setting is a contemporary seaside resort with no speculative time frame or temporal displacement.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No evidence records supplied. No identifiable scientific, technological, or historical premise is extrapolated.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No evidence records supplied. References to inductive reasoning are rhetorical humor, not material scientific method.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No evidence records supplied. No other planets, dimensions, or nonordinary cosmic environments appear.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No evidence records supplied. The tide episode is a small-scale personal predicament, not a large-scale disaster, and turns out to be no danger at all.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-7257e2f916bba325",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7257e2f916bba325",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 13194,
+            "output": 855
+          }
+        },
+        "status": "complete",
+        "story_hash": "faf9461a4291d5425cf277ff6e40dc8345eeab14aa5d0df1cebfaee52f6022b2"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "wodehouse__wilton_s_holiday-suvin-v1",
+        "candidates": [],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-7257e2f916bba325",
+        "failures": [
+          {
+            "kind": "ValueError",
+            "message": "present Novum dimensions require supporting evidence",
+            "recoverable": true,
+            "stage": "suvin_novum"
+          }
+        ],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": null,
+            "source_run_id": null,
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7257e2f916bba325",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 13541,
+            "output": 741
+          }
+        },
+        "status": "failed",
+        "story_hash": "faf9461a4291d5425cf277ff6e40dc8345eeab14aa5d0df1cebfaee52f6022b2"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-7257e2f916bba325",
+    "knight_analysis_id": "wodehouse__wilton_s_holiday-knight-v1",
+    "suvin_novum_analysis_id": null
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-7257e2f916bba325",
+      "quarantined": [],
+      "records": [],
+      "story_hash": "faf9461a4291d5425cf277ff6e40dc8345eeab14aa5d0df1cebfaee52f6022b2",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "wodehouse/wilton_s_holiday",
+  "partial_success": {
+    "completed_stages": [
+      "evidence",
+      "knight"
+    ],
+    "failed_stages": [
+      {
+        "kind": "ValueError",
+        "message": "present Novum dimensions require supporting evidence",
+        "recoverable": true,
+        "stage": "suvin_novum"
+      }
+    ]
+  },
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "faf9461a4291d5425cf277ff6e40dc8345eeab14aa5d0df1cebfaee52f6022b2",
+  "story_path": "wodehouse/wilton_s_holiday/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

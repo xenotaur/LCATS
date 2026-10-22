@@ -1,0 +1,464 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__story_of_keesh-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Keesh's explanation relies on natural processes\n(blubber melting from body heat, whalebone spring tension) to disable the bear, but this is practical ingenuity rather than a materially represented scientific theory or discovery.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-635789fdc55c712e",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "Keesh's invented device\n\\u2014the coiled whalebone in frozen blubber ball\\u2014is an engineered technique that materially drives the plot, his hunting success, and his rise to power.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-635789fdc55c712e",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-4157a3f19a668008",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is a legendary past folk tale but not a speculative future, remote past, or temporal displacement; \"long ago\" is a framing device, not a science-fictional epoch.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "Consequences (social elevation, tribal prosperity) follow from the technical premise of the invention, but the extrapolation is a personal/social outcome rather than a developed systemic projection.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4157a3f19a668008",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-635789fdc55c712e",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "The council systematically investigates by observing (spies), gathering evidence, and revising belief from witchcraft to a rational explanation of Keesh's method, materially driving understanding.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4a2389058a7e95c4",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-635789fdc55c712e",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is the ordinary polar Arctic; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Famine is mentioned as background to the father's death, but no large-scale disaster is actual, impending, or causally central to the narrative.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-ea75e16620c9c3da",
+        "failures": [],
+        "interval": {
+          "definite_count": 2,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-ea75e16620c9c3da",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 10943,
+            "output": 1087
+          }
+        },
+        "status": "complete",
+        "story_hash": "7845da1d44c17c38c67755eda945740944c9a1924e633a364c2f5f5ca7c44404"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__story_of_keesh-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-keesh-headcraft",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The mechanism is given a coherent, systematic, immanent, and explicitly nonsupernatural account: coiled sharp whalebone frozen in blubber, swallowed, thaws, springs open, and sickens the bear. Keesh insists it is 'headcraft, not witchcraft,' and the council's decision to spy and empirically verify the method reinforces a rationalist, investigative framing.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-635789fdc55c712e",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                },
+                {
+                  "evidence_id": "sfev-4a2389058a7e95c4",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ]
+            },
+            "description": "Keesh's 'headcraft': the whalebone-and-blubber device that, when swallowed frozen by a polar bear, springs open inside the animal, sickening it so it can be speared. More broadly, the story frames this as the triumph of rational method/ingenuity over 'witchcraft' as the engine of social ascent.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-ccbb297b69f05db1",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ],
+              "rationale": "Readers encounter the contrast between the villagers' assumption of witchcraft and the revealed rational device; the storyworld consequence is Keesh's rise from poorest igloo to head man, and characters react with disbelief that a boy could achieve such a marvel. This contrast is genuine but operates as cleverness within the ordinary world rather than as a totalizing estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-635789fdc55c712e",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-4157a3f19a668008",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-635789fdc55c712e",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-4157a3f19a668008",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-4a2389058a7e95c4",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              },
+              {
+                "evidence_id": "sfev-ccbb297b69f05db1",
+                "evidence_set_id": "sfes-ea75e16620c9c3da"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ccbb297b69f05db1",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ],
+              "rationale": "The mystery of Keesh's method drives the entire plot and his rise to power, so the technique is central. Yet the story's overriding logic is a moral/social fable about justice, ingenuity, and status rather than a world governed by the novum's consequences. The device is the pivot of the mystery but the narrative could be read as a character/social parable in which the gadget is instrumental rather than world-determining.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-4157a3f19a668008",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                },
+                {
+                  "evidence_id": "sfev-4a2389058a7e95c4",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The whalebone-and-blubber trap is a clever hunting technique that the story presents as unprecedented ('The like had never been known before'), and it transforms Keesh's fortunes. However, it is an ordinary artisanal contrivance using existing materials within the ordinary empirical world, not a totalizing or world-altering difference from the author's empirical norm. The device does not remake the story universe; it works within known physics and Arctic subsistence culture. The 'novum' functions more as ingenuity than as an estranging cognitive innovation.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-635789fdc55c712e",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                },
+                {
+                  "evidence_id": "sfev-4157a3f19a668008",
+                  "evidence_set_id": "sfes-ea75e16620c9c3da"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-ea75e16620c9c3da",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-ea75e16620c9c3da",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 11290,
+            "output": 1225
+          }
+        },
+        "status": "complete",
+        "story_hash": "7845da1d44c17c38c67755eda945740944c9a1924e633a364c2f5f5ca7c44404"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-ea75e16620c9c3da",
+    "knight_analysis_id": "london__story_of_keesh-knight-v1",
+    "suvin_novum_analysis_id": "london__story_of_keesh-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-ea75e16620c9c3da",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.9,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Keesh explains the mechanism of his hunting device: a coiled whalebone encased in blubber that freezes into a ball.",
+            "quote": "one takes a small chunk of\nblubber, thus, and thus makes it hollow.\ntitle=\"\"  Then into the\nhollow goes the whalebone, so, tightly coiled, and another piece\nof blubber is fitted over the whale-bone.\ntitle=\"\"  After that it is\nput outside where it freezes into a little round ball.",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.85,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Keesh contrasts his rational invented method with the supernatural explanation others assumed.",
+            "quote": "I have but devised a means\nwhereby I may kill the ice-bear with ease, that is all.\ntitle=\"\"  It\nbe headcraft, not witchcraft.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Villagers react to Keesh's success by attributing it to witchcraft or spirits.",
+            "quote": "He hunts with evil spirits,\ntitle=\"\" some of the people\ncontended, \"wherefore his hunting is rewarded.\ntitle=\"\"  How\nelse can it be, save that he hunts with evil spirits?",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 16603,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 16492
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4157a3f19a668008",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Keesh's inventive method transforms his social status from poorest to leader.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Because he exercised headcraft and not\nwitchcraft, he rose from the meanest igloo to be head man\nof his village"
+        },
+        {
+          "anchor": {
+            "end_char": 10932,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 10823
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4a2389058a7e95c4",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The council decides to observe Keesh secretly to discover the method behind his hunting success.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "it was determined to put spies on his track when he\nwent forth to hunt, so that his methods might be learned."
+        },
+        {
+          "anchor": {
+            "end_char": 16271,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 16073
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-635789fdc55c712e",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Keesh describes how the swallowed device works inside the bear, disabling it so it can be killed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The bear swallows the little round ball, the blubber melts, the\nwhalebone with its sharp ends stands out straight, the bear gets\nsick, and when the bear is very sick, why, you kill him with a\nspear."
+        },
+        {
+          "anchor": {
+            "end_char": 6770,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 6654
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ccbb297b69f05db1",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The men doubt that a boy could have killed dangerous bears alone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The men could not bring\nthemselves to believe that the boy Keesh, single-handed, had\naccomplished so great a marvel."
+        }
+      ],
+      "story_hash": "7845da1d44c17c38c67755eda945740944c9a1924e633a364c2f5f5ca7c44404",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/story_of_keesh",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "7845da1d44c17c38c67755eda945740944c9a1924e633a364c2f5f5ca7c44404",
+  "story_path": "london/story_of_keesh/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

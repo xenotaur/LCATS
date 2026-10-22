@@ -1,0 +1,107 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 27764,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1469,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/the_westminster_alice__saki",
+  "story_path": "mass_quantities/the_westminster_alice__saki/story.json",
+  "text": "",
+  "title": "The Westminster Alice",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-4da33a6dc5be1815",
+          "sfev-79204ad5313875eb"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The text is a political satire in the Alice/Looking-Glass idiom. References to 'Natural History,' 'science of knowing when things are over,' or Christian Science are jokes, not any material representation of scientific fact, theory, discovery, or natural process. No genuine scientific content drives the work.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.45,
+        "counterevidence_ids": [
+          "sfev-79204ad5313875eb"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "incidental",
+        "rationale": "The White Knight boasts of his 'own invention'--a short-range gun designed to be useless to the enemy. This is a satirical invention rather than an engineered system that materially shapes a speculative setting; it is a lampoon of policy, so interpretation and materiality are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-4029533e2d69dd7b"
+        ]
+      },
+      {
+        "confidence": 0.4,
+        "counterevidence_ids": [
+          "sfev-4da33a6dc5be1815"
+        ],
+        "criterion_id": "criterion_3",
+        "materiality": "incidental",
+        "rationale": "The Unkhaki Messenger is described as perpetually 'half a century in front of his times or half a century behind,' a figurative temporal displacement used satirically. It gestures at time-dislocation but is metaphor rather than an actual speculative future or literal time travel.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-13be13bcda4baf36"
+        ]
+      },
+      {
+        "confidence": 0.45,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "substantial",
+        "rationale": "The White Queen extrapolates a Christian-Science premise to its absurd political consequence--that convincing her reasoning faculty the war does not exist would end it--and Alice pushes the consequence further. This is developed satirical extrapolation from a social/ideological premise, though its speculative status is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-a9a6b8139d48bb68",
+          "sfev-92b26c241008494d"
+        ]
+      },
+      {
+        "confidence": 0.6,
+        "counterevidence_ids": [
+          "sfev-5d600ca371ed53a9",
+          "sfev-92b26c241008494d"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Characters ask questions and 'unravel the groundwork of what people believe,' but this is portrayed as ineffectual muddle, not observation, hypothesis, testing, measurement, or systematic inference materially driving understanding. No genuine scientific method operates.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-4a01d16c3986977a"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "substantial",
+        "rationale": "The entire setting is a Looking-Glass/Wonderland otherworld--a nonordinary dimension inhabited by pasteboard playing-card beings--and the storyworld's existence is contingent on the Red King's dream. This is a substantially nonordinary environment, though as literary allegory rather than a cosmic/planetary novum, so interpretation is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-24ee95062da084f6",
+          "sfev-399294e4c1679b69"
+        ]
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [
+          "sfev-edd25f250a1a5506",
+          "sfev-399294e4c1679b69"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The South African war is referenced as satirical backdrop, and the dream-collapse ('go piff') is a whimsical conceit rather than a depicted large-scale disaster that is actual, impending, or causally central to the narrative. No catastrophe materially drives the story.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

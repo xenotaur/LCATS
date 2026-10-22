@@ -1,0 +1,104 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20577,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1968,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/doom_of_the_house_of_duryea__peirce",
+  "story_path": "mass_quantities/doom_of_the_house_of_duryea__peirce/story.json",
+  "text": "",
+  "title": "Doom of the House of Duryea",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-hereditary-vrykolakas",
+        "character_reaction_evidence_ids": [
+          "sfev-36b3cff833b7cdf9",
+          "sfev-3fbe06db9ef84c8f",
+          "sfev-3c275342d273c696",
+          "sfev-7d1b3e2763651dee",
+          "sfev-d602dc8ab89ec97b"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [
+            "sfev-60faf5d4ff2f4b76",
+            "sfev-2bc6442e4ecdb85c"
+          ],
+          "rationale": "The text presents a systematic, immanent account with pseudo-biological rules: heredity, a required medium, proximity-triggered 'coalescence,' shared symptoms, and clinical framing (coroners, autopsy, savants who 'could not explain it nor disbelieve it'). This gestures toward an imaginary-science/quasi-naturalized explanation. However, the same quasi-scholarly source repeatedly invokes 'demonism,' 'demon,' and 'psychic state' as the operative mechanism (sfev-60faf5d4ff2f4b76, sfev-2bc6442e4ecdb85c), and characters frame it as a curse/legend. The account is therefore poised between a naturalized systematic logic and an explicitly supernatural/demonic one, so cognitive validation cannot be resolved as clearly present.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-60faf5d4ff2f4b76",
+            "sfev-c757fae577cab385",
+            "sfev-62af2d952fb49ac5",
+            "sfev-2bc6442e4ecdb85c",
+            "sfev-857ced90966efd35",
+            "sfev-e7cf90d946ed2dab"
+          ]
+        },
+        "description": "A hereditary, quasi-scientific form of familial vampirism (vrykolakas) governing the Duryea bloodline: an unconscious 'vampire' member who preys only on his own kin, and who can act only in the proximity of a second family member acting as a 'medium.' The condition is transmitted by heredity, operates in a psychic/unconscious state, is signalled by shared physiological symptoms (head/throat pain, blood heaviness, decay odor), and is destroyed only by death.",
+        "estrangement_rationale": "Reader-facing contrast is foregrounded through Arthur's repeated modern rationalist framing (civilized century, man's logic, vampirism as lunacy) set against the storyworld's confirmation of the condition via blood-drained bodies and the inexplicable trussed-up death. Storyworld consequences include the exsanguinated infants, the father's death, and the double catastrophe. Character reactions (Henry demanding to be tied, Arthur recognizing the symptoms) register the estrangement without requiring surprise.",
+        "evidence_ids": [
+          "sfev-60faf5d4ff2f4b76",
+          "sfev-c757fae577cab385",
+          "sfev-62af2d952fb49ac5",
+          "sfev-2bc6442e4ecdb85c",
+          "sfev-857ced90966efd35",
+          "sfev-e7cf90d946ed2dab",
+          "sfev-930aa0d76d7d1358",
+          "sfev-eb7cc744f555d7ce",
+          "sfev-457487dd2d6b1f47",
+          "sfev-36b3cff833b7cdf9",
+          "sfev-3fbe06db9ef84c8f",
+          "sfev-3c275342d273c696"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "The candidate determines the entire narrative logic. The father's dread, the twenty-year separation, the binding to the bed, the son's recognition as the medium, the father's death drained of blood, and the son's suicide all follow directly from the rules of this familial vampirism. It is the overriding governing structure, not an incidental device.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-60faf5d4ff2f4b76",
+            "sfev-c757fae577cab385",
+            "sfev-62af2d952fb49ac5",
+            "sfev-36b3cff833b7cdf9",
+            "sfev-3fbe06db9ef84c8f",
+            "sfev-3c275342d273c696",
+            "sfev-eb7cc744f555d7ce",
+            "sfev-930aa0d76d7d1358",
+            "sfev-457487dd2d6b1f47"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.82,
+          "counterevidence_ids": [],
+          "rationale": "The candidate posits a totalizing difference from the empirical norm: a specific, rule-bound species of familial vampirism (vrykolakas) that reorganizes the entire logic of the Duryea family and culminates in blood-drained corpses and an inexplicable death (sfev-930aa0d76d7d1358). It is not a mere gadget but a world-altering condition governing lineage across five centuries.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-60faf5d4ff2f4b76",
+            "sfev-c757fae577cab385",
+            "sfev-62af2d952fb49ac5",
+            "sfev-2bc6442e4ecdb85c"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-60dd863f32d30068",
+          "sfev-d602dc8ab89ec97b",
+          "sfev-7d1b3e2763651dee"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-857ced90966efd35",
+          "sfev-930aa0d76d7d1358",
+          "sfev-eb7cc744f555d7ce",
+          "sfev-457487dd2d6b1f47",
+          "sfev-e7cf90d946ed2dab"
+        ]
+      }
+    ]
+  }
+}

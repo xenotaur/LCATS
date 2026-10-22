@@ -1,0 +1,24 @@
+{
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stages": {
+    "sf_evidence": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_evidence.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_evidence.json"
+    },
+    "sf_knight": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_knight.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_knight.json"
+    },
+    "sf_suvin_novum": {
+      "attempts": [
+        "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_suvin_novum.json"
+      ],
+      "selected": "/Users/centaur/.codex/worktrees/wi-sf-0016-approval-snapshot/LCATS/lcats/experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dig_me_no_grave__howard-d6da959419c9/sf_suvin_novum.json"
+    }
+  },
+  "story_id": "mass_quantities/dig_me_no_grave__howard"
+}

@@ -1,0 +1,133 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20192,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2293,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/a_gift_from_earth__banister",
+  "story_path": "mass_quantities/a_gift_from_earth__banister/story.json",
+  "text": "",
+  "title": "A Gift from Earth",
+  "tool_result": {
+    "dominant_novum_id": "novum-economic-conquest",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-economic-conquest",
+        "character_reaction_evidence_ids": [
+          "sfev-2ec8655317b8e9bf",
+          "sfev-d2fb8631f618821d"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.88,
+          "counterevidence_ids": [],
+          "rationale": "The story develops a coherent, systematic, nonsupernatural social and economic logic. Earth's method is explicitly rationalized as a demographic-economic strategy (population pressure driving galactic expansion) executed through recognizable mechanisms: corporations, advertising, credit, interest, chattel mortgages, resource extraction, and manufacturing efficiency. Broderick articulates the deliberate policy and its rationale versus war, forming an immanent social-science conceit.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-31f1d25d06ac5cfe",
+            "sfev-251a11b3a111c9e8",
+            "sfev-a65e11cf5e5c6de2",
+            "sfev-0301a85a339cb30c",
+            "sfev-6f4ae1165b393c41"
+          ]
+        },
+        "description": "Earth's systematic method of peacefully conquering and annexing entire inhabited planets through trade, advertising, credit, and debt rather than military force. Earth floods a target world with cheap manufactured goods taken in trade, undermines native industries, ensnares the populace in credit and mortgages, and ultimately takes ownership of all businesses, governments, and armies to resettle its own surplus population.",
+        "estrangement_rationale": "Reader-facing contrast is established by juxtaposing Earth's overcrowded world against sparsely populated Zur and by Zur's inversion of value where metal is a scarce luxury while clay is the economic foundation. The storyworld consequences (collapse of pottery, stove, and tile businesses; telegraph; total takeover) and Zotul's reactions of shock and adaptation register the estranging impact of the economic-conquest novum.",
+        "evidence_ids": [
+          "sfev-31f1d25d06ac5cfe",
+          "sfev-251a11b3a111c9e8",
+          "sfev-1bafdfcae5336bf2",
+          "sfev-a65e11cf5e5c6de2",
+          "sfev-a3b2d3cdca140bc4",
+          "sfev-6f4ae1165b393c41",
+          "sfev-0301a85a339cb30c"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "The entire narrative arc is governed by this novum. The Masur family's rise and ruin, the successive collapse of each of their businesses, and the final revelation all trace the operation of Earth's economic conquest. It is the overriding narrative logic, not an incidental device; the story exists to dramatize and reveal this method.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-1bafdfcae5336bf2",
+            "sfev-251a11b3a111c9e8",
+            "sfev-b512bd90ca955265",
+            "sfev-dc06dd460c215c7a",
+            "sfev-60138e45a435eb56"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [],
+          "rationale": "The candidate represents a totalizing, world-altering difference from the empirical norm: an entire planet (Zur) is transformed and wholly annexed by an alien civilization through a deliberate socio-economic method of conquest-by-commerce. This restructures the whole storyworld, replacing Zur's caste-based clay economy with terrestrial industry, credit, and ownership, and culminates in Earth owning everything including governments and armies.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-31f1d25d06ac5cfe",
+            "sfev-251a11b3a111c9e8",
+            "sfev-1bafdfcae5336bf2",
+            "sfev-a65e11cf5e5c6de2",
+            "sfev-a3b2d3cdca140bc4"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-dba7d5b747e4ff5a",
+          "sfev-9175b02750644f40"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-60138e45a435eb56",
+          "sfev-dc06dd460c215c7a",
+          "sfev-b512bd90ca955265",
+          "sfev-7ed9df12bafd0508",
+          "sfev-1bafdfcae5336bf2"
+        ]
+      },
+      {
+        "candidate_id": "novum-interstellar-trade-travel",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "Presented as a coherent nonsupernatural technology with light-year distances and freight economics, consistent with SF convention; no supernatural framing.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-0301a85a339cb30c"
+          ]
+        },
+        "description": "Interstellar spaceflight enabling Earth, sixty-odd light-years away, to reach Zur and conduct regular freight and trade between the two worlds.",
+        "estrangement_rationale": "The alien setting and the marvel of the all-metal ship on a metal-poor world provide reader-facing estrangement, but this candidate does not govern the plot's consequential logic.",
+        "evidence_ids": [
+          "sfev-6ba31a42a08b19b0",
+          "sfev-0301a85a339cb30c"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [
+            "sfev-1bafdfcae5336bf2",
+            "sfev-251a11b3a111c9e8"
+          ],
+          "rationale": "Interstellar travel is an enabling backdrop rather than the governing narrative logic. The spaceship and freight serve as vehicles for the economic-conquest method; the narrative's driving consequences flow from the trade/credit strategy, not from the mechanics of starflight itself. It functions as a setting device, not a hegemonic novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "Interstellar travel across sixty light-years and contact with an alien planet is a world-altering difference from the empirical norm and enables the whole premise.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-6ba31a42a08b19b0",
+            "sfev-0301a85a339cb30c"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-9175b02750644f40"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-6f4ae1165b393c41"
+        ]
+      }
+    ]
+  }
+}

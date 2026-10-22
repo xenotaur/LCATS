@@ -1,0 +1,86 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 17077,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1037,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/back_home__davis",
+  "story_path": "mass_quantities/back_home__davis/story.json",
+  "text": "",
+  "title": "Back home",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is a Western/crime tale of a fugitive returning home. No scientific facts, theories, discoveries, natural processes, or speculative sciences are materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary period items appear (trains, a .45 pistol, mines). No device, engineered system, or invention shapes the setting, problem, or outcome in any speculative or inventive sense.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The narrative is set in a contemporary period with flashbacks spanning twenty-two years, but no speculative future, remote past, or temporal displacement occurs.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No consequences are systematically developed from an identifiable scientific, technological, or speculative social premise; the plot is a personal/political drama of identity and pardon.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Carmichael performs ordinary detective observation and inference, which is generic investigation rather than scientific method (observation, hypothesis, testing, measurement, evidential revision driving understanding of natural phenomena). The cited reaction reflects surveillance, not systematic scientific inquiry.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-88a748c6da6bb881"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "Settings are Mexico, Texas, and Argentina\\u2014ordinary earthly places. No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "References to revolutions and killings are personal and localized political violence, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe. The cited emotional plea is a personal crisis, not disaster at scale.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-1a0c2c8021ac169d"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 11324,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1941,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/don_t_think_about_it__stuart",
+  "story_path": "mass_quantities/don_t_think_about_it__stuart/story.json",
+  "text": "",
+  "title": "Don't Think About It",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.85,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "A hole appears in the closet through which an unnatural entity communicates telepathically.",
+        "quote": "And then there was the hole in the closet, back in the corner\nnext to the broken drum. They all saw it and they heard the Ugly Thing\ntalking or thinking at them.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "The narrative explains the constraint on the Thing: it cannot emerge until it enlarges the hole.",
+        "quote": "The Ugly Thing couldn't\ncome out of the hole because the hole wasn't big enough yet, but it\ntried and it was making the hole bigger.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "Sunlight causes the Thing's presence and the hole to recede from perception, establishing a rule tied to light.",
+        "quote": "the ugly red thoughts from the Thing pulled back, far back, so you could\nbarely notice them, and you couldn't see the hole any more, even though\nyou knew it was still there.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00050"
+        ],
+        "paraphrase": "Tommy infers the mouse was consumed by the Thing because it had blood.",
+        "quote": "That poor little old\nMr. Mouse had had blood.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00028"
+        ],
+        "paraphrase": "The child perceives the entity clearly while adults cannot comprehend it.",
+        "quote": "There was more to it than that, of course, but how could a thing like\nthat be explained through a wall of grown, closed minds?",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00070"
+        ],
+        "paraphrase": "The bait meat is gone, leaving only dust, hinting the Thing consumed it.",
+        "quote": "Only a\nlittle plaster dust or something left in the trap where I put the meat.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00035"
+        ],
+        "paraphrase": "Daddy asks to be shown the hole, attempting to investigate the claim.",
+        "quote": "\"All right then, Tommy. Suppose you show it to me.\"",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00010"
+        ],
+        "paraphrase": "The characters react with fear to the Thing reaching out.",
+        "quote": "It didn't grab Mr. Bear, but he was terrified just the same. And none\nof them liked it. They didn't like it at all.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.8,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00101"
+        ],
+        "paraphrase": "The Thing breaks free of the hole during the storm, releasing a wave of hungry menace.",
+        "quote": "in Tommy's closet there was a sudden, mighty surge of effort, a break,\nand something, not a sound, but something, a harsh and bloody sense or\nfeel of rending greed flowing outward from the closet in a wave.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00112"
+        ],
+        "paraphrase": "A fireman describes Aunt Martha's body as impossibly consumed, implying the Thing devoured her.",
+        "quote": "the old bat\nmust have been as dry as dust inside. Twenty years in the department\nand I never did see a body so completely consumed--teeth, a little\nbone....",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00109"
+        ],
+        "paraphrase": "Fire and its light force the Thing back into the hole, reinforcing the light-repels-it rule.",
+        "quote": "the sense of feeding hunger was gone and the feel of\nthe Ugly Thing was gone, back into the hole in the closet, forced back\nby the flickering yellow light of the flames started by the cigarette\nlighter.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00113"
+        ],
+        "paraphrase": "Tommy deliberately avoids thinking about Aunt Martha's fate.",
+        "quote": "Tommy might\nhave known pretty well where she had gone, if he had thought about it,\nbut he didn't think about it.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00114"
+        ],
+        "paraphrase": "The family relocates to a house with lit closets and no holes.",
+        "quote": "there were lights in all of the closets in the new house they\nmoved to and lots of room for everyone, even baby sister. And there\nwere no holes, not even mouse holes, in any of the closets.",
+        "raw_id": "ev13"
+      }
+    ]
+  }
+}

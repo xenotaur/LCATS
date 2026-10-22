@@ -1,0 +1,987 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "lovecraft__the_horror_at_red_hook-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "Malone frames the neighborhood behavior through anthropological/atavistic reasoning (Murray's Witch Cult, evolutionary reversion), invoking a pseudo-scientific frame, but this is decorative anthropological gloss on a supernatural horror rather than materially represented science.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-7fce18a2b6e2ec77",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "A primitive chemical laboratory and gold ingots appear, but no device, engineered system, or invention materially drives the setting, problem, or outcome; the causal engine is sorcery, not technology.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in contemporary 1920s Brooklyn. The otherworldly space beneath the house is a spatial/dimensional plunge, not a speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "The story develops a consequence from the premise that ancient cults persist and reproduce, with the closing suggestion that the underground evil regenerates; however, the extrapolation rests on occult/supernatural premises rather than an identifiable scientific or historical one, leaving materiality uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-63fe8f79136816fd",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-7fce18a2b6e2ec77",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Malone conducts systematic investigation, computes numbers, ascertains sources, and gathers isolated facts through varied methods; this is methodical inquiry driving understanding, though it is closer to police detective work than formal hypothesis-testing scientific method.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-a7d0a22cd1e6e6c1",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-505fd33412d87c96",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "Malone is dragged into an unmeasured otherworldly space of forbidden dimensions, and the narrative frames it as a horror from the universe's heart with references to other realms/dimensions; this is a nonordinary cosmic environment, though presented as possibly a dream and rooted in occult rather than SF cosmology.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-18296f276092f95f",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-1e61f4047af0380e",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-438206d3e4c06954",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "substantial",
+            "rationale": "The Parker Place houses collapse without visible cause during the raid, instantly killing half the raiders and most of the prisoners\\u2014a large-scale, causally central disaster that is central to Malone's trauma and the plot.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b9de6b64350a88e5",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-a90dd1225d0d9a3c",
+        "failures": [],
+        "interval": {
+          "definite_count": 1,
+          "possible_count": 5,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a90dd1225d0d9a3c",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 28197,
+            "output": 1262
+          }
+        },
+        "status": "complete",
+        "story_hash": "64224014c8c15ab2588d1efe3c860bef414731bccb052d25d4012aad0917b67f"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "lovecraft__the_horror_at_red_hook-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-ancient-cult-magic",
+            "cognitive_validation": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-438206d3e4c06954",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-18296f276092f95f",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-f7910217bfe636e9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-95d88629170cb0d9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ],
+              "rationale": "The story explicitly frames the phenomena as 'infernal sorcery,' demons, Lilith, and 'sacraments of evil'\\u2014a supernatural/occult account rather than a coherent, immanent, nonsupernatural logic. Malone's anthropological framing (atavism) is gestural and does not systematize the manifestly magical events, which remain explicitly supernatural. This fails Suvin's cognitive-validation requirement.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-7fce18a2b6e2ec77",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "description": "A surviving clandestine system of pre-Aryan devil-worship and demon-lore, centered on Robert Suydam, whose rites produce genuinely supernatural effects (reanimation, Lilith, phosphorescent entities, an otherworldly underground crypt) that intrude upon and threaten the mundane world.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-304f232ca98d55f9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-5b6a973884b34e54",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-a6a3b76d928c0115",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ],
+              "rationale": "The narrative contrasts the newspapers' mundane reading (a 'minor sadist cult') with Malone's cosmic-horror interpretation, and characters are driven insane or traumatized by contact with the phenomenon, marking it as radically estranging from the empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-1e61f4047af0380e",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b9de6b64350a88e5",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-438206d3e4c06954",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-f7910217bfe636e9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-95d88629170cb0d9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-04ddeaffe1c37a0b",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-646d9b93025434bb",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-63fe8f79136816fd",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-438206d3e4c06954",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-18296f276092f95f",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-f7910217bfe636e9",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-95d88629170cb0d9",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-04ddeaffe1c37a0b",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-646d9b93025434bb",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-63fe8f79136816fd",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-b9de6b64350a88e5",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-1e61f4047af0380e",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-7fce18a2b6e2ec77",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The cult and its horror govern the entire narrative logic: Malone's trauma, the investigation, the wedding murder, the raid and collapse, and the closing sense of an ineradicable persisting evil all flow from it.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b9de6b64350a88e5",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-1e61f4047af0380e",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-63fe8f79136816fd",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-f7910217bfe636e9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The cult's rites open onto immeasurable otherworldly spaces, reanimate corpses, and produce claw-marks and entities not attributable to human agency, constituting a totalizing rupture of the empirical norm that redefines the storyworld as one where an ancient cosmic evil is real and active.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-438206d3e4c06954",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-18296f276092f95f",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-f7910217bfe636e9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-95d88629170cb0d9",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-04ddeaffe1c37a0b",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "novum-suydam-rejuvenation",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-8e8beb6d375b1d6c",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ],
+              "rationale": "To the extent the rejuvenation is non-natural, it is presented as an effect of occult rites, not of a coherent immanent or imaginary-scientific mechanism; no systematic account is developed.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "Robert Suydam's unnatural physical rejuvenation\\u2014shedding corpulence, darkening hair, regaining youth\\u2014apparently achieved through occult means.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The physically impossible reversal of aging in an elderly recluse creates reader-facing contrast with empirical norms of senescence, underscored by the narrator noting the darkening 'did not suggest dye.'",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4f4d9f997839e3fc",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-8e8beb6d375b1d6c",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-41fd2170b2338955",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-41fd2170b2338955",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-8e8beb6d375b1d6c",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              },
+              {
+                "evidence_id": "sfev-4f4d9f997839e3fc",
+                "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The rejuvenation is a symptom/detail of Suydam's involvement with the cult rather than an independent governing premise; it does not determine the overriding narrative logic on its own.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8e8beb6d375b1d6c",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The transformation is 'startling' and the hair-darkening 'did not suggest dye,' hinting at something beyond natural aging, but the text offers a mundane cover explanation (diet, ease, care), leaving the supernatural status underdetermined.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-41fd2170b2338955",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-8e8beb6d375b1d6c",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                },
+                {
+                  "evidence_id": "sfev-4f4d9f997839e3fc",
+                  "evidence_set_id": "sfes-a90dd1225d0d9a3c"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-a90dd1225d0d9a3c",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-a90dd1225d0d9a3c",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 28544,
+            "output": 2221
+          }
+        },
+        "status": "complete",
+        "story_hash": "64224014c8c15ab2588d1efe3c860bef414731bccb052d25d4012aad0917b67f"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-a90dd1225d0d9a3c",
+    "knight_analysis_id": "lovecraft__the_horror_at_red_hook-knight-v1",
+    "suvin_novum_analysis_id": "lovecraft__the_horror_at_red_hook-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-a90dd1225d0d9a3c",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 45651,
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "start_char": 45512
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-04ddeaffe1c37a0b",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Chained prisoners and strangely appearing infants are discovered in hidden cells.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "solitary prisoners in a state of complete idiocy were found chained, including four mothers with infants of disturbingly strange appearance"
+        },
+        {
+          "anchor": {
+            "end_char": 31374,
+            "paragraph_ids": [
+              "p00034"
+            ],
+            "start_char": 31263
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0cf9cea50a5e0892",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A strange phosphorescent presence is glimpsed at the porthole after the murder.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The open porthole, just before he turned on the lights, was clouded for a second with a certain phosphorescence"
+        },
+        {
+          "anchor": {
+            "end_char": 36735,
+            "paragraph_ids": [
+              "p00043"
+            ],
+            "start_char": 36614
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-18296f276092f95f",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Malone is pulled into an otherworldly, immeasurable space beneath the house.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "dragged him through the aperture and down unmeasured spaces filled with whispers and wails, and gusts of mocking laughter"
+        },
+        {
+          "anchor": {
+            "end_char": 47509,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 47325
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1e61f4047af0380e",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrative contrasts the mundane press interpretation with Malone's cosmic horror reading.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he is just as critical of the newspapers, which saw only a morbid sensation and gloated over a minor sadist cult when they might have proclaimed a horror from the universe's very heart"
+        },
+        {
+          "anchor": {
+            "end_char": 30343,
+            "paragraph_ids": [
+              "p00034"
+            ],
+            "start_char": 30224
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-304f232ca98d55f9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A sailor is driven instantly insane by what he witnesses in the stateroom.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the sailor who broke down the door could perhaps have told frightful things if he had not forthwith gone completely mad"
+        },
+        {
+          "anchor": {
+            "end_char": 23284,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 23205
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-41fd2170b2338955",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Suydam undergoes a dramatic and unexplained transformation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the unkempt scholar embarked upon a metamorphosis as startling as it was absurd"
+        },
+        {
+          "anchor": {
+            "end_char": 36555,
+            "paragraph_ids": [
+              "p00043"
+            ],
+            "start_char": 36419
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-438206d3e4c06954",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "A supernatural force bursts from behind the cellar door and drags Malone through.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "a howling tumult of ice-cold wind with all the stenches of the bottomless pit, and whence reached a sucking force not of earth or heaven"
+        },
+        {
+          "anchor": {
+            "end_char": 23889,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 23817
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4f4d9f997839e3fc",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Suydam's hair darkens in a way that appears unnatural rather than cosmetic.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "showed a curious darkening of the hair which somehow did not suggest dye"
+        },
+        {
+          "anchor": {
+            "end_char": 19608,
+            "paragraph_ids": [
+              "p00022"
+            ],
+            "start_char": 19475
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-505fd33412d87c96",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Authorities undertake a systematic investigation to enumerate and trace the newcomers.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "it was deemed necessary to compute their number, ascertain their sources and occupations, and find if possible a way to round them up"
+        },
+        {
+          "anchor": {
+            "end_char": 2488,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 2372
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5b6a973884b34e54",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Malone develops an intense phobia of brick buildings after the collapse.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he had acquired an acute and anomalous horror of any buildings even remotely suggesting the ones which had fallen in"
+        },
+        {
+          "anchor": {
+            "end_char": 49209,
+            "paragraph_ids": [
+              "p00058"
+            ],
+            "start_char": 49083
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-63fe8f79136816fd",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Even after the raid, the underground evil is suggested to be regenerating.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "there are already rumors of new canals running underground to certain centers of traffic in liquor and less mentionable things"
+        },
+        {
+          "anchor": {
+            "end_char": 45763,
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "start_char": 45654
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-646d9b93025434bb",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The strange infants die on exposure to light, which doctors deem merciful.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "These infants died soon after exposure to the light; a circumstance which the doctors thought rather merciful"
+        },
+        {
+          "anchor": {
+            "end_char": 10637,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 10467
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7fce18a2b6e2ec77",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Malone frames the neighborhood's behavior as an atavistic reversion using anthropological reasoning.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "modern people under lawless conditions tend uncannily to repeat the darkest instinctive patterns of primitive half-ape savagery in their daily life and ritual observances"
+        },
+        {
+          "anchor": {
+            "end_char": 23679,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 23603
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8e8beb6d375b1d6c",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The elderly Suydam apparently grows younger, losing weight and darkening his hair.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "began little by little to shed the corpulence which had so long deformed him"
+        },
+        {
+          "anchor": {
+            "end_char": 30825,
+            "paragraph_ids": [
+              "p00034"
+            ],
+            "start_char": 30725
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-95d88629170cb0d9",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The bride is killed by a mark that cannot be attributed to a human agent.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the claw-mark on Mrs. Suydam's throat could not have come from her husband's or any other human hand"
+        },
+        {
+          "anchor": {
+            "end_char": 1312,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 1182
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a6a3b76d928c0115",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Malone reacts with sudden panic and flight at the sight of a tall building.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "with a series of terrified, hysterical shrieks, breaking into a frantic run which ended in a stumble and fall at the next crossing"
+        },
+        {
+          "anchor": {
+            "end_char": 20166,
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "start_char": 19957
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a7d0a22cd1e6e6c1",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Malone gathers evidence methodically through varied investigative techniques.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Malone, through unostentatious rambles, carefully casual conversations, well-timed offers of hip-pocket liquor, and judicious dialogues with frightened prisoners, learned many isolated facts about the movement"
+        },
+        {
+          "anchor": {
+            "end_char": 44237,
+            "paragraph_ids": [
+              "p00053"
+            ],
+            "start_char": 43992
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b9de6b64350a88e5",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The Parker Place houses collapse without visible cause, killing many raiders and prisoners.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The three old houses in Parker Place, doubtless long rotten with decay in its most insidious form, collapsed without visible cause while half the raiders and most of the prisoners were inside; and both of the greater number were instantly killed"
+        },
+        {
+          "anchor": {
+            "end_char": 42497,
+            "paragraph_ids": [
+              "p00051"
+            ],
+            "start_char": 42351
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f7910217bfe636e9",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Suydam's dead body is reanimated by the completed ritual.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the glassy-eyed, gangrenous corpse of the corpulent old man, now needing no support, but animated by some infernal sorcery of the rite just closed"
+        }
+      ],
+      "story_hash": "64224014c8c15ab2588d1efe3c860bef414731bccb052d25d4012aad0917b67f",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "lovecraft/the_horror_at_red_hook",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "64224014c8c15ab2588d1efe3c860bef414731bccb052d25d4012aad0917b67f",
+  "story_path": "lovecraft/the_horror_at_red_hook/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

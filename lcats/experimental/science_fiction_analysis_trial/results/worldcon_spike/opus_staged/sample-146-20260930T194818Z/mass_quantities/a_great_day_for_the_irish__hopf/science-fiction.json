@@ -1,0 +1,1079 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_great_day_for_the_irish__hopf-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The story materially represents biological science: nematode life cycles, cyst formation, host-parasite dynamics, and the discovery that nematodes destroy the plague agent. Real ecological and entomological facts (golden nematode, blight) are central to the plot.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-42e165e9856bfab2",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-5ea24e1a763078bd",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-225c3d474a933dd1",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-c5cae6efdc5fd302",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "substantial",
+            "rationale": "Engineered systems materially affect the setting: interplanetary rocket ships enabling colonization, the space quarantine system that structures the entire premise, and the drug covitron against space sickness. These are speculative technologies driving the action and problem.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8b84e801cfc5513e",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-426de9a986c0f746",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-b1f82cdacb8c9854",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "The story is set in a speculative future of established interstellar space travel and frontier planetary colonization (New Eden), with travel across space to another star system.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b1f82cdacb8c9854",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-25d91fa3324ef869",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-426de9a986c0f746",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The story extrapolates from an identifiable premise\ninterplanetary transport of organisms and biological invasion\ndeveloping consequences: an Earth pest accidentally introduced to a new planet, and the counter-consequence of breeding nematodes as biocontrol. It draws on the historical Long Island potato precedent to extrapolate outcomes on New Eden.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-929ff8fd28f0e7a9",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-4b99fed4d6c6bd5d",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-df4195e25c63e2f2",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-c9ff5607374f9f97",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "central",
+            "rationale": "Scientific method materially drives the resolution: systematic testing of insects and soils, microscopic examination, correlation of nematode presence with absence of plague streaks across samples, hypothesis formation, and an explicit plan to prove it experimentally.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-66e01ae401f62bb7",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-913d652473197086",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-cc0292ff409c1a70",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-42e165e9856bfab2",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The story is largely set on another planet, New Eden, a frontier garden world with a distinct nonordinary ecology (no native stinging insects or parasites), and references seeds from Regulus V, establishing other-worlds material to the setting and problem.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-25d91fa3324ef869",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-8f7d6522af1b8c5f",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-c9ff5607374f9f97",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "A large-scale biological catastrophe is causally central: an agricultural plague reducing the garden planet to desert, with looming starvation and threatened evacuation. The plot centers on solving this actual, spreading disaster.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-7c481491544980f9",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-3e94af136d4fe355",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-c5cae6efdc5fd302",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-6e3fd9f693643cf0",
+        "failures": [],
+        "interval": {
+          "definite_count": 7,
+          "possible_count": 7,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6e3fd9f693643cf0",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 18686,
+            "output": 1504
+          }
+        },
+        "status": "complete",
+        "story_hash": "608974b94b18f03f9755d9eed668ca6a3fdf575bff697fc8605f9670de60c65e"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_great_day_for_the_irish__hopf-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "nc-golden-nematode-cure",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The account is coherent, immanent, and nonsupernatural: systematic scientific inquiry (microscopy, soil sampling, correlation of nematode presence with absence of plague) grounds the discovery in real entomological and agricultural logic, including an extrapolative biological-control mechanism.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-66e01ae401f62bb7",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-913d652473197086",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-cc0292ff409c1a70",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-42e165e9856bfab2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-c5cae6efdc5fd302",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "description": "The golden nematode, an Earth agricultural pest inadvertently smuggled aboard in shamrock root soil, turns out to be the biological agent that kills the mysterious plague devastating New Eden, and is deliberately bred as a planetary remedy.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-cd0b509f5776157a",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ],
+              "rationale": "The story stages the ironic reversal that quarantine (the 'faithful watchdog') would have excluded the very organism that saves the planet, contrasting rigid pest-control norms with the beneficial pest and highlighting the transformation of New Eden into a healthy world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ed11dbbddc92159b",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-4b99fed4d6c6bd5d",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-7c481491544980f9",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-df4195e25c63e2f2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-929ff8fd28f0e7a9",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-225c3d474a933dd1",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-66e01ae401f62bb7",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-42e165e9856bfab2",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-5ea24e1a763078bd",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-df4195e25c63e2f2",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-7c481491544980f9",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The nematode governs the overriding narrative logic: it is the inadvertently introduced pest that becomes the resolution of the planet-wide plague crisis, determining the story's climax and the salvation of New Eden.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-7c481491544980f9",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-225c3d474a933dd1",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-66e01ae401f62bb7",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-df4195e25c63e2f2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-929ff8fd28f0e7a9",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-42e165e9856bfab2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-5ea24e1a763078bd",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-4b99fed4d6c6bd5d",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ],
+              "rationale": "The golden nematode is a real, mundane terrestrial pest, not a totalizing world-altering difference from the empirical norm. What is novel is the imagined ecological reversal (a pest becoming a planetary cure), which does alter New Eden's fate; but the organism itself is not estranging, so novelty is only partial/ambiguous.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-225c3d474a933dd1",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-66e01ae401f62bb7",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-df4195e25c63e2f2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "nc-interstellar-quarantine",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The setting is coherent and nonsupernatural, extrapolating real biosecurity/quarantine practice to space travel, with supporting institutional and technical detail (Quarantine Service, covitron, blight-bearing imported seeds).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-426de9a986c0f746",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-c9ff5607374f9f97",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-8b84e801cfc5513e",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "description": "An established regime of interstellar space travel with rigid two-way biological quarantine of ships to prevent the spread of pests and plagues between Earth and colony planets like New Eden.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The pervasive confiscation of orchids, boutonnieres, and seeds dramatizes an estranged everyday reality where ordinary flowers are biohazards, contrasting with the reader's norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ed11dbbddc92159b",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-426de9a986c0f746",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-c9ff5607374f9f97",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-426de9a986c0f746",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-25d91fa3324ef869",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-c9ff5607374f9f97",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-8f7d6522af1b8c5f",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              },
+              {
+                "evidence_id": "sfev-b1f82cdacb8c9854",
+                "evidence_set_id": "sfes-6e3fd9f693643cf0"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-225c3d474a933dd1",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-df4195e25c63e2f2",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ],
+              "rationale": "Quarantine provides the thematic frame and the closing moral ('watchdogs too faithful'), but the narrative's driving logic is the plague and its nematode cure rather than the quarantine regime itself, which functions more as background setting than the governing novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-426de9a986c0f746",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-ed11dbbddc92159b",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "Routine interstellar colonization and a formalized interplanetary quarantine service constitute a world-altering difference from the authorial empirical norm, establishing a settled space-faring universe.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-426de9a986c0f746",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-25d91fa3324ef869",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-b1f82cdacb8c9854",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                },
+                {
+                  "evidence_id": "sfev-8f7d6522af1b8c5f",
+                  "evidence_set_id": "sfes-6e3fd9f693643cf0"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-6e3fd9f693643cf0",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6e3fd9f693643cf0",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 19033,
+            "output": 2202
+          }
+        },
+        "status": "complete",
+        "story_hash": "608974b94b18f03f9755d9eed668ca6a3fdf575bff697fc8605f9670de60c65e"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-6e3fd9f693643cf0",
+    "knight_analysis_id": "mass_quantities__a_great_day_for_the_irish__hopf-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_great_day_for_the_irish__hopf-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-6e3fd9f693643cf0",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 23925,
+            "paragraph_ids": [
+              "p00122"
+            ],
+            "start_char": 23880
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-225c3d474a933dd1",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Bridget concludes that the nematodes are destroying the plague agent.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Whatever it is, the nematodes are killing it."
+        },
+        {
+          "anchor": {
+            "end_char": 1715,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 1644
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-25d91fa3324ef869",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "New Eden is described as a frontier planet being settled.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She was bound for the frontier, where men are men and women are scarce."
+        },
+        {
+          "anchor": {
+            "end_char": 17217,
+            "paragraph_ids": [
+              "p00091"
+            ],
+            "start_char": 17104
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3e94af136d4fe355",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A plague is reported on New Eden, causing passengers to avoid landing.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There's a howling plague on New Eden after all. Several of our passengers have changed their minds about landing."
+        },
+        {
+          "anchor": {
+            "end_char": 1099,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 985
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-426de9a986c0f746",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Space travel is established, and quarantine of incoming ships occurs at the Moon.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Ever since the beginnings of space travel, the quarantine of incoming ships at the Moon had been rigidly observed."
+        },
+        {
+          "anchor": {
+            "end_char": 12849,
+            "paragraph_ids": [
+              "p00068"
+            ],
+            "start_char": 12701
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-42e165e9856bfab2",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Bridget identifies a nematode cyst and explains its danger as a spreading pest.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "it's a nematode cyst, all right. That little brown lump, if turned loose in the soil--give it a few years and you'll have a real pest on your hands."
+        },
+        {
+          "anchor": {
+            "end_char": 15514,
+            "paragraph_ids": [
+              "p00082"
+            ],
+            "start_char": 15420
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4b99fed4d6c6bd5d",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Bridget cites a historical case where the nematode destroyed potato farming.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The golden nematode ruined Long Island for potatoes. That's what the shamrock did for America!"
+        },
+        {
+          "anchor": {
+            "end_char": 10484,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 10392
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5ea24e1a763078bd",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Bridget explains that shamrocks carry the golden nematode pest in their root soil.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I remember that shamrocks harbor the golden nematode--that is, in the soil around the roots."
+        },
+        {
+          "anchor": {
+            "end_char": 23846,
+            "paragraph_ids": [
+              "p00121"
+            ],
+            "start_char": 23654
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-66e01ae401f62bb7",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Bridget tests soil samples and correlates nematode presence with absence of the plague.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Patch ran back and forth with the soil samples and Bridget looked in her microscope, and everywhere the golden nematode was teeming and nowhere was there a sign of the sinister yellow streaks."
+        },
+        {
+          "anchor": {
+            "end_char": 18399,
+            "paragraph_ids": [
+              "p00095"
+            ],
+            "start_char": 18186
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7c481491544980f9",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A mysterious agent is turning New Eden to desert, threatening starvation and evacuation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The beautiful garden planet of New Eden was being reduced to a desert by a mysterious _something_ that was swiftly attacking all the cultivated areas. Starvation was looming and there was talk of hasty evacuation."
+        },
+        {
+          "anchor": {
+            "end_char": 3457,
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "start_char": 3398
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8b84e801cfc5513e",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A drug called covitron is used to counter space sickness.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "take the prescribed dose of covitron against space sickness"
+        },
+        {
+          "anchor": {
+            "end_char": 4595,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 4484
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8f7d6522af1b8c5f",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "New Eden is a planet with no stinging insects or parasites.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Eden's remarkable that way,\" put in the young officer sitting across from them. \"No stinging bugs or parasites."
+        },
+        {
+          "anchor": {
+            "end_char": 18636,
+            "paragraph_ids": [
+              "p00096"
+            ],
+            "start_char": 18478
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-913d652473197086",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Scientists systematically investigate possible causes by testing insects and soils.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Was it an insect, a virus, a chemical in the soil? Some of the few native insects were caught and subjected to experiment. The soils were analyzed and tested."
+        },
+        {
+          "anchor": {
+            "end_char": 23037,
+            "paragraph_ids": [
+              "p00117"
+            ],
+            "start_char": 22937
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-929ff8fd28f0e7a9",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "An Earth pest was overlooked and introduced to New Eden amid the planet's own plague.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev20",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "they were so busy worrying about the plague here, they forgot all about the little plague from Earth"
+        },
+        {
+          "anchor": {
+            "end_char": 1455,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 1400
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b1f82cdacb8c9854",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The protagonist departs Earth to travel across space to another planet.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "she was about to board one of the shining ships herself"
+        },
+        {
+          "anchor": {
+            "end_char": 18813,
+            "paragraph_ids": [
+              "p00096"
+            ],
+            "start_char": 18696
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c5cae6efdc5fd302",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The observable effect of the plague is soil turning to chalky sand and plants dying.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the previously lush brown loam was turning to a yellow, chalky sand, and everything that grew in it withered and died"
+        },
+        {
+          "anchor": {
+            "end_char": 6238,
+            "paragraph_ids": [
+              "p00034"
+            ],
+            "start_char": 6164
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c9ff5607374f9f97",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Imported seeds from another star system were destroyed because they carried a blight dangerous to Earth.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the seeds had been found to harbor a blight which, once let loose on Earth"
+        },
+        {
+          "anchor": {
+            "end_char": 12058,
+            "paragraph_ids": [
+              "p00062"
+            ],
+            "start_char": 11935
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cc0292ff409c1a70",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Bridget uses a microscope to examine plant specimens for pests.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Bridget brought out her pocket 'scope and without a word pulled the first specimen up by the roots and began to examine it."
+        },
+        {
+          "anchor": {
+            "end_char": 14851,
+            "paragraph_ids": [
+              "p00079"
+            ],
+            "start_char": 14766
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cd0b509f5776157a",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Maguire reacts with outrage when his shamrocks are to be destroyed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"The incinerator!\" screamed Maguire. \"Woman! My shamrocks! All the way from Ireland!\""
+        },
+        {
+          "anchor": {
+            "end_char": 24109,
+            "paragraph_ids": [
+              "p00124"
+            ],
+            "start_char": 24027
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-df4195e25c63e2f2",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "They plan to breed the nematodes as a biological remedy for the plague.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "while they're proving it, Patch, you and I are going to breed nematodes right here"
+        },
+        {
+          "anchor": {
+            "end_char": 24400,
+            "paragraph_ids": [
+              "p00125"
+            ],
+            "start_char": 24317
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ed11dbbddc92159b",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Reflection that overly strict quarantine can exclude beneficial organisms.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Sometimes the watchdogs are too faithful. They keep out everyone--even our friends."
+        }
+      ],
+      "story_hash": "608974b94b18f03f9755d9eed668ca6a3fdf575bff697fc8605f9670de60c65e",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_great_day_for_the_irish__hopf",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "608974b94b18f03f9755d9eed668ca6a3fdf575bff697fc8605f9670de60c65e",
+  "story_path": "mass_quantities/a_great_day_for_the_irish__hopf/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
