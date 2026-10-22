@@ -14,7 +14,7 @@ related_roadmap:
 related_workstreams:
   - WS-GENRE-EVIDENCE-SIDECARS
 related_design:
-  - project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md
+  - project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md
   - project/work_items/resolved/WI-GENRE-0004.md
   - project/work_items/resolved/WI-LLM-0074.md
   - experiments/05_metadata_genre_prefilter/run_prefilter.py
@@ -46,7 +46,9 @@ forbidden_actions:
   - silently_drop_input_errors
 acceptance:
   - "The comparison verifies that the Gutenberg/metadata, Claude Opus, and local-model inputs refer to the same 146 story IDs, and fails clearly on missing, duplicate, malformed, or mismatched records"
+  - "The comparison verifies that the Opus input contains a uniform provenance.backend_model of claude-opus-4-8, the local-model input contains a uniform provenance.backend_model of gpt-oss:20b, and the two source files have different hashes"
   - "A machine-readable JSONL report contains one record per story with Gutenberg candidates and primary label, Claude Opus label/confidence, local-model label/confidence, pairwise agreement flags, and an explicit three-way agreement category"
+  - "Multi-label Gutenberg metadata is represented by an orthogonal metadata_multi_label flag and summary statistic, while every valid row receives exactly one candidate-set-aware agreement category"
   - "A summary JSON reports aggregate agreement counts, per-genre counts, disagreement categories, input errors, provenance, and source-file hashes"
   - "A Markdown report explains the methodology and presents aggregate results, per-genre results, and every disagreement category without treating any source as ground truth"
   - "Tests cover agreement categories, metadata multi-label handling, genre canonicalization, malformed input, duplicate IDs, missing IDs, and mismatched story sets"
@@ -128,7 +130,7 @@ between metadata rules, model assessments, and future human judgments.
 ### Demand search
 
 - `WS-GENRE-EVIDENCE-SIDECARS` and
-  `project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`
+  `project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md`
   identify comparison across multiple evidence methods as a required
   foundation for later evidence use and possible adjudication.
 - The proposal specifically describes an append-only evidence ledger that
@@ -175,6 +177,11 @@ between metadata rules, model assessments, and future human judgments.
    - reject duplicate story IDs within an input;
    - reject missing story IDs;
    - reject mismatched story-ID sets between inputs;
+   - require a uniform `provenance.backend_model` of `claude-opus-4-8` for
+     the Opus input;
+   - require a uniform `provenance.backend_model` of `gpt-oss:20b` for the
+     local-model input;
+   - reject identical source hashes;
    - fail clearly rather than silently dropping records.
 
 3. Implement stable genre normalization using the repository's existing genre
@@ -185,6 +192,7 @@ between metadata rules, model assessments, and future human judgments.
    - story ID and identifying metadata;
    - Gutenberg metadata candidates;
    - Gutenberg primary candidate;
+   - an orthogonal `metadata_multi_label` boolean;
    - Claude Opus detected genre and confidence;
    - local-model detected genre and confidence;
    - metadata/Opus agreement;
@@ -200,12 +208,12 @@ between metadata rules, model assessments, and future human judgments.
    - `metadata_local_only`
    - `models_agree_metadata_differs`
    - `all_three_differ`
-   - `metadata_multi_label`
    - `input_error`
 
-   The `metadata_multi_label` category must preserve the fact that Gutenberg
-   metadata can provide multiple candidates rather than forcing it into a
-   false single-label interpretation.
+   Multi-label Gutenberg metadata is not an agreement category. Every valid
+   row receives exactly one agreement category using candidate-set-aware
+   semantics, and the orthogonal `metadata_multi_label` flag is reported
+   separately in per-story output and aggregate statistics.
 
 6. Emit summary JSON containing:
 
@@ -219,7 +227,7 @@ between metadata rules, model assessments, and future human judgments.
    - input-error statistics;
    - source paths;
    - source SHA-256 hashes;
-   - model names and run identifiers where present;
+   - verified model names and run identifiers where present;
    - generation timestamp and comparison version.
 
 7. Emit a Markdown report containing:
@@ -277,12 +285,12 @@ requires:
 
 ## Validation
 
-- `scripts/version tools`
-- `scripts/format --check --diff`
-- `scripts/lint`
-- `scripts/test`
-- `lrh validate`
-- `git diff --check`
+- From `lcats/`: `scripts/version tools`
+- From `lcats/`: `scripts/format --check --diff -- ../experiments/05_metadata_genre_prefilter/compare_validation.py ../experiments/05_metadata_genre_prefilter/compare_validation_test.py`
+- From `lcats/`: `scripts/lint ../experiments/05_metadata_genre_prefilter/compare_validation.py ../experiments/05_metadata_genre_prefilter/compare_validation_test.py`
+- From `lcats/`: `scripts/test ../experiments/05_metadata_genre_prefilter`
+- From `lcats/`: `lrh validate`
+- From the repository root: `git diff --check`
 - Manual verification that existing validation JSONL files and `corpora/`
   are unchanged.
 
@@ -296,6 +304,10 @@ requires:
 - Genre aliases can create false disagreements if normalization is
   inconsistent. The implementation must reuse repository conventions and
   test representative aliases.
+- Swapped or duplicated model inputs can produce plausible but invalid
+  agreement rates because both runs contain the same story IDs. Uniform
+  backend-model provenance checks and distinct source hashes are therefore
+  required before comparison.
 - Agreement is not accuracy. The Markdown report must not describe any
   source as ground truth or imply that the majority label is correct.
 - Source files are experiment evidence. The comparison must be append-only
@@ -316,9 +328,9 @@ on the three-way comparison.
 ## Related Workstream and Designs
 
 - Workstream:
-  `project/workstreams/proposed/WS-GENRE-EVIDENCE-SIDECARS.md`
+  `project/workstreams/resolved/WS-GENRE-EVIDENCE-SIDECARS.md`
 - Design proposal:
-  `project/design/proposals/proposed/genre-evidence-sidecars/00_proposal.md`
+  `project/design/proposals/adopted/genre-evidence-sidecars/00_proposal.md`
 - Related implementation precedent:
   `experiments/04_genre_census/run_census.py:284-317`
 - Primary evidence-generation code:
