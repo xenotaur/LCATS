@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr:
-commit:
+commit: 29bd4e5ab1fae57ce2a9b741597e71f5ff0d2e33
 created_at: 2026-10-22T08:07:02+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md

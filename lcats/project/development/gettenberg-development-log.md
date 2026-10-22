@@ -4891,3 +4891,37 @@ continuations that introduce a new policy or subsystem. No LRH changes made here
 Shared usage checkpoint: 56% consumed at launch, 58% at investigation/review dispatch;
 account-wide, not exclusive billing. Only documentation/evidence validation, commit,
 push and review-PR checkpoint remain; no scope expansion or automatic renewal.
+
+
+### Scope audit local completion — 2026-10-22 08:17:59 UTC
+
+Investigation, independent review and focused correction recheck complete in about
+28 minutes, earlier than the two-hour target because the decision scope is satisfied.
+Shared weekly usage 56%→61% consumed (44%→39% remaining), approximately five percentage
+points account-wide; no claim of exclusive per-run billing. No reset credits used.
+Two parallel investigators, one subsequent reviewer and one focused recheck; three
+concurrent agents maximum, no recursion. No bulk downloads or full package test rerun.
+
+Audit/evidence commits 602cf088 and 29bd4e5a are local. All 20 manifest entries are tracked
+and hash-verified, 28 new local links checked, production/test/docs/WI/config/CI sources
+unchanged from 6a873b61. The runlog's historical prefix is byte-for-byte preserved.
+Native audit/child records bind 29bd4e5a and remain in_progress; no terminal delivery
+claim. PR524 remains OPEN at 6a873b61 with acquisition base ed20e9c2, verified through gh.
+An initial sandbox GitHub read failed; the authorized read retry succeeded.
+
+Automatic approval review rejected the combined command containing the proposed push
+of codex/gettenberg-scope-audit to origin/xenotaur/LCATS, citing lack of explicit
+payload-egress authorization and unestablished destination trust/ownership. The rejected
+command did not execute. Local log preservation/commit was then completed separately;
+no workaround or network write was attempted. Ask the human to authorize publishing
+this concrete audit/evidence branch and opening its stacked review PR. No PR created,
+push, hosted CI pass or main merge is claimed. Prepared PR body is local only.
+
+A final LRH invocation from the repository root reported missing project configuration;
+rerunning from the required lcats/ package root passed 0 errors /351 existing warnings.
+Final archive validation includes the earlier successful package-root run. This was a
+working-directory mistake, not a control-plane defect. Generic .log ignore rules required
+explicitly staging the intentional archival check logs before verifying the manifest.
+
+Next action is human review of the retain/separate/defer plan and proposed criteria;
+publication permission alone does not adopt that plan or authorize implementation.
