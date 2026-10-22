@@ -22,13 +22,13 @@ visualization PR after its exact-head CI checks completed.
 The review completed against the exact published head but did not give a
 clean merge recommendation. It identified three verifiable blockers:
 
-1. Two PR-added execution records are under the root `project/executions/`
+1. Two PR-added execution records were under the root `project/executions/`
    path even though `lcats/STYLE.md` defines `lcats/project/` as the canonical
-   LRH control-plane location.
+   LRH control-plane location; this cleanup moves them into the canonical path.
 2. The confirm record at
    `lcats/project/executions/AD_HOC/2026_10_22_06_50_16_WORLDCON_GENRE_VISUALIZATIONS_CONFIRM.md`
-   still records the prior head `1e22c731...` and remains `in_progress`, while
-   the actual PR head is `3999e2b...`.
+   still records the reviewed head `1e22c731...` and remains `in_progress`;
+   the reviewed head was later superseded by the record commits.
 3. `git diff --check origin/main...HEAD` reports 17,662 trailing-whitespace
    violations, primarily in generated SVG artifacts.
 
@@ -44,6 +44,6 @@ generated-artifact whitespace findings above.
 
 # Follow-up
 
-Resolve the execution-record locations and metadata, then decide whether to
-normalize or explicitly exempt generated-SVG whitespace before requesting a
-new exact-head review and merge authorization.
+Execution-record locations and wording were corrected by this cleanup. The
+generated SVG whitespace still requires normalization or an explicit policy
+decision before requesting a new exact-head review and merge authorization.

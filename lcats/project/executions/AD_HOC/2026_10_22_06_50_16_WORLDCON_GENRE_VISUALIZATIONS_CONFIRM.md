@@ -24,7 +24,8 @@ existing review threads were already resolved: two `Other`-genre findings, one
 provenance/content-hash finding, and one paid-run-scope finding. No new review
 resolution was required in this pass. The thread-resolution verdict is green.
 
-The PR head is `1e22c731b2b6f7cd2712ec3140cc07a99cbbe3c4`. The hosted checks
+The reviewed PR head was `1e22c731b2b6f7cd2712ec3140cc07a99cbbe3c4` before this
+confirmation record was added. The hosted checks
 reported passing coverage, lint, and both test jobs. No required-status-check
 branch rule is configured on `main`, so the unfiltered passing check set is
 the applicable CI result.
