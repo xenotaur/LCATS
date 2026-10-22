@@ -4925,3 +4925,18 @@ explicitly staging the intentional archival check logs before verifying the mani
 
 Next action is human review of the retain/separate/defer plan and proposed criteria;
 publication permission alone does not adopt that plan or authorize implementation.
+
+
+### Scope audit publication — 2026-10-22 15:01 UTC
+
+The human explicitly approved pushing codex/gettenberg-scope-audit to xenotaur/LCATS
+and opening its review PR against codex/gettenberg-qualification. Push succeeded;
+PR #528 is OPEN: https://github.com/xenotaur/LCATS/pull/528. Verified head 1480ed54 and
+requested base/head branch names. Its 29 changed paths contain only audit documentation,
+native records and experiment runner/evidence; production code, tests and active
+qualification criteria remain unchanged. Native records now link the review PR.
+
+This explicit publication approval resolves the earlier automatic approval-review
+block; it does not approve the proposed scope/gates, implementation, integration or
+main promotion. No merge occurred. Hosted checks were queued/in progress at creation;
+no CI pass is inferred. This is publication follow-through, not renewed audit scope.

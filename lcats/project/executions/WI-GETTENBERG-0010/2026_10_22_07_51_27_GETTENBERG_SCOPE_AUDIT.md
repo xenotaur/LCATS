@@ -4,7 +4,7 @@ prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_SCOPE_AUDIT)[2026-10-22T07:51:13
 work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/528
 commit: 29bd4e5ab1fae57ce2a9b741597e71f5ff0d2e33
 created_at: 2026-10-22T07:51:27+00:00
 agent: codex_app

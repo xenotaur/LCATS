@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_SCOPE_INVENTORY)[2026-10-22T08:07:02+00:00]
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/528
 commit: 29bd4e5ab1fae57ce2a9b741597e71f5ff0d2e33
 created_at: 2026-10-22T08:07:02+00:00
 agent: codex_app
