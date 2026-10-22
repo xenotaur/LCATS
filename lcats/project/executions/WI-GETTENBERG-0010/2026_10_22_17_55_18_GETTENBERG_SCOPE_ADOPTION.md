@@ -40,3 +40,18 @@ Initial wrong-import-root and sandbox-loopback test failures are preserved separ
 Final hosted CI/head and integration still require verification; no merge claimed here.
 
 [Landing evidence](../../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-adoption-20261022/README.md).
+
+
+## Verified internal integration — 2026-10-22 18:14:03 UTC
+
+PR528 is MERGED into codex/gettenberg-qualification as
+`a2bd18bef05eade41ed6dde7d047092669c11b58`, from exact reviewed head
+`fd4abc60dd4b4d8fca9b34fe6ce282defec7d89c` and base
+`6a873b611e3958bb9ddad8e84f2ad190831a9da7`. All four final-head checks pass
+(two test workflows, coverage and lint); both P2 threads are resolved. Human approved
+all four scope decisions and the internal landing. Substantive review/source binding
+remains141e151b; final checkpoint alters evidence only. Native status stays in_progress
+until actual main-delivery closeout; WI0010/WS and PR524 remain open/nonterminal.
+
+No narrower candidate construction or product qualification occurred. A subsequent
+bounded implementation grant is the next step. The deadline remains11:20 PDT.

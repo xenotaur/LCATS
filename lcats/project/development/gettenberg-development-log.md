@@ -5192,3 +5192,33 @@ explicit five-runner checks,61local links, whitespace, and LRH0errors/351warning
 Initial wrong-cwd format invocation and lint cache restriction were corrected openly.
 No tests skipped or weakened, product/CI/gate-config/corpus changes, or old evidence
 rewrites. Final hosted CI and internal integration remain pending at this checkpoint.
+
+
+### Scope amendment internally integrated — 2026-10-22 18:14:03 UTC
+
+PR #528 merged into `codex/gettenberg-qualification` at
+`a2bd18bef05eade41ed6dde7d047092669c11b58`, verified from GitHub's MERGED state.
+Reviewed PR head: `fd4abc60dd4b4d8fca9b34fe6ce282defec7d89c`.
+Pre-merge base: `6a873b611e3958bb9ddad8e84f2ad190831a9da7`.
+The merge command was locked to the reviewed head; base and all four completed,
+successful checks were reverified immediately before execution. Both original P2
+review threads were resolved only after repairs and independent re-verification.
+The substantive code/document review binds `141e151b`; all 12 reviewed hashes remain
+identical at the final evidence-only PR head. Full local suite: 3,120 passing tests.
+
+The human's four approved decisions are now recorded in the audit, meeting brief,
+WI0010 and governing criterion 8. Stale numeric-gap wording is corrected. The two
+notice repairs remain experiment-only until a subsequent bounded implementation
+and qualification grant. No product source, CI configuration, persistent consent,
+canonical corpus, or prior measurement bytes changed during this landing run.
+
+Internal lifecycle only: PR #524 remains open; its qualification branch now includes
+this approved planning/evidence integration. WI0010, the workstream and native execution
+records remain nonterminal. No main delivery, package publication, corpus promotion,
+or completed Q1–Q8 product qualification is claimed. The next logical step is a new
+bounded grant to construct the narrower candidate and account for its remaining 67
+comparisons and 13 refusals under the approved causal criteria.
+
+The post-merge checkpoint only records actual landing evidence on the qualification
+branch; it does not change reviewed source bytes or historical archives. Completed
+before the 11:20 PDT /18:20 UTC hard stop; no automatic continuation.
