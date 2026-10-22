@@ -5161,3 +5161,34 @@ Closeout plan: internal staged audit only, native records in_progress and WI0010
 nonterminal; record actual head/base/merge if integration succeeds, never imply Q1–Q8
 product qualification. The stale numeric-gap paragraph is replaced by current 67/13
 accounting, and the governing design criterion8/WI0010 now link the approved amendment.
+
+
+### Scope adoption validation checkpoint — 2026-10-22 18:08 UTC
+
+Human-approved amendment and bounded repairs committed/pushed as141e151b. Two
+implementation agents reused for disjoint diagnostic/facts repairs; one independent
+reviewer, no recursion. The three child records were minted after dispatch during
+this short landing window; retain actual times rather than claiming pre-dispatch mint.
+
+The causal runner pins174Python modules and executing origins; all8replayed rows and
+both literal-counterfactual rows exactly match prior evidence. The facts runner
+reproduces18derivable fields, explicitly excluding three historical investigator
+observations. Imports/help no longer require the retired comparison library. The
+numeric helper's changed import boundary is hash-bound and all1,659fresh rows plus
+summary exactly reproduce the archive (205.815seconds). No old archive overwritten.
+
+Independent review caught one new P2: a regression test pinned the live product tree
+and would reject legitimate future edits. Corrected to temporary source/package
+fixtures; nine focused tests and29imports/25help paths pass. Final review binds12file
+hashes to141e151b; no unresolved P0–P2. Both original GitHub threads resolved only after
+pushed repairs and independent verification. A reader can inspect the new durable
+experiments/10_gettenberg_qualification/results/gettenberg-scope-adoption-20261022/.
+
+Full scripts/test passes3,120tests in110.894s. First relative-PYTHONPATH run imported
+another editable clone in subprocesses (six failures); corrected absolute path run
+then hit sandbox loopback denials (102errors). Final identical absolute-path command
+with approved loopback access passes; failure logs preserved. Package format/lint,
+explicit five-runner checks,61local links, whitespace, and LRH0errors/351warnings pass.
+Initial wrong-cwd format invocation and lint cache restriction were corrected openly.
+No tests skipped or weakened, product/CI/gate-config/corpus changes, or old evidence
+rewrites. Final hosted CI and internal integration remain pending at this checkpoint.

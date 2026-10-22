@@ -5,7 +5,7 @@ work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/528
-commit: 45eb11549a672c8eb949ef493d8cfaacad3071b8
+commit: 141e151bca8d716e8b239ac5364d35dcaac48257
 created_at: 2026-10-22T17:55:18+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md
@@ -27,3 +27,16 @@ Canonical package format/lint and initial seven helper tests passed. Full packag
 # Follow-up
 
 Internal closeout only: records remain in_progress and WI/WS nonterminal. Preserve PR524 and all old measurements. Final qualification of the narrower product candidate is a subsequent grant.
+
+
+## Final local verification — 2026-10-22 18:08 UTC
+
+Approved amendment and independently reviewed repairs pushed as141e151b. Both GitHub
+P2 threads resolved after verification. Full suite passes3,120 tests; canonical and
+explicit experiment checks pass; LRH0errors/351warnings. Nine focused tests, all29
+imports and25CLI help checks pass independently without the legacy dependency.
+Fresh8causal/2literal/1,659numeric rows reproduce original values;18audit fields match.
+Initial wrong-import-root and sandbox-loopback test failures are preserved separately.
+Final hosted CI/head and integration still require verification; no merge claimed here.
+
+[Landing evidence](../../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-adoption-20261022/README.md).

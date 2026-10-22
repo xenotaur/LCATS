@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/528
-commit: 45eb11549a672c8eb949ef493d8cfaacad3071b8
+commit: 141e151bca8d716e8b239ac5364d35dcaac48257
 created_at: 2026-10-22T17:58:17+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md
@@ -27,3 +27,15 @@ Eight-case rerun /tmp/pr528-causal-repaired-20261022.json exactly matches all ar
 # Follow-up
 
 No old archive changes or product behavior changes. Tree guard pins Python sources; immutable input receipts remain separate. Native lifecycle remains in_progress.
+
+
+## Final local verification — 2026-10-22 18:08 UTC
+
+Substantive commit141e151b binds the reviewed repair. All12reviewed source hashes
+match; no unresolved P0–P2 findings. Full canonical suite passes3,120 tests with
+absolute worktree PYTHONPATH and loopback permission; nine focused regression tests
+pass independently. Fresh causal/literal/numeric rows exactly match archived evidence.
+Facts reproduce18 fields with historical parity excluded. Format/lint and LRH pass
+(0errors/351warnings). Hosted CI/final integration remain separately verified gates.
+
+[Landing evidence](../../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-adoption-20261022/README.md).
