@@ -48,10 +48,10 @@ acceptance:
   - "The comparison verifies that the Gutenberg/metadata, Claude Opus, and local-model inputs refer to the same 146 story IDs, and fails clearly on missing, duplicate, malformed, or mismatched records"
   - "The comparison verifies that the Opus input contains a uniform provenance.backend_model of claude-opus-4-8, the local-model input contains a uniform provenance.backend_model of gpt-oss:20b, and the two source files have different hashes"
   - "A machine-readable JSONL report contains one record per story with Gutenberg candidates and primary label, Claude Opus label/confidence, local-model label/confidence, pairwise agreement flags, and an explicit three-way agreement category"
-  - "Multi-label Gutenberg metadata is represented by an orthogonal metadata_multi_label flag and summary statistic, while every valid row receives exactly one candidate-set-aware agreement category"
+  - "Multi-label Gutenberg metadata is represented by an orthogonal metadata_multi_label flag and summary statistic, while every valid row receives exactly one candidate-set-aware agreement category, including the explicitly defined metadata_multi_label_models_split category when the models disagree and select different members of a multi-label metadata set"
   - "A summary JSON reports aggregate agreement counts, per-genre counts, disagreement categories, input-validation diagnostics, provenance, and source-file hashes; structural input errors cause a nonzero fail-closed exit and never produce per-story input_error rows"
   - "A Markdown report explains the methodology and presents aggregate results, per-genre results, and every disagreement category without treating any source as ground truth"
-  - "Tests cover agreement categories, metadata multi-label handling, genre canonicalization, malformed input, duplicate IDs, missing IDs, and mismatched story sets"
+  - "Tests cover all agreement categories, including metadata_multi_label_models_split with the london/day_s_lodging and mass_quantities/especially_dance_hall_women__ellerbe_ellerbe evidence patterns, plus metadata multi-label handling, genre canonicalization, malformed input, duplicate IDs, missing IDs, and mismatched story sets"
   - "Existing validation JSONL files and the tracked corpora/ tree remain unchanged"
   - "scripts/test passes with no new failures"
   - "lrh validate reports 0 errors"
@@ -210,11 +210,17 @@ between metadata rules, model assessments, and future human judgments.
    - `metadata_local_only`
    - `models_agree_metadata_differs`
    - `all_three_differ`
+   - `metadata_multi_label_models_split`
 
-   Multi-label Gutenberg metadata is not an agreement category. Every valid
-   row receives exactly one agreement category using candidate-set-aware
-   semantics, and the orthogonal `metadata_multi_label` flag is reported
-   separately in per-story output and aggregate statistics.
+   Multi-label Gutenberg metadata is not itself an agreement category. The
+   `metadata_multi_label_models_split` category is the defined exception for a
+   multi-label candidate set in which the two models disagree and each selects
+   a different member of that set (for example, metadata `{western, adventure}`
+   with Opus `western` and the local model `adventure`). It takes precedence
+   over the single-model categories and `all_three_differ`; the other five
+   categories use their ordinary candidate-set-aware semantics. Every valid
+   row receives exactly one category, and the orthogonal `metadata_multi_label`
+   flag is reported separately in per-story output and aggregate statistics.
 
    Structural input-validation failures are not comparison categories. They
    abort the comparison with a nonzero exit and are retained only as
@@ -249,7 +255,8 @@ between metadata rules, model assessments, and future human judgments.
 
    - all-three agreement;
    - each disagreement category;
-   - metadata multi-label cases;
+   - metadata multi-label cases, including models selecting different members
+     of the same multi-label candidate set;
    - genre alias normalization;
    - malformed JSON;
    - duplicate IDs;
