@@ -87,6 +87,10 @@ requirements.
    OLLAMA_HOST=127.0.0.1:11435 OLLAMA_NO_CLOUD=1 ollama serve > /tmp/ollama-canary-11435.log 2>&1
    ```
 
+   A second server alongside the default one shares the same model directory
+   (`~/.ollama/models` by default) and competes with it for GPU and unified
+   memory, so do not load models in both at once.
+
 3. Keep the first line of that log (`msg="server config"`). It lists the
    settings in effect, including `OLLAMA_KEEP_ALIVE`, `OLLAMA_MAX_LOADED_MODELS`
    and `OLLAMA_CONTEXT_LENGTH`, and belongs in the canary report.
@@ -120,17 +124,29 @@ reviewed for the whole run window:
   window, every such line must name the target model. A line for any other
   model means another client used the server.
 - **Requests.** Each request logs a `[GIN]` line with its method and path.
-  The runner sends only `POST /v1/chat/completions`, and it writes one request
-  record per attempt (`request-<stage>[-attempt-N].json`, see the inspection
-  checklist). The number of `POST /v1/chat/completions` lines in the window
-  should equal the number of request records (a call that failed before it
-  reached the server can have a record and no log line, so account for any
-  difference). Any `POST /api/chat` or
-  `POST /api/show` line was sent by something else: in the WI-SF-0116 server log
-  both came from the other agent. `GET` lines (`/api/tags`, `/api/ps`,
-  `/api/version`, `HEAD /`) can come from your own `ollama list` and
-  `ollama ps` or from tools that poll the server; note them, and treat them as
-  a signal only if you cannot account for them.
+  The runner sends only `POST /v1/chat/completions`, and since WI-SF-0120 it
+  writes one request record per attempt (`request-<stage>[-attempt-N].json`,
+  see the inspection checklist). Runs made before WI-SF-0120, such as the
+  WI-SF-0116 rerun, have no request records, so this count cannot be checked
+  for them. The OpenAI client the backend builds also retries failed requests
+  (the installed SDK retries twice by default, including on HTTP 500 and
+  connection errors), so one runner attempt can send up to three requests to
+  the server and still write one record. The number of
+  `POST /v1/chat/completions` lines in the window should therefore be at least
+  the number of request records. A higher count is expected when the server
+  returned errors that the client retried (the WI-SF-0116 log has 17 `500`
+  responses among its 46 chat lines), so use the count as a
+  cross-check, not an equality, and look at the status column. A count below
+  the number of records needs an explanation (a call that failed before it
+  reached the server can have a record and no log line).
+  Any `POST /api/chat` or `POST /api/show` line was not sent by the runner. In
+  the WI-SF-0116 server log such lines coincide with the `gemma4:12b` loads,
+  which the report attributes to another local agent; the log itself does not
+  say who sent them, and your own `ollama show` or `ollama run` would produce
+  them too. `GET` lines (`/api/tags`, `/api/ps`, `/api/version`, `HEAD /`) can
+  come from your own `ollama list` and `ollama ps` or from tools that poll the
+  server; note them, and treat them as a signal only if you cannot account for
+  them.
 - **Limits of the check.** Every client appears as `127.0.0.1`, so client
   identity cannot be proven. A matching count and no foreign model loads is
   evidence of isolation, not proof, and the private port with its own
@@ -148,8 +164,8 @@ pmset -g log | grep -E "Entering Sleep|Wake from"
 ```
 
 The `Sleep` and `Wake` lines carry local timestamps. Compare them with the
-run log's UTC timestamps, and note that a full wake can be preceded by brief dark
-wakes. In the WI-SF-0116 rerun the machine slept at 22:57:47 EDT and woke at
+run log's UTC timestamps. The pattern also matches `DarkWake from ...` lines:
+those are brief wakes, and a full wake can be preceded by several of them. In the WI-SF-0116 rerun the machine slept at 22:57:47 EDT and woke at
 00:25:16 EDT, which is what made one stage appear to take 5710 seconds. Do not
 use the latency of a stage that spans a sleep. Latency measured on a server
 that other clients were using is likewise not comparable between runs.
