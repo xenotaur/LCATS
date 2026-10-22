@@ -117,3 +117,20 @@ complete historical explanations; it records no new decisions. All1,628 previous
 unresolved historical cases remain unresolved until the existing explicit review
 and publication gates have actually been met. See the experiment README and
 `results/gettenberg-boundary-20261022/` for grammar, exceptions and per-input proof.
+
+
+### Terminal-note recording boundary — 2026-10-22
+
+The approved bounded continuation composes the qualified terminal-note grammar with
+existing ordered decisions, without changing default extraction. Every new terminal
+proposal requires an exact source-reviewed cohort before recording, even if its
+selected text equals the historical baseline. Cumulative known exceptions remain
+mandatory and cannot be omitted or overridden. This closes the exact-equality
+shortcut for the new opt-in mode; it does not expand editorial classification.
+
+Inspection of all 25 history-complete cases found retained teaser-like opening
+material in every one. Twelve pass mechanical readiness and historical checks;
+13 also retain existing labels/findings. All 25 are explicitly deferred with exact
+source/candidate anchors. Removing a proven terminal notice does not classify an
+opening that the old corpus also retained. Positive blurb attribution and deliberate
+separate-metadata selection remain further work; no broad blurb rule is introduced.

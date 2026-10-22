@@ -1,0 +1,22 @@
+{
+  "completed": true,
+  "canonical_tests": 3108,
+  "canonical_seconds": 105.086,
+  "focused_tests": 11,
+  "independent_reviewer_tests": 32,
+  "installed_focused_tests": 11,
+  "package_and_changed_runner_format_lint": "pass",
+  "fresh_wheel_installed_smoke_and_pip_check": "pass",
+  "source_and_corpus_preserved": 1659,
+  "inherited_dispositions_preserved": 30,
+  "new_defer_dispositions": 25,
+  "new_approve_dispositions": 0,
+  "historical_resolved": 14,
+  "historical_unresolved": 1628,
+  "full_population_replay_seconds": 29.366480124997906,
+  "review_scope": "Opening/source framing, terminal notices and whole-character preservation evidence; no complete literary reading or positive blurb classification.",
+  "lrh": {
+    "errors": 0,
+    "existing_warnings": 351
+  }
+}

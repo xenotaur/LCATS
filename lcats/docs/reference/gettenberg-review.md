@@ -214,3 +214,36 @@ Historical preservation cannot detect an unwanted blurb already present in the o
 corpus. The [qualification experiment](../../../experiments/10_gettenberg_qualification/README.md#source-grounded-historical-reconciliation)
 therefore requires an explicit source-bound reviewed cohort before recording new
 non-equal historical approvals, in addition to readiness and cumulative exceptions.
+
+
+## Opt-in terminal-note composition
+
+`review_rules.evaluate_publication_notices(candidate_path, include_terminal=True)`
+returns `ordered-and-terminal-publication-notices-v1`. It combines the existing
+ordered bracketed notices with `terminal-unbracketed-publication-notice-v1`, using
+original candidate Unicode coordinates for every omission. The default
+`include_terminal=False` preserves the previous grammar and result packet.
+
+The terminal helper `propose_trailing_publication_notice(body)` recognizes one
+complete final unbracketed transcriber note of at most 1,000 characters, following
+a blank line and nonempty retained text. Recognition permits finite magazine names,
+one month/season and a 1900–1999 year, the exact copyright-research sentence and an
+optional exact spelling/typography correction sentence. It permits matching magazine
+underscores and case/whitespace variations; it never rewrites retained text. The
+helper returns exact original offsets/text/hashes, or `None`; oversized/non-string
+inputs raise `ValueError`. Recognition alone has no publication authority.
+
+The combined proposal preserves every other character and the separators preceding
+the terminal note. Overlapping independent omissions fail closed rather than being
+trimmed to fit. The existing 256-omission bound, strict partition validation,
+reassessment and retained-editorial-label checks apply. `terminal_notice` records
+the exact additional proof or `null`; `publication_approved` remains false. A
+combined proposal can contain only bracketed notices if the terminal grammar does
+not match; existing safeguards and cohort requirements still apply.
+
+The archival batch runner selects this mode with `--rule terminal`. Recording
+requires an exact source-bound `--cohort-review` packet for **every** new proposal,
+including exact-baseline matches and `--historical-acceptance baseline`. Historical
+equality can preserve an unwanted old blurb. Missing/stale/duplicate review evidence,
+known defer/exclude/conflict intent, remaining findings and unexplained differences
+prevent recording. Default extraction and other rule modes are unchanged.

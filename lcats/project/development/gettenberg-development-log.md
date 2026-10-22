@@ -4600,3 +4600,86 @@ No integration, main promotion, consent changes or native terminal closeout.
 Implementation/evidence commit: `58b318625af7c4944b140e3d5d05cd39f70a7047`. LRH validation: 0 errors /351 existing
 warnings. Archive manifest verifies 22 files; isolated output484MiB, within15GiB
 budget. Native records remain in_progress. No independent-review repairs required.
+
+
+### Terminal-notice decisions grant — 2026-10-22 05:22 UTC
+
+Human approved the proposed 45-minute target /60-minute maximum run: compose the
+qualified terminal-note rule with explicit ordered decisions, inspect all 25
+history-complete candidates, preserve exceptions, and verify any approvals using
+disposable publication and cumulative replay. Start 05:22:16 UTC; target 06:07:16;
+hard stop 06:22:16. Feature freeze no later than 05:57:16; reserve 25 min for review,
+repair, validation and checkpointing. Finish earlier if scoped work completes.
+Continue PR #524 from c54d17eb on codex/gettenberg-qualification; no automatic renewal.
+
+Coordinator implements; one cold independent review up to 10 min, optional narrow
+repair recheck up to 5 min; at most 2 concurrent agents, 2 assignments /15 worker minutes,
+no recursive delegation. Shared weekly usage starts 45%; 49% feature-freeze and 51%
+substantive-stop. Check at least every 15 min and before dispatch/major blocks;
+unavailable telemetry means checkpoint. These are shared telemetry thresholds,
+not exclusive cost claims. Keep 15GiB isolated-output/6GiB free minimum.
+
+Cached inputs read-only; no Gutenberg requests, default extraction changes, canonical
+corpus mutation, CI changes, publishing, persistent-consent changes, integration,
+main promotion or terminal closeout. Temporary publication verification is authorized.
+No approval quota; 25 is the review cohort. Unexplained narrative/editorial material
+remains unresolved even when historical equality or readiness checks pass.
+
+WI0010 readiness is clean; watched installed skills clean; persistent skip consent
+remains invalid and untouched. Existing coordinator adapter covers routine gates.
+Prior-art/demand check: reuse OrderedReviewDecision, candidate_review, the existing
+batch cohort verifier and historical rule. Extend the opt-in proposal path rather
+than create another decision store. Staged dependencies remain at accepted ancestors
+as recorded in the existing qualification matrix; main delivery remains pending.
+
+
+### Terminal-notice decisions checkpoint — 2026-10-22 05:39 UTC
+
+Completed the scoped workflow and source review early; feature freeze around 05:31
+UTC. Terminal mode composes existing exact notice proofs with explicit ordered v2
+decisions. Recording requires an exact cohort packet for every proposed approval,
+including baseline equality, in both historical modes. No new decision store,
+automatic extraction change or default-mode change.
+
+Source inspection rejected all 25 history-complete cases because teaser-like opening
+material remains without positive editorial-role evidence. Twelve passed mechanical
+and historical checks; thirteen also have retained labels/readiness blockers. All 25
+have immutable, attributable deferrals with exact candidate/raw-source anchors.
+No new real approvals or historical resolutions. Cumulative: 14 resolved /1,628
+unresolved; candidate intent 1,585 unreviewed /13 approve /7 exclude /35 defer, zero
+conflicts. Full 1,659-input replay takes 29.366s. Actual cached publication withholds
+all 25 and preserves full candidates; authored fixtures separately verify a successful
+explicit approval/export/publication path. Do not conflate these two evidence sets.
+
+3,108 canonical tests /105.086s, 11 focused tests, package and explicit changed runner
+format/lint pass. Fresh isolated wheel/install: 173 Python +2 JSON files byte-identical,
+no gutenbergpy; smoke, pip check and all 11 focused installed tests pass. One cold
+reviewer, about three worker minutes, 32 relevant tests, no actionable findings;
+no repair recheck. Reviewer reproduced all final ledger rows and checked both cohort
+gate modes; coordinator independently verified all 25 anchors, all 1,659 source/corpus
+identities and all 30 inherited decisions. Original source/cache/corpus unchanged.
+
+Evidence archive: experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/.
+All 55 cumulative disposition references have exact hashes. Three rationale wordings
+were clarified in a separate annotation because credits/motto intervene before later
+narrative paragraphs; immutable dispositions and their judgments were preserved.
+An initial test-fixture construction error was repaired (retained failed log); no
+product defect was exposed. Temporary inspection code initially shadowed stdlib inspect,
+and raw-source anchor matching required exact raw Unicode offsets because cached
+source CRLF differs from candidate LF. Both inspection issues were corrected before
+recording, without changing source bytes. Keep transient helpers outside project/.
+
+Process finding: historical equality can preserve an unwanted opening. A batch rule
+can efficiently prove a transformation yet produce zero publishable cases. Budget
+source-role qualification separately and preserve exceptions; do not repeat terminal-only
+tranches expecting these openings to resolve. Next grant should seek positive evidence
+for editorial attribution/selection and separate metadata preservation, accounting for
+all historical differences. No broader classifier was attempted under this grant.
+
+Shared weekly usage 45% launch →48% at checkpoint; account-wide, not exclusive billing.
+All substantive work is complete; only native validation, commit/push and exact-head
+hosted checkpoint remain. No automatic renewal, integration, main promotion, consent
+changes or terminal closeout. WI0010 and both execution records remain nonterminal.
+
+LRH validation: 0 errors /351 existing warnings. Archive manifest verifies 63 files;
+all 55 disposition references and four tested implementation/test hashes verify.

@@ -677,3 +677,34 @@ Existing coordinator adapter covers routine gates; readiness is clean, installed
 fingerprints clean, persistent skip consent remains invalid and untouched.
 Prior art: reuse historical_review projections and review_rules recognition; add
 only missing boundary census/qualification evidence, not another review store.
+
+
+### Terminal-notice decisions grant — 2026-10-22 05:22 UTC
+
+Human approved the proposed 45-minute target /60-minute maximum run: compose the
+qualified terminal-note rule with explicit ordered decisions, inspect all 25
+history-complete candidates, preserve exceptions, and verify any approvals using
+disposable publication and cumulative replay. Start05:22:16 UTC; target06:07:16;
+hard stop06:22:16. Feature freeze no later than05:57:16; reserve25min for review,
+repair, validation and checkpointing. Finish earlier if scoped work completes.
+Continue PR #524 from c54d17eb on codex/gettenberg-qualification; no automatic renewal.
+
+Coordinator implements; one cold independent review up to10min, optional narrow
+repair recheck up to5min; at most2 concurrent agents,2 assignments/15worker minutes,
+no recursive delegation. Shared weekly usage starts45%;49% feature-freeze and51%
+substantive-stop. Check at least every15min and before dispatch/major blocks;
+unavailable telemetry means checkpoint. These are shared telemetry thresholds,
+not exclusive cost claims. Keep15GiB isolated-output/6GiB free minimum.
+
+Cached inputs read-only; no Gutenberg requests, default extraction changes, canonical
+corpus mutation, CI changes, publishing, persistent-consent changes, integration,
+main promotion or terminal closeout. Temporary publication verification is authorized.
+No approval quota; 25 is the review cohort. Unexplained narrative/editorial material
+remains unresolved even when historical equality or readiness checks pass.
+
+WI0010 readiness is clean; watched installed skills clean; persistent skip consent
+remains invalid and untouched. Existing coordinator adapter covers routine gates.
+Prior-art/demand check: reuse OrderedReviewDecision, candidate_review, the existing
+batch cohort verifier and historical rule. Extend the opt-in proposal path rather
+than create another decision store. Staged dependencies remain at accepted ancestors
+as recorded in the existing qualification matrix; main delivery remains pending.

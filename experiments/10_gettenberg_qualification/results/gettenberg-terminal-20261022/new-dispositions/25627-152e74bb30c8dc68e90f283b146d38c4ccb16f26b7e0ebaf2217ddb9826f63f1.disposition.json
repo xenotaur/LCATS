@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 25627,
+    "candidate_record_sha256": "20182049912a27daa195269fe4dae2fbfb9bbfb332b5cfd61db7355cb5f58e54",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_The planet itself was tough enough--barren, desolate, forbidding; enough to stop the most adventurous and dedicated. But they had to run head-on against a mad genius who'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: selected_needs_review, retained_editorial_label.",
+    "approval": null
+}

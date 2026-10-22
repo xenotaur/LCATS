@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 26761,
+    "candidate_record_sha256": "646bc9cfa29f3f7d37de10bd2bbc8f3d7e1d021e0ce0c0628c458d52ae2d7bd4",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_For thousands of years the big brain served as a master switchboard for the thoughts and emotions of humanity. Now the central mind was showing signs of decay ... and me'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: selected_needs_review, retained_editorial_label.",
+    "approval": null
+}

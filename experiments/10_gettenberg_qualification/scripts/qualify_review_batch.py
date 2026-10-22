@@ -3,6 +3,8 @@
 From lcats/ with project Python/PYTHONPATH:
 python ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py CENSUS COMPARISON QUEUE DISPOSITIONS TEXT_CACHE COLLECTION NEW_OUTPUT_DIRECTORY --prior-reviews REVIEWS --prior-dispositions DIRECTORY [--record-qualified]
 --rule ordered opts into the interior notice extension; default boundary is unchanged.
+--rule terminal composes ordered and qualified terminal notices. Recording this
+mode ALWAYS requires an exact reviewed cohort, even for exact baseline equality.
 --historical-acceptance source-grounded additionally accepts a fully evidenced
 source-preserved typography difference. Full cohort inspection and cumulative
 explicit exceptions are required before recording: historical preservation does
@@ -81,7 +83,7 @@ def evaluate(
     historical_acceptance="baseline",
 ):
     """Return a full evidence ledger and qualified decisions without writing them."""
-    if rule not in {"boundary", "ordered"}:
+    if rule not in {"boundary", "ordered", "terminal"}:
         raise ValueError("unknown qualification rule")
     if historical_acceptance not in {"baseline", "source-grounded"}:
         raise ValueError("unknown historical acceptance mode")
@@ -224,14 +226,16 @@ def evaluate(
         proposal = (
             review_rules.evaluate_boundary_notice(path)
             if rule == "boundary"
-            else review_rules.evaluate_publication_notices(path)
+            else review_rules.evaluate_publication_notices(
+                path, include_terminal=rule == "terminal"
+            )
         )
         row["rule_evidence"] = proposal
         # A full population inventory also includes nonmatching candidates. They
         # cannot acquire approval just because their history can be explained.
         selection_spans = (
             proposal.get("selected_spans")
-            if rule == "ordered"
+            if rule in {"ordered", "terminal"}
             else (
                 [proposal["selected_span"]] if proposal.get("selected_span") else None
             )
@@ -305,7 +309,7 @@ def evaluate(
                     row["historical_resolution"] = "prior_review_source_reconciled"
         spans = (
             proposal.get("selected_spans")
-            if rule == "ordered"
+            if rule in {"ordered", "terminal"}
             else (
                 [proposal["selected_span"]]
                 if proposal["selected_span"] is not None
@@ -358,7 +362,7 @@ def evaluate(
                     readiness.OrderedReviewDecision.for_report(
                         report, omissions=proposal["omissions"], **attribution
                     )
-                    if rule == "ordered"
+                    if rule in {"ordered", "terminal"}
                     else readiness.ReviewDecision.for_report(
                         report, start=spans[0][0], end=spans[0][1], **attribution
                     )
@@ -432,10 +436,12 @@ def summarize(rows, *, record_qualified=False):
     }
 
 
-def verify_cohort(reviews, rows, decisions, queue):
+def verify_cohort(reviews, rows, decisions, queue, *, require_all=False):
     """Require explicit source inspection before recording non-equal selections.
 
     Historical equivalence cannot detect a blurb already in the old corpus.
+    ``require_all`` also covers exact-baseline proposals: unchanged historical
+    text can contain editorial material and must not bypass terminal-mode review.
     Bind this finite cohort review to exact candidate/selection/baseline identities
     and verify its cited candidate excerpts. Attribution is not authentication or
     proof of literary judgment; a review packet remains independently reviewable.
@@ -444,7 +450,10 @@ def verify_cohort(reviews, rows, decisions, queue):
         r["id"]: r
         for r in rows
         if r["new_rule_qualified"]
-        and r.get("historical_acceptance_basis") == historical_review.RULE
+        and (
+            require_all
+            or r.get("historical_acceptance_basis") == historical_review.RULE
+        )
     }
     if not isinstance(reviews, list) or len(reviews) != len(needed):
         raise ValueError("source-grounded recording requires the exact reviewed cohort")
@@ -510,9 +519,11 @@ def main(argv=None):
     ap.add_argument(
         "--cohort-review",
         type=pathlib.Path,
-        help="Exact per-input source review packet required to record non-equal historical selections",
+        help="Exact per-input source review packet; required for every terminal-mode proposal",
     )
-    ap.add_argument("--rule", choices=("boundary", "ordered"), default="boundary")
+    ap.add_argument(
+        "--rule", choices=("boundary", "ordered", "terminal"), default="boundary"
+    )
     ap.add_argument(
         "--historical-acceptance",
         choices=("baseline", "source-grounded"),
@@ -572,16 +583,22 @@ def main(argv=None):
                 rule=args.rule,
                 historical_acceptance=args.historical_acceptance,
             )
-            if (
-                args.record_qualified
-                and args.historical_acceptance == "source-grounded"
+            if args.record_qualified and (
+                args.historical_acceptance == "source-grounded"
+                or args.rule == "terminal"
             ):
                 reviews = (
                     []
                     if args.cohort_review is None
                     else tranche.workflow._read_json(args.cohort_review, 64 * 1024**2)
                 )
-                verify_cohort(reviews, rows, decisions, args.queue)
+                verify_cohort(
+                    reviews,
+                    rows,
+                    decisions,
+                    args.queue,
+                    require_all=args.rule == "terminal",
+                )
             result.update(summarize(rows, record_qualified=args.record_qualified))
             result["prior_candidate_inventory"] = inventory
             _write(args.output / "ledger.json.gz", rows)

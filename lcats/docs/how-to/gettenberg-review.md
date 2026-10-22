@@ -178,3 +178,19 @@ Unlabelled blurbs can escape readiness detectors, so the runner also refuses to
 resolve an unexplained historical difference merely because reassessment is ready.
 This workflow does not approve the complete corpus, authorize main promotion, or
 make an historical decoded-cache approval valid for newly acquired wire bytes.
+
+
+For a qualified terminal transcriber note, use the experiment runner's
+`--rule terminal` to compose it with ordered bracketed notices. Measure first, then
+inspect every proposed input's opening, ending, retained editorial material and
+source context. A complete historical explanation is not a literary assessment.
+Record unresolved cases as explicit `defer` dispositions, and include them and their
+source-review evidence in the cumulative inputs before rerunning.
+
+For remaining approvals, supply `--cohort-review REVIEW_PACKET.json` together with
+`--record-qualified`. Terminal mode requires the exact packet even for baseline-equal
+selections. Follow the experiment's [packet specification](../../../experiments/10_gettenberg_qualification/README.md#source-grounded-historical-reconciliation),
+covering every new terminal-mode proposal. Replay approved decisions into disposable
+outputs and reconcile cumulative coverage before reporting historical resolutions.
+If all candidates remain unresolved, an empty packet and zero new approvals is a
+valid checkpoint. Never invent a review or delete prose to achieve a target count.

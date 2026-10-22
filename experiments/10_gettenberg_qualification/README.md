@@ -570,3 +570,35 @@ complete explanation requires readiness checks and attributable source review
 before an explicit decision can be recorded. Existing approve/defer/exclude intent
 is reported unchanged. The sprint archive is
 [boundary groups](results/gettenberg-boundary-20261022/README.md).
+
+
+### Record reviewed terminal-note decisions
+
+The existing `qualify_review_batch.py` accepts `--rule terminal`, composing ordered
+bracketed and terminal unbracketed publication notes. Its measurement/recording,
+input identity, offline, exclusive-output, time and disk limits remain unchanged.
+Use the same seven positional arguments and cumulative review inputs documented
+above; no additional executable runner is introduced. Record only after source
+inspection, preserving known exceptions in cumulative dispositions and reviews.
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py CENSUS COMPARISON QUEUE CUMULATIVE_DISPOSITIONS TEXT_CACHE COLLECTION NEW_OUTPUT --prior-reviews CUMULATIVE_REVIEWS --prior-dispositions CUMULATIVE_DISPOSITIONS --rule terminal --historical-acceptance source-grounded --record-qualified --cohort-review COHORT_JSON
+python -m unittest tests.gatherers_tests.trailing_notice_test tests.gettenberg_tests.terminal_batch_evidence_test
+scripts/format --check --diff ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py
+scripts/lint ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py
+```
+
+The cohort packet format is unchanged, but terminal mode requires it for **all**
+new proposals, including exact baseline equality under either historical mode.
+An empty exact cohort is allowed only when there are no proposals to approve.
+The batch runner never infers editorial roles from an unchanged old body.
+
+The [terminal-decision run](results/gettenberg-terminal-20261022/README.md) inspects
+all 25 history-complete inputs from the boundary census. Every one retains separate
+teaser-like opening material; 13 also retain recognized editorial labels/readiness
+findings. Twelve would pass mechanical gates without this source review. All 25
+are explicitly deferred; no new approval is warranted under the terminal-note rule.
+The nonempty success path is verified end-to-end on authored fixtures, including
+source review, immutable v2 recording/export, actual temporary publication and
+cumulative replay. Real cached replay verifies all 25 are withheld with their full
+candidate text retained. Default modes and existing dispositions remain unchanged.

@@ -174,9 +174,10 @@ def evaluate_boundary_notice(path):
 
 
 ORDERED_NOTICE_RULE = "ordered-publication-notice-v1"
+COMBINED_NOTICE_RULE = "ordered-and-terminal-publication-notices-v1"
 
 
-def evaluate_publication_notices(path):
+def evaluate_publication_notices(path, *, include_terminal=False):
     """Propose exact removal of complete notice paragraphs anywhere in a candidate.
 
     Recognition uses the unchanged finite grammar from the boundary rule. Each
@@ -188,6 +189,11 @@ def evaluate_publication_notices(path):
     historical differences and prior dispositions must be considered separately;
     neither a match nor mechanical readiness authorizes recording/publication.
     At most 256 notices are proposed; larger inputs remain unresolved.
+
+    ``include_terminal=True`` additionally composes the independently qualified
+    terminal-note grammar using original candidate coordinates. The default
+    packet and grammar remain unchanged. A complete source-cohort review is still
+    required before recording, including when selected text equals old output.
     """
     record = candidate_review.load_candidate(path)
     report = record["report"]
@@ -200,7 +206,7 @@ def evaluate_publication_notices(path):
     ):
         raise ValueError("candidate assessment differs from current rule context")
     result = {
-        "rule": ORDERED_NOTICE_RULE,
+        "rule": COMBINED_NOTICE_RULE if include_terminal else ORDERED_NOTICE_RULE,
         "gutenberg_id": report["gutenberg_id"],
         "candidate_record_sha256": readiness.identity(record),
         **{
@@ -242,6 +248,26 @@ def evaluate_publication_notices(path):
                 + "; full paragraph matches finite publication/date grammar",
             }
         )
+    if include_terminal:
+        terminal = propose_trailing_publication_notice(body)
+        result["terminal_notice"] = terminal
+        if terminal is not None:
+            start, end = terminal["span"]
+            if omissions and omissions[-1]["end"] > start:
+                # Never trim or merge overlapping evidence to make it fit. Two
+                # independently qualified omissions must form a valid partition.
+                result["blockers"] = ["overlapping_notice_proposals"]
+                return result
+            omissions.append(
+                {
+                    "start": start,
+                    "end": end,
+                    "kind": "publication_notice",
+                    "reason": "Complete terminal publication notice; preceding text preserved.",
+                    "evidence": TRAILING_NOTICE_RULE
+                    + "; complete bounded final note matches finite grammar",
+                }
+            )
     if not omissions:
         result["blockers"] = ["no_matching_publication_notice"]
         return result
