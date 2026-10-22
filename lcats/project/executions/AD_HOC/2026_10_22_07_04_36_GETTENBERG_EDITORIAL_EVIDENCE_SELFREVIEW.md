@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_22_06_44_58_GETTENBERG_EDITORIAL_EVIDENCE
 pr: https://github.com/xenotaur/LCATS/pull/524
-commit:
+commit: 21d8fd719ff40d4ec756733ede2df631a783aac0
 created_at: 2026-10-22T07:04:36+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-batch-review-contract.md

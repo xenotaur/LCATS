@@ -4792,3 +4792,8 @@ choose stronger targeted source evidence and/or explicit collection paratext pol
 Separating software delivery from complete corpus curation is a separate potential
 acceptance-gate decision, not an automatic consequence of green tests. No new acquisition,
 classifier, corpus acceptance, integration/main promotion or terminal closeout.
+
+Implementation/evidence commit: `21d8fd719ff40d4ec756733ede2df631a783aac0`. Native records bind this
+commit and remain in_progress. Archive manifest verifies 36 files and all 55 existing
+disposition references; isolated output483MiB within15GiB budget. Only push and
+exact-head hosted checkpoint remain, recorded on PR #524. No substantive continuation.
