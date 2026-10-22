@@ -24,18 +24,18 @@ related_design:
 
 Judge each of Heinlein's five conditions against the world the author lived in when the story
 was written, not the world of the day the analysis runs. An optional, separate stage estimates
-a composition-date interval, lists the story's material factual premises with the windows in
-which each one's truth changed, and reports date-aware plausibility, an outcome relation to
-today for each premise, and two flags, all combined by deterministic rules into a profile
-instead of a score. The existing `heinlein-five-v1` record, its prompt, and its checkpoints
-are not changed.
+a composition-date interval, lists the story's material factual premises, and records for each
+a timeline of how well established the claim was over time. Deterministic rules then derive
+date-aware plausibility, an outcome relation to today, and two flags, and combine them into a
+profile instead of a score. The existing `heinlein-five-v1` record, its prompt, and its
+checkpoints are not changed.
 
 ## Background / Motivation
 
 Two of Heinlein's five conditions compare a story with "the world" without saying which one.
 The `different` condition says the conditions "must be different from here-and-now"
-(`lcats/src/lcats/analysis/science_fiction/rubric/definitions.py:130`), and the `plausible`
-condition says "No established fact shall be violated"
+(`lcats/src/lcats/analysis/science_fiction/rubric/definitions.py:133-137`), and the
+`plausible` condition says "No established fact shall be violated"
 (`definitions.py:167-176`). The Heinlein prompt tells the model to judge plausibility "against
 established facts available to a general reader"
 (`lcats/experimental/science_fiction_analysis_trial/run_worldcon_spike.py:2566`), and a model
@@ -51,10 +51,11 @@ Three failure modes follow from a today-reading:
    knowledge of its time. The first close-up images of Mars came on
    [15 July 1965](https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/m04_01d.html). Venus
    follows the same pattern: Mariner 2 flew past on
-   [14 December 1962](https://www.nasa.gov/history/60-years-ago-mariner-2-first-to-explore-venus/),
-   and radar showed in 1965 that Mercury does not keep one face to the Sun
-   ([Pettengill](https://en.wikipedia.org/wiki/Gordon_Pettengill),
-   [a summary of the earlier view](https://astro.if.ufrgs.br/solar/eng/mercury.htm)).
+   [14 December 1962](https://www.nasa.gov/history/60-years-ago-mariner-2-first-to-explore-venus/).
+   Radar showed that Mercury's day is 59 Earth days, not 88 as had been thought
+   ([Pettengill](https://en.wikipedia.org/wiki/Gordon_Pettengill), which I opened; it states
+   the result but gives no year, and the year 1965 comes from search-result summaries that I
+   did not open).
 2. **Successful predictions.** A story about a technology that later came true stops being
    "different" under a today-reading, so the story is penalized for being right.
 3. **Period stories.** A realist story set in its author's present, such as a 1910 detective
@@ -94,36 +95,36 @@ corpus also does not record story years: the `year` field is "Unknown"
 
 ## Design Decisions
 
-The first nine decisions below were made by the owner in conversation and are fixed inputs.
-Decisions 10 to 13 are this proposal's recommendations. The wording of each field is a
-proposal; names may change in implementation.
+Decisions D1 to D9 were made by the owner in conversation and are fixed inputs, stated here
+precisely enough to implement. Where a fixed decision needs a definition the owner did not
+give, the definition is marked as this proposal's recommendation in section "Definitions
+recommended by this proposal". Field names are proposals and may change in implementation.
 
 ### Fixed inputs
 
 **D1. Reference frame.** All five conditions are judged against the author's world at the time
 of writing ("the here-and-now in which the story was written"). A today-reading is rejected.
 Reasons: the `different` slot says the difference "may lie only in an invention made in the
-course of the story" (`definitions.py:130-139`), and an invention is new relative to the
+course of the story" (`definitions.py:133-137`), and an invention is new relative to the
 writer's world; a today-reading penalizes successful predictions; the Suvin prompt already uses
 the authorial norm. "Written" means composition, not publication, translation, or later
 revision; a text revised decades later is recorded with a caveat.
 
 **D2. Premise-first, date-second.** The stage lists the story's material factual premises
-first, then asks for a date only when a premise's truth changes inside the story's plausible
+first, then asks for a date only when a premise's standing changes inside the story's plausible
 date window. A premise is a factual claim about the world that the plot relies on. Decorative
 technology and settings that change nothing about the problem are excluded, matching the
 existing exclusion in the prompt (`run_worldcon_spike.py:2568-2569`). Materiality reuses the
-repository's vocabulary: `central`, `substantial`, `incidental`
-(`models.py:49-55`). Only `central` and `substantial` premises count.
+repository's vocabulary: `central`, `substantial`, `incidental` (`models.py:49-55`). Only
+`central` and `substantial` premises count.
 
-**D3. Change windows.** Knowledge changes over a window, from the first credible evidence to a
-settled consensus, not on a single date. Each premise carries a window `{start, end}`, a
-source for each end, and a basis: `model_asserted`, `table_confirmed`, or `owner_supplied`.
-A stable fact has no window. A premise that was never established at any date (for example,
-talking animals in a fairy tale) has no start. A date inside the window is `ambiguous`.
+**D3. Change windows, not change dates.** Knowledge changes over a window, from the first
+credible evidence to a settled consensus, not on a single date. The window is represented by
+the standing timeline defined under "Definitions recommended by this proposal". A date inside
+the window is `ambiguous`.
 
-**D4. Composition-date interval.** The stage records an interval `{earliest, latest}` built
-from sources, strongest first:
+**D4. Composition-date interval.** The stage records an interval from sources, strongest
+first:
 
 1. owner-supplied;
 2. a bibliographic first-publication record (ISFDB is the natural candidate; its coverage and
@@ -134,111 +135,185 @@ from sources, strongest first:
 4. internal evidence the model can see.
 
 The sources are intersected. Each source is recorded with its kind, value, basis, and a
-confidence, and an owner override replaces the result. With no basis at all, the interval is
-absent, not guessed.
+confidence, and an owner override replaces the result. With no basis at all the interval is
+unbounded, not guessed (see D5).
 
-**D5. Interval-to-status rules.** For one premise with a change window and a composition
-interval:
+**D5. Premise status over the interval, and the combination rule.** A premise has a status
+over the composition interval with the existing vocabulary (`models.py:41-46`): `present` if
+the claim was `supported` or `open` at every date in the interval, `absent` if it was
+`contradicted` at every date, `ambiguous` otherwise, and `not_assessable` if the timeline
+cannot be determined at all. When the status is `ambiguous` because the date is uncertain, the
+output states the condition, for example "present if composed before 1965-07". The story-level
+status is `absent` if any counted premise is `absent`, `present` if all counted premises are
+`present`, and `ambiguous` otherwise; this mirrors `heinlein_verdict` (`models.py:362-377`).
 
-- `present` if the whole interval falls before the window start (the premise held, or was at
-  least not contradicted, throughout);
-- `absent` if the whole interval falls after the window end (the premise was contradicted
-  throughout), or if the premise was never established;
-- `ambiguous` if the interval overlaps the window or straddles it;
-- `not_assessable` if there is no interval and no window can be placed.
+**D6. Outcome relation to today, and the calendar-expired flag.** Each premise also has an
+outcome relation to the world today: `stable`, `still_open`, `realized`, `falsified`, or
+`not_assessable`. Separately, a premise that is a dated prediction whose date has passed
+carries a `calendar_expired` flag, independent of the relation, because an expired prediction
+can also be falsified or realized. Calendar-expired claims do not count toward the "plausible
+now" reading. The analysis date and the model's knowledge cutoff are recorded with every
+result.
 
-A stable premise is `present` at every date. When the status is `ambiguous` because the date
-is uncertain, the output states the condition, for example "present if composed before
-1965-07", so a reader knows exactly what to find out. These reuse the existing status
-vocabulary (`models.py:41-46`).
+**D7. Stories with no speculative premises.** Such a story has `plausible` present, derived by
+Python, and the record carries a `speculative_premises` flag.
 
-**D6. Combining premises.** The story-level status is `absent` if any counted premise is
-`absent`, `present` if all counted premises are `present`, and `ambiguous` otherwise. This
-mirrors the verdict logic in `heinlein_verdict` (`models.py:362-377`).
-
-**D7. Outcome relation to today, and the calendar-expired flag.** Each premise also gets an
-outcome relation to the world today: `stable` (unchanged between composition and today,
-whether it held or never did), `still_open`, `realized`, `falsified`, or `not_assessable` (for
-example when the model's knowledge cutoff cannot support a judgment). Separately, a premise
-that is a dated prediction whose date has passed carries `calendar_expired: true`. The flag is
-independent of the relation, because an expired prediction can be falsified or realized.
-Calendar-expired claims are reported through the flag and do not count toward the
-"plausible now" reading. The analysis date and the model's knowledge cutoff are recorded with
-every result.
-
-**D8. Stories with no speculative premises.** Such a story has `plausible` present (derived
-by Python, with no evidence required), and the record carries a `speculative_premises` flag:
-false, or true with the counts by materiality.
-
-**D9. A profile, not a score.** The result is a profile derived by Python rules. It never
+**D8. A profile, not a score.** The result is a profile derived by Python rules. It never
 reports a count or a probability, consistent with `heinlein.py:5-8` and the prompt's rule
 against scores (`run_worldcon_spike.py:2532-2533`).
 
-### Recommendations
-
-**D10. Derived profile categories.** Python derives a category from the as-written and
-as-today plausibility:
-
-| Category | Rule |
-|---|---|
-| plausible when written | plausibility as written is `present` |
-| evergreen | as written `present` and today `present` |
-| overtaken | as written `present` and today `absent` |
-| fails when written | as written `absent` |
-| undetermined | as written `ambiguous` or `not_assessable` |
-
-The names are recommendations (see Open Questions).
-
-**D11. A second derived verdict.** The new record also carries a derived verdict "as
-written": the conjunction in `heinlein_verdict` with `different` and `plausible` taken from
-the new stage, and `human`, `essential` and `causal` taken from the existing record. The
-existing record and its verdict are not changed. A consistency check flags a story whose
-existing `essential` or `causal` rests on premises the new stage classifies as not novel
-relative to the author's world.
-
-**D12. A separate, opt-in stage.** The new stage is flag-gated like `include_heinlein`
+**D9. A separate, opt-in stage.** The new stage is flag-gated like `include_heinlein`
 (`run_worldcon_spike.py:163`), with its own prompt version (as `HEINLEIN_PROMPT_VERSION`,
-`run_worldcon_spike.py:63`), its own tool schema, and its own analysis kind. It runs after the
-evidence stage and consumes the same story text and evidence as the existing stage.
+`run_worldcon_spike.py:63`), its own tool schema, and its own analysis kind, leaving the
+existing record untouched. The direction is phased toward a curated fact table as an audit
+layer.
 
-**D13. Handling the model's weak points.** The stage must name each fact and the date it was
-established, and mark the claim `model_asserted`. A curated table of known cases (Mars 1965,
-Venus 1962, Mercury 1965) is the audit layer in a later phase; it marks matching claims
-`table_confirmed` and flags disagreements. For the outcome relation, a fact beyond the
-model's knowledge cutoff is `not_assessable`.
+### Definitions recommended by this proposal
+
+These define terms the fixed decisions use. They are recommendations for owner review.
+
+**R1. Standing timeline.** Each premise carries an ordered list of periods
+`{from, to, standing, basis, source}` that covers all time. `standing` is one of `supported`
+(established), `open` (speculative but not contradicted by established fact), `contested`
+(evidence has appeared but consensus has not settled), or `contradicted`. Boundaries are
+closed and year-granular; unbounded ends are null. `basis` is `model_asserted`,
+`table_confirmed`, or `owner_supplied`. A fact that never changed is one period. A premise
+that is contradicted at every date (for example, talking animals in a fairy tale) is one
+`contradicted` period. A claim accepted only later is simply a timeline that changes
+direction, so the model needs no separate direction field. The window of D3 is the
+`contested` period.
+
+**R2. Status of a premise over an interval.** Take the closed interval `[a, b]` (unbounded if
+absent, and ending at the analysis date). Collect the standings of every period that overlaps
+it; touching boundaries overlap. If all are `supported` or `open`, the status is `present`; if
+all are `contradicted`, `absent`; otherwise `ambiguous`. A missing interval is just the widest
+interval, so a stable premise is `present` or `absent` by its single period and a
+time-sensitive one is `ambiguous` with its condition. `not_assessable` is used only when the
+model cannot state the timeline at all. "Today" is the point interval at the analysis date;
+when the model cannot state today's standing (beyond its knowledge cutoff) the status is
+`not_assessable`.
+
+**R3. Derived outcome relation.** Python derives the relation from the standing at composition
+and the standing today, when both are unambiguous: (`supported`, `supported`) and
+(`contradicted`, `contradicted`) are `stable`; (`open`, `open`) is `still_open`; (`open`,
+`supported`) and (`contradicted`, `supported`) are `realized`; (`supported` or `open`,
+`contradicted`) is `falsified`. Any other pair, or any `contested` or unknown standing, is
+`not_assessable`. The model never asserts the relation directly.
+
+**R4. Novelty and `different`.** Each premise carries `novel_at_composition`: `true`, `false`
+or `unknown`. `different` as written is `present` if any counted premise is novel, `absent`
+if there are counted premises and none is novel, `ambiguous` if none is known novel and some
+are unknown, and `absent` if no counted premises exist. A new condition may be a supernatural
+or fantastic one; whether such a condition passes `plausible` is a separate matter.
+
+**R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
+the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
+reading all counted premises are used; for the "today" reading, calendar-expired premises are
+excluded. If every counted premise is excluded, the "today" status is `present` vacuously and
+the record says so.
+
+**R6. The `speculative_premises` flag.** `{has: bool, counted: int, by_materiality}`, computed
+before any calendar-expired exclusion, so a story whose only speculative premises are expired
+is reported as having them.
+
+**R7. Profile categories.** Python derives a category from plausibility as written (P1) and
+today (P3), only when `speculative_premises.has` is true; otherwise the category is
+`not_applicable`. Categories describe plausibility, not whether the story qualifies:
+
+| P1 as written | P3 today | Category |
+|---|---|---|
+| present | present | evergreen |
+| present | absent | overtaken |
+| present | ambiguous or not_assessable | plausible when written, today undetermined |
+| absent | present | plausible only in retrospect |
+| absent | absent, ambiguous or not_assessable | fails when written |
+| ambiguous or not_assessable | any | undetermined, with the condition |
+
+**R8. A second derived verdict.** The new record carries `verdict_as_written`: the conjunction
+in `heinlein_verdict` (`models.py:362-377`) with `different` from R4 and `plausible` from D5,
+and `human`, `essential`, `causal` taken from the existing five-criterion record. The
+prerequisite rules (`HEINLEIN_PREREQUISITES`, `models.py:35`, used by
+`heinlein_dependency_violations`, `models.py:379`) apply: if a violation appears, for example
+`essential` present while the new `different` is absent, the record reports
+`consistency: inconsistent` with the pair and `verdict_as_written: indeterminate`, and does not
+silently force a verdict. If the existing record is missing or failed, the field is
+`not_computed`.
+
+**R9. Evidence for derived values.** The existing record requires evidence for a `present`
+criterion (`models.py:328-329`). The new record is a different kind: statuses derived by
+Python from premises, including a vacuous `present`, need no supporting evidence, but each
+premise carries its text anchor (offset and quote) so a reader can audit it. This is
+deliberate and does not change the existing invariant.
+
+**R10. Handling the model's weak points.** The stage must name each fact and the date it
+became established or contested, and mark the claim `model_asserted`. A curated table of known
+cases (Mars 1965, Venus 1962, Mercury 1965) is the audit layer in a later phase; it marks
+matching claims `table_confirmed` and flags disagreements.
+
+### Record shapes
+
+One `heinlein_temporal` analysis record per story, serialized only when the stage ran:
+
+- `analysis_id`, `story_hash`, `evidence_set_id`, `provenance` (with its own provenance version,
+  below), `status`, `failures`, `analysis_date`, `model_knowledge_cutoff`.
+- `composition`: `{earliest, latest, sources: [{kind, value, hard_bound, basis, confidence}],
+  override, caveats}`.
+- `premises`: list of `{premise_id, claim, anchor: {offset, quote}, materiality,
+  novel_at_composition, dated_prediction, calendar_expired, timeline: [...]}`.
+- `assessment`: `{plausible_as_written, plausible_today, different_as_written, condition,
+  per_premise: [{premise_id, status_as_written, status_today, relation}], speculative_premises,
+  category, verdict_as_written, consistency}`.
 
 ### Options considered
 
 | # | Option | Pros | Cons |
 |---|---|---|---|
 | O1 | Keep the prompt and report `plausible` separately | Nothing to build | Leaves today's knowledge as the implicit reading, which D1 rejects |
-| O2 | One as-of date input to the existing stage; run it twice for two readings | Simple | One call per reading; no premise-level audit trail; needs a date up front, which the corpus lacks (`parser.py:1457`) |
+| O2 | One as-of date input to the existing stage; run it twice for two readings | Simple | Adding the date to the payload changes `payload_sha256` (`run_worldcon_spike.py:2400`), which invalidates the existing stage's fingerprint and checkpoints; one call per reading; no premise-level audit trail; needs a date up front, which the corpus lacks (`parser.py:1457`) |
 | O3 | Put sub-readings inside `plausible` | One record | Changes `HeinleinCriterion` and `HeinleinAnalysis`, which are pinned to `heinlein-five-v1` and exactly five criteria (`models.py:311-345`, `models.py:394-420`); invalidates existing records |
-| O4 | **A separate opt-in stage with a premise-first record (chosen)** | Leaves the existing record untouched; follows the optional-stage pattern; reuses the status vocabulary (`models.py:41-46`) | One more model call; relies on the model's recall of dates |
+| O4 | A separate opt-in stage with a premise-first record | Leaves the existing record untouched; follows the optional-stage pattern; reuses the status vocabulary (`models.py:41-46`) | One more model call; relies on the model's recall of dates |
 | O5 | A curated fact table alone | Fully auditable and reproducible | Cannot cover a fact it does not list; needs upkeep |
-| O6 | O4 plus O5 as an audit layer | Auditability where facts are known | Most to build; phased after O4 |
+| O6 | O4 plus O5 as an audit layer | Auditability where facts are known | Most to build |
 
-O4 is chosen because it is the only option that gives the profile and the audit trail
-without changing a pinned contract. O1 is rejected by D1, O3 touches a pinned contract, O5
-cannot stand alone, and O2 cannot give a premise-level profile. This is a design judgment
-based on the repository state described here, not a proof.
+Chosen: **O4 now, with O5 added as the audit layer in a later phase, which is O6 built in
+phases.** This matches owner decision 9, which describes the fact table phased in. O1 is
+rejected by D1, O3 touches a pinned contract, O5 cannot stand alone because it cannot cover a
+fact it does not list, O2 cannot give a premise-level profile and invalidates the existing
+stage's checkpoints, and O6 is not chosen as a single step only because it is the most to
+build before the first live evidence exists. This is a design judgment based on the repository
+state described here, not a proof.
 
 ## Compatibility
 
 - **Unchanged:** the `heinlein-five-v1` rubric (`models.py:21`), `HeinleinCriterion` and
-  `HeinleinAnalysis`, the existing stage's prompt and prompt version, its tool schema, the
-  stage fingerprint inputs (`run_worldcon_spike.py:1100`), and existing checkpoints. A
-  stage's fingerprint includes its system prompt, tool schema, and payload hash, so the new
-  stage has its own and cannot invalidate the old one.
-- **Changed, and it must be stated:** the sidecar learns a new optional analysis kind. That
-  touches `PARTIAL_SUCCESS_STAGE_NAMES` and the optional-analysis validation in
-  `lcats/src/lcats/analysis/science_fiction/sidecar.py:16-26, 145`, and the serialization in
-  `models.py:832-846`. These are the same places the Heinlein stage touched when it was
-  added, and the existing pattern (omit when empty so earlier sidecars and their
-  fingerprints do not change) applies. The sidecar schema version
-  (`models.SCIENCE_FICTION_SIDECAR_VERSION`) should be reviewed in the implementing work item.
-- **Request records:** the per-attempt request records added by WI-SF-0120 apply to the new
-  stage unchanged.
+  `HeinleinAnalysis`, the existing stage's prompt, prompt version and tool schema, the stage
+  fingerprint inputs (`run_worldcon_spike.py:1100`), and existing checkpoints. A stage's
+  fingerprint includes its own system prompt, tool schema, and payload hash, so the new stage
+  has its own and cannot invalidate the old one. The per-attempt request records added by
+  WI-SF-0120 apply to the new stage unchanged.
+- **The sidecar schema version must not be bumped.** It is checked for strict equality
+  (`sidecar.py:58`, `models.py:681`) and hashed into the assembly fingerprint (`pipeline.py:51`),
+  so a bump would reject every existing sidecar and invalidate every assembly checkpoint. The
+  Heinlein stage added an optional key without a bump, and the new kind follows that pattern:
+  omit the key when empty.
+- **A new analysis kind forces changes in these places**, each as the Heinlein kind was added:
+  - `sidecar.py`: `PARTIAL_SUCCESS_STAGE_NAMES` (16-26), the optional-analysis validation (145),
+    the label dispatch and a new validator beside the Heinlein one;
+  - `models.py`: the pointers record (`heinlein_analysis_id` at 633 and its validation), the
+    envelope field and `_validate_analyses` (716), `_iter_analyses` (947), the serialization
+    (832-846). The evidence-reference iteration (`_iter_criterion_references`, 973, and
+    `_iter_evidence_references`, 1001) assumes records with `.criteria`; a premise-based record
+    needs its own iteration over premise anchors;
+  - `pipeline.py`: `SidecarAssemblyInputs` (34), the optional-when-empty fingerprint (66),
+    `assemble_sidecar` (92), and current selection (255);
+  - `rendering.py`: a view and columns for the new profile;
+  - the runner: `RunnerOptions` and the flag, `StoryResult` (186), `_sidecar_configuration`
+    (1892), the completed-stage lists (2064), the fake backend (2900), the run summary (3170),
+    and the paid-run gate (`run_worldcon_spike.py:2991`), which rejects the Heinlein stage on
+    any paid-call backend and needs its own rule;
+  - the new kind needs its own rubric or provenance version string, because
+    `HeinleinAnalysis` pins `heinlein-five-v1` (`models.py:410`); and
+  - tests beside `heinlein_test.py`, `rendering_test.py` and `worldcon_spike_test.py`.
 
 ## Non-Goals
 
@@ -252,11 +327,11 @@ based on the repository state described here, not a proof.
 
 Recommended work items, in order, none created by this proposal:
 
-1. **Contract and validators.** The premise, change-window, interval, relation and flag
-   records, the interval-to-status and combination rules, the profile categories, and the
-   sidecar optional kind. Depends on this proposal's adoption.
+1. **Contract and validators.** The premise, timeline, interval, relation and flag records, the
+   rules R2 to R8, the profile table, the provenance version, and the sidecar optional kind
+   with the changes listed under Compatibility. Depends on this proposal's adoption.
 2. **Stage, prompt and tool schema.** The opt-in flag, prompt version, payload with date
-   inputs, fake-backend support, and no-cost tests. Depends on 1.
+   inputs, the paid-run gate rule, fake-backend support, and no-cost tests. Depends on 1.
 3. **Date-source tooling.** Loading owner-supplied dates and an owner override; evaluating a
    bibliographic source's coverage and terms before relying on it. Depends on 1.
 4. **Fact table seed.** The small audit table of known cases with cited sources. Depends on 2.
@@ -288,17 +363,17 @@ Each has a recommendation; none is decided here.
    does not say whether a backward difference counts, and the existing prompt excludes only
    "a different setting that changes nothing about the problem" (`run_worldcon_spike.py:2568-2569`).
    Recommendation: do not decide in code; ask the owner, and in the first implementation treat
-   a period setting as `different` only if the setting is essential to the plot, recording that
-   as the stage's reading.
+   a period setting as novel only if the setting is essential to the plot, recording that as
+   the stage's reading.
 2. **Coherence with a story's own premises.** A fantasy can be consistent with its own premises,
    so coherence does not test the relation to established facts. Recommendation: do not report
    it as a condition; if wanted, report it as a separate, labelled field after the first live
    run.
-3. **Profile category names.** Recommendation: the names in D10, to be reviewed by the owner
+3. **Profile category names.** Recommendation: the names in R7, to be reviewed by the owner
    before implementation.
 4. **Whether the five-criterion prompt later changes.** Recommendation: no change until the
    live run shows how the existing prompt behaves on the period stories.
-5. **Essential and causal in the author's frame.** D11 keeps them from the existing record and
+5. **Essential and causal in the author's frame.** R8 keeps them from the existing record and
    adds a consistency check. Recommendation: accept for the first implementation; revisit if
    the check fires often.
 6. **Model knowledge cutoff and recall.** Recommendation: record the cutoff and the analysis
@@ -308,8 +383,12 @@ Each has a recommendation; none is decided here.
    hand trial closely enough that the owner accepts the disagreements; the lists are stable
    across three trials; and model-asserted dates are reviewed against the table where it
    covers them.
-8. **Date sources.** ISFDB coverage and terms have not been checked; two dates in the trial
+8. **Date sources.** ISFDB coverage and terms have not been checked; several dates in the trial
    rest on sources I did not open. Recommendation: work item 3 evaluates a bibliographic source
    before it is relied on, and the owner's override always wins.
-9. **Cost.** One additional call per story. Recommendation: measure it in the live run; it is
-   not estimated here.
+9. **Where the new record lives.** Recommendation: a new optional analysis kind in the same
+   sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
+   Compatibility. The alternative is a separate sidecar file, which would avoid touching the
+   sidecar contract but split a story's analyses across two files; decide before work item 1.
+10. **Cost.** One additional call per story. Recommendation: measure it in the live run; it is
+    not estimated here.

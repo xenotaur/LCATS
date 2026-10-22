@@ -11,21 +11,25 @@ Heinlein controls in WI-SF-0119, made by one rater (Claude) from a full read of 
 sample of the corpus: the six stories were chosen as controls (two realist negatives, a
 fairy-tale negative, three science-fiction positives), so the proportions below say nothing
 about how often dates matter overall. The classification has not been checked by a second
-rater or the owner. The vocabulary is the one proposed in the design: materiality
-(`central`, `substantial`, `incidental`, as in `src/lcats/analysis/science_fiction/models.py:49-55`),
-a change window (when a fact first became doubtful and when it became settled), an outcome
-relation to today (`stable` meaning unchanged between composition and today, whether the
-premise held or never did; `still open`; `realized`; `falsified`; `not assessable`), and a
-separate `calendar_expired` flag for dated predictions whose date has passed.
+rater or the owner.
+
+The vocabulary is the one the proposal defines. Each premise has a materiality (`central`,
+`substantial`, `incidental`, as in `src/lcats/analysis/science_fiction/models.py:49-55`), a
+`novel_at_composition` value (is the claim new relative to the author's world), and a
+**standing timeline**: periods in which the claim was `supported`, `open` (speculative but not
+contradicted), `contested`, or `contradicted`. From the timeline the proposal derives the
+plausibility of the premise at composition and today, and an outcome relation (`stable`,
+`still_open`, `realized`, `falsified`, `not_assessable`). A dated prediction whose date has
+passed also carries a separate `calendar_expired` flag.
 
 ## Composition dates and their sources
 
 | Story | First published | Source and strength | Author | Interval used |
 |---|---|---|---|---|
-| Bell (Andersen) | May 1845 | [Andersen Centre register](https://andersen.sdu.dk/vaerk/register/info_e.html?vid=76); one source | 1805-1875 | 1845 |
+| Bell (Andersen) | May 1845 | [Andersen Centre register](https://andersen.sdu.dk/vaerk/register/info_e.html?vid=76); a search-result summary, not opened by me | 1805-1875 | 1845 |
 | 2 B R 0 2 B (Vonnegut) | January 1962 | [Wikipedia](https://en.wikipedia.org/wiki/2_B_R_0_2_B); I opened this page and it states the month | 1922-2007 | up to January 1962 |
 | A Bad Day for Sales (Leiber) | July 1953 | [a story review that states "First published in the July 1953 issue of Galaxy Science Fiction"](https://sffremembrance.com/2025/03/11/short-story-review-a-bad-day-for-sales-by-fritz-leiber/); other search results agree, and I opened only this one | 1910-1992 | 1953 |
-| A Case of Sunburn (Fontenay) | April 1957, IF | [Internet Archive scan of the issue, whose contents are excerpted from ISFDB](https://archive.org/details/1957-04_IF) and the Telltale Books author index; the page lists the story and attributes its contents to ISFDB, which I did not open; the Telltale Books index also gives April 1957 but I did not open it | 1917-2007; first story 1954, from a search-result summary of the [SF Encyclopedia](https://www.sf-encyclopedia.com/entry/fontenay_charles_l) (the page itself returned HTTP 429 and was not opened) | 1957 |
+| A Case of Sunburn (Fontenay) | April 1957, IF | [Internet Archive scan of the issue](https://archive.org/details/1957-04_IF); the page lists the story and attributes its contents to ISFDB, which I did not open | 1917-2007; first story 1954, from a search-result summary of the [SF Encyclopedia](https://www.sf-encyclopedia.com/entry/fontenay_charles_l) (the page itself returned HTTP 429 and was not opened) | 1957 |
 | The Blue Cross (Chesterton) | 23 July 1910, Saturday Evening Post | [Wikipedia, Father Brown](https://en.wikipedia.org/wiki/Father_Brown); I opened this page and it states the date and the first title, "Valentin Follows a Curious Trail"; a search result gave June 1910 for the same appearance | 1874-1936 | 1910 |
 | Brown Wolf (London) | **not confirmed** | One reprint listing says Everybody's Magazine with no date; the story is in a collection a search result dates to 1906; the story's own text sets it about 1901 (offsets below) | 1876-1916 | about 1901 to 1906, an inference |
 
@@ -37,80 +41,88 @@ resolves it.
 ## Per-story premises
 
 Offsets are 0-based character offsets into the `body` field of each `story.json`; the
-script in the last section finds each quote and reports them.
+script in the last section finds each quote and reports them. "Written" is the plausibility of
+the premise over the composition interval; "today" is its plausibility on the analysis date.
 
 ### Bell (Andersen)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| An unexplained bell sound draws the townspeople; a character reports an owl, a child says the bell "does not exist" (2534, 4816) | central | no fact claimed; no theory offered | stable | judgment call: an allegorical, unexplained phenomenon is not clearly a factual premise |
-| Apes that speak and threaten the prince (8630) | incidental | never established at any date | stable | not counted |
-| Apples that look like soap bubbles (9046) | incidental | decorative | stable | not counted |
-| A holy bell, blessed spirits at the climax (11656) | substantial | supernatural; never established | stable | counted |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| An unexplained bell sound draws the townspeople; a character reports an owl, a child says the bell "does not exist" (2534, 4816) | central | n/a | not treated as a factual premise | n/a | judgment call: an allegorical, unexplained phenomenon makes no testable claim |
+| Apes that speak and threaten the prince (8630) | incidental | yes | contradicted at every date | absent / absent / stable | not counted |
+| Apples that look like soap bubbles (9046) | incidental | yes | decorative | n/a | not counted |
+| A holy bell and blessed spirits at the climax (11656) | substantial | yes | contradicted at every date (judgment call) | absent / absent / stable | counted; judgment call: treated as contradicted because the story offers no natural account of it |
 
-Counted premises: the spirits at the climax are absent at every date. Plausibility as written:
-`absent`; today: `absent`; a date is not needed. `calendar_expired`: none. Speculative
-premises: yes.
+Plausibility as written: `absent`; today: `absent`; a date is not needed. `calendar_expired`:
+none. Speculative premises: yes. `different` as written: present (the supernatural elements
+are new relative to the author's world), so the Heinlein verdict is `does_not_qualify`.
 
 ### 2 B R 0 2 B (Vonnegut)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| Aging and all diseases cured (120) | central | speculative; not contradicted at any date | still open | |
-| US population stabilized at forty million, average age 129 (226) | substantial | speculative; not contradicted | still open | |
-| A birth requires a volunteer death by law (8832) | central | social premise; not contradicted | still open | |
-| In the year 2000 the Earth had twenty billion people and was heading to forty (10430) | substantial | a projection when written; falsified once 2000 passed (the UN marked six billion on [12 October 1999](https://press.un.org/en/1999/19990920.pop738.html)) | falsified | `calendar_expired` true; judgment call: backstory could be counted `incidental` |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| Aging and all diseases cured (120) | central | yes | open at every date | present / present / still_open | |
+| US population stabilized at forty million, average age 129 (226) | substantial | yes | open at every date | present / present / still_open | |
+| A birth requires a volunteer death by law (8832) | central | yes | open at every date | present / present / still_open | |
+| The "good old days" when the Earth had twenty billion people, heading to forty, eighty and one hundred and sixty billion (10430) | substantial | no | open: a projection when written and not yet reached | present / present / still_open | the story gives no year for the twenty billion |
+| "In the year 2000", before scientists stepped in, there was not enough drinking water and nothing to eat but seaweed (11011) | substantial | no | open until 2000; contradicted afterwards | present / absent (excluded) / falsified | `calendar_expired` true; judgment calls: the sentence is partly counterfactual ("before scientists stepped in"), and the premise could be `incidental` |
 
-Counted premises are present at composition and, with the calendar-expired backstory excluded,
+Counted premises are present at composition and, with the calendar-expired sentence excluded,
 today. Plausibility as written: `present`; today: `present`. A date is not needed beyond the
-upper bound. Speculative premises: yes.
+upper bound. Speculative premises: yes. The world population passed six billion near 1999
+(the UN designated 12 October 1999 as the
+[Day of 6 Billion](https://press.un.org/en/1999/19990920.pop738.html)), so the year-2000
+sentence is not how the year turned out.
 
 ### A Bad Day for Sales (Leiber)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| A mobile sales robot (823) | central | speculative; not contradicted | still open | |
-| A missile strike on Manhattan, a "Hot Truce" (338, 8221, 8789) | central | speculative future history, undated; not contradicted | still open | no stated date, so not calendar-expired |
-| Weather-controlled air (7896) | incidental | speculative | still open | not counted |
-| Advertising copy about a Martian sunrise (6900) | incidental | advertising copy, not a claim of a settled Mars | stable | not counted |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| A mobile sales robot (823) | central | yes | open | present / present / still_open | judgment call: mobile sales and delivery robots now exist, so "partly realized" is arguable |
+| A missile strike on Manhattan, a "Hot Truce" (338, 8221, 8789) | central | yes | open; undated | present / present / still_open | no stated date, so not calendar-expired |
+| Weather-controlled air (7896) | incidental | yes | open | present / present / still_open | not counted |
+| Advertising copy about a Martian sunrise (6900) | incidental | no | advertising copy, not a claim of a settled Mars | n/a | not counted |
 
 Plausibility as written: `present`; today: `present`; no date needed. Speculative premises:
 yes.
 
 ### A Case of Sunburn (Fontenay)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| Mars has a protective blue mist that shields the surface from the sun (932, 34221) | central | time-sensitive: window start is the first close-up images from Mariner 4 on [15 July 1965](https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/m04_01d.html); the end of the window (consensus) is not verified | falsified | judgment call: that the premise was not contradicted in 1957 is my reading and is not checked against 1950s sources |
-| Earth's magnetic field interferes with the mist, and the captured station amplifies fields (34671) | central | an invented mechanism that depends on the mist | falsified | the "contrary new theory" case in the rubric text |
-| A settled Mars with dome cities, canals and green lowlands (29401) | substantial | time-sensitive, same window | falsified | |
-| Mars colony founded in 1985, story dated June 2020 (12152, 11642) | substantial | a dated prediction | falsified | `calendar_expired` true |
-| Gravity boats, heat guns, spaceships | incidental | speculative | still open | not counted |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| Mars has a protective blue mist that shields the surface from the sun (932, 34221) | central | yes | open until July 1965; contested from the first close-up images by Mariner 4 on [15 July 1965](https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/m04_01d.html); contradicted today (my reading of the Mariner results, not sourced beyond the flyby date) | present if composed before July 1965 / absent / falsified | the end of the contested period is not verified; that the premise was not contradicted in 1957 is my reading and is not checked against 1950s sources |
+| The captured station "amplifies the magnetic field of Mars" (4812) | central | yes | open until July 1965; contested afterwards: search-result summaries of NASA pages say Mariner 4 found no detectable field, that this was not conclusively determined, and that Mars is now accepted to be essentially without an intrinsic field of any significance | present if before July 1965 / absent / falsified | the NASA pages were not opened |
+| Earth's magnetic field interferes with the mist, and the station amplifies fields (34671) | central | yes | an invented mechanism that depends on the two premises above | follows them | the "contrary new theory" case in the rubric text |
+| A settled Mars with dome cities, canals and green lowlands (29401) | substantial | yes | same timeline as the mist | present if before July 1965 / absent / falsified | |
+| Mars colony founded in 1985, story dated June 2020 (12152, 11642) | substantial | yes | a dated prediction | present / absent (excluded) / falsified | `calendar_expired` true |
+| Gravity boats, heat guns, spaceships | incidental | yes | open | n/a | not counted |
 
-Plausibility as written: `present` if composed before July 1965 (it was published in April 1957);
-`ambiguous` if only the career window were known. Today: `absent`. A date is needed. Speculative
-premises: yes.
+Plausibility as written: `present` if composed before July 1965 (it was published in April
+1957); `ambiguous` with that condition if only the career window were known. Today: `absent`
+(the calendar-expired claim is excluded). A date is needed. Speculative premises: yes.
 
 ### The Blue Cross (Chesterton)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| The setting is London during the 1908 Eucharistic Congress (1459) | substantial | a real event; contemporary to the author | stable | |
-| A thief's tricks: messages photographed on microscope slides, a portable pillar-box (3276, 3598) | incidental | tricks, not speculative science | stable | a model could mistake a "portable pillar-box" for an invention; not counted |
-| An argument that reason is supreme (35779) | incidental | argument, not a premise about the world | stable | |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| The setting is London during the Eucharistic Congress (1459) | substantial | no | supported; contemporary to the author | present / present / stable | the text gives no year; the congress was held in London on 9 to 13 September 1908 (from a search-result summary, not opened), which is an inference from outside the text |
+| A thief's tricks: messages photographed on microscope slides, a portable pillar-box (3276, 3598) | incidental | no | supported; tricks, not speculative science | n/a | a model could mistake a "portable pillar-box" for an invention; not counted |
+| An argument that reason is supreme (35779) | incidental | no | an argument, not a premise about the world | n/a | |
 
 No speculative premises: plausibility as written is `present` by the no-premises rule, with the
 speculative-premises flag false. The keyword scan in the script finds `invent`, `machine` and
-`scien` only in the senses above. As written, `different` is absent: the story is set in its
-author's present. Read against today, 1908 London differs from here-and-now.
+`scien`: `invent` is the pillar-box trick above, `machine` is a philosophical phrase ("a
+thinking machine"), and `scien` occurs in "nescience" and "conscientiously". As written,
+`different` is absent: the story is set in its author's present. Read against today, 1900s
+London differs from here-and-now.
 
 ### Brown Wolf (London)
 
-| Premise (offset) | Materiality | Stability and window | Outcome to today | Notes |
-|---|---|---|---|---|
-| A dog travels up to 150 miles a day to return north (7441, 6929) | substantial | strained but not an established-fact violation | stable | judgment call |
-| The dog is a Klondike dog (15924) | incidental | a neighbor's claim | stable | |
-| Setting: California about 1901, with a mail contract and a Klondike past (22116, 22456) | substantial | contemporary to the author | stable | |
+| Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
+|---|---|---|---|---|---|
+| A dog travels up to 150 miles a day to return north (7441, 6929) | substantial | no | supported, strained | present / present / stable | judgment call: an exaggeration, not an established-fact violation |
+| The dog is a Klondike dog (15924) | incidental | no | a neighbor's claim | n/a | |
+| Setting: California about 1901, with a mail contract and a Klondike past (22116, 22456) | substantial | no | supported; contemporary to the author | present / present / stable | |
 
 No speculative premises: plausibility as written `present` by the no-premises rule. The keyword
 scan finds one hit, a simile about "a traveller from another planet". As written, `different`
@@ -121,7 +133,7 @@ is absent. Read against today, the setting is a past era.
 | Story | Date-sensitive counted premise | Calendar-expired claim | Plausibility as written | Plausibility today | Date needed |
 |---|---|---|---|---|---|
 | Bell | no | no | absent | absent | no |
-| 2 B R 0 2 B | no | yes (year 2000) | present | present (backstory excluded) | no |
+| 2 B R 0 2 B | no | yes (year 2000) | present | present (expired sentence excluded) | no |
 | A Bad Day for Sales | no | no | present | present | no |
 | A Case of Sunburn | yes (Mars) | yes (1985, 2020) | present if before July 1965 | absent | yes |
 | The Blue Cross | no | no | present (no premises) | present | no |
@@ -134,12 +146,12 @@ matter in the corpus.
 
 ## Judgment calls and limits
 
-- Whether Bell's unexplained bell is a factual premise at all.
-- Whether the Vonnegut year-2000 backstory is `substantial` or `incidental`.
-- Whether Sunburn's mist was contradicted by knowledge available in 1957 (not checked against 1950s sources).
-- The Andersen date and the Brown Wolf collection date come from search-result summaries that I did not open.
+- Whether Bell's unexplained bell is a factual premise at all, and whether supernatural claims count as contradicted.
+- Whether the Vonnegut year-2000 sentence is `substantial` or `incidental`, and how to treat its counterfactual wording.
+- Whether Leiber's robot is `still_open` or partly realized.
+- Whether Sunburn's mist was contradicted by knowledge available in 1957 (not checked against 1950s sources), and the end of the contested period for the mist and the magnetic field.
 - Whether Brown Wolf's travel speed is an exaggeration or a violation.
-- Brown Wolf's first appearance is unconfirmed; the Sunburn and Blue Cross dates rest on one or two secondary sources, and I did not open ISFDB.
+- Brown Wolf's first appearance is unconfirmed; the Andersen and Brown Wolf collection dates, the Mars magnetic-field result, and the 1908 congress come from search-result summaries that I did not open; I did not open ISFDB.
 - One rater, no second check, and six hand-picked stories.
 
 ## Reproduction
@@ -168,6 +180,7 @@ CITES = {
         "All diseases were conquered. So was old age.",
         "The population of the United States was stabilized at forty-million souls.",
         "the population of the Earth was twenty billion",
+        "before scientists stepped in and laid down the law",
         "no newborn child could survive unless the parents of the child could find someone who would volunteer to die",
     ],
     "mass_quantities/a_bad_day_for_sales__leiber": [
@@ -184,6 +197,7 @@ CITES = {
         "the Earth date, June 1, 2020",
         "the dark green areas of Syrtis and Hadriacum were plainly visible",
         "only the blue mist of Mars protects its surface from the hard rays of the sun",
+        "an experimental laboratory that amplifies the magnetic field of Mars",
         "It's the Earth's magnetic field, not that of Mars, that interferes with the blue mist",
     ],
     "chesterton/blue_cross": [
@@ -242,6 +256,7 @@ Output as of this commit:
    offset 120 | All diseases were conquered. So was old age.
    offset 226 | The population of the United States was stabilized at forty-million so
    offset 10430 | the population of the Earth was twenty billion
+   offset 11011 | before scientists stepped in and laid down the law
    offset 8832 | no newborn child could survive unless the parents of the child could f
 == mass_quantities/a_bad_day_for_sales__leiber (13279 chars)
    offset 823 | Robie was the logical conclusion of the development of vending machine
@@ -256,6 +271,7 @@ Output as of this commit:
    offset 11642 | the Earth date, June 1, 2020
    offset 29401 | the dark green areas of Syrtis and Hadriacum were plainly visible
    offset 34221 | only the blue mist of Mars protects its surface from the hard rays of 
+   offset 4812 | an experimental laboratory that amplifies the magnetic field of Mars
    offset 34671 | It's the Earth's magnetic field, not that of Mars, that interferes wit
 == chesterton/blue_cross (46342 chars)
    offset 1459 | the Eucharistic Congress, then taking place in London
