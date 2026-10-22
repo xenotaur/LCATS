@@ -206,10 +206,12 @@ interval is known, and a report states the interval it used. The model never ass
 relation directly.
 
 **R4. Novelty and `different`.** Each premise carries `novel_at_composition`: `true`, `false`
-or `unknown`. A supernatural or fantastic element is `true` only if the story presents it as
-new to its world; if the story's genre presents it as ordinary (a folktale), it is `unknown`. `different` as written is `present` if any counted premise is novel, `absent`
-if there are counted premises and none is novel, `ambiguous` if none is known novel and some
-are unknown, and `absent` if no counted premises exist. Whether a fantastic condition passes `plausible` is a separate matter.
+or `unknown`, judged against the author-time empirical world of D1, never against the story's
+own world: talking animals or spirits in a folktale are `true` however ordinary they are to its
+characters, and `unknown` is only for a claim the stage cannot place. `different` as written is
+`present` if any counted premise is novel, `absent` if there are counted premises and none is
+novel, `ambiguous` if none is known novel and some are unknown, and `absent` if no counted
+premises exist. Whether a fantastic condition passes `plausible` is a separate matter.
 
 **R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
 the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
@@ -240,20 +242,28 @@ today (P3), only when `speculative_premises.has` is true; otherwise the category
 | ambiguous or not_assessable | any | undetermined, with the condition |
 
 **R8. A second derived verdict.** The new record carries `verdict_as_written`: the conjunction
-in `heinlein_verdict` (`models.py:362-377`) with `different` from R4 and `plausible` from D5,
-and `human`, `essential`, `causal` taken from the existing five-criterion record. The
-prerequisite rules (`HEINLEIN_PREREQUISITES`, `models.py:35`, used by
-`heinlein_dependency_violations`, `models.py:379`) apply: if a violation appears, for example
-`essential` present while the new `different` is absent, the record reports
+in `heinlein_verdict` (`models.py:362-377`) over five statuses in the author's frame.
+`different` comes from R4 and `plausible` from D5. The stage assesses `essential` and `causal`
+itself, against its author-time premises, because the existing record's two statuses depend on
+a today-relative `different`: when a once-novel condition has since become ordinary, the existing
+prompt can mark `different` absent, and its rule that `essential` and `causal` cannot be present
+then (`run_worldcon_spike.py:2560-2564`) would carry the same today-relative error into the
+as-written verdict. Each of the two statuses cites the premise IDs the plot depends on. Only
+`human` is taken from the existing record, because it does not depend on the reference frame.
+The prerequisite rules (`HEINLEIN_PREREQUISITES`, `models.py:35`, used by
+`heinlein_dependency_violations`, `models.py:379`) apply within the new record: if a violation
+appears, for example `essential` present while `different` is absent, the record reports
 `consistency: inconsistent` with the pair and `verdict_as_written: indeterminate`, and does not
-silently force a verdict. If the existing record is missing or failed, the field is
-`not_computed`.
+silently force a verdict. If the existing record is missing or failed, `human` is unavailable
+and the field is `not_computed`. The record also reports, for information only, where its five
+statuses differ from the existing record's.
 
 **R9. Evidence for derived values.** The existing record requires evidence for a `present`
 criterion (`models.py:328-329`). The new record is a different kind: statuses derived by
 Python from premises, including a vacuous `present`, need no supporting evidence, but each
-premise carries its text anchor (offset and quote) so a reader can audit it. This is
-deliberate and does not change the existing invariant.
+premise carries its text anchor (offset and quote) so a reader can audit it. The two statuses the
+model assesses, `essential` and `causal`, follow the existing rule: a `present` cites the
+premise IDs it depends on. This is deliberate and does not change the existing invariant.
 
 **R10. Handling the model's weak points.** The stage must name each fact and the date it
 became established or contested, and mark the claim `model_asserted`. A curated table of known
@@ -274,7 +284,8 @@ One `heinlein_temporal` analysis record per story, serialized only when the stag
   asserted by the model) and appears in the assessment.
 - `assessment`: `{plausible_as_written, plausible_today, different_as_written, condition,
   per_premise: [{premise_id, status_as_written, status_today, relation, calendar_expired}],
-  today_reason, speculative_premises, category, verdict_as_written, consistency}`.
+  essential_as_written, causal_as_written (each with status, supporting premise IDs and
+  rationale), human (from the existing record), comparison_with_existing, today_reason, speculative_premises, category, verdict_as_written, consistency}`.
 
 ### Options considered
 
@@ -347,7 +358,9 @@ Recommended work items, in order, none created by this proposal:
 1. **Contract and validators.** The premise, timeline, interval, relation and flag records, the
    rules R2 to R8, the profile table, the provenance version, and the sidecar optional kind
    with the changes listed under Compatibility. Depends on this proposal's adoption.
-2. **Stage, prompt and tool schema.** The opt-in flag, prompt version, payload with date
+2. **Stage, prompt and tool schema.** The opt-in flag, prompt version, a prompt and schema that
+   produce the premises, the date inputs, and the author-frame `essential` and `causal`,
+   payload with date
    inputs, the paid-run gate rule, fake-backend support, and no-cost tests. Depends on 1.
 3. **Date-source tooling.** Loading owner-supplied dates and an owner override; evaluating a
    bibliographic source's coverage and terms before relying on it. Depends on 1.
@@ -390,9 +403,11 @@ Each has a recommendation; none is decided here.
    before implementation.
 4. **Whether the five-criterion prompt later changes.** Recommendation: no change until the
    live run shows how the existing prompt behaves on the period stories.
-5. **Essential and causal in the author's frame.** R8 keeps them from the existing record and
-   adds a consistency check. Recommendation: accept for the first implementation; revisit if
-   the check fires often.
+5. **Essential and causal in the author's frame.** R8 has the new stage assess them against its
+   author-time premises, and takes only `human` from the existing record. Remaining question:
+   whether `human` also needs reassessment. Recommendation: copy it in the first
+   implementation, and compare the two records' statuses in the live run to see whether any
+   differ for a reason the frame explains.
 6. **Model knowledge cutoff and recall.** Recommendation: record the cutoff and the analysis
    date with every result, require the stage to name each fact and date, and add the fact
    table as an audit layer (work item 4).

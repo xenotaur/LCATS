@@ -51,15 +51,14 @@ the premise over the composition interval; "today" is its plausibility on the an
 | Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
 |---|---|---|---|---|---|
 | An unexplained bell sound draws the townspeople; a character reports an owl, a child says the bell "does not exist" (2534, 4816) | central | n/a | not treated as a factual premise | n/a | judgment call: an allegorical, unexplained phenomenon makes no testable claim |
-| Apes that speak and threaten the prince (8630) | incidental | unknown | contradicted at every date | absent / absent / stable | not counted; novelty is unknown because a folktale presents such elements as ordinary |
-| Apples that look like soap bubbles (9046) | incidental | unknown | decorative | n/a | not counted |
-| A holy bell and blessed spirits at the climax (11656) | substantial | unknown | contradicted at every date (judgment call) | absent / absent / stable | counted; judgment call: treated as contradicted because the story offers no natural account of it |
+| Apes that speak and threaten the prince (8630) | incidental | yes | contradicted at every date | absent / absent / stable | not counted |
+| Apples that look like soap bubbles (9046) | incidental | yes | decorative | n/a | not counted |
+| A holy bell and blessed spirits at the climax (11656) | substantial | yes | contradicted at every date (judgment call) | absent / absent / stable | counted; judgment call: treated as contradicted because the story offers no natural account of it |
 
 Plausibility as written: `absent`; today: `absent`; a date is not needed. `calendar_expired`:
-none. Speculative premises: yes, because the counted supernatural element has a `contradicted`
-standing (its novelty is `unknown`, a judgment call: a folktale presents such elements as
-ordinary, so they are not clearly new relative to the author's world). `different` as written: `ambiguous`,
-and with plausibility `absent` the verdict is `does_not_qualify`.
+none. Speculative premises: yes. `different` as written: `present` (the supernatural elements
+are novel relative to the author's real world, however ordinary they are to the characters), so
+with plausibility `absent` the verdict is `does_not_qualify`.
 
 ### 2 B R 0 2 B (Vonnegut)
 
@@ -151,7 +150,7 @@ matter in the corpus.
 
 ## Judgment calls and limits
 
-- Whether Bell's unexplained bell is a factual premise at all, whether supernatural claims count as contradicted, and whether a folktale's supernatural elements are novel relative to the author's world (recorded as `unknown`).
+- Whether Bell's unexplained bell is a factual premise at all, and whether supernatural claims count as contradicted.
 - Whether the Vonnegut year-2000 sentence is `substantial` or `incidental`, and how to treat its counterfactual wording.
 - Whether Leiber's robot is `still_open` or partly realized.
 - Whether Sunburn's mist was contradicted by knowledge available in 1957 (not checked against 1950s sources), and the end of the contested period for the mist and the magnetic field.
