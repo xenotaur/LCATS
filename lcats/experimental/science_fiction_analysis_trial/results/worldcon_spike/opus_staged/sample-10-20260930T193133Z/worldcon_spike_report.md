@@ -12,7 +12,7 @@
 - Output tokens: `58944`
 - Latency seconds: `795.955`
 - Estimated cost USD: `10.0`
-- Cumulative estimated cost USD: `15.0`
+- Cumulative estimated cost USD: `19.999996`
 
 ## Go/No-Go Note
 

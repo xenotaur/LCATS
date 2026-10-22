@@ -28,7 +28,7 @@
   "mode": "sample",
   "model": "claude-opus-4-8",
   "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-10-20260930T193133Z",
-  "prior_spend_usd": 5.0,
+  "prior_spend_usd": 9.999996,
   "restrictions": [
     "experiment-local outputs only",
     "no corpus sidecars",
