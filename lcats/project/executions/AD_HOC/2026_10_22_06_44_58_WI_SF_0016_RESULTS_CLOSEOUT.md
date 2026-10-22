@@ -2,7 +2,7 @@
 execution_id: 2026_10_22_06_44_58_WI_SF_0016_RESULTS_CLOSEOUT
 prompt_id: PROMPT(AD_HOC:WI_SF_0016_RESULTS_CLOSEOUT)[2026-10-22T06:44:55+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/481
 commit: 55b20d4aa64507953dfe35b288548c65c5c140b2
