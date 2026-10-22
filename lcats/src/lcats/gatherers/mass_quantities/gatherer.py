@@ -7,6 +7,9 @@ from tqdm import tqdm
 from lcats.gatherers import downloaders
 from lcats.gatherers.mass_quantities import storymap
 from lcats.gatherers import parser
+from lcats.gettenberg import resources
+from lcats.utils import env
+from lcats.utils import paths
 from lcats.utils import run_log
 
 # Outside data/ and corpora/ (both protected by run_log.RunLog's own
@@ -14,6 +17,29 @@ from lcats.utils import run_log
 # and <corpus>_gather_run_log.jsonl naming convention (WI-GATHER-0105).
 DEFAULT_GATHER_LOG_DIR = pathlib.Path("logs") / "gather"
 GATHER_LOG_FILENAME = "mass_quantities_gather_run_log.jsonl"
+
+
+def _log_directory(path):
+    """Protect runtime data/corpora roots even outside a source checkout.
+
+    The general RunLog guard discovers repository roots. Installed wheels need
+    this additional check against the same environment roots used by gathering.
+    This safety rule is retained from the separated review-store implementation;
+    it does not require its editorial policy or candidate persistence machinery.
+    """
+    root = pathlib.Path(path).resolve()
+    values = [env.data_root(), env.corpora_root()]
+    try:
+        anchor = paths.find_pyproject_root(__file__)
+    except FileNotFoundError:
+        pass  # A wheel has runtime roots, but no source checkout to protect.
+    else:
+        values.extend((anchor / env.data_root(), anchor / env.corpora_root()))
+    for value in values:
+        protected = pathlib.Path(value).resolve()
+        if root == protected or protected in root.parents:
+            raise ValueError(f"log directory must be outside data/corpora: {root}")
+    return root
 
 
 def gather(*, source):
@@ -64,6 +90,7 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
     """
     if source is None:
         raise ValueError("an explicit GutenbergStorySource is required")
+    log_dir = _log_directory(log_dir)
     gatherer = downloaders.DataGatherer(
         storymap.TARGET_DIRECTORY,
         description="Single stories from Gutenberg",
@@ -85,12 +112,23 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
         log_dir,
         GATHER_LOG_FILENAME,
         story_count=story_count,
+        # Both runtime and available checkout roots were independently checked.
+        allow_protected_root=True,
     ) as log:
         # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
         for story in tqdm(stories):
             # for story in tqdm(range(1, 79061)):
             # print(story)
-            story, filename, error = parser.gather_story(gatherer, story, source=source)
+            try:
+                story, filename, error = parser.gather_story(
+                    gatherer, story, source=source
+                )
+            except resources.ResourceDecodeError as exc:
+                if exc.code == "cleanup_refused":
+                    # Keep the migration contract: a refused source aborts with
+                    # exit 2, while the log identifies this distinct cause.
+                    log.event("story_cleanup_refused", story=story, reason=str(exc))
+                raise
             if filename:
                 gathered_stories[story] = filename
             if error:
