@@ -648,3 +648,11 @@ records the fallback trace, full 1,659-input experiment-only grammar comparison,
 explicit literal counterfactuals, boundary tests and independent review. It changes no
 production cleanup, gather policy or corpus approval. Use its documented commands and
 pinned environment; its measurements do not qualify a future delivery candidate.
+
+
+## Numeric-marker notice follow-up
+
+The [numeric-marker investigation](results/gettenberg-numeric-notice-audit-20261022/README.md)
+adds explicit source/catalog/title corroboration to the prior experiment. It reuses
+pinned baseline evidence, freshly extracts all accepted inputs, preserves title
+mismatches, and records scope/qualification limits. No production policy is changed.

@@ -37,12 +37,27 @@ induced differences from 902 to 433 on the full 1,659-input population. It resto
 legacy body hashes, including 35401, without new formerly-equal differences or changed
 refusals. Product code and approval gates remain unchanged.
 
-It does **not** fix 50103: the notice carries a title while the envelope carries ebook
+The title-only candidate does **not** fix 50103: the notice carries a title while the envelope carries ebook
 number 50103. Explicitly removing its known notice restores the legacy body, proving
 the mechanism but not qualifying a general numeric-marker rule. 376 residuals have
 that structural pattern; 56 are outside this grammar and one is a leading-LF difference.
 Keep these unresolved. The next focused question is provider/source corroboration for
 numeric markers, not a wholesale gather rewrite. See the [experiment](../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md).
+
+## Numeric-marker follow-up
+
+The subsequent experiment corroborates a numeric envelope against the explicitly
+bound source ID, catalog ebook ID and catalog title. This restores 366 additional
+legacy body matches, including 50103, leaving 67 differences and the same 13 refusals.
+Both known truncations are now repaired experimentally. No new formerly-equal body
+changes or additional eligibility changes occur. Ten title mismatches remain excluded;
+there is no fuzzy matching or broader gather rewrite.
+
+Recommend reviewing the scope split and qualification amendment now, then constructing
+a narrower delivery candidate if approved. Carry both precise notice repairs with
+explicit source-context/provenance, and keep remaining differences/refusals visible.
+The experiment does not approve corpus output or establish actual gather usability.
+[Full numeric-marker evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md).
 
 ## Proposed ownership
 
@@ -65,8 +80,9 @@ construct a narrower delivery candidate from the migration seam and selectively 
 forward the cleanup repair and justified integration fixes. Keep PR524/history and all
 source/corpus evidence intact. Revalidate the actual candidate before main promotion.
 
-We have not yet established the minimum integration patch. Reverting every gather
-change restores known failures; retaining everything ships a gather overhaul. Removing
+The experiments identify two narrow repair candidates; the final delivery patch is
+not yet constructed or qualified. Reverting every gather change without those repairs
+restores known failures; retaining everything ships a gather overhaul. Removing
 only review modules also breaks mixed parser/CLI/logging dependencies. This requires
 selective construction and tests, not a mechanical revert or blanket bypass flag.
 

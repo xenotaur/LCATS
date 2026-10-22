@@ -144,6 +144,38 @@ replacement safe while 50103 remains. This evidence reduces the justification fo
 retaining the full extractor overhaul, but does not by itself qualify the delivery
 split or adopt Q1–Q8. Remaining provider effects still need causal accounting.
 
+### Numeric-marker follow-up — 2026-10-22 17:36 UTC
+
+The next human-authorized experiment adds explicit source/catalog corroboration for
+numeric markers. Positive source ID, catalog ebook ID and both marker identifiers
+must agree exactly; the terminal notice title must match a projected catalog title
+under existing case/horizontal-space rules. All other envelope/whole-line/nonempty
+checks remain. No fuzzy matching, product change or gather algorithm change.
+
+Fresh combined-candidate extraction runs on all 1,646 accepted inputs, after verifying
+all 1,659 original source/corpus identities and unchanged metadata/product modules.
+The previous old-cleaner/replacement/title-candidate outputs are explicitly reused as
+pinned evidence, not falsely reported as newly executed. Numeric cleanup changes 367
+slices but 366 bodies: 61499 already had the same body. The additional 366 equalities
+reduce 433 residuals to 67; together both candidates restore 835 of 902 original body
+comparisons. No previously equal body becomes different, no additional eligibility
+change occurs, and the same 13 refusals remain.
+
+50103 now regains its exact 31,972-character legacy body through the corroborated
+rule; 35401 keeps its 26,080-character repair. Both diagnosed fallback-suppression cases
+are therefore repaired by narrow provider/source rules in the experiment. Remaining:
+10 title mismatches, 56 outside this notice grammar, one known leading LF. These are
+unresolved comparisons, not approvals or a count of proven remaining bugs.
+
+**Next decision:** stop widening the notice family and review the scope split/Q1–Q8
+proposal before production implementation. A narrower delivery candidate can carry
+these two supported repairs, with explicit metadata context and derivation provenance,
+then account for the 67 residuals and 13 refusals and qualify real gather behavior.
+Do not hide catalog access inside the pure cleaner or infer safe final delivery from
+historical equality. The wider gather enhancements remain preserved for reconciliation.
+
+[Numeric-notice evidence and reproduction](../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md).
+
 ### Metadata is a separate contrast
 
 The full catalog audit recorded 37 additional English-query IDs from source languages
@@ -168,10 +200,11 @@ unless otherwise stated. “Retain” still requires final-candidate qualificati
 | gettenberg catalog, models, ingestion, lifecycle, queries | Retain | Core replacement; richer metadata is an intended capability, not a demand for old SQL compatibility |
 | gettenberg resource selection, routes, original bytes, decode, refresh, cache/provenance | Retain | Core replacement; qualify stated contracts without inventing missing historical wire receipts |
 | gettenberg cleanup-v2 | Retain | Narrow Gutenberg envelope repair; preserve original text and conservative refusal |
+| Title-matched and explicitly corroborated numeric terminal notices | Carry as proposed narrow repair candidates, subject to implementation review | Both diagnosed fallback truncations regain legacy hashes without replacing extraction; explicit context/provenance and residual qualification remain required |
 | `gutenberg_source.py`, source-aware preparation and caller migration | Retain | Necessary interface; audit projection/selection/naming effects separately |
 | Packaging, CI migration, genre caller, approved notebook migration/archives | Retain | Explicit original scope; a path outside gettenberg is not automatically scope expansion |
 | `story_output.py` atomic/no-overwrite behavior | Retain core; separate result-contract changes | Predates PR524; its boolean return was added for later outcome reporting |
-| `parser.body_of_text` /`story_body.extract` | Hold as integration candidate; split by behavior | No-late-heading-reset protection addresses a demonstrated interaction. Broad front matter/typography behavior is not automatically necessary |
+| `parser.body_of_text` /`story_body.extract` | Hold as integration candidate; split by behavior | The two notice candidates repair the diagnosed interaction without this overhaul. Broad front matter/typography behavior is not automatically necessary; residual material effects still require qualification |
 | `story_body` production credits, illustration labels, terminal notice handling | Evaluate separately | Shared file does not establish shared necessity; exact Gutenberg notices differ from general editorial interpretation |
 | Chapter assessment and metadata heading exemptions | Hold causal subset; separate general redesign | Some changes compensate for retained headings; 42640 shows the extractor can itself cause this interaction |
 | `readiness.py` default policy, ordered selections and editorial metadata | Separate as gather enhancement | New publication contract; preserve current protections until a safe replacement integration plan is approved |

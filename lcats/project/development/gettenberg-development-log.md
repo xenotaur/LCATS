@@ -5044,3 +5044,69 @@ another gather subsystem. A successful known-input counterfactual must still be 
 separate from a corroborated reusable rule; the numeric-marker exception demonstrates
 why. The new native review record was minted at checkpoint rather than dispatch;
 future grants should create it before delegation while preserving this run's actual times.
+
+
+### Numeric-marker notice sprint grant — 2026-10-22 17:28:31 UTC
+
+Human approved the proposed numeric-marker investigation with a hard stop at 11am
+Pacific (18:00 UTC). Actual window is about 31 minutes, superseding the proposed
+60/90-minute allowance. Freeze substantive experiments by 17:48; reserve the last ten
+minutes for review/checkpoint/publication. No automatic renewal. Start 1488c69a on
+codex/gettenberg-scope-audit; experiment-only, no product/gate/corpus edits or merge.
+
+Test explicitly bound source ID + catalog ebook ID + exact title corroboration after
+an already accepted numeric envelope. Preserve ambiguity, nonterminal/wrapped notices
+and title mismatches; no punctuation/fuzzy matching. Early read-only inventory finds
+366 of 376 numeric notices match current projected titles under existing case/space
+semantics, while 10 do not. This is feasibility evidence, not acceptance or output yield.
+
+Reuse the prior verified baseline comparison and rerun the candidate across all 1,659
+inputs, rebinding original source/corpus hashes, product bytes and metadata. Do not
+spend the short window recomputing unchanged old-cleaner outputs. One independent
+reviewer, no implementation workers or recursion. Weekly usage starts 0% consumed per
+account telemetry (window reset since prior run); no reset action requested or taken.
+Native prompt: PROMPT(WI-GETTENBERG-0010:GETTENBERG_NUMERIC_NOTICE_AUDIT)[2026-10-22T17:28:56+00:00].
+
+
+### Numeric-marker evidence and independent review — 2026-10-22 17:39 UTC
+
+Fresh candidate comparison completed on its first run in 196.868 seconds: all 1,659
+inputs verified, 1,646 extracted, same 13 refusals. Numeric rule shortens 367 cleanup
+slices and changes 366 bodies, all restoring legacy equality; 61499's slice changes but
+its body was already equal and stays so. Remaining differences 433→67; combined with
+the preceding title candidate, 835 of 902 original differences regain legacy equality.
+No formerly equal body becomes different, and no new eligibility change occurs.
+Both diagnosed truncations now regain exact legacy hashes: 35401=26,080 characters;
+50103=31,972, with its 10-chunk first candidate triggering the historical fallback.
+
+Residuals are 10 exact-title mismatches, 56 outside the notice grammar and one known
+leading LF; retain the 13 refusals separately. No fuzzy title matching, punctuation
+normalization, subtitle stripping, corpus approval or broad gather change. The
+experiment requires explicit source/catalog/title corroboration. Future production
+placement must keep context explicit and derivation provenance versioned; no hidden
+catalog/network access inside pure cleanup. Scope split and Q1–Q8 remain proposed.
+
+The prior three baseline paths are reused from pinned Git evidence 1488c69a, not falsely
+reported as reexecuted. Current source/corpus hashes, catalog projection, helper and
+product identities were checked; every accepted input's candidate extraction is fresh.
+All 1,279 unaffected body outputs reproduce prior hashes. This reduced measurement work
+from three parser paths to one; it is not a product performance claim or weakened gate.
+
+One independent reviewer checked every summary count and all 367 removed suffixes
+against source bytes/spans/grammar/IDs/title guards, independently executed both severe
+cases, and ran 8 focused tests plus 15 boundary probes. No unresolved findings. The
+coordinator's ten-title residual list was not independently audited as a separate list.
+The review record was minted before dispatch, improving on the prior run's checkpoint-
+time recording. No implementation worker or recursive delegation was used.
+
+Canonical package format/lint, explicit experiment checks and canonical scripts/test
+numeric_notice_candidate_test pass; help/protected-output/missing-cache/overwrite
+smokes pass. No full product suite, installed-wheel or public-gather qualification,
+download, production/gate/corpus mutation or main merge. Evidence and reproduction:
+experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/.
+
+Recommendation: stop expanding this notice family and present PR #528's scope split and
+qualification amendment for human review. If approved, construct the narrower delivery
+candidate with the two supported repairs, causal accounting for remaining differences/
+refusals and real gather/consumer qualification. Do not resume the editorial backlog
+or turn the ten title mismatches into an automatic fuzzy-matching task.
