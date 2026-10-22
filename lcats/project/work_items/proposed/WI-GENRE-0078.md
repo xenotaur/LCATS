@@ -49,7 +49,7 @@ acceptance:
   - "The comparison verifies that the Opus input contains a uniform provenance.backend_model of claude-opus-4-8, the local-model input contains a uniform provenance.backend_model of gpt-oss:20b, and the two source files have different hashes"
   - "A machine-readable JSONL report contains one record per story with Gutenberg candidates and primary label, Claude Opus label/confidence, local-model label/confidence, pairwise agreement flags, and an explicit three-way agreement category"
   - "Multi-label Gutenberg metadata is represented by an orthogonal metadata_multi_label flag and summary statistic, while every valid row receives exactly one candidate-set-aware agreement category"
-  - "A summary JSON reports aggregate agreement counts, per-genre counts, disagreement categories, input errors, provenance, and source-file hashes"
+  - "A summary JSON reports aggregate agreement counts, per-genre counts, disagreement categories, input-validation diagnostics, provenance, and source-file hashes; structural input errors cause a nonzero fail-closed exit and never produce per-story input_error rows"
   - "A Markdown report explains the methodology and presents aggregate results, per-genre results, and every disagreement category without treating any source as ground truth"
   - "Tests cover agreement categories, metadata multi-label handling, genre canonicalization, malformed input, duplicate IDs, missing IDs, and mismatched story sets"
   - "Existing validation JSONL files and the tracked corpora/ tree remain unchanged"
@@ -182,7 +182,9 @@ between metadata rules, model assessments, and future human judgments.
    - require a uniform `provenance.backend_model` of `gpt-oss:20b` for the
      local-model input;
    - reject identical source hashes;
-   - fail clearly rather than silently dropping records.
+   - fail clearly with summary-level input-validation diagnostics and a
+     nonzero exit rather than silently dropping records or emitting
+     per-story `input_error` rows.
 
 3. Implement stable genre normalization using the repository's existing genre
    vocabulary and alias conventions.
@@ -208,12 +210,15 @@ between metadata rules, model assessments, and future human judgments.
    - `metadata_local_only`
    - `models_agree_metadata_differs`
    - `all_three_differ`
-   - `input_error`
 
    Multi-label Gutenberg metadata is not an agreement category. Every valid
    row receives exactly one agreement category using candidate-set-aware
    semantics, and the orthogonal `metadata_multi_label` flag is reported
    separately in per-story output and aggregate statistics.
+
+   Structural input-validation failures are not comparison categories. They
+   abort the comparison with a nonzero exit and are retained only as
+   summary-level diagnostics; no per-story `input_error` records are emitted.
 
 6. Emit summary JSON containing:
 
@@ -224,7 +229,7 @@ between metadata rules, model assessments, and future human judgments.
    - per-genre counts;
    - disagreement counts by category and genre;
    - metadata multi-label statistics;
-   - input-error statistics;
+   - input-validation diagnostics for failed runs;
    - source paths;
    - source SHA-256 hashes;
    - verified model names and run identifiers where present;
@@ -289,6 +294,7 @@ requires:
 - From `lcats/`: `scripts/format --check --diff -- ../experiments/05_metadata_genre_prefilter/compare_validation.py ../experiments/05_metadata_genre_prefilter/compare_validation_test.py`
 - From `lcats/`: `scripts/lint ../experiments/05_metadata_genre_prefilter/compare_validation.py ../experiments/05_metadata_genre_prefilter/compare_validation_test.py`
 - From `lcats/`: `scripts/test ../experiments/05_metadata_genre_prefilter`
+- From `lcats/`: `scripts/test`
 - From `lcats/`: `lrh validate`
 - From the repository root: `git diff --check`
 - Manual verification that existing validation JSONL files and `corpora/`
