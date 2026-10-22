@@ -1234,11 +1234,15 @@ recommendation (`project/design/genre-sidecar-story-binding.md`) is a side manif
 of `{lcats_id, story_content_hash}`, compared with the regenerated `data/` at
 release time, with no sidecar schema change.
 
-**First concrete step:** preserve the 146 hashes in a tracked manifest (a data
-change; a recent precedent is the "preserve staged Opus run artifacts" data PR).
-Then build the comparison as a small tool plus a runbook step, decide file-bytes
-versus body-only hashing and the re-assess-or-accept rule, and measure whether a
-fresh `lcats gather` reproduces the stored text byte-for-byte (not measured here).
+**First concrete step:** archive the 146 Opus checkpoint files themselves (about
+160 KB in total; `.gitignore:137` matches them, so they need a forced add or an
+ignore exception), and derive the hash manifest from the archived files so the link
+to the model run can be re-checked; a recent precedent is the "preserve staged Opus
+run artifacts" data PR. Then build the comparison as a small tool plus a runbook
+step, using a hash that covers `author`, `url` and the body (file bytes qualify; a
+body-only hash would miss changes the model is shown), decide the re-assess-or-accept
+rule, and measure whether a fresh `lcats gather` reproduces the stored text
+byte-for-byte (not measured here).
 
 **Related:** `project/design/genre-sidecar-story-binding.md`; `WI-PROMOTE-0118`;
 `WS-SIDECAR-SAFE-PROMOTION`.

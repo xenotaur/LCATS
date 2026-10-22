@@ -22,7 +22,7 @@ holds two assessments (checked: 146 of 146, no exceptions):
 | Assessment | Provenance keys | Depends on |
 |---|---|---|
 | `gutenberg_subject_rules` | `cache_db_path`, `cache_status`, `gutenberg_id`, `gutenberg_url`, `story_id`, `story_path` | the story's Gutenberg identity and the metadata cache; not the story text |
-| `lcats.analysis.corpus.assess.assess_story` (model) | `backend_model`, `input_tokens`, `output_tokens`, `run_id`, `story_id`, `story_path` | the story text (`run_prefilter.py:1206-1211` calls `assess_story()` on the story file), the backend model and the run |
+| `lcats.analysis.corpus.assess.assess_story` (model) | `backend_model`, `input_tokens`, `output_tokens`, `run_id`, `story_id`, `story_path` | the story text (`run_prefilter.py:1206-1211` calls `assess_story()` on the story file), the `author` and source `url` from `metadata` that `run_preflight` reads and the prompt shows the model (`assess.py:364-366`, `432-437`), the backend model and the run |
 
 `provenance.gutenberg_url` equals `story.json` `metadata.url` for all 146 stories
 (checked, 0 mismatches), so the metadata assessment's identity is already
@@ -72,7 +72,7 @@ duplicate that does not bear on the shipped Opus assessments.
 | Where | What it hashes | Where the hash lives |
 |---|---|---|
 | `run_prefilter.py` `_validation_fingerprint` | `story.json` bytes (`story_content_hash`) | the checkpoint, not the sidecar |
-| `annotate.py` `_genre_fingerprint`, `_scenes_fingerprint` (lines 118-151) | the story body text (`body_hash`, sha256) | the checkpoint fingerprint, not `genre.json` or `scenes.json` |
+| `annotate.py` `_genre_fingerprint`, `_scenes_fingerprint` (lines 118-151) | the story body text (`body_hash`, sha256), alongside `author` and `url` in the same fingerprint (`annotate.py:126-138`) | the checkpoint fingerprint, not `genre.json` or `scenes.json` |
 | `linguistics/sidecar.py` | the story body (`input.body_sha256`) | the sidecar itself; the validator compares it to the source body when one is supplied (lines 744-757, `source_hash_mismatch`) |
 | `science_fiction/models.py` and `preparation.py` | the normalized story text (`story_hash`, sha256 over `normalize_story_text` output) | the sidecar models; each evidence set and analysis repeats it and the validator checks it against the sidecar's own top-level `story_hash` (`models.py:705,722`), which is internal consistency, not a comparison with the source |
 
@@ -80,8 +80,8 @@ So both patterns exist here: change detection in a checkpoint outside the sideca
 (the genre producers), and a hash inside the sidecar (linguistics, science fiction),
 of which only linguistics can compare it with the source. The tranche-promoted
 genre sidecars are the one group with neither. The hashes also differ in basis:
-file bytes (the experiment), body text (annotate, linguistics) and normalized text
-(science fiction).
+file bytes (the experiment), body text plus `author` and `url` (annotate), body text
+(linguistics) and normalized text (science fiction).
 
 `genre_sidecar.validate_sidecar` (`genre_sidecar.py:63`) tolerates an extra field:
 adding a `story_content_hash` at the sidecar top level, on an assessment, or in an
@@ -114,16 +114,27 @@ validator.
   (it sees only the payload) and not in `promote insert` (it needs no story
   content to be create-only). Keep the CI drift test as it is.
 - **What it flags:** a story whose bytes changed, or one missing from `data/`. The
-  hash covers the whole file, so a metadata-only change (`year`, `author`, `url`)
-  also flags. That is conservative; a follow-up may choose a body-only hash to match
-  the annotate and linguistics precedent. Today the two are equivalent, because
-  no file has changed.
+  hash covers the whole file, so a metadata-only change also flags. That is
+  correct, not merely conservative: `author` and `url` are shown to the model in the
+  assessment prompt and `url` anchors the metadata assessment, so an unchanged body
+  with a changed author or URL still leaves a stale sidecar. A body-only hash would
+  accept it, so it is not an acceptable choice. The follow-up should keep file bytes
+  (which the recovered baseline already is) or use an effective-input hash that
+  covers `author`, `url` and the body, as `annotate`'s fingerprint does.
 - **When it fires:** the operator re-assesses that story, or accepts the stale
   sidecar knowingly. The note does not decide which; re-assessment costs model
   calls.
-- **Time-sensitive:** the baseline's source files are untracked in one sibling
-  worktree. Preserving the 146 hashes in a tracked manifest should come before
-  building the check. That is a data-preservation change and outside this
+- **Time-sensitive, and preserve the evidence, not only the hashes:** the baseline's
+  source files are gitignored files in one sibling worktree. A manifest of 146
+  hashes derived from them merely asserts that they came from the Opus run; the
+  checkpoints are the primary evidence that links each hash to the model run
+  (their `generated_at` and token counts match the committed assessments). So the
+  first step is to archive the 146 Opus `validation.json` checkpoints themselves
+  (159,630 bytes in total) under `experiments/05_metadata_genre_prefilter/results/full_scan/`,
+  which needs a forced add or an ignore exception because `.gitignore:137` matches
+  them, in line with `AGENTS.md`'s "preserve historical outputs". The manifest is
+  then derived from the archived files, so the connection can be re-checked. The
+  local-model set is optional. This is a data-preservation change and outside this
   investigation, which forbids implementing a fingerprint.
 
 A prototype of the comparison, run in a scratch tree only (a 146-entry manifest
@@ -161,10 +172,11 @@ metadata-derived and a text hash as the wrong binding; that was corrected during
 
 ## Follow-ups
 
-- Preserve the 146 recovered hashes in a tracked manifest (data preservation; time
-  sensitive).
-- Build the release-time comparison, and decide file-bytes versus body-only
-  hashing and the re-assess-or-accept rule.
+- Archive the 146 Opus checkpoint files as tracked evidence, then derive the
+  baseline manifest from them (data preservation; time sensitive).
+- Build the release-time comparison with an effective-input hash that covers
+  `author`, `url` and the body (file bytes qualify), and decide the
+  re-assess-or-accept rule.
 - Measure whether a fresh `gather` reproduces the stored text.
 
 These are recorded in `project/design/backlog.md`.
