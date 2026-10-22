@@ -1,0 +1,60 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 4000,
+  "model": "fake-worldcon-spike",
+  "output_tokens": 236,
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stage": "sf_suvin_novum",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "dominant_novum_id": "novum-1",
+    "novum_candidates": [
+      {
+        "candidate_id": "novum-1",
+        "character_reaction_evidence_ids": [
+          "ev-reaction"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats explanatory evidence as cognitive validation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-explanation"
+          ]
+        },
+        "description": "No-cost smoke candidate derived from story text.",
+        "estrangement_rationale": "Estrangement evidence is recorded separately.",
+        "evidence_ids": [
+          "ev-storyworld",
+          "ev-explanation",
+          "ev-consequence"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats consequence evidence as hegemony.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-consequence"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.5,
+          "rationale": "Smoke fixture treats the storyworld contrast as novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "ev-storyworld"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "ev-contrast"
+        ]
+      }
+    ]
+  }
+}

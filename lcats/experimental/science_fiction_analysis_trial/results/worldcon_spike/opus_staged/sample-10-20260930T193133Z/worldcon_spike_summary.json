@@ -23,7 +23,7 @@
     "model": "claude-opus-4-8",
     "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-10-20260930T193133Z",
     "paid_model_calls_authorized": true,
-    "prior_spend_usd": 5.0,
+    "prior_spend_usd": 9.999996,
     "resume": false,
     "retry_policy": {
       "backoff": "bounded_exponential_0.25_to_2.0_seconds",
@@ -274,13 +274,13 @@
   ],
   "totals": {
     "complete": 10,
-    "cumulative_estimated_cost_usd": 15.0,
+    "cumulative_estimated_cost_usd": 19.999996,
     "estimated_cost_usd": 10.0,
     "failed": 0,
     "input_tokens": 584809,
     "latency_seconds": 795.955,
     "output_tokens": 58944,
-    "prior_spend_usd": 5.0,
+    "prior_spend_usd": 9.999996,
     "stories": 10
   },
   "version": "worldcon-knight-novum-spike-summary-v1",

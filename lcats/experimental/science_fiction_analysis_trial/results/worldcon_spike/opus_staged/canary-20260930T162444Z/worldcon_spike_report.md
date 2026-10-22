@@ -46,4 +46,3 @@ Use the canary report to decide whether to revise the contracts or proceed to a 
 - Qualified novum count: `0`
 - Dominant novum: `None`
 - Sidecar: `experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T162444Z/anderson/bell/science-fiction.json`
-
