@@ -1,0 +1,27 @@
+usage: audit_cleanup_causality.py [-h] catalog_cache text_cache output
+
+Reproduce an eight-case cleanup/extractor contrast without changing product
+code. From lcats/, project environment and PYTHONPATH=src: python
+../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py
+CATALOG_CACHE TEXT_CACHE /tmp/NEW_REPORT.json Requires the historical
+gutenbergpy measurement environment, never a production requirement. Uses one
+pinned historical parser and current local product modules; this is not a full
+historical environment reconstruction. Both cleaners and both parsers receive
+identical decoded text and current metadata. Source anchor intervals were
+reviewed in an earlier run; exact interval retention is not literary approval,
+and false can mean typography changes rather than missing narrative. Reads
+eight cached gzip texts (32 MiB compressed/expanded each), archived evidence,
+Git history and an existing catalog. Blocks socket creation during
+catalog/source processing; no acquisition, cache setup or story publication.
+POSIX alarm: 180s; Git subprocess timeout: 30s. Output must be a new path
+outside repository/cache roots. Failures raise and produce no completed
+output. Temporary historical module is removed. See results/gettenberg-scope-
+audit-20261022/README.md for pins and interpretation.
+
+positional arguments:
+  catalog_cache
+  text_cache
+  output
+
+options:
+  -h, --help     show this help message and exit

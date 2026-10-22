@@ -3698,7 +3698,7 @@ Source annotations inspect31 cases with chapter evidence on final bodies:16 weak
 metadata-heading rejections corrected,10 source-supported divided works/collections,
 5 unresolved editorial false positives. These counts isolate final-body
 classification; earlier32-rejection observations used a different prefix candidate
-and are not interchangeable. No claim that all 16 bodies are accepted follows.
+and are not interchangeable. No claim that all16 bodies are accepted follows.
 Actual historical replay44327 publishes;63230 rejects. The authored editorial-only
 probe actually publishes15 correction paragraphs; qualification remains failed at
 that boundary. Coordinator repaired only the review's concrete classification
@@ -4159,7 +4159,7 @@ independent narrow recheck pass; actual unchanged inputs still1642/7/1635. Two
 assignments total (initial under14min, recheck under2min), no recursive review.
 
 Reviewer independently read23762/63889 in full, checked decisive structural evidence
-for six exclusions, replayed reconciliation/publication, verified all 1659 source/
+for six exclusions, replayed reconciliation/publication, verified all1659 source/
 corpus hashes and product ledger. Minor63889 wording corrected:522 frontmatter
 characters plus two40-character asterism insertions; coordinator exact diff confirms.
 These source judgments are agent-authored and not human signatures.
@@ -4227,7 +4227,7 @@ Reuse candidate_review/readiness, replay and reconciliation helpers. Prior rule
 finding categories are classification inputs only, not an existing batch approver.
 No new sibling consumer or external dependency. Expected edits: tested domain rule
 in src/lcats if reusable, thin experiment ledger/runner and tests, archived evidence,
-Diataxis docs and control-plane/native records. Validate all 1659 inputs, source/corpus
+Diataxis docs and control-plane/native records. Validate all1659 inputs, source/corpus
 hashes, real temporary publication where qualified, canonical package and explicit
 experiment checks, installed-wheel check if product changes, LRH and cold review.
 Persistent skip consent invalid but watched fingerprints clean; neither changed.
