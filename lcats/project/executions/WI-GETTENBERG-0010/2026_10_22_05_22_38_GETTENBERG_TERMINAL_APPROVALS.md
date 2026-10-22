@@ -5,7 +5,7 @@ work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/524
-commit:
+commit: ba4a88faa12ed0772b763a657336693dc4e7a978
 created_at: 2026-10-22T05:22:38+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-batch-review-contract.md

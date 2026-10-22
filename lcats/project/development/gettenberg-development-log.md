@@ -4683,3 +4683,7 @@ changes or terminal closeout. WI0010 and both execution records remain nontermin
 
 LRH validation: 0 errors /351 existing warnings. Archive manifest verifies 63 files;
 all 55 disposition references and four tested implementation/test hashes verify.
+
+Implementation/evidence commit: `ba4a88faa12ed0772b763a657336693dc4e7a978`. Both native records bind this
+commit and remain in_progress. Hosted status will be reported on PR #524 at the
+final checkpoint head; no substantive work follows this evidence commit.
