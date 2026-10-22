@@ -148,8 +148,9 @@ reviewed for the whole run window:
   server; note them, and treat them as a signal only if you cannot account for
   them.
 - **Limits of the check.** Every client appears as `127.0.0.1`, so client
-  identity cannot be proven. A matching count and no foreign model loads is
-  evidence of isolation, not proof, and the private port with its own
+  identity cannot be proven. A request count that fits the request records (at
+  least as many chat lines as records, with any extras explained by retried
+  errors) and no foreign model loads is evidence of isolation, not proof, and the private port with its own
   `OLLAMA_HOST` is the actual control. A private server also does not remove
   run-to-run variation in the model's output.
 
@@ -165,7 +166,8 @@ pmset -g log | grep -E "Entering Sleep|Wake from"
 
 The `Sleep` and `Wake` lines carry local timestamps. Compare them with the
 run log's UTC timestamps. The pattern also matches `DarkWake from ...` lines:
-those are brief wakes, and a full wake can be preceded by several of them. In the WI-SF-0116 rerun the machine slept at 22:57:47 EDT and woke at
+those are brief wakes, and a full wake can be preceded by several of them.
+In the WI-SF-0116 rerun the machine slept at 22:57:47 EDT and woke at
 00:25:16 EDT, which is what made one stage appear to take 5710 seconds. Do not
 use the latency of a stage that spans a sleep. Latency measured on a server
 that other clients were using is likewise not comparable between runs.
