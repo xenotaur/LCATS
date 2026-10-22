@@ -503,7 +503,11 @@ The workstream is complete when:
 5. Catalog refresh failures preserve the last valid catalog.
 6. Metadata and transformation provenance are inspectable.
 7. All affected callers have completed migration or archival dispositions.
-8. Corpus differences and resource measurements have been reviewed.
+8. Corpus differences and resource measurements have been reviewed. The human-approved
+   2026-10-22 [scope/qualification amendment](../../../../development/gettenberg-scope-causality-audit.md#approved-qualification-criteria--adopted-2026-10-22)
+   defines this as stage-specific accounting for material provider effects, including
+   repairs, intended changes, explicit refusals and unresolved blockers. Comprehensive
+   editorial reconciliation is separate; missing evidence never establishes equivalence.
 9. Required tests, lint/format, package checks, and lrh validate succeed.
 10. Documentation, work items, execution records, and the development log
     accurately describe what was delivered.

@@ -1,0 +1,301 @@
+[
+  {
+    "id": 27612,
+    "candidate": "27612-d73afac4e1e07e8d4ee25bd38077936b7bd0d65b9686c5bbaaef751cd329be9d.candidate.json",
+    "disposition": "27612-1b8947ff811bc96beb191f041f5bada57e3489d4c0a7194b515abec515e1b745.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "Four named narrative divisions; retained corpus contains only the final section. Exclude under unchanged unchaptered collection requirement.",
+    "source_anchors": [
+      {
+        "start": 1384,
+        "end": 1764,
+        "text": "\r\n  THE MEASURE OF A MAN\r\n  A Tale of the Big Woods_\r\n\r\n[Illustration]\r\n\r\n\r\n\r\n\r\n_THE WISTFUL HEART_\r\n\r\n\r\nIt was long after noon in the far, big, white Northwest. Day was on the\r\nwing. Christmas Eve splendidly impended--thank God for unspoiled\r\nchildish faith and joys of children everywhere! Christmas Eve was fairly\r\nwithin view and welcoming hail, at last, in the thickening eas"
+      },
+      {
+        "start": 14116,
+        "end": 14495,
+        "text": "ys Pattie, \"an' tame 'em.\"\r\n\r\nThat was Pattie Batch.\r\n\r\n[Illustration]\r\n\r\n\r\n\r\n\r\n_A GIFT NEGLECTED_\r\n\r\n\r\nWell, well! there was only one baby at Swamp's End; and that baby Pattie\r\nBatch had adopted. In her mind, of course: _quite_ on the sly. Nobody\r\ncould adopt Pale Peter's bartender's baby in any other way. And here was\r\nChristmas come again! Day gone beyond the last waving pi"
+      },
+      {
+        "start": 18527,
+        "end": 18909,
+        "text": "d then she went home disconsolate.\r\n\r\n[Illustration]\r\n\r\n[Illustration]\r\n\r\n\r\n\r\n\r\n_THE MAKING OF A MAN_\r\n\r\n\r\nSoon after dark, John Fairmeadow, with a pack on his broad back, swung\r\nfrom the Jumping Jimmy trail into the clearing of Swamp's End, ceasing\r\nonly then his high, vibrant song, and came striding down the huddled\r\nstreet, a big man in rare humour with life, labour and the ni"
+      }
+    ]
+  },
+  {
+    "id": 61198,
+    "candidate": "61198-e062ab92abf578bd9c5c7a5683ce0a8dd0c8bfb29ead113c472ad4b3ff467829.candidate.json",
+    "disposition": "61198-6fcb8da6b57835c1e1289d3506e93ac9062d55a0c6ac6b83f2202f7aeaf594ec.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "Numbered II\u2013IV divisions introduce real Retief narrative; retained corpus begins late in Yith dialogue. Exclude rather than reaccept earlier narrative loss.",
+    "source_anchors": [
+      {
+        "start": 5063,
+        "end": 5460,
+        "text": "t any of the local\r\nyouth socially I want to get myself a good blackjack.\"\r\n\r\n\r\n                                  II\r\n\r\nRetief left the sprawling bungalow-type building that housed the\r\nchancery of the Terrestrial Embassy, swung aboard a passing flat-car\r\nand leaned back against the wooden guard rail as the heavy vehicle\r\ntrundled through the city toward the looming gantries of the shipyards.\r\n"
+      },
+      {
+        "start": 17235,
+        "end": 17633,
+        "text": "oor. That's titanite: the hottest explosive this side of a uranium\r\npile.\"\r\n\r\n\r\n                                  III\r\n\r\nBeta was setting as Retief, Whonk puffing at his heels, came up to the\r\nsentry box beside the gangway leading to the plush interior of the\r\nofficial luxury space barge _Moss Rock_.\r\n\r\n\"A sign of the times,\" said Whonk, glancing inside the empty shelter.\r\n\"A guard should stand "
+      },
+      {
+        "start": 26936,
+        "end": 27333,
+        "text": "s when I came out to take a look at that battle cruiser you're\r\nbuilding.\"\r\n\r\n\r\n                                  IV\r\n\r\nWith a bellow Slock reached for Retief--and choked off in mid-cry as\r\nthe Fustian elder, Whonk, pinioned him from behind, lifting him clear\r\nof the floor.\r\n\r\n\"Glad you reporters happened along,\" said Retief to the gaping newsmen.\r\n\"Slock here had a deal with a sharp operator f"
+      }
+    ]
+  },
+  {
+    "id": 64292,
+    "candidate": "64292-3f6550e1cc0f5dadfcec58317d50de3cc13526b8e96676aa9df9d946f0a60006.candidate.json",
+    "disposition": "64292-4b5ce09fe271745189373046b3e5a91f9b582ba61ebcb46c3e00bca1824b525f.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "Numbered II\u2013V narrative divisions in Tang/Lutscher story; retained corpus starts after earlier narrative. Exclude under existing unchaptered scope.",
+    "source_anchors": [
+      {
+        "start": 14382,
+        "end": 14779,
+        "text": "\n\r\n\"Welcome to our fair city,\" a voice said, and Tang spun halfway around.\r\n\r\n\r\n                                  II\r\n\r\nTang pulled his sidearm part way out before he noted that the man\r\nstanding in the doorway of one of the huts was unarmed. He was also\r\nshoeless and bare to the waist. Sweat ran down the blond hairs on his\r\nchest and a week's growth of blond whiskers sprouted from his face. Th"
+      },
+      {
+        "start": 23343,
+        "end": 23741,
+        "text": "ise you. I presume you'll be spending the night\r\nwith me?\"\r\n\r\nTang nodded.\r\n\r\n\r\n                                  III\r\n\r\nThat night Tang slept with a guarded alertness. It was a part of him,\r\nwhich he could turn on and off, as the occasion demanded. Six hours\r\nafter he dropped off to sleep he awoke, with all his senses alive and\r\nready for action. Without moving he listened. Inside and outside t"
+      },
+      {
+        "start": 42536,
+        "end": 42933,
+        "text": " do.\r\n\r\nNow for the final step. He went inside and buckled on his sidearm.\r\n\r\n\r\n                                   V\r\n\r\nSuddenly the clober squirmed in his arms and a chaos of mad,\r\nslobbering, disconnected thoughts washed against Tang's mind and\r\nstaggered it with their very morbidity and black, hopeless fear.\r\n\r\nFor a moment he stood mentally numbed, desperately striving to sort the\r\nhodgepod"
+      }
+    ]
+  },
+  {
+    "id": 27709,
+    "candidate": "27709-ecbb2bef40f0ad042280dc7b9102d963fc5490b5d8ecc47227cee8ea33dad3cd.candidate.json",
+    "disposition": "27709-7cd0d1a65b2bd2fb8677c4e280449c206c6b211a4e8203ee30921eb020b0f181.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "Farce with I\u2013XII dramatic divisions and cast labels; retained corpus is trailing publisher advertisements, not the play. Exclude divided work.",
+    "source_anchors": [
+      {
+        "start": 1745,
+        "end": 2107,
+        "text": " LITTLE MORE DIFFICULT'\"          _Facing page 32_\r\n\r\n\r\n\r\n\r\nFIVE O'CLOCK TEA\r\n\r\nI\r\n\r\n_MRS. SOMERS; MR. WILLIS CAMPBELL_\r\n\r\n\r\nMrs. Amy Somers, in a lightly floating tea-gown of singularly becoming\r\ntexture and color, employs the last moments of expectance before the\r\narrival of her guests in marching up and down in front of the mirror\r\nwhich fills the space bet"
+      },
+      {
+        "start": 10539,
+        "end": 10902,
+        "text": " Bemis! How\r\nvery heroic of you to come such a day! Isn't it too bad?\"\r\n\r\n\r\n\r\n\r\nII\r\n\r\n_MR. BEMIS; MRS. SOMERS; MR. WILLIS CAMPBELL_\r\n\r\n\r\nBemis: \"Not if it makes me specially welcome, Mrs. Somers.\" Discovering\r\nCampbell: \"Oh, Mr. Campbell!\"\r\n\r\nCampbell, striving for his self-possession as they shake hands: \"Yes,\r\nanother hero, Mr. Bemis. Mrs. Somers is going to "
+      },
+      {
+        "start": 32717,
+        "end": 33081,
+        "text": "Lawton: \"Who won't?\"\r\n\r\nCampbell: \"Oh, I'll leave Mrs. Somers to say.\"\r\n\r\n\r\n\r\n\r\nXII\r\n\r\n_MRS. SOMERS and the OTHERS_\r\n\r\n\r\nMrs. Somers, radiantly reappearing: \"Say what?\" She has hidden the\r\ntraces of her tears from every one but the ladies by a light application\r\nof powder, and she knows that they all know she has been crying, and\r\nthis makes her a little more sm"
+      }
+    ]
+  },
+  {
+    "id": 61353,
+    "candidate": "61353-f27637b8cdda1c51286373c3b8866451b717307ebcdbf5cba7aa5c68320d843b.candidate.json",
+    "disposition": "61353-60595b651d5b33afe9c266e8cc3067b6d8ff377dd6f5b82cf1fe0e4f36ca95e1.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "I opens Magnan claim discussion; III introduces Retief on the planetoid. Actual narrative divisions independent of whether II is present; retained corpus starts in later Leatherwell dialogue.",
+    "source_anchors": [
+      {
+        "start": 487,
+        "end": 884,
+        "text": "idence that\r\n         the U.S. copyright on this publication was renewed.]\r\n\r\n\r\n                                   I\r\n\r\nConsul-General Magnan gingerly fingered the heavily rubber-banded sheaf\r\nof dog-eared documents. \"I haven't rushed into precipitate action on\r\nthis claim, Retief,\" he said. \"The Consulate has grave responsibilities\r\nhere in the Belt. One must weigh all aspects of the situation"
+      },
+      {
+        "start": 19726,
+        "end": 20124,
+        "text": "ically against the black of space as the drive hurled\r\nthe tiny boat away.\r\n\r\n\r\n                                  III\r\n\r\nRetief's feet sank ankle deep into the powdery surface that glinted\r\nlike snow in the glare of the distant sun.\r\n\r\n\"It's funny stuff,\" Sam's voice sounded in his ear. \"Under a gee\r\nof gravity, you'd sink out of sight. The stuff cuts diamond like\r\nbutter--but temperature change"
+      }
+    ]
+  },
+  {
+    "id": 32769,
+    "candidate": "32769-debb5e36e009efe84554c5ba9500d2b6ec83a09f9fb46a4f6a640cf49dfbc0c3.candidate.json",
+    "disposition": "32769-0830b19a51e3b13af7cd6762a6f30294b667303dfa02bf52c3fca497e47e55ed.disposition.json",
+    "review_scope": "Positive structural evidence and neighboring narrative; not a complete literary review",
+    "historical_rationale": "Contents corroborated by actual I AT BIRMINGHAM TOWN HALL and II THE PROCLAMATION narrative headings. Retained corpus is trailing ads; exclude divided narrative.",
+    "source_anchors": [
+      {
+        "start": 1855,
+        "end": 2224,
+        "text": " FRANK SAVERY\r\n\r\n                 WHO TAUGHT, ENCOURAGED, AND REVEALED\r\n\r\n\r\n\r\n\r\nCONTENTS\r\n\r\n\r\n                                        PAGE\r\n       INTRODUCTION                        9\r\n    I. AT BIRMINGHAM TOWN HALL            13\r\n   II. THE PROCLAMATION                   17\r\n  III. THE MUTUAL EXTERMINATION CLUB      23\r\n   IV. THE EPISODE OF THE BABY            29\r"
+      },
+      {
+        "start": 5140,
+        "end": 5502,
+        "text": "e. What is\r\nthere going to be?\"\r\n\r\nThe Wind put his hand over my eyes.\r\n\r\n\r\n\r\n\r\nI\r\n\r\nAT BIRMINGHAM TOWN HALL\r\n\r\n\r\n\"This is our first stopping place,\" said a voice from the points of\r\nflame.\r\n\r\nI opened my eyes expecting to see one of those extravagant scenes that\r\nimaginative novelists love to depict. I was prepared to find the upper\r\nair busy with aeroplanes "
+      },
+      {
+        "start": 8479,
+        "end": 8842,
+        "text": "nce; there was a gentle stir of\r\npreparation; they faded far below me.\r\n\r\n\r\n\r\n\r\nII\r\n\r\nTHE PROCLAMATION\r\n\r\n\r\nAt a point ten years farther along that dusky road the Wind set me\r\ndown in a prodigious room. I had never before seen so large and\r\nsplendid a construction, so gracefully embellished, so justly\r\nproportioned. The shape was elliptical, and it seemed as if"
+      }
+    ]
+  },
+  {
+    "id": 23762,
+    "candidate": "23762-7620ea452edd9c1eadfe9111212171c880f66c954e186addf7988e4a1f70b8fc.candidate.json",
+    "disposition": "23762-f43ad998fda11ecbc1b57bd778162f4f223a4d472ab813e211f351d20607cff1.disposition.json",
+    "review_scope": "Complete narrative and boundaries",
+    "historical_rationale": "Read complete narrative: strangers landing through Griffin birthright remark. Preserve all story paragraphs, italic emphasis and asterism breaks; remove only frontmatter, trailing THE END and the following Gutenberg end notice. No named/numbered divisions or interior editorial caption found.",
+    "source_anchors": [
+      {
+        "start": 1162,
+        "end": 1559,
+        "text": " be, instead, the Wise._\r\n\r\n\r\n\r\nBY G. C. EDMONDSON\r\n\r\nIllustrated by Freas\r\n\r\n\r\nThe strangers landed just before dawn, incinerating a good li of bottom\r\nland in the process. Their machines were already busily digging up the\r\ntopsoil. The Old One watched, squinting into the morning sun. He\r\nsighed, hitched up his saffron robes and started walking down toward\r\nthe strangers.\r\n\r\nGriffin turned, no"
+      },
+      {
+        "start": 11220,
+        "end": 11630,
+        "text": "here's a streetcar every\r\nmillennium anyway.\"\r\n\r\n\"What do you mean by that?\"\r\n\r\n\"You wouldn't understand. You sold your birthright to the barbarians.\"\r\n\r\n\r\nTHE END\r\n\r\n\r\n\r\n\r\n\r\nEnd of the Project Gutenberg EBook of Blessed Are the Meek, by G.C. Edmondson\r\n\r\n*** END OF THIS PROJECT GUTENBERG EBOOK BLESSED ARE THE MEEK ***\r\n\r\n***** This file should be named 23762.txt or 23762.zip *****\r\nThis and all associated "
+      },
+      {
+        "start": 11296,
+        "end": 11664,
+        "text": "\r\n\r\n\"You wouldn't understand. You sold your birthright to the barbarians.\"\r\n\r\n\r\nTHE END\r\n\r\n\r\n\r\n\r\n\r\nEnd of the Project Gutenberg EBook of Blessed Are the Meek, by G.C. Edmondson\r\n\r\n*** END OF THIS PROJECT GUTENBERG EBOOK BLESSED ARE THE MEEK ***\r\n\r\n***** This file should be named 23762.txt or 23762.zip *****\r\nThis and all associated files of various formats will be f"
+      }
+    ]
+  },
+  {
+    "id": 63889,
+    "candidate": "63889-62f1ce23521fffc0d23f6448e04956106089767ed60bf6e320574a57a4bf9b47.candidate.json",
+    "disposition": "63889-78f41bab3906e1399128b84e4ddfb5a1ae71fd0056bae93093498307a0b39be3.disposition.json",
+    "review_scope": "Complete narrative and boundaries",
+    "historical_rationale": "Complete narrative read. Interior illustration caption interrupts the story; contiguous span selection cannot remove it while preserving both sides. Legacy body already contains it. Defer pending a source-bound interior editorial solution; do not approve contamination or truncate.",
+    "source_anchors": [
+      {
+        "start": 616,
+        "end": 1006,
+        "text": "idence that\r\n         the U.S. copyright on this publication was renewed.]\r\n\r\n\r\nAs the frilly-bloused rockette bent over him to unbuckle his\r\nsafticorsette, newly appointed Commissioner-For-Economics-For-Mars\r\nJ. Edwin Elbert peeked. But her fingernails tatted so hastily at the\r\nbuckle that he raised his surprisingly youthful blue eyes to her face.\r\nShe was blushing there too. A pretty l"
+      },
+      {
+        "start": 6501,
+        "end": 6885,
+        "text": " he suspected the three grinning Cadet Astronauts in the last row of\r\nseats.\r\n\r\n[Illustration: _She rose and floated down the aisle, taking little care\r\nto suppress her rising, diaphanous skirt._]\r\n\r\nAs the door to the control room clanged shut, the powder-room door\r\nclicked open and the rockette tapped out on her iron shoe-soles.\r\nCommissioner Elbert rolled his eyes and smiled, bu"
+      },
+      {
+        "start": 11127,
+        "end": 11443,
+        "text": "an't ever tell. All dames don't have the same amount of\r\nbrightness you do.\"\r\n\r\nShe giggled and shivered a little at his hand. \"We learned all about\r\ntime in rockette school.\"\r\n\r\n\r\n\r\n\r\n\r\nEnd of the Project Gutenberg EBook of The Luminous Blonde, by Hayden Howard\r\n\r\n*** END OF THE PROJECT GUTENBERG EBOOK 63889 ***\r\n"
+      }
+    ]
+  },
+  {
+    "id": 32484,
+    "candidate": "32484-afa3676d37c95b5a17bfc52f951708d11e3cdc9cc67cf5bcb82d3c085d8f99fa.candidate.json",
+    "disposition": "32484-09321c0757e81e492ac96a4bf81acd6d2474bc24870046f5e48ca23b1f9fb0b8.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 946,
+        "end": 2046,
+        "text": "_That first trip to the moon has been the subject of many stories.\r\n    Mr. Vandenburg has come up with as novel a twist as we've ever read._\r\n\r\n    _And it could happen._\r\n\r\n\r\nThe Ajax XX was the first American space craft to make a successful\r\nlanding on the moon. She had orbited the Earth's natural satellite for a\r\nday and a half before making history. The reason for orbiting was\r\nimportant. The Russians had been boasting for a number of years that\r\nthey would be first. Captain Junius Robb, U.S.A.F., had orders to\r\ninvestigate before and after landing.\r\n\r\nThe moon's dark side was explored, due to the unknown hazards involved,\r\nduring the orbiting process. More thorough investigation was possible on\r\nthe moon's familiar side. The results seemed to be incontrovertible.\r\nCaptain Junius Robb and his crew of four were the first humans to tread\r\nthe ashes of the long dead heavenly body. The Russians, for all their\r\nboasts, had never come near the place.\r\n\r\nThe Ajax XX stood tall and gaunt and mighty, framed against the\r\nforbidding blackness of space. Captain Robb had maneuvered her down"
+      }
+    ]
+  },
+  {
+    "id": 50796,
+    "candidate": "50796-265eee97715eb0a2b3abb301a243c61b1ffdb9c027fad01ccc7863dcf0122ced.candidate.json",
+    "disposition": "50796-9ddaed9b52ce4361171e44d79f849f0a20ffd9cd5a6b043e7c9ef42d5e6415cd.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 412,
+        "end": 1512,
+        "text": "If Ollie knew the work he was doing, he would\r\n              have resigned--if resigning were possible!\r\n\r\n\r\nIf there had ever been a time when Ollie Keith hadn't been hungry, it\r\nwas so far in the past that he couldn't remember it. He was hungry now\r\nas he walked through the alley, his eyes shifting lusterlessly from one\r\nheap of rubbish to the next. He was hungry through and through, all\r\none hundred and forty pounds of him, the flesh distributed so gauntly\r\nover his tall frame that in spots it seemed about to wear through, as\r\nhis clothes had. That it hadn't done so in forty-two years sometimes\r\nstruck Ollie as in the nature of a miracle.\r\n\r\nHe worked for a junk collector and he was unsuccessful in his present\r\njob, as he had been at everything else. Ollie had followed the first\r\npart of the rags-to-riches formula with classic exactness. He had been\r\nborn to rags, and then, as if that hadn't been enough, his parents had\r\ndied, and he had been left an orphan. He should have gone to the big\r\ncity, found a job in the rich merchant's counting house, and saved the\r\npretty daughter, acq"
+      }
+    ]
+  },
+  {
+    "id": 50800,
+    "candidate": "50800-8f186e210677f2add33ad423c17f6b7d07bdbafb3ac1886c1597375ac064deae.candidate.json",
+    "disposition": "50800-572f18aca838b06a404283c2233e219a51af90e62d9ed4985c812f9e98c8daa2.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 400,
+        "end": 1500,
+        "text": "Bimmie says people are stupid. Bimmie says he can help\r\n     them--but they're not really worth his trouble, Bimmie says.\r\n\r\n\r\n_June 27, 1982_ Bimmie said to do this, keep a diary. I said, Cows? He\r\nsaid, You deaf, woman? A book! Then I remembered, only I haven't seen\r\none. It's for when he's famous. Then we can have it published anytime\r\nwe need money.\r\n\r\nI'd better tell about us. I'm short, sort of cute, and I cook good.\r\nBimmie's tall and skinny, he likes to eat. He's 18, I'm 16. We got\r\nmarried 22 days ago. Instead of a fancy wedding, Bimmie told my folks,\r\nGive us money.\r\n\r\nHe needed the money for his laboratory. It's in the basement. It's\r\nwhat'll make him famous.\r\n\r\n       *       *       *       *       *\r\n\r\n_June 31, 1982_ We got a cat and dog. They're black and two months old.\r\nI wanted red collars. Bimmie said, Don't waste my money, woman.\r\n\r\nBimmie wanted them down in his laboratory. He said that'd be proper\r\nconditions. I said, No, I'll leave if you do and you'll have to eat\r\ncapsules.\r\n\r\nThe cat's he, the dog's she. Bimmie doesn't want them outside, ever.\r\n\r\n       *   "
+      }
+    ]
+  },
+  {
+    "id": 50892,
+    "candidate": "50892-9f62a088c261bd11edded0ace5af609ada59d1d3341364511b2c28ab39f9ce1b.candidate.json",
+    "disposition": "50892-50f175ce37514815ef16749fb71600a1d22f5f07135f5f2dcba8ce8e3d91807e.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 413,
+        "end": 1513,
+        "text": "Everyone knows the Moon is dead.\r\n                    Everyone is quite correct--now!\r\n\r\n\r\nOn impact he'd had time to see Hatter's head jerk loose from the\r\ncarefully weakened strap. As Hatter slumped unconscious he touched the\r\nhidden switch.\r\n\r\nA shock, then darkness.\r\n\r\nWhat first came to him out of the humming blackout mist was his own\r\nname: Marcusson. Al Marcusson, just turned sixteen that Saturday in\r\nJune, that green-leafed day his father had called him out to the back\r\nyard. They had sat on discount-house furniture under the heavy maple,\r\nAl who wore jeans and sneakers and a resigned expression, his father\r\nwho wore glasses, a sport shirt, slacks, eyelet shoes and a curious\r\nreckless smile, a smile that didn't belong in the picture.\r\n\r\n\"Now you're sixteen, Al, there's something I have to tell you,\" his\r\nfather had begun. \"My father told me when I turned sixteen, and his\r\nfather told him. First, the name of our family isn't Marcusson. It's\r\nMarcopoulos. Your name's Alexander Marcopoulos.\"\r\n\r\n\"What? Dad, you must be kidding! Look, all the records....\"\r\n\r\n\"The records don't go "
+      }
+    ]
+  },
+  {
+    "id": 51258,
+    "candidate": "51258-32e88846fc3fc629644123613b9c956b12c910e5a389f35a0f793d8e60367b72.candidate.json",
+    "disposition": "51258-d9c6032ea8c5c265a95bc33377180904f811cc62c421ffbd317d425cb90f1072.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 421,
+        "end": 1521,
+        "text": "They came In friendship and love.\r\n                They couldn't help the way they looked!\r\n\r\n\r\nJudge Carter Gates of the Third Circuit Court finished his chicken\r\nsalad on whole wheat, thoughtfully crumpled the waxed paper bag and\r\nturned to drop it in the waste basket behind his chair--and sat\r\ntransfixed.\r\n\r\nThrough his second-floor office window, he saw a forty-foot\r\nflower-petal shape of pale turquoise settling gently between the\r\nwell-tended petunia beds on the courthouse lawn. On the upper, or stem\r\nend of the vessel, a translucent pink panel popped up and a slender,\r\ngraceful form not unlike a large violet caterpillar undulated into\r\nview.\r\n\r\nJudge Gates whirled to the telephone. Half an hour later, he put it to\r\nthe officials gathered with him in a tight group on the lawn.\r\n\r\n\"Boys, this thing is intelligent; any fool can see that. It's putting\r\ntogether what my boy assures me is some kind of talking machine, and\r\nany minute now it's going to start communicating. It's been twenty\r\nminutes since I notified Washington on this thing. It won't be long\r\nbefore somebody back there"
+      }
+    ]
+  },
+  {
+    "id": 51589,
+    "candidate": "51589-c47b969db3aa6ff3fdae996eb6bc39fdf12ed644a9bc5751f9e667b605a5eb6f.candidate.json",
+    "disposition": "51589-7e89bb6ecec12011ab4716ef0ec18c3e7d29932a2a5e6eda1f0fa39f12249488.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 418,
+        "end": 1518,
+        "text": "Unfortunate castaway! Marooned\r\n                    far from home--with nothing to\r\n                   share his loneliness but humans!\r\n\r\n\r\nThe other one--Charpantier, he called himself--he and I were going back\r\nup the hill to the Foundation, carrying our bags, when I happened to\r\nremark I didn't think the Veld was sane anymore. (I call myself Maurer.)\r\n\r\nCharpantier said nothing for a moment. We kept walking, up the gravel\r\npath between the unimaginatively clipped hedges. But he was frowning a\r\nlittle, and after a while he said in an absent way: \"Now, how would one\r\ndetermine that?\" He looked straight into my eyes, which is something\r\nthat has always upset me, and challenged: \"I don't think one could.\"\r\n\r\nI felt the shock of inadequacy. Words come out of me--perfectly\r\naccurate words, I know; but I never know how, and sometimes when asked\r\nI forget.\r\n\r\nNow I must be very lucid; I must be his kind of man, I thought, and\r\npicked my way among my words. \"These things he's had us get,\" I said,\r\nputting the burlap bag down and stopping so as to hold Charpantier in\r\none place.\r\n\r\n\"He wan"
+      }
+    ]
+  },
+  {
+    "id": 51597,
+    "candidate": "51597-3b1115e859d5e26734c10078006232a97a081b7f4eb0a32846ad2291c85a7d37.candidate.json",
+    "disposition": "51597-960d7a7008854ceaf588d05cb403b5ae2df903bda7f0de94841dfb51f6b66da0.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 410,
+        "end": 1510,
+        "text": "This was the endless problem of all\r\n                spaceship cooks: He had to feed the men\r\n                tomorrow on what they had eaten today!\r\n\r\n\r\nUnable to get out to the ballgame and a long way off from the girls,\r\nmen on ships think about, talk about, bitch about their food. It's\r\ntrue that Woman remains a topic of thoughtful study, but discussion\r\ncan never replace practice in an art. Food, on the other hand, is a\r\nchallenge shipmen face three times a day, so central to their thoughts\r\nthat a history of sea-faring can be read from a commissary list.\r\n\r\nIn the days when salt-sea sailors were charting islands and spearing\r\nseals, for example, the fo'c's'le hands called themselves Lobscousers,\r\ncelebrating the liquid hash then prominent in the marine menu. The\r\nLimey sailor got the name of the anti-scorbutic citrus squeezed into\r\nhis diet, a fruit known to us mariners of a more sophisticated age\r\nonly as garnish for our groundside gin-and-tonic. And today we Marsmen\r\nare called Slimeheads, honoring in our title the _Chlorella_ and\r\n_Scenedesmus_ algae that, by filling up the "
+      }
+    ]
+  },
+  {
+    "id": 51713,
+    "candidate": "51713-8f69f8edff141658399043cb5af6d9cd0cfcf68b1ad767c2dadad32063971146.candidate.json",
+    "disposition": "51713-2f166b684c2f4f264e52d3a3a27da74421c7c7fe98399f157da3a6c4c2b6303d.disposition.json",
+    "review_scope": "Exact opening context and historical-preservation review; no complete literary reading claimed.",
+    "historical_rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "source_anchors": [
+      {
+        "start": 409,
+        "end": 1509,
+        "text": "The man I searched for could be anybody at all.\r\n            If I didn't find him, there'd be nobody at all.\r\n\r\n\r\nOne more city. The pattern went on. One more city to search for a man I\r\ndid not know, whose face I would not recognize. I had no copy of either\r\nhis fingerprints or encephalograph, or any other clue to his identity.\r\n\r\nYet he had to be found.\r\n\r\nAt one time he had been my best friend. His name was Howard Zealley\r\nthen. He wouldn't be using the same name now.\r\n\r\nAnd the \"bug\" in his brain would by this time have made him a stranger.\r\n\r\nThere was only one way the job could be done: I had to make\r\ncontact--even though I might not be aware of it at the time--reveal who\r\nI was, and hope he'd come out after me.\r\n\r\nI rented a room in a cheap hotel. But not so cheap that it wouldn't\r\nhave a grid connection with information service.\r\n\r\nI wrote my name big on the register: MAX CALOF. There was always the\r\nchance that he would see it. He would remember the name.\r\n\r\nThe room was small, a standard \"living-in\" cubicle. Which was all\r\nright. I didn't intend to sleep here. I hadn't slep"
+      }
+    ]
+  }
+]

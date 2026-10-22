@@ -1,0 +1,16 @@
+[
+  {
+    "id": 35401,
+    "old_body_characters": 26080,
+    "new_body_characters": 2620,
+    "new_rejection": null,
+    "body_equal": false
+  },
+  {
+    "id": 50103,
+    "old_body_characters": 31972,
+    "new_body_characters": 900,
+    "new_rejection": null,
+    "body_equal": false
+  }
+]

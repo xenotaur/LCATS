@@ -111,3 +111,17 @@ and explicit refusal of ambiguous boilerplate. Authored integration fixtures ver
 body, bucket, filter, normalization and override behavior; no full corpus comparison
 is claimed. Default endpoint observations do not establish full acquisition. Legacy helper migration and
 external dependency removal remain WI-GETTENBERG-0008.
+
+## Cleanup refusal and operational logs
+
+Source cleanup uses policy `gutenberg-boundaries-v3` and records its explicit
+source/catalog/title context in provenance. The two corroborated terminal-notice
+rules precede the unchanged migration-baseline body extractor. An ambiguous
+envelope raises `ResourceDecodeError` with code `cleanup_refused`. Mass gathering
+logs `story_cleanup_refused` with the ebook ID and reason, then aborts through the
+existing operational-error path (CLI status 2); earlier published files remain.
+This is not an ineligible-story count or an editorial review outcome.
+
+A run-log directory must be outside the configured data and corpora roots,
+including resolved symlinks. This guard runs before gathering creates output and
+also applies to installed wheels. Existing output reuse remains unchanged.

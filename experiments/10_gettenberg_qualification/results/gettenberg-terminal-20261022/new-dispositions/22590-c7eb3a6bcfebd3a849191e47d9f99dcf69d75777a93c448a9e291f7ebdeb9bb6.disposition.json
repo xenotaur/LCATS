@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 22590,
+    "candidate_record_sha256": "9c29a2cf701a38b4c96fa4c833e27112d804d921ca65acaadf5435fb4aad9573",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_When you have an engine with no fuel, and fuel without an engine, and a life-and-death deadline to meet, you have a problem indeed. Unless you are a stubborn Dutchman--a'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity.",
+    "approval": null
+}

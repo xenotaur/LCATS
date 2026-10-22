@@ -499,7 +499,7 @@ class CleanupDocumentationTests(unittest.TestCase):
         blocks = re.findall(
             r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
         )
-        self.assertEqual(len(blocks), 4)
+        self.assertEqual(len(blocks), 5)
         namespace = {}
         with capture.capture_output():
             for block in blocks:

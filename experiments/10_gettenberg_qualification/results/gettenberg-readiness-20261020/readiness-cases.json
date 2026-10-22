@@ -1,0 +1,145 @@
+{
+  "scope": "28 explicit coordinator expectations: eight previously anchored narratives, five disputed chapter cases, ten genuinely divided/multi-work cases (uncertain cases must be withheld, not silently accepted), five automatic-ready boundary spot-checks. Not full corpus acceptance or literary purity certification.",
+  "cases": [
+    {
+      "id": 9222,
+      "decoded_utf8_sha256": "565ae0c879e45ce44a0d52c5d5934ccfa106c916392bcb98ed2166df458d91db",
+      "expected_status": "ready"
+    },
+    {
+      "id": 61198,
+      "decoded_utf8_sha256": "351c3806f722445b457f44dfe067852778e49559a069a17806c47aea289d3bb2",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 63009,
+      "decoded_utf8_sha256": "7d50b94ce5f41d4fffa0827e27f53d890a3b70c98e7fe9d66d7c73cbed20cbc8",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 22579,
+      "decoded_utf8_sha256": "1e683257c40e61ea9e5389bac075de1125cdd95007372349a640710391385601",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 64292,
+      "decoded_utf8_sha256": "4258534eadaa77ad77e67dc731914f784597c8829250358b4884cf61b2bf21e5",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 27612,
+      "decoded_utf8_sha256": "8eb6fc5e111d75c128badb37011fd96a101ee7d6c78902852ff595bb7e4a582a",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 23148,
+      "decoded_utf8_sha256": "5c578a9f85337e25816bdc2db6afffa8d0ce8a8f14415f47214df03036a20e4c",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 27709,
+      "decoded_utf8_sha256": "b35e401fe094b72a57051ab15fdd1a77d50f1e2db505b45c6a69bb16a47fde83",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 35401,
+      "decoded_utf8_sha256": "fbd804f18d7f5c127b38367f7f302ee79900e262e313f29e1b66791dfdefcd7a",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 70391,
+      "decoded_utf8_sha256": "dc5aa16d19b61501105d85f225bac271acf46eb15a7db9eec96abed4d14bf5f9",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 1761,
+      "decoded_utf8_sha256": "9f7bab277602a7c98d6495cd24045361068d430b00eb1ea73dd3095be1503b1e",
+      "expected_status": "ready"
+    },
+    {
+      "id": 63028,
+      "decoded_utf8_sha256": "4eecd7b30baea10864e17368ff4f5fec741753c1910afebbf153c54a751f85d7",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 61353,
+      "decoded_utf8_sha256": "a55e8ec3c4d5e2d3a138aac68849fbc197c9f15bfe3eb1ebc95a95c52c450619",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 70645,
+      "decoded_utf8_sha256": "436a003c15ebee6ad0c623a90176f7d88d1fdcdd84b0d7c85109289948ddb0aa",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 59724,
+      "decoded_utf8_sha256": "665b1965aac2d305454ac0e15c7b7009744b18976f249a50458b9b612a8a6094",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 23104,
+      "decoded_utf8_sha256": "88e431a515f4735017f3b867f02c3659be26aa21dfa2f68ae25fa2db64411998",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 1762,
+      "decoded_utf8_sha256": "998d35bc9cf9d113d24f79268fdf05bbdf9bff42e31ba7d607bc4450ef81caf9",
+      "expected_status": "ready"
+    },
+    {
+      "id": 50103,
+      "decoded_utf8_sha256": "55006d2f94c153a99bb04d312ea6c61bc55ab230cf84429ff2ba7e68a60cf0d7",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 42640,
+      "decoded_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 32769,
+      "decoded_utf8_sha256": "0ea3ff365a04ed736a0ab761fc70ef2a6d3dca90762549871561251ceda8263b",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 32655,
+      "decoded_utf8_sha256": "a0518fc2e9431353d71485edbe7f49243c19fa099e319dd95a3e7f392b91b592",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 37146,
+      "decoded_utf8_sha256": "cf5d636bd177da62e10bffde35bcd988bc810d88b76a76d2772a69452aeefdfa",
+      "expected_status": "ready"
+    },
+    {
+      "id": 39216,
+      "decoded_utf8_sha256": "8f457a545a88596bbd75385295ce292273ca775f7a9e67247c233a7c6a6b8f18",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24936,
+      "decoded_utf8_sha256": "8b8e28be6f09c81f79bd92b17fee6f66828e770bc74b9c0bdd15f448167adf1c",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 58201,
+      "decoded_utf8_sha256": "56ca959c1d080b2a963a6bfc80badd4af026a1dec6b282199d14754a3a435e00",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 1952,
+      "decoded_utf8_sha256": "0604e2f8ab0a7acf9a7e1ea647e59eafcae7ed5d75c5cc985772c032d8655acb",
+      "expected_status": "ready"
+    },
+    {
+      "id": 32878,
+      "decoded_utf8_sha256": "9a5638e3a2124054b94a26681f354adb3b7f346f6f1b969922720fc5a1c52755",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 63230,
+      "decoded_utf8_sha256": "7555441a7bc9157ff74a389256cbad7a13c90ef526760d85f326d52d23f56ea7",
+      "expected_status": "ineligible"
+    }
+  ]
+}

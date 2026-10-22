@@ -1,0 +1,190 @@
+{
+  "baseline_commit": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
+  "baseline_parser_sha256": "0f86859cf1f435f8d31654b88d4178fe72b54e104d6a20e53b20d696b254b21b",
+  "current_parser_sha256": "80d07a37481b6a85065157bb2db120a186f69e89fec9f61dddb62e0cfc0b98c8",
+  "fixture_source_sha256": "36e910be375a937af65522b2c8da1dd9f9ebe8be9dc353a7c199355c54f3186e",
+  "scope": "authored fixtures, explicit-source pre-migration vs current parser; not a full corpus",
+  "network_requests": 0,
+  "qualified": false,
+  "cases": {
+    "lf": {
+      "original_sha256": "2cb5c079110016fb31892bd87dc71b5438ef179f50082934285b6bfddf7a690c",
+      "same_result": true,
+      "same_story_json": false,
+      "results": [
+        {
+          "id": 990001,
+          "rejection": null
+        },
+        {
+          "id": 990001,
+          "rejection": null
+        }
+      ],
+      "comparison": [
+        {
+          "url": "https://www.gutenberg.org/ebooks/990001.txt.utf-8",
+          "left": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "e0dcc2be7b3815e553427b99eab9cdf330188454ae8932fdf2ee6df3532ce91a"
+            }
+          ],
+          "right": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "dce08a96c9a8e2125d53d3ba7c765f47e1e139aa5df0d018ca6d11f5c5b87b63"
+            }
+          ],
+          "appears_in_both": true,
+          "duplicate_url": false,
+          "titles_match": true,
+          "authors_match": true,
+          "bodies_match": true
+        }
+      ]
+    },
+    "crlf": {
+      "original_sha256": "840559309a5ff4d24da2f8b08d0698584d4749c87aad9c48d71aa590c7a0c065",
+      "same_result": true,
+      "same_story_json": false,
+      "results": [
+        {
+          "id": 990001,
+          "rejection": null
+        },
+        {
+          "id": 990001,
+          "rejection": null
+        }
+      ],
+      "comparison": [
+        {
+          "url": "https://www.gutenberg.org/ebooks/990001.txt.utf-8",
+          "left": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "572902762516e8285df2314fb7390e8d78892de1515821dae38561b9a398ed4c"
+            }
+          ],
+          "right": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "5455a8f07e28acc5bf2f0de7055c27d3d829bf38eac6ea4ef9a1854647297fbd"
+            }
+          ],
+          "appears_in_both": true,
+          "duplicate_url": false,
+          "titles_match": true,
+          "authors_match": true,
+          "bodies_match": true
+        }
+      ]
+    },
+    "cr": {
+      "original_sha256": "7bc1d1cc5b1421b8127d1e3250c7e8933b778ab239cf0923002aba0fc2bb112b",
+      "same_result": true,
+      "same_story_json": false,
+      "results": [
+        {
+          "id": 990001,
+          "rejection": null
+        },
+        {
+          "id": 990001,
+          "rejection": null
+        }
+      ],
+      "comparison": [
+        {
+          "url": "https://www.gutenberg.org/ebooks/990001.txt.utf-8",
+          "left": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "60e7c5daa9ec0b73c83493c916240d95914c5995fb663f457ee48e3fc08b600b"
+            }
+          ],
+          "right": [
+            {
+              "path": "the_bell__smith/story.json",
+              "bucket": "the_bell__smith",
+              "title": "The Bell",
+              "author": [
+                "Smith, John"
+              ],
+              "body_sha256": "a32df3bb07d1c8691cffcebead0074cddb9995c5db1221e46a9fe32582033142",
+              "file_sha256": "29ad22b66482a4fe14f2bcb21ffd22d1864352e3f8090944364bfadffcf6cfdb"
+            }
+          ],
+          "appears_in_both": true,
+          "duplicate_url": false,
+          "titles_match": true,
+          "authors_match": true,
+          "bodies_match": true
+        }
+      ]
+    },
+    "short": {
+      "original_sha256": "af4da90403d1ae7e98cb371dc3d85c3b3d1060ffab2aef3d4b288ae21274afe3",
+      "same_result": true,
+      "same_story_json": true,
+      "results": [
+        {
+          "id": 990001,
+          "rejection": "Story is too short, skipping."
+        },
+        {
+          "id": 990001,
+          "rejection": "Story is too short, skipping."
+        }
+      ],
+      "comparison": []
+    },
+    "chapters": {
+      "original_sha256": "d0ada084bbd7eac0d0c5e4abc9d7164740fc1f16a18c9c4b29c9e0ed13135288",
+      "same_result": true,
+      "same_story_json": true,
+      "results": [
+        {
+          "id": 990001,
+          "rejection": "Story has chapters, skipping."
+        },
+        {
+          "id": 990001,
+          "rejection": "Story has chapters, skipping."
+        }
+      ],
+      "comparison": []
+    }
+  }
+}

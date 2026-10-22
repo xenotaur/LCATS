@@ -2,9 +2,8 @@
 
 Use this workflow when you already have a Gutenberg RDF `tar.bz2` archive and
 want an LCATS-owned catalog. These library operations are entirely offline.
-The existing `lcats gather` path still uses the legacy implementation until its
-separate migration work lands. No new CLI setup or refresh command is introduced
-by this tranche.
+For CLI setup, refresh and gathering, see [catalog preparation](gettenberg-preparation.md)
+and [gathering](gettenberg-gather.md); both use these same lifecycle APIs.
 
 ## Prepare once and reuse
 
@@ -59,6 +58,7 @@ and `candidate`. Inspect the named candidate and source before accepting it:
 ```python
 from lcats.gettenberg import errors
 
+candidate_id = None
 try:
     updated = manager.rebuild(new_archive_path)
 except errors.CatalogCountChangeError as change:
@@ -67,7 +67,8 @@ except errors.CatalogCountChangeError as change:
     old_count, new_count = change.previous, change.candidate
 
 # After deciding that the change is expected:
-updated = manager.activate(candidate_id, allow_count_change=True)
+if candidate_id is not None:
+    updated = manager.activate(candidate_id, allow_count_change=True)
 ```
 
 `allow_count_change=True` explicitly accepts the comparison against whichever

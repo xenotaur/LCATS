@@ -1,0 +1,8 @@
+{
+  "wheel_sha256": "eac11bac66c6abc27cb1a2b235670b0f62126041b7ec9fb75e10b6246e3335cf",
+  "product_commit": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "declared_package_data_matches": {
+    "lcats/gatherers/overrides/mass_quantities.json": "e40906361964a5341b8ebc2be3791050688a1cf5a1574d1b9224f2891b4ab3d1",
+    "lcats/analysis/corpus/allowlists/corpus_specials.json": "ab8e9c24051855dc1f087770520589a2c0d2e9fcf90f0c909e38d8b1cdb47d5c"
+  }
+}

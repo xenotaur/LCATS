@@ -1,0 +1,83 @@
+[
+    {
+        "gutenberg_id": 69213,
+        "source_identity_sha256": "994e909c0cb08025f29b3baf46f6edc3871cc70885569f456f173ea40c958386",
+        "candidate_sha256": "9efcf4cfdabdc6da354662978b977a9881bf09f4ad04c83945736e8a75a37193",
+        "assessment_sha256": "b3e6485e67eb88edba70f54f6f473d80d4c6734d9fa5569df099f7c9007a7d17",
+        "candidate_characters": 29784,
+        "selected_spans": [
+            [
+                189,
+                29784
+            ]
+        ],
+        "omitted_spans": [
+            {
+                "start": 0,
+                "end": 189,
+                "kind": "publication_notice",
+                "reason": "Complete delimited publication notice, with following separator.",
+                "evidence": "ordered-publication-notice-v1; full paragraph matches finite publication/date grammar",
+                "sha256": "6eaf78c9721e3879f335d48b532df0c7594c635eb1f9f0fcb5d384715c165d1f"
+            }
+        ],
+        "selected_sha256": "234c93342d5fc4a670d9ec5587183909fa39c815d4d7ec3a8e263c15b073e242",
+        "reviewer": "Codex agent: qualified ordered rule",
+        "rationale": "Qualified ordered-publication-notice-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+        "schema_version": 2
+    },
+    {
+        "gutenberg_id": 69257,
+        "source_identity_sha256": "94c7194edf828bb894ba98b5761e3341590cce179c713283c8ca0e069e86b5c9",
+        "candidate_sha256": "fd187e66bdb961dc02aa882f12d6f2d3758e904980a4f78030e787690b91371e",
+        "assessment_sha256": "1632ddc04a70655cef22023e8d697a4cda706bc45d4cd2eb1b6c8212e09b1b92",
+        "candidate_characters": 32127,
+        "selected_spans": [
+            [
+                227,
+                32127
+            ]
+        ],
+        "omitted_spans": [
+            {
+                "start": 0,
+                "end": 227,
+                "kind": "publication_notice",
+                "reason": "Complete delimited publication notice, with following separator.",
+                "evidence": "ordered-publication-notice-v1; full paragraph matches finite publication/date grammar",
+                "sha256": "61958117cb65fcdf78e55a650fdfafe645b30e812e6d4431dcf94bb3a0c8470d"
+            }
+        ],
+        "selected_sha256": "ae3786f36dad5de0fd5d548ae381f45fd2ae0004f98ffd271eaa3958cd695773",
+        "reviewer": "Codex agent: qualified ordered rule",
+        "rationale": "Qualified ordered-publication-notice-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+        "schema_version": 2
+    },
+    {
+        "gutenberg_id": 70217,
+        "source_identity_sha256": "4829b6e75306e1653947118e5ce33068d71faafe54857cd3280950e7fa167841",
+        "candidate_sha256": "038578d1ced594467df467a17c8b9ed8a317b67259cbbdd328cada19427e5144",
+        "assessment_sha256": "5812513e40b3a99a93e150a5e81f41a2f80a4798d5155368222dcf8239696d7e",
+        "candidate_characters": 33710,
+        "selected_spans": [
+            [
+                227,
+                33710
+            ]
+        ],
+        "omitted_spans": [
+            {
+                "start": 0,
+                "end": 227,
+                "kind": "publication_notice",
+                "reason": "Complete delimited publication notice, with following separator.",
+                "evidence": "ordered-publication-notice-v1; full paragraph matches finite publication/date grammar",
+                "sha256": "7bbc1604f262a7bd40d346a73130db87663f3419b8900660cbae45a9d04424ab"
+            }
+        ],
+        "selected_sha256": "4d030c4827b958ef632e365fc63e5b2367d585218595ebcbd5beed9bc84e50d9",
+        "reviewer": "Codex agent: qualified ordered rule",
+        "rationale": "Qualified ordered-publication-notice-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+        "schema_version": 2
+    }
+]

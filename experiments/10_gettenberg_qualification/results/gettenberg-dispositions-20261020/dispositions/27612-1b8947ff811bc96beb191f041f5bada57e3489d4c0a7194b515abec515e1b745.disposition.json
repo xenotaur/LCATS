@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 27612,
+    "candidate_record_sha256": "d73afac4e1e07e8d4ee25bd38077936b7bd0d65b9686c5bbaaef751cd329be9d",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Four named narrative divisions; retained corpus contains only the final section. Exclude under unchanged unchaptered collection requirement.",
+    "approval": null
+}

@@ -1,0 +1,8 @@
+{
+  "scope": "Independent cleanup-only equivalence check against approved experiment; supplied archived source/catalog context, no claim of current source projection or body extraction",
+  "rows": 1659,
+  "all_source_hashes_slices_and_diagnostics_equal": true,
+  "seconds": 2.308,
+  "cleanup_sha256": "296a6fbbf20326a17b88dcbb568abc61c8246cdcd3b4fb9c1d10f6923a240a39",
+  "archive_sha256": "b67deacb7d2388d672ac0a748e8157fde6b275bfa07be663b5cfe6081f1fa928"
+}

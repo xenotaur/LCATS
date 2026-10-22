@@ -41,16 +41,22 @@ class NarrowIntegrationTests(unittest.TestCase):
             error = resources.ResourceDecodeError(
                 "cleanup_refused", "ambiguous envelope"
             )
-            with contextlib.chdir(root), mock.patch.dict(
-                os.environ,
-                LCATS_DATA_DIR=str(root / "data"),
-                LCATS_CORPORA_DIR=str(root / "corpora"),
+            with (
+                contextlib.chdir(root),
+                mock.patch.dict(
+                    os.environ,
+                    LCATS_DATA_DIR=str(root / "data"),
+                    LCATS_CORPORA_DIR=str(root / "corpora"),
+                ),
             ):
                 # The boundary raises the public source exception; real batch and
                 # RunLog code must retain the refusal instead of reporting success.
-                with mock.patch.object(
-                    gatherer.parser, "gather_story", side_effect=error
-                ), capture.capture_output():
+                with (
+                    mock.patch.object(
+                        gatherer.parser, "gather_story", side_effect=error
+                    ),
+                    capture.capture_output(),
+                ):
                     with self.assertRaises(resources.ResourceDecodeError):
                         gatherer.gather_stories([84], log_dir=log, source=object())
             rows = [

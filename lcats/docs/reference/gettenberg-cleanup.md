@@ -1,11 +1,13 @@
 # Conservative Gutenberg boilerplate cleanup
 
 Import with `from lcats.gettenberg import cleanup`.
-`cleanup.strip_boilerplate(text, *, max_characters=32*1024*1024)` is a pure
+`cleanup.strip_boilerplate(text, *, max_characters=32*1024*1024, context=None)` is a pure
 operation over decoded **plain text**. It neither loads a catalog nor accesses
 files/network, and does not import `gutenbergpy`. Decode bytes with
 `resources.decode_text`; HTML markup requires a separate extraction step.
-The legacy `headers.strip_headers` wrapper and gatherers have not migrated yet.
+Metadata-dependent gathering uses this cleanup through its story source. The
+legacy `headers.strip_headers` wrapper has been removed; see the
+[migration guide](../how-to/gettenberg-migration.md).
 
 ## Result and source preservation
 
@@ -19,7 +21,8 @@ The legacy `headers.strip_headers` wrapper and gatherers have not migrated yet.
 | `changed` | Whether any prefix or suffix was removed. |
 | `markers` | Immutable tuple of detected `CleanupMarker` records in source order; bounded as described below. |
 | `diagnostics` | Immutable tuple of `CleanupDiagnostic(code, message, line=None)`. |
-| `policy_version` | `gutenberg-boundaries-v1`, independent of decoding/transport versions. |
+| `context` | Optional immutable `CleanupContext(source_id, catalog_id, titles)` supplied by the caller. |
+| `policy_version` | `gutenberg-boundaries-v3`, independent of decoding/transport versions. |
 
 All preservation outcomes select `[0:len(original)]`. `changed=False` does not
 certify that the input is clean: inspect diagnostics. Output is an exact slice;
@@ -63,16 +66,19 @@ line beginning (after whitespace) with one or more stars followed by `START` or
 Unicode spacing, single-star delimiters and wrapped fragments therefore cause a
 safe refusal instead of hiding a competing envelope. A narrative containing such
 a standalone starred heading can also cause a refusal; no content is lost.
-The exact historical `*** START: FULL LICENSE ***` line is license-section
-metadata, not a book boundary. It is exempt from candidate detection; this does
-not waive the matching book pair or the full-license heading requirement.
+The exact historical `*** START: FULL LICENSE ***` and `*** END: FULL LICENSE ***`
+lines are license-section metadata, not book boundaries. They are exempt from
+candidate detection; this does not waive the matching book pair or the
+full-license heading requirement.
 
 All of these conditions must hold before any removal:
 
 1. There is exactly one recognized start and one recognized end, in order, with
    matching style and identifier. No malformed marker-like candidates are present.
 2. Any nonblank prefix starts with a Gutenberg eBook banner, such as
-   `The Project Gutenberg eBook of …` or `Project Gutenberg's …`.
+   `The Project Gutenberg eBook of …`, `The Project Gutenberg eBook, …`,
+   or `Project Gutenberg's …`. The comma form must include nonblank text after
+   the comma; a banner ending immediately after the comma is not accepted.
 3. Any nonblank suffix contains a standalone full Gutenberg license heading:
    `THE FULL PROJECT GUTENBERG LICENSE`, with optional `™` or `-tm` after Gutenberg.
 4. The retained content has at least one non-whitespace character.
@@ -83,12 +89,25 @@ last convenient pair. Ordinary narrative around a quoted marker pair fails the
 context guards. A deliberately reproduced complete Gutenberg envelope can still
 look genuine: these are syntax/context checks, not proof of origin or intent.
 
-The historical `End of Project Gutenberg's <title>, by <author>` notice can be
+The historical `End of Project Gutenberg's <title>, by <author>` and
+`End of the Project Gutenberg EBook of <title>, by <author>` notices can be
 removed only when it is the immediately preceding nonblank line before the
 qualified starred end, its title matches that marker, and its author is nonempty.
 That line becomes an explicit `end_notice` boundary; the remaining body must still
 be nonempty. A standalone, differently titled, quoted or nonadjacent notice is
 retained. Production credits and transcriber notes inside the body remain intact.
+
+For numeric markers, `strip_boilerplate(text, context=CleanupContext(...))`
+accepts immutable `source_id`, `catalog_id` and `titles` context. Both IDs must
+be positive integers, equal each other and both canonical numeric markers. The
+notice title must match a supplied catalog title under the same case/horizontal
+whitespace normalization as title markers. The notice must be the final nonblank
+whole physical line, with a nonempty author and remaining body. No fuzzy or
+punctuation-insensitive matching is performed. Missing or disagreeing context
+retains the notice; malformed context raises `invalid_context`. The result retains
+this explicit context for provenance. The Gutenberg source adapter derives the
+source ID from the selected catalog resource URI; unsupported URI layouts provide
+no context. Neither the cleanup function nor context construction performs I/O.
 
 The default input bound is **33,554,432 characters**, adjustable with a positive
 integer `max_characters`. Scanning is linear in input size with bounded candidate
@@ -102,6 +121,7 @@ properties and serialization can allocate additional copies.
 | Code | Result |
 |---|---|
 | `envelope_removed` | Qualified prefix/suffix removed. |
+| `numeric_notice_removed` | Context-corroborated numeric-envelope terminal notice removed. |
 | `end_notice_removed` | Corroborated historical end notice also removed. |
 | `no_markers` | No qualified candidates; original retained. |
 | `unrecognized_marker` | Unsupported/malformed marker-like line; original retained. |
@@ -116,7 +136,7 @@ properties and serialization can allocate additional copies.
 
 `CleanupInputError` subclasses `GettenbergError` and `ValueError`, with stable
 `.code`: `invalid_text` for non-str input, `invalid_limit` for nonpositive/noninteger
-limits (including bool), or `input_too_large` for exceeded bounds. It returns no
+limits (including bool), `invalid_context` for malformed cleanup context, or `input_too_large` for exceeded bounds. It returns no
 partial/truncated result and does not modify the caller's input.
 
 ## Coverage and provenance

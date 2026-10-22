@@ -1,0 +1,31 @@
+{
+  "scope": "Unaccepted narrative-repair checkpoint. Initial corpus replay predates the editorial-recognition review repair; final eight-case audit identifies its exact sources. No final full-corpus/wheel acceptance claimed.",
+  "files": {
+    "initial-policy-corpus.json.gz": {
+      "sha256": "39768df8904c432905b365458dd47fe2204f86f012c8a484a87a9349f65be541",
+      "bytes": 795865,
+      "uncompressed_sha256": "4071bf504905206517992c755b30935a79b91e37c6dfd88450cf35cd8b77a70a"
+    },
+    "narrative-cases-result.json": {
+      "sha256": "8a8e6da1d80cd330357d26bfc9335f6bd9f6a87fc429c767b8b131fb1465fe01",
+      "bytes": 11616
+    },
+    "canonical-test.log.gz": {
+      "sha256": "dde7c2d6c714049657ca71cd1be0d9ad6429be20e07f502a205dc382e67a4e15",
+      "bytes": 656,
+      "uncompressed_sha256": "e5f7f691a41547e38fafbb2234d93f454852f9c1ac4514a96d1a9a22ae84f705"
+    },
+    "initial-policy-summary.json": {
+      "sha256": "7d19342e9b32712d1f6cee4545e80f47fae847488f9b7819ca1292adde3febf3",
+      "bytes": 3000
+    },
+    "narrative-cases.json": {
+      "sha256": "f484d27664d0c14a047e4bb3503eb101fef74388949dbc0b1827111d8f4cd384",
+      "bytes": 2372
+    },
+    "validation.json": {
+      "sha256": "624e9d642773463bad4ae8249422e09b58409c37d30f3f2b0e92fba8584ae86b",
+      "bytes": 1375
+    }
+  }
+}
