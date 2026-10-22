@@ -4687,3 +4687,108 @@ all 55 disposition references and four tested implementation/test hashes verify.
 Implementation/evidence commit: `ba4a88faa12ed0772b763a657336693dc4e7a978`. Both native records bind this
 commit and remain in_progress. Hosted status will be reported on PR #524 at the
 final checkpoint head; no substantive work follows this evidence commit.
+
+
+### Opening-editorial evidence grant — 2026-10-22 06:43 UTC
+
+Human approved the proposed two-hour target /three-hour hard stop: investigate
+source evidence for opening editorial roles, implement one defensible narrow family
+only if evidence supports it, measure whole-population applicability, and independently
+review/validate/checkpoint. Start 06:43:57 UTC; target 08:43:57; hard stop 09:43:57.
+First evidence decision by 07:23:57; feature freeze by 08:58:57 at latest, preserving
+45 minutes for review/repair/checkpoint. Finish early when scope completes or evidence
+cannot support implementation. No automatic renewal or approval quota.
+
+Continue codex/gettenberg-qualification /PR #524 at 3c040b2d224bd03fc5c177e0c08f872fa6ec1057.
+Existing coordinator adapter covers routine gates; readiness has no warnings;
+watched installed skills clean, persistent skip consent invalid and untouched.
+Staged dependency acceptance remains at the ancestors in the qualification matrix.
+Use project Python /LCATS environment with imports bound to this worktree.
+Native implementation prompt: PROMPT(WI-GETTENBERG-0010:GETTENBERG_EDITORIAL_EVIDENCE)[2026-10-22T06:44:15+00:00].
+
+Three agents maximum; normally coordinator plus one focused investigator or reviewer.
+No recursive delegation. Up to four assignments, 60 cumulative worker minutes:
+first investigator at most 30, cold review at most 20, narrow repair recheck at most
+10. Shared weekly usage starts 48%; freeze features at 58%, stop substantive work
+at 63%. Check every 15 minutes and before major blocks/dispatch; unavailable telemetry
+means checkpoint. Account-wide readings are not exclusive task billing. Isolated
+output budget 15GiB, free-space minimum 6GiB. Timer/budget enforcement is coordinator
+monitoring, not a claimed runtime scheduler.
+
+Cached sources read-only; no Gutenberg acquisition or catalog refresh. PyPI isolated
+build/install allowed for package verification. No broad blurb classifier, default
+extraction/gather change, canonical corpus mutation, CI/consent edits, package release,
+integration/main promotion or terminal closeout. Existing deferrals stay intact and
+cannot be silently overridden. Every proposed approval needs positive role evidence,
+exact input bindings, complete omission/history accounting and independent review.
+If no narrow family is defensible, preserve an evidence-gap milestone rather than
+implement a heuristic. Formatting/position/similarity only guide inspection.
+
+Prior-art/demand: WI0010 and current contract request editorial qualification; reuse
+v2 ordered selections, metadata.editorial preservation, historical comparison and
+batch cohort verification. Extend only missing evidence/qualification behavior, no
+parallel decision store. Expected scope: tested gatherer evidence logic if justified,
+thin experiment orchestration and durable results, Diataxis docs and native records.
+Canonical package format/lint/test, explicit changed-runner checks, fresh wheel smoke,
+full cumulative replay and lrh validate remain required for implemented behavior.
+
+
+### Opening-evidence decision and feature freeze — 2026-10-22 07:04 UTC
+
+Evidence checkpoint completed before the 40-minute bound. Independent investigation
+and coordinator source inspection support exactly two promotional role findings:
+63638 and 73988. A complete delimited-label locator finds those same two among all
+1,640 candidates; the full 1,659-input replay takes 31.085s. This is bounded discovery,
+not a recall estimate or automatic semantic classification. The closed review catalogue
+supplies the role judgments; the library verifies their exact bindings and original
+source coordinate mapping. 42664's mixed preface remains outside the family.
+
+Both complete stories still fail readiness and historical accounting. No new decisions,
+approvals or historical resolutions. Every prior ledger row and all 55 dispositions
+verify unchanged; 14 historical resolutions /1,628 unresolved. All 25 diagnostic
+source/candidate anchors remain intact. No cached HTML covers those 25 IDs; exploratory
+search found counterexamples to inferred roles from italics, introductions and editor
+references. No new sources were downloaded.
+
+Implemented only the partial-evidence verifier, a thin offline qualification runner,
+10 authored behavior tests and documentation. Explicit fixture approval exercises
+actual disposable publication with exact editorial metadata; real partial evidence
+creates no approvals. First focused run found an incorrect test capture-helper name;
+fixed the test to use the existing capture.suppress_output API and retained failed log.
+All 10 focused tests now pass. Feature work frozen at 52% shared weekly usage, versus
+48% launch. Remaining work: canonical/installed validation, one cold review, evidence
+archive and PR checkpoint. No wider editorial kinds or acquisition work in this grant.
+
+
+### Opening-evidence validation checkpoint — 2026-10-22 07:12 UTC
+
+All 3,118 canonical tests pass in 105.330s; package and explicit changed runner
+format/lint pass. Ten focused tests also pass against the fresh isolated wheel.
+All 174 Python modules and two JSON resources match source/wheel/install; installed
+smoke and pip check pass, no gutenbergpy. Disposable gathering withholds all 27 real
+cases and preserves full candidates. An authored test supplies separate complete-story
+approval and verifies actual publication with exact editorial metadata; this is not
+an approval for either real partially reviewed story.
+
+One investigator (~8 minutes) and one cold code reviewer (~4 minutes), two assignments,
+no recursive delegation or repair recheck. Reviewer passed ten focused tests, rejected
+48 malformed/stale packets, checked both source judgments and reproduced all 1,659
+ledger rows in 31.394s. No actionable findings. Coordinator directly verified both
+raw/candidate mappings, all 1,659 source/corpus identities, all 55 disposition bytes,
+reviewed code hashes and byte-identical independent replay. No source/input mutations.
+LRH validates with zero errors and 351 existing warnings. Shared weekly usage is 53%
+at checkpoint versus 48% launch; these are account-wide readings, not exclusive cost.
+
+The first temporary real-case probe preparation incorrectly treated the existing
+cases wrapper as a list. Preserved the failed incomplete checkpoint/log, corrected
+input assembly, and reran successfully; no product change. A sandbox GitHub read
+failed with a connection error; one approved-network retry succeeded. No credentials
+or consent changed. The native records remain in_progress and WI0010 nonterminal.
+
+Evidence archive: experiments/10_gettenberg_qualification/results/gettenberg-editorial-20261022/.
+The supported finite family is exhausted on the measured population; finishing early
+avoids spending the remaining grant on unsupported rule expansion. Next human milestone:
+choose stronger targeted source evidence and/or explicit collection paratext policies.
+Separating software delivery from complete corpus curation is a separate potential
+acceptance-gate decision, not an automatic consequence of green tests. No new acquisition,
+classifier, corpus acceptance, integration/main promotion or terminal closeout.

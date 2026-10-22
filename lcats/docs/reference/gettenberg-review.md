@@ -247,3 +247,50 @@ including exact-baseline matches and `--historical-acceptance baseline`. Histori
 equality can preserve an unwanted old blurb. Missing/stale/duplicate review evidence,
 known defer/exclude/conflict intent, remaining findings and unexplained differences
 prevent recording. Default extraction and other rule modes are unchanged.
+
+
+## Partial promotional-preface evidence
+
+`lcats.gatherers.editorial_evidence` verifies an explicitly attributed span-role
+review without approving a story. It is opt-in and is not called by gathering or
+batch recording. The current scope is historical decoded UTF-8 cache provenance.
+It does not authenticate original publisher authorship or classify unlabelled prose.
+
+- `labeled_prefaces(body)` returns exact Unicode spans and text hashes for complete
+  bracketed `Publisher's note:` / `Editor's note:` paragraphs, or parenthesized
+  italic `(_Editor's note: ..._)` paragraphs. Curly apostrophes and case variants
+  are recognized. The paragraph must end within the first 8,192 characters and be
+  at most 2,048 characters. Labels are discovery cues, including fictional labels;
+  no role, omission or approval is returned by discovery.
+- `reviewed_preface(candidate_path, decoded_source, review)` validates an explicit
+  review against the ordinary immutable candidate loader and its source provenance.
+  The candidate must be a unique unchanged interval of the newline-normalized source.
+  Raw-source and candidate offsets must map to the same occurrence. It returns a
+  `publisher_blurb` omission proposal and the bound review, with
+  `publication_approved: false`; no files or dispositions are written.
+
+The review has exactly these fields (unknown fields fail):
+
+| Field | Meaning |
+|---|---|
+| `schema_version` | Integer `1` |
+| `kind` | `gettenberg_preface_role_review` |
+| `gutenberg_id` | Candidate's integer Gutenberg ID |
+| `candidate_record_sha256` | Canonical identity of the whole loaded candidate, binding metadata and assessment too |
+| `candidate_span`, `source_span` | Nonempty half-open Unicode ranges in the candidate and exact decoded source respectively |
+| `candidate_text_sha256`, `source_text_sha256` | UTF-8 hashes of the respective exact ranges |
+| `decoded_utf8_sha256` | Full decoded-source UTF-8 hash, also present in candidate provenance |
+| `reviewer`, `rationale` | Explicit attribution (1–256 characters) and positive source-context role judgment (1–4,000 characters) |
+
+Only CRLF/CR-to-LF conversion is used to verify the source mapping. No whitespace,
+punctuation or narrative normalization is applied to the proposed selection.
+Source and candidate strings are bounded to 4,000,000 characters. Unknown provenance,
+stale identities, invalid offsets, incomplete paragraphs and ambiguous source
+occurrences raise `ValueError`. A valid attribution packet establishes consistency,
+not the truth or authentication of a literary judgment.
+
+The omission can participate in a separately reviewed v2 selection. Its exact text
+is then preserved in `metadata.editorial` through the existing publication path.
+Partial evidence cannot override defer/exclude/conflict intent, satisfy whole-story
+review, or resolve unexplained historical differences. There is no automatic recording
+mode for these proposals and no new disposition store.

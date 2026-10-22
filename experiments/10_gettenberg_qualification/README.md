@@ -602,3 +602,40 @@ The nonempty success path is verified end-to-end on authored fixtures, including
 source review, immutable v2 recording/export, actual temporary publication and
 cumulative replay. Real cached replay verifies all 25 are withheld with their full
 candidate text retained. Default modes and existing dispositions remain unchanged.
+
+
+## Reviewed promotional-preface evidence
+
+`qualify_editorial_evidence.py` measures a finite catalogue of independently reviewed
+promotional spans. It reuses full-population/cumulative verification and the existing
+v2 partition/metadata mechanism. It never records decisions, exports approvals,
+fetches sources, or publishes stories. Existing default batch modes are unchanged.
+The library verifier lives in `lcats.gatherers.editorial_evidence` and is unit tested.
+
+From `lcats/`, in the project environment with `PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/qualify_editorial_evidence.py \
+  CENSUS.json.gz COMPARISON.json.gz QUEUE CUMULATIVE_DISPOSITIONS \
+  TEXT_CACHE COLLECTION CUMULATIVE_SOURCE_REVIEWS.json \
+  REVIEWED_PREFACES.json NEW_OUTPUT_DIRECTORY
+python -m black --check --diff ../experiments/10_gettenberg_qualification/scripts/qualify_editorial_evidence.py
+python -m ruff check --no-cache ../experiments/10_gettenberg_qualification/scripts/qualify_editorial_evidence.py
+python -m unittest tests.gatherers_tests.editorial_evidence_test tests.gettenberg_tests.editorial_evidence_runner_test
+```
+
+Input population, queue and cumulative intent must match the earlier qualification
+artifacts. Missing/stale evidence fails without network fallback. Read-only historical
+cache inputs are decoded/re-encoded UTF-8, not original HTTP representations. At most
+10,000 population rows and 256 explicit span reviews; bounded JSON/source readers;
+POSIX 600-second alarm; at least 6GiB free. Output is exclusive and cannot be under
+an input directory. Failure writes `summary.json` with `completed:false`; partial
+output is not acceptance evidence. Complete output is a summary plus a lossless
+compressed ledger. Successful execution never changes cumulative disposition counts.
+
+The first [archived qualification](results/gettenberg-editorial-20261022/README.md)
+finds two delimited opening labels in 1,640 candidates and independently supports
+promotional roles for both (63638, 73988). Both still have readiness and historical
+blockers. Mixed publisher preface 42664 is excluded; all 25 previous deferrals remain.
+A valid span-role packet is neither a semantic classifier nor a story approval.
+Keep the bounded discovery coverage separate from the manually reviewed catalogue.

@@ -1,0 +1,7 @@
+{
+  "completed": false,
+  "network_bytes": 0,
+  "cases": [],
+  "scope": "Exercise real readiness outcomes and isolated publication for reviewed cases.\n\nFrom lcats/: python ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py CATALOG_CACHE TEXT_CACHE CASES_JSON OUTPUT_JSON [--review-decisions DECISIONS_JSON]\nRead-only historical decoded UTF-8 gzip inputs, never original wire-byte evidence.\nNo network; accepted/review outputs live in an automatically removed temporary\nroot outside canonical data. Cases bind decoded hashes and expected raw statuses;\noptional source-bound decisions independently resolve selected review cases.\nRequires POSIX SIGALRM, <=100 cases, 180-second total bound, new output path.\nAny identity/outcome/preservation mismatch fails nonzero with partial JSON evidence.\n",
+  "error": "FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/gettenberg-editorial-20261022/publication-cases.json'"
+}

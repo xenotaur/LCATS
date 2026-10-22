@@ -1,0 +1,1982 @@
+{
+  "scope": {
+    "repo": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+    "network": false,
+    "repo_writes": false,
+    "classification": "independent positive-role investigation, no decisions or publication",
+    "scan_limit": "first 9000 Unicode characters after first Gutenberg START marker in each cached text; regex terms editor-note, publisher-note, editorial, blurb, introduction, epigraph; discovery only",
+    "diagnostic_ids_with_cached_html": [],
+    "cached_texts_scanned": 1883
+  },
+  "positive_cases": [
+    {
+      "id": 63638,
+      "role": "promotional_editor_note",
+      "rationale": "Explicit Editor's note label; editors describe reading the story, call it PLANET'S scoop and ask readers to evaluate Mr. Loomis. This identifies an editorial promotional utterance about the independently named author/story, rather than story-world narration.",
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/63638.txt.gz",
+      "source_compressed_sha256": "b4aaa04a743d44959f0fab44509412c85af65ebdd35af15792b3d08996c82062",
+      "decoded_utf8_sha256": "534b85a40edf0d5e221957c5183fa0d540682d982ecc2b214ed21024cb5eb548",
+      "source_identity_sha256": "eab6555363e0a0f4aeec54bbda2fe6124d2080a99af285dfa495b2c98a3d66ec",
+      "candidate_path": "/tmp/gettenberg-dispositions-20261020/repaired-work/candidates/63638-9e51c5f06699ea7f98fbba841f13075edb7e692d0ef0eb8d53a9e23f5dbc7874.candidate.json",
+      "candidate_file_sha256": "ead438ed5121e4162bd8b543e09afdabd93df459417ede6b69f295bacb28357e",
+      "candidate_record_sha256": "9e51c5f06699ea7f98fbba841f13075edb7e692d0ef0eb8d53a9e23f5dbc7874",
+      "candidate_sha256": "372da349ff6f3dddb3e3bc18188515236c5bf55f81cf553e882c9fe1f746e9fe",
+      "offset_basis": "half-open Unicode characters; source retains original CRLF, candidate uses normalized LF",
+      "source_note": {
+        "span": [
+          165,
+          495
+        ],
+        "text": "(_Editor's note: When we had read through\r\n            this in-a-class-by-itself story, we exclaimed,\r\n             \"Here's PLANET'S scoop on the world!\" What do\r\n                 you think? Does Mr. Loomis answer the\r\n              questions: \"How will future wars be fought?\r\n                  Will civilization be destroyed?\"_)",
+        "sha256": "76823b5a8ca62e1ebb63804f1bcc60cb0011d144df7364e57b558752545f81f1"
+      },
+      "candidate_note": {
+        "span": [
+          31,
+          356
+        ],
+        "text": "(_Editor's note: When we had read through\n            this in-a-class-by-itself story, we exclaimed,\n             \"Here's PLANET'S scoop on the world!\" What do\n                 you think? Does Mr. Loomis answer the\n              questions: \"How will future wars be fought?\n                  Will civilization be destroyed?\"_)",
+        "sha256": "1b009de2a1b737bcf50098a78a91f28fd93430910622c8e43d9018a3a9e9518a"
+      },
+      "candidate_complete_paragraph_with_following_separator": {
+        "span": [
+          16,
+          358
+        ],
+        "text": "               (_Editor's note: When we had read through\n            this in-a-class-by-itself story, we exclaimed,\n             \"Here's PLANET'S scoop on the world!\" What do\n                 you think? Does Mr. Loomis answer the\n              questions: \"How will future wars be fought?\n                  Will civilization be destroyed?\"_)\n\n",
+        "sha256": "4f9075ed84fa27f426af764ccc7d5bae35f34bf12b07750d915ad203cd9bccd7"
+      },
+      "source_opening_context": {
+        "span": [
+          0,
+          995
+        ],
+        "text": "*** START OF THE PROJECT GUTENBERG EBOOK 63638 ***\r\n\r\n                         Electron Eat Electron\r\n\r\n                            By NOEL LOOMIS\r\n\r\n               (_Editor's note: When we had read through\r\n            this in-a-class-by-itself story, we exclaimed,\r\n             \"Here's PLANET'S scoop on the world!\" What do\r\n                 you think? Does Mr. Loomis answer the\r\n              questions: \"How will future wars be fought?\r\n                  Will civilization be destroyed?\"_)\r\n\r\n           [Transcriber's Note: This etext was produced from\r\n                      Planet Stories Spring 1946.\r\n         Extensive research did not uncover any evidence that\r\n         the U.S. copyright on this publication was renewed.]\r\n\r\n\r\nSupreme General Hoshawk, chief of staff, watched with piercing\r\ngray eyes while the President of the United States of the Western\r\nHemisphere, Jeffrey Wadsworth, lay relaxed under a cosmic-ray lamp,\r\nwith no covering but a towel over his loins.\r\n\r\nThe s",
+        "sha256": "8e28ca6bcd5f5b7e23e9b56b8fe25fd839a8add988c4ee9c4f41b6647ea6dd6f"
+      },
+      "candidate_opening_context": {
+        "span": [
+          0,
+          856
+        ],
+        "text": "By NOEL LOOMIS\n\n               (_Editor's note: When we had read through\n            this in-a-class-by-itself story, we exclaimed,\n             \"Here's PLANET'S scoop on the world!\" What do\n                 you think? Does Mr. Loomis answer the\n              questions: \"How will future wars be fought?\n                  Will civilization be destroyed?\"_)\n\n           [Transcriber's Note: This etext was produced from\n                      Planet Stories Spring 1946.\n         Extensive research did not uncover any evidence that\n         the U.S. copyright on this publication was renewed.]\n\n\nSupreme General Hoshawk, chief of staff, watched with piercing\ngray eyes while the President of the United States of the Western\nHemisphere, Jeffrey Wadsworth, lay relaxed under a cosmic-ray lamp,\nwith no covering but a towel over his loins.\n\nThe surgeon-genera",
+        "sha256": "6e089011254fbcda2be3dfeceaad57ab752b278b38ae86df726f0f1dd95c4dda"
+      },
+      "hypothetical_note_only_selection": {
+        "selected_spans": [
+          [
+            0,
+            16
+          ],
+          [
+            358,
+            30580
+          ]
+        ],
+        "selected_sha256": "9b1bf5b04aef31085f0ed76a8cf2f700d2bb813630b746fa7da788d0b907ba6f",
+        "selected_readiness": {
+          "policy": "publication-readiness-v1",
+          "status": "needs_review",
+          "exclusion": null,
+          "offset_basis": "candidate_body_unicode_characters",
+          "findings": [
+            {
+              "kind": "opening_label",
+              "severity": "warning",
+              "span": [
+                0,
+                14
+              ],
+              "message": "A short opening without sentence punctuation needs review.",
+              "evidence": {
+                "text": "By NOEL LOOMIS"
+              }
+            },
+            {
+              "kind": "editorial_note",
+              "severity": "warning",
+              "span": [
+                27,
+                250
+              ],
+              "message": "An editorial note remains in the candidate.",
+              "evidence": {
+                "text": "[Transcriber's Note: This etext was produced from\n                      Planet Stories Spring 1946.\n         Extensive research did not uncover any evidence that\n         the U.S. copyright on this publication was renewed.]"
+              }
+            },
+            {
+              "kind": "retained_gutenberg_notice",
+              "severity": "warning",
+              "span": [
+                30163,
+                30238
+              ],
+              "message": "An unremoved Gutenberg notice needs review.",
+              "evidence": {
+                "text": "End of the Project Gutenberg EBook of Electron Eat Electron, by Noel Loomis"
+              }
+            }
+          ]
+        },
+        "normalization_applied": [],
+        "normalization_changed": false,
+        "historical_path": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/corpora/mass_quantities/electron_eat_electron__loomis/story.json",
+        "historical_file_sha256": "b01738472308e579e603920f86b79c99b5c19ad396ab418a94002c219257dc07",
+        "historical_body_sha256": "0b4fe47e7dbe01d59417cd6031947f34a29f52a0d0079f83d6f92c3a8336720c",
+        "exact_baseline_equality": false,
+        "typography_explanation": {
+          "schema_version": 1,
+          "rule": "source-preserved-typography-v1",
+          "offset_basis": "each_input_unicode_characters",
+          "selected_sha256": "9b1bf5b04aef31085f0ed76a8cf2f700d2bb813630b746fa7da788d0b907ba6f",
+          "historical_sha256": "0b4fe47e7dbe01d59417cd6031947f34a29f52a0d0079f83d6f92c3a8336720c",
+          "selected_characters": 30238,
+          "historical_characters": 29624,
+          "comparison_selected_sha256": "3a1580417c7fdfc0f7eb64441acdba7c6308aacc1efa732448f185936db4d1cb",
+          "comparison_historical_sha256": "0b4fe47e7dbe01d59417cd6031947f34a29f52a0d0079f83d6f92c3a8336720c",
+          "selected_comparison_ranges": [
+            {
+              "span": [
+                2665,
+                2705
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                4564,
+                4604
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                7661,
+                7701
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                12126,
+                12166
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                16884,
+                16924
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                21445,
+                21485
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                26078,
+                26118
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            }
+          ],
+          "historical_comparison_ranges": [],
+          "complete": false,
+          "residual_shape": "additional_boundary_text",
+          "additional_prefix_characters": 253,
+          "additional_suffix_characters": 81,
+          "publication_approved": false
+        },
+        "historical_note_present_after_whitespace_folding": false
+      },
+      "publication_approved": false,
+      "source_review_only": true
+    },
+    {
+      "id": 73988,
+      "role": "promotional_publisher_note",
+      "rationale": "Explicit Publisher’s note label; refers to critics, the Editor's search for a story, praise, its O. Henry ending and reader rereading. Complete bracketed editorial promotion.",
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/73988.txt.gz",
+      "source_compressed_sha256": "f81c4e07fbc2f7000d4c32800d277acb364935e5f3191c7c96476265dfbe9fb4",
+      "decoded_utf8_sha256": "f06ce9ea1ae43cdf16e1f001b5496884e6ff7e7c69b162b7d690e8a6d974ab04",
+      "source_identity_sha256": "60cf74d6a58f7e1081a2469784faa9a915af8cde2b1a5d2675ea42a64adb113f",
+      "candidate_path": "/tmp/gettenberg-dispositions-20261020/repaired-work/candidates/73988-4543359abf8fc662d256c9f5ab0c62b411f66834b8c26af9c74fe3c3ac2c9acc.candidate.json",
+      "candidate_file_sha256": "7c06924b585662e27f6c5a0c92307051dddf391f8f1f5638e95637edb36909e6",
+      "candidate_record_sha256": "4543359abf8fc662d256c9f5ab0c62b411f66834b8c26af9c74fe3c3ac2c9acc",
+      "candidate_sha256": "874159bfa2ff3f8aa5414b604acd0cb5d713f4bdb91501fab20dbe5a74b7f9e7",
+      "offset_basis": "half-open Unicode characters; source retains original CRLF, candidate uses normalized LF",
+      "source_note": {
+        "span": [
+          510,
+          1116
+        ],
+        "text": "[Publisher’s note: Humor, we have been told by some of our\r\n    critics, can never amount to much in scientifiction. If we may\r\n    let a secret out of the bag, the Editor has been on a rampage,\r\n    lately, to find a scientifiction story in which there really\r\n    could be a subtle humor without weakening the narrative. Well,\r\n    we believe we have found it in this tale, which not only has all\r\n    of the above-mentioned qualifications, but a fine O. Henry\r\n    ending thrown in for good measure. Only when you have read it\r\n    for the second time will you appreciate it to its fullest\r\n    extent.]",
+        "sha256": "f79b4a560a0bbd2f5c611faef1581136845b98721169d917d9849f2a1299846d"
+      },
+      "candidate_note": {
+        "span": [
+          339,
+          936
+        ],
+        "text": "[Publisher’s note: Humor, we have been told by some of our\n    critics, can never amount to much in scientifiction. If we may\n    let a secret out of the bag, the Editor has been on a rampage,\n    lately, to find a scientifiction story in which there really\n    could be a subtle humor without weakening the narrative. Well,\n    we believe we have found it in this tale, which not only has all\n    of the above-mentioned qualifications, but a fine O. Henry\n    ending thrown in for good measure. Only when you have read it\n    for the second time will you appreciate it to its fullest\n    extent.]",
+        "sha256": "8bbe8f03e7a568a0c3724f21dcd9ef2de35ad3c33c51b1f16d64000150cff7c9"
+      },
+      "candidate_complete_paragraph_with_following_separator": {
+        "span": [
+          335,
+          938
+        ],
+        "text": "    [Publisher’s note: Humor, we have been told by some of our\n    critics, can never amount to much in scientifiction. If we may\n    let a secret out of the bag, the Editor has been on a rampage,\n    lately, to find a scientifiction story in which there really\n    could be a subtle humor without weakening the narrative. Well,\n    we believe we have found it in this tale, which not only has all\n    of the above-mentioned qualifications, but a fine O. Henry\n    ending thrown in for good measure. Only when you have read it\n    for the second time will you appreciate it to its fullest\n    extent.]\n\n",
+        "sha256": "04fb800d8955f7e96a2bbcc71e28931122dcd92f2b4b28c01df90c713824e516"
+      },
+      "source_opening_context": {
+        "span": [
+          0,
+          1616
+        ],
+        "text": "\r\n*** START OF THE PROJECT GUTENBERG EBOOK 73988 ***\r\n\r\n\r\n                    ELECTRO-EPISODED IN A.D. 2025\r\n\r\n                            By E. D. Skinner\r\n\r\n\r\n    [Illustration: Inserting a needle-point barely beyond and to the\r\n    left of the higher of the two mountain peaks, he took a delicate\r\n    copper wire and connected this with “Local.” Throwing the clutch\r\n    back into “Local” the faint outline of the mountain disappeared,\r\n    and a vivid picture of the “Parker Pass” replaced it....]\r\n\r\n    [Publisher’s note: Humor, we have been told by some of our\r\n    critics, can never amount to much in scientifiction. If we may\r\n    let a secret out of the bag, the Editor has been on a rampage,\r\n    lately, to find a scientifiction story in which there really\r\n    could be a subtle humor without weakening the narrative. Well,\r\n    we believe we have found it in this tale, which not only has all\r\n    of the above-mentioned qualifications, but a fine O. Henry\r\n    ending thrown in for good measure. Only when you have read it\r\n    for the second time will you appreciate it to its fullest\r\n    extent.]\r\n\r\n\r\nIf Lieutenant-Colonel Algernon Sidney St. Johnstone, N.Y.N.G., had been\r\nin a normal condition, he would certainly have been aware of a peculiar\r\nbuzzing sensation in the region of his upper left-hand vest pocket; but\r\nunfortunately it so happened that his actual physical state was most\r\nemphatically sub-normal. Still he could hardly avoid the suspicion that\r\nsomething out of the ordinary had disturbed him; and, with blinking\r\neyes, he searched the apartment for possible inordinate things.",
+        "sha256": "32f2f8a34bf8c75ba15795b991c55836c57019736258efeacb4d430090d2fcfe"
+      },
+      "candidate_opening_context": {
+        "span": [
+          0,
+          1436
+        ],
+        "text": "[Illustration: Inserting a needle-point barely beyond and to the\n    left of the higher of the two mountain peaks, he took a delicate\n    copper wire and connected this with “Local.” Throwing the clutch\n    back into “Local” the faint outline of the mountain disappeared,\n    and a vivid picture of the “Parker Pass” replaced it....]\n\n    [Publisher’s note: Humor, we have been told by some of our\n    critics, can never amount to much in scientifiction. If we may\n    let a secret out of the bag, the Editor has been on a rampage,\n    lately, to find a scientifiction story in which there really\n    could be a subtle humor without weakening the narrative. Well,\n    we believe we have found it in this tale, which not only has all\n    of the above-mentioned qualifications, but a fine O. Henry\n    ending thrown in for good measure. Only when you have read it\n    for the second time will you appreciate it to its fullest\n    extent.]\n\n\nIf Lieutenant-Colonel Algernon Sidney St. Johnstone, N.Y.N.G., had been\nin a normal condition, he would certainly have been aware of a peculiar\nbuzzing sensation in the region of his upper left-hand vest pocket; but\nunfortunately it so happened that his actual physical state was most\nemphatically sub-normal. Still he could hardly avoid the suspicion that\nsomething out of the ordinary had disturbed him; and, with blinking\neyes, he searched the apartment for possible inordinate things.\n\nThe fir",
+        "sha256": "dba815cd54bfa06bca9b63e285ec2f883c653641592e1f2c2c665a1be437cd29"
+      },
+      "hypothetical_note_only_selection": {
+        "selected_spans": [
+          [
+            0,
+            335
+          ],
+          [
+            938,
+            39806
+          ]
+        ],
+        "selected_sha256": "8631d9c17457eed4b008fcaf31a32d35f26e4f0d65f25d19a7dcc132f72c1fdc",
+        "selected_readiness": {
+          "policy": "publication-readiness-v1",
+          "status": "needs_review",
+          "exclusion": null,
+          "offset_basis": "candidate_body_unicode_characters",
+          "findings": [
+            {
+              "kind": "illustration_label",
+              "severity": "warning",
+              "span": [
+                0,
+                333
+              ],
+              "message": "A retained illustration label needs boundary review.",
+              "evidence": {
+                "text": "[Illustration: Inserting a needle-point barely beyond and to the\n    left of the higher of the two mountain peaks, he took a delicate\n    copper wire and connected this with “Local.” Throwing the clutch\n    back into “Local” the faint outli"
+              }
+            },
+            {
+              "kind": "editorial_note",
+              "severity": "warning",
+              "span": [
+                39106,
+                39203
+              ],
+              "message": "An editorial note remains in the candidate.",
+              "evidence": {
+                "text": "[Transcriber’s Note: This story appeared in the August 1927 issue of\n_Amazing Stories_ magazine.]"
+              }
+            }
+          ]
+        },
+        "normalization_applied": [],
+        "normalization_changed": false,
+        "historical_path": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/corpora/mass_quantities/electro_episoded_in_a_d_2025__skinner/story.json",
+        "historical_file_sha256": "6c84245d59d5c41bebb7b2c5384700c3f89190f1769ce38a65605c4820849aa5",
+        "historical_body_sha256": "4806027936516eefccd5340ede54a7306c87fbb4dfe3b5fc96c6e7634376490f",
+        "exact_baseline_equality": false,
+        "typography_explanation": {
+          "schema_version": 1,
+          "rule": "source-preserved-typography-v1",
+          "offset_basis": "each_input_unicode_characters",
+          "selected_sha256": "8631d9c17457eed4b008fcaf31a32d35f26e4f0d65f25d19a7dcc132f72c1fdc",
+          "historical_sha256": "4806027936516eefccd5340ede54a7306c87fbb4dfe3b5fc96c6e7634376490f",
+          "selected_characters": 39203,
+          "historical_characters": 39059,
+          "comparison_selected_sha256": "8631d9c17457eed4b008fcaf31a32d35f26e4f0d65f25d19a7dcc132f72c1fdc",
+          "comparison_historical_sha256": "03f2768520c690d7df82bb47e0f75780650085a62ec53cae97cf2a574b499bdc",
+          "selected_comparison_ranges": [],
+          "historical_comparison_ranges": [
+            {
+              "span": [
+                0,
+                4
+              ],
+              "kind": "boundary_whitespace",
+              "sha256": "1a0f564ddc6039457b2fb26b3d6a316c15eba20a886449847c3210c35821a693",
+              "text": "    "
+            }
+          ],
+          "complete": false,
+          "residual_shape": "mixed_or_unclassified",
+          "additional_prefix_characters": null,
+          "additional_suffix_characters": null,
+          "publication_approved": false
+        },
+        "historical_note_present_after_whitespace_folding": true
+      },
+      "publication_approved": false,
+      "source_review_only": true
+    },
+    {
+      "id": 42664,
+      "role": "mixed_publishing_history_preface_excluded_from_first_family",
+      "rationale": "Explicit publisher attribution but mixes publication history, policy and promotion. Do not silently expand publisher_blurb to every editorial preface. Separate following pull-quote remains unclassified.",
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/42664.txt.gz",
+      "source_compressed_sha256": "c706c9e5725239a884b526092ddf68b07c618961ca01e3b2439e997a8316878f",
+      "decoded_utf8_sha256": "d66458d9dab1d4f4eb34b3e2d85875c53d092a86bf55a69f4a5c26c73855669a",
+      "source_identity_sha256": "a3ab071dcc2e9fbe56dfba4da125164ac3fa15942f0a2b2c4a6bf533ab155ccc",
+      "candidate_path": "/tmp/gettenberg-dispositions-20261020/repaired-work/candidates/42664-ff9be0b6015d12527e09b208ebd251d1029dbee4a01fe27cfa7ba2220a761a53.candidate.json",
+      "candidate_file_sha256": "1afbf0756c40b1e5cc9b4b76a9c17960292f359c7941cd89d15b868c42fe49ae",
+      "candidate_record_sha256": "ff9be0b6015d12527e09b208ebd251d1029dbee4a01fe27cfa7ba2220a761a53",
+      "candidate_sha256": "44d713b1269fd78bc334659516746242f8ecfc993c8c88c753ac0ac0fff7e720",
+      "offset_basis": "half-open Unicode characters; source retains original CRLF, candidate uses normalized LF",
+      "source_note": {
+        "span": [
+          442,
+          1116
+        ],
+        "text": "Publisher's Note: _The publication of this strange story by Robert\r\n     E. Howard, author of the Conan stories, so much a part of the\r\n     Living Library of Fantasy, represents a departure for this\r\n     magazine. Without abandoning our policy of bringing you, month\r\n     after month, the best in NEW Science Fiction and Fantasy, we will,\r\n     from time to time, publish material such as this, hitherto known to\r\n     only a few students of the field! GODS OF THE NORTH was published\r\n     in 1934, in Charles D. Hornig's THE FANTASY FAN, which had a\r\n     circulation of under a hundred! We thank Sam Moskowitz, Editor and\r\n     SF historian, who showed us this story._",
+        "sha256": "169737af077d694c66142a3f5f49602324889aa3607cfaebb5c38a84f4b9dae8"
+      },
+      "candidate_note": {
+        "span": [
+          306,
+          971
+        ],
+        "text": "Publisher's Note: _The publication of this strange story by Robert\n     E. Howard, author of the Conan stories, so much a part of the\n     Living Library of Fantasy, represents a departure for this\n     magazine. Without abandoning our policy of bringing you, month\n     after month, the best in NEW Science Fiction and Fantasy, we will,\n     from time to time, publish material such as this, hitherto known to\n     only a few students of the field! GODS OF THE NORTH was published\n     in 1934, in Charles D. Hornig's THE FANTASY FAN, which had a\n     circulation of under a hundred! We thank Sam Moskowitz, Editor and\n     SF historian, who showed us this story._",
+        "sha256": "ab2592e5c814ca8e711b6544c5fa12772a7c054f1bedc60dea18759cc45ebaa2"
+      },
+      "candidate_complete_paragraph_with_following_separator": {
+        "span": [
+          301,
+          973
+        ],
+        "text": "     Publisher's Note: _The publication of this strange story by Robert\n     E. Howard, author of the Conan stories, so much a part of the\n     Living Library of Fantasy, represents a departure for this\n     magazine. Without abandoning our policy of bringing you, month\n     after month, the best in NEW Science Fiction and Fantasy, we will,\n     from time to time, publish material such as this, hitherto known to\n     only a few students of the field! GODS OF THE NORTH was published\n     in 1934, in Charles D. Hornig's THE FANTASY FAN, which had a\n     circulation of under a hundred! We thank Sam Moskowitz, Editor and\n     SF historian, who showed us this story._\n\n",
+        "sha256": "8392f2c03bbb656c78bb7de297a80ee35357b9fe4eb0ba13be424a0b31cae2eb"
+      },
+      "source_opening_context": {
+        "span": [
+          0,
+          1616
+        ],
+        "text": "*** START OF THE PROJECT GUTENBERG EBOOK 42664 ***\r\n\r\n                           GODS OF THE NORTH\r\n\r\n                          By ROBERT E. HOWARD\r\n\r\n\r\n    [Transcriber's Note: Originally published in March 1934 in \"The\r\n    Fantasy Fan\". This etext was prepared from the reprint in Fantastic\r\n    Universe December 1956. Extensive research did not uncover any\r\n    evidence that the U.S. copyright on this publication was renewed.]\r\n\r\n     Publisher's Note: _The publication of this strange story by Robert\r\n     E. Howard, author of the Conan stories, so much a part of the\r\n     Living Library of Fantasy, represents a departure for this\r\n     magazine. Without abandoning our policy of bringing you, month\r\n     after month, the best in NEW Science Fiction and Fantasy, we will,\r\n     from time to time, publish material such as this, hitherto known to\r\n     only a few students of the field! GODS OF THE NORTH was published\r\n     in 1934, in Charles D. Hornig's THE FANTASY FAN, which had a\r\n     circulation of under a hundred! We thank Sam Moskowitz, Editor and\r\n     SF historian, who showed us this story._\r\n\r\n       *       *       *       *       *\r\n\r\n\r\n     She drew away from him, dwindling in the witch-fire of the skies,\r\n     until she was a figure no bigger than a child.\r\n\r\n\r\nThe clangor of the swords had died away, the shouting of the slaughter\r\nwas hushed; silence lay on the red-stained snow. The pale bleak sun that\r\nglittered so blindingly from the ice-fields and the snow-covered plains\r\nstruck sheens of silver from rent corselet and broken blade, where the\r\ndead lay in heaps. The nervele",
+        "sha256": "16700f72dd944952f79cf5aadbdbc7ee2775fed63426faf235d41642db78be81"
+      },
+      "candidate_opening_context": {
+        "span": [
+          0,
+          1471
+        ],
+        "text": "By ROBERT E. HOWARD\n\n\n    [Transcriber's Note: Originally published in March 1934 in \"The\n    Fantasy Fan\". This etext was prepared from the reprint in Fantastic\n    Universe December 1956. Extensive research did not uncover any\n    evidence that the U.S. copyright on this publication was renewed.]\n\n     Publisher's Note: _The publication of this strange story by Robert\n     E. Howard, author of the Conan stories, so much a part of the\n     Living Library of Fantasy, represents a departure for this\n     magazine. Without abandoning our policy of bringing you, month\n     after month, the best in NEW Science Fiction and Fantasy, we will,\n     from time to time, publish material such as this, hitherto known to\n     only a few students of the field! GODS OF THE NORTH was published\n     in 1934, in Charles D. Hornig's THE FANTASY FAN, which had a\n     circulation of under a hundred! We thank Sam Moskowitz, Editor and\n     SF historian, who showed us this story._\n\n       *       *       *       *       *\n\n\n     She drew away from him, dwindling in the witch-fire of the skies,\n     until she was a figure no bigger than a child.\n\n\nThe clangor of the swords had died away, the shouting of the slaughter\nwas hushed; silence lay on the red-stained snow. The pale bleak sun that\nglittered so blindingly from the ice-fields and the snow-covered plains\nstruck sheens of silver from rent corselet and broken blade, where the\ndead lay in heaps. The nerveless hand yet g",
+        "sha256": "73c34ec56e5526fb2dd4099e81ad6cb5e059a6c10b97f1bad07096bfb56226ce"
+      },
+      "hypothetical_note_only_selection": {
+        "selected_spans": [
+          [
+            0,
+            301
+          ],
+          [
+            973,
+            18580
+          ]
+        ],
+        "selected_sha256": "790da0f45042ee1c2a6f63fb2cd18880fb34e541b63904c554d75ae2ba5ec808",
+        "selected_readiness": {
+          "policy": "publication-readiness-v1",
+          "status": "needs_review",
+          "exclusion": null,
+          "offset_basis": "candidate_body_unicode_characters",
+          "findings": [
+            {
+              "kind": "opening_label",
+              "severity": "warning",
+              "span": [
+                0,
+                19
+              ],
+              "message": "A short opening without sentence punctuation needs review.",
+              "evidence": {
+                "text": "By ROBERT E. HOWARD"
+              }
+            },
+            {
+              "kind": "editorial_note",
+              "severity": "warning",
+              "span": [
+                26,
+                299
+              ],
+              "message": "An editorial note remains in the candidate.",
+              "evidence": {
+                "text": "[Transcriber's Note: Originally published in March 1934 in \"The\n    Fantasy Fan\". This etext was prepared from the reprint in Fantastic\n    Universe December 1956. Extensive research did not uncover any\n    evidence that the U.S. copyright "
+              }
+            },
+            {
+              "kind": "retained_gutenberg_notice",
+              "severity": "warning",
+              "span": [
+                17832,
+                17908
+              ],
+              "message": "An unremoved Gutenberg notice needs review.",
+              "evidence": {
+                "text": "End of the Project Gutenberg EBook of Gods of the North, by Robert E. Howard"
+              }
+            }
+          ]
+        },
+        "normalization_applied": [],
+        "normalization_changed": false,
+        "historical_path": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/corpora/mass_quantities/gods_of_the_north__howard/story.json",
+        "historical_file_sha256": "b637bde2f18ff43dec28bf19d40422f48ad49ac33b252c83e70e806a8e8b0fca",
+        "historical_body_sha256": "decebf25137cabf5dcaedc63de146702101803c491f27f206daa4420cb082278",
+        "exact_baseline_equality": false,
+        "typography_explanation": {
+          "schema_version": 1,
+          "rule": "source-preserved-typography-v1",
+          "offset_basis": "each_input_unicode_characters",
+          "selected_sha256": "790da0f45042ee1c2a6f63fb2cd18880fb34e541b63904c554d75ae2ba5ec808",
+          "historical_sha256": "decebf25137cabf5dcaedc63de146702101803c491f27f206daa4420cb082278",
+          "selected_characters": 17908,
+          "historical_characters": 18117,
+          "comparison_selected_sha256": "893ad84b2e58666ba1b956750e84968185fd8b5d24cd53bb1130e7e95ef97599",
+          "comparison_historical_sha256": "ed26795d834708f28983fa2697c7ff487fdc6780f8093d97310786b9e2b25213",
+          "selected_comparison_ranges": [
+            {
+              "span": [
+                301,
+                341
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            },
+            {
+              "span": [
+                14293,
+                14333
+              ],
+              "kind": "preserved_scene_separator",
+              "sha256": "0559054cd6ad0d705c35250583c0c8801176ddf82a507e47e974048f54106fdd",
+              "text": "       *       *       *       *       *"
+            }
+          ],
+          "historical_comparison_ranges": [
+            {
+              "span": [
+                0,
+                5
+              ],
+              "kind": "boundary_whitespace",
+              "sha256": "7879981d4f226a8f0191d36730c07205d7a5ff1c780fca9b2f905f25264cf636",
+              "text": "     "
+            }
+          ],
+          "complete": false,
+          "residual_shape": "mixed_or_unclassified",
+          "additional_prefix_characters": null,
+          "additional_suffix_characters": null,
+          "publication_approved": false
+        },
+        "historical_note_present_after_whitespace_folding": true
+      },
+      "publication_approved": false,
+      "source_review_only": true
+    }
+  ],
+  "counterexamples": [
+    {
+      "id": 32361,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/32361.txt.gz",
+      "decoded_utf8_sha256": "bdd276b59646e696e0e5e7ce9234e7ae7476701c6c57818068e314299350b0d7",
+      "evidence": {
+        "span": [
+          1153,
+          1374
+        ],
+        "text": "Joey Barrett set his camera carefully to one side and swung onto the\r\nedge of the desk. He knew this annoyed Nugent, and, at the moment,\r\nnothing gave him greater satisfaction than his ability to irritate the\r\neditor.\r\n\r\n",
+        "sha256": "9b1870c5f962472846b51ffae30e49efa1c401828e1b7ef33369de455a174488"
+      },
+      "rationale": "The word editor occurs in ordinary narrative about Joey irritating his editor Nugent; editor vocabulary and references to stories or readers do not establish paratext."
+    },
+    {
+      "id": 24529,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24529.txt.gz",
+      "decoded_utf8_sha256": "78fda34ae652a8b7b40a56c5b151592cf354428bc667e0b9afc13f6a16a11086",
+      "evidence": {
+        "span": [
+          1084,
+          1643
+        ],
+        "text": "    _\"I recall,\" said the Businessman, \"that William Wrigley, Junior,\r\n    once said:_ 'When two men in a business always agree, one of them is\r\n    unnecessary.' _How true that is.\"_\r\n\r\n    _The Philosopher cast his eyes toward Heaven. \"O God! The Mercantile\r\n    Mind!\" He looked back at the Businessman. \"When two men in a\r\n    business always agree, one of them will come in handy as a\r\n    scapegoat.\"_\r\n\r\n                                                 _THE IDLE WORSHIPERS_\r\n                                                 by R. Phillip Dachboden\r\n\r\n",
+        "sha256": "d847ef86ba5887a1a82b3c9c9411c589d1ec39d1aca933578cee2e6e8d3d8dd9"
+      },
+      "rationale": "Indented italic opening dialogue is attributed to THE IDLE WORSHIPERS by R. Phillip Dachboden. It is an epigraph/cited fictional dialogue and must be retained, independently of preceding teaser-like text."
+    },
+    {
+      "id": 70549,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/70549.txt.gz",
+      "decoded_utf8_sha256": "12c9d740524298c01303f32ec50334ebfdb96c7a6aab2c22b65b86bd20e1112c",
+      "evidence": {
+        "span": [
+          1906,
+          4132
+        ],
+        "text": "_The Space Ark left its home planet, Urth, two thousand years ago\r\nCanopus IV time, arriving here in the Canopus System some five\r\nhundred years later. That is all we know for certain; the rest is mere\r\nconjecture._\r\n\r\n_Two salient features of the Space Ark's unique social institutions\r\nstand out above the myth and fairytale of our ancestors, however. The\r\nfirst is the fabled story of the Mutant-makers, and when one studies\r\nthe conditions surrounding this phenomenon, the fabled story becomes\r\ncold scientific fact. On a giant balanced-terrarium of a ship which\r\nwas largely automatic, seemingly isolated forever in the vastnesses of\r\ninterstellar space, our ancestors lacked even a modicum of external\r\nchallenge. They thus had to create their own artificial stimuli or face\r\nan inevitable retreat down the ladder of decadence to barbarism. It\r\nappears that for a time they went too far: they created mutants. These\r\nin turn gave rise to a rigid caste-system on the Ark, a system which\r\nafforded an extreme in internal challenges and responses._\r\n\r\n_The second salient feature of the Space Ark's social institutions\r\nwas its favoring of the biolo-mental sciences over the chemi-physical\r\nsciences. This, again, proves to be an inevitable by-product of\r\nthe Space Ark's static environment. No physical world existed:\r\nphysics became a useless dogma, a meaningless jumble of terms\r\nwhich bore no semantic relation to the world-at-large. On the\r\nother hand, the Space Ark was a universe of introversion. The\r\nbiolo-mental sciences leaped ahead of what had developed into a\r\nsomething-less-than-static-civilization. This, as we have seen, gave\r\nrise to the Mutant-makers. But on a constructive level, it fostered\r\nthe growth of a new science of psychology, vastly superior to the old\r\nUrth science, and, some suspect, considerably more refined than our\r\nown mental sciences. A particular manifestation of this lost science\r\nwas the ability to project tri-dimensional images of dreams, to record\r\nthem while the conscious mind slumbered, to play them back later and to\r\ninterpret them unerringly...._\r\n\r\n--_Andoos-Rob't_, A Short History of the Abortive Social Institutions\r\nof the Urth-Canopus Space Ark, _Introduction_.\r\n\r\n",
+        "sha256": "3214bccae447652a028cdad0689a14bfdfb14912bc6181b182028e6a8b3c02f7"
+      },
+      "rationale": "Long italic passage attributed to Andoos-Rob’t, a fictional space-ark history, Introduction. Introduction and italics do not imply real-world editorial matter."
+    },
+    {
+      "id": 32769,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/32769.txt.gz",
+      "decoded_utf8_sha256": "0ea3ff365a04ed736a0ab761fc70ef2a6d3dca90762549871561251ceda8263b",
+      "evidence": {
+        "span": [
+          2394,
+          3362
+        ],
+        "text": "INTRODUCTION\r\n\r\n\r\nI had been awake for I know not how many hours that summer dawn while\r\nthe sun came over the hills and coloured the beautiful roses in my\r\nmother's garden. As I lay drowsily gazing through the window, I\r\nthought I had never known a morning so sultry, and yet so pleasant.\r\nOutside not a leaf stirred; yet the air was fresh, and the madrigal\r\nnotes of the birds came to me with a peculiar intensity and clearness.\r\nI listened intently to the curious sound of trilling, which drew\r\nnearer and nearer, until it seemed to merge into a whirring noise that\r\nfilled the room and crowded at my ears. At first I could see nothing,\r\nand lay in deadly fear of the unknown; but soon I thought I saw rims\r\nand sparks of spectral fire floating through the pane. Then I heard\r\nsome one say, \"I am the Wind.\" But the voice was so like that of an\r\nold friend whom one sees again after many years that my terror\r\ndeparted, and I asked simply why the Wind had come.\r\n\r\n",
+        "sha256": "4cb4b5841bc987d4c385637c499975cab6c7b5e1fd527a3e0b10d53eb05562c3"
+      },
+      "rationale": "Explicit INTRODUCTION heading introduces first-person narrative and the speaking Wind; a generic introduction-deletion rule would erase narrative."
+    },
+    {
+      "id": 42664,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/42664.txt.gz",
+      "decoded_utf8_sha256": "d66458d9dab1d4f4eb34b3e2d85875c53d092a86bf55a69f4a5c26c73855669a",
+      "evidence": {
+        "span": [
+          1166,
+          1295
+        ],
+        "text": "     She drew away from him, dwindling in the witch-fire of the skies,\r\n     until she was a figure no bigger than a child.\r\n\r\n\r\n",
+        "sha256": "db15e84c0258c54b846955d40f825a5bfbab4a7fc781f3eb9ae5fa6deafc7aa2"
+      },
+      "rationale": "Separate unlabeled pull-quote follows the explicit publisher note; positive attribution of one paragraph does not transfer across the separator."
+    },
+    {
+      "id": 72197,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/72197.txt.gz",
+      "decoded_utf8_sha256": "966f8d08e82bf921998870bc1d431a2ff259e4dcf4ec21e4e33a7ab66f5477a2",
+      "evidence": {
+        "span": [
+          73,
+          356
+        ],
+        "text": "    _Miriam de Ford has given a good deal of thought to crime and\r\n    criminology of other times and spaces (see Editorial). Now she\r\n    turns her talents to constructing a \"true crime\" of the future--and\r\n    its solution. Herewith, then, a criminologist's lecture-report on_:\r\n\r\n",
+        "sha256": "617ce64b2e3bbba1a52bab13eec0b2a1a24d04b7886e2994ea8e2d7e6974244a"
+      },
+      "rationale": "Appears to discuss the named author and points to an Editorial, but no explicit role label on this passage; keep outside a label-required finite family."
+    }
+  ],
+  "diagnostic_cohort": [
+    {
+      "id": 22589,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/22589.txt.gz",
+      "decoded_utf8_sha256": "0d8d4ba6540637208908200a43e86731a0db4204d50d337fbd6f1f0b2b16e224",
+      "candidate_record_sha256": "4d56fecde96f2ed697fc2adb7f7803eef0e571b38193346251ee44ffc5bf13ee",
+      "candidate_sha256": "2f5a9c355ed9c2b729198b1ede74156b616da2f3b2665f812bc7f1c73f497778",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 22590,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/22590.txt.gz",
+      "decoded_utf8_sha256": "3255017cf0ed73b300e03a710ca50a6ccd664b1bfab6c8a343f27a0c0d5bdfe9",
+      "candidate_record_sha256": "9c29a2cf701a38b4c96fa4c833e27112d804d921ca65acaadf5435fb4aad9573",
+      "candidate_sha256": "0f706eacae5bf3f49fcf41975d0879c6828a3d9ca6f13021a3d43f6e79422a99",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 22597,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/22597.txt.gz",
+      "decoded_utf8_sha256": "62ba2310d6efd49e51b647779ca799c4695f2ab1ab3c57fcf0faae6f614fccd3",
+      "candidate_record_sha256": "62d3397304140e52cdf757ff815e5629895542039df620555cd0cd6395d4a1f3",
+      "candidate_sha256": "09e08ba1e530d505bdfd61b5bf42340c2718ea61f539ff3c458c191d8639d7f3",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 24529,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24529.txt.gz",
+      "decoded_utf8_sha256": "78fda34ae652a8b7b40a56c5b151592cf354428bc667e0b9afc13f6a16a11086",
+      "candidate_record_sha256": "115aea4ea910a10c52fd941c331136b8062a516e2f1be4df71a127b58acb3387",
+      "candidate_sha256": "7e147f1c0dcafb80afda44ffee49f47d88fcf3d34bc999fd6d33458bce51df10",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 24864,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24864.txt.gz",
+      "decoded_utf8_sha256": "993b40d7feb77d88b8cfea34fcc07a27e468c2804b81135eec9cfef97a95bb49",
+      "candidate_record_sha256": "58f7709a0bb1476804db413d3e479efd717d0eb1feacb4bac84f5534e8179d73",
+      "candidate_sha256": "1206d8d4d5cd5fc7ee9a41caad09a3daa3514dfe8f28f99128ecc5c87d020e39",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 24927,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24927.txt.gz",
+      "decoded_utf8_sha256": "1a4bfc1fca45e1c904be14c3d174502a447862b2e9e9bf365696bf06f0d89513",
+      "candidate_record_sha256": "90fa38d4913d5211596d2dff55d885b39d0884e546a950e9aba7aaca1b5e2b8e",
+      "candidate_sha256": "61beb61d6d7c4d3297302668eb1b628a971ec7bb7cfaeb599c19edf30dd051c4",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 24955,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24955.txt.gz",
+      "decoded_utf8_sha256": "76d057be965bb32cc116774e618495a6cbb5e768ff250fe7204ebfbfe7b5db96",
+      "candidate_record_sha256": "33f8c0bb913b79ed973c7b7875b5a9ff36d52b9cab8db7babfa220847d0e013e",
+      "candidate_sha256": "8b962df598f233e09fd6e8f409be240fca495e21889d5b3a6e74d36497913dfb",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 24973,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/24973.txt.gz",
+      "decoded_utf8_sha256": "54f283d14b12fc43a7f2a0046300cc8de07205e7501c0c8f219b0a334918a33c",
+      "candidate_record_sha256": "ab51c84a2448f53924cf515d1fd8e06f91dae640ba05514121bc76b74ae621a9",
+      "candidate_sha256": "fc3f81971f688d2b60f9ab8cb1c6e3de02d06230bb2f9d53daabc0dccfb7a0e1",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 25028,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/25028.txt.gz",
+      "decoded_utf8_sha256": "07559c2bcdc316f665aa53317e36cfae0028e0103f0d7e175ddf1972f4c357a4",
+      "candidate_record_sha256": "5c075dfbeb455229c1c9cb6737c838a0720e22dbc961a74c453dedc570a14d33",
+      "candidate_sha256": "6bb1b49baabd203a8b44d75650dae722bcf7925b89bcd594e723dc50c3024fcc",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 25035,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/25035.txt.gz",
+      "decoded_utf8_sha256": "4b38aa766e792ee5baae820cdc3219ddf13aa5a4c6c6d1d8861a2abd3ac05537",
+      "candidate_record_sha256": "f766822c64bf2e92c4a0ebe6929662cedbf13761ab13c2628e78db6185d4d2f1",
+      "candidate_sha256": "4552f86f086d2ffae70b317cb4cb130bfb1359135dc386a9684047cee0d57889",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 25627,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/25627.txt.gz",
+      "decoded_utf8_sha256": "bbe68357a343b77ca443a528f01c42935a976332ba0d9aa1cf8c5342cf4afe7f",
+      "candidate_record_sha256": "20182049912a27daa195269fe4dae2fbfb9bbfb332b5cfd61db7355cb5f58e54",
+      "candidate_sha256": "a89566e6cbdadbc11fe5bd1823de1afb644b862ee968afe6303d2ab34656a3a2",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 25629,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/25629.txt.gz",
+      "decoded_utf8_sha256": "484614caeb51103eaeb380274f5b4a31191793e9124f59165087f21e486d048a",
+      "candidate_record_sha256": "35bbdf4fc55e30c4282a0644e4aad609e025d48580bdf0bfb4cb9a318762183d",
+      "candidate_sha256": "ad45322ab2110e82c161b77c5e50bbc9ebf2d08885fa780864740de01608a6e5",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 26168,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/26168.txt.gz",
+      "decoded_utf8_sha256": "1287b1dc1594851d2025da2339f97de44f9786401aa0e26bb2b8df2e8818be14",
+      "candidate_record_sha256": "713dfc4b7e759c23b9cc633bab8425d0bec0e4d84cb21704caa04c02ea4feb33",
+      "candidate_sha256": "96845202ed28b74e07082fbe342604d7e4cbde4929cc65a126594dba1cbc35b1",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 26761,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/26761.txt.gz",
+      "decoded_utf8_sha256": "85f096ebbfe47a6dd46d8de742019fe638dec9c425bc6405cc0cf2a7a9be9b60",
+      "candidate_record_sha256": "646bc9cfa29f3f7d37de10bd2bbc8f3d7e1d021e0ce0c0628c458d52ae2d7bd4",
+      "candidate_sha256": "06c31dd8acbec8744093a783917df7ea149cdfa550f070cf7db79109ffff6528",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 26968,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/26968.txt.gz",
+      "decoded_utf8_sha256": "8e08b9e834a6bb4ec9821d7ca8a44c349fecf407c19ae7ace6cb79bae7b4b678",
+      "candidate_record_sha256": "df20a20c29e2ad391397373b3ba222c2a09cc181980a1c388811a7e69fb623d9",
+      "candidate_sha256": "da4bbaa7774623afc3c3a219dd9f8f6098171f1695dd04faebc42fbc0bdd5bf5",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 27968,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/27968.txt.gz",
+      "decoded_utf8_sha256": "e335463500311dc8e8f9cb1b570e10de58ed812b573b06d28be92c712cc4618e",
+      "candidate_record_sha256": "62a5e3417e6c030616a56049d0e3865c8f12365cec96909a73560eec6e98eb35",
+      "candidate_sha256": "b08dbc99d464c289a92d3c3aa2e11fdf9785335d44c96e3339ae2942da738ef2",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 28698,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/28698.txt.gz",
+      "decoded_utf8_sha256": "bd26897868dcf3c58e16e105bee4b8ab1872a524e5e5793d56d10a42bc8b48f8",
+      "candidate_record_sha256": "f47f1bfd3b93e2f166ff6073e583353651b1436b5b94554774a44145df77d2ef",
+      "candidate_sha256": "8b5b44d281bea060a381a2e26abc13c4f4359edbcb30d6e62c96666441e307e4",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 29132,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/29132.txt.gz",
+      "decoded_utf8_sha256": "a2a2cc2bcc86599a2782ae0e8b529d94b89fabcd5a8a313c30cac456e6bf427e",
+      "candidate_record_sha256": "7534175228a95ace3a3b1e262d1ee63197be5d2132d83402a084b0a87b178599",
+      "candidate_sha256": "e283d31637173eb5cf34ceedc7c046e735f5ad9ca099488604d144d94920ed0a",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 29159,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/29159.txt.gz",
+      "decoded_utf8_sha256": "3db647892882cda19e3d657e519588de182559f16ac3e6eeb833c47d5533f68e",
+      "candidate_record_sha256": "c373ec9afcadc1699f75fc9cb41f2f54592fbcb1f12e275a36940d8fb5267712",
+      "candidate_sha256": "fd7b41f48bd6bbba33b30117d47229957a0043f3629db11dad28fdf28a3d87bf",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 29623,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/29623.txt.gz",
+      "decoded_utf8_sha256": "e2ec07fd25fc7fd5ee3aa9bf691c7e9c0a570eff2db649c858b251d19b95c871",
+      "candidate_record_sha256": "3439eaf5ea3fd2006e500fdd6721a91b87475d98ac8a00148fe103be78667806",
+      "candidate_sha256": "3104d828249c51d558b5e47d72149047b5528b4bcf521303d84cfed0b10d3bb6",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 30014,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/30014.txt.gz",
+      "decoded_utf8_sha256": "41ea82be8b57b14ae8373df986e1c02ea506696c81f5d7168464b9566114b288",
+      "candidate_record_sha256": "abb7275ddfa9b7923351932c05aa9db19b637243af6249a1538dd8dc55ce897e",
+      "candidate_sha256": "7ab34b5b064271df71b94c9ee42cfbba73bfced740be2ebf97b6fcdc70599381",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 30015,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/30015.txt.gz",
+      "decoded_utf8_sha256": "cbe904f80a61b89fa91e777844d6ed5fa85a8f14f87fe90d8960e1143a83ff81",
+      "candidate_record_sha256": "09c16336d07ae811e9389a71b800708e7e7a8042f79404421bccd1d220b73a9c",
+      "candidate_sha256": "0039fdf66777d8549ed3042523e92c8480b86d6a43db75adbe2003381d90b106",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 30330,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/30330.txt.gz",
+      "decoded_utf8_sha256": "52d9d3bb8095a6aa9c7c0480764e974125fe680410096ac6623b971ab833b65d",
+      "candidate_record_sha256": "30bf73626751795880ef76a22abd508c2a027b5cca00bc5a5a7fabafa5bca6dd",
+      "candidate_sha256": "ea75201d010e036d640b6f50d73888b0e1b62e51ea2329341d343053bbe05d94",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 30361,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/30361.txt.gz",
+      "decoded_utf8_sha256": "4cc2fc63b983921246fe2599384a1d49513f47758f521c46751bb2417b0fc234",
+      "candidate_record_sha256": "1cdcb4748fc2964c33cb32cf5d70b60a7e5efec56f031d94d10b4d2a88c82581",
+      "candidate_sha256": "802ff741ca847a14bb96df1f0a1ea22abcbe1c94949f2448d558b3aa55b2ec14",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    },
+    {
+      "id": 30683,
+      "defer_preserved": true,
+      "source_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/texts/30683.txt.gz",
+      "decoded_utf8_sha256": "a1228b9d7266652c687b80e0a2440e86f1109d41e9fe136a5693b41990cd98b1",
+      "candidate_record_sha256": "eb4b642b65e02f5dc7bbfe638576a20282f49a1410899487c9cb868df1cd92aa",
+      "candidate_sha256": "de15e31e8acafe72a4a0aed5708d9d0d4c97147e8cbd3343cbce5544b1e0a45f",
+      "source_anchor_verified": true,
+      "candidate_anchor_verified": true,
+      "positive_editorial_role_established": false
+    }
+  ],
+  "html_inventory": [
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/0d414affb2ed720ed6492ec49c998ffa1d8fe61e002aa0cea0302e3312adc4c6.html",
+      "sha256": "5586396db10cdae5baa90078e19871497171437bdde8864dae1a053025b06fd7",
+      "title": "The Thing on the Door-step | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73230"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/1a5cbba299b21049e5c9f71c83420b6d1eb6f88a78b666fec4a413636cfc5fd4.html",
+      "sha256": "e864343f7b5256a6e1efb315a478ed2a00738215523a9af7668d70492885566a",
+      "title": "The Project Gutenberg eBook of The Colour Out of Space, by H. P. Lovecraft.",
+      "observed_gutenberg_ids": [
+        "68236"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/33fde7d83f343104d14cac0a9ddf2f86967d352390e0fbaa977bd62119412736.html",
+      "sha256": "3204592e22fa040eeb48f9908feefef1bdff63bc4d172f72fe5840a5f6a16d05",
+      "title": "The Dunwich Horror | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "50133"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/42b6ff071a9c43f1d87ef263220840b55583fc90e281fcb10926316c22aea67e.html",
+      "sha256": "ed3e9af6c91ca183843b92258a68868761d7a7ab5129aa54fd094aca15b04fbd",
+      "title": "The Project Gutenberg eBook of Grimms’ Fairy Tales, by Jacob Grimm and Wilhelm Grimm",
+      "observed_gutenberg_ids": [
+        "2591"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/435c0fa753d24bd3c633d7be3c1a16cea4ba1261eceef0062d4fede1c7519c1b.html",
+      "sha256": "e336be24ae233bb85256642e2f82b88c1f804d70f2717894c817fcb83a673133",
+      "title": "Cool Air | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73177"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/562f188a2973b19b1716613975ac0903f65e2cc924f7d963d37508975c5aa1fb.html",
+      "sha256": "0d6e3fd0885c9c559b3b1ef6f19df76ff2a2615ce2245cc229153dd4998cdf3e",
+      "title": "The Project Gutenberg eBook of The Happy Prince, by Oscar Wilde",
+      "observed_gutenberg_ids": [
+        "902"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/65c6f2edbe4b769b6f6e5dcf21c5e5363d087ec50c0d83334afa0e0c014a1642.htm",
+      "sha256": "bbf6ac23e9dd5b14a428d0a0a4293199c7779b940b3b2ac3d9a9e55a96baf14f",
+      "title": "Whirligigs | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "1595"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/668828ce8dd75e31351c98095051b082889fa33f08a1c9ca5ff494d1ebc3041d.html",
+      "sha256": "e13877600f39cc416995544c54937a84786178bdb8a012f150387f867f91087d",
+      "title": "Andersen's Fairy Tales | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "1597"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/6861d89a1d9a0b137cc63ec013220dfeb3717a3cd35c3cca4c4ed59e555bf49a.html",
+      "sha256": "ef54514f5b1eff859469cc88dbdf981ec147dbd44a1d52488f369da930a36ae0",
+      "title": "The Project Gutenberg eBook of The Festival, by H. P. Lovecraft",
+      "observed_gutenberg_ids": [
+        "68553"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/6c3b9b83ce12c1dea9fcce989bbaa56db8422dba7b14f569732d06b96be929bc.htm",
+      "sha256": "f7876ab562f88967758d0348935e8bb431c18c61a8ea689d41ffb1a97db579c6",
+      "title": "The Project Gutenberg eBook of The Innocence of Father Brown, by G. K. Chesterton",
+      "observed_gutenberg_ids": [
+        "204"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/76b00a5f271e96f0356cde6609d4de99097a91c223e7758b4208d6db17bb4905.html",
+      "sha256": "2f28fa25f34f2fff2cfa06b04b427bef0a33362d14ce6793dfcfc2fc68989dbb",
+      "title": "The Quest of Iranon | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73182"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/7d3580c7a4819c1b3fb639e6e03f72f80fe25bfb7e3a954f96d3054d38fad6b7.html",
+      "sha256": "045346d6e87fdf548d84409cd54bbb9111d1a516f4f9051c5956e210a2ebf33e",
+      "title": "The Distributed Proofreaders Canada eBook of The Horror at Red Hook\nby H. P. Lovecraft",
+      "observed_gutenberg_ids": [
+        "72966"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/7d500e3adb036bacb38930718bd18f3094fadedd7e4b1737331229fa9ea41ca1.html",
+      "sha256": "eab498dc1d3e2632bb35b64e83d2d932dd4b02d80afbf0eecee21ab0865e7b88",
+      "title": "Men Without Women, by Earnest Hemingway—A Project Gutenberg eBook",
+      "observed_gutenberg_ids": [
+        "69683"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/871fa80369bf0899c25a2c2870560f3cc0d354d96499d2438476f937edaa4298.html",
+      "sha256": "96043c0fbb707db28ff83c0646f569113d9473a1a3cf1421605729fc5509181c",
+      "title": "Through the Gates of the Silver Key | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "71167"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/87cee59a45e400803a43aba779d29f6337c8e61413764d6eb3aaa8e7a22dad81.html",
+      "sha256": "6f50c9a19d5c5455b4f64df77514b1acee32bf310d429331bd77ae1a777b244c",
+      "title": "The Haunter of the Dark | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73233"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/9c30f51ad7cc11a6767986ebffa6c73937ae3d303ef5ba2eed64de7c302ab6fb.html",
+      "sha256": "0587d3517a0c939f53852c10ccf918decc4d0e542879fcf88202a2f5fa1fc75c",
+      "title": "At the Mountains of Madness, by H. P. Lovecraft—A Project Gutenberg eBook",
+      "observed_gutenberg_ids": [
+        "70652"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/9c53e75a19d9ab46b27bd3cf304b40b55ecd9e6abf7458ddc3e8e6c78de514f7.html",
+      "sha256": "db038967d294bd7c08cacc30e18a6c18577a85a8b988684b83cf97dd1342fb87",
+      "title": "The Project Gutenberg eBook of The Four Million, by O. Henry",
+      "observed_gutenberg_ids": [
+        "2776"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/ab4a7c5708971c3ec1ee8e3768ef4b46ca512f563c515ced4e9b291bd93fe37f.html",
+      "sha256": "55aceda84e73e32ae97cd6aad391e977199369ef7610bacc330de2ef7de6e9b6",
+      "title": "Love of Life and Other Stories, by Jack London—A Project Gutenberg eBook",
+      "observed_gutenberg_ids": [
+        "710"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/adae87e7c87f1276d0b01b306f96cb31d8f6d94c83ee11bb56ba3625b2a76486.html",
+      "sha256": "224a51efee43035fe96f7d001044039b592a076fe99d33b36a603420fb636685",
+      "title": "The Shunned House | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "31469"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/b965e6446bb34944d0394265e43dea5391ecf40fe611fe908b26c7eb36194a62.html",
+      "sha256": "92fe8bf5bd7ae6ebb323838aacf740a365dbad693c020b5946fcd2d8eafbbaf7",
+      "title": "The Project Gutenberg eBook of He, by H. P. Lovecraft",
+      "observed_gutenberg_ids": [
+        "68547"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/c1cfdf146575c1a19c05a2d0dd569ccce378dcacd304110b7e181cacf8f3b6d7.html",
+      "sha256": "e7b41310afbfe3eebe793e7a38926ca715f1b977c8c99a58a8862a30aff764b7",
+      "title": "The Lurking Fear, by H. P. Lovecraft—A Project Gutenberg eBook",
+      "observed_gutenberg_ids": [
+        "70486"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/d29e1c5e81554bf25feae4fdf7c39b8da61f37531f566c3da69a9e510f5903f2.htm",
+      "sha256": "259afa536b3aba40b1902c849b5d681ac0b20ae0053ad941c9bc9f80bb2cd6c6",
+      "title": "The Adventures of Sherlock Holmes | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "1661",
+        "48320"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/d461780f9a05ffd6342d92c0921b589bad22ecf0f825c0cdc80e9140bae9d971.html",
+      "sha256": "5c37b2ed2a14baf2850e1227bff3f7da0ea4032872631258ea9ab3a989bec07b",
+      "title": "The Case of Charles Dexter Ward | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73547"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/df1b7ef25f35a865b98b3caeffa2c36e4a0e7cba79e3e8b36261eb8d6b622368.html",
+      "sha256": "c213804ed9545e3421a7a0cab40d23de60194486fcbafb2d5c6268e45fbbd2d0",
+      "title": "The Silver Key, by H. P. Lovecraft—A Project Gutenberg eBook",
+      "observed_gutenberg_ids": [
+        "70478"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/e99a79bd15d27c995f5518e0e1e5e58e0c379a3482fc13b6f95ceb0a0f8a85ea.html",
+      "sha256": "8ae60a918179dce09a13862c50e24113676dc2675e89c4e738990dcb6791fc81",
+      "title": "The Man With Two Left Feet, by P. G. Wodehouse",
+      "observed_gutenberg_ids": [
+        "7471"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/ee27eadbaaab39dcd28c1a730ca21730c48173f75bd725d7ccdc2a5d37dd591f.html",
+      "sha256": "d19c728bbcb0d5471311d5209d4774e5e7d06aa5b9c97b49ad38593d10598f57",
+      "title": "The Shadow Over Innsmouth | Project Gutenberg",
+      "observed_gutenberg_ids": [
+        "73181"
+      ]
+    },
+    {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/resources/fde290f2d75031040e0b8f6cd82096047321c29585664908fe6ecaf8ef6dc533.html",
+      "sha256": "15cae04dec7bfe74cb156614dc657320c47d52eff22ffb7c8dc63e63d3acb4ff",
+      "title": "The Project Gutenberg eBook of The Call of Cthulhu, by H.P. Lovecraft.",
+      "observed_gutenberg_ids": [
+        "68283"
+      ]
+    }
+  ],
+  "discovery_hits": [
+    {
+      "id": 15089,
+      "matches": [
+        {
+          "span": [
+            727,
+            739
+          ],
+          "text": "INTRODUCTION"
+        },
+        {
+          "span": [
+            819,
+            831
+          ],
+          "text": "INTRODUCTION"
+        }
+      ]
+    },
+    {
+      "id": 19257,
+      "matches": [
+        {
+          "span": [
+            3974,
+            3986
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 22538,
+      "matches": [
+        {
+          "span": [
+            6497,
+            6509
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 22704,
+      "matches": [
+        {
+          "span": [
+            7601,
+            7613
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 22842,
+      "matches": [
+        {
+          "span": [
+            2908,
+            2920
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 2328,
+      "matches": [
+        {
+          "span": [
+            1693,
+            1705
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 23806,
+      "matches": [
+        {
+          "span": [
+            2298,
+            2310
+          ],
+          "text": "introduction"
+        },
+        {
+          "span": [
+            2401,
+            2413
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 24351,
+      "matches": [
+        {
+          "span": [
+            6136,
+            6148
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 24495,
+      "matches": [
+        {
+          "span": [
+            9538,
+            9547
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 24529,
+      "matches": [
+        {
+          "span": [
+            4440,
+            4449
+          ],
+          "text": "editorial"
+        },
+        {
+          "span": [
+            4513,
+            4522
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 25058,
+      "matches": [
+        {
+          "span": [
+            3760,
+            3772
+          ],
+          "text": "introduction"
+        },
+        {
+          "span": [
+            5141,
+            5153
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 26066,
+      "matches": [
+        {
+          "span": [
+            1229,
+            1241
+          ],
+          "text": "Introduction"
+        }
+      ]
+    },
+    {
+      "id": 26967,
+      "matches": [
+        {
+          "span": [
+            1317,
+            1329
+          ],
+          "text": "Introduction"
+        },
+        {
+          "span": [
+            1372,
+            1381
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 29194,
+      "matches": [
+        {
+          "span": [
+            743,
+            755
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 29309,
+      "matches": [
+        {
+          "span": [
+            7952,
+            7964
+          ],
+          "text": "introduction"
+        },
+        {
+          "span": [
+            8944,
+            8956
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 29559,
+      "matches": [
+        {
+          "span": [
+            798,
+            807
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 30035,
+      "matches": [
+        {
+          "span": [
+            8372,
+            8381
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 30234,
+      "matches": [
+        {
+          "span": [
+            1032,
+            1063
+          ],
+          "text": "editor skimmed through the note"
+        }
+      ]
+    },
+    {
+      "id": 31964,
+      "matches": [
+        {
+          "span": [
+            6427,
+            6436
+          ],
+          "text": "Editorial"
+        }
+      ]
+    },
+    {
+      "id": 31981,
+      "matches": [
+        {
+          "span": [
+            7170,
+            7179
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 32207,
+      "matches": [
+        {
+          "span": [
+            9378,
+            9390
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 32667,
+      "matches": [
+        {
+          "span": [
+            6363,
+            6375
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 32769,
+      "matches": [
+        {
+          "span": [
+            2002,
+            2014
+          ],
+          "text": "INTRODUCTION"
+        },
+        {
+          "span": [
+            2394,
+            2406
+          ],
+          "text": "INTRODUCTION"
+        }
+      ]
+    },
+    {
+      "id": 3616,
+      "matches": [
+        {
+          "span": [
+            1065,
+            1077
+          ],
+          "text": "introduction"
+        },
+        {
+          "span": [
+            2291,
+            2303
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 37146,
+      "matches": [
+        {
+          "span": [
+            4470,
+            4482
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 37653,
+      "matches": [
+        {
+          "span": [
+            1607,
+            1619
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 42664,
+      "matches": [
+        {
+          "span": [
+            442,
+            458
+          ],
+          "text": "Publisher's Note"
+        }
+      ]
+    },
+    {
+      "id": 4674,
+      "matches": [
+        {
+          "span": [
+            939,
+            951
+          ],
+          "text": "Introduction"
+        },
+        {
+          "span": [
+            990,
+            1002
+          ],
+          "text": "Introduction"
+        }
+      ]
+    },
+    {
+      "id": 47683,
+      "matches": [
+        {
+          "span": [
+            1407,
+            1423
+          ],
+          "text": "PUBLISHER’S NOTE"
+        }
+      ]
+    },
+    {
+      "id": 51047,
+      "matches": [
+        {
+          "span": [
+            5209,
+            5221
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 51249,
+      "matches": [
+        {
+          "span": [
+            6927,
+            6939
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 51286,
+      "matches": [
+        {
+          "span": [
+            5197,
+            5206
+          ],
+          "text": "editorial"
+        },
+        {
+          "span": [
+            5266,
+            5275
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 51616,
+      "matches": [
+        {
+          "span": [
+            1983,
+            1995
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 51622,
+      "matches": [
+        {
+          "span": [
+            2569,
+            2581
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 58201,
+      "matches": [
+        {
+          "span": [
+            1635,
+            1647
+          ],
+          "text": "INTRODUCTION"
+        },
+        {
+          "span": [
+            2737,
+            2749
+          ],
+          "text": "INTRODUCTION"
+        }
+      ]
+    },
+    {
+      "id": 58735,
+      "matches": [
+        {
+          "span": [
+            3556,
+            3568
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 59394,
+      "matches": [
+        {
+          "span": [
+            4356,
+            4365
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 59415,
+      "matches": [
+        {
+          "span": [
+            4267,
+            4276
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 60976,
+      "matches": [
+        {
+          "span": [
+            456,
+            468
+          ],
+          "text": "Introduction"
+        },
+        {
+          "span": [
+            6408,
+            6420
+          ],
+          "text": "INTRODUCTION"
+        }
+      ]
+    },
+    {
+      "id": 61187,
+      "matches": [
+        {
+          "span": [
+            1629,
+            1641
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 61498,
+      "matches": [
+        {
+          "span": [
+            7262,
+            7274
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 63442,
+      "matches": [
+        {
+          "span": [
+            8609,
+            8621
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 63638,
+      "matches": [
+        {
+          "span": [
+            167,
+            180
+          ],
+          "text": "Editor's note"
+        }
+      ]
+    },
+    {
+      "id": 63963,
+      "matches": [
+        {
+          "span": [
+            7044,
+            7053
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 64181,
+      "matches": [
+        {
+          "span": [
+            4826,
+            4838
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 64244,
+      "matches": [
+        {
+          "span": [
+            5206,
+            5218
+          ],
+          "text": "Introduction"
+        }
+      ]
+    },
+    {
+      "id": 65137,
+      "matches": [
+        {
+          "span": [
+            4435,
+            4447
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 65241,
+      "matches": [
+        {
+          "span": [
+            7264,
+            7276
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 67165,
+      "matches": [
+        {
+          "span": [
+            2187,
+            2199
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 67602,
+      "matches": [
+        {
+          "span": [
+            2363,
+            2375
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 68247,
+      "matches": [
+        {
+          "span": [
+            7879,
+            7888
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 68820,
+      "matches": [
+        {
+          "span": [
+            4447,
+            4459
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 68847,
+      "matches": [
+        {
+          "span": [
+            8243,
+            8255
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 70391,
+      "matches": [
+        {
+          "span": [
+            4763,
+            4772
+          ],
+          "text": "editorial"
+        },
+        {
+          "span": [
+            9446,
+            9458
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 70549,
+      "matches": [
+        {
+          "span": [
+            4114,
+            4126
+          ],
+          "text": "Introduction"
+        }
+      ]
+    },
+    {
+      "id": 70912,
+      "matches": [
+        {
+          "span": [
+            3773,
+            3785
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 71388,
+      "matches": [
+        {
+          "span": [
+            3393,
+            3405
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 71770,
+      "matches": [
+        {
+          "span": [
+            2973,
+            2982
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 72197,
+      "matches": [
+        {
+          "span": [
+            187,
+            196
+          ],
+          "text": "Editorial"
+        }
+      ]
+    },
+    {
+      "id": 73091,
+      "matches": [
+        {
+          "span": [
+            5740,
+            5749
+          ],
+          "text": "editorial"
+        },
+        {
+          "span": [
+            6537,
+            6546
+          ],
+          "text": "editorial"
+        },
+        {
+          "span": [
+            7311,
+            7320
+          ],
+          "text": "editorial"
+        }
+      ]
+    },
+    {
+      "id": 73988,
+      "matches": [
+        {
+          "span": [
+            511,
+            527
+          ],
+          "text": "Publisher’s note"
+        }
+      ]
+    },
+    {
+      "id": 9230,
+      "matches": [
+        {
+          "span": [
+            4258,
+            4270
+          ],
+          "text": "introduction"
+        }
+      ]
+    },
+    {
+      "id": 9384,
+      "matches": [
+        {
+          "span": [
+            803,
+            815
+          ],
+          "text": "Introduction"
+        },
+        {
+          "span": [
+            915,
+            927
+          ],
+          "text": "INTRODUCTION"
+        }
+      ]
+    }
+  ],
+  "recommendation": {
+    "first_family": [
+      63638,
+      73988
+    ],
+    "mechanism": "Closed per-input reviewed-role catalogue; reusable evidence verifier checks complete delimiter/paragraph, source identity, candidate identity, exact original-coordinate span and retained bytes. Syntax is discovery or evidence validation, never semantic classification.",
+    "kind": "publisher_blurb is defensible for these two promotional editor/publisher utterances when original labels and attribution are retained in editorial metadata; no schema expansion required for these cases. Mixed prefaces and attributed introductions remain excluded.",
+    "no_new_approvals": true,
+    "existing_25_defers_unchanged": true,
+    "requirements_before_recording": "Separate role review, authored positives/negatives, complete candidate inspection, independent review, prior-intent checks, unchanged publication/readiness/historical gates; no automatic approval from label or same shape.",
+    "limitations": "No primary magazine scans or matching HTML for the 25; cached text attribution only. Opening scan is bounded, not a proof of absence throughout corpus. Complete literary reading and original publisher identity authentication not performed."
+  }
+}

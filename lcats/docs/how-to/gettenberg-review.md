@@ -194,3 +194,39 @@ covering every new terminal-mode proposal. Replay approved decisions into dispos
 outputs and reconcile cumulative coverage before reporting historical resolutions.
 If all candidates remain unresolved, an empty packet and zero new approvals is a
 valid checkpoint. Never invent a review or delete prose to achieve a target count.
+
+
+## Preserve a positive span finding while the story remains unresolved
+
+A clearly attributed promotional introduction can be understood before all other
+material in a story is resolved. Record that partial finding separately from the
+story's disposition; keep existing deferrals intact.
+
+1. Inspect the exact cached source, candidate and surrounding context. An explicit
+   publisher/editor label helps locate a passage but may still be fictional. Supply
+   a positive, source-specific rationale; defer epigraphs, mixed publishing prefaces
+   and unlabelled openings when their roles remain uncertain.
+2. Prepare an attributed [partial-role packet](../reference/gettenberg-review.md#partial-promotional-preface-evidence)
+   with exact candidate/source ranges and hashes. Raw-source offsets include CRLF
+   characters; candidate offsets use its unchanged LF text. Never copy comparison
+   projection offsets into a source selection.
+3. Verify the packet without recording any story decision:
+
+```python
+from lcats.gatherers import editorial_evidence
+
+proposal = editorial_evidence.reviewed_preface(
+    candidate_path, exact_decoded_source, explicitly_reviewed_packet
+)
+assert proposal["publication_approved"] is False
+```
+
+The experiment's `qualify_editorial_evidence.py` runner measures a finite reviewed
+catalogue against the complete population and cumulative dispositions. It composes
+partial spans with proven notices only for analysis, preserves every other character,
+and reports surviving readiness/history blockers. It never exports approvals or
+publishes stories. See the [experiment invocation and evidence](../../../experiments/10_gettenberg_qualification/README.md#reviewed-promotional-preface-evidence).
+
+Do not turn a valid partial packet into an approve record until the complete story
+passes the existing review and historical gates. Matching another input's label
+or paragraph shape does not carry over the role judgment.

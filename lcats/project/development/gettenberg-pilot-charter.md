@@ -708,3 +708,47 @@ Prior-art/demand check: reuse OrderedReviewDecision, candidate_review, the exist
 batch cohort verifier and historical rule. Extend the opt-in proposal path rather
 than create another decision store. Staged dependencies remain at accepted ancestors
 as recorded in the existing qualification matrix; main delivery remains pending.
+
+
+### Opening-editorial evidence grant — 2026-10-22 06:43 UTC
+
+Human approved the proposed two-hour target /three-hour hard stop: investigate
+source evidence for opening editorial roles, implement one defensible narrow family
+only if evidence supports it, measure whole-population applicability, and independently
+review/validate/checkpoint. Start 06:43:57 UTC; target 08:43:57; hard stop 09:43:57.
+First evidence decision by 07:23:57; feature freeze by 08:58:57 at latest, preserving
+45 minutes for review/repair/checkpoint. Finish early when scope completes or evidence
+cannot support implementation. No automatic renewal or approval quota.
+
+Continue codex/gettenberg-qualification /PR #524 at 3c040b2d224bd03fc5c177e0c08f872fa6ec1057.
+Existing coordinator adapter covers routine gates; readiness has no warnings;
+watched installed skills clean, persistent skip consent invalid and untouched.
+Staged dependency acceptance remains at the ancestors in the qualification matrix.
+Use project Python /LCATS environment with imports bound to this worktree.
+Native implementation prompt: PROMPT(WI-GETTENBERG-0010:GETTENBERG_EDITORIAL_EVIDENCE)[2026-10-22T06:44:15+00:00].
+
+Three agents maximum; normally coordinator plus one focused investigator or reviewer.
+No recursive delegation. Up to four assignments, 60 cumulative worker minutes:
+first investigator at most 30, cold review at most 20, narrow repair recheck at most
+10. Shared weekly usage starts 48%; freeze features at 58%, stop substantive work
+at 63%. Check every 15 minutes and before major blocks/dispatch; unavailable telemetry
+means checkpoint. Account-wide readings are not exclusive task billing. Isolated
+output budget 15GiB, free-space minimum 6GiB. Timer/budget enforcement is coordinator
+monitoring, not a claimed runtime scheduler.
+
+Cached sources read-only; no Gutenberg acquisition or catalog refresh. PyPI isolated
+build/install allowed for package verification. No broad blurb classifier, default
+extraction/gather change, canonical corpus mutation, CI/consent edits, package release,
+integration/main promotion or terminal closeout. Existing deferrals stay intact and
+cannot be silently overridden. Every proposed approval needs positive role evidence,
+exact input bindings, complete omission/history accounting and independent review.
+If no narrow family is defensible, preserve an evidence-gap milestone rather than
+implement a heuristic. Formatting/position/similarity only guide inspection.
+
+Prior-art/demand: WI0010 and current contract request editorial qualification; reuse
+v2 ordered selections, metadata.editorial preservation, historical comparison and
+batch cohort verification. Extend only missing evidence/qualification behavior, no
+parallel decision store. Expected scope: tested gatherer evidence logic if justified,
+thin experiment orchestration and durable results, Diataxis docs and native records.
+Canonical package format/lint/test, explicit changed-runner checks, fresh wheel smoke,
+full cumulative replay and lrh validate remain required for implemented behavior.

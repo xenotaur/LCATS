@@ -134,3 +134,26 @@ material in every one. Twelve pass mechanical readiness and historical checks;
 source/candidate anchors. Removing a proven terminal notice does not classify an
 opening that the old corpus also retained. Positive blurb attribution and deliberate
 separate-metadata selection remain further work; no broad blurb rule is introduced.
+
+
+### Reviewed promotional-preface evidence — 2026-10-22
+
+The human approved a two-hour target /three-hour maximum evidence-first run. The
+supported family is a closed catalogue of explicitly attributed promotional editor/
+publisher paragraphs, not a blurb classifier. The pure verifier binds the complete
+candidate/source identities and exact Unicode spans, validates complete delimiters
+and unique source occurrence, and preserves all other characters. Labels locate
+inspection units; only the separately attributed per-input review supplies a role.
+
+The first catalogue contains 63638 and 73988. Hypothetical v2 composition preserves
+the exact notes as publisher_blurb metadata, including original labels. Both complete
+stories remain blocked; no approval, disposition or historical resolution results.
+42664's mixed publishing-history preface is outside this family. Prior dispositions,
+including all 25 diagnostic deferrals, remain authoritative and unchanged.
+
+No automatic recording path is added. Partial-role evidence is a non-authoritative
+annotation input to qualification, not a parallel decision store. It cannot supersede
+prior intent or satisfy complete-story readiness/history gates. The implementation is
+limited to historical decoded UTF-8 cache provenance, not original-byte authentication.
+See [the evidence milestone](gettenberg-opening-evidence-milestone.md) for measured
+coverage, source gaps and the next human decision. Existing acceptance gates remain.
