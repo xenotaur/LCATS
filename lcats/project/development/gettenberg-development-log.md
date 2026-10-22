@@ -3698,7 +3698,7 @@ Source annotations inspect31 cases with chapter evidence on final bodies:16 weak
 metadata-heading rejections corrected,10 source-supported divided works/collections,
 5 unresolved editorial false positives. These counts isolate final-body
 classification; earlier32-rejection observations used a different prefix candidate
-and are not interchangeable. No claim that all16 bodies are accepted follows.
+and are not interchangeable. No claim that all 16 bodies are accepted follows.
 Actual historical replay44327 publishes;63230 rejects. The authored editorial-only
 probe actually publishes15 correction paragraphs; qualification remains failed at
 that boundary. Coordinator repaired only the review's concrete classification
@@ -4159,7 +4159,7 @@ independent narrow recheck pass; actual unchanged inputs still1642/7/1635. Two
 assignments total (initial under14min, recheck under2min), no recursive review.
 
 Reviewer independently read23762/63889 in full, checked decisive structural evidence
-for six exclusions, replayed reconciliation/publication, verified all1659 source/
+for six exclusions, replayed reconciliation/publication, verified all 1659 source/
 corpus hashes and product ledger. Minor63889 wording corrected:522 frontmatter
 characters plus two40-character asterism insertions; coordinator exact diff confirms.
 These source judgments are agent-authored and not human signatures.
@@ -4227,7 +4227,7 @@ Reuse candidate_review/readiness, replay and reconciliation helpers. Prior rule
 finding categories are classification inputs only, not an existing batch approver.
 No new sibling consumer or external dependency. Expected edits: tested domain rule
 in src/lcats if reusable, thin experiment ledger/runner and tests, archived evidence,
-Diataxis docs and control-plane/native records. Validate all1659 inputs, source/corpus
+Diataxis docs and control-plane/native records. Validate all 1659 inputs, source/corpus
 hashes, real temporary publication where qualified, canonical package and explicit
 experiment checks, installed-wheel check if product changes, LRH and cold review.
 Persistent skip consent invalid but watched fingerprints clean; neither changed.
@@ -4797,3 +4797,97 @@ Implementation/evidence commit: `21d8fd719ff40d4ec756733ede2df631a783aac0`. Nati
 commit and remain in_progress. Archive manifest verifies 36 files and all 55 existing
 disposition references; isolated output 483MiB within the 15GiB budget. Only push and
 exact-head hosted checkpoint remain, recorded on PR #524. No substantive continuation.
+
+
+### Scope and causality audit grant — 2026-10-22 07:49 UTC
+
+The human approved a documentation/evidence audit separating (1) replacement of
+external gutenbergpy, (2) gather impact causally induced by that replacement, and
+(3) independent gather improvements. Kenny's gather work is unavailable; its future
+reconciliation is a separate task. No implementation changes or gate amendments are
+authorized by this audit. Produce a retain/separate/defer plan and proposed qualification
+criteria for human review, with a meeting brief and recorded process findings.
+
+Start 07:49:48 UTC (00:49:48 America/Los_Angeles); target 09:49:48 UTC, hard stop
+10:49:48 UTC. This precedes the 07:30 local meeting-preparation deadline (14:30 UTC).
+Finish early when a defensible decision artifact is ready. Reserve the final 30 minutes
+for review, correction, validation and checkpoint. No automatic renewal.
+User reported 45% weekly remaining; first available account-wide telemetry reads
+56% used /44% remaining. Aim for 5–10 additional points; substantive-stop threshold
+70% used preserves approximately 30%. Check before major blocks/dispatch and every
+15 minutes. Telemetry is account-wide, not attributable billing. If unavailable,
+checkpoint rather than expanding work. No automatic use of reset credits.
+
+At most three concurrent agents: coordinator plus two read-only investigators, then
+one independent reviewer. Two planned investigation assignments (30 minutes each),
+one review (20 minutes) and at most one focused correction recheck (10 minutes),
+90 cumulative worker minutes maximum. No recursive delegation. Existing sources/cache
+read-only; no bulk downloads or Gutenberg acquisition. Temporary targeted diagnostics
+permitted; no full suite solely for documentation. Isolated output at most 2GiB,
+6GiB minimum free (234GiB observed). No product/CI/corpus/consent changes, integrations,
+main promotion, package publication or native terminal closeout.
+
+Pinned audit head 6a873b611e3958bb9ddad8e84f2ad190831a9da7;
+qualification base ed20e9c297bf5e50e1911b84722e53f5db3edee3.
+Create documentation/evidence-only codex/gettenberg-scope-audit stacked on the unchanged
+qualification branch. Native prompt:
+PROMPT(WI-GETTENBERG-0010:GETTENBERG_SCOPE_AUDIT)[2026-10-22T07:51:13+00:00].
+Local pre-mint slug idempotence check found no prior record; remote duplicate discovery
+was not performed (no existing audit PR is being integrated). Existing coordinator
+adapter supplies bounded planning authority; persistent consent is untouched.
+
+Assignments: scope_inventory maps product/test/doc ownership and dependencies;
+causality_audit inspects controlled comparisons and narrowly reproduces causal cases.
+Only coordinator writes shared artifacts. Findings are proposals, not retroactive
+reclassification of prior acceptance or an assertion that unresolved cases are safe.
+
+
+### Scope audit evidence and review checkpoint — 2026-10-22 08:13 UTC
+
+The audit supports a controlled delivery split, not immediate integration or another
+editorial tranche. PR524's base ed20e9c2 already contains provider/migration/CI work;
+only cleanup.py changed in gettenberg after that base. The remaining production delta
+is gather/CLI. Mixed extraction/chapter/readiness/result/logging dependencies mean
+neither whole-file reversion nor deleting review modules is safe. Proposed retain/
+separate/defer matrix and Q1–Q8 qualification criteria are in gettenberg-scope-causality-audit.md;
+gettenberg-scope-meeting-brief.md supports the 8am discussion. No current gates changed.
+
+New eight-case 2×2 diagnostic reproduces all 16 normalized hashes from the early fixed-
+extractor cleanup comparison. 35401/50103 reproduce severe truncations. 42640's historical
+chapter predicate changes when extraction changes under either cleaner. All eight
+current bodies receive needs_review with either cleaner. 70645/23104 retain cleaner
+sensitivity. These are scoped causal results, not a full literary review or public-gather
+qualification. Original anchor intervals retained exactly do not prove editorial purity.
+
+Coordinator independently checked both investigations and all rows. Correction to
+historical summary interpretation: 744 equal old/new bodies include 742 equal retained-
+corpus bodies and two retained-only differences; 902 changed + 13 refused complete 1,659.
+The 37 extra English-query IDs are absent from this corpus; two are configured but all
+fail only-English eligibility. No causal attribution of body changes to those additions.
+Remaining gaps: metadata projection/resource effects and the minimum integration patch.
+
+One independent reviewer reproduced all rows and 16 archived hashes; found P2 in diagnostic
+provenance (repo file hashes alone do not bind imports). Fixed to verify all eight actual
+module paths/bytes against pinned Git sources; reviewer proved shadow import is refused
+without output. Final rows unchanged, no unresolved findings. Two investigators, one
+review and one focused recheck; no recursion or additional implementation assignments.
+
+Validation: package format/lint, explicit runner checks, successful replay/help and
+existing-output/missing-cache refusals. LRH 0 errors /351 existing warnings. No full package
+test suite rerun for unchanged product code. Initial sandbox Black socket/Ruff cache
+checks failed; successful rerun captures command return codes explicitly (initial shell
+tail codes were not check outcomes). Temporary investigator guessed has_chapters and
+corrected to chaptered; coordinator initial edit used wrong cwd-relative path and failed
+before writing. Both are recorded diagnostic issues, not product fixes. No legacy
+package requirement restored; diagnostic intentionally uses the historical environment.
+
+Evidence: experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/.
+Product, tests, active gates, CI and corpus are unchanged. Preserve PR524/evidence and
+await human review of proposed scope before preparing a narrower delivery candidate.
+LRH lesson: successive locally successful fixes can grow global obligations even without
+a failing repair loop. Add explicit causal ownership/acceptance-surface review before
+continuations that introduce a new policy or subsystem. No LRH changes made here.
+
+Shared usage checkpoint: 56% consumed at launch, 58% at investigation/review dispatch;
+account-wide, not exclusive billing. Only documentation/evidence validation, commit,
+push and review-PR checkpoint remain; no scope expansion or automatic renewal.
