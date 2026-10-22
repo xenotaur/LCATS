@@ -4797,3 +4797,398 @@ Implementation/evidence commit: `21d8fd719ff40d4ec756733ede2df631a783aac0`. Nati
 commit and remain in_progress. Archive manifest verifies 36 files and all 55 existing
 disposition references; isolated output 483MiB within the 15GiB budget. Only push and
 exact-head hosted checkpoint remain, recorded on PR #524. No substantive continuation.
+
+
+### Scope and causality audit grant — 2026-10-22 07:49 UTC
+
+The human approved a documentation/evidence audit separating (1) replacement of
+external gutenbergpy, (2) gather impact causally induced by that replacement, and
+(3) independent gather improvements. Kenny's gather work is unavailable; its future
+reconciliation is a separate task. No implementation changes or gate amendments are
+authorized by this audit. Produce a retain/separate/defer plan and proposed qualification
+criteria for human review, with a meeting brief and recorded process findings.
+
+Start 07:49:48 UTC (00:49:48 America/Los_Angeles); target 09:49:48 UTC, hard stop
+10:49:48 UTC. This precedes the 07:30 local meeting-preparation deadline (14:30 UTC).
+Finish early when a defensible decision artifact is ready. Reserve the final 30 minutes
+for review, correction, validation and checkpoint. No automatic renewal.
+User reported 45% weekly remaining; first available account-wide telemetry reads
+56% used /44% remaining. Aim for 5–10 additional points; substantive-stop threshold
+70% used preserves approximately 30%. Check before major blocks/dispatch and every
+15 minutes. Telemetry is account-wide, not attributable billing. If unavailable,
+checkpoint rather than expanding work. No automatic use of reset credits.
+
+At most three concurrent agents: coordinator plus two read-only investigators, then
+one independent reviewer. Two planned investigation assignments (30 minutes each),
+one review (20 minutes) and at most one focused correction recheck (10 minutes),
+90 cumulative worker minutes maximum. No recursive delegation. Existing sources/cache
+read-only; no bulk downloads or Gutenberg acquisition. Temporary targeted diagnostics
+permitted; no full suite solely for documentation. Isolated output at most 2GiB,
+6GiB minimum free (234GiB observed). No product/CI/corpus/consent changes, integrations,
+main promotion, package publication or native terminal closeout.
+
+Pinned audit head 6a873b611e3958bb9ddad8e84f2ad190831a9da7;
+qualification base ed20e9c297bf5e50e1911b84722e53f5db3edee3.
+Create documentation/evidence-only codex/gettenberg-scope-audit stacked on the unchanged
+qualification branch. Native prompt:
+PROMPT(WI-GETTENBERG-0010:GETTENBERG_SCOPE_AUDIT)[2026-10-22T07:51:13+00:00].
+Local pre-mint slug idempotence check found no prior record; remote duplicate discovery
+was not performed (no existing audit PR is being integrated). Existing coordinator
+adapter supplies bounded planning authority; persistent consent is untouched.
+
+Assignments: scope_inventory maps product/test/doc ownership and dependencies;
+causality_audit inspects controlled comparisons and narrowly reproduces causal cases.
+Only coordinator writes shared artifacts. Findings are proposals, not retroactive
+reclassification of prior acceptance or an assertion that unresolved cases are safe.
+
+
+### Scope audit evidence and review checkpoint — 2026-10-22 08:13 UTC
+
+The audit supports a controlled delivery split, not immediate integration or another
+editorial tranche. PR524's base ed20e9c2 already contains provider/migration/CI work;
+only cleanup.py changed in gettenberg after that base. The remaining production delta
+is gather/CLI. Mixed extraction/chapter/readiness/result/logging dependencies mean
+neither whole-file reversion nor deleting review modules is safe. Proposed retain/
+separate/defer matrix and Q1–Q8 qualification criteria are in gettenberg-scope-causality-audit.md;
+gettenberg-scope-meeting-brief.md supports the 8am discussion. No current gates changed.
+
+New eight-case 2×2 diagnostic reproduces all 16 normalized hashes from the early fixed-
+extractor cleanup comparison. 35401/50103 reproduce severe truncations. 42640's historical
+chapter predicate changes when extraction changes under either cleaner. All eight
+current bodies receive needs_review with either cleaner. 70645/23104 retain cleaner
+sensitivity. These are scoped causal results, not a full literary review or public-gather
+qualification. Original anchor intervals retained exactly do not prove editorial purity.
+
+Coordinator independently checked both investigations and all rows. Correction to
+historical summary interpretation: 744 equal old/new bodies include 742 equal retained-
+corpus bodies and two retained-only differences; 902 changed + 13 refused complete 1,659.
+The 37 extra English-query IDs are absent from this corpus; two are configured but all
+fail only-English eligibility. No causal attribution of body changes to those additions.
+Remaining gaps: metadata projection/resource effects and the minimum integration patch.
+
+One independent reviewer reproduced all rows and 16 archived hashes; found P2 in diagnostic
+provenance (repo file hashes alone do not bind imports). Fixed to verify all eight actual
+module paths/bytes against pinned Git sources; reviewer proved shadow import is refused
+without output. Final rows unchanged, no unresolved findings. Two investigators, one
+review and one focused recheck; no recursion or additional implementation assignments.
+
+Validation: package format/lint, explicit runner checks, successful replay/help and
+existing-output/missing-cache refusals. LRH 0 errors /351 existing warnings. No full package
+test suite rerun for unchanged product code. Initial sandbox Black socket/Ruff cache
+checks failed; successful rerun captures command return codes explicitly (initial shell
+tail codes were not check outcomes). Temporary investigator guessed has_chapters and
+corrected to chaptered; coordinator initial edit used wrong cwd-relative path and failed
+before writing. Both are recorded diagnostic issues, not product fixes. No legacy
+package requirement restored; diagnostic intentionally uses the historical environment.
+
+Evidence: experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/.
+Product, tests, active gates, CI and corpus are unchanged. Preserve PR524/evidence and
+await human review of proposed scope before preparing a narrower delivery candidate.
+LRH lesson: successive locally successful fixes can grow global obligations even without
+a failing repair loop. Add explicit causal ownership/acceptance-surface review before
+continuations that introduce a new policy or subsystem. No LRH changes made here.
+
+Shared usage checkpoint: 56% consumed at launch, 58% at investigation/review dispatch;
+account-wide, not exclusive billing. Only documentation/evidence validation, commit,
+push and review-PR checkpoint remain; no scope expansion or automatic renewal.
+
+
+### Scope audit local completion — 2026-10-22 08:17:59 UTC
+
+Investigation, independent review and focused correction recheck complete in about
+28 minutes, earlier than the two-hour target because the decision scope is satisfied.
+Shared weekly usage 56%→61% consumed (44%→39% remaining), approximately five percentage
+points account-wide; no claim of exclusive per-run billing. No reset credits used.
+Two parallel investigators, one subsequent reviewer and one focused recheck; three
+concurrent agents maximum, no recursion. No bulk downloads or full package test rerun.
+
+Audit/evidence commits 602cf088 and 29bd4e5a are local. All 20 manifest entries are tracked
+and hash-verified, 28 new local links checked, production/test/docs/WI/config/CI sources
+unchanged from 6a873b61. The runlog's historical prefix is byte-for-byte preserved.
+Native audit/child records bind 29bd4e5a and remain in_progress; no terminal delivery
+claim. PR524 remains OPEN at 6a873b61 with acquisition base ed20e9c2, verified through gh.
+An initial sandbox GitHub read failed; the authorized read retry succeeded.
+
+Automatic approval review rejected the combined command containing the proposed push
+of codex/gettenberg-scope-audit to origin/xenotaur/LCATS, citing lack of explicit
+payload-egress authorization and unestablished destination trust/ownership. The rejected
+command did not execute. Local log preservation/commit was then completed separately;
+no workaround or network write was attempted. Ask the human to authorize publishing
+this concrete audit/evidence branch and opening its stacked review PR. No PR created,
+push, hosted CI pass or main merge is claimed. Prepared PR body is local only.
+
+A final LRH invocation from the repository root reported missing project configuration;
+rerunning from the required lcats/ package root passed 0 errors /351 existing warnings.
+Final archive validation includes the earlier successful package-root run. This was a
+working-directory mistake, not a control-plane defect. Generic .log ignore rules required
+explicitly staging the intentional archival check logs before verifying the manifest.
+
+Next action is human review of the retain/separate/defer plan and proposed criteria;
+publication permission alone does not adopt that plan or authorize implementation.
+
+
+### Scope audit publication — 2026-10-22 15:01 UTC
+
+The human explicitly approved pushing codex/gettenberg-scope-audit to xenotaur/LCATS
+and opening its review PR against codex/gettenberg-qualification. Push succeeded;
+PR #528 is OPEN: https://github.com/xenotaur/LCATS/pull/528. Verified head 1480ed54 and
+requested base/head branch names. Its 29 changed paths contain only audit documentation,
+native records and experiment runner/evidence; production code, tests and active
+qualification criteria remain unchanged. Native records now link the review PR.
+
+This explicit publication approval resolves the earlier automatic approval-review
+block; it does not approve the proposed scope/gates, implementation, integration or
+main promotion. No merge occurred. Hosted checks were queued/in progress at creation;
+no CI pass is inferred. This is publication follow-through, not renewed audit scope.
+
+
+### Terminal-notice investigation grant — 2026-10-22 15:37:56 UTC
+
+Human requested recording the new trace findings in PR #528 and a bounded narrow
+terminal-notice repair investigation, measuring corpus impact before broader gather
+changes. Target 60 minutes (16:37:56 UTC); hard stop 90 minutes (17:07:56 UTC), no
+automatic renewal. Existing audit branch f43e5ed8; no production edits, gate changes,
+canonical corpus writes, downloads, merge or implementation-plan adoption authorized.
+Experiment-only candidate extends the existing notice grammar, retaining its accepted-
+envelope, whole-line, matching-title and nonempty-author guards. It does not repair
+heading heuristics or raise the parser's chunk threshold. Compare all 1,659 archived
+inputs with fixed metadata, normalization and pinned pre-repair extraction; preserve
+exceptions and distinguish equality from semantic approval. Save durable code/results
+under experiments/10_gettenberg_qualification and update this PR's audit documentation.
+
+New trace to reproduce: the same late author match occurs with both cleaners for
+35401/50103, but retained notice/blank lines push the first candidate past ten double-
+newline chunks and suppress fallback. Two exact-suffix probes previously recovered
+legacy hashes; these probes alone do not establish a general rule or corpus safety.
+
+First usage check 15:42 UTC: 63% weekly consumed /37% remaining, account-wide rather
+than per-task billing. Coordinator handles investigation; preserve review/checkpoint
+reserve and stop early when the bounded question is answered. Native prompt:
+PROMPT(WI-GETTENBERG-0010:GETTENBERG_TERMINAL_NOTICE_AUDIT)[2026-10-22T15:42:36+00:00].
+
+
+### Terminal-notice corpus evidence and review — 2026-10-22 16:05 UTC
+
+The frozen-extractor census completed in 608. 522 seconds: 1,659 input hashes checked,
+1,646 compared, same 13 refused, all 3,292 archived old/new normalized hashes reproduced.
+The experiment-only whole-line notice extension changes 470 cleanup slices/bodies,
+restores 469 legacy equalities and reduces 902 differences to 433. No formerly equal
+body becomes different; no refusal changes. One historical chapter exclusion (29632)
+returns to legacy eligibility; no candidate/legacy body-eligibility differences remain.
+These are function-level observations, not public-gather or literary acceptance.
+
+The exact trace corrects an incomplete mechanism description: both cleaners select
+the same late author-like chunk for 35401/50103. Retained notice/blank lines inflate the
+first candidate from 9/10 to 13 double-newline chunks, suppressing fallback. The grammar
+candidate restores 35401 but not50103, whose numeric end marker cannot corroborate the
+notice title. Two independently checked, explicitly named literal removals restore
+both legacy hashes; that diagnostic authority is not a general numeric-marker rule.
+
+Of 470 changed bodies, the only remaining non-equal case 32655 is exactly a leading LF
+plus legacy text. Coordinator follow-up groups the 433 residuals as 376 complete notices
+with matching numeric ebook-ID markers, 56 outside the single-line grammar and that
+one leading-LF case. These are mechanical investigation groups, not qualified rules.
+No case is marked approved or dropped from historical ledgers. Retain13 refusals too.
+
+One focused independent reviewer, reusing the approved pilot review arrangement,
+checked the four final script hashes, all counts, 3,292 archived hashes and all 470 exact
+removed suffixes, and independently replayed six severe-case cells. Eight authored
+boundary tests and six additional reviewer probes pass; literal-probe rows reproduce.
+No unresolved review findings. Reviewer did not duplicate the whole-corpus execution.
+No additional implementation worker, recursive delegation or broader rule was used.
+
+The first diagnostic launch omitted required routes and failed before rows/output;
+coordinator fixed it and reviewer independently identified/verified that P2. Initial
+Black diff checks hit the sandbox's local-socket denial; exact escalated retries pass.
+Canonical package format/lint, explicit final experiment checks, help/protection smokes
+and LRH validation pass (0 errors /351 existing warnings). Full product suite and wheel
+smokes were not rerun for unchanged product sources. Complete captured checks and
+immutable compressed comparisons are in the terminal-notice-audit experiment archive.
+
+Recommended next decision: carry the title-matched grammar repair as a candidate;
+review a narrowly corroborated numeric-marker approach at the provider/source boundary
+before implementation. 50103 remains a concrete integration blocker. Do not infer that
+all 376 numeric cases will be safe or equivalent, and do not broaden gather extraction
+or undertake editorial classification to resolve this provider-boundary question.
+Scope split and Q1–Q8 remain proposed; this run adopts neither and changes no gate.
+
+
+### Terminal-notice investigation publication — 2026-10-22 16:14 UTC
+
+Substantive investigation/review completed and published as 8702cbc40c267cce0da12f34925baa357d9558b1
+on codex/gettenberg-scope-audit. PR #528 remains OPEN against codex/gettenberg-qualification;
+GitHub head and the updated description were read back and verified. Documentation,
+experiment code/evidence and native records only; no product or acceptance-policy change.
+Both native records bind the substantive evidence commit and remain in_progress.
+The installed update-execution command supports only landed, so nonterminal commit
+bindings were recorded without invoking a false terminal transition.
+
+Finished the bounded question in about 36 minutes, within the 60-minute target and
+90-minute hard stop. One focused independent reviewer; no implementation workers or
+recursive delegation. Shared weekly usage 63%→67% consumed (37%→33% remaining), roughly
+four percentage points account-wide, not exclusive task billing. No reset credit used.
+No automatic continuation: numeric-marker corroboration and the scope/qualification
+amendment return to human review before product implementation or broader gather work.
+
+All 29 archive manifest entries are tracked and hash-verified; 55 local documentation
+links resolve; historical runlog prefix remains byte-for-byte unchanged. Four reviewed
+script hashes match final executing sources and the recorded reports. The staged
+whitespace check passes; verbatim argparse help and long LRH logs were gzip-compressed
+losslessly to preserve original evidence while avoiding raw-log whitespace noise.
+Canonical checks and focused tests are recorded in the archive; no hosted CI pass,
+full-suite rerun, package delivery, merge or corpus acceptance is claimed.
+
+LRH process observation: tracing the control-flow threshold and measuring one precise
+provider-boundary change resolved a large part of the apparent backlog without adding
+another gather subsystem. A successful known-input counterfactual must still be kept
+separate from a corroborated reusable rule; the numeric-marker exception demonstrates
+why. The new native review record was minted at checkpoint rather than dispatch;
+future grants should create it before delegation while preserving this run's actual times.
+
+
+### Numeric-marker notice sprint grant — 2026-10-22 17:28:31 UTC
+
+Human approved the proposed numeric-marker investigation with a hard stop at 11am
+Pacific (18:00 UTC). Actual window is about 31 minutes, superseding the proposed
+60/90-minute allowance. Freeze substantive experiments by 17:48; reserve the last ten
+minutes for review/checkpoint/publication. No automatic renewal. Start 1488c69a on
+codex/gettenberg-scope-audit; experiment-only, no product/gate/corpus edits or merge.
+
+Test explicitly bound source ID + catalog ebook ID + exact title corroboration after
+an already accepted numeric envelope. Preserve ambiguity, nonterminal/wrapped notices
+and title mismatches; no punctuation/fuzzy matching. Early read-only inventory finds
+366 of 376 numeric notices match current projected titles under existing case/space
+semantics, while 10 do not. This is feasibility evidence, not acceptance or output yield.
+
+Reuse the prior verified baseline comparison and rerun the candidate across all 1,659
+inputs, rebinding original source/corpus hashes, product bytes and metadata. Do not
+spend the short window recomputing unchanged old-cleaner outputs. One independent
+reviewer, no implementation workers or recursion. Weekly usage starts 0% consumed per
+account telemetry (window reset since prior run); no reset action requested or taken.
+Native prompt: PROMPT(WI-GETTENBERG-0010:GETTENBERG_NUMERIC_NOTICE_AUDIT)[2026-10-22T17:28:56+00:00].
+
+
+### Numeric-marker evidence and independent review — 2026-10-22 17:39 UTC
+
+Fresh candidate comparison completed on its first run in 196.868 seconds: all 1,659
+inputs verified, 1,646 extracted, same 13 refusals. Numeric rule shortens 367 cleanup
+slices and changes 366 bodies, all restoring legacy equality; 61499's slice changes but
+its body was already equal and stays so. Remaining differences 433→67; combined with
+the preceding title candidate, 835 of 902 original differences regain legacy equality.
+No formerly equal body becomes different, and no new eligibility change occurs.
+Both diagnosed truncations now regain exact legacy hashes: 35401=26,080 characters;
+50103=31,972, with its 10-chunk first candidate triggering the historical fallback.
+
+Residuals are 10 exact-title mismatches, 56 outside the notice grammar and one known
+leading LF; retain the 13 refusals separately. No fuzzy title matching, punctuation
+normalization, subtitle stripping, corpus approval or broad gather change. The
+experiment requires explicit source/catalog/title corroboration. Future production
+placement must keep context explicit and derivation provenance versioned; no hidden
+catalog/network access inside pure cleanup. Scope split and Q1–Q8 remain proposed.
+
+The prior three baseline paths are reused from pinned Git evidence 1488c69a, not falsely
+reported as reexecuted. Current source/corpus hashes, catalog projection, helper and
+product identities were checked; every accepted input's candidate extraction is fresh.
+All 1,279 unaffected body outputs reproduce prior hashes. This reduced measurement work
+from three parser paths to one; it is not a product performance claim or weakened gate.
+
+One independent reviewer checked every summary count and all 367 removed suffixes
+against source bytes/spans/grammar/IDs/title guards, independently executed both severe
+cases, and ran 8 focused tests plus 15 boundary probes. No unresolved findings. The
+coordinator's ten-title residual list was not independently audited as a separate list.
+The review record was minted before dispatch, improving on the prior run's checkpoint-
+time recording. No implementation worker or recursive delegation was used.
+
+Canonical package format/lint, explicit experiment checks and canonical scripts/test
+numeric_notice_candidate_test pass; help/protected-output/missing-cache/overwrite
+smokes pass. No full product suite, installed-wheel or public-gather qualification,
+download, production/gate/corpus mutation or main merge. Evidence and reproduction:
+experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/.
+
+Recommendation: stop expanding this notice family and present PR #528's scope split and
+qualification amendment for human review. If approved, construct the narrower delivery
+candidate with the two supported repairs, causal accounting for remaining differences/
+refusals and real gather/consumer qualification. Do not resume the editorial backlog
+or turn the ten title mismatches into an automatic fuzzy-matching task.
+
+
+### Numeric-marker sprint publication — 2026-10-22 17:45 UTC
+
+Substantive findings published as c8b5e360ae801c4bec8e9c2ea90586c9c310658d on
+codex/gettenberg-scope-audit. PR #528 remains OPEN against codex/gettenberg-qualification;
+head and updated description were read back, with description verified verbatim.
+An initial sandbox GitHub read failed; exact authorized read-only retry succeeded.
+Both native records bind the evidence commit and remain in_progress, with no false
+landed/closeout claim. Product, active gates, package tests/docs and corpus unchanged.
+
+Bounded investigation/review/publication completed in about 17 minutes, ahead of the
+18:00 UTC /11am Pacific hard stop. No further scope or automatic continuation. One
+independent reviewer; no implementation workers or recursive delegation. Shared weekly
+usage 0%→3% consumed (100%→97% remaining), approximately three percentage points across
+the account, not exclusive task billing. No reset credits used. The all-input comparison
+ran 196.868 seconds, reusing unchanged historical baseline evidence transparently.
+
+All 18 archive manifest entries are tracked and hash-verified; 60 local links resolve;
+reviewed script hashes bind the actual result; historical runlog prefix remains intact.
+LRH validation 0 errors /351 existing warnings; staged whitespace check clean. Eight
+focused tests, explicit experiment checks and canonical package format/lint are recorded.
+No full package suite, installed-wheel, hosted CI pass, public-gather or final delivery
+claim. Final checkpoint updates only records/runlog and does not alter measured sources.
+
+Next action is human review of the proposed scope/qualification amendment and narrower
+delivery construction, not another notice-family expansion. Preserve 67 differences and
+13 refusals for causal accounting and real-gather qualification; preserve broader
+gather work for later Kenny reconciliation. Positive source/context evidence resolved
+the two diagnosed interactions without adding another gather policy subsystem.
+
+
+### Scope adoption and bounded landing grant — 2026-10-22 17:53 UTC
+
+Human approved all four PR528 recommendations: three-way ownership split and separate
+causal/editorial ledgers; Q1–Q8 including usable yield and explicit historical wire-
+provenance limits; migration-reference construction with the two supported narrow
+repairs; preservation of PR524 and broader gather work for later Kenny reconciliation.
+Current grant records decisions, corrects stale numeric-gap language, validates and
+lands PR528 only into codex/gettenberg-qualification. Hard stop11:20 PDT /18:20 UTC.
+No candidate construction, main promotion, corpus/publication or terminal closeout.
+
+Landing preflight at45eb1154 finds eight CI helper import/help failures and two open
+P2 findings: incomplete transitive product pins and missing reproducible audit-facts
+procedure. Bounded repair is permitted by the pilot coordinator adapter; no integration
+with unresolved blockers. Reused two existing agents for disjoint diagnostic repairs;
+no recursive delegation. Product behavior and historical evidence bytes remain fixed.
+Closeout plan: internal staged audit only, native records in_progress and WI0010/WS
+nonterminal; record actual head/base/merge if integration succeeds, never imply Q1–Q8
+product qualification. The stale numeric-gap paragraph is replaced by current 67/13
+accounting, and the governing design criterion8/WI0010 now link the approved amendment.
+
+
+### Scope adoption validation checkpoint — 2026-10-22 18:08 UTC
+
+Human-approved amendment and bounded repairs committed/pushed as141e151b. Two
+implementation agents reused for disjoint diagnostic/facts repairs; one independent
+reviewer, no recursion. The three child records were minted after dispatch during
+this short landing window; retain actual times rather than claiming pre-dispatch mint.
+
+The causal runner pins174Python modules and executing origins; all8replayed rows and
+both literal-counterfactual rows exactly match prior evidence. The facts runner
+reproduces18derivable fields, explicitly excluding three historical investigator
+observations. Imports/help no longer require the retired comparison library. The
+numeric helper's changed import boundary is hash-bound and all1,659fresh rows plus
+summary exactly reproduce the archive (205.815seconds). No old archive overwritten.
+
+Independent review caught one new P2: a regression test pinned the live product tree
+and would reject legitimate future edits. Corrected to temporary source/package
+fixtures; nine focused tests and29imports/25help paths pass. Final review binds12file
+hashes to141e151b; no unresolved P0–P2. Both original GitHub threads resolved only after
+pushed repairs and independent verification. A reader can inspect the new durable
+experiments/10_gettenberg_qualification/results/gettenberg-scope-adoption-20261022/.
+
+Full scripts/test passes3,120tests in110.894s. First relative-PYTHONPATH run imported
+another editable clone in subprocesses (six failures); corrected absolute path run
+then hit sandbox loopback denials (102errors). Final identical absolute-path command
+with approved loopback access passes; failure logs preserved. Package format/lint,
+explicit five-runner checks,61local links, whitespace, and LRH0errors/351warnings pass.
+Initial wrong-cwd format invocation and lint cache restriction were corrected openly.
+No tests skipped or weakened, product/CI/gate-config/corpus changes, or old evidence
+rewrites. Final hosted CI and internal integration remain pending at this checkpoint.

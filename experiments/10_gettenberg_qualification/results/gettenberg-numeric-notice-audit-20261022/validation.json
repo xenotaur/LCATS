@@ -1,0 +1,360 @@
+{
+  "python": "3.11.9 | packaged by conda-forge | (main, Apr 19 2024, 18:34:54) [Clang 16.0.6 ]",
+  "reviewed_script_hashes_verified": {
+    "numeric_notice_candidate.py": "f94e3ca50f263e7a77caf62bd5124127926f2864ded060649962e113869a75d7",
+    "numeric_notice_candidate_test.py": "5de5a8047844da6fdf7b9d79d6f2930c7b0fbc902cf0443212ee74a70fb5091c",
+    "audit_numeric_notices.py": "fe0fab467d53022b58c81992c2e8a108b7ed65717f0ff0f7757c7927367a7d6a"
+  },
+  "report_sha256": "845b74e747f32ce8f59b9e3bf1884ea8f06d99fae3195c30c14dc519fa17adb6",
+  "full_candidate_summary": {
+    "rows": 1659,
+    "numeric_rule_applied": 367,
+    "compared": 1646,
+    "remaining_differences": 67,
+    "additional_legacy_equalities": 366,
+    "new_differences_from_prior_equal": 0,
+    "new_differences_from_original_equal": 0,
+    "body_changes_from_title_candidate": 366,
+    "body_eligibility_changes_from_title_candidate": 0,
+    "body_eligibility_differences_from_legacy": 0,
+    "unchanged_outputs_reproduced": 1279,
+    "combined_restored_legacy_equalities": 835,
+    "refused": 13
+  },
+  "full_candidate_seconds": 196.868,
+  "prior_evidence_ref": "1488c69ab11fad8fcd78361653bbd261a2788680",
+  "baseline_reuse": "Prior three cleanup paths reused; combined candidate freshly executed for all1646 accepted inputs.",
+  "commands": [
+    {
+      "name": "package-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff"
+      ],
+      "returncode": 0,
+      "seconds": 11.228
+    },
+    {
+      "name": "package-lint",
+      "command": [
+        "scripts/lint"
+      ],
+      "returncode": 0,
+      "seconds": 0.295
+    },
+    {
+      "name": "experiment-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate_test.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.336
+    },
+    {
+      "name": "experiment-lint",
+      "command": [
+        "scripts/lint",
+        "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate_test.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.154
+    },
+    {
+      "name": "focused-tests",
+      "command": [
+        "scripts/test",
+        "numeric_notice_candidate_test"
+      ],
+      "returncode": 0,
+      "seconds": 0.064
+    },
+    {
+      "name": "help",
+      "command": [
+        "python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py",
+        "--help"
+      ],
+      "returncode": 0,
+      "seconds": 0.582
+    }
+  ],
+  "negative_smokes": [
+    {
+      "name": "existing",
+      "returncode": 1,
+      "passed": true
+    },
+    {
+      "name": "missing",
+      "returncode": 1,
+      "passed": true
+    },
+    {
+      "name": "protected",
+      "returncode": 1,
+      "passed": true
+    }
+  ],
+  "lrh": {
+    "returncode": 0,
+    "summary": "Validation completed: 0 error(s), 351 warning(s)"
+  },
+  "local_links_checked": [
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "../../lcats/project/development/gettenberg-development-log.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "relocation.json"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "legacy-notebooks/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-boundary-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-terminal-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-editorial-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-numeric-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../workstreams/proposed/WS-GETTENBERG.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-pilot-charter.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_14_06_19_47_WS_GETTENBERG.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_14_06_19_47_WI_GETTENBERG_0001.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-pilot-20261014/preflight.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-baseline.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-pilot-20261014/integration-evidence.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-catalog-design.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-acquisition-core-20261015/completion.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-selection-20261015/hosted-repair.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-selection-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/WI-GETTENBERG-0005/2026_10_15_05_24_50_WI_GETTENBERG_0005_DECODING.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_15_05_18_01_WI_GETTENBERG_0005_DECODING_SELFREVIEW.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-decoding-20261015/checkpoint.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-decoding-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-refresh-20261015/qualification.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-refresh-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-catalog-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-routing-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-cleanup-design.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-cleanup-20261016/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-preparation-20261017/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-default-source-20261017/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-scope-meeting-brief.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-development-log.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-baseline.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-corpus-repair-plan.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-qualification.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-readiness-contract.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../work_items/proposed/WI-GETTENBERG-0010.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/gutenberg_source.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/story_body.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/parser.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/mass_quantities/gatherer.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-development-log.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md",
+      "target": "../../../../lcats/project/development/gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md",
+      "target": "../gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md",
+      "target": "../../../../lcats/project/development/gettenberg-development-log.md"
+    },
+    {
+      "from": "lcats/project/executions/AD_HOC/2026_10_22_17_32_09_GETTENBERG_NUMERIC_NOTICE_REVIEW.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/executions/AD_HOC/2026_10_22_17_32_09_GETTENBERG_NUMERIC_NOTICE_REVIEW.md",
+      "target": "../../development/gettenberg-development-log.md"
+    },
+    {
+      "from": "lcats/project/executions/AD_HOC/2026_10_22_17_32_09_GETTENBERG_NUMERIC_NOTICE_REVIEW.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/review.json"
+    },
+    {
+      "from": "lcats/project/executions/WI-GETTENBERG-0010/2026_10_22_17_29_25_GETTENBERG_NUMERIC_NOTICE_AUDIT.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/executions/WI-GETTENBERG-0010/2026_10_22_17_29_25_GETTENBERG_NUMERIC_NOTICE_AUDIT.md",
+      "target": "../../development/gettenberg-development-log.md"
+    }
+  ],
+  "historical_runlog_prefix_preserved": true,
+  "protected_product_paths_unchanged": true,
+  "full_package_suite_run": false,
+  "production_acceptance_claimed": false,
+  "residual_grouping": "Coordinator grouping; ten-title list not separately reviewed.",
+  "issues": []
+}

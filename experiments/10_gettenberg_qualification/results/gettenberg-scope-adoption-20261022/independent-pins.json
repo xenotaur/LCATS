@@ -1,0 +1,27 @@
+{
+  "clean_tree_python_files": 174,
+  "imported_product_modules": 44,
+  "refusals": [
+    {
+      "case": "changed",
+      "error": "changed runtime product: transitive.py"
+    },
+    {
+      "case": "extra",
+      "error": "added or missing product Python modules"
+    },
+    {
+      "case": "missing",
+      "error": "added or missing product Python modules"
+    },
+    {
+      "case": "untracked import",
+      "error": "untracked imported product module: lcats.review_shadow"
+    },
+    {
+      "case": "shadow imported origin",
+      "error": "wrong imported module: lcats.gatherers.parser"
+    }
+  ],
+  "initial_probe_harness_correction": "expected ValueError rather than AssertionError; actual changed-file refusal was correct"
+}

@@ -639,3 +639,35 @@ promotional roles for both (63638, 73988). Both still have readiness and histori
 blockers. Mixed publisher preface 42664 is excluded; all 25 previous deferrals remain.
 A valid span-role packet is neither a semantic classifier nor a story approval.
 Keep the bounded discovery coverage separate from the manually reviewed catalogue.
+
+
+## Scope audit: narrow terminal-notice experiment
+
+The [2026-10-22 investigation](results/gettenberg-terminal-notice-audit-20261022/README.md)
+records the fallback trace, full 1,659-input experiment-only grammar comparison, two
+explicit literal counterfactuals, boundary tests and independent review. It changes no
+production cleanup, gather policy or corpus approval. Use its documented commands and
+pinned environment; its measurements do not qualify a future delivery candidate.
+
+
+## Numeric-marker notice follow-up
+
+The [numeric-marker investigation](results/gettenberg-numeric-notice-audit-20261022/README.md)
+adds explicit source/catalog/title corroboration to the prior experiment. It reuses
+pinned baseline evidence, freshly extracts all accepted inputs, preserves title
+mismatches, and records scope/qualification limits. No production policy is changed.
+
+
+## Scope-audit landing repairs
+
+The [facts reproduction procedure](scope-facts-reproduction.md) regenerates the
+derivable audit calculations without legacy libraries or network access. Original
+archived measurements remain immutable. Current diagnostic entry points are safe to
+import and expose help without gutenbergpy; the historical cleaner is required only
+when explicitly running a legacy comparison. The causal replay now pins every Python
+product source and validates all loaded module origins, including late imports.
+
+The numeric runner retains its original evidence revision and explicitly binds the
+reviewed helper hash after the optional legacy import moved inside the measurement
+entry point. This import-only repair does not alter cleanup/extraction calculations;
+the landing verification records a fresh population comparison separately.
