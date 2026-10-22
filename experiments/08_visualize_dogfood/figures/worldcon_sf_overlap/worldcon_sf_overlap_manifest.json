@@ -7,7 +7,7 @@
     "canonical_preservation_commit": "2b83ba47d947384f3362d2e518e5c9ed1bc25868"
   },
   "provenance": {
-    "generated_from_commit": "2b83ba47d947384f3362d2e518e5c9ed1bc25868",
+    "generated_from_commit": "92de1e460c1a3fd1a340b45f0f158f77eabdea55",
     "source_manifest_sha256": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
     "source_validation_sha256": "3abdfce9c46800e3b7412e5f5e557aa0a192fd5037419965835658377e48645e"
   },
@@ -755,7 +755,7 @@
   ],
   "generator": {
     "path": "experiments/08_visualize_dogfood/generators/make_worldcon_sf_overlap.py",
-    "git_revision": "",
+    "git_revision": "92de1e460c1a3fd1a340b45f0f158f77eabdea55",
     "sha256": "5660328725fd9412871593df64052eccbfe1722cfb808d372a064b3b0317cab3"
   },
   "definitions": {
@@ -783,19 +783,19 @@
     "This prototype does not interpret genre labels as theoretical truth or human agreement."
   ],
   "outputs": {
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.pdf": "183f109b76a1d0d4cf8eb1d2edcd6a0423cc40a7ed1488ac31e491a993620e45",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.pdf": "7b6223e28fc3dc005de62c24ba9a6597bff67e694ed1257b0b43283c817fb924",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.png": "14aae57a0cbe172ff684fdeef5c979737c89907f4ac37e7685cd226263e4b87f",
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.svg": "ebf4e744b658350bec2fd5bf09423e2a782783794002bd90d5d78f91ca537dc5",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_agreement_confusion.svg": "eb511c25207c72ab5011104c7c853e48383921508ce81c9f010cab7bcf063ff3",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_contingency.csv": "7f244950b62011a298545d14375c2fd90f8cec9f917fc18f8b26e340ab194ede",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_contingency.md": "9433f8f10b60805a37ee0942b381f88ab415e1b6923487fdeb15193afe05be93",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/genre_analysis_summary.csv": "2806234345390913ae78b4c1a5be18b13858330aa08524aae3cb2f309de748d3",
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.pdf": "b1954d7f9c076b08b8650adbe8c3e226c6b4e031c48cc0f2de0fbf00aed8e1b1",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.pdf": "e2cc4f24ff390c64640319d6a4a5dbc9aa15714abf69c005489c5717f0ccd54a",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.png": "375a76c62839ddcb4ddafc19a4107872a8ccd1c29b71eb80115616ee10488264",
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.svg": "b0c44dfbad906f9a6d14128c4f0f8280cb7dac157574914cca74133d9f676cc4",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/joint_knight_suvin.svg": "1bb4dc26c2e7b7b9e75ccefeee0e07474ffbf767560241eae554589d82ca4855",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/metadata_model_confusion.csv": "f18d51c5031af9e07387a3be1170ce588eda1f3d82738dd62fc051ef83a5fa5f",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/story_level.csv": "a295bad7717203410a77f52c473bee30428ea6cb219fa1453bb2a3098cf63c3e",
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.pdf": "5321b982543db26f92b1114c6c15ad1bb793587e8ba4dfddf2703b05ee66e8d2",
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.pdf": "d2e765114db92803ca433887b8dbecac3c2b13049408a34c1b2c93fa69ea3711",
     "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.png": "bedfe51f8d119170b3e8d4ec9789f49ceae58d99a3cd4711b89d3a7e39ac548a",
-    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.svg": "bf27a3c3fed3ea51254ab123be7b0210449590a9b77131229ddce9b5c0b0c255"
+    "experiments/08_visualize_dogfood/figures/worldcon_sf_overlap/worldcon_sf_overlap.svg": "090c5629091376a7d747cd1e4be3dae3df9c0c023f8281f94a6a165fd908588f"
   }
 }
