@@ -28,6 +28,22 @@ wait for Kenny's code nor silently assume his agreement to our gather architectu
 The audit's 2×2 probe reproduced all 16 earlier comparison hashes for eight sources.
 It is a function-level diagnostic, not whole-corpus or public-gather acceptance.
 
+## New narrow-repair evidence
+
+The follow-up trace identifies a more specific cause: retained terminal notices and
+blank lines suppress the old parser's fallback. An experiment-only extension of the
+existing notice grammar, with all its corroboration guards retained, reduces cleanup-
+induced differences from 902 to 433 on the full 1,659-input population. It restores 469
+legacy body hashes, including 35401, without new formerly-equal differences or changed
+refusals. Product code and approval gates remain unchanged.
+
+It does **not** fix 50103: the notice carries a title while the envelope carries ebook
+number 50103. Explicitly removing its known notice restores the legacy body, proving
+the mechanism but not qualifying a general numeric-marker rule. 376 residuals have
+that structural pattern; 56 are outside this grammar and one is a leading-LF difference.
+Keep these unresolved. The next focused question is provider/source corroboration for
+numeric markers, not a wholesale gather rewrite. See the [experiment](../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md).
+
 ## Proposed ownership
 
 | Work | Proposed treatment |

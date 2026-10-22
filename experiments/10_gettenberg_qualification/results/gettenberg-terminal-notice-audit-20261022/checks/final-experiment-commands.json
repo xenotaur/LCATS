@@ -1,0 +1,55 @@
+[
+  {
+    "name": "final-experiment-format",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff",
+      "--",
+      "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+      "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.465
+  },
+  {
+    "name": "final-experiment-lint",
+    "command": [
+      "scripts/lint",
+      "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+      "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.213
+  },
+  {
+    "name": "final-unit-boundaries",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "../experiments/10_gettenberg_qualification/scripts",
+      "-p",
+      "test_terminal_notice_candidate.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 0.074
+  },
+  {
+    "name": "literal-help",
+    "command": [
+      "python",
+      "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.8
+  }
+]

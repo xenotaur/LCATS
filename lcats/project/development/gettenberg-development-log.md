@@ -4940,3 +4940,74 @@ This explicit publication approval resolves the earlier automatic approval-revie
 block; it does not approve the proposed scope/gates, implementation, integration or
 main promotion. No merge occurred. Hosted checks were queued/in progress at creation;
 no CI pass is inferred. This is publication follow-through, not renewed audit scope.
+
+
+### Terminal-notice investigation grant — 2026-10-22 15:37:56 UTC
+
+Human requested recording the new trace findings in PR #528 and a bounded narrow
+terminal-notice repair investigation, measuring corpus impact before broader gather
+changes. Target 60 minutes (16:37:56 UTC); hard stop 90 minutes (17:07:56 UTC), no
+automatic renewal. Existing audit branch f43e5ed8; no production edits, gate changes,
+canonical corpus writes, downloads, merge or implementation-plan adoption authorized.
+Experiment-only candidate extends the existing notice grammar, retaining its accepted-
+envelope, whole-line, matching-title and nonempty-author guards. It does not repair
+heading heuristics or raise the parser's chunk threshold. Compare all 1,659 archived
+inputs with fixed metadata, normalization and pinned pre-repair extraction; preserve
+exceptions and distinguish equality from semantic approval. Save durable code/results
+under experiments/10_gettenberg_qualification and update this PR's audit documentation.
+
+New trace to reproduce: the same late author match occurs with both cleaners for
+35401/50103, but retained notice/blank lines push the first candidate past ten double-
+newline chunks and suppress fallback. Two exact-suffix probes previously recovered
+legacy hashes; these probes alone do not establish a general rule or corpus safety.
+
+First usage check 15:42 UTC: 63% weekly consumed /37% remaining, account-wide rather
+than per-task billing. Coordinator handles investigation; preserve review/checkpoint
+reserve and stop early when the bounded question is answered. Native prompt:
+PROMPT(WI-GETTENBERG-0010:GETTENBERG_TERMINAL_NOTICE_AUDIT)[2026-10-22T15:42:36+00:00].
+
+
+### Terminal-notice corpus evidence and review — 2026-10-22 16:05 UTC
+
+The frozen-extractor census completed in 608. 522 seconds: 1,659 input hashes checked,
+1,646 compared, same 13 refused, all 3,292 archived old/new normalized hashes reproduced.
+The experiment-only whole-line notice extension changes 470 cleanup slices/bodies,
+restores 469 legacy equalities and reduces 902 differences to 433. No formerly equal
+body becomes different; no refusal changes. One historical chapter exclusion (29632)
+returns to legacy eligibility; no candidate/legacy body-eligibility differences remain.
+These are function-level observations, not public-gather or literary acceptance.
+
+The exact trace corrects an incomplete mechanism description: both cleaners select
+the same late author-like chunk for 35401/50103. Retained notice/blank lines inflate the
+first candidate from 9/10 to 13 double-newline chunks, suppressing fallback. The grammar
+candidate restores 35401 but not50103, whose numeric end marker cannot corroborate the
+notice title. Two independently checked, explicitly named literal removals restore
+both legacy hashes; that diagnostic authority is not a general numeric-marker rule.
+
+Of 470 changed bodies, the only remaining non-equal case 32655 is exactly a leading LF
+plus legacy text. Coordinator follow-up groups the 433 residuals as 376 complete notices
+with matching numeric ebook-ID markers, 56 outside the single-line grammar and that
+one leading-LF case. These are mechanical investigation groups, not qualified rules.
+No case is marked approved or dropped from historical ledgers. Retain13 refusals too.
+
+One focused independent reviewer, reusing the approved pilot review arrangement,
+checked the four final script hashes, all counts, 3,292 archived hashes and all 470 exact
+removed suffixes, and independently replayed six severe-case cells. Eight authored
+boundary tests and six additional reviewer probes pass; literal-probe rows reproduce.
+No unresolved review findings. Reviewer did not duplicate the whole-corpus execution.
+No additional implementation worker, recursive delegation or broader rule was used.
+
+The first diagnostic launch omitted required routes and failed before rows/output;
+coordinator fixed it and reviewer independently identified/verified that P2. Initial
+Black diff checks hit the sandbox's local-socket denial; exact escalated retries pass.
+Canonical package format/lint, explicit final experiment checks, help/protection smokes
+and LRH validation pass (0 errors /351 existing warnings). Full product suite and wheel
+smokes were not rerun for unchanged product sources. Complete captured checks and
+immutable compressed comparisons are in the terminal-notice-audit experiment archive.
+
+Recommended next decision: carry the title-matched grammar repair as a candidate;
+review a narrowly corroborated numeric-marker approach at the provider/source boundary
+before implementation. 50103 remains a concrete integration blocker. Do not infer that
+all 376 numeric cases will be safe or equivalent, and do not broaden gather extraction
+or undertake editorial classification to resolve this provider-boundary question.
+Scope split and Q1–Q8 remain proposed; this run adopts neither and changes no gate.

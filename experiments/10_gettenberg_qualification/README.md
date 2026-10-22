@@ -639,3 +639,12 @@ promotional roles for both (63638, 73988). Both still have readiness and histori
 blockers. Mixed publisher preface 42664 is excluded; all 25 previous deferrals remain.
 A valid span-role packet is neither a semantic classifier nor a story approval.
 Keep the bounded discovery coverage separate from the manually reviewed catalogue.
+
+
+## Scope audit: narrow terminal-notice experiment
+
+The [2026-10-22 investigation](results/gettenberg-terminal-notice-audit-20261022/README.md)
+records the fallback trace, full 1,659-input experiment-only grammar comparison, two
+explicit literal counterfactuals, boundary tests and independent review. It changes no
+production cleanup, gather policy or corpus approval. Use its documented commands and
+pinned environment; its measurements do not qualify a future delivery candidate.

@@ -104,6 +104,46 @@ for gutenbergpy; it is not a production dependency. Historical cache entries are
 already decoded/re-encoded UTF-8 and cannot establish original HTTP encoding/resource
 identity. Existing authored original-byte tests remain separate evidence.
 
+### Terminal-notice follow-up — 2026-10-22 16:00 UTC
+
+A subsequent user-authorized, experiment-only investigation refines the mechanism.
+The historical parser chooses the same late author-like chunk under both cleaners
+for 35401/50103. Its first candidate has 9/10 double-newline chunks under legacy cleanup
+but 13 under replacement cleanup. Retained notice/blank lines suppress the fallback
+at historical parser line 1291 (`> 10`); those chunks include empty strings. Explicitly
+removing each known literal suffix restores both archived legacy hashes. This is a
+causal probe, not a generally qualified recognition rule.
+
+A minimal candidate extends only the existing cleaner's terminal-notice grammar to
+`End of the Project Gutenberg EBook of TITLE, by AUTHOR`, preserving all envelope,
+whole-line, matching-title and nonempty-author guards. With the same pre-repair
+extractor, metadata and normalization across all 1,659 inputs:
+
+- All 3,292 archived old/new normalized hashes reproduce; 1,646 inputs compare and
+  the same 13 remain refused.
+- 470 cleanup/body changes restore 469 legacy equalities; 902 differences become 433.
+  No formerly equal body becomes different, and no refusal changes.
+- 35401 returns 26,080 characters again. One chapter exclusion (29632) also returns
+  to the legacy result; all candidate body-eligibility results match the legacy path.
+- 50103 remains 900 characters: its marker is numeric 50103 and cannot corroborate
+  the title in its notice under this rule. Known-literal removal restores 31,972,
+  but does not authorize relaxing the general rule.
+- The only affected non-equal body, 32655, is exactly one leading LF plus legacy text.
+  Coordinator follow-up groups the other 432 residuals as 376 terminal notices with
+  matching numeric ebook markers and 56 outside this notice grammar. These are
+  mechanical investigation groups, not qualified families or approvals.
+
+Independent review verified the counts, original hashes, all 470 removal spans and
+six severe-case cells; 8 focused boundary tests pass. Product, active gates and corpus
+remain unchanged. See the [full experiment and exact trace table](../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md).
+
+**Updated mitigation recommendation:** retain this precise grammar extension as a
+candidate for later implementation review; investigate numeric-marker corroboration
+at the provider/source boundary next. Do not broaden gather extraction or claim the
+replacement safe while 50103 remains. This evidence reduces the justification for
+retaining the full extractor overhaul, but does not by itself qualify the delivery
+split or adopt Q1–Q8. Remaining provider effects still need causal accounting.
+
 ### Metadata is a separate contrast
 
 The full catalog audit recorded 37 additional English-query IDs from source languages
@@ -185,7 +225,8 @@ interpreting the existing words differently.
 | Q8. Delivery and lifecycle | Human-reviewed main promotion, truthful native closeout and downstream release-item verification. No canonical corpus promotion or PyPI publication inferred |
 
 The current audit passes none of these new gates on behalf of a future candidate.
-Its eight-case probe supports scope decisions, not whole-population qualification.
+Its controlled probes and terminal-notice census support scope decisions, not
+qualification of the eventual delivery candidate or actual public gathering.
 A harmless additive difference can have per-input mechanical evidence under an agreed
 contract; it need not require literary approval. “Additive” alone is insufficient if
 it changes chapter/eligibility behavior, violates the story-body contract, or affects
@@ -213,7 +254,9 @@ can also occur. Do not collapse those statuses into one resolved count.
    The former reproduces unbounded scope growth; the latter restores known integration
    failures unless separately mitigated.
 
-The minimum mitigation is deliberately not selected by this audit. Candidate approaches
+No complete mitigation is adopted by this audit. The terminal-notice follow-up
+establishes a promising partial candidate and a numeric-marker gap. Other candidate
+approaches
 include constrained heading selection or a precise integration guard; any refusal
 contract must identify affected classes and measured yield. If this requires a new
 editorial taxonomy or another broad heuristic redesign, stop for a scope decision.
