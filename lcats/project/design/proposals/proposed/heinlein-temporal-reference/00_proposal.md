@@ -155,8 +155,10 @@ can also be falsified or realized. Calendar-expired claims do not count toward t
 now" reading. The analysis date and the model's knowledge cutoff are recorded with every
 result.
 
-**D7. Stories with no speculative premises.** Such a story has `plausible` present, derived by
-Python, and the record carries a `speculative_premises` flag.
+**D7. Stories with no speculative premises.** A story with no speculative premises (see R6 for
+the definition) has `plausible` present, derived by Python: its counted premises, if any, are
+all supported, so R2 gives `present`, and with no counted premises at all the status is
+`present` vacuously. The record carries a `speculative_premises` flag.
 
 **D8. A profile, not a score.** The result is a profile derived by Python rules. It never
 reports a count or a probability, consistent with `heinlein.py:5-8` and the prompt's rule
@@ -176,7 +178,7 @@ These define terms the fixed decisions use. They are recommendations for owner r
 `{from, to, standing, basis, source}` that covers all time. `standing` is one of `supported`
 (established), `open` (speculative but not contradicted by established fact), `contested`
 (evidence has appeared but consensus has not settled), or `contradicted`. Boundaries are
-closed and year-granular; unbounded ends are null. `basis` is `model_asserted`,
+closed and given as a year or a year and month (for example 1965 or 1965-07); unbounded ends are null. Two boundaries are compared at the finer granularity both give, and a bare year covers all twelve months. `basis` is `model_asserted`,
 `table_confirmed`, or `owner_supplied`. A fact that never changed is one period. A premise
 that is contradicted at every date (for example, talking animals in a fairy tale) is one
 `contradicted` period. A claim accepted only later is simply a timeline that changes
@@ -198,23 +200,31 @@ and the standing today, when both are unambiguous: (`supported`, `supported`) an
 (`contradicted`, `contradicted`) are `stable`; (`open`, `open`) is `still_open`; (`open`,
 `supported`) and (`contradicted`, `supported`) are `realized`; (`supported` or `open`,
 `contradicted`) is `falsified`. Any other pair, or any `contested` or unknown standing, is
-`not_assessable`. The model never asserts the relation directly.
+`not_assessable`. Because the status as written is `ambiguous` while the composition interval is
+unknown or straddles a change, the relation of such a premise is `not_assessable` until the
+interval is known, and a report states the interval it used. The model never asserts the
+relation directly.
 
 **R4. Novelty and `different`.** Each premise carries `novel_at_composition`: `true`, `false`
-or `unknown`. `different` as written is `present` if any counted premise is novel, `absent`
+or `unknown`. A supernatural or fantastic element is `true` only if the story presents it as
+new to its world; if the story's genre presents it as ordinary (a folktale), it is `unknown`. `different` as written is `present` if any counted premise is novel, `absent`
 if there are counted premises and none is novel, `ambiguous` if none is known novel and some
-are unknown, and `absent` if no counted premises exist. A new condition may be a supernatural
-or fantastic one; whether such a condition passes `plausible` is a separate matter.
+are unknown, and `absent` if no counted premises exist. Whether a fantastic condition passes `plausible` is a separate matter.
 
 **R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
 the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
 reading all counted premises are used; for the "today" reading, calendar-expired premises are
-excluded. If every counted premise is excluded, the "today" status is `present` vacuously and
-the record says so.
+excluded. If there are no counted premises at all, the "today" status is `present` vacuously
+(D7). If counted premises exist but every one is excluded as calendar-expired, the "today"
+status is `not_assessable` with `today_reason: all_counted_expired`, so a story whose only
+speculative premise has been overtaken by the calendar is not reported as evergreen.
 
-**R6. The `speculative_premises` flag.** `{has: bool, counted: int, by_materiality}`, computed
-before any calendar-expired exclusion, so a story whose only speculative premises are expired
-is reported as having them.
+**R6. Speculative premises and the flag.** A *speculative* premise is a counted premise that
+is novel at composition (`novel_at_composition` true) or whose standing is anything other than
+`supported` at some date in the composition interval (so an invention, a contested claim and a
+fantastic one are all speculative, and a supported claim in a realist story is not). The flag is `{has: bool, counted: int, by_materiality}`,
+computed before any calendar-expired exclusion, so a story whose only speculative premises are
+expired is reported as having them.
 
 **R7. Profile categories.** Python derives a category from plausibility as written (P1) and
 today (P3), only when `speculative_premises.has` is true; otherwise the category is
@@ -259,17 +269,19 @@ One `heinlein_temporal` analysis record per story, serialized only when the stag
 - `composition`: `{earliest, latest, sources: [{kind, value, hard_bound, basis, confidence}],
   override, caveats}`.
 - `premises`: list of `{premise_id, claim, anchor: {offset, quote}, materiality,
-  novel_at_composition, dated_prediction, calendar_expired, timeline: [...]}`.
+  novel_at_composition, dated_prediction, timeline: [...]}`, where `dated_prediction` is null or
+  `{date: year or year-month, claim}` and `calendar_expired` is derived by Python from it (never
+  asserted by the model) and appears in the assessment.
 - `assessment`: `{plausible_as_written, plausible_today, different_as_written, condition,
-  per_premise: [{premise_id, status_as_written, status_today, relation}], speculative_premises,
-  category, verdict_as_written, consistency}`.
+  per_premise: [{premise_id, status_as_written, status_today, relation, calendar_expired}],
+  today_reason, speculative_premises, category, verdict_as_written, consistency}`.
 
 ### Options considered
 
 | # | Option | Pros | Cons |
 |---|---|---|---|
 | O1 | Keep the prompt and report `plausible` separately | Nothing to build | Leaves today's knowledge as the implicit reading, which D1 rejects |
-| O2 | One as-of date input to the existing stage; run it twice for two readings | Simple | Adding the date to the payload changes `payload_sha256` (`run_worldcon_spike.py:2400`), which invalidates the existing stage's fingerprint and checkpoints; one call per reading; no premise-level audit trail; needs a date up front, which the corpus lacks (`parser.py:1457`) |
+| O2 | One as-of date input to the existing stage; run it twice for two readings | Simple | Adding the date to the payload (`_heinlein_payload`, `run_worldcon_spike.py:2400`) changes `payload_sha256`, which `_model_stage_fingerprint` computes (`run_worldcon_spike.py:1100-1125`), which invalidates the existing stage's fingerprint and checkpoints; one call per reading; no premise-level audit trail; needs a date up front, which the corpus lacks (`parser.py:1457`) |
 | O3 | Put sub-readings inside `plausible` | One record | Changes `HeinleinCriterion` and `HeinleinAnalysis`, which are pinned to `heinlein-five-v1` and exactly five criteria (`models.py:311-345`, `models.py:394-420`); invalidates existing records |
 | O4 | A separate opt-in stage with a premise-first record | Leaves the existing record untouched; follows the optional-stage pattern; reuses the status vocabulary (`models.py:41-46`) | One more model call; relies on the model's recall of dates |
 | O5 | A curated fact table alone | Fully auditable and reproducible | Cannot cover a fact it does not list; needs upkeep |
@@ -298,7 +310,8 @@ state described here, not a proof.
   omit the key when empty.
 - **A new analysis kind forces changes in these places**, each as the Heinlein kind was added:
   - `sidecar.py`: `PARTIAL_SUCCESS_STAGE_NAMES` (16-26), the optional-analysis validation (145),
-    the label dispatch and a new validator beside the Heinlein one;
+    the current-pointer parsing and validation (82-105, 175-178), the label dispatch and a new
+    validator beside the Heinlein one;
   - `models.py`: the pointers record (`heinlein_analysis_id` at 633 and its validation), the
     envelope field and `_validate_analyses` (716), `_iter_analyses` (947), the serialization
     (832-846). The evidence-reference iteration (`_iter_criterion_references`, 973, and
@@ -313,7 +326,11 @@ state described here, not a proof.
     any paid-call backend and needs its own rule;
   - the new kind needs its own rubric or provenance version string, because
     `HeinleinAnalysis` pins `heinlein-five-v1` (`models.py:410`); and
-  - tests beside `heinlein_test.py`, `rendering_test.py` and `worldcon_spike_test.py`.
+  - tests beside `heinlein_test.py`, `rendering_test.py` and `worldcon_spike_test.py`, including
+    omitted-when-empty tests for the new key and pointer, like the ones that assert the absence of
+    the Heinlein key (`heinlein_test.py:259-260, 331`; `worldcon_spike_test.py:1480-1481`); and
+  - documentation that enumerates the Heinlein stage: `experimental/science_fiction_analysis_trial/README.md`,
+    `definitions.md` and `heinlein_canary_runbook.md`.
 
 ## Non-Goals
 

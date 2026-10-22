@@ -15,12 +15,14 @@ rater or the owner.
 
 The vocabulary is the one the proposal defines. Each premise has a materiality (`central`,
 `substantial`, `incidental`, as in `src/lcats/analysis/science_fiction/models.py:49-55`), a
-`novel_at_composition` value (is the claim new relative to the author's world), and a
+`novel_at_composition` value (`true`, `false` or `unknown`: is the claim new relative to the author's world), and a
 **standing timeline**: periods in which the claim was `supported`, `open` (speculative but not
 contradicted), `contested`, or `contradicted`. From the timeline the proposal derives the
 plausibility of the premise at composition and today, and an outcome relation (`stable`,
 `still_open`, `realized`, `falsified`, `not_assessable`). A dated prediction whose date has
-passed also carries a separate `calendar_expired` flag.
+passed also carries a separate `calendar_expired` flag, which Python derives from the date. A
+*speculative* premise is a counted premise that is novel at composition or whose standing is not
+`supported` at some date in the interval.
 
 ## Composition dates and their sources
 
@@ -49,13 +51,15 @@ the premise over the composition interval; "today" is its plausibility on the an
 | Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
 |---|---|---|---|---|---|
 | An unexplained bell sound draws the townspeople; a character reports an owl, a child says the bell "does not exist" (2534, 4816) | central | n/a | not treated as a factual premise | n/a | judgment call: an allegorical, unexplained phenomenon makes no testable claim |
-| Apes that speak and threaten the prince (8630) | incidental | yes | contradicted at every date | absent / absent / stable | not counted |
-| Apples that look like soap bubbles (9046) | incidental | yes | decorative | n/a | not counted |
-| A holy bell and blessed spirits at the climax (11656) | substantial | yes | contradicted at every date (judgment call) | absent / absent / stable | counted; judgment call: treated as contradicted because the story offers no natural account of it |
+| Apes that speak and threaten the prince (8630) | incidental | unknown | contradicted at every date | absent / absent / stable | not counted; novelty is unknown because a folktale presents such elements as ordinary |
+| Apples that look like soap bubbles (9046) | incidental | unknown | decorative | n/a | not counted |
+| A holy bell and blessed spirits at the climax (11656) | substantial | unknown | contradicted at every date (judgment call) | absent / absent / stable | counted; judgment call: treated as contradicted because the story offers no natural account of it |
 
 Plausibility as written: `absent`; today: `absent`; a date is not needed. `calendar_expired`:
-none. Speculative premises: yes. `different` as written: present (the supernatural elements
-are new relative to the author's world), so the Heinlein verdict is `does_not_qualify`.
+none. Speculative premises: yes, because the counted supernatural element has a `contradicted`
+standing (its novelty is `unknown`, a judgment call: a folktale presents such elements as
+ordinary, so they are not clearly new relative to the author's world). `different` as written: `ambiguous`,
+and with plausibility `absent` the verdict is `does_not_qualify`.
 
 ### 2 B R 0 2 B (Vonnegut)
 
@@ -90,11 +94,11 @@ yes.
 
 | Premise (offset) | Materiality | Novel | Standing timeline | Written / today / relation | Notes |
 |---|---|---|---|---|---|
-| Mars has a protective blue mist that shields the surface from the sun (932, 34221) | central | yes | open until July 1965; contested from the first close-up images by Mariner 4 on [15 July 1965](https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/m04_01d.html); contradicted today (my reading of the Mariner results, not sourced beyond the flyby date) | present if composed before July 1965 / absent / falsified | the end of the contested period is not verified; that the premise was not contradicted in 1957 is my reading and is not checked against 1950s sources |
-| The captured station "amplifies the magnetic field of Mars" (4812) | central | yes | open until July 1965; contested afterwards: search-result summaries of NASA pages say Mariner 4 found no detectable field, that this was not conclusively determined, and that Mars is now accepted to be essentially without an intrinsic field of any significance | present if before July 1965 / absent / falsified | the NASA pages were not opened |
+| Mars has a protective blue mist that shields the surface from the sun (932, 34221) | central | yes | open until July 1965; contested from the first close-up images by Mariner 4 on [15 July 1965](https://nssdc.gsfc.nasa.gov/imgcat/html/object_page/m04_01d.html); contradicted today (my reading of the Mariner results, not sourced beyond the flyby date) | present if composed before July 1965 / absent / falsified once the interval is known | the end of the contested period is not verified; that the premise was not contradicted in 1957 is my reading and is not checked against 1950s sources |
+| The captured station "amplifies the magnetic field of Mars" (4812) | central | yes | open until July 1965; contested afterwards: search-result summaries of NASA pages say Mariner 4 found no detectable field, that this was not conclusively determined, and that Mars is now accepted to be essentially without an intrinsic field of any significance | present if before July 1965 / absent / falsified once the interval is known | the NASA pages were not opened |
 | Earth's magnetic field interferes with the mist, and the station amplifies fields (34671) | central | yes | an invented mechanism that depends on the two premises above | follows them | the "contrary new theory" case in the rubric text |
-| A settled Mars with dome cities, canals and green lowlands (29401) | substantial | yes | same timeline as the mist | present if before July 1965 / absent / falsified | |
-| Mars colony founded in 1985, story dated June 2020 (12152, 11642) | substantial | yes | a dated prediction | present / absent (excluded) / falsified | `calendar_expired` true |
+| A settled Mars with dome cities, canals and green lowlands (29401) | substantial | yes | same timeline as the mist | present if before July 1965 / absent / falsified once the interval is known | |
+| Mars colony founded in 1985, story dated June 2020 (12152, 11642) | substantial | yes | a dated prediction | present / absent (excluded) / falsified | `calendar_expired` true; a dated prediction, so the relation needs no interval |
 | Gravity boats, heat guns, spaceships | incidental | yes | open | n/a | not counted |
 
 Plausibility as written: `present` if composed before July 1965 (it was published in April
@@ -109,8 +113,8 @@ Plausibility as written: `present` if composed before July 1965 (it was publishe
 | A thief's tricks: messages photographed on microscope slides, a portable pillar-box (3276, 3598) | incidental | no | supported; tricks, not speculative science | n/a | a model could mistake a "portable pillar-box" for an invention; not counted |
 | An argument that reason is supreme (35779) | incidental | no | an argument, not a premise about the world | n/a | |
 
-No speculative premises: plausibility as written is `present` by the no-premises rule, with the
-speculative-premises flag false. The keyword scan in the script finds `invent`, `machine` and
+No speculative premises: every counted premise is supported and none is novel, so the flag is false
+and plausibility as written is `present` (the counted premise is supported). The keyword scan in the script finds `invent`, `machine` and
 `scien`: `invent` is the pillar-box trick above, `machine` is a philosophical phrase ("a
 thinking machine"), and `scien` occurs in "nescience" and "conscientiously". As written,
 `different` is absent: the story is set in its author's present. Read against today, 1900s
@@ -124,7 +128,8 @@ London differs from here-and-now.
 | The dog is a Klondike dog (15924) | incidental | no | a neighbor's claim | n/a | |
 | Setting: California about 1901, with a mail contract and a Klondike past (22116, 22456) | substantial | no | supported; contemporary to the author | present / present / stable | |
 
-No speculative premises: plausibility as written `present` by the no-premises rule. The keyword
+No speculative premises: the speculative-premises flag is false and plausibility as written is
+`present` (the counted premises are supported). The keyword
 scan finds one hit, a simile about "a traveller from another planet". As written, `different`
 is absent. Read against today, the setting is a past era.
 
@@ -136,8 +141,8 @@ is absent. Read against today, the setting is a past era.
 | 2 B R 0 2 B | no | yes (year 2000) | present | present (expired sentence excluded) | no |
 | A Bad Day for Sales | no | no | present | present | no |
 | A Case of Sunburn | yes (Mars) | yes (1985, 2020) | present if before July 1965 | absent | yes |
-| The Blue Cross | no | no | present (no premises) | present | no |
-| Brown Wolf | no | no | present (no premises) | present | no |
+| The Blue Cross | no | no | present (no speculative premises) | present | no |
+| Brown Wolf | no | no | present (no speculative premises) | present | no |
 
 One of six stories needs a date for its physical premises; two carry calendar-expired claims;
 two realist stories show the same author-versus-reader time problem for the `different`
@@ -146,7 +151,7 @@ matter in the corpus.
 
 ## Judgment calls and limits
 
-- Whether Bell's unexplained bell is a factual premise at all, and whether supernatural claims count as contradicted.
+- Whether Bell's unexplained bell is a factual premise at all, whether supernatural claims count as contradicted, and whether a folktale's supernatural elements are novel relative to the author's world (recorded as `unknown`).
 - Whether the Vonnegut year-2000 sentence is `substantial` or `incidental`, and how to treat its counterfactual wording.
 - Whether Leiber's robot is `still_open` or partly realized.
 - Whether Sunburn's mist was contradicted by knowledge available in 1957 (not checked against 1950s sources), and the end of the contested period for the mist and the magnetic field.
@@ -237,7 +242,7 @@ for story, quotes in CITES.items():
     print(f"== {story} ({len(text)} chars)")
     for quote in quotes:
         offset = locate(text, quote)
-        print("  ", "MISSING" if offset is None else f"offset {offset}", "|", quote[:70])
+        print("  ", "MISSING" if offset is None else f"offset {offset}", "|", quote[:70].rstrip())
     if story in ("chesterton/blue_cross", "london/brown_wolf"):
         hits = sorted({m.group(0).lower() for m in re.finditer(SCAN, text, re.I)})
         print("   keyword scan hits:", hits)
@@ -270,13 +275,13 @@ Output as of this commit:
    offset 12152 | the first Martian colony was established at Mars City in the Earth yea
    offset 11642 | the Earth date, June 1, 2020
    offset 29401 | the dark green areas of Syrtis and Hadriacum were plainly visible
-   offset 34221 | only the blue mist of Mars protects its surface from the hard rays of 
+   offset 34221 | only the blue mist of Mars protects its surface from the hard rays of
    offset 4812 | an experimental laboratory that amplifies the magnetic field of Mars
    offset 34671 | It's the Earth's magnetic field, not that of Mars, that interferes wit
 == chesterton/blue_cross (46342 chars)
    offset 1459 | the Eucharistic Congress, then taking place in London
    offset 3598 | he invented a portable pillar-box
-   offset 3276 | photographing his messages infinitesimally small upon the slides of a 
+   offset 3276 | photographing his messages infinitesimally small upon the slides of a
    offset 35779 | reason is always reasonable
    keyword scan hits: ['invent', 'machine', 'scien']
 == london/brown_wolf (31817 chars)
