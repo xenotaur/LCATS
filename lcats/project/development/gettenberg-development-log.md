@@ -5011,3 +5011,36 @@ before implementation. 50103 remains a concrete integration blocker. Do not infe
 all 376 numeric cases will be safe or equivalent, and do not broaden gather extraction
 or undertake editorial classification to resolve this provider-boundary question.
 Scope split and Q1–Q8 remain proposed; this run adopts neither and changes no gate.
+
+
+### Terminal-notice investigation publication — 2026-10-22 16:14 UTC
+
+Substantive investigation/review completed and published as 8702cbc40c267cce0da12f34925baa357d9558b1
+on codex/gettenberg-scope-audit. PR #528 remains OPEN against codex/gettenberg-qualification;
+GitHub head and the updated description were read back and verified. Documentation,
+experiment code/evidence and native records only; no product or acceptance-policy change.
+Both native records bind the substantive evidence commit and remain in_progress.
+The installed update-execution command supports only landed, so nonterminal commit
+bindings were recorded without invoking a false terminal transition.
+
+Finished the bounded question in about 36 minutes, within the 60-minute target and
+90-minute hard stop. One focused independent reviewer; no implementation workers or
+recursive delegation. Shared weekly usage 63%→67% consumed (37%→33% remaining), roughly
+four percentage points account-wide, not exclusive task billing. No reset credit used.
+No automatic continuation: numeric-marker corroboration and the scope/qualification
+amendment return to human review before product implementation or broader gather work.
+
+All 29 archive manifest entries are tracked and hash-verified; 55 local documentation
+links resolve; historical runlog prefix remains byte-for-byte unchanged. Four reviewed
+script hashes match final executing sources and the recorded reports. The staged
+whitespace check passes; verbatim argparse help and long LRH logs were gzip-compressed
+losslessly to preserve original evidence while avoiding raw-log whitespace noise.
+Canonical checks and focused tests are recorded in the archive; no hosted CI pass,
+full-suite rerun, package delivery, merge or corpus acceptance is claimed.
+
+LRH process observation: tracing the control-flow threshold and measuring one precise
+provider-boundary change resolved a large part of the apparent backlog without adding
+another gather subsystem. A successful known-input counterfactual must still be kept
+separate from a corroborated reusable rule; the numeric-marker exception demonstrates
+why. The new native review record was minted at checkpoint rather than dispatch;
+future grants should create it before delegation while preserving this run's actual times.

@@ -455,5 +455,7 @@
   "final_lrh": {
     "returncode": 0,
     "summary": "Validation completed: 0 error(s), 351 warning(s)"
-  }
+  },
+  "final_staged_whitespace_check": "pass",
+  "tracked_manifest_entries_verified": 29
 }
