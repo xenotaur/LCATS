@@ -36,9 +36,10 @@ passed also carries a separate `calendar_expired` flag, which Python derives fro
 | Brown Wolf (London) | **not confirmed** | One reprint listing says Everybody's Magazine with no date; the story is in a collection a search result dates to 1906; the story's own text sets it about 1901 (offsets below) | 1876-1916 | about 1901 to 1906, an inference |
 
 The corpus records the year as "Unknown" for these stories (`src/lcats/gatherers/parser.py:1457`).
-For Sunburn the author's lifespan alone does not help: with only the career window
-(1954-2007) the interval straddles the 1965 flip below, and only the publication source
-resolves it.
+For Sunburn the author's lifespan alone does not help: with only the lifespan (1917-2007) the
+interval straddles the 1965 flip below, and only the publication source resolves it. The date of
+an author's first story (1954 for Fontenay) is context, not a bound on when a given story was
+written.
 
 ## Per-story premises
 
@@ -101,7 +102,7 @@ yes.
 | Gravity boats, heat guns, spaceships | incidental | yes | open | n/a | not counted |
 
 Plausibility as written: `present` if composed before July 1965 (it was published in April
-1957); `ambiguous` with that condition if only the career window were known. Today: `absent`
+1957); `ambiguous` with that condition if only the lifespan were known. Today: `absent`
 (the calendar-expired claim is excluded). A date is needed. Speculative premises: yes.
 
 ### The Blue Cross (Chesterton)

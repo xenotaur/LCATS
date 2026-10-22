@@ -128,10 +128,14 @@ first:
 
 1. owner-supplied;
 2. a bibliographic first-publication record (ISFDB is the natural candidate; its coverage and
-   terms have not been checked);
-3. the author's lifespan and career: death is a hard upper bound; birth plus adulthood and
-   first publication give lower bounds. The caveats are disputed attribution, collaboration,
-   posthumous revision, and translation (the original composition date applies);
+   terms have not been checked). The story's own first publication is an upper bound on its
+   composition, not a lower bound;
+3. the author's lifespan: death is a hard upper bound and birth is the lower bound. Career
+   milestones (adulthood, the date of the author's first publication) are contextual evidence
+   only, not bounds, because a debut may have been written years before it was published or
+   while the author was a minor; they become a bound only when a story-specific source says so.
+   The caveats are disputed attribution, collaboration, posthumous revision, and translation
+   (the original composition date applies);
 4. internal evidence the model can see.
 
 The sources are intersected. Each source is recorded with its kind, value, basis, and a
@@ -209,9 +213,9 @@ relation directly.
 or `unknown`, judged against the author-time empirical world of D1, never against the story's
 own world: talking animals or spirits in a folktale are `true` however ordinary they are to its
 characters, and `unknown` is only for a claim the stage cannot place. `different` as written is
-`present` if any counted premise is novel, `absent` if there are counted premises and none is
-novel, `ambiguous` if none is known novel and some are unknown, and `absent` if no counted
-premises exist. Whether a fantastic condition passes `plausible` is a separate matter.
+`present` if any counted premise is novel; `absent` if there are counted premises and every one
+is explicitly `false`, or if no counted premises exist; and `ambiguous` if no counted premise is
+`true` and at least one is `unknown`. Whether a fantastic condition passes `plausible` is a separate matter.
 
 **R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
 the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
@@ -250,6 +254,12 @@ prompt can mark `different` absent, and its rule that `essential` and `causal` c
 then (`run_worldcon_spike.py:2560-2564`) would carry the same today-relative error into the
 as-written verdict. Each of the two statuses cites the premise IDs the plot depends on. Only
 `human` is taken from the existing record, because it does not depend on the reference frame.
+Because a sidecar can hold several Heinlein analyses while its current pointer moves
+(`models.py:662-678`, `pipeline.py:263-280`), the source is selected by rule: the current Heinlein
+analysis whose `story_hash` and `evidence_set_id` match the temporal record's and whose status
+is `complete`. The record persists `source_heinlein_analysis_id` and the borrowed `human`
+status, and the source ID is part of the new stage's fingerprint inputs, so a different source
+invalidates the saved result and the verdict can be recomputed and audited.
 The prerequisite rules (`HEINLEIN_PREREQUISITES`, `models.py:35`, used by
 `heinlein_dependency_violations`, `models.py:379`) apply within the new record: if a violation
 appears, for example `essential` present while `different` is absent, the record reports
@@ -285,7 +295,9 @@ One `heinlein_temporal` analysis record per story, serialized only when the stag
 - `assessment`: `{plausible_as_written, plausible_today, different_as_written, condition,
   per_premise: [{premise_id, status_as_written, status_today, relation, calendar_expired}],
   essential_as_written, causal_as_written (each with status, supporting premise IDs and
-  rationale), human (from the existing record), comparison_with_existing, today_reason, speculative_premises, category, verdict_as_written, consistency}`.
+  rationale), human (`{status, source_heinlein_analysis_id}`, from the existing record),
+  comparison_with_existing, today_reason, speculative_premises, category, verdict_as_written,
+  consistency}`.
 
 ### Options considered
 
