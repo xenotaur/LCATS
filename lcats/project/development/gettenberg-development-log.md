@@ -4596,3 +4596,7 @@ Next: compose this rule with explicit ordered decisions, source-review all 25
 history-complete cases, and verify temporary publication/cumulative accounting.
 Do not turn this transformation count into approved-book or resolved-history counts.
 No integration, main promotion, consent changes or native terminal closeout.
+
+Implementation/evidence commit: `58b318625af7c4944b140e3d5d05cd39f70a7047`. LRH validation: 0 errors /351 existing
+warnings. Archive manifest verifies 22 files; isolated output484MiB, within15GiB
+budget. Native records remain in_progress. No independent-review repairs required.

@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of: 2026_10_22_00_46_45_GETTENBERG_BOUNDARY_GROUPS
 pr: https://github.com/xenotaur/LCATS/pull/524
-commit:
+commit: 58b318625af7c4944b140e3d5d05cd39f70a7047
 created_at: 2026-10-22T00:53:27+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-batch-review-contract.md
