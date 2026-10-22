@@ -5140,3 +5140,24 @@ delivery construction, not another notice-family expansion. Preserve 67 differen
 13 refusals for causal accounting and real-gather qualification; preserve broader
 gather work for later Kenny reconciliation. Positive source/context evidence resolved
 the two diagnosed interactions without adding another gather policy subsystem.
+
+
+### Scope adoption and bounded landing grant — 2026-10-22 17:53 UTC
+
+Human approved all four PR528 recommendations: three-way ownership split and separate
+causal/editorial ledgers; Q1–Q8 including usable yield and explicit historical wire-
+provenance limits; migration-reference construction with the two supported narrow
+repairs; preservation of PR524 and broader gather work for later Kenny reconciliation.
+Current grant records decisions, corrects stale numeric-gap language, validates and
+lands PR528 only into codex/gettenberg-qualification. Hard stop11:20 PDT /18:20 UTC.
+No candidate construction, main promotion, corpus/publication or terminal closeout.
+
+Landing preflight at45eb1154 finds eight CI helper import/help failures and two open
+P2 findings: incomplete transitive product pins and missing reproducible audit-facts
+procedure. Bounded repair is permitted by the pilot coordinator adapter; no integration
+with unresolved blockers. Reused two existing agents for disjoint diagnostic repairs;
+no recursive delegation. Product behavior and historical evidence bytes remain fixed.
+Closeout plan: internal staged audit only, native records in_progress and WI0010/WS
+nonterminal; record actual head/base/merge if integration succeeds, never imply Q1–Q8
+product qualification. The stale numeric-gap paragraph is replaced by current 67/13
+accounting, and the governing design criterion8/WI0010 now link the approved amendment.

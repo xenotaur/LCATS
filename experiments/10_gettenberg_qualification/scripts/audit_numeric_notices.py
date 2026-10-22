@@ -36,6 +36,11 @@ import terminal_notice_candidate
 EVIDENCE_REF = "1488c69ab11fad8fcd78361653bbd261a2788680"
 
 
+# Import-safety repair moves the optional legacy import into main(). Bind the
+# reviewed helper bytes explicitly while retaining the original evidence revision.
+HELPER_SHA256 = "4d6acc3ab99b17c2d645ca45716f90deaf1b5f1dd4a053af836b56e355fb2197"
+
+
 def timeout(*_):
     """Keep the full comparison inside the cafe hard-stop reserve."""
     raise TimeoutError("600-second numeric-notice experiment ceiling")
@@ -79,13 +84,16 @@ def main():
     for module in (audit_terminal_notice, terminal_notice_candidate):
         path = pathlib.Path(module.__file__).resolve()
         require(path == script_dir / path.name, "wrong helper import")
-        require(
-            path.read_bytes()
-            == audit_terminal_notice.git_source(
-                EVIDENCE_REF, str(path.relative_to(root))
-            ),
-            "helper changed",
-        )
+        if module is audit_terminal_notice:
+            require(sha(path.read_bytes()) == HELPER_SHA256, "helper changed")
+        else:
+            require(
+                path.read_bytes()
+                == audit_terminal_notice.git_source(
+                    EVIDENCE_REF, str(path.relative_to(root))
+                ),
+                "helper changed",
+            )
     modules = {
         "gatherers/gutenberg_source.py": gutenberg_source,
         "gatherers/normalization.py": normalization,

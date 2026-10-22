@@ -1,6 +1,6 @@
 # Gettenberg /gather scope: Kenny meeting brief
 
-2026-10-22. **Proposal for discussion, not an implementation change or merge approval.**
+2026-10-22. **Scope split and Q1–Q8 approved by the human; production implementation remains pending.**
 
 ## The decision in one paragraph
 
@@ -41,8 +41,8 @@ The title-only candidate does **not** fix 50103: the notice carries a title whil
 number 50103. Explicitly removing its known notice restores the legacy body, proving
 the mechanism but not qualifying a general numeric-marker rule. 376 residuals have
 that structural pattern; 56 are outside this grammar and one is a leading-LF difference.
-Keep these unresolved. The next focused question is provider/source corroboration for
-numeric markers, not a wholesale gather rewrite. See the [experiment](../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md).
+Keep these unresolved. The subsequent numeric-marker experiment below answers this focused question; this
+paragraph preserves the earlier title-only finding. See the [experiment](../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md).
 
 ## Numeric-marker follow-up
 
@@ -53,15 +53,15 @@ Both known truncations are now repaired experimentally. No new formerly-equal bo
 changes or additional eligibility changes occur. Ten title mismatches remain excluded;
 there is no fuzzy matching or broader gather rewrite.
 
-Recommend reviewing the scope split and qualification amendment now, then constructing
-a narrower delivery candidate if approved. Carry both precise notice repairs with
+The human has approved the scope split and qualification amendment. The next
+implementation grant can construct a narrower delivery candidate. Carry both precise notice repairs with
 explicit source-context/provenance, and keep remaining differences/refusals visible.
 The experiment does not approve corpus output or establish actual gather usability.
 [Full numeric-marker evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/README.md).
 
-## Proposed ownership
+## Approved scope split
 
-| Work | Proposed treatment |
+| Work | Approved treatment |
 |---|---|
 | Gutenberg catalog/resources/cache/cleanup and migrated callers | Retain in replacement delivery |
 | Replacement-triggered extraction loss, error handling and usability | Our integration obligation; qualify the smallest safe mitigation |
@@ -74,8 +74,9 @@ we are not asking Kenny to adopt our review schema or publication policy.
 
 ## Recommended next step
 
-Approve the three-way split and revised qualification criteria in the
-[scope audit](gettenberg-scope-causality-audit.md). A subsequent bounded grant can
+The human approved all four recommendations in the
+[scope audit](gettenberg-scope-causality-audit.md), including the historical wire-evidence
+limit, migration-reference construction and preservation of the broader work. A subsequent bounded grant can
 construct a narrower delivery candidate from the migration seam and selectively bring
 forward the cleanup repair and justified integration fixes. Keep PR524/history and all
 source/corpus evidence intact. Revalidate the actual candidate before main promotion.

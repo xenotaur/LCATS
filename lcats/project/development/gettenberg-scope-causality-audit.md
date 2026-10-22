@@ -1,6 +1,6 @@
 # Gettenberg scope and causality audit
 
-Status: **proposed for human review; no implementation or acceptance-policy change**.
+Status: **human-approved scope and qualification amendment, 2026-10-22; no production implementation change**.
 User authorized this audit after identifying overlapping ownership of gather fixes.
 Kenny's code is unavailable. Its reconciliation is a separate future task, not a
 prerequisite for this scope decision. Audit began 2026-10-22 07:49:48 UTC.
@@ -10,12 +10,12 @@ PR #524 integration base: `ed20e9c297bf5e50e1911b84722e53f5db3edee3`.
 Documentation/evidence branch: `codex/gettenberg-scope-audit`, stacked on the
 qualification branch. This audit does not integrate or approve PR #524.
 
-## Recommended decision
+## Approved decision
 
 Separate (A) the Gutenberg provider replacement, (B) its causal gather integration
 obligations, and (C) broader gather improvements. Preserve the combined qualification
-branch and all evidence. After human approval, construct and qualify a narrower
-delivery candidate; do not revert or merge the current branch wholesale.
+branch and all evidence. Under a subsequent bounded implementation grant, construct
+and qualify a narrower delivery candidate; do not revert or merge the current branch wholesale.
 
 The original design assigns catalog, acquisition and conservative Gutenberg cleanup
 to gettenberg; story interpretation stays with gatherers. The baseline migration
@@ -192,10 +192,11 @@ experiment, which deliberately holds metadata constant.
 
 ## Retain / separate / defer plan
 
-These are proposed dispositions, not edits. File locations are under `lcats/src/lcats/`
-unless otherwise stated. “Retain” still requires final-candidate qualification.
+These dispositions were approved by the human on 2026-10-22; they are not
+implementation edits. File locations are under `lcats/src/lcats/` unless otherwise
+stated. “Retain” still requires final-candidate qualification.
 
-| Surface | Proposed disposition | Reason / required boundary |
+| Surface | Approved disposition | Reason / required boundary |
 |---|---|---|
 | gettenberg catalog, models, ingestion, lifecycle, queries | Retain | Core replacement; richer metadata is an intended capability, not a demand for old SQL compatibility |
 | gettenberg resource selection, routes, original bytes, decode, refresh, cache/provenance | Retain | Core replacement; qualify stated contracts without inventing missing historical wire receipts |
@@ -230,10 +231,10 @@ review suites/docs with their implementation. Do not remove a failing assertion 
 to restore old behavior. Historical runners remain reproducible at recorded revisions;
 the separated delivery need not pretend every historical runner is a current API client.
 
-## Proposed qualification criteria — not yet adopted
+## Approved qualification criteria — adopted 2026-10-22
 
-Replace the corpus portion of WI0010's scope and completion mapping with the following
-only after human approval. Preserve original criteria 1–7 and 9–10, including first-use,
+The human approved replacing the corpus portion of WI0010's scope and completion
+mapping with the following. Preserve original criteria 1–7 and 9–10, including first-use,
 offline/recovery, documentation, package independence and human main-promotion gates.
 Clarify governing criterion 8 with this explicit definition rather than silently
 interpreting the existing words differently.
@@ -246,7 +247,7 @@ interpreting the existing words differently.
 > retain their evidence and follow-up ownership; complete editorial curation is not a
 > provider acceptance requirement. Missing evidence never establishes equivalence.
 
-| Proposed gate | Required evidence / pass condition |
+| Approved gate | Required evidence / pass condition |
 |---|---|
 | Q1. Provider capability and independence | Existing feature matrix, full-snapshot field/index evidence, cache/lifecycle/failure contracts and fresh wheel without gutenbergpy/VCS dependency attributable to candidate sources |
 | Q2. Consumer contract | Explicit metadata projection, resource preferences, decode/cleanup/refusal, source ownership and naming contract; tests of first-use/cached/offline/non-Gutenberg behavior and public return/exit/log behavior |
@@ -287,31 +288,40 @@ can also occur. Do not collapse those statuses into one resolved count.
    The former reproduces unbounded scope growth; the latter restores known integration
    failures unless separately mitigated.
 
-No complete mitigation is adopted by this audit. The terminal-notice follow-up
-establishes a promising partial candidate and a numeric-marker gap. Other candidate
-approaches
-include constrained heading selection or a precise integration guard; any refusal
-contract must identify affected classes and measured yield. If this requires a new
-editorial taxonomy or another broad heuristic redesign, stop for a scope decision.
+No production mitigation is implemented or qualified by this audit. The title and
+explicitly corroborated numeric-marker candidates repair both diagnosed truncations
+in the experiment, leaving 67 body comparisons and 13 refusals for causal accounting.
+Carry these two narrow candidates into implementation review; do not widen title
+matching or presume a heading-selection overhaul is needed. Any refusal contract
+must identify affected classes and measured usable yield. If qualification requires a
+new editorial subsystem or broad heuristic redesign, stop for a scope decision.
 
-## Proposed next sequence and human decisions
+## Human decisions and next sequence — 2026-10-22
 
-Review/approve this three-way ownership boundary and the proposed Q1–Q8 criteria.
-Then a bounded implementation grant may construct a separate delivery candidate,
-bring forward only justified fixes, and run full candidate qualification. Preserve
-PR524 as the combined investigation/evidence checkpoint while deciding its eventual
-branch/PR disposition; do not close or merge it now. Kenny reconciliation remains a
-separate task and requires neither access to his code nor his implicit agreement today.
+The human explicitly approved all four recommendations after the PR walkthrough:
 
-Review decisions requested:
+1. Approve the three-way scope split and separate causal versus editorial ledgers.
+2. Adopt Q1–Q8 as the qualification amendment, including operational-yield review and
+   explicit acceptance that missing historical wire/provenance receipts cannot be
+   reconstructed. This evidence boundary is not a waiver of unknown material provider
+   regressions. Original criteria 1–7 and 9–10 and main-promotion gates remain.
+3. Prefer a separate candidate constructed from migration reference `ed20e9c2`, bringing
+   forward necessary replacement improvements and the two supported notice repairs.
+   No wholesale rollback or presumption that the earlier revision is already safe.
+4. Preserve PR #524, historical evidence and broader gather work for later reconciliation;
+   do not assume Kenny has accepted their design or ownership.
 
-- Approve the three-way scope split and separate causal versus editorial ledgers.
-- Approve the proposed qualification amendment, including explicit operational-yield
-  review and provenance limitations; existing gates remain in force until adoption.
-- Prefer construction from the migration seam, with minimum mitigation and exact patch
-  reviewed under a new bounded grant; do not authorize wholesale reversion.
-- Preserve the gather enhancements for future reconciliation, without claiming Kenny
-  has accepted their design or ownership.
+Current authorization is to record these decisions, correct stale text, validate and
+land PR #528 into `codex/gettenberg-qualification`, with a hard stop at 11:20 PDT
+(18:20 UTC). Routine landing repairs remain bounded by that deadline; blocking CI or
+P0–P2 findings prevent integration. This is an audit/planning integration, not acceptance
+of the product under Q1–Q8. A subsequent bounded grant constructs and qualifies the
+narrower candidate. No production changes, main promotion, canonical corpus promotion,
+package publication, PR #524 merge or terminal work-item/execution closeout are inferred.
+
+Internal closeout plan: retain execution records as `in_progress`, WI0010 and WS
+nonterminal; record verified PR528 head/base/merge SHAs in the runlog if integration
+succeeds. Actual main-delivery qualification and canonical closeout remain pending.
 
 ## LRH process finding
 

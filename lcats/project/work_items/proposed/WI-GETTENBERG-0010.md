@@ -36,7 +36,7 @@
 - "modify_ci_pipeline"
 "acceptance":
 - "All ten governing design completion criteria have exact-head acceptance-to-evidence links, including\
-  \ full-snapshot predicate/accounting and resource/corpus comparisons."
+  \ full-snapshot predicate/accounting and resource/corpus comparisons under the approved Q1–Q8 scope amendment."
 - "Tutorial/how-to/reference/explanation examples are executed and match actual first-use, cached, offline\
   \ and recovery behavior."
 - "Canonical checks and independent review pass; fresh package metadata/import checks confirm dependency\
@@ -78,11 +78,11 @@ See the measured baseline and caller inventory in `project/development/gettenber
 
 ## Scope
 
-Measure on immutable recorded inputs, distinguish audit time from full old/new build time, record memory method/disk/network bytes and explain every material corpus difference. Use bounded runs with explicit resource budgets; missing baseline evidence is a gap, not a pass. Keep publication and canonical corpus promotion out of scope. Record process observations, alternatives and LRH acceptance-test recommendations without claiming one pilot proves speedup. One final main promotion is the default; propose earlier milestone only for review size, integration risk or design issues.
+Measure on immutable recorded inputs, distinguish audit time from full old/new build time, record memory method/disk/network bytes and account for every material replacement-induced corpus difference under the approved Q1–Q8 scope amendment. Use bounded runs with explicit resource budgets; missing baseline evidence is a gap, not a pass. Keep publication and canonical corpus promotion out of scope. Record process observations, alternatives and LRH acceptance-test recommendations without claiming one pilot proves speedup. One final main promotion is the default; propose earlier milestone only for review size, integration risk or design issues.
 
 ## Required Changes
 
-1. All ten governing design completion criteria have exact-head acceptance-to-evidence links, including full-snapshot predicate/accounting and resource/corpus comparisons.
+1. All ten governing design completion criteria have exact-head acceptance-to-evidence links, including full-snapshot predicate/accounting and resource/corpus comparisons under the approved Q1–Q8 scope amendment.
 2. Tutorial/how-to/reference/explanation examples are executed and match actual first-use, cached, offline and recovery behavior.
 3. Canonical checks and independent review pass; fresh package metadata/import checks confirm dependency independence.
 4. Main promotion is human-approved and native closeout accurately reconciles delivered items; pre-publication WI-RELEASE-0039 remains a later gate.
@@ -120,3 +120,30 @@ next narrative-preservation investigation and acceptance. This item is not accep
 or resolved; its first pre-integration gate remains unsatisfied. Keep the
 qualification PR unmerged until repaired and requalified. No acceptance criterion
 or main-promotion requirement changes.
+
+
+## Approved scope and qualification amendment — 2026-10-22
+
+The human approved the four decisions in the
+[scope and causality audit](../../development/gettenberg-scope-causality-audit.md#human-decisions-and-next-sequence--2026-10-22).
+Its [Q1–Q8 gates](../../development/gettenberg-scope-causality-audit.md#approved-qualification-criteria--adopted-2026-10-22)
+govern the narrower candidate. This explicitly amends the corpus portion of scope,
+frontmatter acceptance and required change 1, and clarifies governing design criterion
+8; criteria 1–7 and 9–10 remain. The October 18 checkpoint above is historical, not a
+requirement to finish all editorial reconciliation before provider delivery.
+
+Use immutable stage-specific comparisons to account for each measured input and
+material provider effect as an intended documented change, repaired regression,
+explicit operational refusal or unresolved blocker. Prove independent gather defects
+by controlled reproduction; preserve their evidence and follow-up separately from
+provider acceptance. Unknown material provider effects still block until investigated
+or narrowly contained. Missing historical wire provenance is an explicitly accepted
+evidence boundary, never evidence of equivalence. Quantify usable gather yield; broad
+refusal is not a substitute for successful operation.
+
+Construct from migration reference ed20e9c2 with necessary replacement improvements
+and the two narrow terminal-notice repair candidates, subject to full candidate
+qualification. Preserve PR524 and the broader gather work for later reconciliation.
+This planning approval and PR528 internal integration do not satisfy the product's
+pre-integration gates or authorize main promotion, corpus promotion, package publication
+or terminal closeout. A subsequent bounded grant is required for candidate construction.

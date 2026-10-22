@@ -1,5 +1,6 @@
 """Offline regressions for the archived qualification entry points."""
 
+import ast
 import hashlib
 import importlib.util
 import io
@@ -12,6 +13,7 @@ import sys
 import tarfile
 import tempfile
 import unittest
+from unittest import mock
 
 from tests.gettenberg_tests import catalog_test
 
@@ -47,7 +49,10 @@ class QualificationHelpersTests(unittest.TestCase):
                     [
                         sys.executable,
                         "-c",
-                        "import runpy,sys; runpy.run_path(sys.argv[1])",
+                        "import pathlib,runpy,sys; "
+                        "sys.path.insert(0,str(pathlib.Path(sys.argv[1]).parent)); "
+                        "sys.modules['gutenbergpy']=None; "
+                        "runpy.run_path(sys.argv[1])",
                         str(path),
                     ],
                     cwd=ROOT / "lcats",
@@ -57,9 +62,83 @@ class QualificationHelpersTests(unittest.TestCase):
                 )
                 self.assertEqual(imported.returncode, 0, imported.stderr)
                 self.assertEqual(imported.stdout, "")
-                helped = self.run_script(path.name, "--help")
-                self.assertEqual(helped.returncode, 0, helped.stderr)
-                self.assertIn("usage:", helped.stdout)
+                # Shared helpers and unittest modules are importable libraries, not
+                # argparse entry points. Keep import coverage for every Python file.
+                tree = ast.parse(path.read_text(encoding="utf-8"))
+                has_cli = any(
+                    isinstance(node, ast.Call)
+                    and isinstance(node.func, ast.Attribute)
+                    and node.func.attr == "ArgumentParser"
+                    for node in ast.walk(tree)
+                )
+                if has_cli:
+                    helped = self.run_script(path.name, "--help")
+                    self.assertEqual(helped.returncode, 0, helped.stderr)
+                    self.assertIn("usage:", helped.stdout)
+
+    def test_causal_replay_rejects_changed_missing_and_added_product_sources(self):
+        # A tiny real Git tree exercises the closure guard independently of LCATS
+        # imports. A transitive module must be pinned before it is ever loaded.
+        spec = importlib.util.spec_from_file_location(
+            "audit_cleanup_causality", SCRIPTS / "audit_cleanup_causality.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        root = self.directory / "repository"
+        product = root / "lcats/src/lcats"
+        product.mkdir(parents=True)
+        helper = product / "transitive.py"
+        helper.write_text("VALUE = 1\n", encoding="utf-8")
+        for arguments in (["init", "--quiet"], ["add", "."]):
+            subprocess.run(
+                ["git", *arguments], cwd=root, check=True, capture_output=True
+            )
+        tree = subprocess.check_output(
+            ["git", "write-tree"], cwd=root, text=True
+        ).strip()
+        self.assertEqual(set(module.product_tree_guard(root, tree)), {"transitive.py"})
+        helper.write_text("VALUE = 2\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "changed runtime product"):
+            module.product_tree_guard(root, tree)
+        helper.unlink()
+        with self.assertRaisesRegex(ValueError, "added or missing"):
+            module.product_tree_guard(root, tree)
+        helper.write_text("VALUE = 1\n", encoding="utf-8")
+        (product / "extra.py").write_text("VALUE = 3\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "added or missing"):
+            module.product_tree_guard(root, tree)
+
+    def test_causal_replay_rejects_shadow_imports_including_late_imports(self):
+        spec = importlib.util.spec_from_file_location(
+            "audit_cleanup_causality", SCRIPTS / "audit_cleanup_causality.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        # The archived runner intentionally pins old product code, but the package
+        # suite must allow future product changes. Use an isolated package fixture.
+        product = self.directory / "lcats/src/lcats"
+        product.mkdir(parents=True)
+        package_path = product / "__init__.py"
+        helper_path = product / "transitive.py"
+        package_path.touch()
+        helper_path.touch()
+        package_spec = importlib.util.spec_from_file_location("lcats", package_path)
+        helper_spec = importlib.util.spec_from_file_location(
+            "lcats.transitive", helper_path
+        )
+        package = importlib.util.module_from_spec(package_spec)
+        helper = importlib.util.module_from_spec(helper_spec)
+        expected = {"__init__.py": "fixture", "transitive.py": "fixture"}
+        with mock.patch.dict(
+            sys.modules, {"lcats": package, "lcats.transitive": helper}, clear=True
+        ):
+            module.product_import_guard(root=self.directory, expected_paths=expected)
+            # A module loaded during measurement must not come from another tree.
+            helper.__file__ = str(self.directory / "shadow.py")
+            with self.assertRaisesRegex(ValueError, "wrong imported module"):
+                module.product_import_guard(
+                    root=self.directory, expected_paths=expected
+                )
 
     def test_relative_candidate_paths_support_sqlite_uri_before_build(self):
         spec = importlib.util.spec_from_file_location(

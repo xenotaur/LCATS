@@ -656,3 +656,18 @@ The [numeric-marker investigation](results/gettenberg-numeric-notice-audit-20261
 adds explicit source/catalog/title corroboration to the prior experiment. It reuses
 pinned baseline evidence, freshly extracts all accepted inputs, preserves title
 mismatches, and records scope/qualification limits. No production policy is changed.
+
+
+## Scope-audit landing repairs
+
+The [facts reproduction procedure](scope-facts-reproduction.md) regenerates the
+derivable audit calculations without legacy libraries or network access. Original
+archived measurements remain immutable. Current diagnostic entry points are safe to
+import and expose help without gutenbergpy; the historical cleaner is required only
+when explicitly running a legacy comparison. The causal replay now pins every Python
+product source and validates all loaded module origins, including late imports.
+
+The numeric runner retains its original evidence revision and explicitly binds the
+reviewed helper hash after the optional legacy import moved inside the measurement
+entry point. This import-only repair does not alter cleanup/extraction calculations;
+the landing verification records a fresh population comparison separately.

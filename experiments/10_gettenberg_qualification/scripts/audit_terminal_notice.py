@@ -30,7 +30,6 @@ import tempfile
 import time
 from unittest import mock
 
-from gutenbergpy import textget
 from lcats.gatherers import gutenberg_source, normalization
 from lcats.gettenberg import cleanup, lifecycle, resources
 import terminal_notice_candidate
@@ -171,6 +170,9 @@ def main():
     for name in ("catalog_cache", "text_cache", "output"):
         ap.add_argument(name, type=lambda value: pathlib.Path(value).resolve())
     args = ap.parse_args()
+    # Historical comparison only; normal imports and help must not require it.
+    from gutenbergpy import textget
+
     require(not args.output.exists(), "output exists; evidence is never overwritten")
     for protected in (ROOT, args.catalog_cache, args.text_cache):
         require(
