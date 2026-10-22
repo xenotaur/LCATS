@@ -286,3 +286,60 @@ def evaluate_publication_notices(path):
         blockers=blockers,
     )
     return result
+
+
+TRAILING_NOTICE_RULE = "terminal-unbracketed-publication-notice-v1"
+# Separate opt-in grammar: do not broaden the established bracketed rule.
+# Matching underscores must surround the complete publication name, not prose.
+_TRAILING_NOTICE = re.compile(
+    r"Transcriber['’]s Note:?\s+This etext was produced from "
+    r"(?P<italic>_?)(?:"
+    + "|".join(
+        re.escape(name) for name in (*_PUBLICATIONS, "Amazing Science Fiction Stories")
+    )
+    + r")(?P=italic),? (?:"
+    + _MONTH
+    + r") 19[0-9]{2}\. "
+    r"Extensive research did not uncover any evidence that the "
+    r"U\.S\. copyright on this publication was renewed\."
+    r"(?: Minor spelling and typographical errors have been corrected "
+    r"without note\.)?",
+    re.IGNORECASE,
+)
+
+
+def propose_trailing_publication_notice(body):
+    """Propose one exact terminal note omission; never approve a story.
+
+    Recognize only a complete final note of at most 1,000 characters, starting
+    on a blank-line boundary, with a finite publication/date/copyright grammar.
+    Keep every preceding character, including paragraph separators. Unknown
+    sentences, interior notes, lone notes and larger inputs fail closed. Offsets
+    refer to the original Unicode body, never a historical comparison projection.
+    The caller must validate the candidate/source identity and all other review
+    requirements before recording a decision. This pure helper does not write.
+    """
+    if not isinstance(body, str) or len(body) > 4_000_000:
+        raise ValueError("trailing notice requires bounded text")
+    # Search only the bounded tail, while retaining original-string offsets.
+    lower = max(0, len(body) - 1000)
+    for match in re.finditer(r"(?m)^[ \t]*Transcriber['’]s Note", body[lower:], re.I):
+        start = lower + match.start()
+        if start < 2 or not body[:start].endswith("\n\n"):
+            continue
+        note = body[start:]
+        if not body[:start].strip() or not _TRAILING_NOTICE.fullmatch(
+            " ".join(note.split())
+        ):
+            continue
+        return {
+            "rule": TRAILING_NOTICE_RULE,
+            "candidate_sha256": readiness.text_sha256(body),
+            "span": [start, len(body)],
+            "text": note,
+            "sha256": readiness.text_sha256(note),
+            "retained_sha256": readiness.text_sha256(body[:start]),
+            "transformation_qualified": True,
+            "publication_approved": False,
+        }
+    return None

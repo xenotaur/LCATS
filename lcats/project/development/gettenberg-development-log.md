@@ -4540,3 +4540,59 @@ commit and remain in_progress. LRH validation:0 errors /351 existing warnings.
 Archive manifest verifies75 files. A sandboxed GitHub status read failed with a
 connection error; its one approved-network retry succeeded. No credential changes.
 Only push and exact-head hosted checkpoint remain; no substantive continuation.
+
+
+### Boundary grouping sprint — 2026-10-22 00:43 UTC
+
+Human authorized another bounded sprint to group all 1,477 boundary-text cases and
+qualify the highest-yield safe narrow rule. Start 00:43:14 UTC, feature freeze 01:03:14,
+hard stop 01:13:14; no automatic renewal. Continue PR #524 from 819e62fa on existing
+qualification branch. Coordinator implements; one cold independent review up to 6 min,
+optional 2 min repair recheck, at most 2 concurrent agents/no recursion. Shared weekly
+usage starts 41%;43% feature-freeze/45% substantive-stop, unavailable telemetry stops
+substantive work. Cached inputs only, immutable corpus/source identities; no main
+promotion, publication, default extraction change, CI/consent changes or closeout.
+Group labels are diagnostics; exact bounded rule evidence and complete history
+accounting remain distinct from publication approval. Unknown prose stays unresolved.
+Existing coordinator adapter covers routine gates; readiness is clean, installed
+fingerprints clean, persistent skip consent remains invalid and untouched.
+Prior art: reuse historical_review projections and review_rules recognition; add
+only missing boundary census/qualification evidence, not another review store.
+
+
+### Boundary grouping checkpoint — 2026-10-22 00:57 UTC
+
+Grouped all 1,477 boundary-text inputs with independent prefix/suffix lexical
+buckets. Prefixes: 749 other, 265 underscore-leading, 180 production-credit-leading,
+179 byline-leading, 19 sidenote-leading, 18 transcriber-leading, 11 illustration-leading,
+56 empty. Suffixes: 1,013 empty, 219 containing transcriber text, 115 end-marker-leading,
+130 other. Labels describe strings, not editorial roles. Historical omissions can
+include actual narrative; neither position nor baseline equivalence authorizes deletion.
+
+Qualified a complete terminal publication-note grammar on 133 inputs (77 normalized
+notice variants). Of these, 25 have complete historical explanations and 108 retain
+other differences. All prior intent is untouched; no new approvals/dispositions.
+Cumulative historical totals remain 14 resolved / 1,628 unresolved. This is measured
+high yield for a narrowly labeled family, not proof of global maximum coverage.
+
+Feature freeze at 43% shared account usage / 00:54 UTC, versus 41% launch; subsequent
+work is review, validation and checkpointing only. No stretch work. One cold reviewer,
+under 3 worker minutes, no recursive delegation or repair recheck. Independent replay
+reproduced all 1,477 rows and checked all 133 proofs. Coordinator independently
+verified every original candidate cut/text/hash. The sole pending packaging note
+(the archive link) was completed and verified; no code fixes were needed.
+
+3,100 full tests / 109.767s; targeted 9 pass; package and explicit changed runner
+format/lint pass. Fresh isolated wheel has 173 Python + 2 JSON resources matching
+source/wheel/install; no gutenbergpy, installed smoke/pip check pass. All 3 new rule
+tests also pass using the installed wheel. All 1,659 compressed/decoded source and
+canonical corpus identities remain unchanged. Cached inputs only; PyPI build/install
+traffic, no Gutenberg requests. Initial sandbox GitHub read failed; one approved
+network retry succeeded without credential changes.
+
+Experiment: experiments/10_gettenberg_qualification/results/gettenberg-boundary-20261022/.
+Durable runner and library helper have tests; project/ remains non-executable.
+Next: compose this rule with explicit ordered decisions, source-review all 25
+history-complete cases, and verify temporary publication/cumulative accounting.
+Do not turn this transformation count into approved-book or resolved-history counts.
+No integration, main promotion, consent changes or native terminal closeout.

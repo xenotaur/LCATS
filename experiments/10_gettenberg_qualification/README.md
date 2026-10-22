@@ -523,3 +523,50 @@ runners after JSON serialization. Explicitly check those changed paths:
 scripts/format --check --diff ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py
 scripts/lint ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py
 ```
+
+
+### Boundary residual census and terminal-notice qualification
+
+`group_boundary_cases.py` groups unresolved `additional_boundary_text` rows from
+an existing completed cumulative ledger. Labels are lexical diagnostics: an
+underscore prefix is not a proven blurb, and a transcriber substring can be prose.
+The runner rechecks candidate, cache and corpus identities, reruns the prior ordered
+notice rule, and recomputes each historical comparison before grouping. Comparison
+projection offsets are never used as source offsets.
+
+From `lcats/`, with the project Python and `PYTHONPATH="$PWD/src"`:
+
+```bash
+python ../experiments/10_gettenberg_qualification/scripts/group_boundary_cases.py LEDGER_JSON_GZ CANDIDATE_QUEUE COLLECTION TEXT_CACHE NEW_OUTPUT
+python -m unittest tests.gatherers_tests.trailing_notice_test tests.gettenberg_tests.boundary_groups_evidence_test
+scripts/format --check --diff ../experiments/10_gettenberg_qualification/scripts/group_boundary_cases.py
+scripts/lint ../experiments/10_gettenberg_qualification/scripts/group_boundary_cases.py
+```
+
+Outputs are `summary.json` and `groups.json.gz`, containing every boundary input's
+full prefix/suffix, identity bindings, optional rule evidence in original candidate
+coordinates and the residual historical explanation. Input sources are read-only
+legacy decoded/re-encoded UTF-8 cache files, not authenticated original HTTP bytes.
+No catalog or network is used; socket access is denied. POSIX 600-second alarm,
+10,000-row/64MiB expanded ledger limit, 32MiB source/corpus limits,6GiB free minimum.
+Existing output directories are refused; failures preserve `completed:false`.
+An arbitrary process kill can prevent the final checkpoint write.
+
+The opt-in pure helper `review_rules.propose_trailing_publication_notice(body)`
+recognizes a complete unbracketed terminal transcriber note, at most 1,000 Unicode
+characters, starting after a blank line and following nonempty retained text.
+Grammar: finite known magazine names, one month/season and a 1900–1999 year,
+exact copyright-research sentence, optionally the exact spelling/typography
+correction sentence. Matching underscores around the magazine name, case and
+whitespace variation are accepted for recognition only. Every retained character
+and the exact omitted note are hash-bound; surrounding narrative is never rewritten.
+Unknown publications, extra sentences, interior notes, unmatched underscores,
+multi-month issues, standalone notes and post-note narrative are exceptions.
+
+This helper does not change default extraction, the existing bracketed-notice
+rule, the review decision schema, or cumulative dispositions. Transformation
+qualification is distinct from historical explanation and story approval. Even a
+complete explanation requires readiness checks and attributable source review
+before an explicit decision can be recorded. Existing approve/defer/exclude intent
+is reported unchanged. The sprint archive is
+[boundary groups](results/gettenberg-boundary-20261022/README.md).

@@ -659,3 +659,21 @@ for this short grant, no stretch work. Check every15min and before dispatch/majo
 blocks. Unavailable telemetry means checkpoint. Existing coordinator adapter covers
 routine plan/branch/repair gates; explicit run grant supplies authority independently
 of unchanged invalid persistent skip consent.
+
+
+### Boundary grouping sprint — 2026-10-22 00:43 UTC
+
+Human authorized another bounded sprint to group all 1,477 boundary-text cases and
+qualify the highest-yield safe narrow rule. Start 00:43:14 UTC, feature freeze 01:03:14,
+hard stop 01:13:14; no automatic renewal. Continue PR #524 from 819e62fa on existing
+qualification branch. Coordinator implements; one cold independent review up to 6 min,
+optional 2 min repair recheck, at most 2 concurrent agents/no recursion. Shared weekly
+usage starts 41%;43% feature-freeze/45% substantive-stop, unavailable telemetry stops
+substantive work. Cached inputs only, immutable corpus/source identities; no main
+promotion, publication, default extraction change, CI/consent changes or closeout.
+Group labels are diagnostics; exact bounded rule evidence and complete history
+accounting remain distinct from publication approval. Unknown prose stays unresolved.
+Existing coordinator adapter covers routine gates; readiness is clean, installed
+fingerprints clean, persistent skip consent remains invalid and untouched.
+Prior art: reuse historical_review projections and review_rules recognition; add
+only missing boundary census/qualification evidence, not another review store.

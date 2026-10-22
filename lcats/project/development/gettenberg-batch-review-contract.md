@@ -103,3 +103,17 @@ requires an exact reviewed-cohort packet with candidate/selection/baseline hashe
 verified candidate excerpts, attribution and rationale. Known exceptions must remain
 in cumulative dispositions and source-review evidence. This is a finite qualification
 method, not permission to infer editorial roles from an unchanged historical body.
+
+
+### Terminal publication-note qualification checkpoint
+
+The boundary census runner in `experiments/10_gettenberg_qualification/scripts/`
+adds a separate opt-in terminal-note rule; it changes no automatic extraction or
+approval path. Original candidate offsets and exact hashes identify the finite
+complete note. Historical comparison projections remain diagnostic only. Evidence
+must distinguish qualified transformations, complete historical explanations and
+recorded approvals. The first census qualifies 133 transformations and finds 25
+complete historical explanations; it records no new decisions. All1,628 previously
+unresolved historical cases remain unresolved until the existing explicit review
+and publication gates have actually been met. See the experiment README and
+`results/gettenberg-boundary-20261022/` for grammar, exceptions and per-input proof.
