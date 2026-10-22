@@ -32,7 +32,7 @@ assessment's story text has changed.
 ## The original text hashes survive, and they match today
 
 The experiment hashed every story's file bytes into its resume fingerprint
-(`_validation_fingerprint`, `run_prefilter.py:1018-1052`, the `story_content_hash`
+(`_validation_fingerprint`, `run_prefilter.py:1018-1053`, the `story_content_hash`
 field, sha256 over `story.json` bytes). None of the committed results files contain
 a hash (0 hits for `fingerprint` or `sha256` in `validation_results.jsonl`,
 `validation_run_log.jsonl` and `validation_summary.json`), which is what made the
@@ -78,7 +78,7 @@ duplicate that does not bear on the shipped Opus assessments.
 
 So both patterns exist here: change detection in a checkpoint outside the sidecar
 (the genre producers), and a hash inside the sidecar (linguistics, science fiction),
-of which only linguistics can compare it with the source. The tranche-promoted
+of which only the linguistics validator can compare it with the source body. The tranche-promoted
 genre sidecars are the one group with neither. The hashes also differ in basis:
 file bytes (the experiment), body text plus `author` and `url` (annotate), body text
 (linguistics) and normalized text (science fiction).
@@ -105,31 +105,42 @@ validator.
   component.
 - **Go on Option D.** Record `{lcats_id, story_content_hash}` for the 146, with the
   hash being sha256 over `story.json` bytes exactly as the experiment computed it,
-  and compare it with the regenerated `data/` after `lcats gather` and before the
-  seed step and `replace`. Using the recovered originals makes the baseline a
+  and compare it with the regenerated `data/` after `lcats gather` and before
+  `replace` (before or after the seed step; the comparison reads only `story.json`). Using the recovered originals makes the baseline a
   provenance claim, not a "today's text, trust me" claim. Option D subsumes
   Option B, since the file bytes include `metadata.url`.
 - **Where the check runs:** a release-time read-only comparison in the runbook,
   alongside the two read-only checks already in step 3b. Not in `validate_sidecar`
   (it sees only the payload) and not in `promote insert` (it needs no story
-  content to be create-only). Keep the CI drift test as it is.
+  content to be create-only). Nor in the seed tool, `tools/build_genre_seed_manifest.py`,
+  which builds the manifest from the evidence file and never reads `corpora/` or
+  `data/`: a runbook check needs no code and covers the whole release, not only the
+  seeded sidecars, and a follow-up may later fold it into the tool. Keep the CI
+  drift test as it is.
 - **What it flags, and which changes should count.** The assessment's real inputs
-  are the body, `author` and `url` (`assess.py:348-369`, `432-437`); the title is
+  are the body, `author` and `url` (`assess.py:347-369`, `432-439`); the title is
   just the bucket directory name (`infer_story_title` returns
   `file_path.parent.name` and discards the data, `cli.py:47-60`), already encoded in
   the item id, which is why `annotate`'s fingerprint leaves it out
-  (`annotate.py:121-127`), and `year` is not read at all. So:
+  (`annotate.py:121-127`), and `year`, `name` and a top-level `author` key (84 of 146 stories carry one;
+  only `metadata.author` is read) are not read at all. So:
   - A change to the body, `author` or `url` makes a sidecar stale. An unchanged body
     with a changed author or URL still does, and `url` also anchors the metadata
     assessment. A body-only hash would miss it.
-  - A change to an unused field such as `year` does not make a sidecar stale.
+  - A change to an unused field such as `year` or `name` does not make a sidecar
+    stale.
   - **File bytes** (what the recovered baseline already is) are a conservative
     superset: they catch every real change and also flag unused-field edits, which
     cost an unnecessary re-assess-or-accept decision but never miss a stale sidecar.
   - An **effective-input hash** over `author`, `url` and the body (the shape
-    `annotate`'s fingerprint uses) is exact, with no false positives. The recovered
-    baseline can be re-expressed in that form today, because all 146 files are
-    unchanged and the inputs can be read from them.
+    `annotate`'s fingerprint uses) is exact for what the model sees, with no false positives. It should hash the
+    coerced body (`coerce_story_text`), as `annotate.py:609` does, and the body as
+    truncated if the cap matters: `assess_story` cuts the body at
+    `max_body_chars=100_000` (`assess.py:377`, `422-423`), so text past the cap never
+    reaches the model. None of the 146 stories is that long (the longest is 77,811
+    characters), so there is no effect today. The recovered baseline can be
+    re-expressed in that form today, because all 146 files are unchanged and the
+    inputs can be read from them.
   - A **body hash** is acceptable only paired with separate `author` and `url`
     checks (for example `provenance.gutenberg_url` against `metadata.url`, the
     note's Option B, plus an author comparison) and an identity check that the bucket
