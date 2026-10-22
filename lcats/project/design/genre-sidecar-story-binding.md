@@ -113,14 +113,30 @@ validator.
   alongside the two read-only checks already in step 3b. Not in `validate_sidecar`
   (it sees only the payload) and not in `promote insert` (it needs no story
   content to be create-only). Keep the CI drift test as it is.
-- **What it flags:** a story whose bytes changed, or one missing from `data/`. The
-  hash covers the whole file, so a metadata-only change also flags. That is
-  correct, not merely conservative: `author` and `url` are shown to the model in the
-  assessment prompt and `url` anchors the metadata assessment, so an unchanged body
-  with a changed author or URL still leaves a stale sidecar. A body-only hash would
-  accept it, so it is not an acceptable choice. The follow-up should keep file bytes
-  (which the recovered baseline already is) or use an effective-input hash that
-  covers `author`, `url` and the body, as `annotate`'s fingerprint does.
+- **What it flags, and which changes should count.** The assessment's real inputs
+  are the body, `author` and `url` (`assess.py:348-369`, `432-437`); the title is
+  just the bucket directory name (`infer_story_title` returns
+  `file_path.parent.name` and discards the data, `cli.py:47-60`), already encoded in
+  the item id, which is why `annotate`'s fingerprint leaves it out
+  (`annotate.py:121-127`), and `year` is not read at all. So:
+  - A change to the body, `author` or `url` makes a sidecar stale. An unchanged body
+    with a changed author or URL still does, and `url` also anchors the metadata
+    assessment. A body-only hash would miss it.
+  - A change to an unused field such as `year` does not make a sidecar stale.
+  - **File bytes** (what the recovered baseline already is) are a conservative
+    superset: they catch every real change and also flag unused-field edits, which
+    cost an unnecessary re-assess-or-accept decision but never miss a stale sidecar.
+  - An **effective-input hash** over `author`, `url` and the body (the shape
+    `annotate`'s fingerprint uses) is exact, with no false positives. The recovered
+    baseline can be re-expressed in that form today, because all 146 files are
+    unchanged and the inputs can be read from them.
+  - A **body hash** is acceptable only paired with separate `author` and `url`
+    checks (for example `provenance.gutenberg_url` against `metadata.url`, the
+    note's Option B, plus an author comparison) and an identity check that the bucket
+    is the intended story. On its own it is not.
+  The follow-up chooses between the first two; this note recommends starting with
+  file bytes because the baseline already exists in that form, and moving to the
+  effective-input hash if false positives prove noisy.
 - **When it fires:** the operator re-assesses that story, or accepts the stale
   sidecar knowingly. The note does not decide which; re-assessment costs model
   calls.
@@ -174,9 +190,10 @@ metadata-derived and a text hash as the wrong binding; that was corrected during
 
 - Archive the 146 Opus checkpoint files as tracked evidence, then derive the
   baseline manifest from them (data preservation; time sensitive).
-- Build the release-time comparison with an effective-input hash that covers
-  `author`, `url` and the body (file bytes qualify), and decide the
-  re-assess-or-accept rule.
+- Build the release-time comparison, choosing between file bytes (conservative,
+  baseline already in that form) and an effective-input hash over `author`, `url`
+  and the body (exact), never a body hash alone, and decide the re-assess-or-accept
+  rule.
 - Measure whether a fresh `gather` reproduces the stored text.
 
 These are recorded in `project/design/backlog.md`.

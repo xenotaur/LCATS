@@ -1239,8 +1239,9 @@ release time, with no sidecar schema change.
 ignore exception), and derive the hash manifest from the archived files so the link
 to the model run can be re-checked; a recent precedent is the "preserve staged Opus
 run artifacts" data PR. Then build the comparison as a small tool plus a runbook
-step, using a hash that covers `author`, `url` and the body (file bytes qualify; a
-body-only hash would miss changes the model is shown), decide the re-assess-or-accept
+step, using file bytes (conservative: also flags unused fields such as `year`) or an
+effective-input hash over `author`, `url` and the body (exact), never a body hash
+alone (it misses changes the model is shown), decide the re-assess-or-accept
 rule, and measure whether a fresh `lcats gather` reproduces the stored text
 byte-for-byte (not measured here).
 
