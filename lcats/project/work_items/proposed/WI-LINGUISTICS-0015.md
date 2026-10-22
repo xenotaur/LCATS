@@ -37,7 +37,8 @@ forbidden_actions:
 acceptance:
   - The repaired pilot packet is regenerated or materialized with verified provenance and fingerprints.
   - The repaired packet receives a complete human POS audit using the existing audit helper.
-  - The resulting ledger validates and produces the authoritative pos_audit_scored.json.
+  - The resulting repaired ledger validates; when no unresolved rows remain, it produces the authoritative pos_audit_scored.json.
+  - When unresolved rows remain, it produces a validated repaired_pos_audit_decision.json with explicit no-go/defer evidence instead of fabricating a score.
   - The report records blocked, uncertain, reviewed, overall, and genre-slice metrics.
   - A human-reviewed decision states whether POS-dependent work is authorized, requires further repair, or is deferred/no-go.
   - Historical pre-repair packet and ledger remain recoverable and unchanged.
@@ -47,7 +48,8 @@ required_evidence:
   - manual_review
   - lrh_validate
 artifacts_expected:
-  - experiments/09_rich_linguistics_genre_sample/results/pos_audit_scored.json
+  - experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_scored.json when the repaired ledger is fully reviewable
+  - experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/repaired_pos_audit_decision.json when unresolved rows remain
   - experiments/09_rich_linguistics_genre_sample/results/repaired_pos_audit_report.json
   - provenance and fingerprint evidence for the repaired packet
 ---
@@ -88,7 +90,7 @@ WI-LINGUISTICS-0014 reduced malformed audit rows from 56 to 29, but the repaired
 1. Materialize or regenerate the repaired audit packet using the documented repaired-tokenization command.
 2. Verify packet identity, row fingerprints, source spans, provenance, and audit sample membership.
 3. Run the existing interactive audit helper against the repaired packet, preserving the historical audit separately.
-4. Validate and score the complete repaired ledger.
+4. Validate the complete repaired ledger and score it only when no pending, uncertain, or blocked rows remain; otherwise produce the validated no-go/defer decision artifact without assigning labels.
 5. Produce a report comparing pre-repair and post-repair blocked rows, audit coverage, overall metrics, and genre-slice metrics.
 6. Record an explicit decision: authorize POS-dependent downstream work, require another repair, or defer/no-go with the condition for reconsideration.
 
@@ -107,7 +109,8 @@ WI-LINGUISTICS-0014 reduced malformed audit rows from 56 to 29, but the repaired
 - The repaired packet is reproducible and provenance-linked.
 - The audit helper can identify every repaired audit row deterministically.
 - The complete repaired ledger validates without stale or mismatched fingerprints.
-- `pos_audit_scored.json` contains the authoritative scoring and gate metrics.
+- When the repaired ledger is fully reviewable, `pos_audit_scored.json` contains the authoritative scoring and gate metrics.
+- When unresolved rows remain, `repaired_pos_audit_decision.json` contains the authoritative no-go/defer decision, unresolved-row counts, and required remediation without a fabricated score.
 - The report explicitly accounts for all blocked and uncertain rows.
 - A human-reviewed decision authorizes, further gates, or defers downstream POS work.
 - The historical pre-repair evidence remains unchanged and recoverable.
@@ -116,9 +119,10 @@ WI-LINGUISTICS-0014 reduced malformed audit rows from 56 to 29, but the repaired
 ## Validation
 
 - `python experiments/09_rich_linguistics_genre_sample/run_rich_linguistics_sample.py --tokenization-mode repaired-v1 --output-dir <repaired-output> --overwrite`
-- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py status`
-- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py validate`
-- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py score`
+- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py --sample experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv --ledger experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json status`
+- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py --sample experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv --ledger experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json audit --output experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_scored.json`
+- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py --sample experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv --ledger experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json validate`
+- `python experiments/09_rich_linguistics_genre_sample/audit_pos.py --sample experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv --ledger experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json score --output experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_scored.json`
 - `scripts/version tools`
 - `scripts/format --check --diff`
 - `scripts/lint`
