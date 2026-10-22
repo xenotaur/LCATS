@@ -2,14 +2,14 @@
 execution_id: 2026_10_22_15_05_44_WI_SF_0123_HEINLEIN_TEMPORAL_REFERENCE_DESIGN_CONFIRM
 prompt_id: PROMPT(AD_HOC:WI_SF_0123_HEINLEIN_TEMPORAL_REFERENCE_DESIGN_CONFIRM)[2026-10-22T15:05:43+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_22_08_04_28_WI_SF_0123_HEINLEIN_TEMPORAL_REFERENCE_DESIGN
 pr: https://github.com/xenotaur/LCATS/pull/527
-commit:
+commit: d69f440b55f4fab4289682c3f6a74a2278407809
 created_at: 2026-10-22T15:05:44+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/527
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
