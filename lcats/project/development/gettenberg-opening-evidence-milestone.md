@@ -10,8 +10,9 @@ All 1,659 population inputs remain accounted for, including 1,640 candidates. A
 bounded locator for complete, explicitly delimited publisher/editor notes finds two
 candidates. Independent source inspection supports promotional roles for both:
 63638 (Electron Eat Electron) and 73988 (Electro-episoded in A.D. 2025). Exact source
-spans, original labels, candidate/metadata/assessment identities and attributed role
-judgments are now machine-verifiable. The complete notes can be preserved separately
+spans, original labels and attributed review records now have machine-verifiable
+source/candidate/metadata/assessment bindings. Software does not verify the semantic
+truth of the role judgment. The complete notes can be preserved separately
 using the existing v2 publisher_blurb metadata representation.
 
 Both stories remain unresolved. 63638 retains other front/end matter; 73988 retains
