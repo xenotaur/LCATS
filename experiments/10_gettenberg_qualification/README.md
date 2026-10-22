@@ -465,3 +465,61 @@ python -m unittest tests.gatherers_tests.ordered_review_test \
   tests.gettenberg_tests.review_batch_evidence_test \
   tests.gettenberg_tests.disposition_tranche_evidence_test
 ```
+
+
+### Source-grounded historical reconciliation
+
+The batch runner now supports `--historical-acceptance source-grounded` alongside
+`--rule ordered`. The default remains `baseline`. Run the existing batch invocation
+with these flags into a new output directory to measure the whole immutable
+population. This composes the qualified notice selection with the finite
+`source-preserved-typography-v1` explanation: complete source separator paragraphs
+and exterior ASCII whitespace account for the entire residual difference. Nothing
+is edited for publication. Different normalization or an unavailable baseline
+remains explicitly unresolved. This is not a general diff suppressor.
+
+The ledger's `historical_evidence` records exact comparison ranges and hashes even
+when residual text remains. `residual_groups` partitions unresolved changed IDs,
+including unrecorded proposals in measurement mode. `historical_explanation_complete`
+counts explanations across all candidate rows, independently of publication and
+recorded resolution. Additional boundary text is a diagnostic shape, not a blurb
+label. Non-candidate/refused inputs remain visible in population accounting.
+
+Inspect the full newly proposed cohort before recording. Preserve known exceptions
+as explicit defer/exclude dispositions in the cumulative directory and include
+source-review evidence through the existing `--prior-reviews` mechanism. For each
+remaining non-equal proposed approval, prepare a JSON list entry with `id`,
+`candidate_record_sha256`, `selected_sha256`, `historical_sha256`, nonempty
+`reviewer` and `rationale`, and `candidate_anchors` (1–50 exact `{start,end,text}`
+excerpts, each at most4,000 characters, in the original candidate Unicode domain).
+The packet must cover exactly the new non-equal approvals. Stale hashes, wrong
+anchors, missing/extra/duplicate IDs and missing attribution fail closed. The
+review statement records attributable judgment; matching excerpts do not certify
+literary judgment or authenticate a human. Independently review the packet.
+
+After qualification/review, repeat into another fresh directory with
+`--record-qualified --cohort-review COHORT_JSON`. The ledger embeds each validated
+cohort record and its hash. Approval export contains exact source selections, never
+comparison projections. Carry the new dispositions into subsequent cumulative
+runs; source-grounded prior approvals are reconciled again against the verified
+baseline without losing their resolution. Defer/conflict intent is never replaced.
+
+Additional smoke coverage, from `lcats/` with project Python/PYTHONPATH:
+
+```bash
+python -m unittest tests.gatherers_tests.historical_review_test tests.gettenberg_tests.review_batch_evidence_test
+```
+
+Use the explicit format/lint commands above for the changed batch runner. Same
+network prohibition,600-second POSIX alarm,6GiB free minimum and exclusive-output
+semantics apply. The reusable helper bounds each text at4million characters; an
+oversized input fails the run, never silently disappears from coverage. Historical
+source cache attribution remains decoded/re-encoded UTF-8, not original HTTP bytes.
+
+The ordered-publication regression also exercises both real publication evidence
+runners after JSON serialization. Explicitly check those changed paths:
+
+```bash
+scripts/format --check --diff ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py
+scripts/lint ../experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py
+```

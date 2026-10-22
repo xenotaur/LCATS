@@ -1,0 +1,67 @@
+{
+  "review_scope": "Independent report-only review of historical_review.py, qualify_review_batch.py and new tests versus e368255c; source inspection of every proposed new cohort member, all eight withheld exceptions and three newly reconciled prior approvals.",
+  "findings": [],
+  "recommendation": "No blocking findings. Scope is satisfied for this finite source-preserved typography rule and explicit reviewed cohort; no general corpus acceptance inferred.",
+  "verification": {
+    "focused_unittest": {
+      "historical_review_test": 9,
+      "review_batch_evidence_test": 20,
+      "result": "29 tests completed successfully; full scripts/test not run by this reviewer"
+    },
+    "independent_full_population_replay": {
+      "population": 1659,
+      "historical_changed": 1642,
+      "ledger_identical_to": "/tmp/gettenberg-residual-20261022/cohort-measurement/ledger.json.gz",
+      "proposed_new_approvals": [
+        69213,
+        69257,
+        70217
+      ],
+      "cohort_review_binding": "verified"
+    },
+    "source_reviewed_new_approvals": {
+      "69213": "Fictional trial-history passage explicitly introduces John Hastings, followed by his trial narrative; 8 source separators retained.",
+      "69257": "Opening introduces Mikel Skot and TTT employment; ending returns to his redhead encounter; 8 source separators retained.",
+      "70217": "Opening introduces Isolde android and production history; subsequent narrative and final Liebestod continue her story; 10 source separators retained."
+    },
+    "withheld_cases": [
+      32484,
+      50796,
+      50800,
+      50892,
+      51258,
+      51589,
+      51597,
+      51713
+    ],
+    "withheld_result": "All eight exact cached-source hashes and source/candidate anchors verified; all openings independently inspected and contain separate teaser-like text. All remain defer, unqualified, historically unresolved despite complete typography explanation.",
+    "prior_approvals_newly_reconciled": {
+      "23148": "Exact prior disposition/candidate/selected-text bindings verified; 5 source separators retained; source narrative opening and ending inspected.",
+      "32655": "Exact prior disposition/candidate/selected-text bindings verified; 2 source separators retained; source narrative opening and ending inspected.",
+      "35401": "Exact prior disposition/candidate/selected-text bindings verified; 4 source separators retained; source narrative opening and ending inspected."
+    },
+    "historical_resolved_before_recording": 11,
+    "historical_unresolved_before_recording": 1631,
+    "residual_groups": {
+      "additional_boundary_text": 1477,
+      "mixed_or_unclassified": 97,
+      "explained_typography": 21,
+      "normalization_requires_review": 32,
+      "no_candidate": 2,
+      "baseline_unavailable": 2
+    }
+  },
+  "safety_assessment": [
+    "Projection ignores only the exact five-star paragraph pattern and exterior ASCII space/tab/LF, and never supplies publication output; exact projected string comparison covers all other characters.",
+    "Stored baseline hash and unchanged normalization gate the new historical proof; source/candidate/assessment identities, readiness and no-prior-intent gate new approvals.",
+    "Recording non-equal new selections requires exactly the eligible cohort with candidate/selected/historical hashes and matching candidate anchors; absent, stale and duplicate packets fail closed.",
+    "Existing defer/exclude/conflict intent remains protected; measurement does not count proposed new approvals as resolved; full residual groups partition changed minus covered.",
+    "Finite 4-million-character input cap, existing bounded candidate/source readers and population limits, fixed-pattern regex, and main POSIX timeout bound work. No new network/publication/default-extraction behavior observed."
+  ],
+  "limitations": [
+    "Source review covers boundaries/context of all 14 named cases and exact whole-text preservation evidence; it is not a complete literary reading of the texts.",
+    "No full corpus literary review or general blurb classifier is claimed. Remaining 1631 historical differences are unresolved before recording the three proposed approvals.",
+    "No actual new approval recording or publication replay performed by this reviewer; positive recording behavior was exercised by the focused existing unittest.",
+    "Repository files were not edited; full package suite and later documentation changes are outside this reviewer verification."
+  ]
+}

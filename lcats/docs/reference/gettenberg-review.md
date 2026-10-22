@@ -185,3 +185,32 @@ Missing matches or unusable selections have `selected_spans: null` and blockers.
 Apparent blurbs, credits and unrelated differences remain for separate review.
 The function writes nothing. The experiment's explicit recording mode additionally
 requires no prior intent and complete historical-baseline reconciliation, as above.
+
+
+## Historical difference evidence
+
+`lcats.gatherers.historical_review.explain_typography(selected, historical)`
+returns `source-preserved-typography-v1` evidence without editing either input or
+authorizing publication. Inputs are strings of at most4,000,000 Unicode characters.
+The caller must bind the selected text to a validated source decision and verify
+the historical baseline hash. The experiment also requires that normalization
+leaves the selected text unchanged before using this explanation.
+
+The finite comparison projection removes only complete interior paragraphs whose
+text is exactly seven spaces followed by five asterisks separated by seven spaces.
+It also accounts for exterior ASCII spaces, tabs and LF characters on each side.
+Other whitespace, interior indentation, prose, punctuation and ordering remain
+material. Exact whole projected equality explains the historical difference; the
+actual selected output retains its separators and typography. This intentionally
+does not reproduce the old parser's broader substring-based paragraph deletion.
+
+Evidence includes input hashes, exact comparison-only ranges/text/hashes, projection
+hashes, `complete`, and a diagnostic `residual_shape`. Shapes such as
+`additional_boundary_text` are structural relationships, not blurb classifications.
+`publication_approved` is always false. Empty/whitespace-only inputs never qualify.
+An exact equality result is separate from a typography explanation.
+
+Historical preservation cannot detect an unwanted blurb already present in the old
+corpus. The [qualification experiment](../../../experiments/10_gettenberg_qualification/README.md#source-grounded-historical-reconciliation)
+therefore requires an explicit source-bound reviewed cohort before recording new
+non-equal historical approvals, in addition to readiness and cumulative exceptions.

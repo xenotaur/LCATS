@@ -1,0 +1,21 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 22579,
+    "candidate_record_sha256": "be46c123fbf1d5c5a1649ea3a57c01ef97e31470f97acc591bcc34ada5f1d895",
+    "outcome": "approve",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Preserve the interior [Illustration] label within the narrative span; do not delete interior source features. This retained label is explicitly acknowledged, not an automated clean-text claim. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "approval": {
+        "gutenberg_id": 22579,
+        "source_identity_sha256": "a8a90536a4b4a2e92588e95e560742b8c28ee888480826ff5f29cdba0912f21a",
+        "candidate_sha256": "9e7b45ddf3fe3f2e17ee698b1114f11247e403beebe88eeb4c62f1e74aced504",
+        "assessment_sha256": "32543a29febd6360b2dadb478374b6233b07305ee7831073fe480ad45d174610",
+        "selected_start": 193,
+        "selected_end": 31373,
+        "selected_sha256": "221f211fddb7d7c16e060a4f0087447d336673d93c8764b986c0fc3282cf8479",
+        "reviewer": "codex coordinator; bounded source review 2026-10-20",
+        "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Preserve the interior [Illustration] label within the narrative span; do not delete interior source features. This retained label is explicitly acknowledged, not an automated clean-text claim. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+        "schema_version": 1
+    }
+}

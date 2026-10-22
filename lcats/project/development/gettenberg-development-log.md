@@ -4447,3 +4447,90 @@ Implementation/evidence commit: `80f40a0baa9ada150d99d9fb6b323ef472f90882`. Nati
 records link that commit and remain in_progress. No implementation or editorial
 acceptance work continues after this checkpoint. Hosted status is checked after
 pushing the metadata-linked head; no main/integration merge is performed.
+
+
+### Historical reconciliation launch — 2026-10-22 00:01 UTC
+
+Human approved source-grounded historical acceptance with exceptions unresolved and
+one-hour run. Hard stop01:00:59 UTC; feature freeze00:40:59. PR524 clean at
+e368255c9c91f62858ce92237626463525f6bf4d, four exact-head checks pass, base remains
+codex/gettenberg-acquisition. Continue current branch using approved pilot adapter;
+no integration/main promotion. WI0010 readiness passes without warnings and its
+prior-art check is present. Extend existing review_rules/batch qualification rather
+than duplicate review infrastructure; demand is approved batch contract and WI0010.
+
+Prompt: `PROMPT(WI-GETTENBERG-0010:GETTENBERG_RESIDUAL_RECONCILIATION)[2026-10-22T00:01:16+00:00]`;
+idempotence check found no prior record. Watched installed skill fingerprints clean,
+persistent skip consent invalid and unchanged. lrh-implement and self-review with
+coordinator adapter; package STYLE/AGENTS read. Use LCATS Python with worktree-bound
+PYTHONPATH. Account usage36% shared weekly consumption at launch,38% feature freeze,
+40% substantive stop; not task-exclusive cost. Maximum one cold reviewer10min plus
+optional5min repair recheck. No new Gutenberg requests; old corpus/cache immutable.
+
+Implementation plan: full residual inventory, exact per-input explanations for
+source-preserved separator/indentation changes if defensible, composition with the
+existing qualified notice selection, authored rejection/regression tests and real
+temporary publication. Separate historical explanations from publication readiness
+and recorded dispositions. Validate package/changed runners, installed package,
+independent review, LRH and source preservation; archive outcomes and limitations.
+
+
+### Historical reconciliation checkpoint — 2026-10-22 00:22 UTC
+
+Scoped implementation and substantive verification finished within the one-hour
+window. Feature freeze at38% shared weekly usage (00:14:38), substantive stop at40%
+by00:20; launch36%. No stretch work or automatic renewal. Only artifact/native/PR
+checkpointing follows. These are account-wide observations, not exclusive run cost.
+
+New opt-in source-grounded path explains exact complete separator paragraphs and
+exterior ASCII whitespace without changing published text. Whole projected equality
+is required; added prose stays unexplained. The full inventory identifies1,477 of
+1,628 remaining differences as additional boundary text after the finite projection:
+1,013 prefix-only,408 both ends,56 suffix-only.673 already have qualified notice
+removal;804 do not. This is a diagnostic grouping, not a blurb classifier. Other
+groups:97 mixed,18 typography-explained without a complete approval path,32 needing
+normalization review,2 no candidate,2 unavailable baseline.
+
+A critical process finding: eight of11 initially qualifying candidates retained
+teaser-like openings ALREADY present in the old corpus. Baseline equivalence does
+not establish literary roles. Explicitly defer those eight, preserve exact source
+anchors, and require an exact source-bound cohort review packet before recording
+non-equal approvals. Source context and whole-text proofs independently reviewed
+for every finite cohort member; no sampled approval or full literary-reading claim.
+
+Recorded3 new approvals (69213,69257,70217); existing approvals23148,32655,35401 now
+have complete historical explanations.8→14 historical resolutions,1,634→1,628
+unresolved. Final cumulative replay29.090s preserves these14, proposes no new
+decisions, and retains all prior intent. Candidate inventory1,610 unreviewed /13
+approve /7 exclude /10 defer;19 other population inputs have no candidate.
+
+One cold independent review (~00:12–00:15) and one narrow repair recheck
+(~00:17–00:19), two assignments, under8 worker minutes total, no recursion. Reviewer
+repeated all1,659 rows, inspected all11 cohort inputs plus3 existing approvals, and
+found no blocking issue. Coordinator reconstructed all6 accepted historical proofs.
+A real publication replay exposed the old experiment runners' direct tuple/list
+provenance comparison bug. Permanent test reproduced BOTH runner failures, complete
+canonical-JSON identity comparison fixes them, and independent recheck repeated
+red/green against starting commit. No product extraction change was needed.
+
+Canonical suite3,091 tests/103.885s; package and all4 changed experiment runners
+format/lint pass. Fresh isolated wheel build/install:173 Python modules +2 JSON
+resources match source/wheel/install, no gutenbergpy, installed smoke and pip check
+pass. Initial non-isolated build failed due to old development packaging lacking
+packaging.licenses; isolated build succeeds without environment modification.
+Disposable real publication succeeds for6 newly reconciled stories and withholds
+all8 deferrals. All1,659 compressed/decoded source and retained corpus identities
+rechecked after tests. No Gutenberg requests; PyPI used for build/install.
+
+Evidence and failed logs archived at experiments/10_gettenberg_qualification/results/
+gettenberg-residual-20261022/. Existing archived dispositions are referenced; ten
+previously temporary launch-intent files are preserved byte-for-byte without
+reauthoring, along with11 new dispositions. Isolated outputs~441MiB, free~240GiB;
+below15GiB / above6GiB bounds. No executable code in project/.
+
+LRH CLI0.2.5.dev3596+gd86755f50. Loaded skills are lrh-implement and lrh-self-review
+under /Users/centaur/.agents/skills, with approved pilot coordinator adapter.
+WI0010 remains proposed, native records in_progress, qualification/main gates open.
+Next substantive grant should qualify bounded source/metadata-supported boundary
+material families from this ranked inventory; it should not repeat arbitrary
+small book tranches or treat additional prose as disposable.

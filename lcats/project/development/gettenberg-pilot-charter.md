@@ -635,3 +635,27 @@ Account-wide usage starts30% consumed; retain35% feature freeze/40% substantive
 stop, no stretch scope. Check time after tools and usage every15min/before major
 blocks. If a budget truncates delivery, checkpoint actual state without claiming
 completion. Scoped coordinator adapter satisfies routine plan/branch/repair gates.
+
+
+## Historical reconciliation first grant — 2026-10-22 00:01 UTC
+
+Human approved the source-grounded historical-acceptance path and a first run within
+one hour of available wifi. Start00:00:59 UTC (October21 17:00 Pacific), feature
+freeze00:40:59, hard stop01:00:59 UTC. Final20min reserved for independent review,
+repair, validation and checkpoint/push; finish earlier if scoped work completes.
+Continue PR524 frome368255c on codex/gettenberg-qualification; no automatic renewal.
+
+Scope: approved contract update, full residual-difference inventory, one defensible
+source-grounded explanation family composed with notice selection, tests, evidence,
+docs and explicit qualifying dispositions where all gates pass. Exceptions stay
+unresolved. No merge, main promotion, canonical corpus mutation, new Gutenberg
+requests, CI changes, package publication, persistent consent or native closeout.
+
+Coordinator implements; one cold review up to10min and optional5min narrow recheck,
+two assignments/15 worker minutes total, at most two concurrent agents. No recursive
+workers. Reuse cached inputs read-only;15GiB isolated-output/6GiB free minimum.
+Account-wide usage starts36%; choose38% feature-freeze/40% substantive-stop triggers
+for this short grant, no stretch work. Check every15min and before dispatch/major
+blocks. Unavailable telemetry means checkpoint. Existing coordinator adapter covers
+routine plan/branch/repair gates; explicit run grant supplies authority independently
+of unchanged invalid persistent skip consent.

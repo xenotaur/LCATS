@@ -146,7 +146,11 @@ def check_case(case, text_cache, source, output_root, *, review_decision=None):
     normalized_narrative, _ = normalization.normalize_body(narrative)
     if normalized_narrative not in published["body"]:
         raise ValueError(f"publication/normalization lost narrative: {book_id}")
-    if published["metadata"]["gettenberg"] != report["provenance"]:
+    # JSON serialization turns v2 span tuples into arrays; retain a complete
+    # provenance comparison without treating representation alone as corruption.
+    if readiness.identity(published["metadata"]["gettenberg"]) != readiness.identity(
+        report["provenance"]
+    ):
         raise ValueError(f"publication provenance differs: {book_id}")
     parser.gather_story(gatherer, book_id, source=replay)
     if pathlib.Path(path).read_bytes() != published_bytes:

@@ -100,7 +100,11 @@ def check_case(case, text_cache, source, root, *, decision=None):
         inspected = parser.inspect_story(
             case["id"], source=replay, review_decision=decision
         )
-        if json.loads(saved)["metadata"]["gettenberg"] != inspected["provenance"]:
+        # Compare the complete canonical JSON value: v2 retained spans are
+        # tuples in memory and arrays after writing, with identical JSON meaning.
+        if readiness.identity(
+            json.loads(saved)["metadata"]["gettenberg"]
+        ) != readiness.identity(inspected["provenance"]):
             raise ValueError("published source/review provenance differs")
         reused = parser.gather_story(gatherer, case["id"], source=replay)
         if reused.status != "reused" or path.read_bytes() != saved:

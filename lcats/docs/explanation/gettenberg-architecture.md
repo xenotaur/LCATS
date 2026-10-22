@@ -162,3 +162,19 @@ Export names specific approvals and leaves authority for that selection with the
 caller. Exclude/defer document intent without silently editing collection membership.
 This separation makes a large queue auditable while preserving uncertain narrative;
 it does not by itself reduce the queue or establish whole-corpus acceptance.
+
+
+### Explaining historical differences without reproducing historical mistakes
+
+A historical body is a comparison artifact, not a literary-quality oracle. A new
+selection can legitimately preserve scene separators that the old parser removed.
+The historical-review helper explains a narrow set of such differences with exact
+comparison-only projections; publication still uses the original selected text.
+No differences disappear through an unrecorded whitespace normalization.
+
+Keep three questions separate: is a source transformation justified, is the result
+eligible for this collection, and are all historical differences explained? A
+source-bound cohort review is also needed for non-equal historical approvals: old
+output may already contain a publisher teaser missed by mechanical readiness.
+Exceptions stay explicit. The experiment's full inventory ranks remaining boundary
+material for future rule qualification without declaring that material disposable.

@@ -355,3 +355,199 @@ class ReviewBatchEvidenceTests(unittest.TestCase):
             readiness.selected_text(decision, self.report["body"]),
             review_rules_test.BODY,
         )
+
+
+class SourceGroundedBatchTests(unittest.TestCase):
+    """Run the same population/intent protections with a non-equal baseline."""
+
+    def setUp(self):
+        ReviewBatchEvidenceTests.setUp(self)
+        separator = "       *       *       *       *       *"
+        new_body = (
+            review_rules_test.BODY + "\n\n" + separator + "\n\nThey returned safely."
+        )
+        old_body = new_body.replace(separator, "")
+        self.fixture.raw = (review_rules_test.NOTICE + "\n\n" + new_body).encode()
+        self.fixture.cached.write_bytes(gzip.compress(self.fixture.raw))
+        stored = json.loads(self.fixture.story.read_text())
+        stored["body"] = old_body
+        self.fixture.story.write_text(json.dumps(stored))
+        self.candidate.unlink()
+        self.report = self.fixture.report()
+        self.candidate = pathlib.Path(
+            review_store.save(
+                self.report,
+                directory=self.candidate.parent,
+                data_root=self.fixture.collection,
+            )
+        )
+        census = qualification_evidence_test.load("assess_cached_readiness")
+        self.before = census.assess_path(
+            self.fixture.story, self.fixture.root, self.fixture.source
+        )
+        self.census = {"completed": True, "rows": [self.before]}
+        self.old.update(
+            corpus_sha256=self.before["corpus_sha256"],
+            cache_sha256=self.before["compressed_sha256"],
+            decoded_utf8_sha256=self.before["decoded_utf8_sha256"],
+            new_extracted_sha256=readiness.text_sha256(self.report["body"]),
+            normalized_after_sha256=self.module.normalized(
+                self.report["body"], "fixture"
+            )["sha256"],
+            normalized_before_sha256=readiness.text_sha256(old_body),
+        )
+        self.comparison = {"completed": True, "rows": [self.old]}
+
+    def evaluate(self, **options):
+        options.setdefault("historical_acceptance", "source-grounded")
+        return ReviewBatchEvidenceTests.evaluate(self, **options)
+
+    def test_baseline_mode_remains_stricter(self):
+        rows, decisions, _ = self.evaluate(
+            historical_acceptance="baseline", rule="ordered"
+        )
+        self.assertTrue(rows[0]["historical_evidence"]["complete"])
+        self.assertFalse(rows[0]["rule_explains_entire_historical_difference"])
+        self.assertEqual(decisions, [])
+
+    def test_recorded_source_acceptance_survives_cumulative_replay(self):
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertEqual(len(decisions), 1)
+        self.assertEqual(
+            rows[0]["historical_acceptance_basis"], "source-preserved-typography-v1"
+        )
+        candidate_review.record_disposition(
+            self.candidate,
+            outcome="approve",
+            reviewer="qualified fixture rule",
+            rationale="Exact source-preserved separators explain history.",
+            omissions=rows[0]["rule_evidence"]["omissions"],
+            directory=self.dispositions,
+        )
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        self.assertEqual(decisions, [])
+        self.assertEqual(
+            rows[0]["historical_resolution"], "prior_review_source_reconciled"
+        )
+        self.assertEqual(self.module.summarize(rows)["historical_unresolved_ids"], [])
+
+    record = ReviewBatchEvidenceTests.record
+    test_defer_exclude_and_conflicts_never_get_overridden = (
+        ReviewBatchEvidenceTests.test_defer_exclude_and_conflicts_never_get_overridden
+    )
+    test_missing_candidate_or_modified_source_is_fatal = (
+        ReviewBatchEvidenceTests.test_missing_candidate_or_modified_source_is_fatal
+    )
+
+    def cohort(self, row, decision):
+        return {
+            "id": row["id"],
+            "candidate_record_sha256": row["candidate_record_sha256"],
+            "selected_sha256": decision["selected_sha256"],
+            "historical_sha256": row["historical_baseline_sha256"],
+            "reviewer": "authored source reviewer",
+            "rationale": "Preserve every narrative character and source separator; no separate opening prose in this authored fixture.",
+            "candidate_anchors": [
+                {"start": 0, "end": 8, "text": self.report["body"][:8]}
+            ],
+        }
+
+    def test_cohort_recording_rejects_missing_stale_duplicate_and_wrong_anchors(self):
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        review = self.cohort(rows[0], decisions[0])
+        for bad in (
+            [],
+            [review, review],
+            [{**review, "selected_sha256": "0" * 64}],
+            [
+                {
+                    **review,
+                    "candidate_anchors": [{"start": 0, "end": 8, "text": "not text"}],
+                }
+            ],
+            [{**review, "rationale": ""}],
+        ):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                self.module.verify_cohort(bad, rows, decisions, self.candidate.parent)
+        self.module.verify_cohort([review], rows, decisions, self.candidate.parent)
+        self.assertEqual(rows[0]["cohort_review_sha256"], readiness.identity(review))
+
+    def test_source_recording_exports_exact_preserved_separator_and_replays(self):
+        root = self.fixture.root
+        rows, decisions, _ = self.evaluate(rule="ordered")
+        values = {
+            "census": self.census,
+            "comparison": self.comparison,
+            "reviews": [],
+            "cohort": [self.cohort(rows[0], decisions[0])],
+        }
+        for name, value in values.items():
+            (root / (name + ".json")).write_text(json.dumps(value), encoding="utf-8")
+        args = [
+            str(p)
+            for p in (
+                root / "census.json",
+                root / "comparison.json",
+                self.candidate.parent,
+                self.dispositions,
+                root,
+                self.fixture.collection,
+                root / "recorded",
+            )
+        ]
+        args += [
+            "--prior-reviews",
+            str(root / "reviews.json"),
+            "--prior-dispositions",
+            str(self.dispositions),
+            "--rule",
+            "ordered",
+            "--historical-acceptance",
+            "source-grounded",
+            "--record-qualified",
+            "--cohort-review",
+            str(root / "cohort.json"),
+        ]
+        self.module.main(args)
+        summary = json.loads((root / "recorded/summary.json").read_text())
+        self.assertTrue(summary["completed"])
+        self.assertEqual(summary["historical_unresolved_ids"], [])
+        decision = readiness.load_decisions(root / "recorded/approvals.json")[
+            self.before["id"]
+        ]
+        selected = readiness.selected_text(decision, self.report["body"])
+        self.assertIn("       *       *       *       *       *", selected)
+        self.assertEqual(
+            readiness.text_sha256(selected), decisions[0]["selected_sha256"]
+        )
+
+    def test_real_publication_runners_accept_json_roundtripped_ordered_provenance(self):
+        _, decisions, _ = self.evaluate(rule="ordered")
+        decision = readiness.decision_from_dict(decisions[0])
+        selected = readiness.selected_text(decision, self.report["body"])
+        case = {
+            "id": self.before["id"],
+            "decoded_utf8_sha256": self.before["decoded_utf8_sha256"],
+            "expected_status": "needs_review",
+            "opening_anchor": selected.split("\n\n")[0],
+            "closing_anchor": "They returned safely.",
+        }
+        for name, keyword in (
+            ("qualify_readiness_cases", "decision"),
+            ("qualify_narrative_cases", "review_decision"),
+        ):
+            with self.subTest(runner=name):
+                runner = qualification_evidence_test.load(name)
+                output = self.fixture.root / name
+                runner.check_case(
+                    case,
+                    self.fixture.root,
+                    self.fixture.source,
+                    output,
+                    **{keyword: decision},
+                )
+                published = json.loads(next(output.rglob("story.json")).read_text())
+                self.assertEqual(published["body"], selected)
+                self.assertIn(
+                    "       *       *       *       *       *", published["body"]
+                )

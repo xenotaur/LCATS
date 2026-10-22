@@ -1,0 +1,62 @@
+[
+  {
+    "id": 69213,
+    "candidate_record_sha256": "bfd3480027d0ece5b92c196dd4ab2c11aea783381be841c5244ff734b38352ad",
+    "selected_sha256": "234c93342d5fc4a670d9ec5587183909fa39c815d4d7ec3a8e263c15b073e242",
+    "historical_sha256": "d4eb96eb5c6f50c6e28d0b8690d0a7a09744f43871b8f55cd1298988279ac8ef",
+    "reviewer": "Codex agent: source-grounded cohort inspection",
+    "rationale": "Opening fictional history of trial procedure explicitly introduces the John Hastings case developed by the following narrative and ending. Retain this framing; it is not an editorial blurb. Complete rule evidence preserves all non-notice characters, including source scene separators. Boundary/context inspection and exact whole-text preservation proof, not a claimed complete literary reading.",
+    "candidate_anchors": [
+      {
+        "start": 189,
+        "end": 889,
+        "text": "Excerpt taken from \"THE HISTORY OF TRIAL PROCEDURE, 2175 TO 2543, A.D.\"\nwritten by Prof. A. I. Schule, S.E.D.:\n\n\"Even then, in the beginning of the twenty-third century, crime per\nse, itself had ceased to exist. The lower emotions had already been\nbred out of the people. Envy, hate, avarice and kindred responses were\nvirtually non-existent. Every citizen had a crude type of emotiograph\nattached to his person, which was examined periodically by the Eye. If\nany deviation from the norm was observed, the accused was called up for\nquestioning.\n\n\"In the absence of actual crime, any emotion which might have\nprecipitated crime was considered unlawful, and men were tried for\ntoo much anger, or too li"
+      },
+      {
+        "start": 29134,
+        "end": 29784,
+        "text": " It is too delicate a thing to\ncome out all white or all black. But I think that in order for a man to\nhate a woman so very much, it is also necessary for him to have loved\nher very much, too.\n\nAnd sometimes, I wake up, shaking, in the night. I am thinking of what\nmight have happened if I hadn't remembered that old discarded pannier,\nor the way Mother transplanted the blue hydrangea bush before she died,\nor how Dad swore when she made him throw that aneroid away. If I hadn't\nremembered those things, I would never have seen the look on John's\nface as he walked into my outstretched arms and said: \"Is it time for\nus to go home now, Mary? Is it?\""
+      }
+    ]
+  },
+  {
+    "id": 69257,
+    "candidate_record_sha256": "fab70f767617cc55cbfe30f1cc984439c0d2058a18e1a0cd2df23431b2c9eb29",
+    "selected_sha256": "ae3786f36dad5de0fd5d548ae381f45fd2ae0004f98ffd271eaa3958cd695773",
+    "historical_sha256": "3172b800d7d33c44637596d393c4659d62f6c21cf36f82a2f859cadd8468260d",
+    "reviewer": "Codex agent: source-grounded cohort inspection",
+    "rationale": "Opening introduces Mikel Skot and his time-travel employment; the ending resolves the same redhead encounter. No separate teaser at the inspected opening. Whole-text rule proof preserves all narrative characters and source separators. Boundary/context inspection and exact whole-text preservation proof, not a claimed complete literary reading.",
+    "candidate_anchors": [
+      {
+        "start": 227,
+        "end": 927,
+        "text": "His name was Mikel Skot. He was thirty-four, five-feet-ten and lean,\nwith decent features and all his hair and quite nice brown eyes.\nBut somehow he always seemed to give the impression of being of\nindeterminate age, and slightly dusty. He lived alone, he gravitated\nbetween his job and his lodgings, and since the age of fourteen he had\nnever known a girl well enough to call her by her first name.\n\nFor twelve years, ever since 2827, he had sold tickets at one of\nthe windows of Time Travel Tours, Unlimited. If raises hadn't been\nautomatic, he would never have had one, though he was punctual,\nfaithful, honest, quick and accurate. Even the other ticket-sellers\nstill called him Citizen Skot.\n\nHe "
+      },
+      {
+        "start": 31477,
+        "end": 32127,
+        "text": "d alarmed again.\n\n\"Your performance made a tremend impression on her. She told me to tell\nyou she thinks 'you're purely vlumpish.' She's the actress who played\nthe murder victim.\"\n\n\"That red-haired girl with the green eyes with flecks of amber in\nthem?\" asked Mikel eagerly. \"With the streely smile and the gorge\nvoice?\"\n\n\"You seem to have noticed her,\" said the TTT executive dryly. \"Yes,\nthat's the one. I thought you didn't go for women.\"\n\n\"But that's different!\" Mikel Skot caroled. \"Redheads with green\neyes--that's the one kind that crashes me and that I crash--I just\nfound it out today.\n\n\"Come on, Citizen, what are we waiting for? Let's Go!\""
+      }
+    ]
+  },
+  {
+    "id": 70217,
+    "candidate_record_sha256": "b37ea2b02a5d7f354fce4cfd7e4990b4f34ce041695cc49f36e8bb3bc8bb980d",
+    "selected_sha256": "4d030c4827b958ef632e365fc63e5b2367d585218595ebcbd5beed9bc84e50d9",
+    "historical_sha256": "8e9ee81d02177b7f9963c56fc98254b612dc7ceb77417de62dfe88d6b2d56b49",
+    "reviewer": "Codex agent: source-grounded cohort inspection",
+    "rationale": "Opening introduces the android Isolde and her manufacture; the following narrative and final Liebestod scene continue and conclude her story. Retain the opening and every source separator. Whole-text rule proof shows no unexplained prose change. Boundary/context inspection and exact whole-text preservation proof, not a claimed complete literary reading.",
+    "candidate_anchors": [
+      {
+        "start": 227,
+        "end": 927,
+        "text": "She came off the Androids, Inc., production line in September, 2241.\nShe was five feet, seven inches tall, weighed 135 pounds, had flaxen\nhair and pale blue eyes. Her built-in batteries were guaranteed for\nten years, her tapes were authentic Kirsten Flagstad, and her name was\nIsolde.\n\n       *       *       *       *       *\n\nShe was shipped to New York via strato-freight, and late in October\nshe opened the season at the Metropolitanette in what the hundred or\nso die-hard enthusiasts still holding the Wagnerian fort, called the\nbest Tristan ever. Afterwards, she was deactivated and stored away,\nalong with Tristan, Brangane, Melot, King Marke, Kurvenal, the shepherd\nand the helmsman, and the "
+      },
+      {
+        "start": 33060,
+        "end": 33710,
+        "text": " die as ne'er to part...._\"\n\nShe hears the orchestra take up the themes of bliss, of parting; of\ntransfiguration. She blends her voice into the music. The poignant\ncolonnades of sound rise higher and ever higher into the stars, and\nwhen the climax is reached on a heart-rending surge of sound, the blue\nsuns tremble in the sky.\n\nSlowly, Isolde turns and re-enters the ship. She sinks down upon\nTristan's breast, just as the little armature in her heart makes one\nfinal revolution and lies still. In the background of her fading\nbrain, the music returns briefly to the themes of her magic and of her\nyearnings, dies gently away....\n\nThe curtain falls."
+      }
+    ]
+  }
+]

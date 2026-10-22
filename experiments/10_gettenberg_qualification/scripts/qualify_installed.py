@@ -32,6 +32,7 @@ def main(argv=None):
         ap.error("output exists")
     from lcats import cli
     from lcats.gatherers import candidate_review
+    from lcats.gatherers import historical_review
     from lcats.gatherers import parser
     from lcats.gatherers import readiness
     from lcats.gatherers import review_rules
@@ -52,6 +53,17 @@ def main(argv=None):
     imported = pathlib.Path(catalog.__file__).resolve()
     if "site-packages" not in imported.parts:
         raise ValueError("import did not resolve installed package")
+    # The comparison projection explains the legacy separator omission while
+    # the published source text must retain every separator character.
+    selected = "They arrived.\n\n       *       *       *       *       *\n\nThey left."
+    historical = "They arrived.\n\n\n\nThey left."
+    explanation = historical_review.explain_typography(selected, historical)
+    if not explanation["complete"] or explanation["publication_approved"]:
+        raise ValueError("installed historical explanation differs")
+    if historical_review.explain_typography("A teaser!\n\n" + selected, historical)[
+        "complete"
+    ]:
+        raise ValueError("installed historical explanation accepted extra prose")
     raw = b"""<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:pg="http://www.gutenberg.org/2009/pgterms/" xmlns:dc="http://purl.org/dc/terms/" xml:base="https://www.gutenberg.org/">
 <pg:ebook rdf:about="ebooks/84"><dc:title>Authored wheel fixture</dc:title><dc:language><rdf:Description><rdf:value>en</rdf:value></rdf:Description></dc:language></pg:ebook></rdf:RDF>"""
     with (
@@ -342,6 +354,7 @@ def main(argv=None):
             "installed gather-review list/show/approve/exclude/defer/export and conflict visibility",
             "opt-in narrow boundary-rule exact selection without publication",
             "ordered interior rule, v2 CLI/export/batch publication and separate exact blurb metadata",
+            "source-preserved typography explanation; added prose refused; no publication authority",
         ],
     }
     with args.output.open("x", encoding="utf-8") as stream:

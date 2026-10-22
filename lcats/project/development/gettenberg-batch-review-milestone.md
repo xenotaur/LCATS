@@ -79,3 +79,16 @@ blurb classification or new publication approval follows from those counts. Exis
 integration/main/closeout gates remain open. Further work can now express safe interior
 edits, but still needs positive evidence for surviving editorial roles and explanations
 of every material historical difference.
+
+
+## Source-grounded historical checkpoint — 2026-10-22
+
+The human approved source-grounded historical acceptance, retaining unresolved
+exceptions. [The first scoped result](../../../experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/README.md) records14 historical resolutions
+(8 previous,3 prior approvals newly explained,3 new approvals),1,628 unresolved.
+The full1,659-input census identifies1,477 unresolved additional-boundary-text
+relationships, not confirmed blurbs. Eight newly observed teaser-like cases remain
+explicit deferrals. Finite source-preserved typography proof and source-bound cohort
+review compose with existing notice selection; no comparison projection changes
+published text. Canonical3,091 tests, independent review/recheck and installed-wheel
+checks pass. Existing corpus/integration/main/terminal-closeout gates remain open.

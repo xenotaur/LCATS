@@ -3,11 +3,15 @@
 From lcats/ with project Python/PYTHONPATH:
 python ../experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py CENSUS COMPARISON QUEUE DISPOSITIONS TEXT_CACHE COLLECTION NEW_OUTPUT_DIRECTORY --prior-reviews REVIEWS --prior-dispositions DIRECTORY [--record-qualified]
 --rule ordered opts into the interior notice extension; default boundary is unchanged.
+--historical-acceptance source-grounded additionally accepts a fully evidenced
+source-preserved typography difference. Full cohort inspection and cumulative
+explicit exceptions are required before recording: historical preservation does
+not classify blurbs already present in the old body. Default remains baseline.
 No catalog, downloads or story publication. Rechecks every source/corpus identity,
 validates population/queue completeness, replays prior tranche reconciliation and
 preserves existing approve/exclude/defer/conflict intent. Default is measurement;
 --record-qualified explicitly records only previously unreviewed, rule-eligible
-selections whose existing normalization exactly reproduces the historical baseline.
+selections meeting the explicitly selected historical-acceptance path.
 No other differences are silently accepted. Old equality alone is never approval.
 Outputs: summary.json, lossless ledger.json.gz, proposed-decisions.json; optional
 immutable dispositions and exported approvals.json. <=10000 inputs, existing
@@ -32,6 +36,7 @@ from unittest import mock
 
 from lcats.analysis.corpus import discovery
 from lcats.gatherers import candidate_review
+from lcats.gatherers import historical_review
 from lcats.gatherers import normalization
 from lcats.gatherers import readiness
 from lcats.gatherers import review_rules
@@ -73,10 +78,13 @@ def evaluate(
     prior_dispositions,
     *,
     rule="boundary",
+    historical_acceptance="baseline",
 ):
     """Return a full evidence ledger and qualified decisions without writing them."""
     if rule not in {"boundary", "ordered"}:
         raise ValueError("unknown qualification rule")
+    if historical_acceptance not in {"baseline", "source-grounded"}:
+        raise ValueError("unknown historical acceptance mode")
     baseline, historical = tranche.validated_population(census, comparison)
     if not isinstance(prior_reviews, list) or len(prior_reviews) > 100:
         raise ValueError("prior reviews must be an explicit list of at most 100")
@@ -219,6 +227,43 @@ def evaluate(
             else review_rules.evaluate_publication_notices(path)
         )
         row["rule_evidence"] = proposal
+        # A full population inventory also includes nonmatching candidates. They
+        # cannot acquire approval just because their history can be explained.
+        selection_spans = (
+            proposal.get("selected_spans")
+            if rule == "ordered"
+            else (
+                [proposal["selected_span"]] if proposal.get("selected_span") else None
+            )
+        )
+        comparison_text = (
+            "".join(report["body"][a:b] for a, b in selection_spans)
+            if selection_spans
+            else report["body"]
+        )
+        stored_baseline = (
+            readiness.text_sha256(stored["body"]) == old["normalized_before_sha256"]
+        )
+        unchanged_normalization = normalized(comparison_text, before["path"])[
+            "sha256"
+        ] == readiness.text_sha256(comparison_text)
+        if stored_baseline and unchanged_normalization:
+            row["historical_evidence"] = historical_review.explain_typography(
+                comparison_text, stored["body"]
+            )
+        else:
+            # Never substitute the retained corpus for a different historical
+            # baseline, or silently normalize away a text difference.
+            row["historical_evidence"] = {
+                "complete": False,
+                "residual_shape": (
+                    "baseline_unavailable"
+                    if not stored_baseline
+                    else "normalization_requires_review"
+                ),
+                "publication_approved": False,
+            }
+
         # An earlier tranche has explicit source-grounded historical rationale.
         # It is not silently carried across a now-conflicting cumulative intent.
         if identifier in prior_covered and item["state"] in {"approve", "exclude"}:
@@ -244,6 +289,20 @@ def evaluate(
                 == old["normalized_before_sha256"]
             ):
                 row["historical_resolution"] = "prior_review_baseline_reconciled"
+            elif (
+                historical_acceptance == "source-grounded"
+                and stored_baseline
+                and (
+                    row["prior_selected_normalized"]["sha256"]
+                    == readiness.text_sha256(selected)
+                )
+            ):
+                evidence = historical_review.explain_typography(
+                    selected, stored["body"]
+                )
+                row["prior_historical_evidence"] = evidence
+                if evidence["complete"] and row["historical_body_changed"]:
+                    row["historical_resolution"] = "prior_review_source_reconciled"
         spans = (
             proposal.get("selected_spans")
             if rule == "ordered"
@@ -258,7 +317,16 @@ def evaluate(
             selected_normalized = normalized(selected, before["path"])
             row["rule_selected_normalized"] = selected_normalized
             equal = selected_normalized["sha256"] == old["normalized_before_sha256"]
-            row["rule_explains_entire_historical_difference"] = equal
+            explained = equal or (
+                historical_acceptance == "source-grounded"
+                and row["historical_evidence"]["complete"]
+            )
+            row["rule_explains_entire_historical_difference"] = explained
+            row["historical_acceptance_basis"] = (
+                "exact_baseline"
+                if equal
+                else historical_review.RULE if explained else None
+            )
             # Keep eligibility separate from accounting. In particular, a ready
             # assessment can miss an unlabelled blurb; unexplained added text is
             # not resolved merely because this notice was safely recognized.
@@ -268,7 +336,7 @@ def evaluate(
                     if rule == "boundary"
                     else proposal["selected_readiness_eligible"]
                 )
-                and equal
+                and explained
                 and item["state"] == "unreviewed"
                 and row["historical_body_changed"]
             ):
@@ -277,8 +345,13 @@ def evaluate(
                     "rationale": (
                         f"Qualified {proposal['rule']}: only complete publication notices removed; "
                         "exact retained characters reassessed ready, no retained editorial labels; "
-                        "existing normalization exactly matches recorded historical baseline. "
-                        "Per-input proof in batch ledger; no claim of complete literary reading."
+                        + (
+                            "existing normalization exactly matches recorded historical baseline. "
+                            if equal
+                            else "Source-preserved typography explains every historical difference; "
+                            "comparison-only projection never alters published text. "
+                        )
+                        + "Per-input proof in batch ledger; no claim of complete literary reading."
                     ),
                 }
                 decision = (
@@ -309,6 +382,16 @@ def summarize(rows, *, record_qualified=False):
         )
     }
     return {
+        "historical_explanation_complete": sum(
+            r.get("historical_evidence", {}).get("complete", False) for r in rows
+        ),
+        "residual_groups": dict(
+            collections.Counter(
+                r.get("historical_evidence", {}).get("residual_shape", "no_candidate")
+                for r in rows
+                if r["id"] in changed - covered
+            )
+        ),
         "population": len(rows),
         "historical_changed": len(changed),
         "historical_resolved_ids": sorted(changed & covered),
@@ -349,6 +432,56 @@ def summarize(rows, *, record_qualified=False):
     }
 
 
+def verify_cohort(reviews, rows, decisions, queue):
+    """Require explicit source inspection before recording non-equal selections.
+
+    Historical equivalence cannot detect a blurb already in the old corpus.
+    Bind this finite cohort review to exact candidate/selection/baseline identities
+    and verify its cited candidate excerpts. Attribution is not authentication or
+    proof of literary judgment; a review packet remains independently reviewable.
+    """
+    needed = {
+        r["id"]: r
+        for r in rows
+        if r["new_rule_qualified"]
+        and r.get("historical_acceptance_basis") == historical_review.RULE
+    }
+    if not isinstance(reviews, list) or len(reviews) != len(needed):
+        raise ValueError("source-grounded recording requires the exact reviewed cohort")
+    seen = set()
+    by_id = {d["gutenberg_id"]: d for d in decisions}
+    for review in reviews:
+        identifier = review.get("id")
+        if (
+            type(identifier) is not int
+            or identifier not in needed
+            or identifier in seen
+        ):
+            raise ValueError("invalid or duplicate reviewed cohort ID")
+        seen.add(identifier)
+        row, decision = needed[identifier], by_id[identifier]
+        for key, expected in (
+            ("candidate_record_sha256", row["candidate_record_sha256"]),
+            ("selected_sha256", decision["selected_sha256"]),
+            ("historical_sha256", row["historical_baseline_sha256"]),
+        ):
+            if review.get(key) != expected:
+                raise ValueError("reviewed cohort identity differs")
+        for key in ("reviewer", "rationale"):
+            if (
+                not isinstance(review.get(key), str)
+                or not 1 <= len(review[key].strip()) <= 4000
+            ):
+                raise ValueError("reviewed cohort attribution/rationale required")
+        candidate = (
+            queue / f"{identifier}-{row['candidate_record_sha256']}.candidate.json"
+        )
+        report = candidate_review.load_candidate(candidate)["report"]
+        tranche.verify_anchors(report["body"], review.get("candidate_anchors"))
+        row["cohort_review"] = review
+        row["cohort_review_sha256"] = readiness.identity(review)
+
+
 def _write(path, value):
     raw = (json.dumps(value, indent=2, ensure_ascii=False) + "\n").encode()
     with path.open("xb") as stream:
@@ -374,7 +507,17 @@ def main(argv=None):
     ap.add_argument("--prior-reviews", type=pathlib.Path, required=True)
     ap.add_argument("--prior-dispositions", type=pathlib.Path, required=True)
     ap.add_argument("--record-qualified", action="store_true")
+    ap.add_argument(
+        "--cohort-review",
+        type=pathlib.Path,
+        help="Exact per-input source review packet required to record non-equal historical selections",
+    )
     ap.add_argument("--rule", choices=("boundary", "ordered"), default="boundary")
+    ap.add_argument(
+        "--historical-acceptance",
+        choices=("baseline", "source-grounded"),
+        default="baseline",
+    )
     args = ap.parse_args(argv)
     if args.output.exists():
         ap.error("output directory must be new")
@@ -391,6 +534,7 @@ def main(argv=None):
         "scope": __doc__,
         "record_qualified": args.record_qualified,
         "rule": args.rule,
+        "historical_acceptance": args.historical_acceptance,
     }
     started = time.monotonic()
     previous = signal.signal(signal.SIGALRM, timeout)
@@ -410,6 +554,7 @@ def main(argv=None):
                 pathlib.Path(readiness.__file__),
                 pathlib.Path(candidate_review.__file__),
                 pathlib.Path(normalization.__file__),
+                pathlib.Path(historical_review.__file__),
             )
         }
         with mock.patch.object(
@@ -425,7 +570,18 @@ def main(argv=None):
                 reports[2],
                 args.prior_dispositions,
                 rule=args.rule,
+                historical_acceptance=args.historical_acceptance,
             )
+            if (
+                args.record_qualified
+                and args.historical_acceptance == "source-grounded"
+            ):
+                reviews = (
+                    []
+                    if args.cohort_review is None
+                    else tranche.workflow._read_json(args.cohort_review, 64 * 1024**2)
+                )
+                verify_cohort(reviews, rows, decisions, args.queue)
             result.update(summarize(rows, record_qualified=args.record_qualified))
             result["prior_candidate_inventory"] = inventory
             _write(args.output / "ledger.json.gz", rows)

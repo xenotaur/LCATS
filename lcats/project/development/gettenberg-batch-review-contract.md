@@ -66,3 +66,40 @@ positions. No blurb classifier, default extraction change, corpus acceptance or 
 relaxation is authorized. Rule proposals do not authorize publication. The runner
 continues its stricter no-prior-intent/readiness/full-baseline recording gate and
 reports transformation coverage separately, including when no new approvals result.
+
+
+## Approved source-grounded historical acceptance — 2026-10-22
+
+The human explicitly approved a second historical-acceptance path, keeping
+exceptions unresolved. Exact qualified baseline equality remains available. A
+selection may also reconcile historical differences when every material difference
+has a validated source-grounded explanation, with exact input/output identities and
+per-input evidence. Publication eligibility remains separate; no sampled approval,
+unexplained prose deletion, general blurb classifier or canonical corpus change.
+
+First bounded tranche: inventory the entire residual population, investigate exact
+source-preserved scene separators and opening indentation, and qualify only fully
+explained applications. Compose with the existing notice transformation using
+original candidate coordinates; retain all unknown differences. Record evidence
+coverage separately from explicitly recorded dispositions and publication replay.
+This supersedes the full-baseline-only recording restriction above only for newly
+qualified source-grounded explanations; other gates are unchanged.
+
+
+### First source-grounded rule qualification boundary
+
+The first comparison-only rule reproduces only exact blank-line-delimited five-star
+separator omissions and exterior ASCII space/tab/LF differences. It keeps actual
+selected output unchanged, refuses additional prose or unrelated typography, and
+requires exact whole projected equality. The stored body must match the recorded
+historical hash and selected normalization must be unchanged. Source/assessment
+bindings, finite notice omissions, readiness and prior intents remain independently
+checked. The existing collection comparison module was inspected; its URL grouping
+and hash summaries do not implement this source-bound difference explanation.
+
+Inspection exposed teaser-like openings already present in old bodies, so historical
+equivalence alone cannot approve them. Source-grounded recording additionally
+requires an exact reviewed-cohort packet with candidate/selection/baseline hashes,
+verified candidate excerpts, attribution and rationale. Known exceptions must remain
+in cumulative dispositions and source-review evidence. This is a finite qualification
+method, not permission to infer editorial roles from an unchanged historical body.

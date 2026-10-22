@@ -1,0 +1,21 @@
+{
+  "scope": "Narrow report-only recheck of publication runner canonical-JSON provenance repair, permanent regression test, and installed-smoke additions. No full-population rerun.",
+  "findings": [],
+  "recommendation": "No blocking findings; the narrow repair correctly handles tuple-to-JSON-array round trips while comparing complete provenance.",
+  "verification": [
+    "Ran the new permanent test against current code: one test covering both real publication runners completed successfully.",
+    "Independently loaded both runners from e368255c into memory and ran that same current permanent test: each failed at its original provenance comparison. No repository files changed.",
+    "Verified readiness.identity serializes the entire value with sorted JSON keys; tuple/list round trips have equal identities, while changed spans, source hash or extra fields have unequal identities.",
+    "Executed the added installed-smoke assertion logic against current source module: exact separator projection succeeds, publication_approved remains false, extra prose is refused."
+  ],
+  "limitations": [
+    "Did not independently rebuild or install the wheel or run the whole installed smoke; reviewed the added assertions and executed their logic in the source environment.",
+    "Did not rerun full package suite or full population, per assignment."
+  ],
+  "files": [
+    "experiments/10_gettenberg_qualification/scripts/qualify_readiness_cases.py:103",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py:149",
+    "experiments/10_gettenberg_qualification/scripts/qualify_installed.py:56",
+    "lcats/tests/gettenberg_tests/review_batch_evidence_test.py:524"
+  ]
+}
