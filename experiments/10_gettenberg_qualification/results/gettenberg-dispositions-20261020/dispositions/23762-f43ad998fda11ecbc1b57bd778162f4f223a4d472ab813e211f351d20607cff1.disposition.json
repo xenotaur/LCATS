@@ -1,0 +1,21 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 23762,
+    "candidate_record_sha256": "7620ea452edd9c1eadfe9111212171c880f66c954e186addf7988e4a1f70b8fc",
+    "outcome": "approve",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Read complete narrative: strangers landing through Griffin birthright remark. Preserve all story paragraphs, italic emphasis and asterism breaks; remove only frontmatter, trailing THE END and the following Gutenberg end notice. No named/numbered divisions or interior editorial caption found.",
+    "approval": {
+        "gutenberg_id": 23762,
+        "source_identity_sha256": "5ece97f37303ea159a71d9ca07082da55fd4007484be9bd6ab86250a3dc3a1ee",
+        "candidate_sha256": "69b0962ffafc2a1cb376625f32f4705f3c41bfce8279a5e119c2da7b59586b9c",
+        "assessment_sha256": "5df4b88fd00ddc81a94b170881739cc6fc7441cf7adea70481927ba0c42cd064",
+        "selected_start": 619,
+        "selected_end": 10495,
+        "selected_sha256": "cb305b7e1915be8ef64d16d58a0df85fc19caa458eab893874c6f0f3bc03004a",
+        "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+        "rationale": "Read complete narrative: strangers landing through Griffin birthright remark. Preserve all story paragraphs, italic emphasis and asterism breaks; remove only frontmatter, trailing THE END and the following Gutenberg end notice. No named/numbered divisions or interior editorial caption found.",
+        "schema_version": 1
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 69257,
+    "candidate_record_sha256": "fab70f767617cc55cbfe30f1cc984439c0d2058a18e1a0cd2df23431b2c9eb29",
+    "outcome": "approve",
+    "reviewer": "Codex agent: qualified ordered rule",
+    "rationale": "Qualified ordered-publication-notice-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "approval": {
+        "gutenberg_id": 69257,
+        "source_identity_sha256": "94c7194edf828bb894ba98b5761e3341590cce179c713283c8ca0e069e86b5c9",
+        "candidate_sha256": "fd187e66bdb961dc02aa882f12d6f2d3758e904980a4f78030e787690b91371e",
+        "assessment_sha256": "1632ddc04a70655cef22023e8d697a4cda706bc45d4cd2eb1b6c8212e09b1b92",
+        "candidate_characters": 32127,
+        "selected_spans": [
+            [
+                227,
+                32127
+            ]
+        ],
+        "omitted_spans": [
+            {
+                "start": 0,
+                "end": 227,
+                "kind": "publication_notice",
+                "reason": "Complete delimited publication notice, with following separator.",
+                "evidence": "ordered-publication-notice-v1; full paragraph matches finite publication/date grammar",
+                "sha256": "61958117cb65fcdf78e55a650fdfafe645b30e812e6d4431dcf94bb3a0c8470d"
+            }
+        ],
+        "selected_sha256": "ae3786f36dad5de0fd5d548ae381f45fd2ae0004f98ffd271eaa3958cd695773",
+        "reviewer": "Codex agent: qualified ordered rule",
+        "rationale": "Qualified ordered-publication-notice-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+        "schema_version": 2
+    }
+}

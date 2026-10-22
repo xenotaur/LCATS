@@ -50,6 +50,7 @@ class TestCli(unittest.TestCase):
             generated_root=None,
             allow_origins=(),
             cache_dir=None,
+            review_decisions=None,
         )
 
     @mock.patch("lcats.analysis.corpus.cli.run_survey")

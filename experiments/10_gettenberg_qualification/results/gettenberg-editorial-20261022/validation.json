@@ -1,0 +1,24 @@
+{
+  "completed": true,
+  "canonical_tests": 3118,
+  "canonical_seconds": 105.33,
+  "focused_tests": 10,
+  "installed_focused_tests": 10,
+  "package_and_changed_runner_format_lint": "pass",
+  "fresh_wheel_smoke_and_pip_check": "pass",
+  "source_and_corpus_preserved": 1659,
+  "inherited_dispositions_preserved": 55,
+  "real_cases_withheld": 27,
+  "new_approvals": 0,
+  "new_dispositions": 0,
+  "historical_resolved": 14,
+  "historical_unresolved": 1628,
+  "lrh": {
+    "errors": 0,
+    "existing_warnings": 351
+  },
+  "independent_review": "no_actionable_findings",
+  "independent_tests": 10,
+  "independent_packet_mutations_rejected": 48,
+  "independent_full_replay_seconds": 31.39443250000477
+}

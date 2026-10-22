@@ -6,11 +6,16 @@
 #    collapse?    fix_body, in_body, remove_non_text
 
 import os
+import dataclasses
 import difflib
 import re
 
 from lcats import constants
 from lcats.utils import names
+from lcats.gatherers import readiness
+from lcats.gatherers import gather_result
+from lcats.gatherers import review_store
+from lcats.gatherers import story_body
 from lcats.gatherers import normalization
 from lcats.gatherers import story_output
 from lcats.analysis.corpus import discovery
@@ -59,26 +64,40 @@ def possible_internal_chapter_name(line):
     return False
 
 
-def chaptered(text):
-    """Return True if the text contains chapters, False otherwise.
+def assess_chapters(text, *, titles=(), authors=(), aliases=()):
+    """Explain the existing chapter heuristic with metadata headings excluded.
 
-    Works for chapters in Roman numerals and w/o names.   Needs to be expanded.
-
-    Args:
-        text (str): The full text of the story.
-    Returns:
-        bool: True if the text contains chapters, False otherwise.
+    Only the weak all-capital-title heuristic excludes complete metadata
+    matches. Explicit contents/section markers retain their historical weights.
+    Paragraph indexes refer to ``text.split("\\n\\n")``; text is never changed.
+    This remains a heuristic, not a literary determination that a book has
+    chapters. Evidence makes false positives inspectable without truncation.
     """
     result = 0
 
     possible_titles = 0
+    possible_title_indexes = []
+    ignored_metadata = []
+    explicit_markers = []
+    has_contents = False
 
     text_array = text.split("\n\n")
+    # Corroborate compact contents entries with later standalone headings. A
+    # wrapped sentence beginning "Contents" must not become structural evidence.
+    heading_indexes = {}
+    for position, paragraph in enumerate(text_array):
+        if possible_internal_chapter_name(paragraph):
+            key = " ".join(paragraph.lower().split())
+            heading_indexes.setdefault(key, []).append(position)
 
     # if several lines are simply all caps, then it's probably chapter names
     multiple_lines_all_caps = False
     for index, line in enumerate(text_array):
-        if possible_internal_chapter_name(line):
+        previous_weight = result
+        is_metadata = story_body.is_metadata_heading(line, titles, authors, aliases)
+        if is_metadata:
+            ignored_metadata.append(index)
+        if possible_internal_chapter_name(line) and not is_metadata:
             if index < len(text_array) - 2 and text_array[index + 1].isupper():
                 multiple_lines_all_caps = True
             elif index > 0 and text_array[index - 1].isupper():
@@ -92,21 +111,37 @@ def chaptered(text):
             #    multiple_lines_all_caps = False
 
             if not multiple_lines_all_caps:
-                if index == 0:
-                    possible_titles = possible_titles + 1
-                else:
-                    if (
-                        len(text_array[index - 1]) > 0
-                        and text_array[index - 1][-1] != ":"
-                    ):
-                        possible_titles = possible_titles + 1
-                    else:
-                        possible_titles = possible_titles + 1
+                possible_titles += 1
+                possible_title_indexes.append(index)
 
         line = line.strip().lower()
 
-        if line in ["table of contents", "contents", "contents.", "contents:"]:
-            return True
+        contents_labels = {"table of contents", "contents", "contents.", "contents:"}
+        # Some books put a contents heading and its entries in one paragraph.
+        # Require an exact first-line label and at least two distinct entries
+        # corroborated by later headings. An optional "By ..." attribution is
+        # outside the entry title; unrecognized formats remain unclassified.
+        lines = [part.strip() for part in line.splitlines() if part.strip()]
+        contents_kind = None
+        supporting_headings = {}
+        if line in contents_labels:
+            contents_kind = "contents"
+        elif len(lines) >= 3 and lines[0] in contents_labels:
+            for entry in lines[1:]:
+                heading = " ".join(re.split(r"\s+by\s+", entry, maxsplit=1)[0].split())
+                later = next(
+                    (i for i in heading_indexes.get(heading, ()) if i > index), None
+                )
+                if later is not None:
+                    supporting_headings[heading] = later
+            if len(supporting_headings) >= 2:
+                contents_kind = "contents_list"
+        if contents_kind is not None:
+            has_contents = True
+            marker = {"paragraph": index, "kind": contents_kind, "weight": 0}
+            if contents_kind == "contents_list":
+                marker["supporting_paragraphs"] = sorted(supporting_headings.values())
+            explicit_markers.append(marker)
 
         if line.startswith("i ~"):
             result = result + 1
@@ -162,12 +197,36 @@ def chaptered(text):
         ]:
             result = result + 1
 
-    # A single I or II might be an anomoly so this is to see if both exist
+        if result > previous_weight:
+            explicit_markers.append(
+                {
+                    "paragraph": index,
+                    "kind": "numbered_section",
+                    "weight": result - previous_weight,
+                }
+            )
 
-    if result == 0 and possible_titles == 2:
-        return False
-    else:
-        return result >= 2 or possible_titles >= 2
+    # Preserve the legacy two-unnamed-heading exception. Changing general
+    # chapter eligibility is separate from recognizing book metadata correctly.
+    detected = has_contents or (
+        not (result == 0 and possible_titles == 2)
+        and (result >= 2 or possible_titles >= 2)
+    )
+    return {
+        "policy": "metadata-aware-chapters-v1",
+        "chaptered": detected,
+        "paragraph_basis": "body.split('\\n\\n')",
+        "explicit_markers": explicit_markers,
+        "possible_title_paragraphs": possible_title_indexes,
+        "ignored_metadata_paragraphs": ignored_metadata,
+    }
+
+
+def chaptered(text, *, titles=(), authors=(), aliases=()):
+    """Return the explained chapter decision; metadata is optional for callers."""
+    return assess_chapters(text, titles=titles, authors=authors, aliases=aliases)[
+        "chaptered"
+    ]
 
 
 def is_number(string):
@@ -1214,137 +1273,14 @@ def remove_non_text(pieces, author, alias, title, three_newlines_flag=False):
 
 
 def body_of_text(text, author, alias, title, debug=False):
-    """Return the body of the story, i.e., the material after the title and author.
-    Args:
-        text (str): A string representing a story from Gutenberg in plain text.
-        author (list[str]): A list of authors of the story.
-        alias (list[str]): A list of aliases for the author(s) of the story.
-        title (list[str]): A list of titles for the story.
-        debug (bool): A boolean indicating whether to print debug information.
-    Returns:
-        str: A string representing the body of the story.
+    """Return a conservatively selected body using the opening-prefix policy.
+
+    Kept as the shared string-returning entry point for existing callers. The
+    inspection/publication path also records the policy and exact selected span.
+    ``debug`` remains accepted; extraction no longer prints or retries a global
+    heading search when a story is short.
     """
-    number_of_titles_found = 0
-    seen_author = False
-    seen_title = False
-    dont_look_flag = False
-
-    # title = make_title(list(title)[0])
-    number_of_titles = how_many_titles(text, title)
-
-    # do a 3 split first
-    pieces = text.split("\n\n\n")
-
-    aut = find_author_line(pieces, author, alias, title, True)
-    tit = find_title_line(pieces, title, author, alias, True)
-
-    new_text = text
-
-    loc3 = max(aut, tit)
-    if aut > -1 and tit > -1:
-        # we have found both....
-        dont_look_flag = True
-
-    if loc3 > -1:
-        pieces = pieces[loc3 + 1 :]
-        if len(pieces) == 1:
-            new_text = pieces[0]
-        else:
-            story_parts = remove_non_text(pieces, author, alias, title, True)
-            new_text = "\n\n\n".join(story_parts)
-
-    # now, repeat with 2 split
-    pieces = new_text.split("\n\n")
-
-    gut = find_gutenberg_line(pieces)
-    if gut != -1:  # how did the gutenberg.py miss this???
-        pieces = pieces[: gut - 1]
-
-    if not dont_look_flag:
-        aut = find_author_line(pieces, author, alias, title)
-        tit = find_title_line(pieces, title, author, alias)
-
-        loc2 = max(aut, tit)
-        # if loc3 > -1 and loc2 > 0:
-        #    loc2 = -1
-
-        if loc2 > -1:
-            pieces = pieces[loc2 + 1 :]
-            if len(pieces) == 1:
-                pieces = pieces[0].split("\n\n")
-
-    story_parts = remove_non_text(pieces, author, alias, title)
-    new_text = "\n\n".join(story_parts)
-
-    # fix the separator line
-    paragraph_array = new_text.split("\n\n")
-
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array
-        ]
-    )
-
-    final_body = fix_body(body.removeprefix("\n"), title, author, alias)
-
-    if len(final_body.split("\n\n")) > 10:
-        return final_body
-
-    # too small?
-    print("Suspected small text, trying fall back extraction.")
-
-    paragraph_array = text.split("\n\n")
-
-    for index, line in enumerate(paragraph_array):
-        #   KMM Useful for debugging
-        if debug:
-            print(
-                str(index)
-                + " : "
-                + str(number_of_titles)
-                + " - "
-                + str(seen_title)
-                + ", "
-                + str(seen_author)
-                + " -- "
-                + line[:60]
-            )
-        if (number_of_titles > 1) and (number_of_titles_found == number_of_titles):
-            break
-        if (number_of_titles == 0) and seen_author:
-            break
-        # added the n_o_t == 1
-        if (
-            number_of_titles == 1
-            and seen_title
-            and seen_author
-            and in_body(line, title, author, alias)
-        ):
-            break
-        if line_contains_title(line, title):
-            seen_title = True
-            number_of_titles_found = number_of_titles_found + 1
-        elif line_contains_author(line, author, alias):
-            seen_author = True
-        elif is_blank_line(line):
-            continue
-        elif (number_of_titles > 1) and (number_of_titles_found != number_of_titles):
-            continue
-        elif in_body(line, title, author, alias) and (seen_title or seen_author):
-            break  # ???
-        else:
-            continue
-
-    # should be in the body
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array[index:]
-        ]
-    )
-
-    return fix_body(body.removeprefix("\n"), title, author, alias)
+    return story_body.extract(text, title, author, alias).text
 
 
 def make_single_title(title):
@@ -1381,10 +1317,12 @@ def _metadata_rejection(metadata, story):
     return None
 
 
-def _inspect_metadata(story, metadata, source):
+def _inspect_metadata(story, metadata, source, *, review_decision=None):
     """Build the same deterministic extraction report used by gather_story."""
     report = {
         "gutenberg_id": story,
+        "status": "ineligible",
+        "selected_span": None,
         "metadata": (
             None
             if metadata is None
@@ -1401,53 +1339,134 @@ def _inspect_metadata(story, metadata, source):
         "provenance": None,
     }
     if report["rejection"] is not None:
+        if review_decision is not None:
+            raise ValueError("review decision cannot override metadata ineligibility")
         return report
     prepared = source.read(metadata)
-    # Physical newlines remain intact in the original-byte cache. Normalize only
-    # at the paragraph parser boundary, matching the historical extraction rules.
-    text = prepared.cleaned.text.replace("\r\n", "\n").replace("\r", "\n").strip()
-    body = body_of_text(
-        text, list(metadata.authors), list(metadata.aliases), list(metadata.titles)
+    extraction = story_body.extract(
+        prepared.cleaned.text, metadata.titles, metadata.authors, metadata.aliases
     )
+    body = extraction.text
     report["body"] = body
-    report["provenance"] = prepared.provenance()
-    if chaptered(body):
-        report["rejection"] = "Story has chapters, skipping."
-    elif len(body.split("\n\n")) <= 10:
-        report["rejection"] = "Story is too short, skipping."
+    report["provenance"] = {
+        **prepared.provenance(),
+        "body_extraction": extraction.provenance(),
+    }
+    chapter_assessment = assess_chapters(
+        body, titles=metadata.titles, authors=metadata.authors, aliases=metadata.aliases
+    )
+    report["provenance"]["chapter_assessment"] = chapter_assessment
+    assessment = readiness.assess(
+        body,
+        chapter_assessment,
+        titles=metadata.titles,
+        authors=metadata.authors,
+        aliases=metadata.aliases,
+    )
+    source_identity = readiness.identity(
+        {
+            "gutenberg_id": story,
+            "metadata": report["metadata"],
+            # Bind the whole derivation context, not only acquired source bytes.
+            # A policy/evidence change invalidates review even if text is equal.
+            "source": report["provenance"],
+        }
+    )
+    evidence = {
+        **assessment.to_dict(),
+        "source_identity_sha256": source_identity,
+        "candidate_sha256": readiness.text_sha256(body),
+        "assessment_sha256": readiness.identity(assessment.to_dict()),
+    }
+    report["provenance"]["publication_readiness"] = evidence
+    report["status"] = assessment.status
+    report["selected_span"] = [0, len(body)]
+    if review_decision is not None:
+        if not isinstance(
+            review_decision, (readiness.ReviewDecision, readiness.OrderedReviewDecision)
+        ):
+            raise ValueError("review_decision must be a ReviewDecision")
+        selected = review_decision.select(
+            gutenberg_id=story,
+            source_identity_sha256=source_identity,
+            candidate=body,
+            assessment=assessment,
+        )
+        selected_chapters = assess_chapters(
+            selected,
+            titles=metadata.titles,
+            authors=metadata.authors,
+            aliases=metadata.aliases,
+        )
+        selected_assessment = readiness.assess(
+            selected,
+            selected_chapters,
+            titles=metadata.titles,
+            authors=metadata.authors,
+            aliases=metadata.aliases,
+        )
+        if (
+            assessment.status == "ineligible"
+            or selected_assessment.status == "ineligible"
+        ):
+            raise ValueError("review decision cannot override a collection exclusion")
+        evidence["review_decision"] = dataclasses.asdict(review_decision)
+        evidence["selected_assessment"] = selected_assessment.to_dict()
+        evidence["selected_chapter_assessment"] = selected_chapters
+        if isinstance(review_decision, readiness.OrderedReviewDecision):
+            report["selected_span"] = None
+            report["selected_spans"] = [list(v) for v in review_decision.selected_spans]
+            report["editorial"] = review_decision.editorial(body)
+        else:
+            report["selected_span"] = [
+                review_decision.selected_start,
+                review_decision.selected_end,
+            ]
+        report["status"] = "ready"
+    if assessment.exclusion:
+        report["rejection"] = (
+            "Story has chapters, skipping."
+            if assessment.exclusion == "divided_work"
+            else "Story is too short, skipping."
+        )
     return report
 
 
-def inspect_story(story, *, source):
-    """Return JSON-compatible metadata, body, rejection and source provenance.
+def inspect_story(story, *, source, review_decision=None):
+    """Inspect candidate text, readiness, selection and provenance without output I/O.
 
-    This replaces the notebook/debug helpers that printed partial results and
-    silently fetched metadata or text. The caller supplies a GutenbergStorySource
-    and owns its catalog lifetime and network policy. Rejected metadata causes no
-    acquisition. Eligible text may be cached according to that explicit policy;
-    no story output is written. Operational errors propagate, not eligibility
-    rejections. A rejected short/chaptered story retains its body for inspection.
+    The body is always the complete preserved candidate, even when a reviewed
+    decision selects a smaller publication span. ``status`` distinguishes ready,
+    needs_review and ineligible; a review requirement is not a rejection/error.
+    Metadata ineligibility avoids acquisition. Operational and cleanup errors
+    propagate. A stale review decision raises ValueError rather than falling back.
     """
-    return _inspect_metadata(story, source.metadata(story), source)
+    return _inspect_metadata(
+        story, source.metadata(story), source, review_decision=review_decision
+    )
 
 
-def gather_story(gatherer, story, *, source):
-    """Extract and atomically publish a story using an explicit source.
+def gather_story(
+    gatherer,
+    story,
+    *,
+    source,
+    review_decision=None,
+    review_dir=review_store.DEFAULT_DIRECTORY,
+):
+    """Publish qualified text, preserve a review candidate, or report exclusion.
 
-    Args:
-        gatherer: DataGatherer owning the output collection directory.
-        story: Positive Gutenberg ebook ID.
-        source: GutenbergStorySource with a pinned catalog and explicit policy.
-
-    Returns:
-        Tuple of ebook ID, saved/existing path or None, rejection or None.
-        Source, decoding, cleanup and output errors propagate to the run boundary.
-        An existing valid output is reused before source acquisition.
+    Returns GatherResult with published/reused/ineligible/needs_review status.
+    Existing regular outputs are reused without requalification or replacement.
+    An explicit decision is always checked, including on reuse. Source/cleanup,
+    stale approval and output errors propagate to the batch boundary.
     """
     metadata = source.metadata(story)
     rejection = _metadata_rejection(metadata, story)
     if rejection is not None:
-        return story, None, rejection
+        if review_decision is not None:
+            raise ValueError("review decision cannot override metadata ineligibility")
+        return gather_result.GatherResult(story, "ineligible", reason=rejection)
     title = metadata.titles[0]
     author = list(metadata.authors)
     file_name = names.title_and_author_to_filename(
@@ -1457,15 +1476,29 @@ def gather_story(gatherer, story, *, source):
     existing = (
         pathlib.Path(gatherer.path) / story_slug / discovery.CANONICAL_STORY_FILENAME
     )
-    if story_output.existing(existing):
-        return story, str(existing), None
-    report = _inspect_metadata(story, metadata, source)
-    if report["rejection"] is not None:
-        return story, None, report["rejection"]
+    if story_output.existing(existing) and review_decision is None:
+        return gather_result.GatherResult(story, "reused", path=str(existing))
+    report = _inspect_metadata(story, metadata, source, review_decision=review_decision)
+    if report["status"] == "ineligible":
+        return gather_result.GatherResult(
+            story, "ineligible", reason=report["rejection"]
+        )
+    if report["status"] == "needs_review":
+        review_path = review_store.save(
+            report, directory=review_dir, data_root=gatherer.root
+        )
+        return gather_result.GatherResult(
+            story,
+            "needs_review",
+            review_path=review_path,
+            reason="Unresolved editorial or structural evidence; see review candidate.",
+        )
+    spans = report.get("selected_spans") or [report["selected_span"]]
+    selected_body = "".join(report["body"][start:end] for start, end in spans)
     data_to_save = {
         "name": title,
         "author": author,
-        "body": report["body"],
+        "body": selected_body,
         "metadata": {
             "author": author,
             "year": "Unknown",
@@ -1474,10 +1507,14 @@ def gather_story(gatherer, story, *, source):
             "gettenberg": report["provenance"],
         },
     }
-    # Reuse the same replayable repairs and bucket slug as previous gathering.
+    if report.get("editorial"):
+        data_to_save["metadata"]["editorial"] = report["editorial"]
+    # Reviewed selection precedes the existing explicitly recorded normalization.
     normalization.normalize_story_dict(
         data_to_save, collection=storymap.TARGET_DIRECTORY, story_id=story_slug
     )
     _, file_path = gatherer.ensure(story_slug)
-    story_output.publish(file_path, data_to_save)
-    return story, file_path, None
+    published = story_output.publish(file_path, data_to_save)
+    return gather_result.GatherResult(
+        story, "published" if published else "reused", path=str(file_path)
+    )

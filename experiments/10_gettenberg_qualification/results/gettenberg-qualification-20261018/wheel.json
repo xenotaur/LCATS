@@ -1,0 +1,24 @@
+{
+  "wheel": "lcats-0.1.1.dev1200+ged20e9c29.d20261018-py3-none-any.whl",
+  "sha256": "c2b5bfd5817692099c8b944a8b57c4656a3c7cbfea4794d9ed8d8372417094c2",
+  "source_python_files_checked": 165,
+  "source_mismatches": [],
+  "retired_modules_present": false,
+  "legacy_requirements": [],
+  "smoke": {
+    "qualified": true,
+    "version": "0.1.1.dev1200+ged20e9c29.d20261018",
+    "import_path": "/private/tmp/gettenberg-qualification-20261018/venv/lib/python3.11/site-packages/lcats/gettenberg/catalog.py",
+    "gutenbergpy_installed": false,
+    "network_bytes": 0,
+    "checks": [
+      "metadata",
+      "catalog setup/query/raw-source",
+      "genre",
+      "cleanup",
+      "packaged JSON"
+    ]
+  },
+  "pip_check": "No broken requirements found.",
+  "environment": "fresh venv with normal declared dependency resolution; repaired current wheel replaced without dependency changes; outside checkout, PYTHONPATH unset"
+}

@@ -1,0 +1,13 @@
+{
+  "review_comment": "https://github.com/xenotaur/LCATS/pull/524#discussion_r4306065592",
+  "measured_runner_commit": "48733d6abe27c4ecce4e2a83fcb20abd0ea634fa",
+  "measured_runner_sha256": "881925e9d5853d856adb040c131ee0b730c5728ffc8e384474c73901053d5f34",
+  "repaired_runner_sha256": "4fe1bfb139a6416020ca72c153972407b88fd4661649e72baa63dcdf3864851f",
+  "change": "Reject missing/non-directory and empty canonical-story selections inside existing error-reporting boundary; move existing 10000-story limit with selection. Per-story comparison unchanged.",
+  "measured_selection_count": 1659,
+  "selection_matches_retained_rows": true,
+  "product_source_hashes_unchanged": 165,
+  "historical_reports_rewritten": false,
+  "bulk_comparison_rerun": false,
+  "validation": "Three invalid-selection regression subcases reproduced failure before guard; focused 12 tests passed after guard."
+}

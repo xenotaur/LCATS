@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 22597,
+    "candidate_record_sha256": "62d3397304140e52cdf757ff815e5629895542039df620555cd0cd6395d4a1f3",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_The Gravity Gang was a group of geniuses--devoting its brilliance to creating a realistic Solar System for Disneyland. That was the story, anyway. No one would have beli'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity.",
+    "approval": null
+}

@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 32878,
+    "candidate_record_sha256": "6ec50a1a746459233024f4ea836e8e8f0bef650550e168e65c146bb284020b61",
+    "outcome": "exclude",
+    "reviewer": "codex coordinator; source review 2026-10-20",
+    "rationale": "Coordinator source review confirms six genuine narrative divisions: PRELUDE, INTERMEZZO, SONATA, DANSE MACABRE, GRAND FINALE and RECESSIONAL at candidate paragraphs 4, 87, 152, 183, 228 and 263. Exclude from this undivided single-story collection; no narrative deletion or corpus-output acceptance is implied.",
+    "approval": null
+}

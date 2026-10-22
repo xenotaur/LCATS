@@ -71,7 +71,37 @@ class CleanupTests(unittest.TestCase):
             + original[result.content_end :],
             original,
         )
-        self.assertEqual(result.policy_version, "gutenberg-boundaries-v1")
+        self.assertEqual(result.policy_version, "gutenberg-boundaries-v2")
+
+    def test_historical_comma_banner_preserves_only_corroborated_content(self):
+        text = "The Project Gutenberg eBook, The Lantern, by A. Writer\n\n" + envelope()
+        self.assertEqual(cleanup.strip_boilerplate(text).text, "A small light.\n")
+        self.preserved(
+            "The Project Gutenberg eBook,\n" + envelope(), "unverified_header"
+        )
+        self.preserved(
+            "A narrative mentions The Project Gutenberg eBook, The Lantern\n"
+            + envelope(),
+            "unverified_header",
+        )
+
+    def test_exact_license_end_separator_does_not_hide_book_marker_damage(self):
+        separator = "*** END: FULL LICENSE ***"
+        text = envelope() + "\nTHE FULL PROJECT GUTENBERG LICENSE\n" + separator
+        self.assertEqual(cleanup.strip_boilerplate(text).text, "A small light.\n")
+        self.preserved(separator, "no_markers")
+        self.preserved(envelope() + "\n" + separator, "unverified_footer")
+        self.assertEqual(
+            cleanup.strip_boilerplate(envelope(separator + "\n")).text, separator + "\n"
+        )
+        for damaged in (
+            "*** END: FULL LICENSE EXTRA ***",
+            "*** END: PROJECT GUTENBERG EBOOK THE LANTERN ***",
+        ):
+            self.preserved(
+                envelope() + "\nTHE FULL PROJECT GUTENBERG LICENSE\n" + damaged,
+                "unrecognized_marker",
+            )
 
     def test_lf_crlf_cr_and_missing_final_newline(self):
         for newline in ("\n", "\r\n", "\r"):

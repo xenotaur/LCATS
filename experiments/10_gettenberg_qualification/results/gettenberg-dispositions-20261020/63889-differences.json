@@ -1,0 +1,46 @@
+{
+  "id": 63889,
+  "old_body_sha256": "0680f74a0ba1dad19a12e76cac4b32a923666ee2e0d00c454e772acaebccfa9d",
+  "candidate_body_sha256": "2bfa2fcd27bd1c1187ce9c73c0f5100e6a138d5f01f7dc855d0fc416185d41c0",
+  "operations": [
+    {
+      "operation": "insert",
+      "retained_span": [
+        0,
+        0
+      ],
+      "candidate_span": [
+        0,
+        522
+      ],
+      "before": "",
+      "after": "_Some dames are bright. Some brighter. Like the\n           gorgeous wife of the playboy Commish who combined\n           all the stellar attributes necessary to slice in\n              two parts an ultra modern spaceship, and a\n               marriage, with one swoop of a clockhand._\n\n           [Transcriber's Note: This etext was produced from\n                     Planet Stories November 1952.\n         Extensive research did not uncover any evidence that\n         the U.S. copyright on this publication was renewed.]\n\n\n"
+    },
+    {
+      "operation": "insert",
+      "retained_span": [
+        2774,
+        2774
+      ],
+      "candidate_span": [
+        3296,
+        3336
+      ],
+      "before": "",
+      "after": "       *       *       *       *       *"
+    },
+    {
+      "operation": "insert",
+      "retained_span": [
+        7266,
+        7266
+      ],
+      "candidate_span": [
+        7828,
+        7868
+      ],
+      "before": "",
+      "after": "       *       *       *       *       *"
+    }
+  ]
+}

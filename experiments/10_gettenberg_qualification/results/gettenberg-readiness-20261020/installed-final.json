@@ -1,0 +1,16 @@
+{
+  "qualified": true,
+  "version": "0.1.1.dev1212+gdfbe837e5.d20261020",
+  "import_path": "/private/tmp/gettenberg-readiness-20261020/venv/lib/python3.11/site-packages/lcats/gettenberg/catalog.py",
+  "gutenbergpy_installed": false,
+  "network_bytes": 0,
+  "checks": [
+    "metadata",
+    "catalog setup/query/raw-source",
+    "genre",
+    "cleanup",
+    "packaged JSON",
+    "readiness withholding, immutable candidate and runtime logs",
+    "explicit reviewed selection/publication"
+  ]
+}

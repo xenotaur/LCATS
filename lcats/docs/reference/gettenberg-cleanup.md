@@ -5,7 +5,9 @@ Import with `from lcats.gettenberg import cleanup`.
 operation over decoded **plain text**. It neither loads a catalog nor accesses
 files/network, and does not import `gutenbergpy`. Decode bytes with
 `resources.decode_text`; HTML markup requires a separate extraction step.
-The legacy `headers.strip_headers` wrapper and gatherers have not migrated yet.
+Metadata-dependent gathering uses this cleanup through its story source. The
+legacy `headers.strip_headers` wrapper has been removed; see the
+[migration guide](../how-to/gettenberg-migration.md).
 
 ## Result and source preservation
 
@@ -19,7 +21,7 @@ The legacy `headers.strip_headers` wrapper and gatherers have not migrated yet.
 | `changed` | Whether any prefix or suffix was removed. |
 | `markers` | Immutable tuple of detected `CleanupMarker` records in source order; bounded as described below. |
 | `diagnostics` | Immutable tuple of `CleanupDiagnostic(code, message, line=None)`. |
-| `policy_version` | `gutenberg-boundaries-v1`, independent of decoding/transport versions. |
+| `policy_version` | `gutenberg-boundaries-v2`, independent of decoding/transport versions. |
 
 All preservation outcomes select `[0:len(original)]`. `changed=False` does not
 certify that the input is clean: inspect diagnostics. Output is an exact slice;
@@ -63,16 +65,19 @@ line beginning (after whitespace) with one or more stars followed by `START` or
 Unicode spacing, single-star delimiters and wrapped fragments therefore cause a
 safe refusal instead of hiding a competing envelope. A narrative containing such
 a standalone starred heading can also cause a refusal; no content is lost.
-The exact historical `*** START: FULL LICENSE ***` line is license-section
-metadata, not a book boundary. It is exempt from candidate detection; this does
-not waive the matching book pair or the full-license heading requirement.
+The exact historical `*** START: FULL LICENSE ***` and `*** END: FULL LICENSE ***`
+lines are license-section metadata, not book boundaries. They are exempt from
+candidate detection; this does not waive the matching book pair or the
+full-license heading requirement.
 
 All of these conditions must hold before any removal:
 
 1. There is exactly one recognized start and one recognized end, in order, with
    matching style and identifier. No malformed marker-like candidates are present.
 2. Any nonblank prefix starts with a Gutenberg eBook banner, such as
-   `The Project Gutenberg eBook of …` or `Project Gutenberg's …`.
+   `The Project Gutenberg eBook of …`, `The Project Gutenberg eBook, …`,
+   or `Project Gutenberg's …`. The comma form must include nonblank text after
+   the comma; a banner ending immediately after the comma is not accepted.
 3. Any nonblank suffix contains a standalone full Gutenberg license heading:
    `THE FULL PROJECT GUTENBERG LICENSE`, with optional `™` or `-tm` after Gutenberg.
 4. The retained content has at least one non-whitespace character.

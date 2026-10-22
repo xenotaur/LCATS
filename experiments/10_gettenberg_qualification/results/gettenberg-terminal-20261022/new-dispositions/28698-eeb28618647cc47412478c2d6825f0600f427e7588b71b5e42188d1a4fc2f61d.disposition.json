@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 28698,
+    "candidate_record_sha256": "f47f1bfd3b93e2f166ff6073e583353651b1436b5b94554774a44145df77d2ef",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_Stark terror ruled the Inner-Flight ship on that last Mars-Terra run. For the black-clad Leiters were on the prowl ... and the grim red planet was not far behind._'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: retained_editorial_label.",
+    "approval": null
+}

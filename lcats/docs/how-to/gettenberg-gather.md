@@ -67,7 +67,29 @@ existing story extraction, normalization and overrides. It writes
 `data/mass_quantities/<story-slug>/story.json`, retaining acquisition and derivation
 provenance. Existing regular output files are reused without replacement or a
 claim that their contents are valid. Source/decode/integrity failures abort with
-exit 2; metadata or extraction exclusions remain per-story skips in the run log.
+exit 2. Ambiguous cleanup and editorial/structural review needs are recorded
+separately; the batch continues and exits 3. Ordinary collection exclusions remain
+per-story outcomes. A successful command does not requalify reused files.
+
+## Review a withheld candidate
+
+When the summary reports `needs_review`, inspect the corresponding
+`logs/gather/review/mass_quantities/<id>-<hash>.candidate.json`. Its report preserves
+the complete candidate, source identity, findings and exact character spans.
+The original resource remains in the cache. Review files are not accepted story
+buckets and are never automatically promoted. `--yes` does not bypass this step.
+
+Use the [candidate-review workflow](gettenberg-review.md) to inspect exact Unicode
+text windows, record explicit approve/exclude/defer dispositions, and export selected
+approvals for `lcats gather --review-decisions`. No catalog or network access is
+needed to review saved candidates. The workflow checks content identities and keeps
+conflicting decisions visible; it never infers approval from a filename or finding.
+
+Gather independently revalidates exported approvals against current sources and
+preserves existing story files. Use inspection or a separate disposable output root
+for requalification. `exclude` and `defer` remain audit records, not changes to the
+collection definition. See the [API reference](../reference/gettenberg-review.md)
+for immutable record semantics, bounds and the Python interface.
 
 ## Repeat without network access
 
@@ -98,5 +120,5 @@ Previously completed story files and source bytes remain available for a retry.
 Invalid UTF-8 or ambiguous boilerplate is not silently replaced, guessed or sent
 through the old API. Keep the original-byte receipt and catalog provenance when
 investigating a record. Do not regenerate an existing corpus just to migrate its
-metadata. This tranche changes live gathering; legacy experimental callers and
-removal of the external dependency remain separate work.
+metadata. The retired helper API and external dependency have been removed; see the
+[migration guide](gettenberg-migration.md) for replacement research entry points.

@@ -14,6 +14,7 @@ import lcats.gatherers.main
 import lcats.inspect
 from lcats import version
 from lcats.gettenberg import catalog_cli
+from lcats.gatherers import review_cli
 
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
@@ -41,7 +42,12 @@ def _handle_gather(args):
         generated_root=args.gutenberg_generated_root,
         allow_origins=tuple(args.allow_origin),
         cache_dir=args.cache_dir,
+        review_decisions=args.review_decisions,
     )
+
+
+def _handle_gather_review(args):
+    return review_cli.run(parsed_args=args)
 
 
 def _handle_catalog(args):
@@ -193,8 +199,21 @@ def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
         default=[],
         help="Additional permitted Gutenberg redirect origin (repeatable).",
     )
+    gather_parser.add_argument(
+        "--review-decisions",
+        metavar="JSON",
+        help="Explicit source-bound content review decisions for mass_quantities; --yes does not approve content.",
+    )
     gather_parser.set_defaults(handler=_handle_gather)
     command_parsers["gather"] = gather_parser
+
+    review_parser = subparsers.add_parser(
+        "gather-review",
+        parents=[review_cli.build_parser(add_help=False)],
+        help="Inspect saved candidates and record explicit review dispositions.",
+    )
+    review_parser.set_defaults(handler=_handle_gather_review)
+    command_parsers["gather-review"] = review_parser
 
     catalog_parser = subparsers.add_parser(
         "catalog",
@@ -436,7 +455,9 @@ def usage() -> str:
 
 def dispatch(command, args):
     """Dispatch a command and list of arguments using the configured parser."""
-    parser = build_parser(include_visualize=command not in ("gather", "catalog"))
+    parser = build_parser(
+        include_visualize=command not in ("gather", "catalog", "gather-review")
+    )
     argv = [command, *args]
     if command in parser.command_parsers and command != "help":
         parsed = parser.command_parsers[command].parse_args(args)
@@ -455,7 +476,8 @@ def main(argv=None):
     """Main entry point for the LCATS command-line interface."""
     argv = list(argv) if argv is not None else sys.argv[1:]
     parser = build_parser(
-        include_visualize=not argv or argv[0] not in ("gather", "catalog")
+        include_visualize=not argv
+        or argv[0] not in ("gather", "catalog", "gather-review")
     )
 
     if not argv:

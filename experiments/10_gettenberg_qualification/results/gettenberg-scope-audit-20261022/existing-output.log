@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py", line 49, in <module>
+    raise ValueError("output already exists; evidence is never overwritten")
+ValueError: output already exists; evidence is never overwritten

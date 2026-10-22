@@ -1,0 +1,56 @@
+{
+  "product_commit": "d3bdff07860d477bea421aff296565c944c89398",
+  "canonical": {
+    "command": "scripts/test",
+    "tests": 3027,
+    "seconds": 89.079,
+    "passed": true
+  },
+  "focused": {
+    "tests": 41,
+    "passed": true
+  },
+  "documentation": {
+    "tests": 12,
+    "passed": true
+  },
+  "package_format_lint": "passed",
+  "experiment_format_lint": {
+    "runners": 16,
+    "passed": true
+  },
+  "lrh": {
+    "errors": 0,
+    "warnings": 351,
+    "warnings_preexisting": true
+  },
+  "review": {
+    "findings_P0_P2": 0,
+    "independent_focused_tests": 41,
+    "scope": "a93cd649..d3bdff07; bounded tooling only"
+  },
+  "wheel": "wheel-final.json",
+  "installed": "installed-final.json",
+  "corpus_census": {
+    "needs_review": 1640,
+    "cleanup_refused": 13,
+    "ready": 5,
+    "ineligible": 1
+  },
+  "review_inventory": {
+    "unreviewed": 1630,
+    "approve": 8,
+    "exclude": 1,
+    "defer": 1
+  },
+  "exported_approvals_equal_prior_inputs": true,
+  "publication_cases": {
+    "published": 13,
+    "needs_review": 14,
+    "ineligible": 1
+  },
+  "source_network_bytes": 0,
+  "canonical_corpus_written": false,
+  "corpus_accepted": false,
+  "integration_authorized": false
+}

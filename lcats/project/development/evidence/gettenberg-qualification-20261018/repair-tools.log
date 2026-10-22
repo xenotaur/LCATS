@@ -1,0 +1,20 @@
+/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/dev/versioning.py:13: DeprecationWarning: lcats.utils is now a package. Legacy utilities are still available via `import lcats.utils`, but consider importing specific submodules, e.g. `from lcats.utils import names`.
+  from lcats.utils import paths
+LCATS package metadata
+lcats 0.1.1.dev1200+ged20e9c29.d20261018
+
+lcats CLI
+lcats 0.1.1.dev1200+ged20e9c29.d20261018
+
+Python
+Python 3.11.9
+
+Ruff
+ruff 0.15.0
+
+Black
+black, 25.11.0 (compiled: yes)
+Python (CPython) 3.11.9
+
+pip
+pip 26.2.1 from /Users/centaur/anaconda3/envs/LCATS/lib/python3.11/site-packages/pip (python 3.11)

@@ -1,0 +1,151 @@
+{
+  "input_identity_before_after_equal": true,
+  "story_count": 1659,
+  "before_summary": {
+    "compared": 1605,
+    "cleanup_refused": 54
+  },
+  "after_summary": {
+    "compared": 1646,
+    "cleanup_refused": 13
+  },
+  "after_triage": {
+    "appended_end_notice": 696,
+    "same_body": 742,
+    "appended_transcriber_note": 122,
+    "cleanup_refused": 13,
+    "appended_byline_or_separator": 57,
+    "earlier_body_difference": 8,
+    "appended_other": 19,
+    "retained_corpus_only": 2
+  },
+  "after_refusals": [
+    {
+      "id": 20257,
+      "codes": [
+        "mismatched_pair"
+      ]
+    },
+    {
+      "id": 72379,
+      "codes": [
+        "unrecognized_marker",
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 70923,
+      "codes": [
+        "unrecognized_marker",
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 53402,
+      "codes": [
+        "unverified_header"
+      ]
+    },
+    {
+      "id": 3699,
+      "codes": [
+        "unrecognized_marker",
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 35759,
+      "codes": [
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 71085,
+      "codes": [
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 35770,
+      "codes": [
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 3724,
+      "codes": [
+        "unrecognized_marker",
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 38302,
+      "codes": [
+        "unverified_header"
+      ]
+    },
+    {
+      "id": 35879,
+      "codes": [
+        "unrecognized_marker"
+      ]
+    },
+    {
+      "id": 38287,
+      "codes": [
+        "unverified_header"
+      ]
+    },
+    {
+      "id": 70349,
+      "codes": [
+        "unrecognized_marker",
+        "unrecognized_marker"
+      ]
+    }
+  ],
+  "earlier_differences": [
+    {
+      "id": 22579,
+      "old_characters": 30908,
+      "new_characters": 31105
+    },
+    {
+      "id": 23148,
+      "old_characters": 15074,
+      "new_characters": 15449
+    },
+    {
+      "id": 35401,
+      "old_characters": 26080,
+      "new_characters": 2620
+    },
+    {
+      "id": 70645,
+      "old_characters": 10078,
+      "new_characters": 26543
+    },
+    {
+      "id": 23104,
+      "old_characters": 30384,
+      "new_characters": 30484
+    },
+    {
+      "id": 50103,
+      "old_characters": 31972,
+      "new_characters": 900
+    },
+    {
+      "id": 42640,
+      "old_characters": 22705,
+      "new_characters": 22769
+    },
+    {
+      "id": 32655,
+      "old_characters": 14735,
+      "new_characters": 14814
+    }
+  ],
+  "qualified": false,
+  "reason": "material corpus differences require repair and narrative-preservation review"
+}

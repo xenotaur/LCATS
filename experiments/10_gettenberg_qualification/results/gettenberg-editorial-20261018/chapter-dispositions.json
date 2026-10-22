@@ -1,0 +1,1731 @@
+{
+  "scope": "Coordinator source-grounded chapter triage, not independent review or body acceptance.",
+  "corpus_report_sha256": "2a8a7e94cba67380ff633980e9e9bf32a99ab994f34c531576ff522aa2b3a538",
+  "source_sha256": {
+    "src/lcats/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/analysis/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/analysis/corpus/__init__.py": "e3b1f87ef53bdbb9e396ea29cbdbee26e1dea865004307db6c1f8cd208751ef6",
+    "src/lcats/analysis/corpus/annotate.py": "c7b07f9221ed53a409b13b9326e74ff2dee86f201a615892521665009bbabbe8",
+    "src/lcats/analysis/corpus/annotate_cli.py": "1273f633b3b44f15f4482bba473be5a2dfdb004ae725cda7be74546862948fff",
+    "src/lcats/analysis/corpus/application.py": "d9b2080a09b0968ee0dad643c5e48a63de3b3b8ffbc2381227b1ae299783a2f5",
+    "src/lcats/analysis/corpus/assess.py": "20608667f8e21ca039d6b50b19d79d9aeb982ed33f6759d3e79103afa007a060",
+    "src/lcats/analysis/corpus/assess_cli.py": "00b097d0428af8e2574bbb5f8704dac39c4f0a359423a5bad08cbaac0ad03a4d",
+    "src/lcats/analysis/corpus/clean_cli.py": "5de7b175ca29a0e809984e4620f3ba1fb64eca60592dd9fa8382ceae18f1be61",
+    "src/lcats/analysis/corpus/cli.py": "7ce09ffdfc3fc72bc924d1ee6450872f20c46f344c6e0508ddb060b28b27353e",
+    "src/lcats/analysis/corpus/detectors/__init__.py": "f2acf271b1294e20f536e6467e383914c2b5dd28672bf877957a94e69d7ecdfd",
+    "src/lcats/analysis/corpus/detectors/boundary.py": "892dd114c9c0adf6edb0feeca1b2f4f5b83fee518237fb6251d109dfb991e54a",
+    "src/lcats/analysis/corpus/detectors/structural.py": "16a313237255091c9bafc97abc9fced4c9863f68f17177bf189c94bbed995dbc",
+    "src/lcats/analysis/corpus/detectors/unicode.py": "b87e843bc417ca26991405efe1126dd69c30b8e6ea3d65c74bc225f94293b28c",
+    "src/lcats/analysis/corpus/discovery.py": "84a8224b6e48ddb8aec4390ba70832a1651b5dd3c3583205fd82a715fa064cd6",
+    "src/lcats/analysis/corpus/genre_sidecar.py": "b964d2dc2ab3900f7f51060d86097d84603e3df3647a204f73b25995d05df7d0",
+    "src/lcats/analysis/corpus/linguistics_cli.py": "66449a0f738039a01bc3286d1f651d841e6b747349d4874f9456f48133e2e517",
+    "src/lcats/analysis/corpus/models.py": "36581e345f653ea388cf6cf93704f459c2f238a12479e8b47c34cb088cc95234",
+    "src/lcats/analysis/corpus/output.py": "7c3a8c8db7337d0d255d1e0e52992eef34dadfe817d3a893848794b2abd08cc1",
+    "src/lcats/analysis/corpus/processing.py": "3c510d5fae7612f4b0a58abef916a989357000cf8ccdee49b8f004b8d3f1117a",
+    "src/lcats/analysis/corpus/promote.py": "d4f97578c29114b1df312507a2524d58c8d701e0b807d562ba390e4845b9f830",
+    "src/lcats/analysis/corpus/promote_cli.py": "f44b6db7725e9c875c04b803b199d32f4e692a35a1d68fa6a9216fa17a39bb6d",
+    "src/lcats/analysis/corpus/qa.py": "0081116ade7f9142c862ad85c55c7eaa99cb5dbffa6b8b0a17848b49e93d7259",
+    "src/lcats/analysis/corpus/reconciliation.py": "ccc557fd874e9300154a23ccdf749697414c82ab2bf43a274467431835a3fccf",
+    "src/lcats/analysis/corpus/repairs.py": "28d58479be621721bde722fefad3c9cf8802d8d05f46168f3e640c054a7f61e9",
+    "src/lcats/analysis/corpus/repairs_cli.py": "7bf920dbcdf59e0203265e062a2d0651f8c95ede4a8f513cfcbea3c68fccce2b",
+    "src/lcats/analysis/corpus/review.py": "16fa8ed34ea7f12cb2ef34cd907226570a6bae4c9d85935ee302717f86f2ef00",
+    "src/lcats/analysis/corpus/sidecar_validators.py": "276e8ea58bb462a93c981892e7e4c1ff060abe3799d3ab6b2723be38f1c791de",
+    "src/lcats/analysis/corpus/span_ops.py": "ee38dca85c35414f4aa464c2c6d722e3ff83417f12cd86d32cb4b51d389227ba",
+    "src/lcats/analysis/corpus/specials.py": "c1a6fbb49ffcb042e93a9acb2a5df88ddf1124648b018aa6c3e518e1f87e7884",
+    "src/lcats/analysis/corpus/specials_cli.py": "86ca32ae4c4d7fefdb87d6f839981b0c6897a073cf8719d9bcc10a6b58d4242e",
+    "src/lcats/analysis/corpus/stats.py": "5b69709c4526f371e16ebde1a758c2c8cf2010f5f9bf7eba61f519cd9fde792a",
+    "src/lcats/analysis/corpus_survey.py": "9bacd61ab97be559460866412924786be51a73b0ca31ea62f47ad7da8099a10b",
+    "src/lcats/analysis/corpus_surveyor.py": "f41d53d5f9dfd1f98cd3fce32a891991062a6cc29eb0df70d6ffeebbd379cb33",
+    "src/lcats/analysis/event_role_world/__init__.py": "df31232ba5c6e875d25e15d026c8a50cfbc35d6e8e7a1fbb3267eb782337b67f",
+    "src/lcats/analysis/event_role_world/baseline.py": "7f5de6b119f13a912ee7d25661aca25b6e9be20452a98af2def4605188436139",
+    "src/lcats/analysis/event_role_world/discourse_extractor.py": "a3a0fe24c45cfd3aa25849ea8f6521be15c995a42be0750c1eedd86063c3db12",
+    "src/lcats/analysis/event_role_world/entity_extractor.py": "cfe819b4cd6e87b39827403540ea9f3e35d52619ae08d2f10289e315de658c97",
+    "src/lcats/analysis/event_role_world/event_extractor.py": "8c617b16bfe19655ce24981f59375c5ed24567cbb9c0bcc3a9cef7820f869083",
+    "src/lcats/analysis/event_role_world/export.py": "b7f0ef387d1d6d3811ef919f7ea1d0ec9b73a368194ff64c22624d8d6f19afea",
+    "src/lcats/analysis/event_role_world/hypothesis_extractor.py": "41d6515c974789f58e4859e3d2975c11c489d78097591c2aec0c18f67fb41473",
+    "src/lcats/analysis/event_role_world/nlp_backend.py": "65ca870fcf638b34361bc640e1b26f28e5c6589018e7178573f6cfad2855c637",
+    "src/lcats/analysis/event_role_world/processor.py": "155e33bfa621a8121542d531443860b7556716900d6cf8ca40e16fb97201d5ea",
+    "src/lcats/analysis/event_role_world/relation_extractor.py": "9dbb1af89fdd9d4325475baa5efeecd23b37ea68cfe6485e14c74c32d163b9bf",
+    "src/lcats/analysis/event_role_world/schema.py": "691a7a1fdfbef8cbfe6358e024d5550ca77ac0bbb4147e83c3364985d7dffda5",
+    "src/lcats/analysis/event_role_world/story_relation_extractor.py": "b17b7cbd7b272e38778959ebdde106b73fa62ecab0679b7a4bb45c623e86a46a",
+    "src/lcats/analysis/event_role_world/surface_feature_extractor.py": "52eb6a3746c8cfefa39eebcba102b9d8d45d26afd77555ccc37350469e8efc27",
+    "src/lcats/analysis/graph_plotters.py": "3764701b215bbf2555fae6ea30f27b5c02aed4bf0bd8f7b4e1eb54f72dd10e6a",
+    "src/lcats/analysis/linguistics/__init__.py": "fc82eebe7855eaf277abdade999e17c702726fe70f82e36833a24497ce83046b",
+    "src/lcats/analysis/linguistics/lexicon.py": "f79a1e0ce3d86fbd50c7bf8c30f79b67473e916f31ffef1f854561e99ccdfc74",
+    "src/lcats/analysis/linguistics/runner.py": "fe45ef7092ea58228912436c6bf7ae32ed038e8b309cad2f5ccd7d7bb1c7be81",
+    "src/lcats/analysis/linguistics/sidecar.py": "aa5e9cf8e5474a47076e80496dcc41f4d4adf2af4d45ed0c7361faea4bd0a7a2",
+    "src/lcats/analysis/llm_extractor.py": "4b0b86ca28b748b8026ad26d8d414b7bef200bea1607093d2296b733bb1d6aea",
+    "src/lcats/analysis/scene_analysis.py": "c699dcefe53c082b41543c038c67cbf05e94bbe4ce10508fe38f48907cdebe12",
+    "src/lcats/analysis/science_fiction/__init__.py": "a3c8ece982e1e22be3bf5ceb101cf87626d8c87118a2d5d0a77aeaab879415de",
+    "src/lcats/analysis/science_fiction/evidence.py": "dd4a2f0e2d6240391febda730b125ba80cf77fc8bab8b190021208a2c8ab6118",
+    "src/lcats/analysis/science_fiction/heinlein.py": "44386e00e32bf41f97bbeb720e9c601bd5f2eac9a4392e3ba36bf6a6c26305b4",
+    "src/lcats/analysis/science_fiction/knight.py": "7361cfde7b776e160da6956848a159c341b0bbf1140b2155705f2d25947eaa4e",
+    "src/lcats/analysis/science_fiction/models.py": "897067f599232438093bd40896ee0416a0991cfda2b9be14e320c9fd424ffb42",
+    "src/lcats/analysis/science_fiction/novum.py": "ef2e80c301fca6e784b6e6580802d71b3f918387cf29c73c8a88d9374221ebf4",
+    "src/lcats/analysis/science_fiction/pipeline.py": "f581b3803e8cf6936d05c482c868cf108eed00b0dae7222464762f6ddcbce065",
+    "src/lcats/analysis/science_fiction/preparation.py": "011baa6260823e1bc24d3285e596701ee55c933a9df693b3cbdf14ef7fb0da32",
+    "src/lcats/analysis/science_fiction/rendering.py": "fd02283fb325f260ac171660c8bd3ba936e98de1fffe127c690fd0d3145527c7",
+    "src/lcats/analysis/science_fiction/rubric/__init__.py": "ecb9121924dc3fb2f99559869d9d61fe9200d317447f0b603b3f318857903174",
+    "src/lcats/analysis/science_fiction/rubric/definitions.py": "bc475c5d1636ae57d9d8676a86eec6ba877f9f7475f85dcc5ce01c194a107929",
+    "src/lcats/analysis/science_fiction/sidecar.py": "0468b7ae7d28d40c5cc132d60c56cfa0f92a7533882e105a1caf5b52834577f5",
+    "src/lcats/analysis/story_analysis.py": "1e1feff9d18b5342973a5b1a00c0a3c6c2dd12a34484cd69fe571cfeaccb46fa",
+    "src/lcats/analysis/story_processors.py": "6ec9ad45dc9b024da7c09cd954518ca9d0b6c089ba3a33e4569dd1a01ce27791",
+    "src/lcats/analysis/text_segmenter.py": "4e44672c332c2a1427342c065297fd3ed549cec60bb6c2cdf1e4d050260dfc3c",
+    "src/lcats/chunking.py": "0d062e89d6b49c45b720fee616bc6358152b8426611abb80c3ea1514e715bd6e",
+    "src/lcats/cli.py": "d23944a66f82f176ebb163cb97dfe20bf77f487df4595e16013b076e444d5d1d",
+    "src/lcats/constants.py": "006a26128ec5426f6e85366ec3c0b48bd2d9c38d6f9a3cc30fea82914faff3e8",
+    "src/lcats/datasets/torchdata.py": "280c18051b79610ea54d3bb825a2706de353004a0fa0f716d21b439cc7d5a09f",
+    "src/lcats/dev/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/dev/gettenberg_ci.py": "19c53ff4ebb3e092bed5ff41f1e5fe901aa8e0d4ce8e234b05e49b164390b565",
+    "src/lcats/dev/versioning.py": "77673e4510d945c215e03322b67c2e3d80c287d8674f888d632fe91c2c460d9e",
+    "src/lcats/extraction.py": "bf65c3a0831d1ab8ac200fabbaa86e9351b4496ebc96532da3574f8d30185776",
+    "src/lcats/gatherers/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/anderson/gatherer.py": "051883f04828b4e00e41a60c05a90c9cfe1a0bc794e4e721ddf67aeab7f8dbcb",
+    "src/lcats/gatherers/chesterton/gatherer.py": "f1d3c3019f7e1ae4abe7ae9e40c9476fd617a4b5544a3f49912a70d616f62c7f",
+    "src/lcats/gatherers/downloaders.py": "ad9ac05b23254dd1d595a3a9217d19602c460d474d64cd53609d2e03930a5eb4",
+    "src/lcats/gatherers/extractors.py": "cabf877d1904d86a31d8f260b34c553f2909e27cad93b9d6850505be6d0184b8",
+    "src/lcats/gatherers/gatherlib.py": "7c2de17c082470136c9079f869c50556ed73944abc73b02682b37ba01472e318",
+    "src/lcats/gatherers/grimm/gatherer.py": "41d7830752c7f6303060b6c1c249b6317758f358eab3ea38f6050d5844d7c500",
+    "src/lcats/gatherers/gutenberg_source.py": "858a9061edf008b6ebdb998d34089640c7a5a1d1d4fff1088ee732e0c8f1e979",
+    "src/lcats/gatherers/hemingway/gatherer.py": "66e073813d4d79cfc246067aeabe846ea2b58f9cd74858399bd3b5fe74af7b47",
+    "src/lcats/gatherers/london/gatherer.py": "76cde183c3a0702b3906d28fa2ec3bb172b1e0e4accf6310bcc958e3036b3403",
+    "src/lcats/gatherers/lovecraft/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/lovecraft/gatherer.py": "d6e1f285b55647b3fb56de95659b4a83a39869edd8f6a06fc25ab04d4ac1a1c7",
+    "src/lcats/gatherers/main.py": "46d7273cd843814b66b003d49c0dbb28ab93942e70d0acbfbfa64e6ea028e63f",
+    "src/lcats/gatherers/mass_quantities/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/mass_quantities/gatherer.py": "f981e8617f4c9cf92bb14a9f423dcba2a2894a4405c0b5fe15969859c6d0cbc2",
+    "src/lcats/gatherers/mass_quantities/storymap.py": "91a25353db2be14afced54d64b78b3a7de95dd3a9c203605f42c18ee3e746e43",
+    "src/lcats/gatherers/normalization.py": "081da3e25ccf0e72b81151f6ad70b78e3699c84861602f2624989d4dfd53c4a6",
+    "src/lcats/gatherers/ohenry_four_million/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/ohenry_four_million/gatherer.py": "92207737c276713cf44f44b99f4eacf26f935a60727e9aef6b8e63efec494764",
+    "src/lcats/gatherers/ohenry_whirligigs/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/ohenry_whirligigs/gatherer.py": "a5b57b541eb97e37ab3a8b6358423e00c9bc1d3cfd92f75814762bc76ad7543f",
+    "src/lcats/gatherers/overrides.py": "d4f6bf83467109150349de4f54b8491385434595f86506280a5b80cc80f4a97d",
+    "src/lcats/gatherers/parser.py": "ef5f1f9294d81f9dab47d0aed29771c936ef8f8597cde345889141519a2f1039",
+    "src/lcats/gatherers/planning.py": "b6843d82e3a370d923801c48d834c393ce5c4c6232125bd669bcc4570dede924",
+    "src/lcats/gatherers/sherlock/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gatherers/sherlock/gatherer.py": "5448bf75c3f428e529b2d529e284012ac93a053fccd88d5137f86a97a9b38390",
+    "src/lcats/gatherers/story_body.py": "aecad559e8c08dd1be19a13ad9ed453ae230ff2cf0ac3441d4139b2e2820d316",
+    "src/lcats/gatherers/story_output.py": "40c40e88dc2f61294cca9ae7a64446ed5d03aa29c663d49d4624d83f5a7e254f",
+    "src/lcats/gatherers/wilde_happy_prince/gatherer.py": "48d205eb9bc59fd209d203cd2070524f8b1f66f5880e592e297a5d9b7416674b",
+    "src/lcats/gatherers/wodehouse/gatherer.py": "9a6f6cac7fb0f85cc752ed668f6b688f5980eb61aa1f1ba99e3926488b79f60c",
+    "src/lcats/gettenberg/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gettenberg/_catalog_provenance.py": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e",
+    "src/lcats/gettenberg/_decode_types.py": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc",
+    "src/lcats/gettenberg/_lifecycle_io.py": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a",
+    "src/lcats/gettenberg/_resource_containers.py": "18a6303bb54c3226fda539adf0dc354f84e56532d9bf7e776b3d3db7c16633c4",
+    "src/lcats/gettenberg/_resource_decoding.py": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b",
+    "src/lcats/gettenberg/_resource_encoding.py": "86b4162b0d5599dc3e1292e20f6717a8bb5da2622e459e49ce6684de4ff028b7",
+    "src/lcats/gettenberg/_resource_io.py": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873",
+    "src/lcats/gettenberg/_resource_provenance.py": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2",
+    "src/lcats/gettenberg/_resource_refresh.py": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671",
+    "src/lcats/gettenberg/_resource_routing.py": "f6eba22b2876325885d9f1b8ecc5335fb5a47857036027710a2b5e0b7e6cb8fc",
+    "src/lcats/gettenberg/_resource_selection.py": "63bbc47c1b160513dcc7aaffcc6799a1b12ae73792b0c9b943cfc5b150d4224e",
+    "src/lcats/gettenberg/_resource_transport.py": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d",
+    "src/lcats/gettenberg/_resource_types.py": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c",
+    "src/lcats/gettenberg/_store.py": "7d86fc9a94928333db51b9a0f9e9cb52f3c805d594dbf672f53965b9372ea192",
+    "src/lcats/gettenberg/approval_cli.py": "5a9c484c74ad72b720d2b546d523d273d31c6b1c56241af99fd3269f50697bb4",
+    "src/lcats/gettenberg/catalog.py": "2e9c698767fa7a00d46bde9133cf7845b4bbd38426cbf096c0a9de78b4943a85",
+    "src/lcats/gettenberg/catalog_cli.py": "fdf6983b79c49c79a5bdce6d052fba5d609c589597ae91e30b33bb4c7efa5323",
+    "src/lcats/gettenberg/cleanup.py": "355b9c25e52a0631bd33ca61a41a0b7ab35b98399a07da4ed8dd8029dd084c95",
+    "src/lcats/gettenberg/errors.py": "44c3adfae526f0d79032ca42896d725f460e946146d0fba97b107031bba2c5c1",
+    "src/lcats/gettenberg/identifiers.py": "75c478e1e64f3891e745c203e12d4aeae3eaea5900bcfadbaaf47e821d8fadc2",
+    "src/lcats/gettenberg/ingestion.py": "d9231512e3fa7db047f7ef690122544864f6dd6edf1f15e730a1401a69b7ade2",
+    "src/lcats/gettenberg/lifecycle.py": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912",
+    "src/lcats/gettenberg/models.py": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10",
+    "src/lcats/gettenberg/preparation.py": "155915dd675af5d23aeba9f53112b658cb9c80b0bf9dd11b57f523c51a507bd4",
+    "src/lcats/gettenberg/rdf.py": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0",
+    "src/lcats/gettenberg/resources.py": "6ea3eefa0a0d8ecc06538820afdfd4f35d3fbfd027eab769b960b1e1c109fd37",
+    "src/lcats/gettenberg/sources_cli.py": "f0f699d7a0c62a9acb7b93d34866b98b991f47d8775e18a30780441da341ad63",
+    "src/lcats/inspect.py": "636b0cb5ad98c9afba705eadf6d85157b2be8cc73b182e927f349907dc0047eb",
+    "src/lcats/llm/__init__.py": "17782371175235e1e0fde37aaf43acd2ff4195d1895952a9d7b8fb3a762eb935",
+    "src/lcats/llm/anthropic_backend.py": "38f7423cd6b2cd8c898532a78f02160ff11be9eb391abcf4b91124b5ac4d443d",
+    "src/lcats/llm/backend.py": "6e21d1fa57ae648ae389609585d014dffc97260ee30844ef6de5b18fe7868ce8",
+    "src/lcats/llm/fake_backend.py": "3c36cc6f333e739a114760a7f270c8cd941cb7933843972ae9c86c4cc1f00763",
+    "src/lcats/llm/openai_backend.py": "6ae0ae89f107153b84910239bdc1330b87aca5fb194a9b14f369e4b06988761a",
+    "src/lcats/llm/tool_schema.py": "846d4a785e1d36c9470a5a5e51088e2776e3564b0e54f508c2d71a41aaff470d",
+    "src/lcats/pipeline.py": "8df8d431c0f352e189ee8e4ba945069793ead70fefa6a3913feff77b96e00153",
+    "src/lcats/stories.py": "23319b14124126e0136407fa986d30652c1a939933e9a0b0cf124b5588fa9fe8",
+    "src/lcats/utils/__init__.py": "3136c74b03ad3096a6c113652f808edb1bcf3c95924f2c64f28602ff372ec315",
+    "src/lcats/utils/canonical_author.py": "70e32f496318979d2ad9a25a397e5876438aa7b99973c022d2cf6f8fcee219fa",
+    "src/lcats/utils/capture.py": "64865a1fbfbb64f52a2e1ded80c6f082573cdbf342d4503bdcbb3dfef00aecf2",
+    "src/lcats/utils/checkpoint.py": "9fa1d11ca95d19bc00860d9d49a1e4e07b550fab36228f6ded20dba22f7f4ac2",
+    "src/lcats/utils/compat.py": "238bbe15d333072286f74f503466d2122335b3dbd12d9511e9c2400e47877de9",
+    "src/lcats/utils/env.py": "8a751021a519f7da2e03318522d121638a2831a2d3f2603daae9ea7192131f64",
+    "src/lcats/utils/genre.py": "66af78ae4c94e133a3c2489eebbc924a0026a8c7c4373ef493a09258baf2f265",
+    "src/lcats/utils/names.py": "62ce24c75d3f666ab1563b89e2e0fb06e360c6b870a865b30a89c97e2c5d63cd",
+    "src/lcats/utils/paths.py": "84e1ba686682ab3c90fb6b540d9a0f5680bfff659cd1af880a40c994884b63ad",
+    "src/lcats/utils/run_log.py": "0f3ffd6c491ad89de08ebb2e146897a9a942a935f19cdf1fe183a96f2c744a8d",
+    "src/lcats/utils/secrets.py": "9e53c9e27d2d60cad0af50ed13628a8d898058c1bd32ab12e32a74c7ceb96f10",
+    "src/lcats/utils/test_utils.py": "3de96ead5060e765d765784f03188adbfaf29d1c90b87836488be746fed425b4",
+    "src/lcats/utils/tokenizer_test_utils.py": "c526dae31d5ff193a64200b7336616f7e599ad371798b5bd1c9e1bbbb8ab35da",
+    "src/lcats/utils/values.py": "1c62d466f50f7154b5a5f4cbe0e4daabb90bd1c3736ea17ff59621aed86afda5",
+    "src/lcats/version.py": "a2da55407cf85b7103bc099f8839ed24a09122660108e065175f63329c814e4f",
+    "src/lcats/visualize/__init__.py": "b9d1040d7084b7ee3b2de1570c963260b1dd571e1b83e74426ad563ec607847b",
+    "src/lcats/visualize/analysis.py": "cb2d89d00a960fb7e5a1f61c409f9b77d161c89dc15a1d000fcf2efab262770c",
+    "src/lcats/visualize/cli.py": "070c8d7fb7f1a7a79c4299237fc9d862efa2eb578d72bd780d2dc16837b37562",
+    "src/lcats/visualize/comparison.py": "82414e40535a8bc45918927b5ad80bc670bfce1f200835ed4e6a7a4f0c8a7d46",
+    "src/lcats/visualize/nway_outputs.py": "8d3af56f7f555075093484db7992226a635471d601d33e6777f82a906a0115eb",
+    "src/lcats/visualize/rendering.py": "5d32e0b834aceb5021223a1c8963b43f3eb67d4349981c168807cfb6d81de75d",
+    "src/lcats/visualize/sources.py": "67b6fbde093a7c62adfb614ef684a8f177522b28a68bd14bfd21b5964d0e9996"
+  },
+  "rows": [
+    {
+      "id": 61198,
+      "titles": [
+        "Aide Memoire"
+      ],
+      "source_utf8_sha256": "351c3806f722445b457f44dfe067852778e49559a069a17806c47aea289d3bb2",
+      "body_sha256": "148f8dbc9638b031b39e15c665cfdb7c93c912ad7c37e6b65edd4e3b551d1aad",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "explicit_sections",
+      "coordinator_observation": "II, III and IV divide narrative scenes. Retaining all sections exposes a genuine multi-section work.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 30,
+          "text": "\n                                  II",
+          "text_truncated": false,
+          "previous_context": "\"I've studied them,\" said Retief. \"And before I meet any of the local\nyouth socially I want to get myself a good blackjack.\"",
+          "following_context": "Retief left the sprawling bungalow-type building that housed the\nchancery of the Terrestrial Embassy, swung aboard a passing flat-car\nand leaned back against the wooden guard rail as the heavy vehicle"
+        },
+        {
+          "index": 114,
+          "text": "\n                                  III",
+          "text_truncated": false,
+          "previous_context": "\"We'd better follow this up first, Whonk. There's only one substance I\nknow of that's transported in drums and smells like that blot on the\nfloor. That's titanite: the hottest explosive this side of a",
+          "following_context": "Beta was setting as Retief, Whonk puffing at his heels, came up to the\nsentry box beside the gangway leading to the plush interior of the\nofficial luxury space barge _Moss Rock_."
+        },
+        {
+          "index": 184,
+          "text": "\n                                  IV",
+          "text_truncated": false,
+          "previous_context": "\"You know me, Slock,\" said Retief loudly. \"An old fellow named Whonk\ntold you about me, just before you tried to saw his head off, remember?\nIt was when I came out to take a look at that battle cruise",
+          "following_context": "With a bellow Slock reached for Retief--and choked off in mid-cry as\nthe Fustian elder, Whonk, pinioned him from behind, lifting him clear\nof the floor."
+        }
+      ]
+    },
+    {
+      "id": 63009,
+      "titles": [
+        "Araminta and the Automobile"
+      ],
+      "source_utf8_sha256": "7d50b94ce5f41d4fffa0827e27f53d890a3b70c98e7fe9d66d7c73cbed20cbc8",
+      "body_sha256": "dbbe996630350ad5c3f7d052e17f5d7596c8e35b7593cbae4aaa539dacd0bb9e",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "multiple_works",
+      "coordinator_observation": "The source contents lists Araminta and the Automobile and further separately titled works.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 6,
+          "text": "ARAMINTA AND THE AUTOMOBILE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n[Illustration: Thornton, gesticulating wildly, disappeared round the\ncorner]"
+        },
+        {
+          "index": 8,
+          "text": "\nARAMINTA AND THE AUTOMOBILE",
+          "text_truncated": false,
+          "previous_context": "\n[Illustration: Thornton, gesticulating wildly, disappeared round the\ncorner]",
+          "following_context": "by"
+        },
+        {
+          "index": 10,
+          "text": "CHARLES BATTELL LOOMIS",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": "With Illustrations by Otto Lang"
+        },
+        {
+          "index": 30,
+          "text": "                                                 CHARLES BATTELL LOOMIS.",
+          "text_truncated": false,
+          "previous_context": "Readers, need I tell you who that poor writer was? The poor boy who in\n1865 had never even seen an automobile stands before you, and his name\nis",
+          "following_context": ""
+        },
+        {
+          "index": 32,
+          "text": "\nCONTENTS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n                                    PAGE"
+        },
+        {
+          "index": 45,
+          "text": "\n  ARAMINTA\n  AND THE AUTOMOBILE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 47,
+          "text": "\nARAMINTA\nAND THE AUTOMOBILE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nSome persons spend their surplus on works of art; some spend it on\nItalian gardens and pergolas; there are those who sink it in golf, and\nI have heard of those who expended it on charity."
+        }
+      ]
+    },
+    {
+      "id": 6218,
+      "titles": [
+        "At the Sign of the Eagle"
+      ],
+      "source_utf8_sha256": "3ec5f32b13fadc53efe76eedec6a046c915a7a5dc17573bec24d3c86deb7e64a",
+      "body_sha256": "7f2635db6c5aa9cf9b22a6587fb1e7ba06539defddd59c099f074304812676c3",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 3,
+          "text": "AT THE SIGN OF THE EAGLE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "By Gilbert Parker"
+        },
+        {
+          "index": 4,
+          "text": "By Gilbert Parker",
+          "text_truncated": false,
+          "previous_context": "AT THE SIGN OF THE EAGLE",
+          "following_context": ""
+        },
+        {
+          "index": 116,
+          "text": "II",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "Lady Lawless was an admirable hostess, and she never appeared to better\nadvantage in the character than during the time when Miss Gracia Raglan,\nMr. John Vandewaters, and Mr. Stephen Pride were guests"
+        }
+      ]
+    },
+    {
+      "id": 24724,
+      "titles": [
+        "Beyond the Marshes"
+      ],
+      "source_utf8_sha256": "57b8ff0c31f56df05b7e468dbd0dae66e6107d1faa360183f0a14f6e2bc24493",
+      "body_sha256": "2b7171528fc91a97b591edff92ad9ff1f376d33853ab998061091ea2eba93a10",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 2,
+          "text": "BEYOND THE MARSHES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "by"
+        },
+        {
+          "index": 4,
+          "text": "RALPH CONNOR",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": "Author of \"Black Rock\" and \"The Sky Pilot\""
+        },
+        {
+          "index": 14,
+          "text": "ISHBEL ABERDEEN",
+          "text_truncated": false,
+          "previous_context": "And this sweet prairie idyll is surely one of those fragrant messages\nwhich lays its hold on us as we pause for a moment in the midst of our\nfevered lives and anxious thoughts, and step across the thr",
+          "following_context": "\n[Transcriber's note: \"ISHBEL\" is correct.  It is not \"ISABEL\",\nmisspelled.]"
+        },
+        {
+          "index": 17,
+          "text": "\nBEYOND THE MARSHES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nThe missionary of the Bonjour field found me standing bag in hand upon\nthe railway platform watching my train steam away to the east.  He is\nglad to see me.  I am of his own kind, and there are so fe"
+        }
+      ]
+    },
+    {
+      "id": 31964,
+      "titles": [
+        "Brknk's Bounty"
+      ],
+      "source_utf8_sha256": "ca77cbd9adf61d7687069b1c03d4022921278ad93f1372122db24d6c955413b5",
+      "body_sha256": "a25b66f1a82de7f6482ec770e07a04a260f1daa053c30c1c17895434f1a31255",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 2,
+          "text": "\n                            BRKNK'S BOUNTY",
+          "text_truncated": false,
+          "previous_context": "    This etext was produced from Galaxy Science Fiction January 1955.\n    Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed.",
+          "following_context": "\n                                  By"
+        },
+        {
+          "index": 4,
+          "text": "                              JERRY SOHL",
+          "text_truncated": false,
+          "previous_context": "\n                                  By",
+          "following_context": "\n                        Illustrated by KOSSIN"
+        },
+        {
+          "index": 173,
+          "text": "                                                        --JERRY SOHL",
+          "text_truncated": false,
+          "previous_context": "Some day I'll go and vibrate my tail right in his face. I'd never\namount to anything, eh? Let's see _him_ grow a tail!",
+          "following_context": "       *       *       *       *       *"
+        }
+      ]
+    },
+    {
+      "id": 64292,
+      "titles": [
+        "Bunzo Farewell"
+      ],
+      "source_utf8_sha256": "4258534eadaa77ad77e67dc731914f784597c8829250358b4884cf61b2bf21e5",
+      "body_sha256": "2ee3e72cd1bd0ad8481e7201597c8c331df67ad4ffdb4a84bf483f8fa1e65bde",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "explicit_sections",
+      "coordinator_observation": "II through V divide narrative scenes.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 52,
+          "text": "\n                                  II",
+          "text_truncated": false,
+          "previous_context": "\"Welcome to our fair city,\" a voice said, and Tang spun halfway around.",
+          "following_context": "Tang pulled his sidearm part way out before he noted that the man\nstanding in the doorway of one of the huts was unarmed. He was also\nshoeless and bare to the waist. Sweat ran down the blond hairs on "
+        },
+        {
+          "index": 95,
+          "text": "\n                                  III",
+          "text_truncated": false,
+          "previous_context": "Tang nodded.",
+          "following_context": "That night Tang slept with a guarded alertness. It was a part of him,\nwhich he could turn on and off, as the occasion demanded. Six hours\nafter he dropped off to sleep he awoke, with all his senses al"
+        },
+        {
+          "index": 156,
+          "text": "\n                                  IV",
+          "text_truncated": false,
+          "previous_context": "For the time it took him to draw two deep breaths Lutscher seemed half\nconvinced. Then, \"I'm sure you're wrong,\" he said, but there was an\nexcitement in his voice: The kind of excitement that pleased ",
+          "following_context": "The next day Lutscher was missing."
+        },
+        {
+          "index": 195,
+          "text": "\n                                   V",
+          "text_truncated": false,
+          "previous_context": "Now for the final step. He went inside and buckled on his sidearm.",
+          "following_context": "Suddenly the clober squirmed in his arms and a chaos of mad,\nslobbering, disconnected thoughts washed against Tang's mind and\nstaggered it with their very morbidity and black, hopeless fear."
+        }
+      ]
+    },
+    {
+      "id": 27612,
+      "titles": [
+        "Christmas Eve at Swamp's End"
+      ],
+      "source_utf8_sha256": "8eb6fc5e111d75c128badb37011fd96a101ee7d6c78902852ff595bb7e4a582a",
+      "body_sha256": "c30988c1ec8a78f020f515df9909e9efc3f35325c573462fd4b8ddd4a6be8e72",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "editorial_false_positive",
+      "coordinator_observation": "A wrapped title fragment and publisher are counted alongside the narrative exclamation THE BABY!; these are not three chapter headings.",
+      "disposition": "unresolved_false_positive",
+      "paragraphs": [
+        {
+          "index": 6,
+          "text": "\n  CHRISTMAS\n  EVE\n  at\n  SWAMP'S\n  END",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n  NORMAN DUNCAN"
+        },
+        {
+          "index": 7,
+          "text": "\n  NORMAN DUNCAN",
+          "text_truncated": false,
+          "previous_context": "\n  CHRISTMAS\n  EVE\n  at\n  SWAMP'S\n  END",
+          "following_context": "[Illustration: \"Make of this child, a Man\"]"
+        },
+        {
+          "index": 10,
+          "text": "\n  CHRISTMAS EVE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "  at SWAMP'S END"
+        },
+        {
+          "index": 15,
+          "text": "\n  FLEMING H REVELL COMPANY",
+          "text_truncated": false,
+          "previous_context": "\n  [Illustration]",
+          "following_context": "  Copyright, 1911-1915\n  FLEMING H. REVELL COMPANY"
+        },
+        {
+          "index": 111,
+          "text": "\n_CHRISTMAS EVE AT SWAMP'S END_",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nAs for poor little Pattie Batch, all this while, she sat alone, a\ndoleful heart, in the shack at the edge of the big, black woods, quite\nunaware of the momentous advent of a Christmas baby at Swamp's"
+        },
+        {
+          "index": 149,
+          "text": "THE BABY!",
+          "text_truncated": false,
+          "previous_context": "John Fairmeadow threw back the blanket in a most dramatic fashion; and\nthere, wrapped in the neglected fawn-skin cloak, all dimpled and\nsmiling, lay--",
+          "following_context": "\"By George!\" screamed Pattie Batch; \"it _ith_ a baby!\""
+        }
+      ]
+    },
+    {
+      "id": 29632,
+      "titles": [
+        "Competition"
+      ],
+      "source_utf8_sha256": "bc48f916d0a787a4b7d41bdd2aea4e867a21068f80e28f84296fd6e2bd780e3c",
+      "body_sha256": "aac5ecb13b9439a581e02ba82d80591c5e47660e0ee49e80fc7cc741c12a0aca",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "\nGRETA",
+          "text_truncated": false,
+          "previous_context": "_They would learn what caused\n the murderous disease--if it\n was the last thing they did!_",
+          "following_context": "_January 18, Earth Time_"
+        },
+        {
+          "index": 167,
+          "text": "MAX",
+          "text_truncated": false,
+          "previous_context": "       *       *       *       *       *",
+          "following_context": "_March 13_"
+        },
+        {
+          "index": 180,
+          "text": "                                                        --JAMES CAUSEY",
+          "text_truncated": false,
+          "previous_context": "He sees the scalpel, by the microscope. Now his fingers are inching\ntoward it. Treacherous beast. I'm stronger. If he tries to amputate ...",
+          "following_context": ""
+        }
+      ]
+    },
+    {
+      "id": 33790,
+      "titles": [
+        "Delayed Action"
+      ],
+      "source_utf8_sha256": "82d8cbc90adf62548b1561e2afcf64f695661726e45fcc53038aa76dcd98595b",
+      "body_sha256": "325614b576fa74dd3f9d4899bc52138c6db86ec55063ba535e6a229ad90b2474",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 4,
+          "text": "\n                            DELAYED ACTION",
+          "text_truncated": false,
+          "previous_context": "\n                          [Illustration]",
+          "following_context": "\n                         By CHARLES V. DeVET"
+        },
+        {
+          "index": 5,
+          "text": "\n                         By CHARLES V. DeVET",
+          "text_truncated": false,
+          "previous_context": "\n                            DELAYED ACTION",
+          "following_context": "\n                     Illustrated by DICK FRANCIS"
+        },
+        {
+          "index": 116,
+          "text": "                         DONALD H. JOHNSON",
+          "text_truncated": false,
+          "previous_context": "When they reached one of the few three-story structures in the city,\nJohnson dismissed their guard. They entered the building and walked\ndown a short corridor and through a door lettered:",
+          "following_context": "                         District Manager"
+        },
+        {
+          "index": 196,
+          "text": "                                                     --CHARLES V. DE VET",
+          "text_truncated": false,
+          "previous_context": "     _This has been written for my own information. My name is\n     Alton Hawkes. I have robbed the Interplanets Company and\n     gone out on the Strip with the money. When I read this my\n     memory ",
+          "following_context": "       *       *       *       *       *"
+        }
+      ]
+    },
+    {
+      "id": 27709,
+      "titles": [
+        "Five O'Clock Tea: Farce"
+      ],
+      "source_utf8_sha256": "b35e401fe094b72a57051ab15fdd1a77d50f1e2db505b45c6a69bb16a47fde83",
+      "body_sha256": "8e695cafd0ea164529676b75e97c17a34c1b7977bcf15a6e71269559d4fe9da8",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "explicit_sections",
+      "coordinator_observation": "The farce has numbered scenes and cast lists; the full source is structurally divided.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 7,
+          "text": "\nFIVE O'CLOCK TEA",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "HARPER'S BLACK & WHITE SERIES"
+        },
+        {
+          "index": 11,
+          "text": "\n    FIVE O'CLOCK TEA",
+          "text_truncated": false,
+          "previous_context": "\n[Illustration: \"'WILL YOU ANSWER MY QUESTION, AMY?'\"]",
+          "following_context": "    Farce"
+        },
+        {
+          "index": 12,
+          "text": "    Farce",
+          "text_truncated": false,
+          "previous_context": "\n    FIVE O'CLOCK TEA",
+          "following_context": "    BY\n    W. D. HOWELLS"
+        },
+        {
+          "index": 19,
+          "text": "\nILLUSTRATIONS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "    \"'WILL YOU ANSWER MY QUESTION, AMY?'\"            _Frontispiece_"
+        },
+        {
+          "index": 23,
+          "text": "\nFIVE O'CLOCK TEA",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "I"
+        },
+        {
+          "index": 24,
+          "text": "I",
+          "text_truncated": false,
+          "previous_context": "\nFIVE O'CLOCK TEA",
+          "following_context": "_MRS. SOMERS; MR. WILLIS CAMPBELL_"
+        },
+        {
+          "index": 101,
+          "text": "\nII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MR. BEMIS; MRS. SOMERS; MR. WILLIS CAMPBELL_"
+        },
+        {
+          "index": 136,
+          "text": "\nIII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MR. and MRS. ROBERTS and the OTHERS_"
+        },
+        {
+          "index": 167,
+          "text": "\nIV",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MRS. CURWEN and the OTHERS_"
+        },
+        {
+          "index": 184,
+          "text": "\nV",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_DR. LAWTON, MR. and MRS. MILLER, YOUNG MR. and MRS. BEMIS,\nand the OTHERS_"
+        },
+        {
+          "index": 190,
+          "text": "\nVI",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MRS. CRASHAW and the OTHERS_"
+        },
+        {
+          "index": 235,
+          "text": "\nVII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MRS. CANFIELD, MISS BAYLY, MRS. WHARTON, and the OTHERS_"
+        },
+        {
+          "index": 346,
+          "text": "\nXI",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MR. CAMPBELL and the OTHERS_"
+        },
+        {
+          "index": 369,
+          "text": "\nXII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "_MRS. SOMERS and the OTHERS_"
+        },
+        {
+          "index": 421,
+          "text": "\nBY WILLIAM DEAN HOWELLS.",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n    THE COAST OF BOHEMIA. Illustrated. 12mo, Cloth, $1 50."
+        }
+      ]
+    },
+    {
+      "id": 70391,
+      "titles": [
+        "Martians, keep out!"
+      ],
+      "source_utf8_sha256": "dc5aa16d19b61501105d85f225bac271acf46eb15a7db9eec96abed4d14bf5f9",
+      "body_sha256": "f165689834c7c4ec18dc7f9f714cf792dac3ead9dc7ce454fe1a72b121c3af65",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "editorial_false_positive",
+      "coordinator_observation": "A POWERFUL NOVELET is an opening label; THAT MEANS YOU, BUG! and MARTIANS INSIDE are signs within the narrative.",
+      "disposition": "unresolved_false_positive",
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "A POWERFUL NOVELET",
+          "text_truncated": false,
+          "previous_context": "A POWERFUL NOVELET",
+          "following_context": "                         By Fritz Leiber, Jr."
+        },
+        {
+          "index": 6,
+          "text": "                         THAT MEANS YOU, BUG!",
+          "text_truncated": false,
+          "previous_context": "\nAnd as if that sign weren't enough, someone with a red spray pencil had\nadded",
+          "following_context": "The stiff, black-shelled form, impaled on a spike beside the\ntrafficway, with gummy beads of blue blood glistening in the sun, told\nthe pretty little story much more graphically."
+        },
+        {
+          "index": 73,
+          "text": "                            MARTIANS INSIDE",
+          "text_truncated": false,
+          "previous_context": "After getting out the late news flashes, Click-Click and his three\ncompatriots retired to the refrigerated vacuum tank which had been\nthe truck's chief freight. Scat and Len were in the office having\n",
+          "following_context": "\"Calling you. Calling you,\" came the sweetish feminine sing-song from\nthe talk-see on the desk. The button blinked red but the screen didn't\ncome on. Len pushed the lever, but the screen stayed black."
+        }
+      ]
+    },
+    {
+      "id": 44319,
+      "titles": [
+        "Miss Heck's Thanksgiving Party; or, Topsy Up To Date"
+      ],
+      "source_utf8_sha256": "caa9e448191bfe9436a57f6ab69364e90b99550cbc353e3618e4ca5c13658d36",
+      "body_sha256": "fd68a1142115e48f23eac63de54e0789caa864db4d62a33c975a8f7b93752e58",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 3,
+          "text": "    IDA HAMILTON MUNSELL.",
+          "text_truncated": false,
+          "previous_context": "    By",
+          "following_context": "[Illustration]"
+        },
+        {
+          "index": 15,
+          "text": "\nMISS HECK'S THANKSGIVING PARTY;",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "    or, TOPSY\n    UP TO DATE"
+        },
+        {
+          "index": 17,
+          "text": "\nIDA HAMILTON MUNSELL, B. M.",
+          "text_truncated": false,
+          "previous_context": "    or, TOPSY\n    UP TO DATE",
+          "following_context": "\nAny person with but half an eye could recognize at a glance the\nextraordinary character of Miss Myra Heck! And furthermore, if\nnovelists did not show such decided preferences for white-skinned\nheroin"
+        }
+      ]
+    },
+    {
+      "id": 63028,
+      "titles": [
+        "Reinstern"
+      ],
+      "source_utf8_sha256": "4eecd7b30baea10864e17368ff4f5fec741753c1910afebbf153c54a751f85d7",
+      "body_sha256": "7bc386fb45a85e49127820fd805c030a537f764fc1306034ff993a75539fd131",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "multiple_works",
+      "coordinator_observation": "The contents lists REINSTERN and LOVE\u2019S DESTINY, both present in the source. The transcriber also says the contents was added.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 4,
+          "text": "\n                               REINSTERN",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n[Illustration]"
+        },
+        {
+          "index": 14,
+          "text": "\n                                CONTENTS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n                             REINSTERN\n                             LOVE\u2019S DESTINY"
+        },
+        {
+          "index": 17,
+          "text": "\n                              _REINSTERN._",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nOn, and on, and on! For interminable hours had we been rushing headlong\nover yellowish-brown plains, punctuated here and there by willow-fringed\nstreams; past huge water-tanks standing guard over dre"
+        },
+        {
+          "index": 203,
+          "text": "\n                          TRANSCRIBER\u2019S NOTES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n 1. Table of Contents added by transcriber.\n 2. Silently corrected typographical errors and variations in spelling.\n 3. Archaic, non-standard, and uncertain spellings retained as printed.\n 4. Enclose"
+        }
+      ]
+    },
+    {
+      "id": 61353,
+      "titles": [
+        "Saline Solution"
+      ],
+      "source_utf8_sha256": "a55e8ec3c4d5e2d3a138aac68849fbc197c9f15bfe3eb1ebc95a95c52c450619",
+      "body_sha256": "fd0edc2296db257cb53941f220962734bde6b02f9530ac5a0b5eb89b23264fe6",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "explicit_sections",
+      "coordinator_observation": "I and III explicitly divide narrative passages; this observation does not infer a missing section II.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 2,
+          "text": "\n                                   I",
+          "text_truncated": false,
+          "previous_context": "           [Transcriber's Note: This etext was produced from\n               Worlds of If Science Fiction, March 1963.\n         Extensive research did not uncover any evidence that\n         the U.S. co",
+          "following_context": "Consul-General Magnan gingerly fingered the heavily rubber-banded sheaf\nof dog-eared documents. \"I haven't rushed into precipitate action on\nthis claim, Retief,\" he said. \"The Consulate has grave resp"
+        },
+        {
+          "index": 147,
+          "text": "\n                                  III",
+          "text_truncated": false,
+          "previous_context": "The two men descended in the lift to the boat bay, suited up and\nstrapped into the cramped boat. A bored attendant cycled the launch\ndoors, levered the release that propelled the skiff out and clear o",
+          "following_context": "Retief's feet sank ankle deep into the powdery surface that glinted\nlike snow in the glare of the distant sun."
+        }
+      ]
+    },
+    {
+      "id": 59724,
+      "titles": [
+        "The Baritone's Parish; or, \"All Things to All Men\""
+      ],
+      "source_utf8_sha256": "665b1965aac2d305454ac0e15c7b7009744b18976f249a50458b9b612a8a6094",
+      "body_sha256": "95cec19959fb1b1e3d81b75650d7fcbdc9af792e610ec114c78646ac735392ab",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "editorial_false_positive",
+      "coordinator_observation": "The counted headings are advertisements for other books, before the narrative.",
+      "disposition": "unresolved_false_positive",
+      "paragraphs": [
+        {
+          "index": 21,
+          "text": "\nTHE CAPTAIN OF THE JANIZARIES.",
+          "text_truncated": false,
+          "previous_context": "\n  BOOKS BY\n  JAMES M. LUDLOW,\n  D.D., Litt.D.",
+          "following_context": "A Story of the Times of Scanderbey, and the Fall of Constantinople."
+        },
+        {
+          "index": 23,
+          "text": "\nA KING OF TYRE.",
+          "text_truncated": false,
+          "previous_context": "A Story of the Times of Scanderbey, and the Fall of Constantinople.",
+          "following_context": "Contrasted Scenes of Jewish and Phoenician Life, 400 B.C., woven into\nromance."
+        },
+        {
+          "index": 25,
+          "text": "\nTHAT ANGELIC WOMAN.",
+          "text_truncated": false,
+          "previous_context": "Contrasted Scenes of Jewish and Phoenician Life, 400 B.C., woven into\nromance.",
+          "following_context": "A Story from High Life To-day."
+        },
+        {
+          "index": 29,
+          "text": "\nTHE AGE OF THE CRUSADES.",
+          "text_truncated": false,
+          "previous_context": "A Story of City Life among the Lowly.",
+          "following_context": "Life in the XI. and XII. Centuries.  _In preparation_."
+        },
+        {
+          "index": 32,
+          "text": "\n  THE BARITONE'S PARISH; OR,\n  \"ALL THINGS TO ALL MEN\"",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        }
+      ]
+    },
+    {
+      "id": 44327,
+      "titles": [
+        "The Beggar's Purse: A Fairy Tale of Familiar Finance"
+      ],
+      "source_utf8_sha256": "cf3ce6ed040942f132e3ec352ebb466a567707e8d76fcf071307858f95d42d85",
+      "body_sha256": "2140129391199e328af9cc4053cdd34dfec3a04f7dc97e2390285c5c4a57dd28",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Quote-equivalent complete book titles no longer count as chapter headings. NOTICE remains one weak heading; actual temporary publication succeeds.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "THE BEGGAR\u2019S PURSE",
+          "text_truncated": false,
+          "previous_context": "THE BEGGAR\u2019S PURSE",
+          "following_context": "A Fairy Tale of Familiar Finance"
+        },
+        {
+          "index": 1,
+          "text": "A Fairy Tale of Familiar Finance",
+          "text_truncated": false,
+          "previous_context": "THE BEGGAR\u2019S PURSE",
+          "following_context": "By Samuel Hopkins Adams"
+        },
+        {
+          "index": 2,
+          "text": "By Samuel Hopkins Adams",
+          "text_truncated": false,
+          "previous_context": "A Fairy Tale of Familiar Finance",
+          "following_context": "1918"
+        },
+        {
+          "index": 5,
+          "text": "NOTICE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "IT was our original intention to print and distribute a small number\nof these booklets gratuitously among our Mends with the hope that this\nstory might aid in the sale of War Savings Stamps."
+        },
+        {
+          "index": 17,
+          "text": "\nTHE BEGGAR\u2019S PURSE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nVAN TENNER was a man who pursued his way through life by fixed habits.\nHe lived in Philadelphia. That was one of the habits. He ate regularly,\nslept regularly, rose regularly, worked regularly and we"
+        }
+      ]
+    },
+    {
+      "id": 23153,
+      "titles": [
+        "The Big Bounce"
+      ],
+      "source_utf8_sha256": "a5d13e9c3ed69928274398923b4b03dd477fc0e7363086e139d1ca11f1de3ed2",
+      "body_sha256": "fb6f52e23e569ec867928faef79041dfc68a3bea029efbac4dc5b35c5ed5ce92",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "THE BIG BOUNCE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "by"
+        },
+        {
+          "index": 7,
+          "text": "WALTER S. TEVIS",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": "_Seeing it in action, anybody would quaver in\nalarm: What hath Farnsworth overwrought?_"
+        },
+        {
+          "index": 130,
+          "text": "    --WALTER S. TEVIS",
+          "text_truncated": false,
+          "previous_context": "We didn't say a word, neither of us, for hours. It takes a long time\nto fill a hole twenty feet deep--especially when you're shoveling\nvery, very carefully and packing down the dirt very, very hard.",
+          "following_context": "\n    +----------------------------------------------------+\n    |Transcriber's Note:                                 |\n    |                                                    |\n    |The spelling of \""
+        }
+      ]
+    },
+    {
+      "id": 69601,
+      "titles": [
+        "The escape of Alice: A Christmas fantasy"
+      ],
+      "source_utf8_sha256": "f284026e1b5379aee22ab4255a09658e1a5a23669ba475c63183b149942e3910",
+      "body_sha256": "093e2bcdd029f69e2678e87a973cc0cb73d19a6815ac3119699940c2fb4ffa26",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 4,
+          "text": "\n                            TO OUR FRIENDS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nIt has been well said, that a friend in need is a friend indeed."
+        },
+        {
+          "index": 10,
+          "text": "                                                          THE BREWERS",
+          "text_truncated": false,
+          "previous_context": "So here it is\u2015\u2015a pleasant Christmas fantasy\u2015\u2015sent to our friends of old\nand to some new ones, with all the best greetings of the season.",
+          "following_context": "December 25 1919"
+        },
+        {
+          "index": 13,
+          "text": "\n                          THE ESCAPE OF ALICE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nThe red linen covers opened slightly, and a little girl slipped out,\nleaving behind her a curious vacancy in one of the familiar pictures\nsigned with Mr. Tenniel\u2019s initials. She looked about her with"
+        }
+      ]
+    },
+    {
+      "id": 28886,
+      "titles": [
+        "The Hickory Limb"
+      ],
+      "source_utf8_sha256": "d5a2f757178a263fc492dc8bf7d5b326e38a74b6398f2b5ba4245fb74353268d",
+      "body_sha256": "14c4fafdbfbbacbb5f73110f8bcebea8aad6182d420133b7145553c529395402",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 4,
+          "text": "\n                        THE HICKORY LIMB",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 7,
+          "text": "                         PARKER FILLMORE",
+          "text_truncated": false,
+          "previous_context": "                               By",
+          "following_context": ""
+        },
+        {
+          "index": 10,
+          "text": "                       ROSE CECIL O'NEILL",
+          "text_truncated": false,
+          "previous_context": "                        Illustrations by",
+          "following_context": ""
+        },
+        {
+          "index": 23,
+          "text": "\nTO MARTHA",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "       *       *       *       *       *"
+        },
+        {
+          "index": 34,
+          "text": "\nTHE HICKORY LIMB",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n     _Mother, may I go out to swim?\n        Yes, my darling daughter;\n      Hang your clothes on a hickory limb,\n        And don't go near the water._"
+        },
+        {
+          "index": 37,
+          "text": "\nTHE HICKORY LIMB",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nGladys Bailey had a parasol in one hand and a card-case in the\nother. From her own wide experience in social usage, she was\ngoing to initiate the twins into the mystery of formal calls. She\nhad told "
+        }
+      ]
+    },
+    {
+      "id": 20838,
+      "titles": [
+        "The Infra-Medians"
+      ],
+      "source_utf8_sha256": "4c7f33f78a939372324b9263969417d8ef966a5e3eba3d66cd0b5f45747a79cf",
+      "body_sha256": "2fd2418dd7ccccd0880268e0776ebd360c8d9d5773b0070ab24ff8bf0ae86f5f",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 7,
+          "text": "THE INFRA-MEDIANS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "by"
+        },
+        {
+          "index": 9,
+          "text": "SEWELL PEASLEE WRIGHT",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": ""
+        },
+        {
+          "index": 72,
+          "text": "                                                            H.",
+          "text_truncated": false,
+          "previous_context": "     Not knowing when you'll arrive, I'm going on ahead. We must\n     give Vic a hand--mustn't we?",
+          "following_context": "\n       *       *       *       *       *"
+        }
+      ]
+    },
+    {
+      "id": 42640,
+      "titles": [
+        "The Last Christmas Tree: An Idyl of Immortality"
+      ],
+      "source_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae",
+      "body_sha256": "60793dd801378d69f615b2b9c18aed5c286ad7be0b5fc4d0e99f4ed2e60f0251",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "\nTHE LAST CHRISTMAS TREE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nIn a somewhat different and in a much briefer form _The Last Christmas\nTree_ appeared several years ago in _The Saturday Evening Post_."
+        },
+        {
+          "index": 8,
+          "text": "\nTHE LAST CHRISTMAS TREE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nLife on this earth, my children, means warmth. Do not forget that:\nwhatever else it may be, life as we know it is warmth. Every living\nearthly thing is on fire and every fire is perpetually going out"
+        },
+        {
+          "index": 14,
+          "text": "                 HIC JACET TERRA.",
+          "text_truncated": false,
+          "previous_context": "No human eye beheld it: there was to be no human eye for untold ages\nyet. But there was one who saw, one who was present, one who had\nbrought it to pass--Time; and now that the first white spot was\npr",
+          "following_context": "Since the unknown day of the first unknown snowbank, the earth has\nmade no revolution, has not once turned over from side to side without\nkeeping undeviatingly in the straight road toward the fulfilme"
+        }
+      ]
+    },
+    {
+      "id": 32769,
+      "titles": [
+        "The Last Generation: A Story of the Future"
+      ],
+      "source_utf8_sha256": "0ea3ff365a04ed736a0ab761fc70ef2a6d3dca90762549871561251ceda8263b",
+      "body_sha256": "2302ff45e032f9d63dd313c055e20b87c531fc36f8d15509c78edbaa471d15c3",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "explicit_sections",
+      "coordinator_observation": "Contents and numbered sections are present; separate end advertisements also contribute weak headings.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "                         THE LAST GENERATION",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 12,
+          "text": "\n                         THE LAST GENERATION",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "                        A STORY OF THE FUTURE"
+        },
+        {
+          "index": 13,
+          "text": "                        A STORY OF THE FUTURE",
+          "text_truncated": false,
+          "previous_context": "\n                         THE LAST GENERATION",
+          "following_context": "                                  BY\n                         JAMES ELROY FLECKER"
+        },
+        {
+          "index": 14,
+          "text": "                                  BY\n                         JAMES ELROY FLECKER",
+          "text_truncated": false,
+          "previous_context": "                        A STORY OF THE FUTURE",
+          "following_context": "           _El hombre es el rey de la creacion_; _vive_ (he\n       lives) _en la tierra y cree_ (he believes) _en el cielo_"
+        },
+        {
+          "index": 25,
+          "text": "\nCONTENTS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n                                        PAGE\n       INTRODUCTION                        9\n    I. AT BIRMINGHAM TOWN HALL            13\n   II. THE PROCLAMATION                   17\n  III. THE MUTUAL E"
+        },
+        {
+          "index": 28,
+          "text": "\nTHE LAST GENERATION",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "INTRODUCTION"
+        },
+        {
+          "index": 41,
+          "text": "\nI",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "AT BIRMINGHAM TOWN HALL"
+        },
+        {
+          "index": 51,
+          "text": "\nII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "THE PROCLAMATION"
+        },
+        {
+          "index": 59,
+          "text": "\nIII",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "THE MUTUAL EXTERMINATION CLUB"
+        },
+        {
+          "index": 154,
+          "text": "\nBALLANTYNE PRESS: EDINBURGH",
+          "text_truncated": false,
+          "previous_context": "One of them was building a fire with sticks.",
+          "following_context": ""
+        },
+        {
+          "index": 167,
+          "text": "BY THE SAME AUTHOR",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "Crown 8vo. Daintily bound in 1/4-Canvas, Gilt, 1s. 6d. net."
+        },
+        {
+          "index": 190,
+          "text": "BY THE SAME AUTHOR",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "    Canvas, Gilt, 2s. 6d. net.\n    #GIFT OF THE NIGHT# (POEMS)."
+        },
+        {
+          "index": 265,
+          "text": "\nTHE NEW AGE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n    A Weekly Review of Politics, Literature and Art"
+        },
+        {
+          "index": 267,
+          "text": "    EDITED BY A. R. ORAGE",
+          "text_truncated": false,
+          "previous_context": "\n    A Weekly Review of Politics, Literature and Art",
+          "following_context": "    _Every Thursday_                     _ONE PENNY_"
+        }
+      ]
+    },
+    {
+      "id": 67732,
+      "titles": [
+        "The Overman"
+      ],
+      "source_utf8_sha256": "a0bf507ef291d447fa9c9728f3a3a268102030cc4e0d264540258945cac52333",
+      "body_sha256": "fb05522bf67b960670dcd8ff888052c408a4ed0e9d74a37fdd65dd93472b40c5",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 0,
+          "text": "BY THE SAME AUTHOR",
+          "text_truncated": false,
+          "previous_context": "BY THE SAME AUTHOR",
+          "following_context": "                        The Industrial Republic\n                               The Jungle\n                               King Midas\n                                Manassas\n                           "
+        },
+        {
+          "index": 4,
+          "text": "\n                              The Overman",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n                                   By\n                             UPTON SINCLAIR"
+        },
+        {
+          "index": 5,
+          "text": "\n                                   By\n                             UPTON SINCLAIR",
+          "text_truncated": false,
+          "previous_context": "\n                              The Overman",
+          "following_context": "                          _WITH FRONTISPIECE_"
+        },
+        {
+          "index": 14,
+          "text": "\n                              THE OVERMAN",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 16,
+          "text": "\n                             _The Overman_",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nThis is the story of Edward \u2014\u2014, as he told it to me only a few days\nbefore he died; he told it as he lay half paralysed, and knowing that\nthe hand of death was upon him."
+        },
+        {
+          "index": 239,
+          "text": "\n                          TRANSCRIBER\u2019S NOTES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n 1. Silently corrected obvious typographical errors and variations in\n      spelling.\n 2. Retained archaic, non-standard, and uncertain spellings as printed.\n 3. Enclosed italics font in _underscores"
+        }
+      ]
+    },
+    {
+      "id": 24783,
+      "titles": [
+        "The Pirate's Pocket Book"
+      ],
+      "source_utf8_sha256": "3b5ca78643cc6c6bcd1935b2e1c76f285c640eea8464a0d20e48dd562a3a38f9",
+      "body_sha256": "979fc6f9c4c2c53ebf24c8a4993f1f98a8fc3c3c8ae4e3a77ec0f77c28e2113b",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "THE PIRATE'S POCKET BOOK",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "by"
+        },
+        {
+          "index": 7,
+          "text": "DION CLAYTON CALTHROP",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": ""
+        },
+        {
+          "index": 17,
+          "text": "\nTHE\nPIRATE'S POCKET BOOK",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "THIS book you hold in your hand belonged once to a very celebrated\nPirate."
+        }
+      ]
+    },
+    {
+      "id": 39216,
+      "titles": [
+        "The Snowball"
+      ],
+      "source_utf8_sha256": "8f457a545a88596bbd75385295ce292273ca775f7a9e67247c233a7c6a6b8f18",
+      "body_sha256": "06deb18d17b4c4379f3ebe8f0029e2c2c3112f5d5c5a8c83aca18f1f97380303",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "editorial_false_positive",
+      "coordinator_observation": "Roman-numbered entries occur in an advertisement for unrelated books. Illustration/publisher labels are also counted.",
+      "disposition": "unresolved_false_positive",
+      "paragraphs": [
+        {
+          "index": 13,
+          "text": "\n                             THE SNOWBALL",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 19,
+          "text": "\n                             ILLUSTRATED",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 28,
+          "text": "\n                        LIST OF ILLUSTRATIONS.",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "                              *   *   *"
+        },
+        {
+          "index": 44,
+          "text": "      I.--A Man and His Model. By Anthony Hope.",
+          "text_truncated": false,
+          "previous_context": "\n     No. 6",
+          "following_context": "     II.--The Body-Snatcher. By Robert Louis Stevenson."
+        },
+        {
+          "index": 45,
+          "text": "     II.--The Body-Snatcher. By Robert Louis Stevenson.",
+          "text_truncated": false,
+          "previous_context": "      I.--A Man and His Model. By Anthony Hope.",
+          "following_context": "    III.--The Silence of the Maharajah. By Marie Corelli."
+        },
+        {
+          "index": 46,
+          "text": "    III.--The Silence of the Maharajah. By Marie Corelli.",
+          "text_truncated": false,
+          "previous_context": "     II.--The Body-Snatcher. By Robert Louis Stevenson.",
+          "following_context": "     IV.--Some Good Intentions and a Blunder."
+        },
+        {
+          "index": 52,
+          "text": "                         THE MERRIAM COMPANY",
+          "text_truncated": false,
+          "previous_context": "       _For sale by all booksellers, or will be sent post-paid\n                      upon receipt of price by_",
+          "following_context": "                     _Publishers and Booksellers_"
+        },
+        {
+          "index": 57,
+          "text": "\n                            THE SNOWBALL.",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nThe slight indisposition from which the Queen suffered in the spring\nof 1602, and which was occasioned by a cold caught during her\nlying-in, by diverting the King's attention from matters of State, h"
+        }
+      ]
+    },
+    {
+      "id": 61577,
+      "titles": [
+        "The Tahquitch Maiden: A Tale of the San Jacintos"
+      ],
+      "source_utf8_sha256": "6c12752b645787f958cec9cbf3f03ef3fef024a32432c299a1c8fad134bb4c42",
+      "body_sha256": "30e1fc96828cfd7a2eb5e7ad9afca5487b643249737dde921588ea45f718aed7",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 8,
+          "text": "\nTHE TAHQUITCH MAIDEN: A TALE OF THE SAN JACINTOS",
+          "text_truncated": false,
+          "previous_context": "  \u201cFrom behind my stony fortress I look upon the deeds of men.\u201d]",
+          "following_context": "\u201cThe Tribe of My People I\nHave Seen Die, and Their Name Has\nBeen Forgotten. But I Live on\n& Shall Ever Live, Blessed\nwith Enduring Youth\nand Happiness.\u201d"
+        },
+        {
+          "index": 11,
+          "text": "PHEBE ESTELLE SPALDING",
+          "text_truncated": false,
+          "previous_context": "by",
+          "following_context": "\n[Illustration]"
+        },
+        {
+          "index": 22,
+          "text": "\nPREFACE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nTahquitch Mountain is one of the peaks of the celebrated San Jacinto\nrange. Its contour is peculiar, and on its summit is a huge rock\nknown as Tahquitch Rock. The Indians aver that this rock covers t"
+        },
+        {
+          "index": 29,
+          "text": "\nTHE TAHQUITCH MAIDEN",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nIt was a perfect August day in the San Jacinto Mountains. The morning\ndew still lay upon the grass, but the early mists which hover as\nbenedictions over the heated lower plains, were unneeded in the "
+        }
+      ]
+    },
+    {
+      "id": 24936,
+      "titles": [
+        "The Thunders of Silence"
+      ],
+      "source_utf8_sha256": "8b8e28be6f09c81f79bd92b17fee6f66828e770bc74b9c0bdd15f448167adf1c",
+      "body_sha256": "ba3bd345823cd6cbd6a784f706d7285862a4b7747d50d0f3d07ecb52a7893305",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "editorial_false_positive",
+      "coordinator_observation": "Illustration/copyright/page labels are front matter; SILENCE! is a quoted caption in the narrative.",
+      "disposition": "unresolved_false_positive",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "_The Thunders of Silence_",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 17,
+          "text": "\n_The Thunders\nof Silence_",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nBy\n_Irvin S. Cobb_"
+        },
+        {
+          "index": 20,
+          "text": "\nILLUSTRATED",
+          "text_truncated": false,
+          "previous_context": "Author of \"Paths of Glory,\" \"Speaking\nof Prussians----,\" etc.",
+          "following_context": "[Illustration]"
+        },
+        {
+          "index": 25,
+          "text": "\nCOPYRIGHT, 1918,\nBY GEORGE H. DORAN COMPANY",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        },
+        {
+          "index": 31,
+          "text": "                                                             PAGE",
+          "text_truncated": false,
+          "previous_context": "\nThe American people are a mighty patient lot.      _Frontispiece_",
+          "following_context": "The lone wolf wasn't a lone wolf any longer. He had a pack\n  to rally about him                                           16"
+        },
+        {
+          "index": 36,
+          "text": "\n_The Thunders of Silence_",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nSome people said Congressman Mallard had gone mad. These were his\nfriends, striving out of the goodness of their hearts to put the best\nface on what at best was a lamentable situation. Some said he w"
+        },
+        {
+          "index": 109,
+          "text": "               SILENCE!",
+          "text_truncated": false,
+          "previous_context": "Invariably the caption over this paragraph was the one word:",
+          "following_context": "One week later, to the day, the wife of one of the richest men in\nAmerica died of acute pneumonia at her home in Chicago. Practically\nall the daily papers in America carried notices of this lady's dea"
+        }
+      ]
+    },
+    {
+      "id": 58201,
+      "titles": [
+        "The Westminster Alice"
+      ],
+      "source_utf8_sha256": "56ca959c1d080b2a963a6bfc80badd4af026a1dec6b282199d14754a3a435e00",
+      "body_sha256": "44df906589bfdc741b6aeaba96449b7ecb4ff42729f41749cdc5fa50018742d1",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "multiple_works",
+      "coordinator_observation": "The contents lists separately titled Alice episodes; these titles recur in the source.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 5,
+          "text": "\n                                  THE\n                           WESTMINSTER ALICE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "                                  BY\n                       HECTOR H. MUNRO (\u201cSAKI\u201d)"
+        },
+        {
+          "index": 14,
+          "text": "\nCONTENTS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n                                                                    PAGE"
+        },
+        {
+          "index": 31,
+          "text": "\nTHE WESTMINSTER ALICE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": ""
+        }
+      ]
+    },
+    {
+      "id": 32878,
+      "titles": [
+        "Thy Rocks and Rills"
+      ],
+      "source_utf8_sha256": "9a5638e3a2124054b94a26681f354adb3b7f346f6f1b969922720fc5a1c52755",
+      "body_sha256": "ec36bbe5a6bddeed6c3b7603c14f30bda5790e2e36b8da5303f3da1ed6cb4cde",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "named_sections",
+      "coordinator_observation": "PRELUDE through RECESSIONAL divide narrative scenes into six named sections.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 4,
+          "text": "\nPRELUDE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nM. Stonecypher lifted his reed sun hat with the square brim, and used a\nred handkerchief to absorb the perspiration streaking his forehead. He\nsaid, \"The pup'll make a good guard, 'especially for thr"
+        },
+        {
+          "index": 87,
+          "text": "\nINTERMEZZO",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nStonecypher stood on Bay Knob, near the ruins of the old FM transmitter\nstation, looking down at the Tennessee Lakes. Catriona sat behind him\nand held the revolver on her thigh. Stonecypher said, \"I "
+        },
+        {
+          "index": 152,
+          "text": "\nSONATA",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nA short vicious thunderstorm lashed Bays Mountain on the afternoon of\nJuly 3. As the storm passed, a blood-red butterflier, with a pusher\npropeller in the tail and a plastic bull head on the nose, de"
+        },
+        {
+          "index": 183,
+          "text": "\nDANSE MACABRE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nDuelmaster R. Smith adjusted his black tam. \"Do not touch your shooting\nhand to your weapon until the buzzer sounds,\" he instructed. \"Otherwise,\nthe weapon may be carried as you wish. At the slightes"
+        },
+        {
+          "index": 228,
+          "text": "\nGRAND FINALE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nSlowly, Moe came through the doorway. Above, on a platform inside the\nbarrier, stood a gray-haired man who stuck identifying, streamered darts\ninto bovine shoulders. His hand swept down, carrying Sto"
+        },
+        {
+          "index": 263,
+          "text": "\nRECESSIONAL",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nA wind whipped down into Highland Bullring. Riding the wind, blacker\nthan the clouds, the inquisitive turkey buzzard glided over the rim of\nthe stands with air whistling through the spatulate feather"
+        }
+      ]
+    },
+    {
+      "id": 63230,
+      "titles": [
+        "Two Stories"
+      ],
+      "source_utf8_sha256": "7555441a7bc9157ff74a389256cbad7a13c90ef526760d85f326d52d23f56ea7",
+      "body_sha256": "07ebd8a1c1f198fcc4eafea757fd2243150d05d18f44792faba3e8f74bcd219b",
+      "chaptered_without_metadata": true,
+      "chaptered": true,
+      "category": "multiple_works",
+      "coordinator_observation": "CONTENTS shares a paragraph with THREE JEWS and THE MARK ON THE WALL; both works and their separate authors appear in the source.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "TWO STORIES",
+          "text_truncated": false,
+          "previous_context": "PUBLICATION NO. I.",
+          "following_context": "\nWRITTEN AND PRINTED"
+        },
+        {
+          "index": 4,
+          "text": "VIRGINIA WOOLF",
+          "text_truncated": false,
+          "previous_context": "BY",
+          "following_context": "AND"
+        },
+        {
+          "index": 10,
+          "text": "\nCONTENTS\nTHREE JEWS By L. S. WOOLF\nTHE MARK ON THE WALL By VIRGINIA WOOLF",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n[Illustration]"
+        },
+        {
+          "index": 13,
+          "text": "\nTHREE JEWS",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "By"
+        },
+        {
+          "index": 15,
+          "text": "LEONARD WOOLF.",
+          "text_truncated": false,
+          "previous_context": "By",
+          "following_context": "\nIt was a Sunday and the first day of spring, the first day on which one\nfelt at any rate spring in the air. It blew in at my window with its\nwarm breath, with its inevitable little touch of sadness. "
+        },
+        {
+          "index": 94,
+          "text": "\nTHE MARK ON THE WALL",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "By"
+        },
+        {
+          "index": 96,
+          "text": "VIRGINIA WOOLF",
+          "text_truncated": false,
+          "previous_context": "By",
+          "following_context": "\nPerhaps it was the middle of January in the present year that I first\nlooked up and saw the mark on the wall. In order to fix a date it is\nnecessary to remember what one saw. So now I think of the fi"
+        }
+      ]
+    },
+    {
+      "id": 66502,
+      "titles": [
+        "Yellow Butterflies"
+      ],
+      "source_utf8_sha256": "24838750eb2766f805500bd6b8dc96f99d369be4e1b80a21d1176468298b7b84",
+      "body_sha256": "d66964fce6d8295f8ed0df1ab17dde34984a4f85b1ed154035ca4d2635daa9fb",
+      "chaptered_without_metadata": true,
+      "chaptered": false,
+      "category": "metadata_heading_excluded",
+      "coordinator_observation": "Complete catalog title/byline matches no longer contribute weak chapter-heading evidence; body/editorial acceptance remains pending.",
+      "disposition": "classification_supported_body_acceptance_pending",
+      "paragraphs": [
+        {
+          "index": 8,
+          "text": "YELLOW BUTTERFLIES",
+          "text_truncated": false,
+          "previous_context": "CROSSES OF WAR (Poems)",
+          "following_context": "HIS SOUL GOES MARCHING ON"
+        },
+        {
+          "index": 18,
+          "text": "\nYELLOW BUTTERFLIES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\n  BY\n  Mary Raymond Shipman Andrews"
+        },
+        {
+          "index": 19,
+          "text": "\n  BY\n  Mary Raymond Shipman Andrews",
+          "text_truncated": false,
+          "previous_context": "\nYELLOW BUTTERFLIES",
+          "following_context": "\n  \u201cAn Unknown American who\n  gave his life in the World War.\u201d"
+        },
+        {
+          "index": 30,
+          "text": "\nNOTE",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nThroughout this story there are sentences and paragraphs quoted, taken\nbodily from a press account of the coming of the American Unknown\nSoldier. If other sentences or phrases occur for which proper "
+        },
+        {
+          "index": 33,
+          "text": "  MARY RAYMOND SHIPMAN ANDREWS.",
+          "text_truncated": false,
+          "previous_context": "For such borrowed grace the writer offers grateful acknowledgment to\nthe young reporter who, given what is surely the most thrilling episode\nin all history to write about, has made what has been well-",
+          "following_context": ""
+        },
+        {
+          "index": 35,
+          "text": "\nYELLOW BUTTERFLIES",
+          "text_truncated": false,
+          "previous_context": "",
+          "following_context": "\nOut from the door of the house burst the laughing, shouting little lad.\nHe raced across the grass and halted by the tulip-bed; there, with yet\nmore shouts of full-throated baby laughter, he turned to"
+        }
+      ]
+    }
+  ]
+}

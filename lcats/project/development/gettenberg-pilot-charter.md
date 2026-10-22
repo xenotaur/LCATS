@@ -423,3 +423,332 @@ Preserve required checks/triggers, source archives, existing data and credential
 Existing coordinator adapter permits routine repairs and qualified internal
 integration; main promotion, publication, policy changes and native terminal
 closeout remain outside this grant. Finish early when scoped acceptance is met.
+
+## Qualification run grant — 2026-10-18
+
+Human: “Please do another 2-3 hour bounded run, thank you!” Activate WI-GETTENBERG-0010
+from integration ed20e9c297bf5e50e1911b84722e53f5db3edee3. Start05:14:34 UTC,
+target/feature freeze07:14:34, hard stop08:14:34. Normal coordinator plus one
+worker; maximum four concurrent agents, six assignments,45 cumulative worker
+minutes with15 reserved for review,30 minutes per assignment. Existing pilot
+adapters apply; main promotion and terminal closeout remain human gated.
+
+Use the already recorded local archive and cached story sources only. No new
+Gutenberg requests. Isolated temporary experiment outputs:15 GiB maximum, at
+least6 GiB free, one bulk build at a time,900 seconds per new build,512 MiB RSS
+target. A historical build comparison may use at most20 minutes if feasible.
+No production cache deletion, canonical corpus mutation, CI modification,
+publication or persistent-consent changes. Missing qualification stays an explicit
+gap; WI0010's first three acceptance criteria remain prerequisites to integration.
+
+## Corpus narrative-preservation repair grant — 2026-10-18
+
+Human authorized another two-to-three-hour bounded run after the qualification
+checkpoint identified this next repair. Start 08:24:26 UTC (01:24 Pacific),
+target/feature freeze 10:24:26 UTC, hard stop 11:24:26 UTC. Continue PR524 from
+de8c326ad0fab90e8f25c8813057ce2ad1eb4e36; do not merge the unqualified checkpoint.
+Same ceilings: four concurrent agents including coordinator, six assignments,
+45 cumulative worker minutes with 15 reserved for review, maximum 30 per worker.
+No recursive delegation or automatic renewal. Normally use one worker at a time.
+
+Scope: implement the focused gatherer narrative-preservation repair, authored
+regressions, immutable cached-corpus replay and representative actual publication
+into temporary buckets, updated documentation/provenance and fresh wheel evidence.
+Preserve pure conservative cleanup, original cache/corpus and historical reports.
+No new Gutenberg requests, CI changes, canonical corpus mutation, persistent
+policy/consent changes, main promotion or terminal closeout. Keep material
+uncertainty explicit; unresolved acceptance prevents integration. Same isolated
+15 GiB output bound / 6 GiB free minimum. Existing scoped coordinator adapter
+covers routine plan, repair and review decisions without invented human replies.
+
+## Narrative repair continuation — 2026-10-18 morning
+
+Human granted approximately one hour with a 90-minute hard stop. Start15:50:56 UTC
+(08:50:56 Pacific), target/feature freeze16:50:56, hard stop17:20:56 (10:20 Pacific).
+Continue PR524 from335855c04cd7ba936815d2635969d94fdd278c71. Coordinator-led implementation;
+no exploratory worker. At most one independent reviewer at a time, 10 minutes per
+assignment, at most two assignments and20 cumulative worker minutes. No recursive
+delegation. Check time on every tool return during review and at least every five
+minutes otherwise; interrupt a worker at its deadline. Reserve final15 minutes for
+validation/checkpoint. No automatic renewal. Earlier stop on acceptance or blocker.
+
+Same focused narrative-repair scope and prohibitions as the prior grant. Preserve
+original cached inputs/corpus and historical results; no Gutenberg requests, CI
+changes, persistent policy changes, main promotion or terminal closeout. The pilot
+coordinator adapter covers routine planning/repair/review; unresolved corpus
+acceptance keeps PR524 unmerged. Local isolated output bound15GiB,6GiB free minimum.
+
+## Editorial/chapter qualification continuation —2026-10-18
+
+Human grants a two-to-three-hour run with an absolute1p.m. Pacific hard stop.
+Start17:16:51 UTC (10:16:51 Pacific); target/feature freeze19:16:51; hard stop
+20:00:00 UTC (13:00 Pacific). Reserve19:40 onward for checkpoint/validation only.
+Continue PR524 from33b3f813. Coordinator-led development; no exploratory workers
+or follow-up dispatches. At most one fresh cold review, maximum30 elapsed dispatch
+minutes, only when at least60 minutes remain before hard stop. No recursive
+workers or automatic renewal. Check clock after tool returns and at least every
+five minutes; no worker-side deadline substitutes for coordinator enforcement.
+If review does not fit or complete, retain that missing gate explicitly.
+
+Scope: source-grounded editorial/chapter boundary corrections, regression and
+publication tests, full immutable cached-corpus replay and source-attributed
+qualification/wheel evidence, documentation and runlog. No weakening acceptance,
+blanket deletion of uncertain narrative, new Gutenberg requests, canonical corpus
+mutation, CI changes, main promotion, package publication or persistent consent
+changes. Existing pilot adapter covers routine implementation and checkpointing;
+internal integration still requires all pre-integration gates. Native records
+remain nonterminal. Isolated outputs at most15GiB, free disk at least6GiB.
+
+
+## Publication-readiness grant — 2026-10-20
+
+Human approved the explicit review outcome direction and this bounded overnight
+run. Start07:08:09 UTC (00:08 Pacific), four-hour target/feature freeze11:08:09,
+five-hour hard stop12:08:09 (05:08 Pacific). Final hour reserved for review, repair,
+validation and checkpointing; finish earlier on scoped completion or design blocker.
+Continue PR524 on codex/gettenberg-qualification from ebc8a3b6. No integration
+or main promotion in this run. No automatic renewal.
+
+Scope: record approval, specify and implement preserved-candidate/readiness states,
+source-bound reviewed decisions, batch/CLI results, known-case regressions, full
+immutable1,659-input assessment before default gate activation, independent review,
+canonical checks, installed-wheel verification and Diataxis/evidence updates.
+Stretch only after core qualification: reviewed dispositions for understood corpus
+difference groups. Sampling never accepts every member of a group.
+
+Usage launch: weekly0% consumed. Target around/below25%, no minimum spending. At25%
+drop stretch work;35% freeze features;40% checkpoint/stop substantive work, leaving
+margin below50%. Check account usage every15 minutes and before delegation or
+substantial new blocks; if unavailable, checkpoint instead of blind continuation.
+These are observed account-wide triggers, not enforceable per-task spending limits.
+Other sessions count toward them. No resets, paid purchases or model changes.
+
+Coordinator plus at most one worker at a time; three assignments maximum,60 total
+worker elapsed minutes. Plan20min source audit,30min independent review,10min
+repair recheck if needed. No recursive delegation. Keep assignment contexts compact.
+Check clock after tools and everyfive minutes; stop before grant boundaries.
+
+Use cached sources only; no Gutenberg requests, canonical corpus mutation, CI
+changes, package publication, persistent policy/consent changes or terminal native
+closeout. Original sources and historical evidence remain untouched. Same isolated
+15GiB output bound /6GiB free minimum. Approved coordinator adapter governs routine
+planning/implementation/repair decisions without invented human responses.
+
+## Candidate-review workflow continuation — 2026-10-20
+
+Human requested the next bounded run. Coordinator chooses a tighter scope/budget
+within the prior grant ceilings: start 09:28:23 UTC (02:28 Pacific), 90-minute
+feature target 10:58:23 UTC, two-hour hard stop 11:28:23 UTC (04:28 Pacific).
+Final 30 minutes are review, repair, validation and checkpoint only. Finish earlier
+on scoped completion or a design blocker; no automatic renewal. Continue PR524
+from a93cd649, with no integration or main promotion.
+
+Scope is gettenberg-review-workflow.md: local candidate inventory/preview,
+explicit immutable dispositions and approval export, bounded cached-source replay,
+documentation, tests, installed smoke and evidence. Existing readiness/publication
+policy and corpus acceptance are unchanged. No Gutenberg requests, canonical data
+writes, CI changes, package publication, persistent consent or native closeout.
+
+Usage starts at 9% weekly consumed. Retain conservative account-wide thresholds:
+at 25% drop stretch, 35% feature freeze, 40% substantive stop/checkpoint. Check every
+15 minutes and before delegation/substantial blocks; unavailable telemetry means
+checkpoint. No minimum usage or guaranteed cost percentage. Normally coordinator
+alone; one cold reviewer up to 20 minutes and optional repair recheck up to 10,
+two assignments / 30 worker minutes maximum, at most two agents including coordinator.
+No recursive workers. Same 15 GiB isolated-output / 6 GiB free-disk limits.
+
+
+## Review-tooling completion grant — 2026-10-20 16:09 UTC
+
+Human request: "Let's do ~2h run for the review tooling". Start 16:09:49 UTC
+(09:09 Pacific); feature freeze 17:39:49; hard stop 18:09:49 UTC (11:09 Pacific).
+Continue clean local e3179686 on codex/gettenberg-qualification, two commits ahead
+of PR524. Finish the scope in gettenberg-review-workflow.md: bounds/schema tests,
+runner tests, Diataxis docs, cached replay, installed package and canonical checks,
+one cold independent review and bounded repair, then a PR checkpoint. No integration,
+corpus acceptance, main promotion or native closeout. Preserve prior evidence.
+
+
+Resource/authority details and telemetry: development log entry at this timestamp.
+
+
+## Source-disposition tranche — 2026-10-20 afternoon
+
+Human authorized the next recommended tranche and network retry. Start21:49 UTC
+(14:49 Pacific), feature freeze23:19, hard stop23:49 UTC (16:49 Pacific). Scope:
+eight named source reviews and historical-difference accounting, reconstructed
+immutable cached queue, explicit disposition/publication checks, evidence and
+independent review. Detailed plan/budgets in development log at this timestamp.
+Retain approved coordinator adapter, prior resource/authority prohibitions and
+nonterminal WI0010; no integration/main promotion or automatic renewal.
+
+
+## Batch qualification grant — 2026-10-20 23:13 UTC
+
+Human approved a two-hour target / three-hour maximum and explicitly approved
+qualifying narrow rules with per-input evidence, keeping exceptions unresolved.
+Start23:13:08 UTC; target/feature freeze01:13:08 UTC on October21; hard stop02:13:08.
+Continue PR524 from0c9d4b3e on codex/gettenberg-qualification. No automatic renewal,
+integration, main promotion, canonical corpus changes or native terminal closeout.
+
+Scope: reconcile cumulative review inventory, classify the entire immutable corpus,
+qualify one narrowly bounded editorial rule with authored counterexamples and
+per-input proofs, measure coverage/exceptions, document method and process findings.
+No approval solely from warning categories or representative samples. Record rule
+qualification separately from publication readiness and historical reconciliation.
+Keep original sources, old corpus and historical evidence unchanged; cached inputs
+only, no Gutenberg requests, CI changes, package publication or consent changes.
+
+Coordinator implements; one independent reviewer up to20min and optional narrow
+repair recheck up to10min, at most two assignments/30 cumulative worker minutes,
+at most two concurrent agents, no recursive delegation. Reserve final30min for
+checkpointing. Existing scoped LRH coordinator adapter covers routine plan/repair
+and continuation-branch decisions. Usage starts23% weekly consumed account-wide;
+retain25% drop stretch,35% feature freeze,40% substantive stop/checkpoint. Check
+every15min and before substantial blocks/delegation; unavailable telemetry means
+checkpoint. Same isolated15GiB output /6GiB free-disk limits.
+
+
+## Ordered retained spans grant — 2026-10-21 10:15 UTC
+
+Human approved the batch milestone recommendations and a longer overnight run
+under six hours. Start10:15:47 UTC (03:15 Pacific), target/feature freeze15:15:47,
+hard stop16:00:47 UTC (09:00 Pacific). Final45min reserved for verification and
+checkpoint; finish earlier on scoped completion. Continue PR524 fromc90b3fc3.
+No automatic renewal, integration/main promotion or terminal native closeout.
+
+Scope: versioned source-bound ordered retained spans; exact reconstruction and
+evidence for every omission; confirmed publisher blurbs retained separately as
+editorial metadata, ambiguous cases unresolved. First automatic rule extends only
+the already qualified publication-notice grammar to interior complete paragraphs.
+Transformation qualification, publication readiness and historical reconciliation
+remain separate. No general blurb classifier or quota for resolutions. Implement
+review/CLI/publication integration, authored preservation/counterexample tests,
+full cached-population measurement, canonical and installed-wheel verification,
+independent review, Diataxis docs and runlog. Preserve original source/corpus bytes.
+
+Coordinator implementation; one independent reviewer at a time, initial20min and
+optional10min repair recheck, two assignments/30 worker minutes maximum. No recursive
+delegation. Same15GiB isolated outputs/6GiB free minimum. Cached sources only, no
+Gutenberg requests, CI changes, package publication or persistent consent changes.
+Account-wide usage starts30% consumed; retain35% feature freeze/40% substantive
+stop, no stretch scope. Check time after tools and usage every15min/before major
+blocks. If a budget truncates delivery, checkpoint actual state without claiming
+completion. Scoped coordinator adapter satisfies routine plan/branch/repair gates.
+
+
+## Historical reconciliation first grant — 2026-10-22 00:01 UTC
+
+Human approved the source-grounded historical-acceptance path and a first run within
+one hour of available wifi. Start00:00:59 UTC (October21 17:00 Pacific), feature
+freeze00:40:59, hard stop01:00:59 UTC. Final20min reserved for independent review,
+repair, validation and checkpoint/push; finish earlier if scoped work completes.
+Continue PR524 frome368255c on codex/gettenberg-qualification; no automatic renewal.
+
+Scope: approved contract update, full residual-difference inventory, one defensible
+source-grounded explanation family composed with notice selection, tests, evidence,
+docs and explicit qualifying dispositions where all gates pass. Exceptions stay
+unresolved. No merge, main promotion, canonical corpus mutation, new Gutenberg
+requests, CI changes, package publication, persistent consent or native closeout.
+
+Coordinator implements; one cold review up to10min and optional5min narrow recheck,
+two assignments/15 worker minutes total, at most two concurrent agents. No recursive
+workers. Reuse cached inputs read-only;15GiB isolated-output/6GiB free minimum.
+Account-wide usage starts36%; choose38% feature-freeze/40% substantive-stop triggers
+for this short grant, no stretch work. Check every15min and before dispatch/major
+blocks. Unavailable telemetry means checkpoint. Existing coordinator adapter covers
+routine plan/branch/repair gates; explicit run grant supplies authority independently
+of unchanged invalid persistent skip consent.
+
+
+### Boundary grouping sprint — 2026-10-22 00:43 UTC
+
+Human authorized another bounded sprint to group all 1,477 boundary-text cases and
+qualify the highest-yield safe narrow rule. Start 00:43:14 UTC, feature freeze 01:03:14,
+hard stop 01:13:14; no automatic renewal. Continue PR #524 from 819e62fa on existing
+qualification branch. Coordinator implements; one cold independent review up to 6 min,
+optional 2 min repair recheck, at most 2 concurrent agents/no recursion. Shared weekly
+usage starts 41%;43% feature-freeze/45% substantive-stop, unavailable telemetry stops
+substantive work. Cached inputs only, immutable corpus/source identities; no main
+promotion, publication, default extraction change, CI/consent changes or closeout.
+Group labels are diagnostics; exact bounded rule evidence and complete history
+accounting remain distinct from publication approval. Unknown prose stays unresolved.
+Existing coordinator adapter covers routine gates; readiness is clean, installed
+fingerprints clean, persistent skip consent remains invalid and untouched.
+Prior art: reuse historical_review projections and review_rules recognition; add
+only missing boundary census/qualification evidence, not another review store.
+
+
+### Terminal-notice decisions grant — 2026-10-22 05:22 UTC
+
+Human approved the proposed 45-minute target /60-minute maximum run: compose the
+qualified terminal-note rule with explicit ordered decisions, inspect all 25
+history-complete candidates, preserve exceptions, and verify any approvals using
+disposable publication and cumulative replay. Start05:22:16 UTC; target06:07:16;
+hard stop06:22:16. Feature freeze no later than05:57:16; reserve25min for review,
+repair, validation and checkpointing. Finish earlier if scoped work completes.
+Continue PR #524 from c54d17eb on codex/gettenberg-qualification; no automatic renewal.
+
+Coordinator implements; one cold independent review up to10min, optional narrow
+repair recheck up to5min; at most2 concurrent agents,2 assignments/15worker minutes,
+no recursive delegation. Shared weekly usage starts45%;49% feature-freeze and51%
+substantive-stop. Check at least every15min and before dispatch/major blocks;
+unavailable telemetry means checkpoint. These are shared telemetry thresholds,
+not exclusive cost claims. Keep15GiB isolated-output/6GiB free minimum.
+
+Cached inputs read-only; no Gutenberg requests, default extraction changes, canonical
+corpus mutation, CI changes, publishing, persistent-consent changes, integration,
+main promotion or terminal closeout. Temporary publication verification is authorized.
+No approval quota; 25 is the review cohort. Unexplained narrative/editorial material
+remains unresolved even when historical equality or readiness checks pass.
+
+WI0010 readiness is clean; watched installed skills clean; persistent skip consent
+remains invalid and untouched. Existing coordinator adapter covers routine gates.
+Prior-art/demand check: reuse OrderedReviewDecision, candidate_review, the existing
+batch cohort verifier and historical rule. Extend the opt-in proposal path rather
+than create another decision store. Staged dependencies remain at accepted ancestors
+as recorded in the existing qualification matrix; main delivery remains pending.
+
+
+### Opening-editorial evidence grant — 2026-10-22 06:43 UTC
+
+Human approved the proposed two-hour target /three-hour hard stop: investigate
+source evidence for opening editorial roles, implement one defensible narrow family
+only if evidence supports it, measure whole-population applicability, and independently
+review/validate/checkpoint. Start 06:43:57 UTC; target 08:43:57; hard stop 09:43:57.
+First evidence decision by 07:23:57; feature freeze by 08:58:57 at latest, preserving
+45 minutes for review/repair/checkpoint. Finish early when scope completes or evidence
+cannot support implementation. No automatic renewal or approval quota.
+
+Continue codex/gettenberg-qualification /PR #524 at 3c040b2d224bd03fc5c177e0c08f872fa6ec1057.
+Existing coordinator adapter covers routine gates; readiness has no warnings;
+watched installed skills clean, persistent skip consent invalid and untouched.
+Staged dependency acceptance remains at the ancestors in the qualification matrix.
+Use project Python /LCATS environment with imports bound to this worktree.
+Native implementation prompt: PROMPT(WI-GETTENBERG-0010:GETTENBERG_EDITORIAL_EVIDENCE)[2026-10-22T06:44:15+00:00].
+
+Three agents maximum; normally coordinator plus one focused investigator or reviewer.
+No recursive delegation. Up to four assignments, 60 cumulative worker minutes:
+first investigator at most 30, cold review at most 20, narrow repair recheck at most
+10. Shared weekly usage starts 48%; freeze features at 58%, stop substantive work
+at 63%. Check every 15 minutes and before major blocks/dispatch; unavailable telemetry
+means checkpoint. Account-wide readings are not exclusive task billing. Isolated
+output budget 15GiB, free-space minimum 6GiB. Timer/budget enforcement is coordinator
+monitoring, not a claimed runtime scheduler.
+
+Cached sources read-only; no Gutenberg acquisition or catalog refresh. PyPI isolated
+build/install allowed for package verification. No broad blurb classifier, default
+extraction/gather change, canonical corpus mutation, CI/consent edits, package release,
+integration/main promotion or terminal closeout. Existing deferrals stay intact and
+cannot be silently overridden. Every proposed approval needs positive role evidence,
+exact input bindings, complete omission/history accounting and independent review.
+If no narrow family is defensible, preserve an evidence-gap milestone rather than
+implement a heuristic. Formatting/position/similarity only guide inspection.
+
+Prior-art/demand: WI0010 and current contract request editorial qualification; reuse
+v2 ordered selections, metadata.editorial preservation, historical comparison and
+batch cohort verification. Extend only missing evidence/qualification behavior, no
+parallel decision store. Expected scope: tested gatherer evidence logic if justified,
+thin experiment orchestration and durable results, Diataxis docs and native records.
+Canonical package format/lint/test, explicit changed-runner checks, fresh wheel smoke,
+full cumulative replay and lrh validate remain required for implemented behavior.

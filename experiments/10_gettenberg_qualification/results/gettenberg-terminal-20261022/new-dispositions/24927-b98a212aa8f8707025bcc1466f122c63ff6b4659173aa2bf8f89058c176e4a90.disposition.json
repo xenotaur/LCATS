@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 24927,
+    "candidate_record_sha256": "90fa38d4913d5211596d2dff55d885b39d0884e546a950e9aba7aaca1b5e2b8e",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning \"_When you're commanding a spaceship over a mile long, and armed to the teeth, you don't exactly expect to be told to get the hell out ..._\". The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity.",
+    "approval": null
+}

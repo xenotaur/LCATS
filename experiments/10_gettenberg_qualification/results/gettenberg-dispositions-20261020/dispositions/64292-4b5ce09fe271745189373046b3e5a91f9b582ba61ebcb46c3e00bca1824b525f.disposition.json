@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 64292,
+    "candidate_record_sha256": "3f6550e1cc0f5dadfcec58317d50de3cc13526b8e96676aa9df9d946f0a60006",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Numbered II\u2013V narrative divisions in Tang/Lutscher story; retained corpus starts after earlier narrative. Exclude under existing unchaptered scope.",
+    "approval": null
+}

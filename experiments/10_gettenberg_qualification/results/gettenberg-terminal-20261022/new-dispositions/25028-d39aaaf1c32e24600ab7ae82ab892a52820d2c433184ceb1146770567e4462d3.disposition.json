@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 25028,
+    "candidate_record_sha256": "5c075dfbeb455229c1c9cb6737c838a0720e22dbc961a74c453dedc570a14d33",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning \"_In the future, we may discover new planets; our ships may rocket to new worlds; robots may be smarter than people. But we'll still have slick characters willing and able\". The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: selected_needs_review, retained_editorial_label.",
+    "approval": null
+}

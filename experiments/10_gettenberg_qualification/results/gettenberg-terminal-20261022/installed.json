@@ -1,0 +1,20 @@
+{
+  "qualified": true,
+  "version": "0.1.1.dev1229+gc54d17eba.d20261022",
+  "import_path": "/private/tmp/gettenberg-terminal-20261022/venv/lib/python3.11/site-packages/lcats/gettenberg/catalog.py",
+  "gutenbergpy_installed": false,
+  "network_bytes": 0,
+  "checks": [
+    "metadata",
+    "catalog setup/query/raw-source",
+    "genre",
+    "cleanup",
+    "packaged JSON",
+    "readiness withholding, immutable candidate and runtime logs",
+    "explicit reviewed selection/publication",
+    "installed gather-review list/show/approve/exclude/defer/export and conflict visibility",
+    "opt-in narrow boundary-rule exact selection without publication",
+    "ordered interior rule, v2 CLI/export/batch publication and separate exact blurb metadata",
+    "source-preserved typography explanation; added prose refused; no publication authority"
+  ]
+}

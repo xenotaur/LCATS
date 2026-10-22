@@ -11,7 +11,7 @@ import re
 
 from lcats.gettenberg import errors
 
-_POLICY = "gutenberg-boundaries-v1"
+_POLICY = "gutenberg-boundaries-v2"
 _MAX_CANDIDATES = 16
 _LINE_END = re.compile(r"\r\n|\r|\n")
 _SPACE = re.compile(r"[ \t]+")
@@ -28,9 +28,11 @@ _MARKER = re.compile(
 _CANDIDATE = re.compile(r"\*+\s*(?:START|END)\b", re.IGNORECASE)
 # Observed historical footer metadata, not a book boundary. Keep this exception
 # exact so damaged START-colon book markers still force conservative refusal.
-_LICENSE_SECTION_START = "*** START: FULL LICENSE ***"
+_LICENSE_SEPARATORS = frozenset(
+    ("*** START: FULL LICENSE ***", "*** END: FULL LICENSE ***")
+)
 _BANNER = re.compile(
-    r"(?:The[ \t]+)?Project[ \t]+Gutenberg(?:'s[ \t]+.+|[ \t]+eBook[ \t]+of[ \t]+.+)",
+    r"(?:The[ \t]+)?Project[ \t]+Gutenberg(?:'s[ \t]+.+|[ \t]+eBook(?:[ \t]+of|,)[ \t]+[^ \t].*)",
     re.IGNORECASE | re.ASCII,
 )
 _LICENSE = re.compile(
@@ -164,7 +166,7 @@ def strip_boilerplate(
             # Only whether a license exists after the end marker matters; retain
             # the latest position, not an unbounded list of repeated headings.
             last_license_start = start
-        if _CANDIDATE.match(value.lstrip()) and value != _LICENSE_SECTION_START:
+        if _CANDIDATE.match(value.lstrip()) and value not in _LICENSE_SEPARATORS:
             if len(markers) == _MAX_CANDIDATES:
                 diagnostics.append(
                     CleanupDiagnostic(

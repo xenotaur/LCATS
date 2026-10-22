@@ -1,0 +1,26 @@
+[
+  {
+    "name": "format-retry",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff"
+    ],
+    "returncode": 0,
+    "seconds": 11.791
+  },
+  {
+    "name": "experiment-format-retry",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff",
+      "--",
+      "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.409
+  }
+]
