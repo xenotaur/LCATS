@@ -5,7 +5,7 @@ work_item: AD_HOC
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/528
-commit:
+commit: c8b5e360ae801c4bec8e9c2ea90586c9c310658d
 created_at: 2026-10-22T17:32:09+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md

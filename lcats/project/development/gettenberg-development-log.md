@@ -5110,3 +5110,33 @@ qualification amendment for human review. If approved, construct the narrower de
 candidate with the two supported repairs, causal accounting for remaining differences/
 refusals and real gather/consumer qualification. Do not resume the editorial backlog
 or turn the ten title mismatches into an automatic fuzzy-matching task.
+
+
+### Numeric-marker sprint publication — 2026-10-22 17:45 UTC
+
+Substantive findings published as c8b5e360ae801c4bec8e9c2ea90586c9c310658d on
+codex/gettenberg-scope-audit. PR #528 remains OPEN against codex/gettenberg-qualification;
+head and updated description were read back, with description verified verbatim.
+An initial sandbox GitHub read failed; exact authorized read-only retry succeeded.
+Both native records bind the evidence commit and remain in_progress, with no false
+landed/closeout claim. Product, active gates, package tests/docs and corpus unchanged.
+
+Bounded investigation/review/publication completed in about 17 minutes, ahead of the
+18:00 UTC /11am Pacific hard stop. No further scope or automatic continuation. One
+independent reviewer; no implementation workers or recursive delegation. Shared weekly
+usage 0%→3% consumed (100%→97% remaining), approximately three percentage points across
+the account, not exclusive task billing. No reset credits used. The all-input comparison
+ran 196.868 seconds, reusing unchanged historical baseline evidence transparently.
+
+All 18 archive manifest entries are tracked and hash-verified; 60 local links resolve;
+reviewed script hashes bind the actual result; historical runlog prefix remains intact.
+LRH validation 0 errors /351 existing warnings; staged whitespace check clean. Eight
+focused tests, explicit experiment checks and canonical package format/lint are recorded.
+No full package suite, installed-wheel, hosted CI pass, public-gather or final delivery
+claim. Final checkpoint updates only records/runlog and does not alter measured sources.
+
+Next action is human review of the proposed scope/qualification amendment and narrower
+delivery construction, not another notice-family expansion. Preserve 67 differences and
+13 refusals for causal accounting and real-gather qualification; preserve broader
+gather work for later Kenny reconciliation. Positive source/context evidence resolved
+the two diagnosed interactions without adding another gather policy subsystem.
