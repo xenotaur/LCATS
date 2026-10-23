@@ -139,7 +139,7 @@ the fresh complete closure check resolves that finding. This is construction
 qualification only.67 differences and 13 refusals, full actual-gather yield and the
 remaining Q1–Q8 decisions still block delivery. PR checks/promotion are separate.
 
-## Gate status at this checkpoint
+## Gate status at the 2026-10-22 construction checkpoint
 
 | Gate | Evidence now available | Still required before delivery |
 |---|---|---|
@@ -151,3 +151,51 @@ remaining Q1–Q8 decisions still block delivery. PR checks/promotion are separa
 | Q6: evidence gaps | Unknowns and decoded-cache provenance limits remain explicit. | Investigate or narrowly contain material provider effects; prove independent defects before assigning separate follow-up. |
 | Q7: exact candidate validation | Local tests/lint, installed closure/smoke and independent review pass against unchanged product bytes. | Check final PR-head CI and complete the final acceptance map. |
 | Q8: delivery/lifecycle | Separate draft candidate; combined work preserved. | Human main promotion, truthful native closeout and downstream release verification. |
+
+## 2026-10-23 causal accounting and actual gather-yield checkpoint
+
+Production remains unchanged from `91f1b422`. The
+[new causal/yield evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/README.md)
+accounts for all 67 body differences and 13 refusals with per-input identities and
+controlled probes; these are no longer an unexplained residual queue. Causal
+accounting is not acceptance: all 80 retain explicit pending delivery/editorial
+status. The 67 legacy-control bodies independently match the checked-in historical
+bodies; both controlled cleaner paths hold source, metadata, parser and normalization
+fixed. The remaining 1,579 equal cases retain the pinned full-census evidence.
+
+Body mechanisms: 55 terminal-notice-only additions; 9 additions also containing other
+material; 1 leading newline; 1 source-prefix restoration; 1 mixed frontmatter/tail
+interaction. Refusal mechanisms: 6 wrapped markers, 3 interior *END* candidates,
+3 unsupported first-line headers and 1 mismatched identifier. No body-eligibility
+change among the 67. ID 23552 proves a separate unchanged-parser final-paragraph
+loss without either cleaner, so blindly restoring legacy footer cuts is unsafe.
+
+Actual production gathering on disposable decoded-source fixtures measures the
+configured-order intersection with the 1,659 cohort, not all 5,492 configured IDs:
+
+- Cold batch publishes 41, refuses 3699 and leaves 1,617 unattempted.
+- Repetition reuses 41 and stops at 3699 again.
+- Separate one-item calls publish 1,646 unique outputs and refuse 13; no other errors,
+  skips, body mismatches or owner collisions. This is experimental isolation,
+  not current batch/CLI continuation behavior.
+- All 1,646 successful outputs reuse unchanged with an empty source cache.
+
+The initial cache inventory found no matching verified receipts in either supplied
+root. Fixtures are explicitly derived from historical decoded UTF-8, not original
+Gutenberg transport. The evidence cannot establish historical wire fidelity or
+full configured-collection yield. No network acquisition/canonical publication.
+
+Q3 now has per-residual causal observations; Q4/Q6 require explicit bounded
+contract/disposition decisions rather than additional unexplained-case discovery.
+Q5 has measured useful per-item publication but a known fail-fast batch blocker;
+this is not operational acceptance. Q1 transfer, final Q2/Q7 acceptance mapping,
+wire/selection boundaries and Q8 human main promotion remain pending.
+
+Recommendation for the next human decision: approve an explicit narrow collection
+policy for per-input cleanup refusals, preserving strict source cleanup and visible
+incomplete-run reporting. Keep this separate from notice matching and general
+exception handling. Give the 55 notice-only records an explicit body-contract
+accept-or-repair decision; do not automatically approve the richer suffixes or
+mixed frontmatter case. Preserve 23552 for separate gather reconciliation and as a
+regression anchor for any later notice repair. No production behavior or acceptance
+criterion was changed by this evidence run; PR #530 remains a draft.

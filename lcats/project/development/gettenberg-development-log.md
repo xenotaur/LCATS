@@ -5370,3 +5370,134 @@ of unchanged component evidence. Keep known source identities, existing narrativ
 regressions and the separate editorial ledger. Only after Q1–Q8 are satisfied is
 human main promotion appropriate. The preserved combined branch remains available
 for later reconciliation with Kenny, independent of provider delivery.
+
+## 2026-10-23 05:40 UTC — Causal accounting and actual gather-yield grant
+
+Human authorized this run on PR #530: two-hour target (07:40 UTC /00:40 PDT),
+three-hour hard stop (08:40 UTC /01:40 PDT), production behavior fixed. Start
+05:40 UTC /22:40 PDT October22, clean candidate `95ad5afd`; runtime remains91f1b422.
+No automatic renewal. Aim for evidence freeze07:10 UTC, preserving 30minutes for
+independent review/validation/checkpoint; contingency hour is only for bounded
+measurement repairs and closeout, not new scope.
+
+Deliverable: per-input causal ledger for 67 remaining body differences and 13
+refusals; actual disposable gather yield over the frozen1,659 cohort, distinguishing
+batch fail-fast behavior from isolated per-item potential; finite delivery blocker
+recommendation. Preserve separate metadata/selection evidence and wire-provenance
+limits. Preexisting defects require controlled evidence, not code age. No new
+editorial approval, production fixes, canonical corpus/cache writes, Gutenberg
+acquisition, main integration, publication or terminal lifecycle statuses.
+
+Coordinator plus one causal investigator and one independent reviewer (three total
+maximum), four delegated assignments ceiling, no recursion. Investigator ceiling
+60minutes; review 20minutes plus optional 10minute recheck; total 90worker-minutes
+maximum. Coordinator owns yield runner, control plane and publication. Experiment
+code/results belong together in experiments/10_gettenberg_qualification; no code
+in project/. Strict account usage telemetry unavailable; report observed wall-clock
+and assignment occupancy rather than invented usage. Existing scoped coordinator
+adapter authorizes routine implementation gates; persistent consent untouched.
+
+Preflight: task worktree /Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS,
+branch codex/gettenberg-narrow-delivery, PR #530 open/draft targeting acquisition,
+remote head matches local `95ad5afd`. Root/package AGENTS and STYLE read. Use LCATS
+Python with absolute task-worktree PYTHONPATH. Current catalog/cache inventory
+starts read-only; decoded historical sources must never masquerade as original
+HTTP receipts. Native execution record minted under WI-GETTENBERG-0010.
+
+### 2026-10-23 05:55 UTC — Causal mechanisms established; operational blocker measured
+
+Fifteen-minute checkpoint. LRH 0.2.5.dev3658+g1388bc6d1, WI-GETTENBERG-0010 ready without
+warnings; watched skill staleness clean, persistent skip consent invalid and
+untouched. No skill was loaded or installed. Native coordinator/child/review
+records remain in_progress. Child investigator record was minted after dispatch
+at 05:50, rather than before; assignment authority/base/path/deadline were recorded
+in the dispatch and this log's launch entry. Future dispatch should mint first.
+
+Investigator finished approximately 05:54 (about14worker-minutes, under60 ceiling).
+Independent reviewer dispatched 05:53 (20-minute ceiling; optional 10-minute scoped
+recheck reserved). Two assignments used, no recursion; coordinator owns yield/docs.
+All 80 residuals now have per-input causal observations.67/67 old and current
+controlled body hashes reproduce with fixed source/metadata/parser/normalization.
+Separate checks establish all 67 old-control bodies also match the checked-in corpus.
+55 notice-only suffixes;9 richer suffixes;1 newline-only;1 prefix restoration;
+1 mixed frontmatter/tail effect.13 refusals group 6 wrapped markers/3 interior
+*END*/3 unsupported first-line headers/1 mismatched title. No automatic acceptance.
+The23552 probe reproduces final-paragraph removal in unchanged fix_body without
+either cleaner, so broader terminal-notice stripping could recreate a known defect.
+
+First actual frozen-cohort batch:41published, refuse 3699,1,617unattempted; repeat
+reuses 41 and stops again. Isolated one-item calls publish 1,646 unique outputs and
+refuse13; all 1,646 reuse with empty source cache. No body/owner mismatches. All 1,659
+pass metadata filters; configured collection has 5,492 IDs, so no full configured
+collection yield claim. These use explicit decoded-text fixture transport, not
+original HTTP receipts; supplied real cache roots have no matching resource hits.
+
+Experiment repair 1: authored collision test exposed that before-batch snapshots
+miscounted a second same-path reuse as publication. Changed observer to snapshot
+at each iterable boundary, four tests pass; full 234-second replay reproduced counts
+with no actual cohort collisions. Review repair 2 (P2): durable yield runner lacked
+non-Python normalization input/helper stability guards. Added both packaged JSON
+pins and helper hashes at start/end; final full replay now running. No production
+files changed. Earlier reports are provisional, not accepted final measurement.
+Canonical tests and independent review continue. This is evidence repair, not a
+production behavioral repair or an expansion of the approved deliverable.
+
+### 2026-10-23 06:05 UTC — Scoped measurement complete; publication checkpoint
+
+Production source and both packaged JSON files remain pinned to `91f1b422`. Final
+yield replay 237.556s confirms 41 cold-batch publications, refusal 3699, 1,617
+unattempted; repeat reuses 41 and stops again. Independent calls publish 1,646
+unique outputs/refuse 13, with 1,646 empty-source-cache reuses and no body/owner
+mismatches. All 80 residuals have causal accounting; no delivery/editorial approval.
+
+Canonical 2,955 tests pass in 95.917s; 26 experiment tests pass, package and explicit
+experiment lint pass. Independent reviewer completed about 06:00 (seven minutes),
+reproduced all 80 causal rows in 53.468s, verified every published identity and
+cleared P2 after guards/replay. Two assignments used, approximately 21 worker-minutes
+so far, no active workers. Scope complete ahead of target; no additional item starts.
+An optional short final documentation/evidence recheck may use the reserved third
+assignment, maximum 10 minutes, before publication. No automatic integration.
+
+P3 explicitly deferred: this experiment is a standalone CLI; catching an imported
+main() early guard failure in-process can retain its signal alarm. Successful runs
+restore it and standalone failure exits. Documented as unsupported entry-point reuse,
+not a production problem or a completed-measurement defect. Reviewed source hashes
+and final report pins are archived.
+
+Validation recovery: first LRH invocation used repository root and correctly failed
+FILE_NOT_FOUND for current_focus.md; reran from required lcats/ package root:
+zero errors /351 existing warnings. Initial explicit experiment lint could not
+write Ruff cache outside sandbox; reran with task cache in /tmp and passed. These
+were tooling invocation/permission failures, not hidden successful validation.
+
+LRH lesson: causality accounting and acceptance are separate ledger dimensions.
+Same-input stage contrasts collapsed 80 unknown mechanisms into finite groups;
+actual batch execution then exposed 41-versus-1,646 usability independently of
+body equivalence. Proposed process check: require attempted/unattempted and
+publication/reuse/refusal accounting through the real consumer, and prohibit
+substituting per-item potential for a fail-fast CLI's actual behavior. Another
+check: scope-split evidence guards must include non-Python transformation inputs,
+not merely module hashes. Usage telemetry remains unavailable; these observations
+do not establish a token/cost improvement or a universal time estimate.
+
+Next: publish evidence/runlog/decision report to existing draft PR #530, verify exact
+head CI, and hand back the bounded policy decisions. Q5 remains a known blocker;
+Q1 transfer, full-selection/wire boundaries, acceptance mapping and human main
+promotion remain. No Gutenberg downloads, existing cache/corpus mutations, production
+changes, merges, consent changes or lifecycle closeout.
+
+### 2026-10-23 06:08 UTC — Final review clear; evidence ready to push
+
+Third/final delegated assignment was the scoped documentation/evidence recheck,
+about two minutes. Reviewer verified 31 file hashes, unchanged runner/product
+bytes, archived reports, counts, links, native nonterminal records and the proposed
+PR body; no unresolved P0–P2. Approximately 23 cumulative worker-minutes across
+three assignments, maximum three agents total; all workers now stopped. Archived
+both review reports and generated/verified the evidence manifest excluding itself.
+
+Runtime diff from91f1b422 remains empty. GitHub PR530 is still OPEN/DRAFT against
+codex/gettenberg-acquisition at the expected95ad5afd head. No concurrent remote
+change or unrelated local edits observed. Commit/push the scoped evidence update,
+update its existing PR description, then observe exact-head CI. This is an early
+completion checkpoint, not a budget renewal or new work item. Remaining grant is
+reserved for publication/verification only; target07:40/hard08:40UTC unchanged.

@@ -147,3 +147,15 @@ qualification. Preserve PR524 and the broader gather work for later reconciliati
 This planning approval and PR528 internal integration do not satisfy the product's
 pre-integration gates or authorize main promotion, corpus promotion, package publication
 or terminal closeout. A subsequent bounded grant is required for candidate construction.
+
+### 2026-10-23 causal/yield evidence checkpoint
+
+[PR #530 evidence](../../../../experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/README.md)
+now accounts for all 67 cleaner-substitution differences and 13 explicit refusals.
+Production is unchanged. Actual configured-order gathering on the frozen decoded
+cohort publishes 41 before refusing3699 and leaving1,617unattempted; isolated
+one-item calls publish 1,646 and refuse13, with 1,646 unchanged empty-cache reuses.
+These are separate measurements, not interchangeable yield claims. Q5 remains
+blocked by batch fail-fast behavior. Causal accounting does not approve body
+contracts or close Q1–Q8. The candidate manifest records bounded next decisions;
+this WI and native executions remain nonterminal pending human delivery.

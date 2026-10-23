@@ -707,3 +707,12 @@ The numeric runner retains its original evidence revision and explicitly binds t
 reviewed helper hash after the optional legacy import moved inside the measurement
 entry point. This import-only repair does not alter cleanup/extraction calculations;
 the landing verification records a fresh population comparison separately.
+
+## Narrow candidate causal accounting and operational yield
+
+The [2026-10-23 causal/yield checkpoint](results/gettenberg-causal-yield-20261023/README.md)
+accounts for the remaining 67 body differences and 13 refusals with production fixed.
+It distinguishes actual fail-fast batch publication from isolated one-item yield,
+records source provenance limits, and presents finite contract decisions for PR #530.
+Use the documented runners and explicit experiment tests there; this evidence does
+not approve editorial content, main promotion or canonical corpus publication.
