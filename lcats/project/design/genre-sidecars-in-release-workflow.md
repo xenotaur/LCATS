@@ -194,7 +194,10 @@ applied now (see the doc change in this PR).
    dry-run already reports this).
 4. **Story-text binding for genre sidecars** (design). Add a story-text
    fingerprint to the sidecar provenance so a seeded sidecar can be detected as
-   stale. Schema change; needs its own design pass. Optional, P3.
+   stale. Schema change; needs its own design pass. Optional, P3. Investigated in
+   `project/design/genre-sidecar-story-binding.md` (`WI-PROMOTE-0118`): the original
+   story hashes survive and match, and the recommendation is a side manifest and a
+   release-time comparison, not a schema change.
 
 ## Reproduction
 
