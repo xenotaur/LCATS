@@ -5517,3 +5517,26 @@ their original paths. Verified every manifest entry against staged Git bytes and
 reran the full whitespace check before committing the correction. No ignore policy
 changed. LRH observations: validate Git-tree evidence closure, not only filesystem
 hashes, and inspect a dependent operation's exit status before dispatching a push.
+
+### 2026-10-23 06:15 UTC — Evidence published; scoped run closing early
+
+PR #530 published head `56fe4135411159f1d1441bf111dd674a5767e603` has all four checks
+successful: lint, both test jobs and coverage. Exact head/base/job URLs are archived
+in ci-56fe4135.json. PR description now presents the causal ledger, real batch and
+isolated yield, source limitations, validation and next human decisions. It remains
+OPEN/DRAFT targeting codex/gettenberg-acquisition. No merge, retarget, acceptance
+weakening or native terminal-status change occurred.
+
+The scoped deliverable is complete about 35 minutes after the 05:40 start, well inside
+two-hour target/three-hour hard stop. Three delegated assignments used approximately
+23 worker-minutes; no active workers or measurement processes. All runtime Python
+and packaged JSON remain unchanged from `91f1b422`. All 67 differences and 13 refusals
+are causally accounted; no automatic body acceptance. Actual batch 41 publications
+versus 1,646 isolated publications exposes the known refusal-contract decision.
+
+This closing commit adds only CI evidence, its manifest update and this log entry.
+Final verification is the clean/pushed closing head and its automatic checks,
+without another feature, measurement, or evidence-recording loop. No automatic
+renewal. Human decision on narrow batch refusal handling/body-contract dispositions
+is next; Q1 transfer, selection/wire boundaries, final acceptance mapping and main
+promotion remain. Usage/cost telemetry unavailable; no percentage claim is made.
