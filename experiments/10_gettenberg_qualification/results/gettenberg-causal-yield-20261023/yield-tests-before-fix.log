@@ -1,0 +1,24 @@
+.F..
+======================================================================
+FAIL: test_collision_is_reuse_not_second_publication (narrow_yield_test.GatherYieldTests.test_collision_is_reuse_not_second_publication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/experiments/10_gettenberg_qualification/scripts/narrow_yield_test.py", line 143, in test_collision_is_reuse_not_second_publication
+    self.assertEqual(
+AssertionError: Lists differ: ['published', 'published'] != ['published', 'reused']
+
+First differing element 1:
+'published'
+'reused'
+
+- ['published', 'published']
+?                ^ --- -
+
++ ['published', 'reused']
+?                ^^
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 4.210s
+
+FAILED (failures=1)

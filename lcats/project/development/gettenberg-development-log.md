@@ -5501,3 +5501,19 @@ change or unrelated local edits observed. Commit/push the scoped evidence update
 update its existing PR description, then observe exact-head CI. This is an early
 completion checkpoint, not a budget renewal or new work item. Remaining grant is
 reserved for publication/verification only; target07:40/hard08:40UTC unchanged.
+
+Publication closure correction: repository-wide `*.log` ignore excluded validation
+logs from the first evidence commit946dc40d, despite their presence and hashes on
+disk. Explicitly staged only this run's known logs with `git add -f`; a text-diff
+check then rejected the canonical test stdout's original terminal blank line, so
+that correction commit did not execute. The first push of946dc40d proceeded before
+the correction because orchestration did not branch on the preceding exit status.
+This checkpoint is incomplete until the corrective commit lands; no complete
+publication claim is based on that first head.
+
+Preserved full test stdout byte-for-byte as full-tests.log.gz, with an explicit
+old/new path and hash map; no measurement text was trimmed. Other logs remain at
+their original paths. Verified every manifest entry against staged Git bytes and
+reran the full whitespace check before committing the correction. No ignore policy
+changed. LRH observations: validate Git-tree evidence closure, not only filesystem
+hashes, and inspect a dependent operation's exit status before dispatching a push.

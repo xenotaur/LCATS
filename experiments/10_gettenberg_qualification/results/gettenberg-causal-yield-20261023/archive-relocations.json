@@ -1,0 +1,8 @@
+{
+  "full-tests.log": {
+    "archived_as": "full-tests.log.gz",
+    "original_sha256": "038b6d9b44bdad3a64909ff77a349e70d4c7b3fa1186de7815a718bfc1d31e6a",
+    "compressed_sha256": "c9c3e8fc45a1f546d15d71a0683310a736a84790245f16d498d43e4db8c6a75a",
+    "reason": "Preserve exact test stdout, including terminal blank line, without introducing text-diff whitespace errors."
+  }
+}

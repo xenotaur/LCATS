@@ -151,3 +151,8 @@ caller imports `main()` and catches an early data-guard exception, the yield
 command's alarm cleanup is not guaranteed. Supported standalone CLI invocation
 exits on that error; no product or completed-measurement behavior is affected.
 Do not reuse this entry point as an in-process library API without that cleanup.
+
+Archive map: the reviewed `full-tests.log` is retained byte-for-byte after
+decompression as `full-tests.log.gz`; `archive-relocations.json` binds both hashes.
+Its terminal blank line is original test stdout, preserved rather than trimmed.
+All other log paths are unchanged and explicitly tracked despite `*.log` ignore.
