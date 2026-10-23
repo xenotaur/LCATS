@@ -41,7 +41,7 @@ acceptance:
   - "The 146 Opus validation.json checkpoints and the 146 gpt-oss:20b validation_openai_http_localhost_11434_v1.json checkpoints are archived byte-identical to the originals, nested by lcats_id as <archive>/<collection>/<story>/opus-checkpoint.json and gpt-oss-20b-checkpoint.json, with a per-file sha256 index, and the originals are untouched"
   - "git check-ignore reports none of the 292 archived paths as ignored, and the .gitignore file is not modified"
   - "A baseline manifest of exactly 146 rows {lcats_id, story_content_hash} has unique lcats_ids equal to those in validation_results.jsonl, with every hash taken from the archived Opus file's fingerprint and not from the live corpora; the gpt-oss files are not used to build it"
-  - "Tests fail on drift: the manifest equals the archived Opus fingerprints; every hash equals the sha256 of the current corpora story.json bytes; each archived Opus model_assessment equals the committed one (generated_at, input_tokens); each gpt-oss hash equals the Opus hash for the same story; archived files still match the sha256 index"
+  - "Tests fail on drift: the manifest equals the archived Opus fingerprints; every hash equals the sha256 of the current corpora story.json bytes; each archived Opus data.model_assessment equals the committed model assessment in full (the whole object, not selected fields such as generated_at or input_tokens); each gpt-oss hash equals the Opus hash for the same story; archived files still match the sha256 index"
   - "A README beside the archive records the provenance (run ids, models, the source worktree, hash basis = sha256 over story.json bytes, the file-name mapping, and that the double underscore in 84 story names makes names unsafe to parse backwards)"
   - "lrh validate reports 0 errors, and the changed experiment paths are passed explicitly to format, lint and the experiment tests"
 required_evidence:
@@ -77,7 +77,7 @@ in the sibling worktree `lcats-special-char-strategy-c18aa7`:
 - `validation.json`: the Opus run (`claude-opus-4-8`, run id
   `2026-08-21T18:55:51.831553Z`). Each carries `fingerprint.story_content_hash`
   (sha256 over `story.json` bytes) and `data.model_assessment`, which equals the
-  committed model assessment (`generated_at`, `input_tokens`) for all 146. All 146
+  committed model assessment in full (the whole object) for all 146. All 146
   hashes equal the sha256 of today's `corpora/<lcats_id>/story.json`. 159,630 bytes.
 - `validation_openai_http_localhost_11434_v1.json`: a second full run of the same
   146 stories with `gpt-oss:20b` over Ollama (`WI-LLM-0074`, PR #361), same hashes,
