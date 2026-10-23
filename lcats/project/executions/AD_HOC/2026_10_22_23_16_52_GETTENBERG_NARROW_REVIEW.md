@@ -4,7 +4,7 @@ prompt_id: PROMPT(AD_HOC:GETTENBERG_NARROW_REVIEW)[2026-10-22T23:16:52+00:00]
 work_item: AD_HOC
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/530
 commit: 91f1b42281418d613bc1744b77ada73b42405bfc
 created_at: 2026-10-22T23:16:52+00:00
 agent: codex_app

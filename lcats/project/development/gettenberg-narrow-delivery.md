@@ -1,6 +1,8 @@
 # Narrow gettenberg delivery candidate
 
 Status: construction/qualification checkpoint, **not release acceptance**.
+Review: [draft PR #530](https://github.com/xenotaur/LCATS/pull/530), targeting
+`codex/gettenberg-acquisition`.
 Approved scope: [scope and causality audit](gettenberg-scope-causality-audit.md),
 Q1–Q8 in [WI-GETTENBERG-0010](../work_items/proposed/WI-GETTENBERG-0010.md).
 
@@ -136,3 +138,16 @@ The first wheel was rejected for nine stale separated modules in build staging;
 the fresh complete closure check resolves that finding. This is construction
 qualification only.67 differences and 13 refusals, full actual-gather yield and the
 remaining Q1–Q8 decisions still block delivery. PR checks/promotion are separate.
+
+## Gate status at this checkpoint
+
+| Gate | Evidence now available | Still required before delivery |
+|---|---|---|
+| Q1: provider and independence | Provider foundation retained; clean wheel has no legacy dependency or separated runtime. | Complete candidate-level transfer of the existing feature/full-snapshot evidence with source assumptions checked. |
+| Q2: consumer contracts | Canonical consumer tests pass; tuple/exit contracts remain; cleanup context and distinct refusal logging are documented and tested. | Include these in the final acceptance-to-evidence map. |
+| Q3: causal comparison | All 1,659 controlled inputs accounted for; resource-derived context and body comparison are pinned. Prior metadata/selection analysis is retained. | Complete causal dispositions for the 67 differences and 13 refusals; keep selection effects separate. |
+| Q4: regression mitigation | Both severe truncations repaired; authored counterexamples and full-population replay pass. | Determine whether residuals contain other material replacement-induced regressions. |
+| Q5: operational usability | Actual installed gathering publishes/reuses authored stories and distinguishes a refusal. | Measure representative/full disposable gather yield, including the effect of fail-fast refusals. Body eligibility counts alone do not prove publication yield. |
+| Q6: evidence gaps | Unknowns and decoded-cache provenance limits remain explicit. | Investigate or narrowly contain material provider effects; prove independent defects before assigning separate follow-up. |
+| Q7: exact candidate validation | Local tests/lint, installed closure/smoke and independent review pass against unchanged product bytes. | Check final PR-head CI and complete the final acceptance map. |
+| Q8: delivery/lifecycle | Separate draft candidate; combined work preserved. | Human main promotion, truthful native closeout and downstream release verification. |

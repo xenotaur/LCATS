@@ -4,7 +4,7 @@ prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_NARROW_CANDIDATE)[2026-10-22T23:
 work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
-pr:
+pr: https://github.com/xenotaur/LCATS/pull/530
 commit: 91f1b42281418d613bc1744b77ada73b42405bfc
 created_at: 2026-10-22T23:16:52+00:00
 agent: codex_app

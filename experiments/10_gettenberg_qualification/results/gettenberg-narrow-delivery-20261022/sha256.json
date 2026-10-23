@@ -15,6 +15,7 @@
   "migration-fixtures.json": "d0ba476b28725233927f9fa8f12cf052fc6014d940ce09e1ad66e369f0001775",
   "package-lint.log": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
   "pip-check.log": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+  "publication-checkpoint.json": "941754a96ed5ad26db0c5938dfe9a85379f3c5363db13e04c8bbd4d5ba43c59f",
   "rejected-wheel.json": "0759ae1eccda648c201d538fe863515c8c0ab04cd3451c01d65da9f2fff9e790",
   "wheel-data-files.json": "4161a5620df771981461438e1c5cc20176477f583d77e1ee97d58bb49c41a6ab"
 }

@@ -5306,3 +5306,42 @@ and full distribution/source path+byte closure should accompany scope-split or
 module-removal milestones. Test separation likewise needs per-test disposition;
 whole-file removal can accidentally lose retained provider checks. These lessons
 are observed in this run, not evidence of general performance or cost improvement.
+
+
+## 2026-10-23 00:01 UTC — Narrow candidate published as draft PR #530
+
+[PR #530](https://github.com/xenotaur/LCATS/pull/530) targets
+codex/gettenberg-acquisition at ed20e9c2. Published construction head 4365c2a8 contains
+unchanged product 91f1b422 plus tests/docs/evidence. This checkpoint adds the PR links
+and a gate-by-gate status table only. PR #524 remains open at b1254805 against the same
+acquisition base; neither branch was merged or retargeted. Main remains untouched.
+Native records remain in_progress; no final Q1–Q8 acceptance is claimed.
+
+Elapsed about 47 minutes at PR creation, including publication transport overhead.
+Feature work finished before the 23:55 UTC freeze. All three delegated assignments
+ended by 23:43 UTC; no new workers or scope. Target 00:14 UTC / hard stop 00:30 UTC remain
+unchanged. Next action within this grant: check final-head CI/review state and leave
+a clean, pushed checkpoint. No automatic integration or additional deliverable.
+
+Observed publication friction: the initial system-Git push and a bounded HTTP/1.1
+retry showed no terminal progress. A bundled-Git attempt was cut off at 180 seconds;
+process counters showed transfer increasing from 4.5 MB to 7.8 MB, so a dead connection
+was not established. One explicit publication replan allowed 600 seconds with visible
+progress, still inside the original grant. The 17.26 MiB pack uploaded successfully
+in roughly four minutes. No persistent Git/credential settings changed. Do not
+infer that the system Git client is defective: client, protocol and timeout changed
+between attempts, so this run cannot isolate that cause.
+
+LRH observation: distinguish buffered local pack progress, network transfer and
+remote acceptance. Size-aware bounded publication time and visible progress avoid
+repeatedly restarting a healthy slow upload. The earlier three-minute limit was
+insufficient for this transfer; code qualification had already completed. Preserve
+all failures/repairs as evidence rather than presenting the elapsed run as pure
+implementation time. Strict usage telemetry remains unavailable.
+
+Outstanding delivery work: transfer/check prior component evidence against the
+narrow candidate; complete causal dispositions for 67 body differences and 13 refusals;
+measure actual disposable gather yield under the retained fail-fast contract; then
+complete Q1–Q8 and present human main promotion. Existing editorial review work
+stays separate for reconciliation with Kenny. This checkpoint does not require
+solving the broader literary/editorial queue before resuming provider qualification.
