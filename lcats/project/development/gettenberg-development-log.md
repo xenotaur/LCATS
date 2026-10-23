@@ -5345,3 +5345,28 @@ measure actual disposable gather yield under the retained fail-fast contract; th
 complete Q1–Q8 and present human main promotion. Existing editorial review work
 stays separate for reconciliation with Kenny. This checkpoint does not require
 solving the broader literary/editorial queue before resuming provider qualification.
+
+
+## 2026-10-23 00:06 UTC — Bounded implementation closed; exact-head CI green
+
+All four checks on PR #530 head 2e99ac3aba79f02966f47f64a70cc0dbbc37e788 passed:
+two test jobs, coverage and lint. Exact run URLs/head bindings are archived in
+experiments/10_gettenberg_qualification/results/gettenberg-narrow-delivery-20261022/
+ci-2e99ac3a.json. The product tree is unchanged from 91f1b422, independently reviewed
+and verified in the clean installed wheel. This closing commit adds only this
+record and CI evidence; final automatic checks remain visible on the linked PR.
+
+Outcome: the next logical deliverable, a separately constructed narrow candidate,
+is complete as a draft checkpoint. No merge or main-delivery acceptance. All workers
+are stopped; no extra work item began. Elapsed about 52 minutes including transport
+repair; roughly 35 worker-minutes across three assignments, under the 45-minute cap.
+No measured token/cost figure is available. Final activity is confirming the clean,
+pushed closing checkpoint and observing its automatic checks; hard stop 17:30 PDT
+and no-renewal rule remain in force.
+
+Next grant should qualify this candidate's remaining causal/operational gaps:
+67 body differences, 13 cleanup refusals, actual gather yield and complete transfer
+of unchanged component evidence. Keep known source identities, existing narrative
+regressions and the separate editorial ledger. Only after Q1–Q8 are satisfied is
+human main promotion appropriate. The preserved combined branch remains available
+for later reconciliation with Kenny, independent of provider delivery.

@@ -80,3 +80,11 @@ env -u PYTHONPATH /path/to/venv/bin/python \
 The CLI rejects source/editable/legacy installations; real sockets are forbidden.
 Copy fresh reports here only as new named evidence. Historical outputs and absolute
 paths in reports are observations; no previous report is overwritten or relabeled.
+
+## Published checkpoint
+
+[Draft PR #530](https://github.com/xenotaur/LCATS/pull/530) targets the acquisition
+branch. `ci-2e99ac3a.json` records four successful checks on checkpoint head
+`2e99ac3aba79f02966f47f64a70cc0dbbc37e788`; runtime bytes remain those of 91f1b422.
+The closing record/evidence commit is documentation only. Consult the linked PR
+for its latest automatic checks. No merge or final delivery acceptance occurred.
