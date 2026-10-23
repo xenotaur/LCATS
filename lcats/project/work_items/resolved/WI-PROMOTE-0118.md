@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0118
 title: Decide how a seeded genre sidecar is bound to its story
 type: investigation
-status: proposed
+status: resolved
 priority: low
 owner: unassigned
 contributors: []
@@ -22,7 +22,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Investigated and merged in PR #526: project/design/genre-sidecar-story-binding.md records that each genre sidecar holds a metadata-rule assessment (bound by identity) and a model assessment that reads the story text, that the original per-story story_content_hash values survive in 146 gitignored Opus checkpoints and all equal the sha256 of the current story.json bytes (the stories are byte-identical since the run), and recommends no schema change, a side manifest of baseline hashes compared with the regenerated data/ at release time using file bytes or an effective-input hash over author, url and body (never a body hash alone), with archiving the checkpoint files as the first and time-sensitive step. Follow-ups are in the backlog. Not measured: whether a fresh gather reproduces the stored text.'
 expected_actions:
   - read_files
   - edit_file

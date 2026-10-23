@@ -76,7 +76,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   `project/design/sidecar-kinds-release-rule.md`).
 - **WI-PROMOTE-0118**: decide how a seeded genre sidecar is bound to its story
   (whether a schema change or story-text fingerprint is needed), and where any
-  check would run. Proposed.
+  check would run. Resolved (PR #526; the note is
+  `project/design/genre-sidecar-story-binding.md`).
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
