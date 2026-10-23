@@ -17,6 +17,7 @@ related_design:
 work_items:
   - WI-PROMOTE-0117
   - WI-PROMOTE-0118
+  - WI-PROMOTE-0124
 exit_criteria:
   - "Every sidecar kind registered in sidecar_validators._REGISTRY (genre.json, scenes.json, linguistics.json, linguistics.tokens.json) has a documented release rule and a verified seed or regeneration path"
   - "The release runbook states or links that rule, so an operator following it cannot lose a registered sidecar"
@@ -49,6 +50,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   (`WI-PROMOTE-0117`).
 - A recorded decision on how a seeded genre sidecar is bound to its story (whether a
   schema change or story-text fingerprint is needed), and where any check would run (`WI-PROMOTE-0118`).
+- Durable archive of the original genre-evidence checkpoint files and a baseline
+  story-hash manifest derived from them (`WI-PROMOTE-0124`).
 - Runbook edits (`docs/reference/prepare-corpora-release.md`) only where an
   operator step changes.
 
@@ -78,6 +81,10 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   (whether a schema change or story-text fingerprint is needed), and where any
   check would run. Resolved (PR #526; the note is
   `project/design/genre-sidecar-story-binding.md`).
+- **WI-PROMOTE-0124**: archive the Opus and gpt-oss checkpoint files for the 146
+  genre-evidence stories as tracked evidence and derive the baseline-hash manifest
+  from them. Proposed; time-sensitive, since the only copies are gitignored files
+  in one worktree.
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
