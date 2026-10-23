@@ -22,8 +22,15 @@ recorded historical environments when executed. Import/help checks do not instal
 the old dependency. Other historical runners, including `qualify_installed.py`,
 require their recorded combined checkout; do not use them to qualify this product.
 
+Latest correction: [per-item refusal continuation and measured batch yield](results/gettenberg-refusal-continuation-20261023/README.md). Historical fail-fast measurements remain unchanged.
+
 New candidate-specific runners:
 
+- `qualify_narrow_yield.py CATALOG_CACHE TEXT_CACHE NEW_OUTPUT_JSON --product-ref COMMIT`
+  measures actual cold/repeated batch publication and separate one-item potential.
+  Use the exact committed product revision; historical default pins are not a
+  substitute for current-candidate evidence. Decoded-source fixtures, no sockets,
+  temporary outputs only, POSIX 1,200-second ceiling.
 - `qualify_narrow_corpus.py CATALOG_CACHE TEXT_CACHE NEW_OUTPUT_JSON` runs the
   production cleanup and migration-baseline extraction on all frozen 1,659 inputs,
   deriving cleanup identity from actual catalog resource selection. Run from

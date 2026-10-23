@@ -5,7 +5,7 @@ work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/530
-commit:
+commit: 8c9441ddf707f4bdcd11afc4e9c4126d0976b8bc
 created_at: 2026-10-23T08:22:02+00:00
 agent: codex_app
 instruction_source: User-authorized narrow refusal continuation and corpus-yield verification
@@ -22,7 +22,7 @@ Implemented a narrow ready/skipped/refused batch result, compatibility pair wrap
 
 # Validation
 
-Initial checkpoint: 46 targeted package tests and 26 experiment tests pass. Package and changed-experiment lint/format pass. Full suite and committed-product frozen-corpus replay are in progress; results will be recorded before publication.
+Canonical scripts/test: 2,956 pass (92.324s); targeted package 46 pass; experiment 26 pass; package/explicit experiment lint and format pass. LRH 0 errors /351 existing warnings. Frozen-cohort replay (421.820s): 1,646 published /13 refused /0 unattempted; repeat preserves all 1,646 outputs. All bodies/source/owner IDs and refused IDs match prior evidence. See experiments/10_gettenberg_qualification/results/gettenberg-refusal-continuation-20261023/README.md for evidence and initial sandbox-failure disclosure. Exact-head CI is checked at publication; no new independent review or isolated-wheel claim.
 
 # Follow-up
 

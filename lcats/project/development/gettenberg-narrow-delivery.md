@@ -83,8 +83,8 @@ preserved combined revision. Additional candidate-only paths are described below
 | `lcats/tests/gatherers_tests/candidate_review_test.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/tests/gatherers_tests/editorial_evidence_test.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/tests/gatherers_tests/historical_review_test.py` | Separate dedicated subsystem/test; preserved combined revision. |
-| `lcats/tests/gatherers_tests/live_gather_test.py` | Migration-seam version; later broad changes preserved separately. |
-| `lcats/tests/gatherers_tests/mass_quantities_test.py` | Migration-seam version; later broad changes preserved separately. |
+| `lcats/tests/gatherers_tests/live_gather_test.py` | Migration baseline plus narrow refusal continuation/status regressions. |
+| `lcats/tests/gatherers_tests/mass_quantities_test.py` | Migration baseline plus narrow refusal continuation/status regressions. |
 | `lcats/tests/gatherers_tests/ordered_review_test.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/tests/gatherers_tests/parser_test.py` | Migration-seam version; later broad changes preserved separately. |
 | `lcats/tests/gatherers_tests/readiness_test.py` | Separate dedicated subsystem/test; preserved combined revision. |
@@ -203,3 +203,31 @@ accept-or-repair decision; do not automatically approve the richer suffixes or
 mixed frontmatter case. Preserve 23552 for separate gather reconciliation and as a
 regression anchor for any later notice repair. No production behavior or acceptance
 criterion was changed by this evidence run; PR #530 remains a draft.
+
+
+## 2026-10-23 refusal continuation correction and verification
+
+Human approved per-item cleanup refusal continuation as required replacement
+integration. Product `8c9441ddf707f4bdcd11afc4e9c4126d0976b8bc` changes only the
+mass batch gatherer and coordinator. The broader candidate already had this
+behavior; its removal during scope separation was a regression. This supersedes
+the earlier recommendation to treat continuation as a new optional gather policy.
+
+[Correction evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-refusal-continuation-20261023/README.md):
+normal frozen-cohort batch now publishes 1,646, refuses the same 13, and leaves
+zero unattempted. Repeat reuses 1,646, refuses 13, leaves zero unattempted. All
+published body/source/owner identities match the earlier isolated census; repeated
+outputs remain byte-identical. Empty-source-cache reuse succeeds for all 1,646.
+The CLI reports incomplete status 2 after continuation. All other operational
+failures still abort; no source cleanup, extraction or editorial policy changes.
+
+Validation: 2,956 canonical tests; 46 targeted package tests; 26 experiment tests;
+package/explicit experiment format and lint pass; LRH 0 errors /351 existing
+warnings. First full-suite sandbox permission failures are archived separately;
+authorized fixture-server/write rerun passes. No new independent review or wheel
+qualification claimed. Exact product bytes are pinned in the yield evidence.
+
+The measured Q5 fail-fast blocker is repaired for the frozen cohort. The 13 refused
+inputs remain unresolved. Overall operational acceptance, body-contract decisions,
+evidence transfer, full configured-selection/wire boundaries, final Q1–Q8 mapping
+and human main promotion remain pending. No native terminal-status changes.

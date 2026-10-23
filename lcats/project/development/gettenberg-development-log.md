@@ -5574,3 +5574,38 @@ strict decode abort with written prefix, empty selection and ordinary skips.
 Native execution record minted at 08:20 after initial implementation; retained as
 in_progress pending PR integration. Full validation, committed-product corpus
 replay and publication follow. Historical result bytes will remain untouched.
+
+
+### 2026-10-23 08:32 UTC — Refusal continuation verified against actual batch yield
+
+Product commit 8c9441ddf707f4bdcd11afc4e9c4126d0976b8bc. Frozen-cohort replay completed
+in 421.820s with real downstream product code: cold batch 1,646 published /13 refused
+/0 unattempted; repeat 1,646 reused /13 refused /0 unattempted. Separate one-item
+census agrees; all 1,646 successful outputs reuse with an empty source cache.
+All 1,659 inputs attempted, no ordinary skips/other errors/ownership collisions/body
+mismatches. Cross-report checks reproduce prior body/source/owner identities and
+exact refused-ID set. Repeated batch output bytes are unchanged. Sockets forbidden;
+no Gutenberg requests or canonical data/cache writes. Full 5,492-ID selection,
+historical transport fidelity and editorial acceptance are not established.
+
+Canonical scripts/test passes 2,956 tests in 92.324s. Initial sandboxed suite ran
+2,956 tests but had 102 permission errors (local HTTP servers and fixture writes);
+rerun with authorized permissions passed. Both logs archived, no suppression.
+46 targeted package tests and 26 explicit experiment tests pass. Canonical format,
+package lint and explicit changed-experiment lint pass. LRH: zero errors /351
+existing warnings. No new independent reviewer or isolated-wheel claim. Coordinator
+review confirms only two runtime modules changed and none of the body-producing
+stages did. Historical measurements and broader branch preserved unchanged.
+
+Evidence: experiments/10_gettenberg_qualification/results/
+gettenberg-refusal-continuation-20261023/. Native execution remains in_progress;
+PR #530 remains a draft against acquisition. Prepare evidence/checksum closure,
+push scoped commits and update the PR description, then check exact-head CI.
+No merge/main promotion, editorial dispositions or broader gather changes.
+
+LRH lesson: splitting a mixed subsystem must inventory behavioral guarantees,
+not just return types/modules. Reinstating an older tuple contract removed an
+already-implemented recovery guarantee. Preserve independently necessary guarantees
+and test the real batch and CLI, not only isolated per-item potential. User's
+historical recollection surfaced the regression; acknowledge this in the decision
+record rather than framing the lost behavior as a novel optional enhancement.
