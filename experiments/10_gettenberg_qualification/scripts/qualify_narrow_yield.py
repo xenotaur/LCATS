@@ -132,12 +132,11 @@ def observe_gather(identifiers, source, metas, data_root, log_dir, priors):
     returned = None
     with mock.patch.dict(os.environ, {"LCATS_DATA_DIR": str(data_root)}):
         try:
-            published, skipped = gatherer.gather_stories(
-                tracked, log_dir=log_dir, source=source
-            )
+            result = gatherer.gather_batch(tracked, log_dir=log_dir, source=source)
             returned = {
-                "ready_ids": list(published),
-                "skips": {str(k): v for k, v in skipped.items()},
+                "ready_ids": list(result.ready),
+                "skips": {str(k): v for k, v in result.skipped.items()},
+                "refusals": {str(k): v for k, v in result.refused.items()},
             }
         except (resources.ResourceError, resources.ResourceDecodeError, OSError) as exc:
             failure = {
@@ -182,6 +181,8 @@ def observe_gather(identifiers, source, metas, data_root, log_dir, priors):
             counts["body_mismatches"] += not row["matches_prior_body"]
         if returned is not None and str(identifier) in returned["skips"]:
             row["skip_reason"] = returned["skips"][str(identifier)]
+        if returned is not None and str(identifier) in returned["refusals"]:
+            row["refusal_reason"] = returned["refusals"][str(identifier)]
         if failure is not None and identifier == tracked.attempted[-1]:
             row["exception"] = failure
         rows.append(row)
@@ -230,6 +231,9 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ("catalog_cache", "text_cache", "output"):
         ap.add_argument(name, type=lambda value: pathlib.Path(value).resolve())
+    ap.add_argument(
+        "--product-ref", default=PIN, help="Committed product revision to verify"
+    )
     args = ap.parse_args(argv)
     require(not args.output.exists(), "output exists")
     for protected in (ROOT, args.catalog_cache, args.text_cache.parent):
@@ -247,7 +251,9 @@ def main(argv=None):
     }
     data_hashes = data_guard()
     try:
-        product_hashes = audit_cleanup_causality.product_tree_guard(ROOT, PIN)
+        product_hashes = audit_cleanup_causality.product_tree_guard(
+            ROOT, args.product_ref
+        )
         audit_cleanup_causality.product_import_guard(ROOT, product_hashes)
         compressed, raw = audit_terminal_notice.read_gzip(ROOT / CENSUS)
         require(
@@ -460,7 +466,7 @@ def main(argv=None):
                 "completed": True,
                 "release_accepted": False,
                 "scope": __doc__,
-                "product_ref": PIN,
+                "product_ref": args.product_ref,
                 "product_tree_sha256": product_hashes,
                 "census_sha256": sha((ROOT / CENSUS).read_bytes()),
                 "catalog_archive_sha256": census["catalog_archive_sha256"],
@@ -487,7 +493,8 @@ def main(argv=None):
                 ],
             }
         require(
-            audit_cleanup_causality.product_tree_guard(ROOT, PIN) == product_hashes,
+            audit_cleanup_causality.product_tree_guard(ROOT, args.product_ref)
+            == product_hashes,
             "product changed",
         )
         report["loaded_modules"] = audit_cleanup_causality.product_import_guard(

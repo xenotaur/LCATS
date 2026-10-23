@@ -67,7 +67,11 @@ existing story extraction, normalization and overrides. It writes
 `data/mass_quantities/<story-slug>/story.json`, retaining acquisition and derivation
 provenance. Existing regular output files are reused without replacement or a
 claim that their contents are valid. Source/decode/integrity failures abort with
-exit 2; metadata or extraction exclusions remain per-story skips in the run log.
+exit 2, except explicit cleanup refusals: these leave the affected input unpublished
+and continue the batch. The final CLI summary reports ready, skipped and refused
+counts and returns 2 if refusals remain. Inspect `story_cleanup_refused` log events
+for IDs and reasons; repeating the run reuses successful files but does not repair
+the refused sources. Metadata or extraction exclusions remain ordinary skips.
 
 ## Repeat without network access
 

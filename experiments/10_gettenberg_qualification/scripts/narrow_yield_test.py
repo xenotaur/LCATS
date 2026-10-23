@@ -87,26 +87,29 @@ class GatherYieldTests(unittest.TestCase):
             self.priors,
         )
 
-    def test_abort_retains_written_prefix_and_repeat_reuses(self):
+    def test_refusal_continues_and_repeat_reuses_both_outputs(self):
         first, second, refused = self.books
         order = [first, refused, second]
         cold = self.observe(order, "cold")
         self.assertEqual(
-            [row["outcome"] for row in cold["rows"]], ["published", "refused"]
+            [row["outcome"] for row in cold["rows"]],
+            ["published", "refused", "published"],
         )
-        self.assertEqual(cold["unattempted_ids"], [second])
-        self.assertEqual(cold["summary"]["attempted"], 2)
-        self.assertEqual(cold["exception"]["code"], "cleanup_refused")
+        self.assertEqual(cold["unattempted_ids"], [])
+        self.assertEqual(cold["summary"]["attempted"], 3)
+        self.assertIsNone(cold["exception"])
+        self.assertEqual(set(cold["returned"]["refusals"]), {str(refused)})
         self.assertTrue(cold["rows"][0]["matches_prior_body"])
         repeat = self.observe(order, "repeat")
         self.assertEqual(
-            [row["outcome"] for row in repeat["rows"]], ["reused", "refused"]
+            [row["outcome"] for row in repeat["rows"]], ["reused", "refused", "reused"]
         )
         self.assertEqual(repeat["rows"][0]["output"], cold["rows"][0]["output"])
-        self.assertTrue(repeat["events"][-1]["event"].startswith("run_aborted"))
+        self.assertEqual(repeat["events"][-1]["event"], "run_end")
+        self.assertTrue(repeat["events"][-2]["incomplete"])
         self.source.store = resources.ResourceStore(self.case / "empty-cache")
-        reused = self.observe([first], "empty-cache-reuse")
-        self.assertEqual(reused["summary"]["reused"], 1)
+        reused = self.observe([first, second], "empty-cache-reuse")
+        self.assertEqual(reused["summary"]["reused"], 2)
         self.assertIsNone(reused["exception"])
 
     def test_metadata_skip_does_not_publish(self):

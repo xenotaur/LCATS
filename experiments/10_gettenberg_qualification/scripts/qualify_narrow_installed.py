@@ -278,15 +278,12 @@ def exercise(root):
             ),
             "existing story was rewritten",
         )
-        try:
-            gatherer.gather_stories(
-                [BOOKS[2]], log_dir=root / "refusal-log", source=source
-            )
-        except resources.ResourceDecodeError as error:
-            require(error.code == "cleanup_refused", "wrong refusal cause")
-            refusal = {"code": error.code, "message": str(error)}
-        else:
-            raise ValueError("ambiguous envelope was not refused")
+        result = gatherer.gather_batch(
+            [BOOKS[2]], log_dir=root / "refusal-log", source=source
+        )
+        require(set(result.refused) == {BOOKS[2]}, "ambiguous envelope not refused")
+        require(not result.ready and not result.skipped, "refusal misclassified")
+        refusal = {"code": "cleanup_refused", "message": result.refused[BOOKS[2]]}
         require(
             len(list((root / "data").rglob("story.json"))) == 2, "refusal wrote a story"
         )
@@ -296,10 +293,8 @@ def exercise(root):
             any(e["event"] == "story_cleanup_refused" for e in events),
             "missing distinct refusal log",
         )
-        require(
-            any(e["event"].startswith("run_aborted") for e in events),
-            "missing aborted run log",
-        )
+        require(events[-1]["event"] == "run_end", "refusal aborted iteration")
+        require(events[-2]["incomplete"], "refusal omitted from batch summary")
         protected_checks = []
         for protected in (
             root / "data" / "forbidden-log",

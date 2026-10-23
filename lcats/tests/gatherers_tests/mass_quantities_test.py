@@ -182,7 +182,7 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         events = self._read_log_lines()
         self.assertEqual(
             [e["event"] for e in events],
-            ["run_start", "story_ready", "story_failed", "run_end"],
+            ["run_start", "story_ready", "story_failed", "batch_summary", "run_end"],
         )
         self.assertEqual(events[1]["story"], 1)
         self.assertEqual(events[2]["story"], 2)
@@ -258,39 +258,16 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
 
 
 class TestGather(unittest.TestCase):
-    """Tests for gatherer.gather."""
+    """Configured gathering must retain refusals for CLI incomplete reporting."""
 
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_returns_only_successful_stories(self, mock_gather_stories):
-        """gather() returns only the successful-stories dict."""
-        expected = {10: "/data/10.json"}
-        mock_gather_stories.return_value = (expected, {20: "error"})
-
-        with capture.suppress_output():
-            result = gatherer.gather(source="test-source")
-
-        self.assertIs(result, expected)
-
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_passes_single_stories(self, mock_gather_stories):
-        """gather() calls gather_stories with storymap.SINGLE_STORIES."""
-        mock_gather_stories.return_value = ({}, {})
-        with capture.suppress_output():
-            gatherer.gather(source="test-source")
-
-        mock_gather_stories.assert_called_once_with(
-            storymap.SINGLE_STORIES, source="test-source"
+    @patch("lcats.gatherers.mass_quantities.gatherer.gather_batch")
+    def test_gather_retains_all_outcomes(self, mocked):
+        expected = gatherer.BatchResult(
+            {10: "/data/10.json"}, {20: "skip"}, {30: "refusal"}
         )
-
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_returns_empty_on_all_failures(self, mock_gather_stories):
-        """gather() returns an empty dict when all stories fail."""
-        mock_gather_stories.return_value = ({}, {1: "error"})
-
-        with capture.suppress_output():
-            result = gatherer.gather(source="test-source")
-
-        self.assertEqual(result, {})
+        mocked.return_value = expected
+        self.assertIs(gatherer.gather(source="test-source"), expected)
+        mocked.assert_called_once_with(storymap.SINGLE_STORIES, source="test-source")
 
 
 class TestMain(unittest.TestCase):

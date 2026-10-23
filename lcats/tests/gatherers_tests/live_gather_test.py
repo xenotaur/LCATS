@@ -326,6 +326,110 @@ class LiveGatherTests(unittest.TestCase):
                 self.assertEqual(artifact.path.read_bytes(), body)
                 self.assertFalse(list(self.data.rglob("story.json")))
 
+    def seed_batch(self, middle_body):
+        """Create three independent sources through the real catalog/cache boundary."""
+        books = [BOOK_ID, BOOK_ID + 1, BOOK_ID + 2]
+        entries = []
+        for index, book in enumerate(books):
+            raw = fixture_record().replace(str(BOOK_ID).encode(), str(book).encode())
+            raw = raw.replace(b"The Bell", f"The Bell {index}".encode())
+            entries.append((f"{book}.rdf", raw, tarfile.REGTYPE))
+        self.archive.write_bytes(catalog_test.archive_bytes(entries))
+        source = self.source(online=True)
+        for index, book in enumerate(books):
+            body = ENVELOPE.replace("The Bell", f"The Bell {index}").encode()
+            if index == 1:
+                body = middle_body
+            selected = resources.select_routable_resource(
+                source.metadata(book).ebook, routes=self.routes
+            )
+            client = mock.Mock()
+            client.open.return_value = resources_test.MemoryResponse(
+                body=body, headers=(("Content-Type", "text/plain; charset=utf-8"),)
+            )
+            with mock.patch.object(_resource_transport, "opener", return_value=client):
+                self.store.fetch(selected.request, policy=self.policy)
+        return books
+
+    def test_refusal_continues_cli_batch_and_repeat_preserves_both_outputs(self):
+        books = self.seed_batch(ENVELOPE.replace("*** END OF", "*** START OF").encode())
+        with (
+            mock.patch.object(storymap, "SINGLE_STORIES", books),
+            mock.patch.object(socket, "socket", side_effect=AssertionError("network")),
+        ):
+            message, code = self.run_gather()
+            self.assertEqual(code, 2)
+            self.assertIn("Gathering incomplete", message)
+            self.assertIn(
+                "2 ready (written or reused), 0 skipped, 1 cleanup refused", message
+            )
+            outputs = {p: p.read_bytes() for p in self.data.rglob("story.json")}
+            self.assertEqual(len(outputs), 2)
+            self.assertEqual(
+                {
+                    json.loads(raw)["metadata"]["gettenberg"]["gutenberg_id"]
+                    for raw in outputs.values()
+                },
+                {books[0], books[2]},
+            )
+            self.assertEqual(self.run_gather(), (message, code))
+            self.assertEqual({p: p.read_bytes() for p in outputs}, outputs)
+        log = self.root / "logs/gather/mass_quantities_gather_run_log.jsonl"
+        rows = [json.loads(line) for line in log.read_text().splitlines()]
+        self.assertEqual(
+            [row["event"] for row in rows[:6]],
+            [
+                "run_start",
+                "story_ready",
+                "story_cleanup_refused",
+                "story_ready",
+                "batch_summary",
+                "run_end",
+            ],
+        )
+        self.assertEqual(rows[2]["story"], books[1])
+        self.assertTrue(rows[4]["incomplete"])
+
+    def test_non_refusal_decode_error_still_aborts_after_written_prefix(self):
+        books = self.seed_batch(b"invalid utf8 \xff")
+        with mock.patch.object(storymap, "SINGLE_STORIES", books):
+            message, code = self.run_gather()
+        self.assertEqual(code, 2)
+        self.assertIn("Gathering failed", message)
+        outputs = list(self.data.rglob("story.json"))
+        self.assertEqual(len(outputs), 1)
+        self.assertEqual(
+            json.loads(outputs[0].read_text())["metadata"]["gettenberg"][
+                "gutenberg_id"
+            ],
+            books[0],
+        )
+        rows = [
+            json.loads(line)
+            for line in (self.root / "logs/gather/mass_quantities_gather_run_log.jsonl")
+            .read_text()
+            .splitlines()
+        ]
+        self.assertEqual(
+            [row["event"] for row in rows],
+            ["run_start", "story_ready", "run_aborted_unexpected"],
+        )
+
+    def test_empty_and_ineligible_selections_are_complete_not_refused(self):
+        self.write_archive(language="fr")
+        self.source()
+        for books, skipped in (([], 0), ([BOOK_ID], 1)):
+            with (
+                self.subTest(books=books),
+                mock.patch.object(storymap, "SINGLE_STORIES", books),
+            ):
+                message, code = self.run_gather()
+                self.assertEqual(code, 0, message)
+                self.assertIn(
+                    f"0 ready (written or reused), {skipped} skipped, 0 cleanup refused",
+                    message,
+                )
+
     def test_metadata_skip_does_not_acquire(self):
         self.write_archive(language="fr")
         source = self.source()

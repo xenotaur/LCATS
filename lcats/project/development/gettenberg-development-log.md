@@ -5540,3 +5540,37 @@ without another feature, measurement, or evidence-recording loop. No automatic
 renewal. Human decision on narrow batch refusal handling/body-contract dispositions
 is next; Q1 transfer, selection/wire boundaries, final acceptance mapping and main
 promotion remain. Usage/cost telemetry unavailable; no percentage claim is made.
+
+
+### 2026-10-23 08:20 UTC — Authorized refusal-continuation correction
+
+Human instruction: restore narrow per-item refusal continuation as required
+replacement integration, verify batch tests and corpus yield, and document in
+PR #530/runlog. Scope is this correction only; no editorial dispositions, broader
+gather overhaul, Gutenberg downloads, canonical corpus writes, merge or lifecycle
+closeout. No new agents dispatched. Project Python is LCATS, with absolute
+PYTHONPATH selecting this task worktree rather than another clone's editable install.
+
+History correction: before migration, parser.py@404c2304:1401–1408 converted
+load_etext failures into per-story skips. Broader product code at b1254805,
+mass_quantities/gatherer.py:91–108, caught cleanup_refused and continued. The
+91f1b422 scope split removed that continuation while retaining logging/atomic
+outputs. Earlier explanations incorrectly framed continuation as only experiment
+isolation or optional future enhancement. User identified the missing distinction;
+this is a regression relative to the broader candidate and a required integration
+repair. The audit had already marked outcome handling as a mixed requirement.
+
+Implemented only cleanup_refused continuation; other operational failures still
+abort. A small BatchResult retains ready/skipped/refused maps and summary; the
+historical gather_stories pair remains as a wrapper. CLI uses the result to report
+incomplete status 2 after remaining selected collections, rather than silently
+claiming success. No source cleanup, parser, metadata, normalization or output
+publication code changes. Completed iteration logs a summary followed by run_end;
+run_end is not acceptance of every input.
+
+Targeted 46 package tests and 26 experiment tests pass. Authored real pipeline
+checks success/refusal/success, both files and repeated-run byte preservation,
+strict decode abort with written prefix, empty selection and ordinary skips.
+Native execution record minted at 08:20 after initial implementation; retained as
+in_progress pending PR integration. Full validation, committed-product corpus
+replay and publication follow. Historical result bytes will remain untouched.

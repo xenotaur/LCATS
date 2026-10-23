@@ -5,7 +5,9 @@
 `lcats.gatherers.main.run(names=None, dry_run=False, *, yes=False, offline=False,
 catalog_archive=None, catalog_url=None, main_root=None, generated_root=None,
 allow_origins=(), cache_dir=None)` returns `(message, exit_code)`. Success is 0;
-input, catalog, resource and filesystem failures are 2. Earlier completed outputs
+input, catalog, resource and filesystem failures are 2. Completed batches with
+unresolved cleanup refusals also return 2, with an explicit incomplete summary.
+Earlier completed outputs
 are retained. Metadata/extraction skips do not make the whole run fail. Collection
 selection and metadata configuration are checked before setup or execution.
 The CLI spells roots `--gutenberg-main-root` and `--gutenberg-generated-root`.
@@ -19,7 +21,8 @@ The CLI spells roots `--gutenberg-main-root` and `--gutenberg-generated-root`.
 | `--dry-run` | Local plan only; no writes, requests, consumers or prompts |
 | `--offline` | New store and curated HTML cache both refuse acquisition |
 | Existing output | Reuse regular file before source acquisition; no validation/replacement |
-| Damaged original, failed strict decode, ambiguous boilerplate | Abort; retain cached originals |
+| Damaged original or failed strict decode | Abort; retain cached originals |
+| Ambiguous boilerplate (`cleanup_refused`) | Record refusal; continue other inputs and collections; final CLI status 2 |
 
 A dry-run can successfully report blocked preparation; it is not a prediction of
 successful execution. Selected default or explicit resource/archive URLs permit their own origins;
@@ -72,9 +75,16 @@ prepare a catalog or fetch text. Default network policy is offline.
   encoding, cleanup policy version and diagnostics. It records derivation inputs,
   not a claim of whole-corpus equivalence.
 
-`mass_quantities.gather(*, source)` and `gather_stories(ids, log_dir=..., *, source)`
-require an explicit source. The latter returns successful paths and per-story skip
-reasons. Operational failures propagate and the run log records abortion.
+`mass_quantities.gather(*, source)` processes the configured collection and returns
+`BatchResult`. `gather_batch(ids, log_dir=..., *, source)` returns the same report
+for a supplied iterable. Its `ready` dictionary maps IDs to written/reused paths;
+`skipped` maps ordinary exclusions to reasons; `refused` maps cleanup refusals to
+reasons. `summary` reports these counts. No editorial acceptance is implied.
+
+`gather_stories(ids, log_dir=..., *, source)` retains its historical two-dictionary
+return: ready paths and error reasons (ordinary skips plus cleanup refusals).
+All three entry points require an explicit source. Only `cleanup_refused`
+continues; other operational exceptions propagate and the log records abortion.
 `story_ready` means newly published or reused, avoiding a false download claim.
 
 `parser.gather_story(gatherer, id, *, source)` requires an explicit source and
@@ -118,8 +128,12 @@ Source cleanup uses policy `gutenberg-boundaries-v3` and records its explicit
 source/catalog/title context in provenance. The two corroborated terminal-notice
 rules precede the unchanged migration-baseline body extractor. An ambiguous
 envelope raises `ResourceDecodeError` with code `cleanup_refused`. Mass gathering
-logs `story_cleanup_refused` with the ebook ID and reason, then aborts through the
-existing operational-error path (CLI status 2); earlier published files remain.
+logs `story_cleanup_refused` with the ebook ID and reason, leaves that input
+unpublished, and continues. It does not retry, weaken cleanup, or fall back to
+another source. A `batch_summary` event retains ready/skipped/refused counts and
+an `incomplete` flag. `run_end` means iteration finished; it does not mean every
+input was accepted. The CLI reports incomplete gathering with status 2 after
+remaining selected collections run. Other operational failures still abort.
 This is not an ineligible-story count or an editorial review outcome.
 
 A run-log directory must be outside the configured data and corpora roots,

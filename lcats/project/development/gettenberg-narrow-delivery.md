@@ -24,19 +24,23 @@ terminal-notice repairs as cleanup policy v3. Numeric cleanup receives immutable
 source/catalog/title context; source identity comes from the selected resource URI.
 Unknown or disagreeing identity preserves the notice. Originals remain unchanged.
 
-Retain the migration-seam parser, CLI and gather return contracts. Retain the
-installed-wheel log-directory safeguard independently of the review subsystem:
-check runtime data/corpora and available checkout roots before using the RunLog
-explicit-root escape hatch. Log cleanup refusal distinctly, then preserve the
-existing fail-fast operational contract. This does not claim satisfactory full
-batch yield: the 13 refused inputs must still be accounted for under Q5.
+Retain the migration-seam parser and installed-wheel log-directory safeguards.
+The 2026-10-23 human-approved correction restores per-item `cleanup_refused`
+continuation as required replacement integration. The earlier narrow candidate
+removed behavior already implemented in product code on the broader branch; that
+was an over-broad separation, not merely a missing experimental convenience.
+
+Only this explicit content refusal continues. Other operational exceptions abort.
+`gather()` / `gather_batch()` return a narrow ready/skipped/refused result; the
+existing `gather_stories()` pair remains available. The CLI retains exit 2 for an
+incomplete collection but processes remaining inputs and selected collections
+before reporting it. Strict cleanup, extraction and publication rules are unchanged.
 
 Separate the later opening-prefix/chapter redesign, readiness rules, ordered spans,
-editorial/historical review APIs, review CLI/store and structured gather outcomes.
-Their dedicated tests and guides remain with that preserved subsystem. Mixed
-parser/CLI/gather tests retain the migration baseline; new narrow integration,
-context and corpus checks protect the causal repairs. This is contract separation,
-not ignoring failing assertions against an unchanged implementation.
+editorial/historical review APIs and review CLI/store. Their dedicated tests/guides
+remain with the preserved subsystem. The small collection result here does not
+restore that editorial outcome system. Historical checkpoints below describe the
+candidate as measured at their stated revisions; they are not current API claims.
 
 ## Later product/test/document paths
 
@@ -65,8 +69,8 @@ preserved combined revision. Additional candidate-only paths are described below
 | `lcats/src/lcats/gatherers/editorial_evidence.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/src/lcats/gatherers/gather_result.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/src/lcats/gatherers/historical_review.py` | Separate dedicated subsystem/test; preserved combined revision. |
-| `lcats/src/lcats/gatherers/main.py` | Migration-seam version; later broad changes preserved separately. |
-| `lcats/src/lcats/gatherers/mass_quantities/gatherer.py` | Base contract plus log safety and distinct refusal event. |
+| `lcats/src/lcats/gatherers/main.py` | Narrow refusal summaries and incomplete status after remaining collections; broad review behavior separated. |
+| `lcats/src/lcats/gatherers/mass_quantities/gatherer.py` | Log safety, per-item refusal continuation and narrow batch result; historical pair wrapper retained. |
 | `lcats/src/lcats/gatherers/parser.py` | Migration-seam version; later broad changes preserved separately. |
 | `lcats/src/lcats/gatherers/readiness.py` | Separate dedicated subsystem/test; preserved combined revision. |
 | `lcats/src/lcats/gatherers/review_cli.py` | Separate dedicated subsystem/test; preserved combined revision. |
@@ -154,7 +158,7 @@ remaining Q1–Q8 decisions still block delivery. PR checks/promotion are separa
 
 ## 2026-10-23 causal accounting and actual gather-yield checkpoint
 
-Production remains unchanged from `91f1b422`. The
+At this historical checkpoint, production remained unchanged from `91f1b422`. The
 [new causal/yield evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/README.md)
 accounts for all 67 body differences and 13 refusals with per-input identities and
 controlled probes; these are no longer an unexplained residual queue. Causal

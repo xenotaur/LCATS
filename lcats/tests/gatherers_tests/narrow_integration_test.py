@@ -34,7 +34,7 @@ class NarrowIntegrationTests(unittest.TestCase):
                 self.assertEqual(list(data.iterdir()), [])
                 self.assertEqual(list(corpus.iterdir()), [])
 
-    def test_cleanup_refusal_is_distinct_and_still_aborts_the_batch(self):
+    def test_cleanup_refusal_is_distinct_and_returns_incomplete_result(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = pathlib.Path(temporary).resolve()
             log = root / "log"
@@ -57,8 +57,10 @@ class NarrowIntegrationTests(unittest.TestCase):
                     ),
                     capture.capture_output(),
                 ):
-                    with self.assertRaises(resources.ResourceDecodeError):
-                        gatherer.gather_stories([84], log_dir=log, source=object())
+                    result = gatherer.gather_batch([84], log_dir=log, source=object())
+                    self.assertEqual(set(result.refused), {84})
+                    self.assertEqual(result.ready, {})
+                    self.assertEqual(result.skipped, {})
             rows = [
                 json.loads(line)
                 for line in (log / gatherer.GATHER_LOG_FILENAME)
@@ -70,5 +72,6 @@ class NarrowIntegrationTests(unittest.TestCase):
             )
             self.assertEqual(refusal["story"], 84)
             self.assertIn("cleanup_refused", refusal["reason"])
-            self.assertEqual(rows[-1]["event"], "run_aborted_unexpected")
+            self.assertEqual(rows[-1]["event"], "run_end")
+            self.assertTrue(rows[-2]["incomplete"])
             self.assertFalse(any(row["event"] == "story_ready" for row in rows))
