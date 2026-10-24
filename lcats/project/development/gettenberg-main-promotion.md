@@ -1,6 +1,7 @@
 # Gettenberg promotion to main: review guide
 
-Status: **prepared for human main-promotion review; not delivered to main**.
+Status: **[PR #534](https://github.com/xenotaur/LCATS/pull/534) is open for human
+main-promotion review; not delivered to main**.
 The human authorized landing PR #530 internally and preparing this promotion.
 That instruction does not authorize merging the promotion or publishing a package
 or corpus. A–D acceptance is already recorded and need not be requested again.

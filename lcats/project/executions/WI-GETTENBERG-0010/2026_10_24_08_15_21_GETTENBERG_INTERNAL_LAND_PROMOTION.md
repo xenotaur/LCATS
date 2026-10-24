@@ -4,7 +4,7 @@ prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_INTERNAL_LAND_PROMOTION)[2026-10
 work_item: WI-GETTENBERG-0010
 status: in_progress
 rerun_of:
-pr: https://github.com/xenotaur/LCATS/pull/530
+pr: https://github.com/xenotaur/LCATS/pull/534
 commit:
 created_at: 2026-10-24T08:15:21+00:00
 agent: codex_app
@@ -24,6 +24,7 @@ Merged #530 at df05525618d701be0d5a5ea2d2840774f00c1368 with exact-head lock aft
 four green checks, no unresolved threads and recorded A–D/backlog acceptance. The
 integration tree equals approved head c6fd5e49. Created codex/gettenberg-promotion
 and cleanly incorporated current main 22a739d2 at 0dbe9606. Main itself is unchanged.
+Promotion PR #534 is open against main for human review.
 See [promotion review guide](../../development/gettenberg-main-promotion.md) for
 scope, evidence, review order and post-main closeout plan.
 

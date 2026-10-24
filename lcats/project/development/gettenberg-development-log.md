@@ -5805,3 +5805,15 @@ package root passes0 errors/354 warnings. No repository repair was needed. Runti
 tests and package/check configuration remain fixed at tested0dbe9606. Main is still
 22a739d2; no existing promotion PR was found. Commit/push the prepared review packet
 and open a main-target PR; actual main merge remains human-gated.
+
+
+### 2026-10-24 — Promotion PR #534 opened for human main review
+
+Published codex/gettenberg-promotion and opened
+https://github.com/xenotaur/LCATS/pull/534 against main, with no auto-merge or main
+mutation. The review guide separates implementation, accepted limitations,
+experimental history and exact qualification evidence, with post-main closeout
+instructions. Native landing/promotion record now points to #534 and remains
+in_progress; its body retains #530's internal merge identity. Main merge/promotion
+approval remains outstanding. Runtime is unchanged from tested product0dbe9606;
+observe actual final-head hosted checks before recommending main landing.
