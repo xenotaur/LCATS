@@ -1,0 +1,621 @@
+{
+  "completed": true,
+  "scope": "Fresh independent current cleaner/parser/normalization body replay for all 67 differences, compared to hashed historical corpus and archived current hashes. Direct source-free fix_body reproduction for23552. No separate legacy-cleaner execution.",
+  "count": 67,
+  "all_expected_body_hashes_match": true,
+  "rows": [
+    {
+      "id": 23168,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f8c0e8ad7c8dabf235b00dbad3edc12c599ec75bd2d42530a21a489378cea8b8",
+      "historical_sha256": "25cdadd4ed114367e3d2e54ee3217e2a728000688f67ac8d0a0869b710106e03",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 17083,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "27c448c09a80f151edd15c5161d7ba5081b25691262ef3d5628ff8de0e6a7320",
+      "historical_sha256": "ad539dd71b3d923be07297a87c01c25e6026cccece294a482d712a9509cdddb3",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23146,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "a8c184d5b9b3176522c2ac884f0278c41154b4500f2f4b530f21fd808f5a29a2",
+      "historical_sha256": "f0f69e44f4ec26444a04bd6d6f8a9d0ba4231cc6777a155f21b9a63a4a9ac135",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 61766,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "5a0979410ead373f844b3055a39c36ff2265252483b9e802ca7a638d10a2ee02",
+      "historical_sha256": "8d50b1d8a9b5a583c38996f42c3d9fa8a24adbc9133504496234eb5d73ff6f3b",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 9215,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "97ab74d943ea8b1c21d5001c71b402d4773eccf6220efcb107b0a2b3356d67d9",
+      "historical_sha256": "cdd61f09eaf009d78547fbcf90399a669b1846a5821c89bcedbe374fae9fef12",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 62443,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "614540512a71afc153984b1ce138cef2a70b2e05c68c0e7eab17782701ea4f6e",
+      "historical_sha256": "bb34941377fc9afba0af091ef21bfaa804bd3bebda0c712d34673e08965cc7e7",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 51668,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "3894d59b776b5ca1fa8c8b9e77d7a18729e24b6ad05f6a0ce8c5be1ecb104b3f",
+      "historical_sha256": "8af800d7d48fe26caeb740b3f92665fdf8649f7d14022edbc4da2c9b61b2c06a",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 8525,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "414c89958379e4772f979088c07f84fd1795f5f4e1e7a3b00352da0b7fbf2e43",
+      "historical_sha256": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 51622,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "ec3bff12ff373715650f13b99aa25dd3a2c2476a96cc1abf30d7f0187744135e",
+      "historical_sha256": "07affb1e6be5f53182648d322f63a1807989dfbc5edfb1f9827a90ad2c105c44",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 9218,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "976b07002c3f791bda82728950d92abf2a45668f50bed64c5d06493b9228dadc",
+      "historical_sha256": "889867b1e29f036150fe8cb77d3d69ce370c1e6cf1a02bdfdbd4f6d4de36051d",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 29181,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "247f61267ad595200e48bcaf4517f94c7d318e28f7246b7af20b6bc268b12b36",
+      "historical_sha256": "87621a61e8c553bf8c6d34db867a827442fb8dac4e1b2b532ca54848051d9731",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "flexible baby-faced mask, revealing underneath the face of a little man.",
+          "added": "flexible baby-faced mask, revealing underneath the face of a little man.\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _Fantastic Universe_ March 1954.\n    Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note.\n\n\n\n\n\nEnd of the Project Gutenberg EBook of Foundling on Venus, by \nJohn de Courcy and Dorothy de Courcy"
+        }
+      ]
+    },
+    {
+      "id": 29206,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "f2e114aa944c375da838488af632abe7b58546e468c5a4468e83293df5daf38c",
+      "historical_sha256": "7ad1c81b09319ec1d54818425fa15b4b239f6a90ba257d64861f058d54b732a5",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "not exactly, but he laughed, and laughed and laughed....",
+          "added": "not exactly, but he laughed, and laughed and laughed....\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _Fantastic Universe_ September 1957.\n    Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note.\n\n\n\n\n\nEnd of the Project Gutenberg EBook of Happy Ending, by \nFredric Brown and Dallas McCord Reynolds"
+        }
+      ]
+    },
+    {
+      "id": 23556,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "0ec6f48a7a4bf9375ef6e04c8fdf95db48a2631fcaabdfac2553e6dcd52417ed",
+      "historical_sha256": "dc8b4ab52960d6538e145f3c9052b1d765aa9dcf810d17f99e79d22d399e129c",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 61498,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "524dbd16318b8d60e1ce369a388e91131647ba58685f0383c43f682715b8a062",
+      "historical_sha256": "cda3a0c3cfdc06bc453b91154012e9e8057dfd3a2d32d636654c9591f55c983f",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 51650,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "768d9e70f909357a81174d2af1273dc6607353f0510c961ed3b3b7d837a9643b",
+      "historical_sha256": "ec438b9c309684f56dcac7fa06e0b4c8ebd407fc2f1c4a296ee040db352b455a",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23329,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "d685cbedc3d51c425d6440bb0958b693b11b864650ee1212318f4593b6c8e0d6",
+      "historical_sha256": "fab01d4e9edeae0959cc4ffeb0f58a5fd3c33475c68d560511d13633937f126e",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23326,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "44b891a34943b3d2ec16fba0d13e1e00ba321321bb1210ab3b64b0857ac62aa2",
+      "historical_sha256": "783e432902ceb7a1a6488789891d4a8cac364a0163d3a3d1917b25239c975db3",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 22810,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "040ff2664a311c31f9841748c4e8acc24a1c5ec8f09c98c2de0adb5a063bebbc",
+      "historical_sha256": "add08b1b4584a6471ad78a0600bbb325ffb530e9141e564ae8f8df1d4b2ac645",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 44319,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "20768762132b425d7118d4e20b9e3b5669eeb4ef85da51ea9f69716eb4b78f07",
+      "historical_sha256": "bb99a0d13a5778810986acc3335ee2632756474a3b6874083c1e52f5d796a509",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 22844,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "20b26c3658c454ccb451bfb195aa3076706e753ed7b8b3d8ac95dae4f04ad5a3",
+      "historical_sha256": "ace1c401bd625d36b1ef864a05785fda12888a56f6d74591af8f10af7bdcf4b8",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 22841,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "e8b56f3ba5ac50733a2c4245ccb1b854542c8e84619111d22e812080df2d6aa3",
+      "historical_sha256": "a5e1d57171f817acdeb00896d68b3443aeefc91e9a0b534ba55979d9307691ed",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 51006,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "36dc573bb817452cb8b7543a1b7b6c480ab0623b7f635f2daec4adac578597d7",
+      "historical_sha256": "2f01c718c37d42a687257dd87b0cf57592b9e5569f7e345184acd8bbdcc4a799",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 30035,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "c260ea294f2ea0e6ebc58200f201c486f8102c61f04ef67a975346a8b2676ef7",
+      "historical_sha256": "af6d9c800fa7c1b8fdcc44fd1270c3ede0c0e5b9cfc36311e80378dfefcc8681",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "                                                           ... THE END",
+          "added": "                                                           ... THE END\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _If Worlds of Science Fiction_ January\n    1954. Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note.\n\n\n\n\n\nEnd of the Project Gutenberg EBook of Off Course, by \nMack Reynolds (AKA Dallas McCord Reynolds)"
+        }
+      ]
+    },
+    {
+      "id": 47492,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "faeabfdaf73e62199c4d50df857d7d6ba5a79db71737d7c49a53145725572829",
+      "historical_sha256": "be8670d93ca9ae55b5caf1805071967a4a200df83d60d0ed611cebe9b04fd629",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 36867,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "42605c3c8ddfd6d0ab1447cd446c0bb0bffb27d7b3c9fe34931b1c7673680ad6",
+      "historical_sha256": "4972f59d964381dba55fe05c519ad7287344db255afcecb7a62d2e556a0b1e00",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 30267,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "fadd609a553a47dea47fa6148771bc46ae216a480a038b77dab44d095142f1ac",
+      "historical_sha256": "7dda18d6ced61cf51bfc38eb0c796f2ad37df21dff7f811d5d5d968b5787628e",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 70645,
+      "mechanism": "source_prefix_restored",
+      "candidate_sha256": "9f02c8e0fc7d54e9d09caa9dbeaf86d54173737c2d85d9f7977590f770868d3f",
+      "historical_sha256": "1df777adf769bcbb8e792e763e2bd03a0666d4b0ffba1ce454550f929e0fd903",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 56250,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "fb4acebf1dece6afe38a717ade3f0ac44fb5d84ca4ef245f43a5a0eda121e454",
+      "historical_sha256": "3d98347834b32250ffdc3c4b6c230caa277069c4dcff62c764b39a6fa46a9d85",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23161,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "332cd5271e74f8e2c1c6b086b592158621ad1aa1324608ac36b89507f645a074",
+      "historical_sha256": "04c80167c9a9b55996df6dc16beffffe408945b721f607decb065547fc8a5c1b",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "is recommended for the man who has seen everything.",
+          "added": "is recommended for the man who has seen everything.\n\n\n  --R. A. LAFFERTY\n\n\n\n\n\nEnd of the Project Gutenberg EBook of Sodom and Gomorrah, Texas, by \nRaphael Aloysius Lafferty"
+        }
+      ]
+    },
+    {
+      "id": 25057,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "3b825eff4b65e0ddd307bf759eaeafe72dfada665a97cf50e6ce198b6a4c8b8d",
+      "historical_sha256": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 2347,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "06b62b167a441936accb21a719ac223a4774ac9c943b3d3adfcb7f8eb74083d7",
+      "historical_sha256": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 2345,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "86e1742e3873e5f5e6a85ca056690e3fe40c9fe22334062431bf378472c6b4a2",
+      "historical_sha256": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23553,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "035e4830382f901efbe613243155e4bb1235000f33881948423252d86d203de5",
+      "historical_sha256": "0120bca5a1704b83268ad957ea9f26dac7d6168ca29ddc4616ab29de7bb32786",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23254,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "8945f55ca92d370f3de7403da47915b9bdd35798ef4b5505145bc1eea061c4cf",
+      "historical_sha256": "90aa064c93d25e5bf20fb9b4ee205b79923dfd617cded3c63583b525cf7826a9",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23557,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "adce2e3991e9cf34e8938a42f48f1e2ea0ed052d583d208952ecc494f544d268",
+      "historical_sha256": "bfbf19903647bd81edc891a5c4b51ae206d9ae751a38b6601b48ca43cac31ac3",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 3183,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "4e091675a2c3266bd1a6d1bc84288f432f07b1b125ca9601da64dcf36a1b1f67",
+      "historical_sha256": "41bda19eb968027e7be7418c225cb420e62f9802ff48249325a0ba8b7422c222",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23252,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "0c84f47c370268994132a8e59f959f7b636b0cb34e073ce2b2c2438eb3cb63f2",
+      "historical_sha256": "b85e33ea8843c983b9ebfd1f64b8785334a0c793fc02f6335230f3ab260db9cb",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "never frighten me with him again.\"",
+          "added": "never frighten me with him again.\"\n\n[Illustration: That was the moment of life 222]\n\n\n\n\n\n\n\nEnd of the Project Gutenberg EBook of The Indian On The Trail, by\nMary Hartwell Catherwood"
+        }
+      ]
+    },
+    {
+      "id": 42640,
+      "mechanism": "mixed_front_and_tail_effect",
+      "candidate_sha256": "2d14cb43728dbc07ce8598044524b417d7c32ed9086418ab7c388649a8c94539",
+      "historical_sha256": "7afda0aea45c9d2fc51fc8173d53df180977af201abbcc8ed6805159393f71d3",
+      "whole_historical_body_preserved": false,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "delete",
+          "removed": "In a somewhat different and in a much briefer form _The Last Christmas\nTree_ appeared several years ago in _The Saturday Evening Post_.\n\n\n\n\nTHE LAST CHRISTMAS TREE\n\n\n",
+          "added": ""
+        },
+        {
+          "kind": "replace",
+          "removed": "The earth was dead.",
+          "added": "The earth was dead.\n\n    NINE HUNDRED AND FIFTY COPIES OF THIS BOOK PRINTED ON VAN GELDER\n    HAND-MADE PAPER AND THE TYPE DISTRIBUTED IN THE MONTH OF OCTOBER\n    MDCCCCXIV\n\n\n\n\n\nEnd of Project Gutenberg's The Last Christmas Tree, by James Lane Allen"
+        }
+      ]
+    },
+    {
+      "id": 32655,
+      "mechanism": "boundary_whitespace_only",
+      "candidate_sha256": "7eecf34d048e44a1f4731123bb8b187616ba72537cff0fda04e0442c90f67efa",
+      "historical_sha256": "f97d78d1f885d46699a0862e125974932a7844df00013169a550cdb91718e009",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 51698,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f95cd2b2f6e1abb93d20a22a394ff289e5f6b4268eec6c6dd83772a393eea47e",
+      "historical_sha256": "ce2bcb7e8bbe76bc22ad3641e25e0d9800b5033f4e804c1d13debc261db82f23",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23555,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "b9e1d5be696da0be77eb93c660e4769f0908763bd0ba6aff52eda9e5e24a756b",
+      "historical_sha256": "4b2a65306237d07176d24473763fe10dc04cded5c0f186362d6847fa47107f07",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 27921,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "35197c44d77324e02eaef0cc5ee3b894c0020d0fbe9214a09302b06c07f74e6b",
+      "historical_sha256": "cd153e0bbd73a80570e46217449b5eae810117cc8ed2c7f83a149b3544177e26",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "She says a lot of motel owners do all right as Justices of the Peace.",
+          "added": "She says a lot of motel owners do all right as Justices of the Peace.\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _Fantastic Universe_ December 1957.\n    Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note. Subscript\n    text is shown between {braces}.\n\n\n\n\n\nEnd of the Project Gutenberg EBook of The Love of Frank Nineteen, by \nDavid Carpenter Knight"
+        }
+      ]
+    },
+    {
+      "id": 23701,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "10e6d2497093360c6ff2bfc82f14bfecac5974c2a69ec6069be7978a4d4b8e0f",
+      "historical_sha256": "843f7e5ac8652ce995b973a7d11094a5a106ad2361542ff911a611777c218ef1",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 30259,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "dab0c4ed41d6f0ea71d98980c5c44f5d878915150d0a7d251e27c12b639dd1cf",
+      "historical_sha256": "3dad20b8f8b2968ebe87c3d1880369b6e8143c59f8d67542301a4bc45ea24959",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23165,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "af60cad1bfaf7c4a4c9d6b15e85d0882166b0a330e726c91bbb185943a367bb7",
+      "historical_sha256": "9d7373655f81189c1173142d1f9fbfbd03a7f6ce3bee7d31cf00c19e77888039",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 61870,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "e32c1b373e5939ffa5fa811c6f38d9eee94af88423c82d6ed2b8a193b2d88c41",
+      "historical_sha256": "9162e126916e6d967c427b7e5c0bfccbf5a85d845f79cf3ae2f7c1f140f50d6f",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23003,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "6398a62f6479bcc33187d2f819b3d047b69c6f8471fff05ec67440d7ca9198e0",
+      "historical_sha256": "03945551aabfd38f63b086e0d356f59728aa43ec1cec7b396e06248c7c132e05",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23703,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "787410468ae07e5216f94627f2d066aeb7d552c1e1855dbe79a36ded52ae9805",
+      "historical_sha256": "a8e523d432be4e652f98b2928b140fca0f9fe73588e28aea2d5af44c0e7734bf",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 12830,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "9e92ff1164a7e6fe7e4174ccc0cc1577f8e9451ab1142b324df9bd64468183a2",
+      "historical_sha256": "f16bb0e83b4edfa3f23fc81bc5768ea2f725e2bd0ecc86e20efe48a4b01310ed",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23552,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "7b89810bc94d73b52dd33cc4d842392894fdc26612c5508ca939d1b01b349de3",
+      "historical_sha256": "02b9f9e172e77bd200634346b298074a61a1bb353bf9572e095d86e97df1f591",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "\"No, it is wholly optional,\" declared Gordon.",
+          "added": "\"No, it is wholly optional,\" declared Gordon.\n\n\"Then, I will settle the question for you once for all, you wobblers!\"\nShe suddenly thrust the paper into the chimney of the lamp on the table\njust within the open window, and as it flared up she flung the document\nforth, blazing in every fibre, on the bare driveway below the veranda.\n\"And now you may find, as best you can, some other means of exorcising\nthe phantom of Bogue Holauba!\"\n\n\n\n\n\n\nEnd of the Project Gutenberg EBook of The Phantom Of Bogue Holauba, by \nCharles Egbert Craddock    (AKA Mary Noailles Murfree)"
+        }
+      ],
+      "387_character_final_paragraph_preserved": true,
+      "direct_fix_body_result": "Sentinel narrative paragraph."
+    },
+    {
+      "id": 9204,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "b7a89fa7f24f717469ef99c9903d20db56800768491f6f308dac0e784f70c2de",
+      "historical_sha256": "84614d6042789642cb6c90fbf46042fad8915346c45bd62ec0284e48fb3e0d58",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 22479,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f20b2c39186cb32c4119e93acd28a7cb0252808d9a55c56cc64827c118c361c1",
+      "historical_sha256": "e16f70660cb3faa246f15d20ff5813c270c155ee6df3c2c23b8ca63ea3f33105",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23548,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "552725bc9e3d6ae230a69ca348eaa6ef101a3f32c864e84923f07d266ea0709f",
+      "historical_sha256": "a5cfb8ec951671dee2674d47adc28a9439235827f9e29de9123ad3f35ef67650",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 9213,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "8a8227e3a5d8f66ced5d4f8b1fe47c87f41a3176770cd1b25a0534ac777aef54",
+      "historical_sha256": "2f2c29bf06c32fa2104edb0f1860e3e678742a27b3e3d5ef53e5fa27429a02e5",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 22967,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "cc68956216b7dc3f11f83f5f25718da533292d20a048c4932119b729deb9ffe6",
+      "historical_sha256": "b58ae9885f3620da4643f31234e1c9648690637556439ce2c2772884712f6ef4",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "THE END",
+          "added": "THE END\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _Astounding Science Fiction_ February\n    1959. Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note.\n\n\n\n\n\n\nEnd of the Project Gutenberg EBook of The Stoker and the Stars, by \nAlgirdas Jonas Budrys (AKA John A. Sentry)"
+        }
+      ]
+    },
+    {
+      "id": 22218,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "e00c25c3d2a86cd7b8280f8a3e2c4b43a45f8124584ceefba1420f15d7b31c68",
+      "historical_sha256": "7dfe4d1aa38799ffe908c2bbd8e6e96eccc948d46963269f1e6a8fef6a239ab5",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 59289,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "9e3b3c693bf6ac753e25bfe78537ab4bc17e682dae6c9e1a72e5ff6a2ed378cb",
+      "historical_sha256": "49911c5574138ee77a05649fb5d56f1928db96bbccc77f2c2a628e4ed557d434",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 9210,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "a43cacd1dc410b831c436f673cf97983f4ab7062748460fe932f7f865506017a",
+      "historical_sha256": "194f2cfd4b34601b08f3dfaffbc8f68b6a22ea69639c79eb66178d4413e1b004",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 9214,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f533effde1e2b7bb0b25e48bdf3955c7840ae7b37847fc08d954a7f7bd4020c0",
+      "historical_sha256": "8dbe16c4daee07f321d8669ba585387eaba2a24558eba476e700f6a7b6fa30fb",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 63720,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "77a0e91e35504d02392f6d23c70361dcec9d2525a4258024efe956257c395e5d",
+      "historical_sha256": "716a07dd64618417c2c60d25ab86c56f7e08c9eb715574eb13964bff842b8adc",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 30010,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "candidate_sha256": "9780d86c8d4210705d13560cd72190fde7ae7aae9f0d34409021bf8845685179",
+      "historical_sha256": "d236040411ca6ca8b378f94bc23374d50f3601778a9b88492c99f248aadf3a7a",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true,
+      "exact_changed_lines": [
+        {
+          "kind": "replace",
+          "removed": "THE END",
+          "added": "THE END\n\n\n\n\nTranscriber's Note:\n\n    This etext was produced from _If Worlds of Science Fiction_ November\n    1953. Extensive research did not uncover any evidence that the U.S.\n    copyright on this publication was renewed. Minor spelling and\n    typographical errors have been corrected without note.\n\n\n\n\n\nEnd of the Project Gutenberg EBook of Trees Are Where You Find Them, by \nArthur Dekker Savage"
+        }
+      ]
+    },
+    {
+      "id": 23550,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "912ae2fd18245b8936fbd2b9fd81e6386908cb116571ea9c65d7ad32b89e079e",
+      "historical_sha256": "1ce07f17edfe38a7b1fb51287dbbf53df102cbe7a3287e66bed259a6626c496b",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 53035,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "9742defb75aab0189672d5c842f87ebe7d1b4b93fe923e7e9f2e0f43c89dec3c",
+      "historical_sha256": "b95169f95174a0c016ef47c0ecc44761c6fc8ef8f7489fcfafe37a832c4fc0a3",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23551,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "665318bc23aeb9bcb8eeb6ea76eda2e82442d1e923f155aff5732c496dbf7c81",
+      "historical_sha256": "b7f2c47425304f31d5983a6fd1a38c3b98aa38c83107164f767a81df383eb443",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23198,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "93b7301852c304fcaca37939e83e0002bbd47cd211ec6f37652f9e65122d158b",
+      "historical_sha256": "c02805a6ae9d7a7674f86efa42032f2d6576d5c79b8acfb21014690b4165f73d",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 24375,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f56c6c00f8ead7478ae08efbfd1ea3ec2051a1ede16316fbb266b5ef1ef0e739",
+      "historical_sha256": "134b86482c695797d6aec89f0462bc54431e6fe580e3a3eafcb90e4353c4cea8",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    },
+    {
+      "id": 23549,
+      "mechanism": "terminal_notice_only",
+      "candidate_sha256": "f670b437aa3b6db7af06f1101840af55550f22bdc47273e96e7a30424549f08a",
+      "historical_sha256": "d579eada6d2cdbe46d84d059e28df0473273173abd6b0cfd0cf442e5df016b71",
+      "whole_historical_body_preserved": true,
+      "body_eligible": true
+    }
+  ]
+}

@@ -5609,3 +5609,86 @@ already-implemented recovery guarantee. Preserve independently necessary guarant
 and test the real batch and CLI, not only isolated per-item potential. User's
 historical recollection surfaced the regression; acknowledge this in the decision
 record rather than framing the lost behavior as a novel optional enhancement.
+
+
+### 2026-10-24 04:43 UTC — Bounded delivery review and qualification grant
+
+Human authorized review-and-qualification of PR #530, presenting acceptance decisions
+and go/no-go before integration. Target 60 minutes (05:43 UTC), hard stop 90 minutes
+(06:13 UTC), no automatic renewal. Product fixed at 823f33c23836aff220fab80046ab84b80584c063;
+base ed20e9c297bf5e50e1911b84722e53f5db3edee3, acquisition branch. PR OPEN/DRAFT,
+mergeable, four exact-head checks green; no GitHub comments/reviews. Worktree/records
+show this session owns it; no competing task found. No integration, main promotion,
+corpus publication, source-policy expansion or implicit body/refusal acceptance.
+
+Coordinator refreshes clean installed-wheel closure/smoke and affected docs checks,
+transfers only source-proven prior evidence, inspects ten exceptional body cases,
+and assembles a decision sheet/Q1–Q8 map. One independent reviewer (25-minute
+assignment) reviews actual diff, tests and governing scope. Two agents normally,
+three maximum; up to three review assignments and 45 worker-minutes total if a
+scoped follow-up is needed. Last 15 minutes reserved for checkpoint. No workers
+may remain active after deadline. Usage/cost telemetry unavailable.
+
+Preflight: root/package AGENTS and STYLE read; LCATS Python with task-worktree
+PYTHONPATH; LRH dev3658+g1388bc6d1. WI0010 readiness yes. Installed skill staleness
+clean; persistent skip consent invalid and untouched. Read lrh-pr-triage skill for
+compatible inspection guidance; it is an inactive-PR report-only workflow, so it
+is not invoked as this session's evidence-producing charter workflow. Native parent
+and reviewer records created before dispatch. Historical evidence and existing caches
+read-only; new experiment outputs under temporary roots, archived in experiments/.
+
+
+### 2026-10-24 04:59 UTC — Delivery review result; human decision hold
+
+No product behavior changed. Fresh wheel at reviewed 823f33c2 matches every one of
+165 Python and two packaged JSON files, with no legacy/VCS dependency or stale
+separated modules. Fresh isolated installed acquisition/gather/provenance/reuse
+smoke passes; new actual installed CLI success/refusal/success twice verifies two
+outputs, one refusal, complete ordered logs and incomplete status 2, with identical
+repeat output bytes. Package downloads were required, but no Gutenberg/source
+network downloads or canonical corpus/cache writes occurred.
+
+Independent reviewer completed the original source/evidence review and same-cycle
+packet check within the 25-minute assignment: no unresolved P0–P2 findings. It ran
+112 canonical focused and 26 experiment tests, replayed all 1,659 cleanup outcomes
+and all 67 differing bodies, reconciled the 1,646 cold/repeat outputs and 13 refusals,
+and checked wheel/installed bytes and source-transfer assumptions. Coordinator's
+41 docs/live tests overlap that focused suite. No duplicate full corpus publication
+or full metadata benchmark was needed: prior evidence transfers only where the exact
+source and measured assumptions were checked. Product/test/config bytes remain
+identical to the passing 2,956-test revision and four-green-check reviewed head.
+
+The decision sheet maps all ten design criteria and Q1–Q8, with four explicit pending
+choices: A13 refusal exclusions; B55 source-backed notice additions; C12 named body
+effects; D frozen-cohort/provenance boundary and separate follow-up. All 80 rows have
+pinned input/metadata/body identities and false acceptance flags. The narrower policy
+keeps restored source material (including the 23552 ending), documents retained
+paratext, and does not promise clean corpus bodies. Current recommendation is
+conditional go for internal integration after human decisions/checks, with a hold now.
+Main promotion, native terminal closeout and release verification remain separate.
+
+Reproducibility improvements are two small experiment runners: installed CLI mixed
+batch and full wheel/historical-source transfer. No executable control-plane code.
+Prior artifacts remain byte-identical. The reviewer inspected the CLI runner; the
+transfer runner reproduces the coordinator's independently checked original result
+but is not claimed independently code-reviewed. Raw reports, failures, constrained
+install versions, archived CI snapshot and proposed dispositions are preserved in
+experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/.
+
+Friction: nonisolated build hit packaging.licenses mismatch, resolved by normal build
+isolation; first unconstrained dependency install timed out, resolved by one fresh-
+venv retry using recorded compatible constraints. Black worker-manager socket was
+sandbox-blocked (including a single-worker attempt); an authorized rerun of the
+unchanged canonical package and explicit experiment checks passes.
+No project-environment repair, test suppression or product change was used. Both
+failure and success logs remain. Package/explicit experiment format and lint pass.
+
+LRH lesson: distinguish causally explained from human-accepted, and tie acceptance
+to per-input identities rather than expanding implementation until a corpus becomes
+editorially perfect. Transfer unchanged component evidence explicitly; refresh the
+changed seam and installed public path. Keep normal-batch yield separate from
+isolated potential and keep final-packet review within the existing review budget.
+Usage/cost telemetry unavailable; do not infer a usage percentage from wall time.
+Session identity resolved with lrh-session-id-codex; no transcript exported. Native
+records stay nonterminal. Finish validation, commit/push evidence to #530, then stop
+for the human decision without integration.

@@ -159,3 +159,17 @@ These are separate measurements, not interchangeable yield claims. Q5 remains
 blocked by batch fail-fast behavior. Causal accounting does not approve body
 contracts or close Q1–Q8. The candidate manifest records bounded next decisions;
 this WI and native executions remain nonterminal pending human delivery.
+
+
+### 2026-10-24 delivery review checkpoint
+
+The [delivery decision sheet](../../development/gettenberg-delivery-decision.md)
+maps all ten design criteria and Q1–Q8 to the narrower candidate. The corrected
+normal batch publishes/reuses 1,646, explicitly refuses 13 and leaves zero unattempted;
+this supersedes the historical fail-fast checkpoint above. Fresh installed wheel/CLI
+qualification and independent review support conditional internal integration.
+Four human decisions remain: refusal exclusions, 55 retained notices, 12 specific
+body effects and the measured scope/follow-up boundary. No decision is inferred from
+causal accounting or passing tests. Keep native records nonterminal and do not
+integrate until the decisions and final-head validation are recorded. Main promotion
+and release verification remain separate.

@@ -22,6 +22,8 @@ recorded historical environments when executed. Import/help checks do not instal
 the old dependency. Other historical runners, including `qualify_installed.py`,
 require their recorded combined checkout; do not use them to qualify this product.
 
+Latest review: [delivery qualification and proposed acceptance](results/gettenberg-delivery-review-20261024/README.md).
+
 Latest correction: [per-item refusal continuation and measured batch yield](results/gettenberg-refusal-continuation-20261023/README.md). Historical fail-fast measurements remain unchanged.
 
 New candidate-specific runners:
@@ -41,7 +43,17 @@ New candidate-specific runners:
   outside the checkout, with `PYTHONPATH` unset. It refuses an importable/installed
   legacy package and records actual fixture-based acquisition/gather outcomes.
 
-Both write fresh evidence only. See each `--help` for exact bounds and failure
+- `qualify_narrow_cli.py NEW_OUTPUT_JSON` extends the isolated installed check with
+  the actual CLI's success/refusal/success flow twice, byte-preserving output reuse,
+  per-item logs and incomplete status 2. Same isolated-wheel invocation, fresh
+  output requirement, socket guard and 120-second POSIX limit as the installed runner.
+
+- `qualify_narrow_transfer.py REPOSITORY PRODUCT_REF WHEEL NEW_OUTPUT_JSON` verifies
+  the entire wheel/product closure and the unchanged component identities supporting
+  dated full-snapshot evidence. Run with project Python; it refuses output inside the
+  repository or an existing report, and never imports product code or uses a network.
+
+The candidate runners write fresh evidence only. See each `--help` for exact bounds and failure
 semantics and the [construction manifest](../../lcats/project/development/gettenberg-narrow-delivery.md)
 for scope and remaining qualification gates.
 

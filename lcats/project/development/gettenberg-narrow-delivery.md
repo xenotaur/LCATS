@@ -1,5 +1,9 @@
 # Narrow gettenberg delivery candidate
 
+Current review: [2026-10-24 delivery decision sheet](gettenberg-delivery-decision.md)
+contains the candidate qualification map and four pending human acceptance decisions.
+Earlier dated measurements below remain historical; no integration is yet authorized.
+
 Status: construction/qualification checkpoint, **not release acceptance**.
 Review: [draft PR #530](https://github.com/xenotaur/LCATS/pull/530), targeting
 `codex/gettenberg-acquisition`.
