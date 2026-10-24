@@ -5692,3 +5692,28 @@ Usage/cost telemetry unavailable; do not infer a usage percentage from wall time
 Session identity resolved with lrh-session-id-codex; no transcript exported. Native
 records stay nonterminal. Finish validation, commit/push evidence to #530, then stop
 for the human decision without integration.
+
+
+### 2026-10-24 05:03 UTC — Review packet published; final documentation check
+
+Evidence/decision commit 38809b24539e67856f4dc65bf9c9a449ea826e01 pushed to existing
+draft PR #530; description now presents A–D and the conditional go/hold recommendation.
+Runtime, tests, package/build/check configuration are exactly unchanged from reviewed
+823f33c2. All 37 archived file hashes and both new runner hashes verify; new document
+local links resolve. LRH: 0 errors /351 existing warnings. The independent reviewer
+is finished; no workers remain on this run.
+
+Final user-guide inspection found a stale tranche sentence saying external-dependency
+removal was still future work. Corrected it to current internal-provider/migration
+behavior, and made the known retained-notice/paratext limitation explicit in the
+user-facing gather guide. This changes no behavior or pending acceptance status.
+Execute the affected documentation tests again, then push this documentation-only
+checkpoint and observe final-head CI. No integration, main/corpus promotion or native
+terminal-state change; human decisions are the next step. Resource budget remains
+within the 60-minute target/90-minute maximum; two agents used, one independent review
+assignment with a final-packet completion, no additional implementation cycle.
+
+
+The final 11 documentation-example tests pass after the guide correction; their
+output is archived and included in the updated evidence manifest. All package code,
+tests and build/check configuration remain byte-identical to the reviewed product.

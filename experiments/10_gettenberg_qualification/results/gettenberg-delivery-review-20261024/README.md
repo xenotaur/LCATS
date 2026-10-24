@@ -114,3 +114,10 @@ an existing report before running fixtures; its original report hash is unchange
 No full-suite rerun is claimed in this documentation/evidence-only pass: the 2,956-test
 result applies to identical product/test/config bytes and the reviewed head already
 has four green hosted checks. Final evidence-commit CI is checked separately.
+
+
+Final user-guide correction: removed the stale statement that dependency removal
+remained future work and explicitly described retained source paratext. All 11
+documentation-example tests pass again (`final-docs-tests.log.gz`). Product behavior
+and pending human acceptance are unchanged. This prose correction follows the
+independent packet review; it adds no new qualification or editorial approval claim.
