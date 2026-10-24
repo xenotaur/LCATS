@@ -1,0 +1,19 @@
+{
+  "completed": true,
+  "canonical_tests": 3100,
+  "canonical_seconds": 109.767,
+  "focused_tests": 9,
+  "installed_rule_tests": 3,
+  "package_format_lint": "pass",
+  "changed_runner_format_lint": "pass",
+  "fresh_wheel_install_smoke_and_pip_check": "pass",
+  "historical_resolved": 14,
+  "historical_unresolved": 1628,
+  "new_dispositions": 0,
+  "feature_freeze": "2026-10-22T00:54:00Z at43% shared weekly usage",
+  "start": "2026-10-22T00:43:14Z",
+  "hard_stop": "2026-10-22T01:13:14Z",
+  "lrh_validation": "0 errors;351 existing warnings",
+  "isolated_output_mib": 484,
+  "archive_link_and_manifest_verified": true
+}

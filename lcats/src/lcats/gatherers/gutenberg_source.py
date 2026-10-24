@@ -7,6 +7,7 @@ fallback, guessed URL, implicit setup or implicit refresh is used here.
 import dataclasses
 
 from lcats.gettenberg import cleanup
+from lcats.gettenberg import identifiers
 from lcats.gettenberg import models
 from lcats.gettenberg import resources
 
@@ -63,6 +64,15 @@ class StoryText:
             "decode_identity": self.decoded.identity,
             "encoding": self.decoded.encoding,
             "cleanup_policy": self.cleaned.policy_version,
+            "cleanup_context": (
+                None
+                if self.cleaned.context is None
+                else {
+                    "source_id": self.cleaned.context.source_id,
+                    "catalog_id": self.cleaned.context.catalog_id,
+                    "titles": list(self.cleaned.context.titles),
+                }
+            ),
             "cleanup_diagnostics": [
                 dataclasses.asdict(d) for d in self.cleaned.diagnostics
             ],
@@ -139,7 +149,19 @@ class GutenbergStorySource:
             raise resources.ResourceDecodeError(
                 "not_plain_text", "story extractor requires plain text"
             )
-        cleaned = cleanup.strip_boilerplate(decoded.text)
+        # Source identity comes from the selected catalog resource URI, not a
+        # mirror request URL. Unknown identity layouts cannot justify extra cuts.
+        try:
+            source_id = identifiers.ebook_id_from_url(resource.uri)
+        except ValueError:
+            context = None
+        else:
+            context = cleanup.CleanupContext(
+                source_id=source_id,
+                catalog_id=metadata.ebook.gutenberg_id,
+                titles=metadata.titles,
+            )
+        cleaned = cleanup.strip_boilerplate(decoded.text, context=context)
         if not cleaned.changed and any(
             d.code != "no_markers" for d in cleaned.diagnostics
         ):

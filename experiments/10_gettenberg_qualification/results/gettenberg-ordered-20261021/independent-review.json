@@ -1,0 +1,39 @@
+{
+  "reviewed_worktree": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+  "baseline": "c90b3fc384fe0d06d209d5500489dbe767845c76",
+  "patch": "/tmp/gettenberg-ordered-20261021/review.patch",
+  "scope": "Ordered retained spans, v1 compatibility, explicit blurb metadata, finite notice proposals, CLI/publication integration, cumulative intent and historical accounting, changed experiment runners/tests/docs.",
+  "findings": [
+    {
+      "priority": "P2",
+      "title": "Use parsed version when reconciling valid versionless v1 approvals",
+      "file": "experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py",
+      "line": 226,
+      "body": "The new approval['schema_version'] lookups fail for v1 records omitting this optional/defaulted field. Product loading/export and the baseline reconciler accept the same source-bound record, but the reviewed patch raises KeyError, preventing historical reconciliation and any batch replay using that prior review. Use the parsed decision.schema_version without rewriting historical records.",
+      "reproduction": "/tmp/gettenberg-ordered-20261021/reproduce_versionless_v1.py",
+      "original_result": "/tmp/gettenberg-ordered-20261021/reproduce_versionless_v1.result.json",
+      "status": "Coordinator repaired during review; independent rerun passed.",
+      "fixed_result": "/tmp/gettenberg-ordered-20261021/reproduce_versionless_v1.fixed-result.json"
+    },
+    {
+      "priority": "P2",
+      "title": "Compare equivalent v1/v2 publication content as the same intent",
+      "file": "lcats/src/lcats/gatherers/readiness.py",
+      "line": 575,
+      "body": "decision_intent includes every v2 omission tuple but no v1 omissions. Thus a v1 single-span approval and a v2 approval retaining exactly that span while removing only a publication notice conflict despite identical narrative and no separately published blurb. The real cumulative inventory becomes conflict and prior historical-baseline reconciliation is lost. Normalize intent to retained spans and separately preserved blurb ranges; preserve conflicts when blurb placement differs.",
+      "reproduction": "/tmp/gettenberg-ordered-20261021/reproduce_v1_v2_intent.py",
+      "original_result": "/tmp/gettenberg-ordered-20261021/reproduce_v1_v2_intent.result.json",
+      "status": "Coordinator confirmed unintended and is repairing; not rechecked in this initial report."
+    }
+  ],
+  "verification": {
+    "approach": "Read real changed product modules, experiment runners, tests and docs; reviewed canonical instructions and approved milestone. Ran isolated fixture-based reproductions through real artifact loaders, exports, inventory, batch evaluation and historical reconciliation, with baseline comparison for the v1 regression.",
+    "full_suite": "Not duplicated; coordinator is running canonical suite.",
+    "network": "No external network or Gutenberg calls.",
+    "repo_mutations": "None by this reviewer; reproduction and report files only under /tmp/gettenberg-ordered-20261021/.",
+    "additional_findings": "No other confirmed defect found in exact partition/hash validation, stale source rejection, ordered concatenation, separately preserved blurb metadata, CLI selection/export, finite paragraph notice grammar, or automated readiness/historical gate separation."
+  },
+  "initial_patch_safe": false,
+  "scoped_verdict": "Two compatibility/accounting fixes required. Core ordered-span design otherwise appears consistent with scoped contract; repaired final state requires coordinator validation/recheck.",
+  "whole_pr_verdict": "No corpus acceptance, integration/main promotion or historical gate closure implied; those gates remain open."
+}

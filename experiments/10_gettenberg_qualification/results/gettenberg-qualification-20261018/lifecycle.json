@@ -1,0 +1,101 @@
+{
+  "candidate_head": "ed20e9c297bf5e50e1911b84722e53f5db3edee3",
+  "source_sha256": {
+    "src/lcats/gettenberg/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/lcats/gettenberg/_catalog_provenance.py": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e",
+    "src/lcats/gettenberg/_decode_types.py": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc",
+    "src/lcats/gettenberg/_lifecycle_io.py": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a",
+    "src/lcats/gettenberg/_resource_containers.py": "18a6303bb54c3226fda539adf0dc354f84e56532d9bf7e776b3d3db7c16633c4",
+    "src/lcats/gettenberg/_resource_decoding.py": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b",
+    "src/lcats/gettenberg/_resource_encoding.py": "86b4162b0d5599dc3e1292e20f6717a8bb5da2622e459e49ce6684de4ff028b7",
+    "src/lcats/gettenberg/_resource_io.py": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873",
+    "src/lcats/gettenberg/_resource_provenance.py": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2",
+    "src/lcats/gettenberg/_resource_refresh.py": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671",
+    "src/lcats/gettenberg/_resource_routing.py": "f6eba22b2876325885d9f1b8ecc5335fb5a47857036027710a2b5e0b7e6cb8fc",
+    "src/lcats/gettenberg/_resource_selection.py": "63bbc47c1b160513dcc7aaffcc6799a1b12ae73792b0c9b943cfc5b150d4224e",
+    "src/lcats/gettenberg/_resource_transport.py": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d",
+    "src/lcats/gettenberg/_resource_types.py": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c",
+    "src/lcats/gettenberg/_store.py": "7d86fc9a94928333db51b9a0f9e9cb52f3c805d594dbf672f53965b9372ea192",
+    "src/lcats/gettenberg/approval_cli.py": "5a9c484c74ad72b720d2b546d523d273d31c6b1c56241af99fd3269f50697bb4",
+    "src/lcats/gettenberg/catalog.py": "2e9c698767fa7a00d46bde9133cf7845b4bbd38426cbf096c0a9de78b4943a85",
+    "src/lcats/gettenberg/catalog_cli.py": "fdf6983b79c49c79a5bdce6d052fba5d609c589597ae91e30b33bb4c7efa5323",
+    "src/lcats/gettenberg/cleanup.py": "1e26afb5aece1f880845add6d3e4dbeb3ef057a66cfa31c8707040cc12c8e1f4",
+    "src/lcats/gettenberg/errors.py": "44c3adfae526f0d79032ca42896d725f460e946146d0fba97b107031bba2c5c1",
+    "src/lcats/gettenberg/identifiers.py": "75c478e1e64f3891e745c203e12d4aeae3eaea5900bcfadbaaf47e821d8fadc2",
+    "src/lcats/gettenberg/ingestion.py": "d9231512e3fa7db047f7ef690122544864f6dd6edf1f15e730a1401a69b7ade2",
+    "src/lcats/gettenberg/lifecycle.py": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912",
+    "src/lcats/gettenberg/models.py": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10",
+    "src/lcats/gettenberg/preparation.py": "155915dd675af5d23aeba9f53112b658cb9c80b0bf9dd11b57f523c51a507bd4",
+    "src/lcats/gettenberg/rdf.py": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0",
+    "src/lcats/gettenberg/resources.py": "6ea3eefa0a0d8ecc06538820afdfd4f35d3fbfd027eab769b960b1e1c109fd37",
+    "src/lcats/gettenberg/sources_cli.py": "f0f699d7a0c62a9acb7b93d34866b98b991f47d8775e18a30780441da341ad63"
+  },
+  "archive_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/rdf-files.tar.bz2",
+  "cache_root": "/private/tmp/gettenberg-qualification-20261018/full-cache",
+  "limits": {
+    "max_compressed_bytes": 268435456,
+    "max_member_bytes": 2097152,
+    "max_expanded_bytes": 4294967296,
+    "max_members": 200000,
+    "max_database_bytes": 4294967296,
+    "max_seconds": 600.0
+  },
+  "network_bytes": 0,
+  "qualified": true,
+  "scope": "One real local lifecycle setup, activation, reuse and read qualification; remote acquisition/caller migration remain outside scope.",
+  "archive_bytes": 125955051,
+  "setup_seconds": 440.8470299170003,
+  "manifest": {
+    "archive_bytes": 125955051,
+    "archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+    "counts": {
+      "archive_members": 78937,
+      "contributions": 109170,
+      "diagnostics": 223,
+      "ebooks": 78937,
+      "resources": 2018879,
+      "sources": 78937,
+      "titles": 84281
+    },
+    "database_bytes": 2177388544,
+    "database_sha256": "3f9a8380c2c8ef41bf071fdaa7be77d174ad67446e2c7fed6efdc06fb72f5c17",
+    "generation_id": "68a8e5f2260d4f44a002d5399c85ec20",
+    "parser_version": "1",
+    "prepared_at": "2026-10-18T05:28:31.311693+00:00",
+    "schema_version": 1,
+    "snapshot_id": "f124e01ce06a92e6ead8a2125ebe5b544951980369003764d6b6b45f6ed7c9df",
+    "source": {
+      "http_etag": null,
+      "input_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/rdf-files.tar.bz2",
+      "kind": "local_archive",
+      "retrieved_at": null
+    },
+    "version": 2
+  },
+  "generation_id": "68a8e5f2260d4f44a002d5399c85ec20",
+  "query": {
+    "enumerated_ids": 78937,
+    "fixture_ids": [
+      10000,
+      10001,
+      10040,
+      11008,
+      15813,
+      16264,
+      84
+    ],
+    "two_readers": "passed",
+    "seconds": 0.06278320799901849
+  },
+  "reuse_seconds": 0.0024031249995459802,
+  "status": {
+    "state": "ready",
+    "generations": [
+      "68a8e5f2260d4f44a002d5399c85ec20"
+    ],
+    "candidates": []
+  },
+  "total_seconds": 441.012539708001,
+  "peak_rss_bytes": 89030656,
+  "peak_rss_target_pass": true
+}

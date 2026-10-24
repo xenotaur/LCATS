@@ -5,6 +5,15 @@ LCATS installation and `lcats gather` for smart first use. The CLI still asks
 before creating a missing catalog; `--yes` supplies unattended approval, and
 `--offline` forbids acquisition. See [gathering](gettenberg-gather.md).
 
+## Track accepted adoption limitations
+
+The [post-adoption backlog](../../project/development/gettenberg-post-adoption-backlog.md)
+records the 13 known cleanup exclusions, 55 retained-notice cases, 12 specific body
+changes and the measured qualification boundary accepted for replacement delivery.
+It lists affected IDs, evidence and follow-up criteria. These are known limitations,
+not claims that a corpus is editorially clean or that all configured inputs have
+been measured. Adoption acceptance does not authorize corpus regeneration.
+
 ## Replace implicit access with explicit sessions
 
 The old `gettenberg.api`, `cache`, `headers` and `metadata` modules are removed.
@@ -41,14 +50,17 @@ using the open catalog, resource store, routes and policy, then pass it explicit
 from lcats.gatherers import parser
 
 report = parser.inspect_story(84, source=source)
-# Inspect report["rejection"], ["metadata"], ["body"] and ["provenance"].
-result = parser.gather_story(gatherer, 84, source=source)
+# Inspect report["rejection"], ["body"] and ["provenance"].
+story_id, path, rejection = parser.gather_story(gatherer, 84, source=source)
+# A path identifies a published or reused story; rejection explains ineligibility.
 ```
 
 `inspect_story` may acquire/cache eligible text according to the supplied policy,
 but never publishes a story. Use an offline policy for read-only inspection of
 already cached sources. `gather_story` preserves existing output and applies the
-same story eligibility/extraction rules. See [source contracts](../reference/gettenberg-gather.md).
+same story eligibility/extraction rules. Ambiguous Gutenberg envelopes raise a
+cleanup refusal; they are not silently published or classified as ineligible.
+The broader editorial review workflow is separate from this provider migration. See [source contracts](../reference/gettenberg-gather.md).
 
 ## Reuse or remove old caches deliberately
 
@@ -88,6 +100,7 @@ replacement regression checks use real RDF/SQLite fixtures. The historical
 `probe_legacy.py` runner likewise requires the old checkout for measurements;
 importing it or asking for help does not load the retired dependency.
 
-CI cache-maintenance migration is tracked separately in WI-GETTENBERG-0009.
+See [CI cache maintenance](gettenberg-ci-maintenance.md) for the maintained
+workflow and its approval boundaries.
 Dependency removal alone does not claim that live full-catalog, whole-corpus or
 release qualification has completed.

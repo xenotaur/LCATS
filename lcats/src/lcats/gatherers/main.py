@@ -56,8 +56,9 @@ def run(
     it does not resolve metadata-dependent story counts or import consumers.
     Selected default or explicit sources permit their origins; --yes approves
     first setup only.
-    Existing outputs are reused. Operational failures return exit2, with partial
-    prior outputs/cache retained and the collection run log recording abortion.
+    Existing outputs are reused. Cleanup refusals do not stop mass gathering or
+    later collections; the final summary reports incomplete gathering with exit 2.
+    Other operational failures abort with exit 2, retaining prior outputs/cache.
     """
     try:
         for value in (dry_run, yes, offline):
@@ -121,14 +122,28 @@ def run(
                 source = gutenberg_source.GutenbergStorySource(
                     catalog, service.store, routes=routes, policy=policy
                 )
+            summaries = []
+            incomplete = False
             for item in requirements:
                 print(f"Running gatherer: {item.name}")
                 module = importlib.import_module(GATHERERS[item.name])
                 if item.needs_catalog:
-                    module.gather(source=source)
+                    result = module.gather(source=source)
+                    if item.name == "mass_quantities":
+                        summaries.append(f"{item.name}: {result.summary}")
+                        incomplete = incomplete or bool(result.refused)
                 else:
                     module.gather(offline=offline, cache_dir=cache_dir)
-        return "Gathering complete.", 0
+        if incomplete:
+            return (
+                "Gathering incomplete: cleanup refusals remain.\n"
+                + "\n".join(summaries),
+                2,
+            )
+        message = "Gathering complete."
+        if summaries:
+            message += "\n" + "\n".join(summaries)
+        return message, 0
     except (
         errors.GettenbergError,
         resources.ResourceError,

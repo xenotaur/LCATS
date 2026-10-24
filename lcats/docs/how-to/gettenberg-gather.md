@@ -67,7 +67,19 @@ existing story extraction, normalization and overrides. It writes
 `data/mass_quantities/<story-slug>/story.json`, retaining acquisition and derivation
 provenance. Existing regular output files are reused without replacement or a
 claim that their contents are valid. Source/decode/integrity failures abort with
-exit 2; metadata or extraction exclusions remain per-story skips in the run log.
+exit 2, except explicit cleanup refusals: these leave the affected input unpublished
+and continue the batch. The final CLI summary reports ready, skipped and refused
+counts and returns 2 if refusals remain. Inspect `story_cleanup_refused` log events
+for IDs and reasons; repeating the run reuses successful files but does not repair
+the refused sources. Metadata or extraction exclusions remain ordinary skips.
+
+A published body can still contain source notices, transcriber notes, captions or
+other frontmatter/endmatter. Conservative cleanup and successful publication do
+not certify editorially clean story text. The [post-adoption backlog](../../project/development/gettenberg-post-adoption-backlog.md)
+lists the known refused inputs, retained-text cases and qualification limits.
+Originals and transformation provenance
+remain available for a separate corpus-curation step; see
+[derived-text boundaries](../explanation/gettenberg-architecture.md#derived-text-does-not-replace-its-evidence).
 
 ## Repeat without network access
 
@@ -98,5 +110,6 @@ Previously completed story files and source bytes remain available for a retry.
 Invalid UTF-8 or ambiguous boilerplate is not silently replaced, guessed or sent
 through the old API. Keep the original-byte receipt and catalog provenance when
 investigating a record. Do not regenerate an existing corpus just to migrate its
-metadata. This tranche changes live gathering; legacy experimental callers and
-removal of the external dependency remain separate work.
+metadata. Active gathering uses the internal gettenberg provider. The
+[migration guide](gettenberg-migration.md) distinguishes migrated callers from
+preserved historical experiments.

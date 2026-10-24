@@ -1,0 +1,17 @@
+[
+  {
+    "name": "existing",
+    "returncode": 1,
+    "passed": true
+  },
+  {
+    "name": "missing",
+    "returncode": 1,
+    "passed": true
+  },
+  {
+    "name": "protected",
+    "returncode": 1,
+    "passed": true
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "script": "assess_cached_readiness.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "assess_cached_readiness.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "audit_cleanup_causality.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "audit_cleanup_causality.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "audit_numeric_notices.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "audit_numeric_notices.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "audit_terminal_notice.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "audit_terminal_notice.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "group_boundary_cases.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "group_boundary_cases.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "measure_baseline.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "measure_baseline.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "numeric_notice_candidate.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "numeric_notice_candidate_test.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "probe_legacy.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "probe_legacy.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "probe_parser.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "probe_parser.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_cached_corpus.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_cached_corpus.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_catalog.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_catalog.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_editorial_evidence.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_editorial_evidence.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_index_counts.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_index_counts.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_installed.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_installed.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_legacy_build.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_legacy_build.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_lifecycle.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_lifecycle.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_migration.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_migration.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_narrative_cases.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_narrative_cases.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_readiness_cases.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_readiness_cases.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_review_batch.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_review_batch.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_review_workflow.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_review_workflow.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_snapshot.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "qualify_snapshot.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "reconcile_review_tranche.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "reconcile_review_tranche.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "reproduce_scope_facts.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "reproduce_scope_facts.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "summarize_corpus.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "summarize_corpus.py",
+    "mode": "help",
+    "returncode": 0
+  },
+  {
+    "script": "terminal_notice_candidate.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "test_terminal_notice_candidate.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "trace_literal_terminal_notices.py",
+    "mode": "import",
+    "returncode": 0
+  },
+  {
+    "script": "trace_literal_terminal_notices.py",
+    "mode": "help",
+    "returncode": 0
+  }
+]

@@ -11,7 +11,7 @@ import re
 
 from lcats.gettenberg import errors
 
-_POLICY = "gutenberg-boundaries-v1"
+_POLICY = "gutenberg-boundaries-v3"
 _MAX_CANDIDATES = 16
 _LINE_END = re.compile(r"\r\n|\r|\n")
 _SPACE = re.compile(r"[ \t]+")
@@ -28,9 +28,11 @@ _MARKER = re.compile(
 _CANDIDATE = re.compile(r"\*+\s*(?:START|END)\b", re.IGNORECASE)
 # Observed historical footer metadata, not a book boundary. Keep this exception
 # exact so damaged START-colon book markers still force conservative refusal.
-_LICENSE_SECTION_START = "*** START: FULL LICENSE ***"
+_LICENSE_SEPARATORS = frozenset(
+    ("*** START: FULL LICENSE ***", "*** END: FULL LICENSE ***")
+)
 _BANNER = re.compile(
-    r"(?:The[ \t]+)?Project[ \t]+Gutenberg(?:'s[ \t]+.+|[ \t]+eBook[ \t]+of[ \t]+.+)",
+    r"(?:The[ \t]+)?Project[ \t]+Gutenberg(?:'s[ \t]+.+|[ \t]+eBook(?:[ \t]+of|,)[ \t]+[^ \t].*)",
     re.IGNORECASE | re.ASCII,
 )
 _LICENSE = re.compile(
@@ -38,7 +40,9 @@ _LICENSE = re.compile(
     re.IGNORECASE | re.ASCII,
 )
 _END_NOTICE = re.compile(
-    r"End[ \t]+of[ \t]+Project[ \t]+Gutenberg's[ \t]+([^ \t].*),[ \t]+by[ \t]+(.+)",
+    r"End[ \t]+of[ \t]+(?:Project[ \t]+Gutenberg's[ \t]+|"
+    r"the[ \t]+Project[ \t]+Gutenberg[ \t]+EBook[ \t]+of[ \t]+)"
+    r"([^ \t].*),[ \t]+by[ \t]+(.+)",
     re.IGNORECASE | re.ASCII,
 )
 
@@ -49,6 +53,22 @@ class CleanupInputError(errors.GettenbergError, ValueError):
     def __init__(self, code: str, message: str):
         self.code = code
         super().__init__(f"{code}: {message}")
+
+
+@dataclasses.dataclass(frozen=True, slots=True)
+class CleanupContext:
+    """Explicit source/catalog association for numeric-envelope notice evidence.
+
+    The caller supplies the selected source's ebook ID and the catalog record's
+    ebook ID and titles independently. This record performs no lookup. IDs must
+    be positive integers and titles an immutable tuple of strings. Disagreement
+    or an empty title tuple is valid evidence that cannot authorize notice removal.
+    The catalog ID is the ebook ID, not a snapshot or contributor identifier.
+    """
+
+    source_id: int
+    catalog_id: int
+    titles: tuple[str, ...]
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -92,6 +112,7 @@ class CleanupResult:
     markers: tuple[CleanupMarker, ...]
     diagnostics: tuple[CleanupDiagnostic, ...]
     policy_version: str = _POLICY
+    context: CleanupContext | None = None
 
     @property
     def text(self) -> str:
@@ -122,13 +143,18 @@ def _label(value):
 
 
 def strip_boilerplate(
-    text: str, *, max_characters: int = 32 * 1024 * 1024
+    text: str,
+    *,
+    max_characters: int = 32 * 1024 * 1024,
+    context: CleanupContext | None = None,
 ) -> CleanupResult:
     """Select content only when a unique Gutenberg envelope is corroborated.
 
     Args:
         text: Decoded plain text. Decode bytes separately; extract HTML separately.
         max_characters: Positive integer input bound, adjustable explicitly.
+        context: Optional explicit source/catalog/title evidence for numeric notices.
+            Missing or disagreeing evidence leaves those notices in the body.
 
     Returns:
         Immutable original/slice/marker/diagnostic record. Unsupported, absent or
@@ -145,6 +171,19 @@ def strip_boilerplate(
         )
     if len(text) > max_characters:
         raise CleanupInputError("input_too_large", "text exceeds max_characters")
+
+    if context is not None and (
+        type(context) is not CleanupContext
+        or type(context.source_id) is not int
+        or context.source_id <= 0
+        or type(context.catalog_id) is not int
+        or context.catalog_id <= 0
+        or type(context.titles) is not tuple
+        or any(type(title) is not str for title in context.titles)
+    ):
+        raise CleanupInputError(
+            "invalid_context", "use positive IDs and an immutable title tuple"
+        )
 
     markers = []
     diagnostics = []
@@ -164,7 +203,7 @@ def strip_boilerplate(
             # Only whether a license exists after the end marker matters; retain
             # the latest position, not an unbounded list of repeated headings.
             last_license_start = start
-        if _CANDIDATE.match(value.lstrip()) and value != _LICENSE_SECTION_START:
+        if _CANDIDATE.match(value.lstrip()) and value not in _LICENSE_SEPARATORS:
             if len(markers) == _MAX_CANDIDATES:
                 diagnostics.append(
                     CleanupDiagnostic(
@@ -221,7 +260,9 @@ def strip_boilerplate(
     def preserved(code=None, message=None, line=None):
         if code is not None:
             diagnostics.append(CleanupDiagnostic(code, message, line))
-        return CleanupResult(text, 0, len(text), tuple(markers), tuple(diagnostics))
+        return CleanupResult(
+            text, 0, len(text), tuple(markers), tuple(diagnostics), context=context
+        )
 
     if diagnostics:
         return preserved()
@@ -267,6 +308,73 @@ def strip_boilerplate(
     diagnostics.append(
         CleanupDiagnostic("envelope_removed", "Unique corroborated envelope removed")
     )
-    return CleanupResult(
-        text, opening.end, content_end, tuple(markers), tuple(diagnostics)
+    result = CleanupResult(
+        text,
+        opening.end,
+        content_end,
+        tuple(markers),
+        tuple(diagnostics),
+        context=context,
+    )
+    return _numeric_notice(result)
+
+
+def _numeric_notice(cleaned):
+    """Remove only a terminal notice corroborated by all numeric context fields.
+
+    This runs after the ordinary envelope checks; it cannot rescue a refused
+    envelope or reinterpret a notice already removed by title corroboration.
+    Physical offsets and retained characters are never normalized or rewritten.
+    """
+    context = cleaned.context
+    if (
+        context is None
+        or context.source_id != context.catalog_id
+        or [item.code for item in cleaned.diagnostics] != ["envelope_removed"]
+        or len(cleaned.markers) != 2
+    ):
+        return cleaned
+    opening, closing = cleaned.markers
+    if (
+        opening.kind != "start"
+        or closing.kind != "end"
+        or opening.identifier != str(context.source_id)
+        or closing.identifier != str(context.source_id)
+    ):
+        return cleaned
+    previous = None
+    for start, end, line, raw in _lines(cleaned.text):
+        if raw.strip():
+            previous = (start, end, line, raw.strip(" \t"))
+    if previous is None:
+        return cleaned
+    start, end, line, value = previous
+    match = _END_NOTICE.fullmatch(value)
+    if (
+        not match
+        or not match[2].strip(" \t")
+        or _label(match[1]) not in {_label(title) for title in context.titles}
+        or not cleaned.text[:start].strip()
+    ):
+        return cleaned
+    marker = CleanupMarker(
+        "end_notice",
+        cleaned.content_start + start,
+        cleaned.content_start + end,
+        opening.line + line,
+        match[1].strip(" \t"),
+        closing.style,
+    )
+    return dataclasses.replace(
+        cleaned,
+        content_end=marker.start,
+        markers=(opening, marker, closing),
+        diagnostics=cleaned.diagnostics
+        + (
+            CleanupDiagnostic(
+                "numeric_notice_removed",
+                "Terminal notice title matches metadata bound to numeric envelope ID",
+                marker.line,
+            ),
+        ),
     )

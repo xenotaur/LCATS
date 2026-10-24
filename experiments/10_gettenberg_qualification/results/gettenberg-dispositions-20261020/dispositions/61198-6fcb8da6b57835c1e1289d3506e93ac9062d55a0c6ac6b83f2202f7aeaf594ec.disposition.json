@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 61198,
+    "candidate_record_sha256": "e062ab92abf578bd9c5c7a5683ce0a8dd0c8bfb29ead113c472ad4b3ff467829",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Numbered II\u2013IV divisions introduce real Retief narrative; retained corpus begins late in Yith dialogue. Exclude rather than reaccept earlier narrative loss.",
+    "approval": null
+}

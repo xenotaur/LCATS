@@ -1,0 +1,39 @@
+{
+  "tools": {
+    "exit_code": 0,
+    "log_sha256": "3eaace819e59e00438e104fd9e56f59c1b2fabe49cb1680499768f40f4033054"
+  },
+  "format-final": {
+    "exit_code": 0,
+    "log_sha256": "4efed281609e49860f57d127a74c7edbddae48c654dee79d0735fc1f9e5ae6c8"
+  },
+  "lint-final": {
+    "exit_code": 0,
+    "log_sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "experiment-format": {
+    "exit_code": 0,
+    "log_sha256": "2905ef48f08749efc5fa3e516a8355f26b1bded06e5c2654b0b8aa5375b78d3d"
+  },
+  "experiment-lint": {
+    "exit_code": 0,
+    "log_sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "test-final": {
+    "exit_code": 0,
+    "log_sha256": "e5f7f691a41547e38fafbb2234d93f454852f9c1ac4514a96d1a9a22ae84f705",
+    "tests": 2963,
+    "seconds": 79.988,
+    "archived_log": "canonical-test.log.gz",
+    "compressed_sha256": "dde7c2d6c714049657ca71cd1be0d9ad6429be20e07f502a205dc382e67a4e15"
+  },
+  "experiment-tests-final": {
+    "exit_code": 0,
+    "log_sha256": "7e104dabb892ab8c9f7e701aa335d60f17f2ec8d71f1e124c2bd5e8d3e1d6177"
+  },
+  "lrh-final": {
+    "exit_code": 0,
+    "log_sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+  },
+  "scope": "Canonical checkpoint validation after editorial-recognition repair. Does not establish corpus acceptance or final independent review."
+}

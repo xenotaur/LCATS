@@ -1,5 +1,6 @@
 """Gatherer for single stories from gutenberg"""
 
+import dataclasses
 import pathlib
 
 from tqdm import tqdm
@@ -7,6 +8,9 @@ from tqdm import tqdm
 from lcats.gatherers import downloaders
 from lcats.gatherers.mass_quantities import storymap
 from lcats.gatherers import parser
+from lcats.gettenberg import resources
+from lcats.utils import env
+from lcats.utils import paths
 from lcats.utils import run_log
 
 # Outside data/ and corpora/ (both protected by run_log.RunLog's own
@@ -16,54 +20,88 @@ DEFAULT_GATHER_LOG_DIR = pathlib.Path("logs") / "gather"
 GATHER_LOG_FILENAME = "mass_quantities_gather_run_log.jsonl"
 
 
-def gather(*, source):
-    """Extract all the "single stories" we have identified in the Gutenberg Project.
+def _log_directory(path):
+    """Protect runtime data/corpora roots even outside a source checkout.
 
-    Relies on the story definitions in storymap.py using the gather_stories function
-    to do the actual work of extracting the stories and saving them in the data directory.
-
-    Returns successful stories; metadata/extraction skips are retained in the
-    lower-level result. Operational source failures propagate and abort the run.
-
-    Returns: A dictionary mapping story IDs to file paths.
+    The general RunLog guard discovers repository roots. Installed wheels need
+    this additional check against the same environment roots used by gathering.
+    This safety rule is retained from the separated review-store implementation;
+    it does not require its editorial policy or candidate persistence machinery.
     """
-    if source is None:
-        raise ValueError("an explicit GutenbergStorySource is required")
-    gathered_stories, _ = gather_stories(storymap.SINGLE_STORIES, source=source)
+    root = pathlib.Path(path).resolve()
+    values = [env.data_root(), env.corpora_root()]
+    try:
+        anchor = paths.find_pyproject_root(__file__)
+    except FileNotFoundError:
+        pass  # A wheel has runtime roots, but no source checkout to protect.
+    else:
+        values.extend((anchor / env.data_root(), anchor / env.corpora_root()))
+    for value in values:
+        protected = pathlib.Path(value).resolve()
+        if root == protected or protected in root.parents:
+            raise ValueError(f"log directory must be outside data/corpora: {root}")
+    return root
 
-    return gathered_stories
+
+@dataclasses.dataclass(frozen=True)
+class BatchResult:
+    """Completed collection outcomes; ready includes new and reused files.
+
+    Skips are ordinary metadata/body exclusions. Refusals mean cleanup could not
+    safely delimit a source; they remain unresolved and make the run incomplete.
+    Operational exceptions are not converted into either category.
+    """
+
+    ready: dict[int, str]
+    skipped: dict[int, str]
+    refused: dict[int, str]
+
+    @property
+    def summary(self):
+        """Return counts without implying publication or editorial acceptance."""
+        return (
+            f"{len(self.ready)} ready (written or reused), "
+            f"{len(self.skipped)} skipped, {len(self.refused)} cleanup refused"
+        )
+
+
+def gather(*, source):
+    """Gather the configured collection, retaining all completed outcomes."""
+    return gather_batch(storymap.SINGLE_STORIES, source=source)
 
 
 def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
-    """Extract a set of stories from the Gutenberg Project.
+    """Return the historical (ready paths, error reasons) pair.
 
-    Uses the gather_story function to do the actual work of extracting the story.
-    Returns two dictionaries, one for successfully gathered stories and one for errors.
-    We will upgrade this to support more meaningful error handling in the future.
+    Cleanup refusals continue and appear among errors. Use gather_batch() when
+    ordinary skips and unresolved cleanup refusals must be distinguished.
+    Operational exceptions still propagate after preserving earlier outputs/logs.
+    """
+    result = gather_batch(stories, log_dir=log_dir, source=source)
+    return result.ready, {**result.skipped, **result.refused}
 
-    Wraps the loop in a run_log.RunLog scope (log path
-    ``<log_dir>/mass_quantities_gather_run_log.jsonl``, outside the
-    protected data/ tree the gathered stories themselves live under) -
-    a crash mid-run leaves a readable partial log of every story
-    processed so far (WI-GATHER-0105). This is scoped inside
-    gather_stories() itself, not around one of its two independent
-    callers (gather() and main()), so every invocation -- including
-    direct calls, as this function's own tests make -- shares the same
-    run-log lifecycle. Operational source failures propagate and record an aborted
-    run; metadata/extraction skips retain per-story reasons. story_ready means
-    written or reused, never falsely claiming an existing output was downloaded.
+
+def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
+    """Gather independently safe stories and record per-input cleanup refusals.
+
+    Each completed input gets a run-log event. A cleanup_refused source is not
+    published, but later inputs are attempted. Other source, decoding, integrity
+    or filesystem failures propagate, preserving earlier files and an abort log.
+    A run_end event means iteration finished, not that every input was accepted;
+    the preceding batch_summary counts and returned result retain skips and
+    unresolved refusals.
 
     Args:
-        stories: A list of story IDs to extract from Gutenberg.
-        log_dir: Working root for the run log (default: logs/gather).
+        stories: Iterable of Gutenberg IDs, processed in the supplied order.
+        log_dir: Log root outside protected data/corpora trees.
         source: Explicit catalog-backed source; caller owns its catalog lifetime.
+
     Returns:
-        A tuple of two dictionaries:
-        - A dictionary mapping story IDs to file paths for successfully gathered stories.
-        - A dictionary mapping story IDs to error messages for failed stories.
+        BatchResult with ready paths, ordinary skip reasons and cleanup refusals.
     """
     if source is None:
         raise ValueError("an explicit GutenbergStorySource is required")
+    log_dir = _log_directory(log_dir)
     gatherer = downloaders.DataGatherer(
         storymap.TARGET_DIRECTORY,
         description="Single stories from Gutenberg",
@@ -72,6 +110,7 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
 
     gathered_stories = {}
     failed_stories = {}
+    refused_stories = {}
     try:
         story_count = len(stories)
     except TypeError:
@@ -85,12 +124,25 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
         log_dir,
         GATHER_LOG_FILENAME,
         story_count=story_count,
+        # Both runtime and available checkout roots were independently checked.
+        allow_protected_root=True,
     ) as log:
         # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
         for story in tqdm(stories):
             # for story in tqdm(range(1, 79061)):
             # print(story)
-            story, filename, error = parser.gather_story(gatherer, story, source=source)
+            try:
+                story, filename, error = parser.gather_story(
+                    gatherer, story, source=source
+                )
+            except resources.ResourceDecodeError as exc:
+                if exc.code != "cleanup_refused":
+                    raise
+                # A content refusal is local to this input, not an operational
+                # failure of the collection. Never publish or silently retry it.
+                refused_stories[story] = str(exc)
+                log.event("story_cleanup_refused", story=story, reason=str(exc))
+                continue
             if filename:
                 gathered_stories[story] = filename
             if error:
@@ -98,7 +150,14 @@ def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
             event = "story_ready" if filename else "story_failed"
             log.event(event, story=story)
 
-    return gathered_stories, failed_stories
+        log.event(
+            "batch_summary",
+            ready=len(gathered_stories),
+            skipped=len(failed_stories),
+            refused=len(refused_stories),
+            incomplete=bool(refused_stories),
+        )
+    return BatchResult(gathered_stories, failed_stories, refused_stories)
 
 
 def main(*, source):

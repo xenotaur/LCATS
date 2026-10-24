@@ -1,0 +1,4 @@
+Validation completed: 1 error(s), 0 warning(s)
+
+Errors:
+- [FILE_NOT_FOUND] focus/current_focus.md: required file not found: current_focus.md

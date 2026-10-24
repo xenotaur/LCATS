@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "id": 61198,
+      "decoded_utf8_sha256": "351c3806f722445b457f44dfe067852778e49559a069a17806c47aea289d3bb2",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 23762,
+      "decoded_utf8_sha256": "5248241aa0a980b72273391bc763a45a63a621d37512b6c2af4d409531448cb2",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 64292,
+      "decoded_utf8_sha256": "4258534eadaa77ad77e67dc731914f784597c8829250358b4884cf61b2bf21e5",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 27612,
+      "decoded_utf8_sha256": "8eb6fc5e111d75c128badb37011fd96a101ee7d6c78902852ff595bb7e4a582a",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 27709,
+      "decoded_utf8_sha256": "b35e401fe094b72a57051ab15fdd1a77d50f1e2db505b45c6a69bb16a47fde83",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 61353,
+      "decoded_utf8_sha256": "a55e8ec3c4d5e2d3a138aac68849fbc197c9f15bfe3eb1ebc95a95c52c450619",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 32769,
+      "decoded_utf8_sha256": "0ea3ff365a04ed736a0ab761fc70ef2a6d3dca90762549871561251ceda8263b",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 63889,
+      "decoded_utf8_sha256": "d911375fe7b2a8200c2dde5897d7a26aa785790666e48cecdfc4ff6bcd89a2da",
+      "expected_status": "needs_review"
+    }
+  ]
+}

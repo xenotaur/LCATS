@@ -1,0 +1,26 @@
+{
+  "lifecycle.json": {
+    "pinned_paths": 28,
+    "changed": [
+      "src/lcats/gettenberg/cleanup.py"
+    ],
+    "missing": []
+  },
+  "snapshot.json": {
+    "pinned_paths": 28,
+    "changed": [
+      "src/lcats/gettenberg/cleanup.py"
+    ],
+    "missing": []
+  },
+  "source-ledger.json": {
+    "pinned_paths": 165,
+    "changed": [
+      "src/lcats/gatherers/gutenberg_source.py",
+      "src/lcats/gatherers/main.py",
+      "src/lcats/gatherers/mass_quantities/gatherer.py",
+      "src/lcats/gettenberg/cleanup.py"
+    ],
+    "missing": []
+  }
+}

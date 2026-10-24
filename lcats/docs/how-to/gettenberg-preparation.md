@@ -23,7 +23,8 @@ strict decoder and conservative boilerplate cleanup. Setup and offline policy
 are enforced on that live path. Curated fixed-URL HTML collections use their
 existing source cache with the same offline restriction. See
 [gather with default or explicit sources](gettenberg-gather.md) for the complete workflow.
-Legacy experimental helpers still exist; dependency removal is a later tranche.
+The retired helpers and external dependency have been removed; see the
+[migration guide](gettenberg-migration.md) for maintained research entry points.
 
 ## Set up from an existing archive
 

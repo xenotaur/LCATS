@@ -71,7 +71,37 @@ class CleanupTests(unittest.TestCase):
             + original[result.content_end :],
             original,
         )
-        self.assertEqual(result.policy_version, "gutenberg-boundaries-v1")
+        self.assertEqual(result.policy_version, "gutenberg-boundaries-v3")
+
+    def test_historical_comma_banner_preserves_only_corroborated_content(self):
+        text = "The Project Gutenberg eBook, The Lantern, by A. Writer\n\n" + envelope()
+        self.assertEqual(cleanup.strip_boilerplate(text).text, "A small light.\n")
+        self.preserved(
+            "The Project Gutenberg eBook,\n" + envelope(), "unverified_header"
+        )
+        self.preserved(
+            "A narrative mentions The Project Gutenberg eBook, The Lantern\n"
+            + envelope(),
+            "unverified_header",
+        )
+
+    def test_exact_license_end_separator_does_not_hide_book_marker_damage(self):
+        separator = "*** END: FULL LICENSE ***"
+        text = envelope() + "\nTHE FULL PROJECT GUTENBERG LICENSE\n" + separator
+        self.assertEqual(cleanup.strip_boilerplate(text).text, "A small light.\n")
+        self.preserved(separator, "no_markers")
+        self.preserved(envelope() + "\n" + separator, "unverified_footer")
+        self.assertEqual(
+            cleanup.strip_boilerplate(envelope(separator + "\n")).text, separator + "\n"
+        )
+        for damaged in (
+            "*** END: FULL LICENSE EXTRA ***",
+            "*** END: PROJECT GUTENBERG EBOOK THE LANTERN ***",
+        ):
+            self.preserved(
+                envelope() + "\nTHE FULL PROJECT GUTENBERG LICENSE\n" + damaged,
+                "unrecognized_marker",
+            )
 
     def test_lf_crlf_cr_and_missing_final_newline(self):
         for newline in ("\n", "\r\n", "\r"):
@@ -443,6 +473,10 @@ assert not cleanup.strip_boilerplate(text).changed
 notice = "End of Project Gutenberg's " + " " * 200000 + "X"
 text = "*** START OF THE PROJECT GUTENBERG EBOOK X ***\\n" + notice + "\\n*** END OF THE PROJECT GUTENBERG EBOOK X ***"
 assert cleanup.strip_boilerplate(text).text == notice + "\\n"
+notice = "End of the Project Gutenberg EBook of " + " " * 200000 + "X"
+text = "*** START OF THE PROJECT GUTENBERG EBOOK 42 ***\\n" + notice + "\\n*** END OF THE PROJECT GUTENBERG EBOOK 42 ***"
+context = cleanup.CleanupContext(42, 42, ("X",))
+assert cleanup.strip_boilerplate(text, context=context).text == notice + "\\n"
 text = ("ordinary line\\n" * 100000)
 assert cleanup.strip_boilerplate(text).text == text
 """
@@ -465,7 +499,7 @@ class CleanupDocumentationTests(unittest.TestCase):
         blocks = re.findall(
             r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
         )
-        self.assertEqual(len(blocks), 4)
+        self.assertEqual(len(blocks), 5)
         namespace = {}
         with capture.capture_output():
             for block in blocks:

@@ -47,11 +47,10 @@ def compare_case(baseline, body, fixtures):
             )
             pathlib.Path(gatherer.path).mkdir(parents=True)
             result = module.gather_story(gatherer, fixtures.BOOK_ID, source=source)
-            results.append({"id": result[0], "rejection": result[2]})
+            story_id, path, rejection = result
+            results.append({"id": story_id, "rejection": rejection})
             payloads.append(
-                None
-                if result[1] is None
-                else json.loads(pathlib.Path(result[1]).read_text())
+                None if path is None else json.loads(pathlib.Path(path).read_text())
             )
         comparisons = reconciliation.compare_collections(
             fixture.root / "before/mass_quantities",

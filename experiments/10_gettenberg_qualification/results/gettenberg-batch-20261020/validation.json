@@ -1,0 +1,24 @@
+{
+  "canonical_tests": 3053,
+  "canonical_seconds": 103.68,
+  "focused_tests": 26,
+  "canonical_pass": true,
+  "package_format_lint_pass": true,
+  "experiment_format_lint_pass": true,
+  "independent_initial_findings": {
+    "P1": 2,
+    "P2": 1
+  },
+  "independent_recheck": "all_three_findings_resolved",
+  "publication": {
+    "published": 1,
+    "needs_review": 4
+  },
+  "baseline_commit": "0c9d4b3e096f87b03e71e8a73e5e61f9a584ac3e",
+  "integration_authorized": false,
+  "main_promotion_authorized": false,
+  "lrh_errors": 0,
+  "lrh_existing_warnings": 351,
+  "weekly_account_used_percent_start": 23,
+  "weekly_account_used_percent_checkpoint": 27
+}

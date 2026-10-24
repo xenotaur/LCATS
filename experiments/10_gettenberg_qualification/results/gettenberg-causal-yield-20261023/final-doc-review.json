@@ -1,0 +1,60 @@
+{
+  "reviewer": "independent /root/causal_yield_review",
+  "reviewed_at": "2026-10-23T06:07:12.092475+00:00",
+  "assignment": "Final scoped documentation/evidence recheck; third delegated assignment in parent run. No runtime or runner changes, no behavior reruns.",
+  "base_head": "95ad5afddc6841c6f7946c7ae43fd98b6f39b25f",
+  "reviewed_file_sha256": {
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/README.md": "ae1252a759a1b1395734cbac73d74c46a073ad7f40c4fe5f9a91f97683a7f030",
+    "experiments/10_gettenberg_qualification/README.md": "e24578b2fda3a066c373a976d649ae6c9fba1990240732665cef7d0f36cdbc2c",
+    "lcats/project/development/gettenberg-narrow-delivery.md": "b40a416f2a23a9f2e93dab5ae5dd2e3ce913e653a9e8688c271bf275ab1c9c3a",
+    "lcats/project/development/gettenberg-development-log.md": "75a1d4b623f65dc9509e58da770d9152a39283ffa64152f4ddd3e61159318fa1",
+    "lcats/project/work_items/proposed/WI-GETTENBERG-0010.md": "9162881eaa61fea307e479fe271622fdc1e07d7ce8596c654527112eae61a0b3",
+    "lcats/project/executions/AD_HOC/2026_10_23_05_50_28_GETTENBERG_CAUSAL_INVESTIGATOR.md": "f0305d71a6cc1e23624af81394193d13d75c09624e194160299adfa2e861f298",
+    "lcats/project/executions/AD_HOC/2026_10_23_05_53_33_GETTENBERG_CAUSAL_YIELD_REVIEW.md": "ecb3c6be63db6f0db163e57941130913a489b05f201f7887ba36ac0660417db0",
+    "lcats/project/executions/WI-GETTENBERG-0010/2026_10_23_05_41_28_GETTENBERG_CAUSAL_YIELD.md": "f7c5cf8ffd8aa0552aac5a16329f74d6968e50c3f0b300b461ec3dcc64e524cf",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/gather-yield.json.gz": "119f046dd73b9713a55aa6bb54c70d1ad4eb46bc34650ca70ec8149b40e87a06",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/independent-review.json": "61259a948d9daec1268d19d520466a54a69abc5f40c8bdb026e5faddcdca200b",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/experiment-lint.log": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/lrh-wrong-root.log": "b1ae7c89ebb62b5c7c65b6b90bb8120ae27a410449653b8dbaa689d34601fd97",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/yield-tests-after-fix.log": "b21a438e2437e20cc4206649f3ad94e730020490df08e0a0d7e6b546683b0a7c",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/causal-ledger.json.gz": "97841cf092f341cad4bb091203058b953993a622902a80e758aee9cfd04445fb",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/independent-causal.json.gz": "fa235a5d207a8f2764a01054af12a46fbcd7566c858308ebbe86b0a400c3b541",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/package-lint.log": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/yield-tests-before-fix.log": "d65ce40909f4634f6d313c6dfc406d308b98b6c8e2548bfddee012ea695a90e0",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/full-tests.log": "038b6d9b44bdad3a64909ff77a349e70d4c7b3fa1186de7815a718bfc1d31e6a",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/lrh-validation.log": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/experiment-lint-sandbox-failure.log": "55008151d4e1f23585a470a0a802ca74bd355bf58f120905d7d6ff860b34833f",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/experiment-tests.log": "95e25fa3d0d836f947ad4ee4e4ff2139b94ca7eb5874879fb1fd459e718c0992",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/yield-before-data-pin-fix.json.gz": "65e0f1195883f554e0a2a5b73f05af22080afbeda9fcc63096e7d3f1a5e2ff42",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/causal-lint.log": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/yield-before-collision-fix.json.gz": "04cf1a2416c409b20ab2cd9f8378cd89550b60edf557548b9b92a1ce845bcffb",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/yield-final.log": "184cb9030b451a17585d5431a055e22bca8f614b921f8a7477c7aa21d7e712a1",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/independent-causal.log": "9d64e157fcd3e383821a8853f8604236cc3298da1a31a71cda2d238c37fe7a95",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/causal-tests.log": "ac6e9da8bd627c0143d4f0935a2191f667799eff6766b01790f29565bc679b61",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_yield.py": "d4f0a7060eb08f3cc008406367e9e75b394b73a82f64743d46140ec886cf37a3",
+    "experiments/10_gettenberg_qualification/scripts/narrow_yield_test.py": "95b3d0de5aceb13a391b7eea45dc7bdf65c7077de13348970de21582e2c1d0ec",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_causality.py": "59dfe94f97d67ce90069b6c56673bc7f147b7699c211f15671dc234dfcd5d28d",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_causality_test.py": "9aabae3b3c7006c54c301b0410bfb6bacd27bf43482e25d4806a5cbec46ac043"
+  },
+  "unresolved_p0_p2": [],
+  "checks": [
+    "Four runner/test source hashes unchanged from initial independent review.",
+    "Archived final yield, independent causal replay and initial review bytes exactly match reviewed /tmp outputs.",
+    "Counts and distinctions verified:80causal residuals,41cold publications/1617unattempted,1646isolated publications/13refusals; no acceptance inferred.",
+    "Product diff from91f1b422 empty; both JSON input pins still match.",
+    "Decision recommendations require explicit human contract approval; broader editorial work and missing-wire/full-selection limits remain separate.",
+    "All three execution records remain in_progress with no TODO placeholders.",
+    "Relative Markdown links checked for target existence.",
+    "Canonical test log records2955passing tests in95.917s; experiment log records26passing tests.",
+    "Proposed PR530 description matches evidence, clearly marks operational blocker and pending acceptance, and makes no new production/wheel claim."
+  ],
+  "nonblocking_limitations": [
+    "Previously documented experiment-only P3 SIGALRM behavior remains explicitly deferred; no new finding.",
+    "sha256.json is referenced by README but not yet generated at recheck time. Coordinator will generate/verify after archiving this review, excluding the manifest itself."
+  ],
+  "recommendation": "Documentation and evidence suitable for authorized publication to draft PR530; no production change, delivery acceptance or main promotion authorization.",
+  "proposed_pr_body": {
+    "path": "/tmp/gettenberg-pr530-causal-yield-body.md",
+    "sha256": "5431983cd5eaa36b5bf537c1e4a736ce0c15187f1c455c04f85bdc6f9b34c4c3"
+  }
+}

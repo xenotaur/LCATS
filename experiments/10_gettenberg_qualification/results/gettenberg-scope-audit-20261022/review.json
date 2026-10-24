@@ -1,0 +1,31 @@
+{
+  "reviewer": "codex_app subagent /root/scope_audit_review",
+  "scope": "Independent audit of proposed scope split, causal evidence, experiment runner and meeting brief; no product qualification.",
+  "initial_findings": [
+    {
+      "priority": "P2",
+      "issue": "Runner hashed repository paths without checking actual imported module locations.",
+      "resolution": "Bind each of eight module.__file__ paths and bytes to expected worktree and pinned Git content; import story_body explicitly.",
+      "status": "resolved"
+    }
+  ],
+  "unresolved_findings": [],
+  "independent_replay_rows": 8,
+  "archived_normalized_hashes_reproduced": 16,
+  "independent_report_sha256": "094278118f50d3bbc5e0fcde886ed9f8ccb588bdbb31c91dce4667ae0abf635f",
+  "independent_checks": [
+    "Early/later census 1659 rows, zero metadata rejections",
+    "All eight current bodies need review with either cleaner",
+    "Six current-body pairs identical, 70645/23104 remain cleaner-dependent",
+    "Archive/source hashes and product diff verified",
+    "No unsafe rollback or implicit gate relaxation in proposal"
+  ],
+  "focused_recheck": {
+    "runner_sha256": "be5a2b8aaa36b338ec512032ee3a5eaecc5dac593f01825973d2788a0f1a4bfd",
+    "wrong_import_test": "real PYTHONPATH shadow package with byte-identical story_body at other path",
+    "exit_code": 1,
+    "refusal": "wrong imported module: gatherers/story_body.py",
+    "no_output": true
+  },
+  "human_approval": false
+}

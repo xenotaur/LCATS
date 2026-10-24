@@ -73,5 +73,34 @@ assert result.original[record["content_start"]:record["content_end"]] == result.
 
 For complete in-memory evidence, `dataclasses.asdict(result)` is JSON-compatible
 and includes the original text. This library does not write that record for you.
-Legacy `headers.strip_headers` and `lcats gather` still use their existing path;
-consumer migration is a separate planned step.
+Live metadata-dependent gathering uses this cleanup through its story source.
+The retired `headers.strip_headers` API has been removed; see the
+[migration guide](gettenberg-migration.md).
+
+## Supply corroborating identity for numeric envelopes
+
+The story-source adapter supplies this context from the selected resource and
+catalog record. Direct callers can do the same explicitly:
+
+```python
+from lcats.gettenberg import cleanup
+
+numeric_text = (
+    "*** START OF THE PROJECT GUTENBERG EBOOK 84 ***\n"
+    "A café kept its lamp lit.\n"
+    "End of the Project Gutenberg EBook of A Lantern, by An Author\n"
+    "*** END OF THE PROJECT GUTENBERG EBOOK 84 ***\n"
+)
+context = cleanup.CleanupContext(
+    source_id=84, catalog_id=84, titles=("A Lantern",)
+)
+numeric_result = cleanup.strip_boilerplate(numeric_text, context=context)
+assert numeric_result.text == "A café kept its lamp lit.\n"
+assert numeric_result.original == numeric_text
+assert numeric_result.context == context
+```
+
+Derive `source_id` from the selected resource URI, not by copying the catalog ID.
+Without trustworthy context, omit it: the numeric terminal notice stays intact.
+Original bytes and decoded text remain unchanged. See the
+[reference](../reference/gettenberg-cleanup.md) for exact guards and diagnostics.

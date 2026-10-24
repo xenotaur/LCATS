@@ -1,0 +1,110 @@
+[
+  {
+    "gutenberg_id": 22579,
+    "source_identity_sha256": "a8a90536a4b4a2e92588e95e560742b8c28ee888480826ff5f29cdba0912f21a",
+    "candidate_sha256": "9e7b45ddf3fe3f2e17ee698b1114f11247e403beebe88eeb4c62f1e74aced504",
+    "assessment_sha256": "32543a29febd6360b2dadb478374b6233b07305ee7831073fe480ad45d174610",
+    "selected_start": 193,
+    "selected_end": 31373,
+    "selected_sha256": "221f211fddb7d7c16e060a4f0087447d336673d93c8764b986c0fc3282cf8479",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Preserve the interior [Illustration] label within the narrative span; do not delete interior source features. This retained label is explicitly acknowledged, not an automated clean-text claim. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 23148,
+    "source_identity_sha256": "4a5c0e3ff77b9b48df3700019dac53800766d6f9a5ccb03c5a257de69b0b7d60",
+    "candidate_sha256": "add131d23f6c7229432e3dac47e398f3252279939c93f089bf12a84c0fbfb063",
+    "assessment_sha256": "fd32bfd2222bb51588ed420a9db631131fab320f40c953380267c225c868a627",
+    "selected_start": 108,
+    "selected_end": 15382,
+    "selected_sha256": "87260ff398f38ebb3d678849b4b930f8ee65fd5f2c57517af2b5479c2a70a747",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 35401,
+    "source_identity_sha256": "86838cbc24d8441e13369080fa794a52cf044e9dfaa9cb90d169808a448ce245",
+    "candidate_sha256": "774d26820e58e9893f516d148e6fd0b3e32c3a057c58557d688e19ce4ddb36ef",
+    "assessment_sha256": "37d9d345b8d89791367c3b2d2d2fe9e52064f32634550c9d02854a1679ce4598",
+    "selected_start": 239,
+    "selected_end": 26479,
+    "selected_sha256": "d908a0967868a4c400a53bba975dbdca6060b9cdf7bd5274639d32735fa44967",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 70645,
+    "source_identity_sha256": "daa72d4298209cc9be5cfdefcabfba4394f874ddd025bc0448b9c0ebbe2ddd6e",
+    "candidate_sha256": "80581e195c1f6390277514c215ed7813c80e033e075fe02209e2ad11ab39c9c7",
+    "assessment_sha256": "263eab0a823541304c340e2affb4e910b7422404aec37bcc22e8d2d4e103ad30",
+    "selected_start": 307,
+    "selected_end": 26842,
+    "selected_sha256": "27215a65dd643ceecb94893e27c6a8add87173f5f18d88d1d555a5fbaa8ce2a7",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 23104,
+    "source_identity_sha256": "45e541859011b1e9fbfca62022975f9417f33170c3005fd809993d0f36554cfd",
+    "candidate_sha256": "d6373b929c3d1482342dd75f015cd5d3f2c5635c737ba3176110990fa2ed54d1",
+    "assessment_sha256": "0b99fa5730e2e1a768fe408f61f9a3db073429039c2b8b3c3b3641b5aabcea3d",
+    "selected_start": 520,
+    "selected_end": 30523,
+    "selected_sha256": "72c95bd4ad9411c68d6a98120257a0915a77d87f5fb1bf5e89d8365eb69b0fc1",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 50103,
+    "source_identity_sha256": "91f5eecdab22c8e2a3e841c038a62bc65fa4a51936a83dd62787086802c15e10",
+    "candidate_sha256": "665366f5d2cb392169d8ebedae0e4b4c9efd71ca41fd50aba4cd810f9e6c6184",
+    "assessment_sha256": "14e7d3e495a62ad90a947b7eb36e73f3f23126270bb40cb5aebe98e1420cf7f8",
+    "selected_start": 305,
+    "selected_end": 31994,
+    "selected_sha256": "6499a001d5466bead6d3115d9896809deadf807b8fbf16bb5ac72633bca50f82",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 42640,
+    "source_identity_sha256": "c6805df5a35a781f6d42179a0eebaa04f2d976656611d1087f348612565086e9",
+    "candidate_sha256": "60793dd801378d69f615b2b9c18aed5c286ad7be0b5fc4d0e99f4ed2e60f0251",
+    "assessment_sha256": "d887a0e8d59f8fb004016a7b19dcdd4ccc849c6a4f5b201854f1be43991b2908",
+    "selected_start": 467,
+    "selected_end": 23006,
+    "selected_sha256": "2b44b71ac081bf43e872fd555fd50ce546fa7fda662b09038a68d12dbfbecde4",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 32655,
+    "source_identity_sha256": "66b5ae5f977cf71d35a7f1f708cb52e7d201de220314d7c8369d984c6879e09f",
+    "candidate_sha256": "fe367a8479ede6f0e9f933e5421254c38c4c3cb387beac50bdc8cb7ace5302ca",
+    "assessment_sha256": "3b7cac9470405a9864beb876b4a297c12ac078bd79c027072b83d650730df430",
+    "selected_start": 349,
+    "selected_end": 15164,
+    "selected_sha256": "9455372574b1717f02a0ab5c68a03535a81c51e7a48467a756654a9c81ca3a65",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "schema_version": 1
+  },
+  {
+    "gutenberg_id": 23762,
+    "source_identity_sha256": "5ece97f37303ea159a71d9ca07082da55fd4007484be9bd6ab86250a3dc3a1ee",
+    "candidate_sha256": "69b0962ffafc2a1cb376625f32f4705f3c41bfce8279a5e119c2da7b59586b9c",
+    "assessment_sha256": "5df4b88fd00ddc81a94b170881739cc6fc7441cf7adea70481927ba0c42cd064",
+    "selected_start": 619,
+    "selected_end": 10495,
+    "selected_sha256": "cb305b7e1915be8ef64d16d58a0df85fc19caa458eab893874c6f0f3bc03004a",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Read complete narrative: strangers landing through Griffin birthright remark. Preserve all story paragraphs, italic emphasis and asterism breaks; remove only frontmatter, trailing THE END and the following Gutenberg end notice. No named/numbered divisions or interior editorial caption found.",
+    "schema_version": 1
+  }
+]
