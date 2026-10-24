@@ -1,0 +1,14 @@
+{
+  "previous_report": "../gettenberg-editorial-20261018/corpus.json.gz",
+  "current_report": "full-corpus.json.gz",
+  "rows": 1659,
+  "equal_for_every_row": {
+    "corpus_sha256": true,
+    "cache_sha256": true,
+    "decoded_utf8_sha256": true,
+    "new_extracted_sha256": true,
+    "normalized_after_sha256": true
+  },
+  "body_differences": 1642,
+  "retained_corpus_differences": 1642
+}

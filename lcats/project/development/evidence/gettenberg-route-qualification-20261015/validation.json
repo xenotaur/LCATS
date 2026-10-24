@@ -1,0 +1,16 @@
+{
+  "scope": "documentation and saved-fixture inventory only",
+  "local_links_checked": 21,
+  "format": "pass",
+  "lint": "pass",
+  "lrh_errors": 0,
+  "lrh_existing_warnings": 351,
+  "unit_tests": "not rerun: no product or test changes",
+  "independent_review": "not performed",
+  "live_resource_acquisition": "not performed",
+  "logs": {
+    "format.txt": "604e56e964f42c1c9cfa331d2ef558e00897bd52616ba55644b9744f188b9a29",
+    "lint.txt": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "lrh.txt": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+  }
+}

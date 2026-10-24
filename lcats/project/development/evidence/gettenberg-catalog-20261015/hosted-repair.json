@@ -1,0 +1,105 @@
+{
+  "run": "gettenberg-20261015-catalog-receipts",
+  "pr": "https://github.com/xenotaur/LCATS/pull/514",
+  "checkpoint_at": "2026-10-15T16:48:12.354770+00:00",
+  "status": "repaired and independently qualified; final-head CI and integration pending",
+  "source_sha256": {
+    "src/lcats/gettenberg/lifecycle.py": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912",
+    "src/lcats/gettenberg/_lifecycle_io.py": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a",
+    "src/lcats/gettenberg/_resource_decoding.py": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b",
+    "src/lcats/gettenberg/_catalog_provenance.py": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e",
+    "src/lcats/gettenberg/_resource_provenance.py": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2",
+    "tests/gettenberg_tests/lifecycle_test.py": "2c658ed85a49d8e32e7b93d687c7d327f14094e0847527bc5fd011c39b136923",
+    "tests/gettenberg_tests/catalog_receipts_test.py": "d4d808324d605af846d4d4f08d014317ffa6a6169a13e1e8807419681aea4692",
+    "docs/how-to/gettenberg-catalog.md": "a72d2cbeb6ea775a52b714259aef9d4297f843b8f82ba66716a038773a8f8111",
+    "docs/reference/gettenberg-lifecycle.md": "ac4665d22dc8004e34ea0752b6ce102e9307a111f5d4393ee445a0004bc3dcc6"
+  },
+  "initial_head": "8b4b3e1d0831b798d8d3d3fff730a1872fa1361d",
+  "pre_repair_head": "974d6f6189c152343b280ed8e886ef2ec0ba8418",
+  "hosted_authors": [
+    {
+      "author": "chatgpt-codex-connector",
+      "commit": "8b4b3e1d0831b798d8d3d3fff730a1872fa1361d",
+      "submitted_at": "2026-10-15T15:58:19Z"
+    },
+    {
+      "author": "copilot-pull-request-reviewer",
+      "commit": "974d6f6189c152343b280ed8e886ef2ec0ba8418",
+      "submitted_at": "2026-10-15T15:58:49Z"
+    }
+  ],
+  "finding": {
+    "thread_id": "PRRT_kwDOKlhIbM6s2y0u",
+    "priority": 2,
+    "description": "ASCII-escaped receipt text can contain lone surrogates unrepresentable in strict UTF-8 generation manifests",
+    "reproduction": "new regression failed in both source_uri/header subcases after retention and ingestion, leaving candidates",
+    "repair": "shared catalog provenance UTF-8 JSON preflight before retention/build and on manifest reads",
+    "independent_recheck": "cleared; 16 offline tests and20 additional high/low surrogate checks across setup/rebuild/update and persisted manifest rejection; NaN/cyclic/nonserializable input structurally refused"
+  },
+  "validation": {
+    "canonical_tests": 2868,
+    "canonical_seconds": 72.643,
+    "canonical_result": "pass",
+    "canonical_log_sha256": "0a3202d073e63fdf3e0c83d1d0b6a8c91ba1be2f775dd38975a32f72a29577ef",
+    "composition_tests": 17,
+    "format": "pass",
+    "lint": "pass",
+    "pre_repair_ci": {
+      "baseRefName": "codex/gettenberg-acquisition",
+      "baseRefOid": "0afde71e7156eea30898d9ea191ae17c4874b802",
+      "headRefOid": "974d6f6189c152343b280ed8e886ef2ec0ba8418",
+      "statusCheckRollup": [
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-15T15:58:23Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38764496522/job/116524626306",
+          "name": "coverage",
+          "startedAt": "2026-10-15T15:56:07Z",
+          "status": "COMPLETED",
+          "workflowName": "Coverage"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-15T15:55:16Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38764496405/job/116524043824",
+          "name": "lint",
+          "startedAt": "2026-10-15T15:54:57Z",
+          "status": "COMPLETED",
+          "workflowName": "Lint and formatting checks"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-15T15:57:48Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38764496468/job/116524622576",
+          "name": "test",
+          "startedAt": "2026-10-15T15:56:07Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        },
+        {
+          "__typename": "CheckRun",
+          "completedAt": "2026-10-15T15:57:46Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38764486262/job/116524584595",
+          "name": "test",
+          "startedAt": "2026-10-15T15:56:02Z",
+          "status": "COMPLETED",
+          "workflowName": "Python tests"
+        }
+      ]
+    },
+    "final_head_ci": "pending after repair push"
+  },
+  "review_budget": {
+    "assignments": 1,
+    "rechecks_used": 1,
+    "worker_minutes_upper_bound": 7,
+    "active_workers": 0
+  },
+  "time_observation": "Clock observations jumped from15:54:28 to16:43:55 during hosted-review inspection; cause not established. No budget reset. Hard stop16:50:21 retained.",
+  "integration": "not attempted; requires a new human-authorized review/integration pass after this bounded run",
+  "native_lifecycle": "all records in_progress; WI proposed; main unchanged"
+}

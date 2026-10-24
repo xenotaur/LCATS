@@ -1,0 +1,1369 @@
+{
+  "status": "proposed_not_human_accepted",
+  "reviewed_product_ref": "823f33c23836aff220fab80046ab84b80584c063",
+  "source_ledger": "../gettenberg-causal-yield-20261023/causal-ledger.json.gz",
+  "source_ledger_sha256": "97841cf092f341cad4bb091203058b953993a622902a80e758aee9cfd04445fb",
+  "scope_decision": "D: qualify the frozen 1659-input cohort, separate full metadata snapshot and transport fixtures; no full 5492-ID yield claim.",
+  "rows": [
+    {
+      "id": 20257,
+      "titles": [
+        "A Political Romance"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "different_envelope_identifiers",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "8b25139f5daea9c8a3a7f4970986584e1e0c08a30d6f6c00e92ddceb76d2fa02",
+      "metadata_projection_sha256": "cef60756f13cdf3f1e21e9c8741126a0e35632d1240666a91e148bc9b6fa8ed3",
+      "legacy_body_sha256": "dceb863ea0a9ad6ccbd6b128145fb9c12aff650f14c0190e6da424c646d51976",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 20257
+    },
+    {
+      "id": 23168,
+      "titles": [
+        "A Ride With A Mad Horse In A Freight-Car\n1898"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "229201631b0455dc77409dba5c30343f27888b2a1539188ea1962263f36d9ae5",
+      "metadata_projection_sha256": "1fb214ef43aed562f51629af095d2cfa4fc8c817c3771a3cf1f6f434cd81629d",
+      "legacy_body_sha256": "25cdadd4ed114367e3d2e54ee3217e2a728000688f67ac8d0a0869b710106e03",
+      "candidate_body_sha256": "f8c0e8ad7c8dabf235b00dbad3edc12c599ec75bd2d42530a21a489378cea8b8",
+      "source_ledger_row_id": 23168
+    },
+    {
+      "id": 72379,
+      "titles": [
+        "A voice from the inner world"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "e2ce80bb2b48dee525b8b55cadb39d58e86c0644926233c35a56698aedfbe121",
+      "metadata_projection_sha256": "f22caa26d759cd0990b26b6be776ae23441bdd38e012b5126841f7a430c3eb45",
+      "legacy_body_sha256": "100be694081e926212eb202d6637ef7da049faf9dc608f340c477a24120790b8",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 72379
+    },
+    {
+      "id": 17083,
+      "titles": [
+        "Adventures of a Sixpence in Guernsey by A Native"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "a4838e739a80aa2b86959e0d5ce2614d9f76486ad91af3fd3f732a00ee372e6e",
+      "metadata_projection_sha256": "7821f51394308b94a6954112177c56f62e007b892aa568e95d1966ff73ff01a1",
+      "legacy_body_sha256": "ad539dd71b3d923be07297a87c01c25e6026cccece294a482d712a9509cdddb3",
+      "candidate_body_sha256": "27c448c09a80f151edd15c5161d7ba5081b25691262ef3d5628ff8de0e6a7320",
+      "source_ledger_row_id": 17083
+    },
+    {
+      "id": 70923,
+      "titles": [
+        "An experiment in gyro-hats"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "8d870e1f3cef08dce68aa2480f392d7d0f15bdf6f256de3b22f479de29940525",
+      "metadata_projection_sha256": "5686d20dbf08a190fc5e96e9f4c63c11a5fe412314caca04eed96d86a3463192",
+      "legacy_body_sha256": "422c948cc0dc6cebf1d58e2592f6c487985489c2d07853b68b859af4b1b28da1",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 70923
+    },
+    {
+      "id": 23146,
+      "titles": [
+        "And All the Earth a Grave"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8d2fb731ebb4080dfd26b437a2949a12469e3f482a9753413d0fadcd5d286b78",
+      "metadata_projection_sha256": "a010ddee1dc4a12fc0401dda1eff2d09c593eb97f63ffc3642dc05e29f0f5ad5",
+      "legacy_body_sha256": "f0f69e44f4ec26444a04bd6d6f8a9d0ba4231cc6777a155f21b9a63a4a9ac135",
+      "candidate_body_sha256": "a8c184d5b9b3176522c2ac884f0278c41154b4500f2f4b530f21fd808f5a29a2",
+      "source_ledger_row_id": 23146
+    },
+    {
+      "id": 61766,
+      "titles": [
+        "Asteroid H277\u2014Plus"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "9d0052d46c336b2110b25b232a433adecaf056ec906bb9730d6b80aa677c8680",
+      "metadata_projection_sha256": "dd99dbde39beb46d619d1f21abfc4ee75ed4988bc8d783b1250128b218f8f925",
+      "legacy_body_sha256": "8d50b1d8a9b5a583c38996f42c3d9fa8a24adbc9133504496234eb5d73ff6f3b",
+      "candidate_body_sha256": "5a0979410ead373f844b3055a39c36ff2265252483b9e802ca7a638d10a2ee02",
+      "source_ledger_row_id": 61766
+    },
+    {
+      "id": 53402,
+      "titles": [
+        "Brotherly House"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "first_nonblank_line_is_not_supported_banner",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "f3168d3faf528e007f522623e8d737e03fea9467d21e6d77cc00a6a83c4b1451",
+      "metadata_projection_sha256": "3e4d0df11f64bd8a6564cacbd0f3e8053b16aac0c6bd13f2d6874842bfa57410",
+      "legacy_body_sha256": "4bff32ad4ecf9465b480171b066df0d08021b9cbee6c62f90b206d0e354c606d",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 53402
+    },
+    {
+      "id": 9215,
+      "titles": [
+        "Chippings with a Chisel (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "2461a4fea3a3e9d36b2620fa3cbfcd9d0aeef781f2da6cd450de0e553eec17a3",
+      "metadata_projection_sha256": "a97bc8bd9331d9c32cf1cb2151d231305f6286aae184b508d89dcaab108aa895",
+      "legacy_body_sha256": "cdd61f09eaf009d78547fbcf90399a669b1846a5821c89bcedbe374fae9fef12",
+      "candidate_body_sha256": "97ab74d943ea8b1c21d5001c71b402d4773eccf6220efcb107b0a2b3356d67d9",
+      "source_ledger_row_id": 9215
+    },
+    {
+      "id": 62443,
+      "titles": [
+        "Destination\u2014Death"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "f2b3f065ceb4edb2eef3c9d6c2e2666c9418e0b8836ddb9feea7555d9f14c0ce",
+      "metadata_projection_sha256": "c327c238e5c490aef6a983e49fb054e77f261c99d5b03d9a6c74618185eb1037",
+      "legacy_body_sha256": "bb34941377fc9afba0af091ef21bfaa804bd3bebda0c712d34673e08965cc7e7",
+      "candidate_body_sha256": "614540512a71afc153984b1ce138cef2a70b2e05c68c0e7eab17782701ea4f6e",
+      "source_ledger_row_id": 62443
+    },
+    {
+      "id": 51668,
+      "titles": [
+        "Dream World"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "c4d154e5025f80dfe760d8a50ab7d645aa858d012f2695e8cc1c3ae11dbe5b87",
+      "metadata_projection_sha256": "2e1f7cc8e6bf6355d78480444de4e9734eb7ff733350790b79f1c283b03325db",
+      "legacy_body_sha256": "8af800d7d48fe26caeb740b3f92665fdf8649f7d14022edbc4da2c9b61b2c06a",
+      "candidate_body_sha256": "3894d59b776b5ca1fa8c8b9e77d7a18729e24b6ad05f6a0ce8c5be1ecb104b3f",
+      "source_ledger_row_id": 51668
+    },
+    {
+      "id": 8525,
+      "titles": [
+        "Eve's Diary, Complete"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "fc90e1fd7c682abb43f36cdf286af853f355c52e942204c49bb411c08bc0df88",
+      "metadata_projection_sha256": "c03f7668e7c94af37d1e52303f461545046ec62bc1bb41317ac48b9962c3194e",
+      "legacy_body_sha256": "7ea59a755ce04311b99ccdff3c63dcd39f54c06c6e14e2b9314768ea398dbaba",
+      "candidate_body_sha256": "414c89958379e4772f979088c07f84fd1795f5f4e1e7a3b00352da0b7fbf2e43",
+      "source_ledger_row_id": 8525
+    },
+    {
+      "id": 51622,
+      "titles": [
+        "Extracts from the Galactick Almanack: Music Around the Universe"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "f9e4f611c6190d195ab02024f911183bf856f3061bb73e8623f006fad5c6d6fd",
+      "metadata_projection_sha256": "8607444bbf3e1933ceeb212949be334411a22bacee8453aaf5b68be3fe6f986e",
+      "legacy_body_sha256": "07affb1e6be5f53182648d322f63a1807989dfbc5edfb1f9827a90ad2c105c44",
+      "candidate_body_sha256": "ec3bff12ff373715650f13b99aa25dd3a2c2476a96cc1abf30d7f0187744135e",
+      "source_ledger_row_id": 51622
+    },
+    {
+      "id": 9218,
+      "titles": [
+        "Footprints on the Sea-Shore (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "da488eced42d9b6fa94c3824482213cd4401c4ece2e971ade80ecf762c51ff94",
+      "metadata_projection_sha256": "405738fe2a295aea6e0a38ba59f3faca67ffd572c7ca9e73bfb7b80d9421b90c",
+      "legacy_body_sha256": "889867b1e29f036150fe8cb77d3d69ce370c1e6cf1a02bdfdbd4f6d4de36051d",
+      "candidate_body_sha256": "976b07002c3f791bda82728950d92abf2a45668f50bed64c5d06493b9228dadc",
+      "source_ledger_row_id": 9218
+    },
+    {
+      "id": 29181,
+      "titles": [
+        "Foundling on Venus"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "274ca5b8caba1e9984e54ac3a2d8a4f7b6db749979808c7102c7f67b4f197cf1",
+      "metadata_projection_sha256": "0d922884a8eed4d35924eddc644a07d6adff5847fea7acb42ba5263d37a880dd",
+      "legacy_body_sha256": "87621a61e8c553bf8c6d34db867a827442fb8dac4e1b2b532ca54848051d9731",
+      "candidate_body_sha256": "247f61267ad595200e48bcaf4517f94c7d318e28f7246b7af20b6bc268b12b36",
+      "source_ledger_row_id": 29181
+    },
+    {
+      "id": 29206,
+      "titles": [
+        "Happy Ending"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "32fd5c421cc95ab8ca1db1ebc23d0c84387030a7dbfce92f0ce70dc1653d50b6",
+      "metadata_projection_sha256": "0b669d14e552a0ac1e01d176baea5e112f97f5b4664d071dae10f8fe9fd0a204",
+      "legacy_body_sha256": "7ad1c81b09319ec1d54818425fa15b4b239f6a90ba257d64861f058d54b732a5",
+      "candidate_body_sha256": "f2e114aa944c375da838488af632abe7b58546e468c5a4468e83293df5daf38c",
+      "source_ledger_row_id": 29206
+    },
+    {
+      "id": 23556,
+      "titles": [
+        "His Unquiet Ghost\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "e58023baf5de7c1f6a7773ff686fa508bc4689b71edbb882d97cdf554b14b1dc",
+      "metadata_projection_sha256": "0bf852e4f3353ef776787daa62cc0e54a816d4b341c2f75b99d0779d2cc76191",
+      "legacy_body_sha256": "dc8b4ab52960d6538e145f3c9052b1d765aa9dcf810d17f99e79d22d399e129c",
+      "candidate_body_sha256": "0ec6f48a7a4bf9375ef6e04c8fdf95db48a2631fcaabdfac2553e6dcd52417ed",
+      "source_ledger_row_id": 23556
+    },
+    {
+      "id": 61498,
+      "titles": [
+        "If You're Smart\u2014"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "f56b68975f150752b29c0a045368b383be8b333725732c1f5b48b0033801483b",
+      "metadata_projection_sha256": "a5e892c5ffa7b8f636bc99dc463bf1b9d398c6d7a20ac3639d72f7ee0a6d25a6",
+      "legacy_body_sha256": "cda3a0c3cfdc06bc453b91154012e9e8057dfd3a2d32d636654c9591f55c983f",
+      "candidate_body_sha256": "524dbd16318b8d60e1ce369a388e91131647ba58685f0383c43f682715b8a062",
+      "source_ledger_row_id": 61498
+    },
+    {
+      "id": 51650,
+      "titles": [
+        "Innocent at Large"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8859d2f6bceb1f24db3ad9b50c83b6df4f865a848a7a5ec67485e7975ee4036f",
+      "metadata_projection_sha256": "c58b425ad025c542fbf58cafc10f1f18a0a674a099e60570ec0b2c2bfbf9e080",
+      "legacy_body_sha256": "ec438b9c309684f56dcac7fa06e0b4c8ebd407fc2f1c4a296ee040db352b455a",
+      "candidate_body_sha256": "768d9e70f909357a81174d2af1273dc6607353f0510c961ed3b3b7d837a9643b",
+      "source_ledger_row_id": 51650
+    },
+    {
+      "id": 23329,
+      "titles": [
+        "\"Le Monsieur de la Petite Dame\""
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "c46a423d314af5921e865682f3f272bb06f1f04dd4381d64bf8ec584c7ce4ef1",
+      "metadata_projection_sha256": "02df19d30519ea29eea0a4777f7f96308fd8b3d9233da118340f20a5194555f1",
+      "legacy_body_sha256": "fab01d4e9edeae0959cc4ffeb0f58a5fd3c33475c68d560511d13633937f126e",
+      "candidate_body_sha256": "d685cbedc3d51c425d6440bb0958b693b11b864650ee1212318f4593b6c8e0d6",
+      "source_ledger_row_id": 23329
+    },
+    {
+      "id": 23326,
+      "titles": [
+        "M\u00e8re Giraud's Little Daughter"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "3e8b7723e85a485beac0c0f5815f605a3d4fede08d8ed6b4507ce512d480be77",
+      "metadata_projection_sha256": "1ccf21beac11eb2803c5d10d1f26766db3eb565fb41c0834433c9b42cf0550c5",
+      "legacy_body_sha256": "783e432902ceb7a1a6488789891d4a8cac364a0163d3a3d1917b25239c975db3",
+      "candidate_body_sha256": "44b891a34943b3d2ec16fba0d13e1e00ba321321bb1210ab3b64b0857ac62aa2",
+      "source_ledger_row_id": 23326
+    },
+    {
+      "id": 22810,
+      "titles": [
+        "Midnight In Beauchamp Row\n1895"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "7e255f39289e1f630e973ae77b0971cb523768c221a4a31bed6fd5d267b38694",
+      "metadata_projection_sha256": "0b75b9f0031b9c711cb964661dd58976ae22ce9e608ec8dfc887cb2fde7003c1",
+      "legacy_body_sha256": "add08b1b4584a6471ad78a0600bbb325ffb530e9141e564ae8f8df1d4b2ac645",
+      "candidate_body_sha256": "040ff2664a311c31f9841748c4e8acc24a1c5ec8f09c98c2de0adb5a063bebbc",
+      "source_ledger_row_id": 22810
+    },
+    {
+      "id": 44319,
+      "titles": [
+        "Miss Heck's Thanksgiving Party; or, Topsy Up To Date"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "caa9e448191bfe9436a57f6ab69364e90b99550cbc353e3618e4ca5c13658d36",
+      "metadata_projection_sha256": "87c3de94da6326407e46ca898147ee624e45ead0c40a8bf98777d55de501a349",
+      "legacy_body_sha256": "bb99a0d13a5778810986acc3335ee2632756474a3b6874083c1e52f5d796a509",
+      "candidate_body_sha256": "20768762132b425d7118d4e20b9e3b5669eeb4ef85da51ea9f69716eb4b78f07",
+      "source_ledger_row_id": 44319
+    },
+    {
+      "id": 22844,
+      "titles": [
+        "Miss Philly Firkin, The China-Woman"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8d2edf31040b8a4eabcd9fa9a512eca32932aa696b124ee2a1da34689432a613",
+      "metadata_projection_sha256": "5ae9cdd85b5e25aeec4455783b1d9a0e4a7a87a1fa51dd7795de1689096e5337",
+      "legacy_body_sha256": "ace1c401bd625d36b1ef864a05785fda12888a56f6d74591af8f10af7bdcf4b8",
+      "candidate_body_sha256": "20b26c3658c454ccb451bfb195aa3076706e753ed7b8b3d8ac95dae4f04ad5a3",
+      "source_ledger_row_id": 22844
+    },
+    {
+      "id": 3699,
+      "titles": [
+        "Miss Sarah Jack of Spanish Town, Jamaica"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "e67f3f2bf99e6876212e22ef83dde8e0e0b018dec5431076f1f971f786e535fc",
+      "metadata_projection_sha256": "38dc34df3cedbdfb5d152472abb6ab52f70e6ca0e799ebc775fbf65a01cb7af9",
+      "legacy_body_sha256": "f73fb193b46fcd19859a3fe896d118cf92b9118cc10b88452e33fa4112b2d115",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 3699
+    },
+    {
+      "id": 22841,
+      "titles": [
+        "Mr. Joseph Hanson, The Haberdasher"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "d6c32effe8d3c57b9a922413bde496ac8c2afeaedee1fe8e691da50dd8e2a768",
+      "metadata_projection_sha256": "51db56c4abf6ec3f7761d6bb6b58c5302c6b5c15f276d8bfe4c19a38bd7214fb",
+      "legacy_body_sha256": "a5e1d57171f817acdeb00896d68b3443aeefc91e9a0b534ba55979d9307691ed",
+      "candidate_body_sha256": "e8b56f3ba5ac50733a2c4245ccb1b854542c8e84619111d22e812080df2d6aa3",
+      "source_ledger_row_id": 22841
+    },
+    {
+      "id": 51006,
+      "titles": [
+        "Obil, Keeper of Camels : $b being the parable of the man whom the disciples saw casting out devils"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "701894db2a36bb96a630e318904b7199177721207dd86a7b0a99f3fee9b5820f",
+      "metadata_projection_sha256": "0428d872bd1dab034f48e284589c7114a8c40a06dfa0de9e1fd794c833b54792",
+      "legacy_body_sha256": "2f01c718c37d42a687257dd87b0cf57592b9e5569f7e345184acd8bbdcc4a799",
+      "candidate_body_sha256": "36dc573bb817452cb8b7543a1b7b6c480ab0623b7f635f2daec4adac578597d7",
+      "source_ledger_row_id": 51006
+    },
+    {
+      "id": 30035,
+      "titles": [
+        "Off Course"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "0da1dfacd58579cb44d1ea0c0f8644066eb0b81dc592059a6ca64a374a04d062",
+      "metadata_projection_sha256": "d88aab1de19c9920b948184e2506ca55c59a5be210284c4ca04f6b489173fc61",
+      "legacy_body_sha256": "af6d9c800fa7c1b8fdcc44fd1270c3ede0c0e5b9cfc36311e80378dfefcc8681",
+      "candidate_body_sha256": "c260ea294f2ea0e6ebc58200f201c486f8102c61f04ef67a975346a8b2676ef7",
+      "source_ledger_row_id": 30035
+    },
+    {
+      "id": 47492,
+      "titles": [
+        "Old Fort Garland"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8fd3e6dbec0c33aa79763bd6a68e944841ad619aca8105be5f22ad7d6e8f5e3f",
+      "metadata_projection_sha256": "e098a5bd3df78040be3245ae57eeaa26876e4ba469b6aea26c779b30d826963f",
+      "legacy_body_sha256": "be8670d93ca9ae55b5caf1805071967a4a200df83d60d0ed611cebe9b04fd629",
+      "candidate_body_sha256": "faeabfdaf73e62199c4d50df857d7d6ba5a79db71737d7c49a53145725572829",
+      "source_ledger_row_id": 47492
+    },
+    {
+      "id": 36867,
+      "titles": [
+        "Progress Report"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "adfcb413dc3ed773a394a33b83b598a962accfa67451c117efab259f885f3138",
+      "metadata_projection_sha256": "88d61e332dbe9fa664da2d8b881ce41a6abc2720f7fd4abd826fa038583c9f6c",
+      "legacy_body_sha256": "4972f59d964381dba55fe05c519ad7287344db255afcecb7a62d2e556a0b1e00",
+      "candidate_body_sha256": "42605c3c8ddfd6d0ab1447cd446c0bb0bffb27d7b3c9fe34931b1c7673680ad6",
+      "source_ledger_row_id": 36867
+    },
+    {
+      "id": 30267,
+      "titles": [
+        "Remember the Alamo!"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "7d82e49e35ffe4bac4e8d431d5b21e251fd81308484ffb2ee02e1c5fa3d877cf",
+      "metadata_projection_sha256": "816620e6da6caa8c6196b217b113068a251f05c12b345c39c22a3faf09d20ad4",
+      "legacy_body_sha256": "7dda18d6ced61cf51bfc38eb0c796f2ad37df21dff7f811d5d5d968b5787628e",
+      "candidate_body_sha256": "fadd609a553a47dea47fa6148771bc46ae216a480a038b77dab44d095142f1ac",
+      "source_ledger_row_id": 30267
+    },
+    {
+      "id": 70645,
+      "titles": [
+        "Sam Bass"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "source_prefix_restored",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "436a003c15ebee6ad0c623a90176f7d88d1fdcdd84b0d7c85109289948ddb0aa",
+      "metadata_projection_sha256": "c3d574421e7cd775086ba6f6562a94b5603f96b92ac60fdb9c556cc44c7cfacd",
+      "legacy_body_sha256": "1df777adf769bcbb8e792e763e2bd03a0666d4b0ffba1ce454550f929e0fd903",
+      "candidate_body_sha256": "9f02c8e0fc7d54e9d09caa9dbeaf86d54173737c2d85d9f7977590f770868d3f",
+      "source_ledger_row_id": 70645
+    },
+    {
+      "id": 56250,
+      "titles": [
+        "Santa Claus' Message: A Christmas Story"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "b802193c0086a9874022bcd241d36f998abd033509bfbccb40708771292b180c",
+      "metadata_projection_sha256": "665828c32642f9466f457914e8bff9baea61e2029c0778cfddd68acf67e51cd9",
+      "legacy_body_sha256": "3d98347834b32250ffdc3c4b6c230caa277069c4dcff62c764b39a6fa46a9d85",
+      "candidate_body_sha256": "fb4acebf1dece6afe38a717ade3f0ac44fb5d84ca4ef245f43a5a0eda121e454",
+      "source_ledger_row_id": 56250
+    },
+    {
+      "id": 35759,
+      "titles": [
+        "Security Risk"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "interior_star_end_is_competing_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "6a5e454a22267dc586e9270dedfbea3dae282d37d2b889a0af872c855811eb75",
+      "metadata_projection_sha256": "5fa9782ebf0b9dcc37fbf46f499bad46f70d3b87d1eb469e0fd77f892984a2b0",
+      "legacy_body_sha256": "cf305842d9679cf07648b5b771a5cd0f24b65eae3dd989588ac7b31286bf2c11",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 35759
+    },
+    {
+      "id": 23161,
+      "titles": [
+        "Sodom and Gomorrah, Texas"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "6e567459032876574c6fd8eb1b02f97dbe70575c77d3d5d1279c8578b9150b72",
+      "metadata_projection_sha256": "6d2b96f7415108095cb14066f3679ee7204daa9fc3afc401dce6bec09511eefc",
+      "legacy_body_sha256": "04c80167c9a9b55996df6dc16beffffe408945b721f607decb065547fc8a5c1b",
+      "candidate_body_sha256": "332cd5271e74f8e2c1c6b086b592158621ad1aa1324608ac36b89507f645a074",
+      "source_ledger_row_id": 23161
+    },
+    {
+      "id": 25057,
+      "titles": [
+        "The Adventure of Elizabeth Morey, of New York\r\n1901"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "ebbc8876342d67039a7353adc5c91ab68683621800111666fb13b7d580cee0c4",
+      "metadata_projection_sha256": "3211fa96d94e628aac228596659a61b6bea30a3914e0d70f410ea912e1fd611a",
+      "legacy_body_sha256": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28",
+      "candidate_body_sha256": "3b825eff4b65e0ddd307bf759eaeafe72dfada665a97cf50e6ce198b6a4c8b8d",
+      "source_ledger_row_id": 25057
+    },
+    {
+      "id": 2347,
+      "titles": [
+        "The Adventure of the Dying Detective"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "5a23c0a2a35b4cedb742e31c0d2905f0cbc76997913364beef566dd8c8d06f5b",
+      "metadata_projection_sha256": "d593448f90b4d38d626d1b72bf1c9d0550a24482a05cc3086ad82d848634807b",
+      "legacy_body_sha256": "c0ef2f57297f9d985fc29356d3a577a4c728143f1d916429480dcef687fc7451",
+      "candidate_body_sha256": "06b62b167a441936accb21a719ac223a4774ac9c943b3d3adfcb7f8eb74083d7",
+      "source_ledger_row_id": 2347
+    },
+    {
+      "id": 2345,
+      "titles": [
+        "The Adventure of the Red Circle"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "c97882a515fc862da3f0cdf14da7e5925fc490f7c7c1f9d8e393d113d3abe3c3",
+      "metadata_projection_sha256": "8dbe602deea4d1cd8db40631b581b6984980dda8f0ad2e264b293a7922bac416",
+      "legacy_body_sha256": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e",
+      "candidate_body_sha256": "86e1742e3873e5f5e6a85ca056690e3fe40c9fe22334062431bf378472c6b4a2",
+      "source_ledger_row_id": 2345
+    },
+    {
+      "id": 23553,
+      "titles": [
+        "The Christmas Miracle\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "425ce9948a00b1474533e0b81484d6db9f028174d0f98bd5f64803605bf3f079",
+      "metadata_projection_sha256": "320383b6ed0866d5652d1a5008a4bb704bec436b945331246b7fcca505980c7d",
+      "legacy_body_sha256": "0120bca5a1704b83268ad957ea9f26dac7d6168ca29ddc4616ab29de7bb32786",
+      "candidate_body_sha256": "035e4830382f901efbe613243155e4bb1235000f33881948423252d86d203de5",
+      "source_ledger_row_id": 23553
+    },
+    {
+      "id": 23254,
+      "titles": [
+        "The Cobbler In The Devil's Kitchen\nFrom \"Mackinac And Lake Stories\", 1899"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "7db28bc52c285b946f9ea00e7de487dc866eb5a6ae8d9f7faa95a1c214f0d84a",
+      "metadata_projection_sha256": "4f54c6150c85b9c10bc4889f9bc67d1de3f0ed3ff435538863f0620fe30f4ddb",
+      "legacy_body_sha256": "90aa064c93d25e5bf20fb9b4ee205b79923dfd617cded3c63583b525cf7826a9",
+      "candidate_body_sha256": "8945f55ca92d370f3de7403da47915b9bdd35798ef4b5505145bc1eea061c4cf",
+      "source_ledger_row_id": 23254
+    },
+    {
+      "id": 23557,
+      "titles": [
+        "The Crucial Moment\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "f1d591ac7d4abb5534e0ddee0eb7601f4aa629211deaace886a742502d269f80",
+      "metadata_projection_sha256": "9490804efab51007030eb1039649a334d7fe84e1555097553c21507590e04904",
+      "legacy_body_sha256": "bfbf19903647bd81edc891a5c4b51ae206d9ae751a38b6601b48ca43cac31ac3",
+      "candidate_body_sha256": "adce2e3991e9cf34e8938a42f48f1e2ea0ed052d583d208952ecc494f544d268",
+      "source_ledger_row_id": 23557
+    },
+    {
+      "id": 3183,
+      "titles": [
+        "The Facts Concerning the Recent Carnival of Crime in Connecticut"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "f4de6c4e4279921d29dd6c6d6012037a5cc46eb9d2d74e4dde8ad1f088e4ef3c",
+      "metadata_projection_sha256": "0e86e60edaa6eec0ef4d130955c0236db2619e986e76d2982fccffd5650654e9",
+      "legacy_body_sha256": "41bda19eb968027e7be7418c225cb420e62f9802ff48249325a0ba8b7422c222",
+      "candidate_body_sha256": "4e091675a2c3266bd1a6d1bc84288f432f07b1b125ca9601da64dcf36a1b1f67",
+      "source_ledger_row_id": 3183
+    },
+    {
+      "id": 71085,
+      "titles": [
+        "The fire of Asshurbanipal"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "174962fae1828ba48eb09a1c43d3275323c7ff8f40f82cde420a1f38a7acd6d1",
+      "metadata_projection_sha256": "587fe1cb0f41dfe9115fc2ed8d2b57f5377b5bf3e8f2994c85dcb4c0421e2bc0",
+      "legacy_body_sha256": "72599ac5db472f22f0e016495f890d5e04be352fdb32aa3ad4399763b26d2f37",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 71085
+    },
+    {
+      "id": 35770,
+      "titles": [
+        "The Hero"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "interior_star_end_is_competing_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "2510140c77aa91ea9f534bcdea1d47917f5f55ceaedacfc19267ed2753ca817b",
+      "metadata_projection_sha256": "432667197626b72f3440bfa6069df4e48426577c3792ec7f5e9bcee5337321f5",
+      "legacy_body_sha256": "634d3dac37ab7f41907fb0c5a70c9d012ef12d3520f4b53d92aa030ea280ecc8",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 35770
+    },
+    {
+      "id": 3724,
+      "titles": [
+        "The House of Heine Brothers, in Munich"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "021cda29e0aa73c24b40b440286964ae4551b2364351877d42dbaa3fb09201ff",
+      "metadata_projection_sha256": "e63b42e191e40e466154c4e97a3f4aec62aea6758fff4fc06d4e637857545846",
+      "legacy_body_sha256": "6ed1a0ec62d7e51387f247e1623060314780c120736a74b0a0e3a4d8254816f4",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 3724
+    },
+    {
+      "id": 23252,
+      "titles": [
+        "The Indian On The Trail\nFrom \"Mackinac And Lake Stories\", 1899"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "3e1d2fd2b80c955e740592919bbf252d5affec27cbcb9374eaf695d7b149a4d8",
+      "metadata_projection_sha256": "a4d9358b55410d774e19ce66c63f782e87275c2630bf00eeeb2b555a6c716471",
+      "legacy_body_sha256": "b85e33ea8843c983b9ebfd1f64b8785334a0c793fc02f6335230f3ab260db9cb",
+      "candidate_body_sha256": "0c84f47c370268994132a8e59f959f7b636b0cb34e073ce2b2c2438eb3cb63f2",
+      "source_ledger_row_id": 23252
+    },
+    {
+      "id": 42640,
+      "titles": [
+        "The Last Christmas Tree: An Idyl of Immortality"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "mixed_front_and_tail_effect",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae",
+      "metadata_projection_sha256": "cb34b172dab6e00551ce6796868239d96e7bb4f06efb7df4d4b70332bafbaf85",
+      "legacy_body_sha256": "7afda0aea45c9d2fc51fc8173d53df180977af201abbcc8ed6805159393f71d3",
+      "candidate_body_sha256": "2d14cb43728dbc07ce8598044524b417d7c32ed9086418ab7c388649a8c94539",
+      "source_ledger_row_id": 42640
+    },
+    {
+      "id": 32655,
+      "titles": [
+        "The Last Gentleman"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "boundary_whitespace_only",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "a0518fc2e9431353d71485edbe7f49243c19fa099e319dd95a3e7f392b91b592",
+      "metadata_projection_sha256": "a1fa5438af8b98315c16a22163cd4d88dd16fe3fc95fd1f76a12a0725f91d230",
+      "legacy_body_sha256": "f97d78d1f885d46699a0862e125974932a7844df00013169a550cdb91718e009",
+      "candidate_body_sha256": "7eecf34d048e44a1f4731123bb8b187616ba72537cff0fda04e0442c90f67efa",
+      "source_ledger_row_id": 32655
+    },
+    {
+      "id": 51698,
+      "titles": [
+        "The Little Man Who Wasn't Quite"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "a2d6152e179f9bd2289d31c107f6324a81cb285903c346484e6e71c41f68dc06",
+      "metadata_projection_sha256": "19efd99b2d7958b282738867e21bbdd655c361c2a7aabe486b7858ab3cbdb431",
+      "legacy_body_sha256": "ce2bcb7e8bbe76bc22ad3641e25e0d9800b5033f4e804c1d13debc261db82f23",
+      "candidate_body_sha256": "f95cd2b2f6e1abb93d20a22a394ff289e5f6b4268eec6c6dd83772a393eea47e",
+      "source_ledger_row_id": 51698
+    },
+    {
+      "id": 38302,
+      "titles": [
+        "The Lonely Ones"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "first_nonblank_line_is_not_supported_banner",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "e5ab707c48ff7ab2e92868a318a81e7237acf50df3e53da496841215a673ba6a",
+      "metadata_projection_sha256": "0f0d42741ec944ce1badd098258951585363f2573745acadec72056be8bbec55",
+      "legacy_body_sha256": "b74d589c91f235b980944c02644abb7121c7997a3c11d47eb46c3b737435dc32",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 38302
+    },
+    {
+      "id": 23555,
+      "titles": [
+        "The Lost Guidon\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "7b984dde7c9872acf9738998381feea8e5095fb1ce9ded1e27e9eceba0abcb59",
+      "metadata_projection_sha256": "37b42be89655b63ff0ca5196f7a77ff9340a198497b1768ff612f86a80b4eae1",
+      "legacy_body_sha256": "4b2a65306237d07176d24473763fe10dc04cded5c0f186362d6847fa47107f07",
+      "candidate_body_sha256": "b9e1d5be696da0be77eb93c660e4769f0908763bd0ba6aff52eda9e5e24a756b",
+      "source_ledger_row_id": 23555
+    },
+    {
+      "id": 27921,
+      "titles": [
+        "The Love of Frank Nineteen"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "473b24af64d36f13f4225cd09936b65cd7f3416f45f9517814b16640d8cc3979",
+      "metadata_projection_sha256": "7c9c9f21c11f2269cd99dde67e52778677e3a5bd2def2fc989dee2315ff65770",
+      "legacy_body_sha256": "cd153e0bbd73a80570e46217449b5eae810117cc8ed2c7f83a149b3544177e26",
+      "candidate_body_sha256": "35197c44d77324e02eaef0cc5ee3b894c0020d0fbe9214a09302b06c07f74e6b",
+      "source_ledger_row_id": 27921
+    },
+    {
+      "id": 23701,
+      "titles": [
+        "The Man In The High-Water Boots"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "5aefe0901ef10f4908fb406c29aa29849dcaab81b549746f04a784ee4c2c55b5",
+      "metadata_projection_sha256": "0c5f23c7c234b6992dcc2342533e2e269dbba3a78946b1f22cb2878b4ed865e8",
+      "legacy_body_sha256": "843f7e5ac8652ce995b973a7d11094a5a106ad2361542ff911a611777c218ef1",
+      "candidate_body_sha256": "10e6d2497093360c6ff2bfc82f14bfecac5974c2a69ec6069be7978a4d4b8e0f",
+      "source_ledger_row_id": 23701
+    },
+    {
+      "id": 30259,
+      "titles": [
+        "The Man Who Played to Lose"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "6868919e0b5bfb0f7eb2a85437d05f4122a71609ea348931b76e5585c3b565bb",
+      "metadata_projection_sha256": "d8df94543fe3cafad4b9dcf3a0b18366664eca7d46541e16aefbe8c69a915d1e",
+      "legacy_body_sha256": "3dad20b8f8b2968ebe87c3d1880369b6e8143c59f8d67542301a4bc45ea24959",
+      "candidate_body_sha256": "dab0c4ed41d6f0ea71d98980c5c44f5d878915150d0a7d251e27c12b639dd1cf",
+      "source_ledger_row_id": 30259
+    },
+    {
+      "id": 23165,
+      "titles": [
+        "The Man Who Stole A Meeting-House\n1878, From \"Coupon Bonds\""
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "ad6d1252336b07eea1c9477c9e6ce049b4b7f9587535cc4ebee65821b4944376",
+      "metadata_projection_sha256": "3801804bd57db25dee5a9ad97824f9bd5d8dbd4c7d30f5780c195da4f4318710",
+      "legacy_body_sha256": "9d7373655f81189c1173142d1f9fbfbd03a7f6ce3bee7d31cf00c19e77888039",
+      "candidate_body_sha256": "af60cad1bfaf7c4a4c9d6b15e85d0882166b0a330e726c91bbb185943a367bb7",
+      "source_ledger_row_id": 23165
+    },
+    {
+      "id": 61870,
+      "titles": [
+        "The Monster That Threatened the Universe"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "665baf2a48d547786efe3b63048ce836a22fec69af48500b5dcdda13b22d462a",
+      "metadata_projection_sha256": "fbeeb4b8305e37fa0aa28f976077b7498e9b3b3de65618bc3d14acffeec7a5e6",
+      "legacy_body_sha256": "9162e126916e6d967c427b7e5c0bfccbf5a85d845f79cf3ae2f7c1f140f50d6f",
+      "candidate_body_sha256": "e32c1b373e5939ffa5fa811c6f38d9eee94af88423c82d6ed2b8a193b2d88c41",
+      "source_ledger_row_id": 61870
+    },
+    {
+      "id": 23003,
+      "titles": [
+        "The New Minister's Great Opportunity\nFirst published in the \"Century Magazine\""
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "d417aac0507997349ae7cf452e1ec77180c8bdf44f659936306f291c7efd492c",
+      "metadata_projection_sha256": "879ba4dc05e97625834654555f5c3910ecf9bf6a2366392f80d27490484bb227",
+      "legacy_body_sha256": "03945551aabfd38f63b086e0d356f59728aa43ec1cec7b396e06248c7c132e05",
+      "candidate_body_sha256": "6398a62f6479bcc33187d2f819b3d047b69c6f8471fff05ec67440d7ca9198e0",
+      "source_ledger_row_id": 23003
+    },
+    {
+      "id": 23703,
+      "titles": [
+        "The Parthenon By Way Of Papendrecht"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "e13027aff877763636c7c9d2485f75e5c7d5fe4687f706b7c29d957cdfdbadc0",
+      "metadata_projection_sha256": "4c15fe81ccac55e9f54166b0f2f909ba468fc85a9dfb36f49c873d9950447000",
+      "legacy_body_sha256": "a8e523d432be4e652f98b2928b140fca0f9fe73588e28aea2d5af44c0e7734bf",
+      "candidate_body_sha256": "787410468ae07e5216f94627f2d066aeb7d552c1e1855dbe79a36ded52ae9805",
+      "source_ledger_row_id": 23703
+    },
+    {
+      "id": 12830,
+      "titles": [
+        "The Perfect Tribute"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "c139ccbe196eec1929322cba0f45b2a52ca403e1470825962a23ed755c6042de",
+      "metadata_projection_sha256": "ac630395405d31596973179f8662a7e2c304c5ca0a9fb3a01f961dcacd9db04c",
+      "legacy_body_sha256": "f16bb0e83b4edfa3f23fc81bc5768ea2f725e2bd0ecc86e20efe48a4b01310ed",
+      "candidate_body_sha256": "9e92ff1164a7e6fe7e4174ccc0cc1577f8e9451ab1142b324df9bd64468183a2",
+      "source_ledger_row_id": 12830
+    },
+    {
+      "id": 23552,
+      "titles": [
+        "The phantom of Bogue Holauba\r\n1911"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "5f66853d672e17655a00036c5d43802e3ec222fe87c238b37971732de015520c",
+      "metadata_projection_sha256": "9143f29cc44f8627c7b3b8d53b9952d7f6ccd4e0cbc81667136d539dbec65532",
+      "legacy_body_sha256": "02b9f9e172e77bd200634346b298074a61a1bb353bf9572e095d86e97df1f591",
+      "candidate_body_sha256": "7b89810bc94d73b52dd33cc4d842392894fdc26612c5508ca939d1b01b349de3",
+      "source_ledger_row_id": 23552
+    },
+    {
+      "id": 9204,
+      "titles": [
+        "The Prophetic Pictures (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "435c86378af4454a39dd1f00a45645d0be3cb3556a20b6ea098aa3f8dcd2e17e",
+      "metadata_projection_sha256": "ab4d854fb92ba3c9671c535b4793c3a9ae3512020e1e92d0471e3da53f5d0d46",
+      "legacy_body_sha256": "84614d6042789642cb6c90fbf46042fad8915346c45bd62ec0284e48fb3e0d58",
+      "candidate_body_sha256": "b7a89fa7f24f717469ef99c9903d20db56800768491f6f308dac0e784f70c2de",
+      "source_ledger_row_id": 9204
+    },
+    {
+      "id": 22479,
+      "titles": [
+        "The Psychical Researcher's Tale - The Sceptical Poltergeist\nFrom \"The New Decameron\", Volume III."
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "452b431d1adc9fcb511b4f62af227045d1c6ce1b94f15bed6eddc3b62f8dd6a0",
+      "metadata_projection_sha256": "ba645157c6287982c31288ea7cbf23bb2cd7bf1bc62a0fd084e8d0cf159607e3",
+      "legacy_body_sha256": "e16f70660cb3faa246f15d20ff5813c270c155ee6df3c2c23b8ca63ea3f33105",
+      "candidate_body_sha256": "f20b2c39186cb32c4119e93acd28a7cb0252808d9a55c56cc64827c118c361c1",
+      "source_ledger_row_id": 22479
+    },
+    {
+      "id": 23548,
+      "titles": [
+        "The raid of the guerilla\r\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "ef1072db8696365f9d6b454f75e71ea98653e4a9275b6279b72dd428387bc9d9",
+      "metadata_projection_sha256": "bd29cd7cd2ce89acdcf3594590b1028497792b318bd0fd84829eefa8b56f0556",
+      "legacy_body_sha256": "a5cfb8ec951671dee2674d47adc28a9439235827f9e29de9123ad3f35ef67650",
+      "candidate_body_sha256": "552725bc9e3d6ae230a69ca348eaa6ef101a3f32c864e84923f07d266ea0709f",
+      "source_ledger_row_id": 23548
+    },
+    {
+      "id": 35879,
+      "titles": [
+        "The Rotifers"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "interior_star_end_is_competing_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "29497e9c42f5eadaaf61dbfc1061217575d18fcdc74682d82eaf06ede4bbf1ab",
+      "metadata_projection_sha256": "f7e5e7a10eed474d2f5e9fc575f731730faabb1ada4b7e8317a5fe53f919385b",
+      "legacy_body_sha256": "9b85eef3acf6f7f6a09f410809d9b12b3aa46c7cc21feba6ef543458ee232442",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 35879
+    },
+    {
+      "id": 9213,
+      "titles": [
+        "The Seven Vagabonds (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "67dfec4707f34e576f78aede9a7dcc1d7367450a1a695f5d3f32ecd55c7e2d4c",
+      "metadata_projection_sha256": "8003a99b48bb985d9a18494e9ec75f713b023516945db761a69960deb8491fde",
+      "legacy_body_sha256": "2f2c29bf06c32fa2104edb0f1860e3e678742a27b3e3d5ef53e5fa27429a02e5",
+      "candidate_body_sha256": "8a8227e3a5d8f66ced5d4f8b1fe47c87f41a3176770cd1b25a0534ac777aef54",
+      "source_ledger_row_id": 9213
+    },
+    {
+      "id": 22967,
+      "titles": [
+        "The Stoker and the Stars"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "3b9b7c1481087986ec713f91c64e00308518be1d83557582c948baed030bee16",
+      "metadata_projection_sha256": "b4f4f9f9dec574f3871bd9dc25ac044a023c7266eeb65f32f95cc9c70559b839",
+      "legacy_body_sha256": "b58ae9885f3620da4643f31234e1c9648690637556439ce2c2772884712f6ef4",
+      "candidate_body_sha256": "cc68956216b7dc3f11f83f5f25718da533292d20a048c4932119b729deb9ffe6",
+      "source_ledger_row_id": 22967
+    },
+    {
+      "id": 22218,
+      "titles": [
+        "The Street That Wasn't There"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "1cd035d6d3c9698b1b44b7652dac68a03ec227750fc5484576b85c402aedfff5",
+      "metadata_projection_sha256": "a3c0aaede62a78b243b7f174e309ff8526e0d7313a444a3b3580807640047779",
+      "legacy_body_sha256": "7dfe4d1aa38799ffe908c2bbd8e6e96eccc948d46963269f1e6a8fef6a239ab5",
+      "candidate_body_sha256": "e00c25c3d2a86cd7b8280f8a3e2c4b43a45f8124584ceefba1420f15d7b31c68",
+      "source_ledger_row_id": 22218
+    },
+    {
+      "id": 59289,
+      "titles": [
+        "The Twilight Years"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "d67b3a76d9e03f699836ae132cb06cd62490f5bfb02954c6b599a12c78ffbf88",
+      "metadata_projection_sha256": "3d831da5e50cc73dcab7926cdf17a150d925113cd77c32e52b794b00f2b14328",
+      "legacy_body_sha256": "49911c5574138ee77a05649fb5d56f1928db96bbccc77f2c2a628e4ed557d434",
+      "candidate_body_sha256": "9e3b3c693bf6ac753e25bfe78537ab4bc17e682dae6c9e1a72e5ff6a2ed378cb",
+      "source_ledger_row_id": 59289
+    },
+    {
+      "id": 9210,
+      "titles": [
+        "The Village Uncle (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "9549122ac13db24ed0a65d5f206c38ebcc19fc929d6603cf863781763b8eb6ad",
+      "metadata_projection_sha256": "b2be4304b34b55ff50305c8e0e14c103928b544e9f4684f594683006bec00e58",
+      "legacy_body_sha256": "194f2cfd4b34601b08f3dfaffbc8f68b6a22ea69639c79eb66178d4413e1b004",
+      "candidate_body_sha256": "a43cacd1dc410b831c436f673cf97983f4ab7062748460fe932f7f865506017a",
+      "source_ledger_row_id": 9210
+    },
+    {
+      "id": 9214,
+      "titles": [
+        "The White Old Maid (From \"Twice Told Tales\")"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "e2816f29011935eb564bcb13b3805a0f534c587c9e527076734d5cabe3627450",
+      "metadata_projection_sha256": "b9b6b32a00dcc511472ee7523820a076890d52e12d79b6bccae1e1f6fff76dcd",
+      "legacy_body_sha256": "8dbe16c4daee07f321d8669ba585387eaba2a24558eba476e700f6a7b6fa30fb",
+      "candidate_body_sha256": "f533effde1e2b7bb0b25e48bdf3955c7840ae7b37847fc08d954a7f7bd4020c0",
+      "source_ledger_row_id": 9214
+    },
+    {
+      "id": 63720,
+      "titles": [
+        "Through the Asteroids\u2014To Hell!"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8b61805dae715d4c02e01f506e2831585a9e74478a50fca80c652ed64d99ebae",
+      "metadata_projection_sha256": "087c70b125e3b8b961024e14cc43c1299c2dedf0028ed4b99c3fd79390695300",
+      "legacy_body_sha256": "716a07dd64618417c2c60d25ab86c56f7e08c9eb715574eb13964bff842b8adc",
+      "candidate_body_sha256": "77a0e91e35504d02392f6d23c70361dcec9d2525a4258024efe956257c395e5d",
+      "source_ledger_row_id": 63720
+    },
+    {
+      "id": 30010,
+      "titles": [
+        "Trees Are Where You Find Them"
+      ],
+      "decision": "C-specific-body-effects",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_and_preceding_content",
+      "recommendation": "Explicit per-input decision in the human decision sheet; known cause alone is not acceptance.",
+      "decoded_utf8_sha256": "bbd937e9692abb6c1644fd6dea646cbeec4a955f774b18006aea4904daff7556",
+      "metadata_projection_sha256": "f12bfa4ab1cc81349b3a7eefdbb8061db9a184788b11695d163aafbfa8923c91",
+      "legacy_body_sha256": "d236040411ca6ca8b378f94bc23374d50f3601778a9b88492c99f248aadf3a7a",
+      "candidate_body_sha256": "9780d86c8d4210705d13560cd72190fde7ae7aae9f0d34409021bf8845685179",
+      "source_ledger_row_id": 30010
+    },
+    {
+      "id": 23550,
+      "titles": [
+        "Una of the hill country\r\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "780af9c0a2b9f6ef5fec4cb8ee25885f9665750a6116f2e10aa836fd17677033",
+      "metadata_projection_sha256": "6b5c99793045853aa8b82a86d4a706a6bc71056f2b9938c2ce6ecd1e3ec406a6",
+      "legacy_body_sha256": "1ce07f17edfe38a7b1fb51287dbbf53df102cbe7a3287e66bed259a6626c496b",
+      "candidate_body_sha256": "912ae2fd18245b8936fbd2b9fd81e6386908cb116571ea9c65d7ad32b89e079e",
+      "source_ledger_row_id": 23550
+    },
+    {
+      "id": 38287,
+      "titles": [
+        "We're Civilized!"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "first_nonblank_line_is_not_supported_banner",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "7bb5f48ca2e7ec249f846f067a10e7f8579eb5791628637254805f6795cb7afd",
+      "metadata_projection_sha256": "bf187a9a38ff47415f7a73dd8083c1d9d89649cf0e7d846890dbc9ff2ab850b5",
+      "legacy_body_sha256": "f59c79643f3015886fea3f4b96da6cebe2cf902049065a5c33b7030980f56fb4",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 38287
+    },
+    {
+      "id": 70349,
+      "titles": [
+        "When the squadron dropped anchor"
+      ],
+      "decision": "A-refusal-exclusions",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "wrapped_envelope_marker",
+      "recommendation": "Accept as an explicit unsupported-input exclusion for this delivery; no output, no bypass, continuation and incomplete status remain.",
+      "decoded_utf8_sha256": "d51d78244c8d90db42e1dc7542fbfdc715a2a4af08b51e48c023d3acc29bda2b",
+      "metadata_projection_sha256": "9ec6e034f31df57c5502fc23437956aa4dd8af295c200b4ba1e5b75376ed756b",
+      "legacy_body_sha256": "4ff1b361c3ddf3cacd1258bd60ee5c7a080ecc42814c669921a3c635b330d65e",
+      "candidate_body_sha256": null,
+      "source_ledger_row_id": 70349
+    },
+    {
+      "id": 53035,
+      "titles": [
+        "When You Giffle..."
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "cb6477283ebfff373974d2c8d00e7c921990abd35898568a2a8082b9ea56fd10",
+      "metadata_projection_sha256": "c227bb4f48ed8e92723e2585f780a301f43aa93c9d0e59357ac39e0b3e0575fa",
+      "legacy_body_sha256": "b95169f95174a0c016ef47c0ecc44761c6fc8ef8f7489fcfafe37a832c4fc0a3",
+      "candidate_body_sha256": "9742defb75aab0189672d5c842f87ebe7d1b4b93fe923e7e9f2e0f43c89dec3c",
+      "source_ledger_row_id": 53035
+    },
+    {
+      "id": 23551,
+      "titles": [
+        "Who Crosses Storm Mountain?\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "0b9f8e0f7912b4ed5dbfb4b73eedd825bb5e73753e99821282feaf73fdda4b21",
+      "metadata_projection_sha256": "f4aeecf390a6528a55ad490785c3e117ea015a5ee5b6608a23d610fc59e75ddc",
+      "legacy_body_sha256": "b7f2c47425304f31d5983a6fd1a38c3b98aa38c83107164f767a81df383eb443",
+      "candidate_body_sha256": "665318bc23aeb9bcb8eeb6ea76eda2e82442d1e923f155aff5732c496dbf7c81",
+      "source_ledger_row_id": 23551
+    },
+    {
+      "id": 23198,
+      "titles": [
+        "With No Strings Attached"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "8f4def5c3f163f0b290f2fafe6a503f1e08391dee6af5627c7f5069571176d4d",
+      "metadata_projection_sha256": "f749de58f4b85517fecf82a45706d6f262aa6dd1d7f9774fdea756c389f2a37c",
+      "legacy_body_sha256": "c02805a6ae9d7a7674f86efa42032f2d6576d5c79b8acfb21014690b4165f73d",
+      "candidate_body_sha256": "93b7301852c304fcaca37939e83e0002bbd47cd211ec6f37652f9e65122d158b",
+      "source_ledger_row_id": 23198
+    },
+    {
+      "id": 24375,
+      "titles": [
+        "Wizard"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "36f181db7bb6677821350916acecf72331fc6f617fa4462d0a82d0baed86e25d",
+      "metadata_projection_sha256": "0ff7348d3f7079fbfe37be25c373f4f6537d1342691a318e142dfff4d25fb33d",
+      "legacy_body_sha256": "134b86482c695797d6aec89f0462bc54431e6fe580e3a3eafcb90e4353c4cea8",
+      "candidate_body_sha256": "f56c6c00f8ead7478ae08efbfd1ea3ec2051a1ede16316fbb266b5ef1ef0e739",
+      "source_ledger_row_id": 24375
+    },
+    {
+      "id": 23549,
+      "titles": [
+        "Wolf's Head\n1911"
+      ],
+      "decision": "B-notice-retention",
+      "status": "proposed",
+      "delivery_accepted": false,
+      "editorial_approved": false,
+      "mechanism": "terminal_notice_only",
+      "recommendation": "Accept source-backed notice retention as a documented limitation; not a clean-story or editorial approval.",
+      "decoded_utf8_sha256": "beccada865227266ed612cf904b743e414e915876498f184b5a8c10fd8f98ba6",
+      "metadata_projection_sha256": "4461c544b8ba4f4506009411cef9abac5f27ce29246171f2544fb8e7ed450362",
+      "legacy_body_sha256": "d579eada6d2cdbe46d84d059e28df0473273173abd6b0cfd0cf442e5df016b71",
+      "candidate_body_sha256": "f670b437aa3b6db7af06f1101840af55550f22bdc47273e96e7a30424549f08a",
+      "source_ledger_row_id": 23549
+    }
+  ]
+}

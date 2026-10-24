@@ -148,3 +148,14 @@ Run 1 was explicitly started under the charter; native lifecycle remains nonterm
 - **WI-GETTENBERG-0010** — Qualify replacement, exercise Diataxis docs and reconcile delivery.
 
 These items are scoped plans, not claims of implementation or accepted prerequisites.
+
+
+## Main-promotion review checkpoint — 2026-10-24
+
+The narrower provider replacement is internally integrated through PR #530 at
+`df055256`. The [review guide](../../development/gettenberg-main-promotion.md)
+indexes the full promotion, accepted A–D limitations, durable post-adoption backlog,
+validation and staged-closeout plan. WIs0001–0004 are already delivered on main;
+WIs0005–0010 remain staged pending human main promotion and verified closeout.
+Do not merge the preserved broader PR #524 as part of provider delivery or close
+post-adoption follow-up merely because this workstream later completes.

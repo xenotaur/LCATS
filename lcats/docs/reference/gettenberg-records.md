@@ -2,8 +2,8 @@
 
 `lcats.gettenberg.rdf` parses one supplied Gutenberg RDF/XML record into
 immutable, typed metadata. It does not open files, download data, set up a
-catalog, or prompt. This additive API is the first replacement component;
-existing LCATS gather/query callers still use the legacy implementation.
+catalog, or prompt. It supplies the records used by the local catalog and current
+metadata-dependent gathering; see [the architecture](../explanation/gettenberg-architecture.md).
 
 ## Entry point
 
@@ -136,7 +136,8 @@ Multiple download counts are ambiguous and fail; file extents and modification
 claims may repeat. Numeric counts/sizes must be nonnegative signed-64-bit-range
 integers. Missing fields are allowed. Non-text ebooks remain metadata records;
 collection selection belongs elsewhere. Deletion and non-ebook records fail
-with `unsupported_record`; archive accounting is a separate upcoming interface.
+with `unsupported_record`; archive accounting is handled by the separate
+[ingestion API](gettenberg-catalog.md).
 
 ## Errors and XML restrictions
 

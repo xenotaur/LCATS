@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 61353,
+    "candidate_record_sha256": "f27637b8cdda1c51286373c3b8866451b717307ebcdbf5cba7aa5c68320d843b",
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "I opens Magnan claim discussion; III introduces Retief on the planetoid. Actual narrative divisions independent of whether II is present; retained corpus starts in later Leatherwell dialogue.",
+    "approval": null
+}

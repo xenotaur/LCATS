@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "run": "gettenberg-20261015-core",
+  "recorded_at": "2026-10-15T01:32:00Z",
+  "scope": "Explicit-URL original-byte acquisition core; WI-GETTENBERG-0005 remains open",
+  "base_head": "bd2998a8ebb9857cbe95d215173c94f1a31f57b1",
+  "reviewed_files": {
+    "lcats/src/lcats/gettenberg/_resource_transport.py": "160d413f4553e9703b6e74b885f3ad4d05b90b056ac9e2afda55c42dd578b5d7",
+    "lcats/src/lcats/gettenberg/_resource_io.py": "4994a9bd87ed256eb2c3274890c08ba6c10cc0e7d6fbabace0f5b5912df01bda",
+    "lcats/src/lcats/gettenberg/_resource_types.py": "a4c009feaa06cff0a654b282c072e86eb2616874713444b00fba642f7102fc2f",
+    "lcats/src/lcats/gettenberg/resources.py": "12247f6e2d106cd6504361f0395195b8c42457a25fd9e4b6142d2e8414cbd4c3",
+    "lcats/tests/gettenberg_tests/resources_test.py": "d3bcfa65d88e7c7d74f168d557e9da010713e4c3eec56879a8e2a1f28a6792af",
+    "lcats/docs/reference/gettenberg-network.md": "ac1836c7a176208432b640c0f2664e716d9a674122fd2b979ce0fcea50e0fa67",
+    "lcats/docs/how-to/gettenberg-resources.md": "03fd7a3015499125af1d064e3f65ef30f345f3bf70b5eb7d8421afdc1d482e77"
+  },
+  "validation": {
+    "focused": {
+      "tests": 58,
+      "result": "pass",
+      "command": "PYTHONPATH=\"$PWD/src\" python -W error::ResourceWarning -m unittest discover -s tests/gettenberg_tests -p resources_test.py"
+    },
+    "canonical_suite": {
+      "tests": 2734,
+      "seconds": 76.017,
+      "result": "pass",
+      "command": "scripts/test",
+      "environment": "Python 3.11.9 LCATS conda environment, absolute worktree PYTHONPATH, isolated LCATS_CACHE_DIR/MPLCONFIGDIR"
+    },
+    "format": "scripts/format --check --diff: pass (258 files unchanged)",
+    "lint": "scripts/lint: pass",
+    "lrh": "lrh validate: 0 errors; existing warnings retained",
+    "readiness": "WI-GETTENBERG-0005 ready, no blockers/warnings"
+  },
+  "review": {
+    "mode": "diff with charter-authorized repairs",
+    "assignment": "acquisition_core_review",
+    "initial_dispatch": "2026-10-15T01:20:28Z",
+    "initial_completion_observed": "2026-10-15T01:25:40Z",
+    "initial_completion_precision": "upper-bound observation; exact initial completion not captured",
+    "findings": 4,
+    "severity": "P2",
+    "top_finding_directly_reproduced": true,
+    "repair_recheck_dispatch": "2026-10-15T01:28:35Z",
+    "repair_recheck_completion": "2026-10-15T01:30:17Z",
+    "result": "all four findings resolved; no additional actionable regressions",
+    "manifest_sha256": "a2f85a3d0489868f819410663ecf5efd87b4d8424d9b2139907405c12d27e9d1",
+    "reviewer_validation": "58 focused tests, local HTTP/HTTPS and concurrent filesystem probes; full suite run by coordinator"
+  },
+  "log_files": {
+    "focused-repaired.txt": {
+      "sha256": "2601bf3d36569bc752a9955eef56ba3d0cf41e661d587a8385cc2ee05e8f6afa",
+      "bytes": 157
+    },
+    "full-repaired.txt": {
+      "sha256": "4c23951b0275fcf17dfe61cb30278a86bb1bdacc5827ecf6c09a43d9abf4adf5",
+      "bytes": 4602
+    },
+    "format-final.txt": {
+      "sha256": "14a1411f9ccc58985e544f7e03c0b03efd99c01fd680275486b7afc92fea58ac",
+      "bytes": 58
+    },
+    "lint-final.txt": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "bytes": 80
+    },
+    "lrh-repaired.txt": {
+      "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+      "bytes": 60852
+    }
+  },
+  "limits": [
+    "No Gutenberg ebook/catalog body downloaded",
+    "No main promotion or native WI resolution",
+    "No dependency or CI changes",
+    "No hard cancellation guarantee for DNS/OS/filesystem blocking",
+    "Whole-WI routing, conditional refresh, selection/decoding and catalog receipt composition deferred"
+  ],
+  "usage": {
+    "launch_shared_weekly_percent": 58,
+    "midrun_shared_weekly_percent": 63,
+    "per_run_usage": "not available; shared-account movement is not attributable cost"
+  }
+}

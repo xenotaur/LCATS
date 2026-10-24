@@ -1,0 +1,101 @@
+{
+  "run": "gettenberg-20261015-routing",
+  "scope": "WI-GETTENBERG-0005 A22 explicit-root offline routing",
+  "base": "0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1",
+  "started_at": "2026-10-15T22:44:39Z",
+  "target_at": "2026-10-15T23:44:39Z",
+  "hard_stop_at": "2026-10-16T00:14:39Z",
+  "candidate_identity": "source hashes frozen before independent review and first commit",
+  "source_sha256": {
+    "src/lcats/gettenberg/_resource_routing.py": "f6eba22b2876325885d9f1b8ecc5335fb5a47857036027710a2b5e0b7e6cb8fc",
+    "src/lcats/gettenberg/_resource_selection.py": "63bbc47c1b160513dcc7aaffcc6799a1b12ae73792b0c9b943cfc5b150d4224e",
+    "src/lcats/gettenberg/resources.py": "6ea3eefa0a0d8ecc06538820afdfd4f35d3fbfd027eab769b960b1e1c109fd37",
+    "tests/gettenberg_tests/routing_test.py": "f6f4f0acbba00836370f4d6b33f9e626e3b8cbd378579509ac5a520826039ed8",
+    "docs/reference/gettenberg-network.md": "5090bbf687e9ce86b65e37a7f5ca26a5309d4f80a272553db64a812011bf55f8",
+    "docs/how-to/gettenberg-resources.md": "4c6957a2d7c0f0dc4b9cb85258a7675aa8177ae143174f82f078eb30cf0f076b",
+    "docs/how-to/gettenberg-routing.md": "0a37db5135d9d049a11ca5c608819f5926ab58e0e62f50dabe3df9673d4ada20"
+  },
+  "validation": {
+    "canonical": {
+      "command": "scripts/test",
+      "tests": 2886,
+      "seconds": 75.963,
+      "result": "pass",
+      "log_sha256": "cba3dafddfe899dfa506f14bfd2ee7f4cd8f4619b0d0cbb3063a9db5153edf7a"
+    },
+    "focused": {
+      "command": "python -m unittest tests.gettenberg_tests.routing_test tests.gettenberg_tests.selection_test",
+      "tests": 37,
+      "seconds": 0.15,
+      "result": "pass"
+    },
+    "format": {
+      "command": "scripts/format --check --diff",
+      "files": 272,
+      "result": "pass"
+    },
+    "lint": {
+      "command": "scripts/lint",
+      "result": "pass"
+    },
+    "lrh": {
+      "errors": 0,
+      "warnings": 351
+    },
+    "readiness": "yes",
+    "diff_check": "pass",
+    "documentation": "all routing how-to Python blocks execute against loopback; acquisition how-to regression passes; changed fences and relative links checked"
+  },
+  "independent_review": {
+    "agent": "routing_review",
+    "mode": "cold diff against integration base",
+    "findings": [],
+    "outstanding_p0_p2": 0,
+    "tests": 408,
+    "all_seven_hashes_matched_before_after": true,
+    "source_frozen_during_review": true,
+    "assignments": 1,
+    "worker_occupancy_upper_bound_minutes": 3,
+    "manual_hosted_retriggers": 0,
+    "coordinator_reverification": "No finding to reproduce; checked frozen hashes, pinned converter hash and 37 route/selection tests, full suite and documented local HTTP workflow."
+  },
+  "fixture_coverage": {
+    "saved_rdf_files": 7,
+    "resource_nodes": 113,
+    "published_aliases": 17,
+    "live_mirror_checks": 0,
+    "ebook_archive_body_downloads": 0
+  },
+  "upstream_sources": [
+    {
+      "url": "https://github.com/gutenbergtools/libgutenberg/blob/d2d6f250374bb2463336ad7c6d0b0d164d0642db/pg_archive_urls.py",
+      "sha256": "f420830ab98cdb71c98fafceb2da90c114f2243d0250fdb04cee9c9516f551b7",
+      "lines": "27-81"
+    },
+    {
+      "url": "https://github.com/gutenbergtools/ebookconverter/blob/88e05f3e22640b61bd30444402adcd656f582c37/ebookconverter/EbookConverter.py",
+      "sha256": "2905056f1cf427f76ce230c0957caabe3897f5dd1f1dee6658b7f6af64aedde5",
+      "lines": "103-120"
+    }
+  ],
+  "limitations": [
+    "No operational default mirror selected or qualified",
+    "No full historical catalog coverage claim",
+    "No CLI or consumer migration",
+    "No main promotion or whole-WI resolution"
+  ],
+  "environment": {
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "PYTHONPATH": "managed-worktree/lcats/src",
+    "cache": "isolated /tmp"
+  },
+  "usage": {
+    "weekly_used_percent_launch": 15,
+    "weekly_used_percent_before_hosted_review": 17,
+    "shared_account_not_attributable": true,
+    "per_run_cost": "unavailable"
+  },
+  "integration_status": "pending hosted reviews and exact-head CI"
+}

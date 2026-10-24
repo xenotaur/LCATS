@@ -1,0 +1,461 @@
+{
+  "python": "3.11.9 | packaged by conda-forge | (main, Apr 19 2024, 18:34:54) [Clang 16.0.6 ]",
+  "product_ref_unchanged": "6a873b611e3958bb9ddad8e84f2ad190831a9da7",
+  "historical_runlog_prefix_preserved": true,
+  "reviewed_script_hashes_verified": {
+    "terminal_notice_candidate.py": "9681b3ad05c7474b91d5bbe4e98c7a9ffec26084b9f910323224deb937c546c6",
+    "test_terminal_notice_candidate.py": "f430201f7a8df8d5d1364485ff952150036eb6132bdddb8bcdd3d8354a106c82",
+    "audit_terminal_notice.py": "baf0ff35dc0c1bf6ee425f4a3456a7d8e26d2bab4c410bd881587185b8f24700",
+    "trace_literal_terminal_notices.py": "fe441aa501438bf8dfbb79a7ea7a38827331b749bd32f1eac299dc46bc7f3bdb"
+  },
+  "literal_rows_match_independent": true,
+  "full_comparison": {
+    "completed": true,
+    "summary": {
+      "rows": 1659,
+      "refusal_changes": 0,
+      "candidate_changed_cleanup": 470,
+      "archived_hashes_reproduced": 3292,
+      "compared": 1646,
+      "old_new_differences": 902,
+      "remaining_differences": 433,
+      "restored_legacy_equality": 469,
+      "new_legacy_differences": 0,
+      "candidate_changed_body": 470,
+      "body_eligibility_changes_from_replacement": 1,
+      "body_eligibility_differences_from_legacy": 0,
+      "refused": 13
+    },
+    "seconds": 608.522,
+    "command": [
+      "python",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+      "/tmp/gettenberg-dispositions-20261020/cache",
+      "/Users/centaur/Tempspace/Projects/LCATS/cache/texts",
+      "/tmp/gettenberg-terminal-notice-20261022.json"
+    ]
+  },
+  "check_commands": [
+    {
+      "name": "format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff"
+      ],
+      "returncode": 1,
+      "seconds": 0.51
+    },
+    {
+      "name": "lint",
+      "command": [
+        "scripts/lint"
+      ],
+      "returncode": 0,
+      "seconds": 0.342
+    },
+    {
+      "name": "experiment-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+      ],
+      "returncode": 1,
+      "seconds": 0.306
+    },
+    {
+      "name": "experiment-lint",
+      "command": [
+        "scripts/lint",
+        "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.167
+    },
+    {
+      "name": "unit-boundaries",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "../experiments/10_gettenberg_qualification/scripts",
+        "-p",
+        "test_terminal_notice_candidate.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "seconds": 0.061
+    },
+    {
+      "name": "runner-help",
+      "command": [
+        "python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+        "--help"
+      ],
+      "returncode": 0,
+      "seconds": 0.673
+    },
+    {
+      "name": "lrh",
+      "command": [
+        "/Users/centaur/anaconda3/bin/lrh",
+        "validate"
+      ],
+      "returncode": 0,
+      "seconds": 2.002
+    }
+  ],
+  "successful_format_retries": [
+    {
+      "name": "format-retry",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff"
+      ],
+      "returncode": 0,
+      "seconds": 11.791
+    },
+    {
+      "name": "experiment-format-retry",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.409
+    }
+  ],
+  "final_experiment_checks": [
+    {
+      "name": "final-experiment-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+        "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.465
+    },
+    {
+      "name": "final-experiment-lint",
+      "command": [
+        "scripts/lint",
+        "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+        "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+        "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py"
+      ],
+      "returncode": 0,
+      "seconds": 0.213
+    },
+    {
+      "name": "final-unit-boundaries",
+      "command": [
+        "python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "../experiments/10_gettenberg_qualification/scripts",
+        "-p",
+        "test_terminal_notice_candidate.py",
+        "-v"
+      ],
+      "returncode": 0,
+      "seconds": 0.074
+    },
+    {
+      "name": "literal-help",
+      "command": [
+        "python",
+        "../experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py",
+        "--help"
+      ],
+      "returncode": 0,
+      "seconds": 0.8
+    }
+  ],
+  "negative_smokes": [
+    {
+      "name": "existing-output",
+      "returncode": 1,
+      "expected": "output exists",
+      "passed": true
+    },
+    {
+      "name": "missing-cache",
+      "returncode": 1,
+      "expected": "existing caches required",
+      "passed": true
+    },
+    {
+      "name": "protected-output",
+      "returncode": 1,
+      "expected": "output inside protected root",
+      "passed": true
+    }
+  ],
+  "local_links_checked": [
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "../../lcats/project/development/gettenberg-development-log.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "relocation.json"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "legacy-notebooks/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-boundary-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-terminal-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-editorial-20261022/README.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/README.md",
+      "target": "results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../workstreams/proposed/WS-GETTENBERG.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-pilot-charter.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_14_06_19_47_WS_GETTENBERG.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_14_06_19_47_WI_GETTENBERG_0001.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-pilot-20261014/preflight.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-baseline.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-pilot-20261014/integration-evidence.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-catalog-design.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-acquisition-core-20261015/completion.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-selection-20261015/hosted-repair.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-selection-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/WI-GETTENBERG-0005/2026_10_15_05_24_50_WI_GETTENBERG_0005_DECODING.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "../executions/AD_HOC/2026_10_15_05_18_01_WI_GETTENBERG_0005_DECODING_SELFREVIEW.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-decoding-20261015/checkpoint.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-decoding-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-refresh-20261015/qualification.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-refresh-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-catalog-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-routing-20261015/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "gettenberg-cleanup-design.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-cleanup-20261016/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-preparation-20261017/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-development-log.md",
+      "target": "evidence/gettenberg-default-source-20261017/integration.json"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-scope-meeting-brief.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-development-log.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-baseline.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-corpus-repair-plan.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-qualification.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "gettenberg-readiness-contract.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../work_items/proposed/WI-GETTENBERG-0010.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/gutenberg_source.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/story_body.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/parser.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-causality-audit.md",
+      "target": "../../src/lcats/gatherers/mass_quantities/gatherer.py"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/development/gettenberg-scope-meeting-brief.md",
+      "target": "gettenberg-development-log.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md",
+      "target": "../../../../lcats/project/development/gettenberg-scope-causality-audit.md"
+    },
+    {
+      "from": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md",
+      "target": "../../../../lcats/project/development/gettenberg-development-log.md"
+    },
+    {
+      "from": "lcats/project/executions/AD_HOC/2026_10_22_16_01_25_GETTENBERG_TERMINAL_NOTICE_REVIEW.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/review.json"
+    },
+    {
+      "from": "lcats/project/executions/AD_HOC/2026_10_22_16_01_25_GETTENBERG_TERMINAL_NOTICE_REVIEW.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/executions/WI-GETTENBERG-0010/2026_10_22_15_43_13_GETTENBERG_TERMINAL_NOTICE_AUDIT.md",
+      "target": "../../../../experiments/10_gettenberg_qualification/results/gettenberg-terminal-notice-audit-20261022/README.md"
+    },
+    {
+      "from": "lcats/project/executions/WI-GETTENBERG-0010/2026_10_22_15_43_13_GETTENBERG_TERMINAL_NOTICE_AUDIT.md",
+      "target": "../../development/gettenberg-development-log.md"
+    }
+  ],
+  "full_package_suite_run": false,
+  "product_qualification_claimed": false,
+  "issues": [
+    "Initial diagnostic launch failed before any rows/output: required source routes omitted. Corrected explicit routes; full comparison then completed. Independent reviewer raised/resolved same P2.",
+    "Initial Black diff checks failed on sandbox multiprocessing-socket permission. Exact authorized retries passed; both failure and retry logs retained.",
+    "Read-only ps process-status probe denied by sandbox; no escalation needed, completed process result subsequently observed.",
+    "Initial staged whitespace check found a trailing space in verbatim argparse help output. Archived that output losslessly as gzip instead of changing historical bytes; final staged whitespace check is required."
+  ],
+  "remaining": [
+    "Numeric-marker50103 remains a demonstrated truncation under candidate.",
+    "433 body differences and13 cleanup refusals remain explicit.",
+    "Residual grouping is mechanical coordinator inspection, not independently qualified numeric rule.",
+    "No public gather, original-wire replay, installed-wheel acceptance or final delivery scope adoption."
+  ],
+  "final_lrh": {
+    "returncode": 0,
+    "summary": "Validation completed: 0 error(s), 351 warning(s)"
+  },
+  "final_staged_whitespace_check": "pass",
+  "tracked_manifest_entries_verified": 29
+}

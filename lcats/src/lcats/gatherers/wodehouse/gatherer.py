@@ -61,9 +61,11 @@ def find_paragraphs_fourmillion(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Wodehouse stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Wodehouse",
         target_directory=TARGET_DIRECTORY,
         description="Wodehouse stories from the Gutenberg Project.",

@@ -1,0 +1,23 @@
+{
+  "run": "gettenberg-20261015-core",
+  "start_utc": "2026-10-15T00:59:27Z",
+  "target_utc": "2026-10-15T01:59:27Z",
+  "hard_stop_utc": "2026-10-15T02:14:27Z",
+  "base": "bd2998a8ebb9857cbe95d215173c94f1a31f57b1",
+  "main": "2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2",
+  "backend": "codex_app",
+  "model": "session-selected; no override",
+  "per_run_cost": "unavailable",
+  "weekly_used_percent_at_launch": 58,
+  "instruction_sha256": {
+    "../AGENTS.md": "b46d87bc0589426b420cf4fc933231ac6ee2801a86e086758c6a28249cd75421",
+    "AGENTS.md": "4117eff16d561fb08eda5ba5c4259f4ad815a7b370aa1c5f16f070a7c16ceb30",
+    "STYLE.md": "ced427421e936c793ec79725ed0487bdd68ad9ca01e8b334805c944bdf132725",
+    "project/development/gettenberg-pilot-charter.md": "add521c4e1f7c00eaa49bcfb8a28ff66090fc55c54953dfb5c5904f1ad9538f3"
+  },
+  "installed_skill_sha256": {
+    "~/.agents/skills/lrh-implement/SKILL.md": "48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165",
+    "~/.agents/skills/lrh-self-review/SKILL.md": "d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c"
+  },
+  "tool_log_sha256": "9fa92e7f895d799d4ec553bf649b511b36e3205c5b7765b1e1bc09f5e3065045"
+}

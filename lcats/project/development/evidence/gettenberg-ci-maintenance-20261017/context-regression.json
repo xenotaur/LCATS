@@ -1,0 +1,29 @@
+{
+  "HEAD": [
+    {
+      "workflow": ".github/workflows/tests.yml",
+      "job": "test",
+      "env": "LCATS_CACHE_DIR",
+      "invalid_contexts": [
+        "runner"
+      ]
+    },
+    {
+      "workflow": ".github/workflows/coverage.yml",
+      "job": "coverage",
+      "env": "LCATS_CACHE_DIR",
+      "invalid_contexts": [
+        "runner"
+      ]
+    },
+    {
+      "workflow": ".github/workflows/cache_maintenance.yml",
+      "job": "cache_maintenance",
+      "env": "LCATS_CACHE_DIR",
+      "invalid_contexts": [
+        "runner"
+      ]
+    }
+  ],
+  "working_tree": []
+}

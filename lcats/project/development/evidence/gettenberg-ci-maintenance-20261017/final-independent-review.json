@@ -1,0 +1,22 @@
+{
+  "product_head": "9608b76fad585773ac656e47211a27db7fe6a803",
+  "accepted_tail": "6a9886557ae5bd4c52e5e995eaf2ef319e9add7b",
+  "product_findings": [],
+  "tail_findings": [],
+  "focused_tests": "18 passed in0.807s",
+  "additional_checks": [
+    "changed Python lint/Black",
+    "11 actual shell steps bash -n",
+    "source hashes",
+    "trigger/job inventory",
+    "runtime fingerprint",
+    "four-file control-plane-only tail"
+  ],
+  "product_review_stop_utc": "2026-10-18T02:09:02Z",
+  "tail_review_stop_utc": "2026-10-18T02:13:07Z",
+  "limitations": [
+    "Full suite is coordinator evidence",
+    "Hosted gates were pending when reviewer stopped; final-checks.json supplies later evidence",
+    "No live catalog/cache rehearsal"
+  ]
+}

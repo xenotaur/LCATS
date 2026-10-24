@@ -1,0 +1,90 @@
+{
+  "run": "gettenberg-20261015-refresh",
+  "scope": "WI-GETTENBERG-0005 A14",
+  "base": "9fb1c767c7eeca6cdab23d3b9fcfbe171a738997",
+  "started_at": "2026-10-15T06:35:29Z",
+  "target_at": "2026-10-15T07:35:29Z",
+  "hard_stop_at": "2026-10-15T08:05:29Z",
+  "candidate_identity": "source hashes; qualification preceded first commit",
+  "source_sha256": {
+    "src/lcats/gettenberg/resources.py": "1beeeaed7697feed283760db7c799c2a267fa844910f9908f431af425ace631a",
+    "src/lcats/gettenberg/_resource_types.py": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c",
+    "src/lcats/gettenberg/_resource_io.py": "58fa19e99535bcec05f6ac09040dba89bedd60aab1a90482f14f8b92ed334643",
+    "src/lcats/gettenberg/_resource_transport.py": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d",
+    "src/lcats/gettenberg/_resource_refresh.py": "239963458aaac786c90249b1e579a37ad623ea0b0bc49f1c1fe2ab6b8ec1da7d",
+    "src/lcats/gettenberg/_resource_decoding.py": "6712f2ca36327724928691e97d2ae71340de48b7c28796f783a746ee8e9f4987",
+    "tests/gettenberg_tests/refresh_test.py": "62a458e2fa32a762df950521fd73c788829716f8f16040e0e8150c20c8e6821a",
+    "tests/gettenberg_tests/resources_test.py": "e7f3b2fa7beb5ca8fb7a31195bcdf6a42ce6fde190615c47103f5caed706e2d2",
+    "tests/gettenberg_tests/decoding_test.py": "a6d28b090c498dd31039f963f8428cf5b14df9a6391c358f4e52ae058dde2382",
+    "docs/how-to/gettenberg-resources.md": "b8e56c3dd2403a40d2f9b7d196aa76944aaa794057666d725ac463966ad82a49",
+    "docs/how-to/gettenberg-catalog.md": "b828246e482f9e3824eb381ae0e8dde0597bd002a6766157ba7640bdc1fa8504",
+    "docs/reference/gettenberg-network.md": "64767fb0949fbc0486b9dd5e3833f73abed0be3449e41bd1e22f9d21ecaec23c"
+  },
+  "validation": {
+    "canonical": {
+      "command": "scripts/test",
+      "tests": 2849,
+      "seconds": 69.672,
+      "result": "pass"
+    },
+    "focused": {
+      "command": "python -m unittest tests.gettenberg_tests.refresh_test tests.gettenberg_tests.resources_test tests.gettenberg_tests.decoding_test",
+      "tests": 154,
+      "seconds": 5.569,
+      "result": "pass"
+    },
+    "format": {
+      "command": "scripts/format --check --diff",
+      "files": 267,
+      "result": "pass"
+    },
+    "lint": {
+      "command": "scripts/lint",
+      "result": "pass"
+    },
+    "lrh": {
+      "command": "lrh validate",
+      "errors": 0,
+      "warnings": 351
+    },
+    "docs": "examples executed in resources_test; local links and balanced fences checked",
+    "readiness": "yes",
+    "diff_check": "pass"
+  },
+  "independent_review": {
+    "agent": "conditional_refresh_review",
+    "mode": "cold diff review plus same-scope recheck1",
+    "initial_findings": [
+      {
+        "priority": 2,
+        "finding": "304 without returned validator was accepted under inapplicable RFC exception",
+        "resolution": "require corresponding matching returned validator; preserve prior reference on refusal"
+      },
+      {
+        "priority": 2,
+        "finding": "equivalent Last-Modified wire forms compared literally",
+        "resolution": "compare UTC instants; validate weekday syntax"
+      }
+    ],
+    "outstanding_p0_p2": 0,
+    "tests": 154,
+    "seconds": 5.582,
+    "additional_probes": "9 HTTP-date wire-form pairs accepted; 9 missing-validator responses refused preserving old reference; invalid weekday refused",
+    "final_hashes_match": true,
+    "initial_snapshot_limitation": "three files repaired during initial review without prior hash manifest; no immutable initial snapshot claimed",
+    "worker_occupancy_upper_bound_minutes": 9,
+    "assignments": 1,
+    "rechecks_used": 1,
+    "rechecks_reserved": 1
+  },
+  "acceptance": {
+    "A14": "refresh_test.py covers conditional304/changed200, history, offline plan, route binding, missing/invalid validators, corrupt evidence, local I/O failure, coalescing, archives and schema1 decoding",
+    "A03_regression": "ordinary fetch cache-hit network-free behavior retained in resources_test.py"
+  },
+  "remaining": "First hosted review rounds and exact-head CI; integration branch only, native execution in_progress/WI proposed until main",
+  "network": "loopback fixtures and official standards/GitHub metadata only; no Gutenberg data requests",
+  "telemetry": {
+    "per_run_tokens_cost": "unavailable",
+    "account_weekly_used_percent_at_launch": 4
+  }
+}

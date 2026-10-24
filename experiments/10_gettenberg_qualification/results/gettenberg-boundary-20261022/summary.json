@@ -1,0 +1,26 @@
+{
+  "completed": true,
+  "boundary_cases": 1477,
+  "prefix_groups": {
+    "starts_produced_by": 180,
+    "starts_by": 179,
+    "other": 749,
+    "starts_underscore": 265,
+    "empty": 56,
+    "starts_illustration": 11,
+    "starts_transcriber": 18,
+    "starts_sidenote": 19
+  },
+  "suffix_groups": {
+    "empty": 1013,
+    "starts_end_marker": 115,
+    "other": 130,
+    "contains_transcriber": 219
+  },
+  "qualified_transformations": 133,
+  "complete_history_after_rule": 25,
+  "new_approvals": 0,
+  "new_historical_resolutions": 0,
+  "input_ledger_sha256": "f5d76db28bc32e316cbac07b548dc4fea90b3b58458e26cca8740cbfb8e09e68",
+  "rule": "terminal-unbracketed-publication-notice-v1"
+}

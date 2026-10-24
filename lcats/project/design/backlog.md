@@ -22,6 +22,17 @@ severity first (silent > loud > cosmetic), then effort-to-fix — a silent
 failure gives no signal to prompt anyone to notice it, so it's worth fixing
 before a loud one even if the loud one blocks more use cases.
 
+## Gettenberg adoption follow-up — open
+
+Human acceptance of replacement-delivery decisions A–D on 2026-10-24 requires durable
+tracking. The [post-adoption register](../development/gettenberg-post-adoption-backlog.md)
+is the single detailed backlog: GPA-A (13 source-format refusals), GPA-B (55 retained
+notices), GPA-C (12 specific body effects and separate parser/gather reconciliation),
+and GPA-D (coverage and historical-provenance limits). It includes each affected ID,
+evidence, triage owner, first steps and completion criteria. Delivery acceptance does
+not resolve these entries. Promote them to scoped LRH work items when selected;
+replace active register instructions with links rather than duplicating work.
+
 ---
 
 ### `_locate_anchor_span`'s whitespace-tolerant fallback never handles paragraph-marker leakage or curly-quote typography — P2, resolved

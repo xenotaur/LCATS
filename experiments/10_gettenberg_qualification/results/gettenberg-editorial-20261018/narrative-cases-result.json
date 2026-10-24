@@ -1,0 +1,354 @@
+{
+  "completed": true,
+  "scope": "Verify source-anchored narrative spans and actual temporary story publication.\n\nFrom lcats/: python ../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py CATALOG_CACHE TEXT_CACHE CASES_JSON OUTPUT_JSON\nCASES_JSON records reviewed opening/closing anchors and decoded-input hashes.\nRead-only historical UTF-8 gzip inputs are not original HTTP representations.\nNo network or canonical writes: outputs live in an automatically removed temporary\ncollection. Requires POSIX SIGALRM; 120-second total ceiling. Existing reports are\nnever overwritten. Missing/ambiguous anchors, mismatched input hashes, publication\nrejections or lost narrative fail nonzero with a JSON report. Eligibility\nrejections remain per-case failed publication checks; other failures abort. A pass proves\nthese specific narrative spans survive, not corpus-wide editorial acceptance.\n",
+  "network_bytes": 0,
+  "cases": [
+    {
+      "id": 22579,
+      "source_identity_verified": true,
+      "narrative_span": [
+        456,
+        31636
+      ],
+      "narrative_characters": 31180,
+      "narrative_sha256": "221f211fddb7d7c16e060a4f0087447d336673d93c8764b986c0fc3282cf8479",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 31696,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/22579",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "f579312b064003918c5d6202d1f6d505f6c0619810681a25b608dab3882b6d58",
+        "decoded_utf8_sha256": "1e683257c40e61ea9e5389bac075de1125cdd95007372349a640710391385601",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 263,
+          "content_end": 31959,
+          "diagnostics": [
+            "corroborated_end_notice_removed",
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": [
+            133
+          ]
+        }
+      }
+    },
+    {
+      "id": 23148,
+      "source_identity_verified": true,
+      "narrative_span": [
+        262,
+        15535
+      ],
+      "narrative_characters": 15273,
+      "narrative_sha256": "dd3b8e65a82e5a686e13614cc5b0ffacb5f3084303107afce0b94fe87ff5062d",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 15582,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/23148",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "0c550edb549602eb6de9f6c067d72b06bea90f12e8c90d94fba4a1723e10e223",
+        "decoded_utf8_sha256": "5c578a9f85337e25816bdc2db6afffa8d0ce8a8f14415f47214df03036a20e4c",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 154,
+          "content_end": 15736,
+          "diagnostics": [
+            "corroborated_end_notice_removed",
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": [
+            1,
+            108
+          ]
+        }
+      }
+    },
+    {
+      "id": 35401,
+      "source_identity_verified": true,
+      "narrative_span": [
+        390,
+        26630
+      ],
+      "narrative_characters": 26240,
+      "narrative_sha256": "d908a0967868a4c400a53bba975dbdca6060b9cdf7bd5274639d32735fa44967",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 26521,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/35401",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "94aa408ac405f7f4acd01576d77d843174fd4e2fd45825d6917b16f0f1e85069",
+        "decoded_utf8_sha256": "fbd804f18d7f5c127b38367f7f302ee79900e262e313f29e1b66791dfdefcd7a",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 151,
+          "content_end": 26672,
+          "diagnostics": [
+            "corroborated_end_notice_removed"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": [
+            3,
+            4
+          ]
+        }
+      }
+    },
+    {
+      "id": 70645,
+      "source_identity_verified": true,
+      "narrative_span": [
+        402,
+        26936
+      ],
+      "narrative_characters": 26534,
+      "narrative_sha256": "b7e3c5ed3f10727f0c47d31e9210064251d853e6fa38c8be087b7329e778f114",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 26931,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/70645",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "8d5dbc952d7112f61155f7db08d08abd93f6c7255684340c5ff769362e88498c",
+        "decoded_utf8_sha256": "436a003c15ebee6ad0c623a90176f7d88d1fdcdd84b0d7c85109289948ddb0aa",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 95,
+          "content_end": 27026,
+          "diagnostics": [
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": []
+        }
+      }
+    },
+    {
+      "id": 23104,
+      "source_identity_verified": true,
+      "narrative_span": [
+        524,
+        30527
+      ],
+      "narrative_characters": 30003,
+      "narrative_sha256": "72c95bd4ad9411c68d6a98120257a0915a77d87f5fb1bf5e89d8365eb69b0fc1",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 30543,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/23104",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "7523a4c964c292a268dab666fd4b20e4a0f933dc55ffba5cf7105917645368e3",
+        "decoded_utf8_sha256": "88e431a515f4735017f3b867f02c3659be26aa21dfa2f68ae25fa2db64411998",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 4,
+          "content_end": 30547,
+          "diagnostics": [
+            "corroborated_end_notice_removed",
+            "unclassified_opening_retained",
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": [
+            7,
+            173
+          ]
+        }
+      }
+    },
+    {
+      "id": 50103,
+      "source_identity_verified": true,
+      "narrative_span": [
+        453,
+        32142
+      ],
+      "narrative_characters": 31689,
+      "narrative_sha256": "6499a001d5466bead6d3115d9896809deadf807b8fbf16bb5ac72633bca50f82",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 32888,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/50103",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "25a3eaa9d0bd02ffbdf4b36749187720f9cf2821b91a5b05e0673e4403458d17",
+        "decoded_utf8_sha256": "55006d2f94c153a99bb04d312ea6c61bc55ab230cf84429ff2ba7e68a60cf0d7",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 148,
+          "content_end": 33036,
+          "diagnostics": [
+            "corroborated_end_notice_removed",
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": [
+            1,
+            155
+          ]
+        }
+      }
+    },
+    {
+      "id": 42640,
+      "source_identity_verified": true,
+      "narrative_span": [
+        571,
+        23110
+      ],
+      "narrative_characters": 22539,
+      "narrative_sha256": "2b44b71ac081bf43e872fd555fd50ce546fa7fda662b09038a68d12dbfbecde4",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 23159,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/42640",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "aaaa3ba77195dffa1a241e7f6025a7b64d97c94a0c0f26b46892ec589dd79612",
+        "decoded_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 104,
+          "content_end": 23263,
+          "diagnostics": [
+            "corroborated_end_notice_removed"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [
+            14
+          ],
+          "ignored_metadata_paragraphs": [
+            5,
+            8
+          ]
+        }
+      }
+    },
+    {
+      "id": 32655,
+      "source_identity_verified": true,
+      "narrative_span": [
+        577,
+        15391
+      ],
+      "narrative_characters": 14814,
+      "narrative_sha256": "8844144dce54e73711d7dbcb4f7c5fa4f727f0b7d10c1ace8d2e8ffd5cced3a9",
+      "complete_span_preserved": true,
+      "publication_preserves_normalized_span": true,
+      "existing_output_unchanged": true,
+      "rejection": null,
+      "body_characters": 15164,
+      "provenance": {
+        "source_uri": "https://www.gutenberg.org/ebooks/32655",
+        "input_kind": "historical_decoded_utf8_cache",
+        "compressed_sha256": "aab34579e3578b35b6aafbec94a14d92a7708a0acb73a128a1e87f8339287de0",
+        "decoded_utf8_sha256": "a0518fc2e9431353d71485edbe7f49243c19fa099e319dd95a3e7f392b91b592",
+        "cleanup_policy": "gutenberg-boundaries-v2",
+        "body_extraction": {
+          "policy": "opening-prefix-v1",
+          "offset_basis": "newline_normalized_cleaned_text",
+          "content_start": 228,
+          "content_end": 15392,
+          "diagnostics": [
+            "corroborated_end_notice_removed",
+            "possible_editorial_note_retained"
+          ]
+        },
+        "chapter_assessment": {
+          "policy": "metadata-aware-chapters-v1",
+          "chaptered": false,
+          "paragraph_basis": "body.split('\\n\\n')",
+          "explicit_markers": [],
+          "possible_title_paragraphs": [],
+          "ignored_metadata_paragraphs": []
+        }
+      }
+    }
+  ],
+  "cases_sha256": "f484d27664d0c14a047e4bb3503eb101fef74388949dbc0b1827111d8f4cd384",
+  "source_sha256": {
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/qualify_narrative_cases.py": "32c80825ed63ce13c09911567914098d63884b8cfe36cbcc08b05149962872d7",
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/qualify_cached_corpus.py": "5d70d120527030c8bd76167f6554d4132e1371e4f71960e37ce3b903d4652769",
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/gatherers/parser.py": "ef5f1f9294d81f9dab47d0aed29771c936ef8f8597cde345889141519a2f1039",
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/gatherers/story_body.py": "aecad559e8c08dd1be19a13ad9ed453ae230ff2cf0ac3441d4139b2e2820d316",
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/gatherers/normalization.py": "081da3e25ccf0e72b81151f6ad70b78e3699c84861602f2624989d4dfd53c4a6"
+  },
+  "catalog_archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+  "all_publication_checks_passed": true
+}

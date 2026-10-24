@@ -1,0 +1,104 @@
+{
+  "reviewer": "Independent cold-context Codex reviewer",
+  "completed_at_utc": "2026-10-22T07:09:00.426491+00:00",
+  "repository": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+  "base_commit": "3c040b2d224bd03fc5c177e0c08f872fa6ec1057",
+  "scope_diff_sha256": "e98f61c0ec94458d329fc5bc32eedbfc9d3afb4f969b012916a55ca5b28652df",
+  "reviewed_file_sha256": {
+    "lcats/src/lcats/gatherers/editorial_evidence.py": "59f96137b8b0ac6f18d914cdcb6972e76cf0f485e62ac6a2ca867aa11f57f4f1",
+    "experiments/10_gettenberg_qualification/scripts/qualify_editorial_evidence.py": "56190f6595ec6f69fb2f5048d22ea26c8d109bb65b6e570763ca637d11ce52f3",
+    "lcats/tests/gatherers_tests/editorial_evidence_test.py": "884a442d14f72271d0f45c5b3337fb077c252dff3a387d6c306c5cf8002fc782",
+    "lcats/tests/gettenberg_tests/editorial_evidence_runner_test.py": "6c952700ee0e2ce740d0209d3bf88f6643c90b2d29fe3fc04868536a8ea68a09"
+  },
+  "findings": [],
+  "conclusion": "No actionable correctness or fail-closed findings in the scoped change. Both real packets are bound to exact source/candidate occurrences and their attributed promotional roles are supported by the inspected cached context. This is not publisher authentication, semantic proof, corpus acceptance, or story approval.",
+  "verification": {
+    "focused_tests": {
+      "command": "PYTHONPATH=/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src /Users/centaur/anaconda3/envs/LCATS/bin/python -m unittest tests.gatherers_tests.editorial_evidence_test tests.gettenberg_tests.editorial_evidence_runner_test",
+      "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats",
+      "tests_run": 10,
+      "result": "passed"
+    },
+    "independent_full_population_replay": {
+      "completed": true,
+      "elapsed_seconds": 31.39443250000477,
+      "ledger_matches_supplied_ledger": true,
+      "output": "/tmp/gettenberg-editorial-20261022/independent-population",
+      "discovery_candidates": 2,
+      "reviewed_candidates": 2,
+      "new_approvals": 0,
+      "new_dispositions": 0,
+      "new_historical_resolutions": 0
+    },
+    "population_rows": 1659,
+    "unchanged_prior_rows": 1659,
+    "unchanged_dispositions": 55,
+    "rejected_mutations": 48,
+    "proofs": [
+      {
+        "id": 63638,
+        "candidate_span": [
+          31,
+          356
+        ],
+        "source_span": [
+          165,
+          495
+        ],
+        "normalized_origin": 128,
+        "candidate_record_sha256": "9e51c5f06699ea7f98fbba841f13075edb7e692d0ef0eb8d53a9e23f5dbc7874",
+        "review_sha256": "170d67e649bbd566d9af1f1a62cf5b62c432f20f92095fa651f51c8f1fef3b8a",
+        "blockers": [
+          "whole_story_review_required",
+          "selected_needs_review",
+          "historical_difference_unresolved"
+        ]
+      },
+      {
+        "id": 73988,
+        "candidate_span": [
+          339,
+          936
+        ],
+        "source_span": [
+          510,
+          1116
+        ],
+        "normalized_origin": 156,
+        "candidate_record_sha256": "4543359abf8fc662d256c9f5ab0c62b411f66834b8c26af9c74fe3c3ac2c9acc",
+        "review_sha256": "77268ee514365571e3610ef8f8689932f408a33ca690dadc5d09ce9cc0e2fe51",
+        "blockers": [
+          "whole_story_review_required",
+          "selected_needs_review",
+          "retained_editorial_label",
+          "historical_difference_unresolved"
+        ]
+      }
+    ]
+  },
+  "source_role_assessment": [
+    {
+      "id": 63638,
+      "assessment": "The complete parenthesized editorial note speaks about reading the independently named author's story, PLANET's scoop and readers' assessment. It precedes the transcriber notice and distinct narrative opening. This supports the attributed promotional-role judgment for this exact passage."
+    },
+    {
+      "id": 73988,
+      "assessment": "The complete bracketed publisher note addresses critics and readers, describes the Editor's search, praises this tale and recommends rereading. It is separate from the illustration caption and subsequent narrative. This supports the attributed promotional-role judgment for this exact passage."
+    }
+  ],
+  "boundary_assessment": {
+    "labels": "Discovery returns only ranges/hashes. The new helper requires an exact attributed review packet; it does not purport to prove the literary truth of a supplied rationale. No default extraction or automatic recording call site was introduced.",
+    "source_coordinates": "Verified CRLF-inclusive raw offsets against exact LF candidate intervals, complete candidate and source identities, unique normalized-source occurrence, and selected-text complements. Forty-eight malformed/stale/truncated packet variants were rejected.",
+    "prior_intent_and_history": "All 1659 previous ledger rows are unchanged except added preface annotations; all 55 disposition files match historical archive bytes. Both new proposals retain whole-story/readiness/history blockers and publication_approved:false.",
+    "resources_and_outputs": "New CLI uses exclusive output, rejects output within supplied mutable input trees, reuses bounded population/artifact/source readers, installs a 600-second POSIX alarm and checks at least 6GiB free. Focused tests verify failure checkpoints, no approval/story outputs, existing-output refusal and input-directory output rejection."
+  },
+  "limitations": [
+    "Review was limited to the supplied scoped diff and its directly relevant dependencies. Native execution records and archive packaging were pending and deliberately excluded.",
+    "Independently ran the 10 focused tests and full 1659-row replay; did not independently rerun the canonical full package suite, wheel build/install, format/lint or LRH validation.",
+    "Inspected both complete reviewed notes plus surrounding source openings/endings and metadata; did not claim a complete literary reading of both stories or the full corpus.",
+    "No network access or primary-publication authentication. Source identities refer to the historical decoded UTF-8 cache.",
+    "Bounds and failure paths were inspected and focused-tested; no destructive disk exhaustion, OS-level memory exhaustion or concurrent external mutation stress test."
+  ],
+  "repository_edits": false,
+  "network_access": false
+}

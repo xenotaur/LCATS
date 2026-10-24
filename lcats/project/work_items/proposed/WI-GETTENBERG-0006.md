@@ -102,3 +102,29 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+
+## Staged cleanup acceptance — 2026-10-16
+
+All four acceptance criteria are independently reviewed and internally integrated
+through [PR517](https://github.com/xenotaur/LCATS/pull/517), merge
+2378fccaf0a12d82c0cbb4813d74b8f372e1a9a2, verified head
+40cd36f036439575b63322acc3a91beee3a244c1. Pure cleanup retains the original, exact boundaries,
+policy and diagnostic evidence; qualified modern THE and historical THIS envelopes
+work, while absent/ambiguous/malformed boundaries preserve all text. Authored
+fixtures cover narrative false positives, Unicode, short text and repeated markers.
+No third-party implementation or marker list was retained. A review-discovered
+quadratic regex defect was reproduced, repaired and independently rechecked.
+Hosted Unicode-spacing, single-star and wrapped-fragment cases also have verified
+repairs and preservation regressions. The historical license separator is separately
+qualified with strengthened fixtures and an independently verified narrow exception.
+
+Canonical 2,919 tests, 33 focused tests, all three hosted findings repaired and
+independently verified, and four passing
+final-head CI checks support the staged acceptance. See
+[qualification](../../development/evidence/gettenberg-cleanup-20261016/qualification.json)
+and [integration evidence](../../development/evidence/gettenberg-cleanup-20261016/integration.json)
+for criterion mapping, source hashes, provenance and limitations. Legacy wrapper
+and gatherer migration remains WI0008 work. Unsupported historical forms are
+conservatively retained. This is staged delivery only: status remains proposed
+until human-approved main delivery and native closeout.

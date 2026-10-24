@@ -26,7 +26,6 @@ dependencies = [
    "seaborn",
    "wordcloud",
    "scikit-learn",
-   "gutenbergpy @ git+https://github.com/xenotaur/gutenbergpy.git@60ca548232f470e7aa7c22e8fde636db644cd80e",
    "anthropic",
    "openai>=1.0.0",
    "python-dotenv",

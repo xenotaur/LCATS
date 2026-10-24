@@ -1,0 +1,53 @@
+{
+  "scope": "Coordinator source-reviewed narrative opening/ending anchors for eight earlier-position differences. Not independent literary annotation or corpus-wide editorial acceptance.",
+  "cases": [
+    {
+      "id": 22579,
+      "decoded_utf8_sha256": "1e683257c40e61ea9e5389bac075de1125cdd95007372349a640710391385601",
+      "opening_anchor": "As a blisteringly hot but guaranteed weather-controlled future summer",
+      "closing_anchor": "watched the Blonde Icicle melt."
+    },
+    {
+      "id": 23148,
+      "decoded_utf8_sha256": "5c578a9f85337e25816bdc2db6afffa8d0ce8a8f14415f47214df03036a20e4c",
+      "opening_anchor": "Jean Lanni could see that his girl friend, Judy Stokes, thought it was",
+      "closing_anchor": "He's only negotiating."
+    },
+    {
+      "id": 35401,
+      "decoded_utf8_sha256": "fbd804f18d7f5c127b38367f7f302ee79900e262e313f29e1b66791dfdefcd7a",
+      "opening_anchor": "It was upon the waterfront that I first met her",
+      "closing_anchor": "believe her story!"
+    },
+    {
+      "id": 70645,
+      "decoded_utf8_sha256": "436a003c15ebee6ad0c623a90176f7d88d1fdcdd84b0d7c85109289948ddb0aa",
+      "opening_anchor": "The trace wound through the rolling wooded prairies",
+      "closing_anchor": "been caught, either!"
+    },
+    {
+      "id": 23104,
+      "decoded_utf8_sha256": "88e431a515f4735017f3b867f02c3659be26aa21dfa2f68ae25fa2db64411998",
+      "opening_anchor": "Ludovick Eversole sat in the golden sunshine outside his house",
+      "closing_anchor": "but at least it was a change."
+    },
+    {
+      "id": 50103,
+      "decoded_utf8_sha256": "55006d2f94c153a99bb04d312ea6c61bc55ab230cf84429ff2ba7e68a60cf0d7",
+      "opening_anchor": "NEARLY TWO hundred years of habit carried the chairman of Exodus",
+      "closing_anchor": "Thirty years was a long time, when he stopped to think of it."
+    },
+    {
+      "id": 42640,
+      "decoded_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae",
+      "opening_anchor": "Life on this earth, my children, means warmth.",
+      "closing_anchor": "The earth was dead."
+    },
+    {
+      "id": 32655,
+      "decoded_utf8_sha256": "a0518fc2e9431353d71485edbe7f49243c19fa099e319dd95a3e7f392b91b592",
+      "opening_anchor": "The explosion brought Jim Peters upright in bed.",
+      "closing_anchor": "Let's go home and have some coffee."
+    }
+  ]
+}

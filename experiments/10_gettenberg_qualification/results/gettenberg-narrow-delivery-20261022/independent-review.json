@@ -1,0 +1,95 @@
+{
+  "scope": "Independent narrow candidate product/runner/scope review, exact frozen cleanup census, two severe-case body probes, disposable real-product fixture exercise, test verification, historical preservation and wheelclosure audit",
+  "status": "no_unresolved_P0_P1_P2_findings",
+  "timestamp_utc": "2026-10-22T23:41:28.605117+00:00",
+  "reviewed_sha256": {
+    "lcats/src/lcats/gettenberg/cleanup.py": "296a6fbbf20326a17b88dcbb568abc61c8246cdcd3b4fb9c1d10f6923a240a39",
+    "lcats/src/lcats/gatherers/gutenberg_source.py": "abcc3dece3c4fb247c6e69080d14322b561ae4e0b4cd7991698eb9c1e0bf3161",
+    "lcats/src/lcats/gatherers/mass_quantities/gatherer.py": "a6ce4f5e4b1d05e2d1c6e3ed066636a3dce34223247359df5a4e1a43c6287676",
+    "lcats/tests/gettenberg_tests/cleanup_test.py": "09f9d943fd492e036c4ea6b5f51222b0675b977f5fd5d8af01e04315fc1efa3e",
+    "lcats/tests/gettenberg_tests/cleanup_context_test.py": "71149a41f0fe91545343ff28da19beaf3d1b01ce7c97408a3e28d33e3e4f1fc2",
+    "lcats/tests/gatherers_tests/narrow_integration_test.py": "e638000bc182d4f81f80b1780af937e330306d34831d314a2e3af8f76a01c2b4",
+    "experiments/10_gettenberg_qualification/scripts/qualify_migration.py": "1c75c0142477624d7ec79e18f6cd5cb91d8116643195d3de748005f1ae9221a0",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_corpus.py": "8202eaddf8b6b89f69c8e713c6dd7d7c680becf912cf2fc0821502458794f490",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_installed.py": "6de20c309c207d6050302ea57554a80e912b920d604d2be382f90d20a9bf90d6",
+    "lcats/tests/gettenberg_tests/qualification_helpers_test.py": "836bfb1db3bd74ec33f9fce92ab803bce04b26b469222e214784f871a92f2902",
+    "lcats/tests/gettenberg_tests/documentation_test.py": "5a407a35a62f8a0de2039453b521a4a9b3059c5046869bff079893f9236bdf94",
+    "lcats/docs/reference/gettenberg-cleanup.md": "8309a349e67e4d840c5388cad25ab5b08796e1ad03015b5709d1efded140228b",
+    "lcats/docs/how-to/gettenberg-cleanup.md": "6f331004700f151f4075a8c2cad3fe5049f244ed51b50df9023879972e300d4d",
+    "lcats/docs/explanation/gettenberg-architecture.md": "c7479c8a8b013a1465e5caf786958b3c53f8337e2e49265ff7532b5d9ea04c99",
+    "lcats/project/development/gettenberg-narrow-delivery.md": "11b1ce902abcb5f3ffd7e792b9ea2784883c6cd99b53d8e668ec3ee70e6ba9fa",
+    "experiments/10_gettenberg_qualification/README.md": "b7802346e9fac1847d894b7ab322b3f526a293afe8129cea44ba98fc0ec01214"
+  },
+  "focused_tests": {
+    "command": "scripts/test tests.gettenberg_tests.cleanup_test tests.gettenberg_tests.cleanup_context_test tests.gettenberg_tests.qualification_helpers_test tests.gettenberg_tests.documentation_test tests.gatherers_tests.live_gather_test tests.gatherers_tests.narrow_integration_test",
+    "passed": 95,
+    "seconds": 8.301
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "summary": "Migration runner broad result object vs narrow tuple mismatch",
+      "status": "resolved"
+    },
+    {
+      "priority": "P2",
+      "summary": "New narrow runner import probe lacked script directory search path",
+      "status": "resolved"
+    },
+    {
+      "priority": "P2",
+      "summary": "New narrow runner passed tuple metadata to list-based parser boundary",
+      "status": "resolved"
+    },
+    {
+      "priority": "P2",
+      "summary": "Cleanup documentation grew to five blocks but test asserted four",
+      "status": "resolved"
+    },
+    {
+      "priority": "P2",
+      "summary": "Retained provider snapshot field/source fidelity regression accidentally classified with separate broad tests",
+      "status": "resolved"
+    },
+    {
+      "priority": "P1",
+      "summary": "Built wheel contains nine separated Python modules absent from committed candidate",
+      "status": "resolved_and_independently_rechecked",
+      "evidence": "/tmp/gettenberg-narrow-independent-wheel-20261022.json",
+      "resolution": "Clean rebuilt wheel has exact165Python paths and bytes matching91f1b422; final installed distribution matches cleanwheel exactly; fresh installed smoke passes. Runner additionally rejects physical presence of all9 separated modules."
+    }
+  ],
+  "pure_cleanup_census": "/tmp/gettenberg-narrow-independent-cleanup-20261022.json",
+  "comments": [
+    "Current corpus runner now checks selected.request and matches production list/newline extraction boundary.",
+    "Current provider snapshot/index help coverage restored.",
+    "Construction manifest accounts for all53 later src/tests/docs paths;598 prior experiment files byte-identical, only current README and migration runner intentionally adapted.",
+    "Independent checkout fixture exercise passed; superseded contaminated wheel preserved as failure evidence. Clean wheel and final installed distribution verified exactly against committed product. Final smoke2published/1refused, originalbytes unchanged, offline reuse andprotectedlogs pass."
+  ],
+  "limits": [
+    "Purecleanup census independently reran all1659sources with archived context; coordinator actualselectedresource/body replay was independently checked across every reported row/hash/metric, not duplicated in full.",
+    "Reviewer ran95focusedtests and the realproduct fixture incheckout; coordinator performed fullsuite and installedwheel execution. Reviewer independently verified all cleanwheel and installed Python pathsets/bytes and finalinstalled report identities.",
+    "Prior two severe-case supplemental traces are not emitted by narrowcorpus runner; bodymetrics match exactly, and two independent actualbodyprobes match legacy.",
+    "67 residual comparisons and13refusals remain unresolved; noQ1-Q8releaseacceptance, corpuspublication ormainpromotion.",
+    "Scope is reviewed candidate checkpoint; remaining coordinator evidence/runlog/native edits and hostedCI are separate."
+  ],
+  "product_commit": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "evidence": [
+    "/tmp/gettenberg-narrow-independent-cleanup-20261022.json",
+    "/tmp/gettenberg-narrow-independent-severe-cases-20261022.json",
+    "/tmp/gettenberg-narrow-independent-logguards-20261022.json",
+    "/tmp/gettenberg-narrow-independent-preservation-20261022.json",
+    "/tmp/gettenberg-narrow-independent-fixture-20261022.json",
+    "/tmp/gettenberg-narrow-independent-wheel-20261022.json",
+    "/tmp/gettenberg-narrow-independent-clean-wheel-20261022.json",
+    "/tmp/gettenberg-narrow-independent-corpus-report-20261022.json",
+    "/tmp/gettenberg-narrow-independent-final-installed-20261022.json"
+  ],
+  "product_source_commit_binding": {
+    "lcats/src/lcats/gettenberg/cleanup.py": "296a6fbbf20326a17b88dcbb568abc61c8246cdcd3b4fb9c1d10f6923a240a39",
+    "lcats/src/lcats/gatherers/gutenberg_source.py": "abcc3dece3c4fb247c6e69080d14322b561ae4e0b4cd7991698eb9c1e0bf3161",
+    "lcats/src/lcats/gatherers/mass_quantities/gatherer.py": "a6ce4f5e4b1d05e2d1c6e3ed066636a3dce34223247359df5a4e1a43c6287676"
+  },
+  "final_installed_runner_sha256": "6de20c309c207d6050302ea57554a80e912b920d604d2be382f90d20a9bf90d6",
+  "final_review_summary": "All identified implementation/tooling/scope-preservation regressions corrected; packaging contamination found and closed through clean build plus exact closure. Future delivery remains gated by unresolved causal accounting andQ1-Q8."
+}

@@ -1,0 +1,67 @@
+{
+  "completed": true,
+  "canonical_tests": 3091,
+  "canonical_test_seconds": 103.885,
+  "canonical_test_result": "OK",
+  "format": "pass",
+  "lint": "pass",
+  "changed_experiment_runners": [
+    "qualify_review_batch.py",
+    "qualify_installed.py",
+    "qualify_readiness_cases.py",
+    "qualify_narrative_cases.py"
+  ],
+  "focused_tests_initial": 29,
+  "publication_regression": "red on both runners; green after complete canonical JSON comparison repair",
+  "independent_review": "no blocking findings; finite cohort and prior approvals checked individually",
+  "independent_recheck": "no blocking findings; reproduced both old-runner failures independently",
+  "source_input_count": 1659,
+  "historical_resolved_before": 8,
+  "historical_resolved_after": 14,
+  "historical_unresolved_after": 1628,
+  "new_approvals": [
+    69213,
+    69257,
+    70217
+  ],
+  "prior_approvals_newly_reconciled": [
+    23148,
+    32655,
+    35401
+  ],
+  "new_deferrals": [
+    32484,
+    50796,
+    50800,
+    50892,
+    51258,
+    51589,
+    51597,
+    51713
+  ],
+  "failures_preserved": [
+    {
+      "log": "build.log",
+      "reason": "Development environment packaging lacks packaging.licenses; clean isolated build succeeds without changing that environment."
+    },
+    {
+      "log": "publication.log",
+      "reason": "Runner compared Python tuple-valued v2 provenance directly with JSON lists; repair and authored red/green test preserve complete provenance comparison."
+    }
+  ],
+  "run_start_utc": "2026-10-22T00:00:59Z",
+  "hard_stop_utc": "2026-10-22T01:00:59Z",
+  "substantive_stop_utc": "2026-10-22T00:20:00Z",
+  "weekly_usage_percent_start": 36,
+  "weekly_usage_percent_stop": 40,
+  "usage_attribution": "Shared account-wide telemetry, not task-exclusive cost",
+  "isolated_output_bytes": 462402916,
+  "free_disk_bytes": 258048000000,
+  "network": "No Gutenberg requests. Isolated build/install used PyPI. Corpus replay forbids sockets.",
+  "corpus_accepted": false,
+  "integration_authorized": false,
+  "lrh": {
+    "errors": 0,
+    "warnings": 351
+  }
+}

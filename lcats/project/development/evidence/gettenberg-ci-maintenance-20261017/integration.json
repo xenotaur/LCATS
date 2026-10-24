@@ -1,0 +1,36 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/523",
+  "base": "0504cae5d6258708ebd3dfa311fb014826b25efb",
+  "accepted_head": "6a9886557ae5bd4c52e5e995eaf2ef319e9add7b",
+  "reviewed_product_head": "9608b76fad585773ac656e47211a27db7fe6a803",
+  "merge": "09763715d62c6143e3a896ce75eda256a94f4ab3",
+  "parents_verified": [
+    "0504cae5d6258708ebd3dfa311fb014826b25efb",
+    "6a9886557ae5bd4c52e5e995eaf2ef319e9add7b"
+  ],
+  "accepted_tree_verified": true,
+  "merged_at": "2026-10-18T02:15:45Z",
+  "checkpoint_at": "2026-10-18T02:17:31.991669+00:00",
+  "check_policy": "No configured required_status_checks; all four expected checks passed; no failed exact-head workflow runs",
+  "unresolved_threads": 0,
+  "resolved_thread_ids": [
+    "PRRT_kwDOKlhIbM6tma7X"
+  ],
+  "native_status": "in_progress; WI proposed pending human-approved main promotion",
+  "main_promoted": false,
+  "live_maintenance_executed": false,
+  "usage": {
+    "launch_weekly_used_percent": 4,
+    "checkpoint_weekly_used_percent": 13,
+    "attributable_run_cost": "unavailable; shared account"
+  },
+  "budget": {
+    "assignments_used": 5,
+    "assignments_max": 6,
+    "charged_worker_minutes": 34,
+    "worker_minutes_max": 45,
+    "peak_concurrent_agents": 2,
+    "first_assignment_overrun": "planned15 minutes; charged22 including unverified timing overrun",
+    "run_hard_stop": "2026-10-18T03:52:10Z"
+  }
+}

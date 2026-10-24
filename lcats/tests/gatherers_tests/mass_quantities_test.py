@@ -38,7 +38,9 @@ class TestGatherStories(unittest.TestCase):
         mock_parser.gather_story.return_value = (42, "/path/to/story.json", None)
 
         with capture.suppress_output():
-            gathered, failed = gatherer.gather_stories([42], log_dir=self.log_dir)
+            gathered, failed = gatherer.gather_stories(
+                [42], log_dir=self.log_dir, source="test-source"
+            )
 
         self.assertIn(42, gathered)
         self.assertEqual(gathered[42], "/path/to/story.json")
@@ -56,7 +58,9 @@ class TestGatherStories(unittest.TestCase):
         mock_parser.gather_story.return_value = (99, None, "No data for this story")
 
         with capture.suppress_output():
-            gathered, failed = gatherer.gather_stories([99], log_dir=self.log_dir)
+            gathered, failed = gatherer.gather_stories(
+                [99], log_dir=self.log_dir, source="test-source"
+            )
 
         self.assertEqual(gathered, {})
         self.assertIn(99, failed)
@@ -71,7 +75,9 @@ class TestGatherStories(unittest.TestCase):
         mock_tqdm.side_effect = lambda x: x
 
         with capture.suppress_output():
-            gathered, failed = gatherer.gather_stories([], log_dir=self.log_dir)
+            gathered, failed = gatherer.gather_stories(
+                [], log_dir=self.log_dir, source="test-source"
+            )
 
         self.assertEqual(gathered, {})
         self.assertEqual(failed, {})
@@ -93,7 +99,9 @@ class TestGatherStories(unittest.TestCase):
         ]
 
         with capture.suppress_output():
-            gathered, failed = gatherer.gather_stories([1, 2, 3], log_dir=self.log_dir)
+            gathered, failed = gatherer.gather_stories(
+                [1, 2, 3], log_dir=self.log_dir, source="test-source"
+            )
 
         self.assertEqual(gathered, {1: "/path/1.json", 3: "/path/3.json"})
         self.assertEqual(failed, {2: "skipped"})
@@ -111,7 +119,7 @@ class TestGatherStories(unittest.TestCase):
         mock_downloaders.DataGatherer.return_value = mock_instance
 
         with capture.suppress_output():
-            gatherer.gather_stories([1], log_dir=self.log_dir)
+            gatherer.gather_stories([1], log_dir=self.log_dir, source="test-source")
 
         args, _ = mock_downloaders.DataGatherer.call_args
         self.assertEqual(args[0], storymap.TARGET_DIRECTORY)
@@ -129,9 +137,11 @@ class TestGatherStories(unittest.TestCase):
         mock_parser.gather_story.return_value = (7, "/path/7.json", None)
 
         with capture.suppress_output():
-            gatherer.gather_stories([7], log_dir=self.log_dir)
+            gatherer.gather_stories([7], log_dir=self.log_dir, source="test-source")
 
-        mock_parser.gather_story.assert_called_once_with(mock_instance, 7)
+        mock_parser.gather_story.assert_called_once_with(
+            mock_instance, 7, source="test-source"
+        )
 
 
 class TestGatherStoriesRunLogging(unittest.TestCase):
@@ -167,12 +177,12 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         ]
 
         with capture.suppress_output():
-            gatherer.gather_stories([1, 2], log_dir=self.log_dir)
+            gatherer.gather_stories([1, 2], log_dir=self.log_dir, source="test-source")
 
         events = self._read_log_lines()
         self.assertEqual(
             [e["event"] for e in events],
-            ["run_start", "story_downloaded", "story_failed", "run_end"],
+            ["run_start", "story_ready", "story_failed", "batch_summary", "run_end"],
         )
         self.assertEqual(events[1]["story"], 1)
         self.assertEqual(events[2]["story"], 2)
@@ -195,12 +205,14 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
 
         with capture.suppress_output():
             with self.assertRaises(RuntimeError):
-                gatherer.gather_stories([1, 2], log_dir=self.log_dir)
+                gatherer.gather_stories(
+                    [1, 2], log_dir=self.log_dir, source="test-source"
+                )
 
         events = self._read_log_lines()
         self.assertEqual(
             [e["event"] for e in events],
-            ["run_start", "story_downloaded", "run_aborted_unexpected"],
+            ["run_start", "story_ready", "run_aborted_unexpected"],
         )
 
     @patch("lcats.gatherers.mass_quantities.gatherer.tqdm")
@@ -215,7 +227,7 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         mock_parser.gather_story.return_value = (1, "/path/1.json", None)
 
         with capture.suppress_output():
-            gatherer.gather_stories([1], log_dir=self.log_dir)
+            gatherer.gather_stories([1], log_dir=self.log_dir, source="test-source")
 
         expected_path = self.log_dir / "mass_quantities_gather_run_log.jsonl"
         self.assertTrue(expected_path.exists())
@@ -237,7 +249,7 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
 
         with capture.suppress_output():
             gathered, _failed = gatherer.gather_stories(
-                story_ids(), log_dir=self.log_dir
+                story_ids(), log_dir=self.log_dir, source="test-source"
             )
 
         self.assertEqual(gathered, {1: "/path/1.json"})
@@ -246,37 +258,16 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
 
 
 class TestGather(unittest.TestCase):
-    """Tests for gatherer.gather."""
+    """Configured gathering must retain refusals for CLI incomplete reporting."""
 
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_returns_only_successful_stories(self, mock_gather_stories):
-        """gather() returns only the successful-stories dict."""
-        expected = {10: "/data/10.json"}
-        mock_gather_stories.return_value = (expected, {20: "error"})
-
-        with capture.suppress_output():
-            result = gatherer.gather()
-
-        self.assertIs(result, expected)
-
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_passes_single_stories(self, mock_gather_stories):
-        """gather() calls gather_stories with storymap.SINGLE_STORIES."""
-        mock_gather_stories.return_value = ({}, {})
-        with capture.suppress_output():
-            gatherer.gather()
-
-        mock_gather_stories.assert_called_once_with(storymap.SINGLE_STORIES)
-
-    @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
-    def test_gather_returns_empty_on_all_failures(self, mock_gather_stories):
-        """gather() returns an empty dict when all stories fail."""
-        mock_gather_stories.return_value = ({}, {1: "error"})
-
-        with capture.suppress_output():
-            result = gatherer.gather()
-
-        self.assertEqual(result, {})
+    @patch("lcats.gatherers.mass_quantities.gatherer.gather_batch")
+    def test_gather_retains_all_outcomes(self, mocked):
+        expected = gatherer.BatchResult(
+            {10: "/data/10.json"}, {20: "skip"}, {30: "refusal"}
+        )
+        mocked.return_value = expected
+        self.assertIs(gatherer.gather(source="test-source"), expected)
+        mocked.assert_called_once_with(storymap.SINGLE_STORIES, source="test-source")
 
 
 class TestMain(unittest.TestCase):
@@ -287,9 +278,11 @@ class TestMain(unittest.TestCase):
         """main() calls gather_stories with storymap.SINGLE_STORIES."""
         mock_gather_stories.return_value = ({}, {})
         with capture.suppress_output():
-            gatherer.main()
+            gatherer.main(source="test-source")
 
-        mock_gather_stories.assert_called_once_with(storymap.SINGLE_STORIES)
+        mock_gather_stories.assert_called_once_with(
+            storymap.SINGLE_STORIES, source="test-source"
+        )
 
     @patch("builtins.print")
     @patch("lcats.gatherers.mass_quantities.gatherer.gather_stories")
@@ -298,7 +291,7 @@ class TestMain(unittest.TestCase):
         mock_gather_stories.return_value = ({1: "/a.json", 2: "/b.json"}, {})
 
         with capture.suppress_output():
-            gatherer.main()
+            gatherer.main(source="test-source")
 
         corpus_line = any(
             "single corpus: 2" in str(c) for c in mock_print.call_args_list
@@ -312,7 +305,7 @@ class TestMain(unittest.TestCase):
         mock_gather_stories.return_value = ({}, {5: "err", 6: "err"})
 
         with capture.suppress_output():
-            gatherer.main()
+            gatherer.main(source="test-source")
 
         error_line = any(
             "errors encountered: 2" in str(c) for c in mock_print.call_args_list

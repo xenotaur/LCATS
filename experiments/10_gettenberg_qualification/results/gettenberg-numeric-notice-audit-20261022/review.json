@@ -1,0 +1,53 @@
+{
+  "status": "no_unresolved_findings",
+  "reviewed_files_sha256": {
+    "numeric_notice_candidate.py": "f94e3ca50f263e7a77caf62bd5124127926f2864ded060649962e113869a75d7",
+    "numeric_notice_candidate_test.py": "5de5a8047844da6fdf7b9d79d6f2930c7b0fbc902cf0443212ee74a70fb5091c",
+    "audit_numeric_notices.py": "fe0fab467d53022b58c81992c2e8a108b7ed65717f0ff0f7757c7927367a7d6a"
+  },
+  "focused_tests": {
+    "passed": 8,
+    "extra_boundary_probes_passed": 15
+  },
+  "independent_two_input_replay": {
+    "path": "/tmp/gettenberg-numeric-notices-independent-probes-20261022.json",
+    "sha256": "e1c16df1e695cfc8635880a644563524cb5a5e8c25e81262744a91d450f766c2",
+    "ebook_35401": {
+      "numeric_rule_applied": false,
+      "body_chars": 26080
+    },
+    "ebook_50103": {
+      "numeric_rule_applied": true,
+      "body_chars": 31972
+    },
+    "both_match_archived_legacy_hashes": true,
+    "both_match_coordinator_candidate_hashes_and_traces": true
+  },
+  "population_report": {
+    "path": "/tmp/gettenberg-numeric-notices-20261022.json",
+    "sha256": "845b74e747f32ce8f59b9e3bf1884ea8f06d99fae3195c30c14dc519fa17adb6",
+    "counts_independently_recomputed": {
+      "rows": 1659,
+      "compared": 1646,
+      "refused": 13,
+      "numeric_rule_applied": 367,
+      "body_changes_from_title_candidate": 366,
+      "additional_legacy_equalities": 366,
+      "remaining_differences": 67,
+      "combined_restored_legacy_equalities": 835,
+      "new_differences_from_prior_equal": 0,
+      "new_differences_from_original_equal": 0,
+      "body_eligibility_changes_from_title_candidate": 0,
+      "body_eligibility_differences_from_legacy": 0,
+      "unchanged_outputs_reproduced": 1279
+    },
+    "all_applied_source_suffix_bindings_checked": 367,
+    "only_application_without_body_change": 61499
+  },
+  "limitations": [
+    "Reviewer did not duplicate the full 1659-input extraction replay; independently recomputed every report summary and checked every applied source suffix, plus two actual extraction probes.",
+    "Historical baseline cells are reused from pinned archived evidence; candidate cells were freshly executed by coordinator. Historical wire provenance remains limited.",
+    "No production behavior, release gate, editorial acceptance, or publication approved. Remaining 67 differences and 13 refusals remain unresolved.",
+    "Ten exact-title mismatches reported by coordinator were not independently audited as a separate list."
+  ]
+}

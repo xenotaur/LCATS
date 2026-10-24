@@ -1,0 +1,12 @@
+test_empty_remainder_refused (test_terminal_notice_candidate.TerminalNoticeTests.test_empty_remainder_refused) ... ok
+test_existing_notice_stays_identical (test_terminal_notice_candidate.TerminalNoticeTests.test_existing_notice_stays_identical) ... ok
+test_missing_ambiguous_or_uncorroborated_envelopes_unchanged (test_terminal_notice_candidate.TerminalNoticeTests.test_missing_ambiguous_or_uncorroborated_envelopes_unchanged) ... ok
+test_only_terminal_notice_removed_with_original_offsets (test_terminal_notice_candidate.TerminalNoticeTests.test_only_terminal_notice_removed_with_original_offsets) ... ok
+test_repeated_notice_does_not_expand_cut (test_terminal_notice_candidate.TerminalNoticeTests.test_repeated_notice_does_not_expand_cut) ... ok
+test_title_space_and_case_follow_existing_contract (test_terminal_notice_candidate.TerminalNoticeTests.test_title_space_and_case_follow_existing_contract) ... ok
+test_unqualified_notices_are_preserved (test_terminal_notice_candidate.TerminalNoticeTests.test_unqualified_notices_are_preserved) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.009s
+
+OK

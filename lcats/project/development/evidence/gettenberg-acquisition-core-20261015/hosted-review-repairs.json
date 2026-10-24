@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-15T01:54:45.206508+00:00",
+  "pr": "https://github.com/xenotaur/LCATS/pull/510",
+  "before_repair_head": "bac92db36df237d4dc679dd8d6cc6d0f9b6effbf",
+  "source_files": {
+    "lcats/src/lcats/gettenberg/_resource_transport.py": "1c0e6da29209937e936cd116222c1e02888d9a308cc265199693ca5a2abe44a2",
+    "lcats/src/lcats/gettenberg/_resource_io.py": "1214ea8aefebe65ef463d4cf96c332f35aecb606d8a394a025e1d73502bf6f0e",
+    "lcats/src/lcats/gettenberg/_resource_types.py": "a4c009feaa06cff0a654b282c072e86eb2616874713444b00fba642f7102fc2f",
+    "lcats/src/lcats/gettenberg/resources.py": "12247f6e2d106cd6504361f0395195b8c42457a25fd9e4b6142d2e8414cbd4c3",
+    "lcats/tests/gettenberg_tests/resources_test.py": "045fcc3e812563ac45aa4a0b7152306115d894789eef7b65efeaa7cb89234196",
+    "lcats/docs/reference/gettenberg-network.md": "9e2e1dcf9d0a6cb29fafadc4344791122a1a3061e035029a6ce3a2125bad330f",
+    "lcats/docs/how-to/gettenberg-resources.md": "03fd7a3015499125af1d064e3f65ef30f345f3bf70b5eb7d8421afdc1d482e77",
+    "lcats/src/lcats/gettenberg/_lifecycle_io.py": "34f6ed29203843ffab6b307b393e15833bfbdb95613cdcf81962cc6fa6ba5f95",
+    "lcats/src/lcats/gettenberg/lifecycle.py": "e1e0c5497a4ff2d991a85c45845066b9defa94a4aef8e5bc9b3ce0b323afa2b2",
+    "lcats/docs/reference/gettenberg-lifecycle.md": "eaa80246e8663d28359698854a4472fda2c33e0052c05547b601db0e9ce1c885",
+    "lcats/project/development/gettenberg-acquisition-design.md": "9228ce4c03d669bb460c1093328ac6694f98fbdab22da0fb3d08cef45994556b"
+  },
+  "independent_review": {
+    "assignment": 2,
+    "reviewer": "acquisition_boundary_review",
+    "completed_at": "2026-10-15T01:52:34Z",
+    "result": "clean, no actionable findings within scope",
+    "manifest_sha256": "0b1a7ec9666681546ca1a071e3afb9bc8a700290784c2c9fb2173c2b8ab65244",
+    "resource_tests": 68,
+    "lifecycle_tests": 50
+  },
+  "coordinator_validation": {
+    "canonical_tests": 2744,
+    "seconds": 74.632,
+    "focused_tests": 68,
+    "format": "pass, 258 files unchanged",
+    "lint": "pass",
+    "external_data_downloads": 0
+  },
+  "review_findings": {
+    "first_codex": [
+      "local filesystem errors misclassified/retried as network"
+    ],
+    "first_copilot": [
+      "cross-publisher archive link cleanup race",
+      "slow pacing persistence shortened actual request spacing",
+      "permanent protocol exceptions retried"
+    ],
+    "boundary_review": [
+      "completion pacing failure must preserve published signal",
+      "failed archive publication cleanup must remain coordinated",
+      "linked catalog temporary cleanup invalidated lock-free resource readers",
+      "later resource cleanup invalidated post-retention catalog verification"
+    ],
+    "status": "all repaired and independently rechecked"
+  },
+  "log_identities": {
+    "full-stable.txt": "4d013d361c557746bb4dbf75ceb7f30c99c1e6425e0e519a55e2f1bbb519e132",
+    "focused-stable.txt": "242698316d5959d57b787705e7e42ff9e83f9a11ce5183bfb2a4ecc89141dd72",
+    "format-stable.txt": "14a1411f9ccc58985e544f7e03c0b03efd99c01fd680275486b7afc92fea58ac",
+    "lint-stable.txt": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "local-io-before.txt": "0c712136bdb14b09d6283326595a8d392471bbae055b73b1edeee0b87ead7927",
+    "pacing-before.txt": "8c2447edad381db649bfffff861103a8faa1246224780abc104e27e1f0cde04f",
+    "archive-before.txt": "e175e9c35df783ce4edcc142d9111b84b4f7dfc1371a04af7ed1c68a212823c9",
+    "protocol-before.txt": "296246792474d8e124d3abdfe6e6b4524bd0b44ce0c420524544d71478493739",
+    "cleanup-before.txt": "e3dc0670cd569a82a5e013e9fe785d3581f2d66f1a674bad589fafbc27cfba88"
+  },
+  "prior_evidence": "qualification.json describes the earlier snapshot; this record supersedes its source/test qualification without rewriting historical evidence",
+  "limits": [
+    "WI-0005 remains open",
+    "main promotion not authorized",
+    "linked archive orphans deliberately retained",
+    "DNS/OS/filesystem waits remain cooperative"
+  ]
+}

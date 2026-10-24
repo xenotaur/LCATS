@@ -1,0 +1,37 @@
+{
+  "result": {
+    "generation_id": "38379283298044aaac8c8449ea421bf5",
+    "catalog_path": "/private/tmp/gettenberg-dispositions-20261020/cache/gettenberg/generations/38379283298044aaac8c8449ea421bf5/catalog.sqlite",
+    "archive_path": "/private/tmp/gettenberg-dispositions-20261020/cache/gettenberg/archives/358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28.tar.bz2",
+    "manifest": {
+      "archive_bytes": 125955051,
+      "archive_sha256": "358f177c30818027ad93b3478da2248d7996999475d83e59288ee74423050b28",
+      "counts": {
+        "archive_members": 78937,
+        "contributions": 109170,
+        "diagnostics": 223,
+        "ebooks": 78937,
+        "resources": 2018879,
+        "sources": 78937,
+        "titles": 84281
+      },
+      "database_bytes": 2177388544,
+      "database_sha256": "5729ce8f6207e61596d993fcff48728aaa11f4b05981ba2274fd2ba14878bd2a",
+      "generation_id": "38379283298044aaac8c8449ea421bf5",
+      "parser_version": "1",
+      "prepared_at": "2026-10-20T21:59:35.049891+00:00",
+      "schema_version": 1,
+      "snapshot_id": "f124e01ce06a92e6ead8a2125ebe5b544951980369003764d6b6b45f6ed7c9df",
+      "source": {
+        "http_etag": null,
+        "input_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/rdf-files.tar.bz2",
+        "kind": "local_archive",
+        "retrieved_at": null
+      },
+      "version": 2
+    },
+    "previous_count": null,
+    "reused": false
+  },
+  "elapsed_seconds": 495.05919808300007
+}

@@ -1,0 +1,21 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 23104,
+    "candidate_record_sha256": "10bacdcd8a3929a1535f77cc696f3058e34f371c3a25beec8fc2ee487d7077d4",
+    "outcome": "approve",
+    "reviewer": "codex coordinator; bounded source review 2026-10-20",
+    "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+    "approval": {
+        "gutenberg_id": 23104,
+        "source_identity_sha256": "45e541859011b1e9fbfca62022975f9417f33170c3005fd809993d0f36554cfd",
+        "candidate_sha256": "d6373b929c3d1482342dd75f015cd5d3f2c5635c737ba3176110990fa2ed54d1",
+        "assessment_sha256": "0b99fa5730e2e1a768fe408f61f9a3db073429039c2b8b3c3b3641b5aabcea3d",
+        "selected_start": 520,
+        "selected_end": 30523,
+        "selected_sha256": "72c95bd4ad9411c68d6a98120257a0915a77d87f5fb1bf5e89d8365eb69b0fc1",
+        "reviewer": "codex coordinator; bounded source review 2026-10-20",
+        "rationale": "Coordinator reviewed the source context around the previously source-reviewed narrative anchors; select complete opening and closing paragraphs (including dialogue punctuation), retaining every character between them. Exclude surrounding credits, teasers, bibliographies, publication matter, closing bylines and transcriber notes. This is a historical decoded-cache qualification recipe, not human corpus acceptance or an approval for live source bytes. Reconfirmed unchanged source, metadata, extraction/chapter evidence and selected text after derivation identity binding repair.",
+        "schema_version": 1
+    }
+}

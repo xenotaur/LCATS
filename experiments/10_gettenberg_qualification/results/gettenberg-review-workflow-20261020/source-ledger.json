@@ -1,0 +1,13 @@
+{
+  "lcats/src/lcats/gatherers/review_store.py": "9b9b4306eb2215e9641a2c55a4104b0a2d999ceccc8fad45dc7d61cc5c3e3d0b",
+  "lcats/src/lcats/gatherers/review_cli.py": "534a5293d8b41cc29922cf3f902c0ced31b7316ab12c822e29a4d58570ca6f45",
+  "lcats/src/lcats/gatherers/candidate_review.py": "0244f77ecfb97963af12c060eebc85fda9532982240bf7d0429525e707ba1d84",
+  "lcats/src/lcats/cli.py": "f9a0a13cce85009a0319aab0409477948287c913ddee9adb5ac01a49b5df041b",
+  "lcats/tests/gatherers_tests/candidate_review_test.py": "bd3f7c2e359b813c514770f48d07a499067e8ae70254a45c48a55bd00e7d0360",
+  "lcats/tests/gettenberg_tests/review_workflow_evidence_test.py": "f442b790207a3336ccb7e4d3985ff27618bb80fe743626053f7f75ae448b2e42",
+  "lcats/tests/gettenberg_tests/documentation_test.py": "102a2c36ac42a55c3d510c80ec8ffb98a6cbc86d08f2516ede9d958d83573052",
+  "lcats/docs/how-to/gettenberg-review.md": "b25ee1df565267a4855d0e1edf2f69f742c0a51aefd0e68bc174d66ca21d24ce",
+  "lcats/docs/reference/gettenberg-review.md": "23a8f3b1a748883094d864d1f9a8fd26159626d7c2f01e7af808f82d2e872e78",
+  "experiments/10_gettenberg_qualification/scripts/qualify_review_workflow.py": "7661d8f7505f8feb30a96ca0b21ef8eab18d29b5589061ad2089e02571c6aefb",
+  "experiments/10_gettenberg_qualification/scripts/qualify_installed.py": "3aa5087a8ab037a61abd66900a923eabe4e391e6ab149b1a9708f0f2b0f79366"
+}

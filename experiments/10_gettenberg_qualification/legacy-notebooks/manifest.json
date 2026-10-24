@@ -1,0 +1,15 @@
+{
+  "source_commit": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
+  "files": [
+    {
+      "original_path": "lcats/notebooks/10_debug_gutenberg.ipynb",
+      "archived_path": "experiments/10_gettenberg_qualification/legacy-notebooks/10_debug_gutenberg.ipynb",
+      "sha256": "111853e468a1718ff0ba9432c12969230887899a6b6abe52d6721d034f91e37c"
+    },
+    {
+      "original_path": "lcats/notebooks/14_fix_gettenberg.ipynb",
+      "archived_path": "experiments/10_gettenberg_qualification/legacy-notebooks/14_fix_gettenberg.ipynb",
+      "sha256": "59637560b15c344ec231aebca3dc61891213279c22b7324e5a71a846397ae51f"
+    }
+  ]
+}

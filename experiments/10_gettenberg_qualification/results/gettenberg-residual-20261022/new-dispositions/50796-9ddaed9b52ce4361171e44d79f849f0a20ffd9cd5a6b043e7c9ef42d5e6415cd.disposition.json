@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 50796,
+    "candidate_record_sha256": "265eee97715eb0a2b3abb301a243c61b1ffdb9c027fad01ccc7863dcf0122ced",
+    "outcome": "defer",
+    "reviewer": "Codex agent: finite cohort source inspection",
+    "rationale": "The opening contains a separately presented, teaser-like synopsis before the narrative starts. Typography-only historical equivalence does not establish its editorial role: the old corpus retained it too. Keep unresolved pending positive blurb evidence and explicit separate-metadata selection.",
+    "approval": null
+}

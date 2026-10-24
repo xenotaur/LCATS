@@ -1,0 +1,187 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/520",
+  "start_utc": "2026-10-17T17:27:56Z",
+  "target_utc": "2026-10-17T17:42:56Z",
+  "hard_stop_utc": "2026-10-17T17:47:56Z",
+  "loaded_skill_sha256": {
+    "lrh-land": "47145fcca6c7e28990c6bd1d2135731f1b52e7fbdd517a5a7c0fa87b4f8b0d29",
+    "lrh-review-response": "42acff29a55c7d8dcc573f68b8c9de876b132ebbe831936f3c6a21239f6bcc8e",
+    "lrh-confirm-fixes": "8afc37234fd7734552abe4cccfe9f930c815c1feb6e7c809a5056c95faab33ec",
+    "lrh-self-review": "d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c"
+  },
+  "independent_review": {
+    "head": "1dcdd77147e4994c936d2db737f6f369c5ec5920",
+    "mode": "cold PR-mode substitute",
+    "result": "No substantive findings; suitable for internal integration subject to exact-head CI",
+    "verified": [
+      "all three retained bodies equal original temporary bytes",
+      "recorded hashes and lengths reproduce",
+      "all original probe fields unchanged apart from retained-body links",
+      "both previous findings satisfied",
+      "all changes non-executable control-plane data",
+      "limits and nonterminal status preserved"
+    ],
+    "limitations": [
+      "Reviewer could not confirm current CI after later GitHub connectivity failure; coordinator must verify independently",
+      "No retained policy-page captures to verify reread/freshness comparison",
+      "No product tests or new Gutenberg requests/full acquisition"
+    ],
+    "assignments": 1,
+    "charged_worker_minutes": 2
+  },
+  "coordinator_recheck": [
+    "decoded saved base64 and verified original length/hash values",
+    "asserted original probe JSON unchanged except retained-body links",
+    "confirmed non-executable project-only diff",
+    "fresh authoritative threads showed both resolved"
+  ],
+  "local_validation": {
+    "lrh_errors": 0,
+    "lrh_existing_warnings": 351,
+    "diff_check": "pass",
+    "product_checks": "not rerun locally for docs/data-only change; exact-head hosted checks required"
+  },
+  "main_promotion": false,
+  "native_closeout": false,
+  "accepted_head": "1dcdd77147e4994c936d2db737f6f369c5ec5920",
+  "accepted_base": "c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833",
+  "merge": {
+    "backend": "github",
+    "merge_commit": "eb4888e950c34130ade25f833f968047c9562525",
+    "pr": "https://github.com/xenotaur/LCATS/pull/520",
+    "state": "MERGED",
+    "status": "merged"
+  },
+  "merge_verification": {
+    "parents": [
+      "c167d74cfef5ae2d51b6c28b4c24e0d5ddc44833",
+      "1dcdd77147e4994c936d2db737f6f369c5ec5920"
+    ],
+    "tree_equals_accepted_head": true
+  },
+  "hosted_ci": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T17:34:15Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39054162378/job/117458661017",
+      "name": "coverage",
+      "startedAt": "2026-10-17T17:32:09Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T17:32:18Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39054162366/job/117458605433",
+      "name": "lint",
+      "startedAt": "2026-10-17T17:31:54Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T17:33:53Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39054162339/job/117458657593",
+      "name": "test",
+      "startedAt": "2026-10-17T17:32:08Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T17:33:29Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39054154339/job/117458635508",
+      "name": "test",
+      "startedAt": "2026-10-17T17:32:02Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "hosted_reviews": [
+    {
+      "id": "PRR_kwDOKlhIbM8AAAABS0-z2Q",
+      "author": {
+        "login": "chatgpt-codex-connector"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `eb428a73b0`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+      "submittedAt": "2026-10-17T15:27:29Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "eb428a73b02ca9e15bd4b219d9284a5be1488eb5"
+      }
+    },
+    {
+      "id": "PRR_kwDOKlhIbM8AAAABS0_DCQ",
+      "author": {
+        "login": "copilot-pull-request-reviewer"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe2 Approval recommended\n\nThe research-only changes clearly limit their claims and leave product behavior unchanged; only an optional spelling correction remains.\n\n<details open>\n<summary><strong>1 open issue</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/low-v2-light.png\" alt=\"Low severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Add missing space between advertised and byte count](https://github.com/xenotaur/LCATS/pull/520#discussion_r4303243011) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nDocuments candidate default sources for Gettenberg acquisition without changing product behavior or activating defaults.\n\n**Changes:**\n- Recommends the official RDF archive and PGLAF mirror.\n- Records six bounded endpoint probes and their limitations.\n- Defines the next CLI implementation slice and records research review evidence.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0007/\u200b2026_10_17_15_18_34_GETTENBERG_DEFAULT_ROUTE_PROBE.md | Records research results and follow-up. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_17_15_23_52_GETTENBERG_DEFAULT_ROUTE_PROBE_SELFREVIEW.md | Records independent review and limitations. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-route-qualification.md | Links the endpoint follow-up. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-pilot-charter.md | Defines sprint scope and probe limits. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md | Logs decisions, validation and checkpoint. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-default-source-qualification.md | Documents recommendations and implementation requirements. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-default-source-20261017/\u200bprobe.json | Retains probe metadata and bounded observations. |\n</details>\n\n<sub>Review effort: Balanced</sub>",
+      "submittedAt": "2026-10-17T15:28:15Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "b061849fbc8a62c15002039f7e06833aa89c00af"
+      }
+    }
+  ],
+  "threads": [
+    {
+      "comments": {
+        "nodes": [
+          {
+            "author": {
+              "login": "chatgpt-codex-connector"
+            },
+            "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Retain the sampled response bodies**\n\nWhen this qualification is audited after the endpoint content changes, this prefix hash cannot be reproduced because only its digest, length, and first line are committed; the command wrote the actual bytes under `/tmp`, and a repository-wide search finds no retained copy for either 4 KiB sample. This makes the content evidence and the claimed independent hash verification non-reproducible, so retain the bounded response bytes alongside the JSON.\n\nAGENTS.md reference: [AGENTS.md:L12-L12](https://github.com/xenotaur/LCATS/blob/eb428a73b02ca9e15bd4b219d9284a5be1488eb5/AGENTS.md#L12-L12)\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+            "id": "PRRC_kwDOKlhIbM8AAAABAH48nQ",
+            "url": "https://github.com/xenotaur/LCATS/pull/520#discussion_r4303240349"
+          }
+        ],
+        "pageInfo": {
+          "endCursor": null,
+          "hasNextPage": false
+        }
+      },
+      "id": "PRRT_kwDOKlhIbM6theyB",
+      "isOutdated": false,
+      "isResolved": true
+    },
+    {
+      "comments": {
+        "nodes": [
+          {
+            "author": {
+              "login": "copilot-pull-request-reviewer"
+            },
+            "body": "Optional: add the missing space between \u201cadvertised\u201d and the byte count.",
+            "id": "PRRC_kwDOKlhIbM8AAAABAH5HAw",
+            "url": "https://github.com/xenotaur/LCATS/pull/520#discussion_r4303243011"
+          }
+        ],
+        "pageInfo": {
+          "endCursor": null,
+          "hasNextPage": false
+        }
+      },
+      "id": "PRRT_kwDOKlhIbM6thfJ6",
+      "isOutdated": true,
+      "isResolved": true
+    }
+  ],
+  "shared_usage": {
+    "launch_used_percent": 41,
+    "final_used_percent": 43,
+    "attribution": "Account-wide observations; not per-run cost."
+  },
+  "coordinator_decision": "Accept and merge PR 520 into internal integration only; record exact head/base and all-green CI. No main promotion or terminal closeout.",
+  "checkpoint_utc": "2026-10-17T17:37:00Z"
+}

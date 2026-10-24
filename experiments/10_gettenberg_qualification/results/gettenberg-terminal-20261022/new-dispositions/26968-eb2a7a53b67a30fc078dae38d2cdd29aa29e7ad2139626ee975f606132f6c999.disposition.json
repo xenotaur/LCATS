@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 26968,
+    "candidate_record_sha256": "df20a20c29e2ad391397373b3ba222c2a09cc181980a1c388811a7e69fb623d9",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_Snow in summer is of course impossible. Any weather expert will tell you so. Weather Bureau Chief Botts was certain no such absurdity could occur. And he would have been'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: retained_editorial_label.",
+    "approval": null
+}

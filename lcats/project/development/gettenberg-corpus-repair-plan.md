@@ -1,0 +1,145 @@
+# Corpus compatibility repair scope after WI0010 qualification
+
+Status: opening-prefix-v1 repair candidate implemented during the morning continuation;
+**not yet accepted corpus output**. The WI0010 qualification run discovered a blocking composition problem
+between conservative cleanup and the existing heuristic story extractor. Keep
+WI0010 and main promotion open until this is repaired and independently reviewed.
+
+## Observed evidence
+
+The pre-repair comparison uses 1,659 existing mass_quantities stories and matching
+legacy decoded UTF-8 cache entries, with current metadata on both paths. It compares
+old cleanup/new cleanup followed by the identical current extractor and replayable
+normalization. 1,605 inputs reached comparison; 54 were explicitly refused. Among
+compared inputs, 892 bodies differ: 884 preserve the old body as an exact prefix and
+append text; 8 change an earlier position. The source bytes/corpus files are unchanged.
+This is not proof that the old extractor's output is always correct.
+
+The suffix triage contains 687 end-notice starts, 122 transcriber-note starts,
+57 byline/separator starts and 18 other starts. These are mechanical review labels,
+not a blanket decision to delete those suffixes. The eight earlier differences
+are IDs 22579, 23148, 35401, 70645, 23104, 50103, 42640 and 32655. Two particularly severe
+examples deserve explicit narrative-preservation tests:
+
+- **35401, Friend Island:** old normalized extraction 26,080 characters; new 2,620.
+- **50103, The Dwindling Years:** old 31,972; new 900, beginning at a transcriber note.
+
+The existing `find_author_line` and `find_title_line` deliberately return the last
+matching location, and `body_of_text` uses those locations to discard a prefix.
+Retaining footer metadata changes the extractor's input and can change its heading
+selection. This is a source-grounded mechanism to investigate, not yet proof that
+one patch explains every difference. Reproduce each earlier-position change before
+choosing a repair. The old path also appears to omit legitimate content in at least
+some cases; equality with it must not become the only acceptance oracle.
+
+## Recommended boundaries
+
+Keep pure gettenberg cleanup conservative and evidence preserving. It should still
+return original text, selected span, markers, diagnostics and policy identity.
+Do not solve this by pasting upstream marker lists, deleting arbitrary text after
+“End”, relaxing mismatched markers, or silently trimming every differing suffix.
+
+Put narrative/editorial interpretation in the gatherer layer when it needs title,
+author or collection context. Consider a small explicit preparation result carrying
+recognized editorial boundaries and diagnostics before heading/body extraction.
+Alternatively tighten heading selection so corroborated footer metadata cannot
+become a title/author boundary, then remove only clearly identified editorial
+suffixes. Prefer the smallest approach that preserves narrative and supports
+transparent diagnostics. Record the chosen design before implementation.
+
+Do not treat transcriber notes, bylines, footnotes or typography notes as universally
+discardable. Separate those policies from Gutenberg license/end delimiters. Where
+confidence is insufficient, return an explicit review/refusal outcome rather than
+publishing a short fragment as a valid story. Define that operational behavior
+before changing it; broad new refusals would need a human decision.
+
+## Required acceptance and evidence
+
+1. Independently authored regression fixtures reproduce heading/footer interference,
+   title/author mentions inside narrative, wrapped notice text, genuine bylines,
+   trailing transcriber/typography notes and ambiguous boundaries. Assert expected
+   narrative paragraphs/ordering, not only equality to the old implementation.
+2. Reproduce all eight earlier-position changes on the immutable cached inputs and
+   document the correct expected narrative boundaries. Retained corpus is evidence,
+   not automatically an oracle; preserve justified repairs and explain corrections.
+3. Rerun all 1,659 comparisons with the new source hashes. Every material difference
+   has an explicit reviewed disposition; no bulk suppression or normalized-away
+   comparison. Keep cleanup refusal, eligibility rejection and operational failure
+   separate from a matched story. Record the remaining wrapped/mismatched forms.
+4. Exercise actual gather publication on representative real cached-text replays
+   with provenance honestly labeled as historical decoded input, plus authored
+   original-byte acquisition fixtures. Prove a footer-only/short fragment cannot be
+   silently accepted and an existing corpus bucket is never overwritten by tests.
+5. Preserve first-use/offline/source isolation, original bytes, explicit policy and
+   versioned provenance; run canonical checks, focused experiment tests and cold/
+   hosted review. Rebuild installed-wheel evidence for changed product sources.
+6. Reconcile WI0010's matrix only after these checks pass. Its pre-integration gates
+   remain unchanged; a partial qualification PR stays unmerged. Human approval is
+   still required for eventual main promotion and terminal closeout.
+
+The current run's narrow v2 cleanup change recognizes comma-form Gutenberg banners
+and exact END: FULL LICENSE separators. It deliberately does not implement this
+broader repair. Its before/after reports quantify the smaller change separately.
+
+## 2026-10-18 investigation checkpoint
+
+The renewed run stopped before implementation because its read-only audit
+assignment exceeded its deadline and the cumulative worker allowance. The execution
+record and runlog retain the overrun and preliminary source observations. This
+plan remains unimplemented; no new regression or corpus acceptance evidence was
+produced. Continuation requires a new grant under the charter's stop rule.
+
+## Morning continuation candidate —2026-10-18
+
+The opening-prefix-v1 implementation and authored tests replace destructive
+last-heading searches with a conservative, inspectable span. All eight reviewed
+narrative spans survive; seven pass actual temporary publication.42640 remains
+rejected by the existing chapter heuristic because retained front matter contains
+repeated book headings. Full replay of an earlier policy revision shows broad
+editorial/typography differences and31 changed eligibility outcomes; neither is
+accepted. See the experiment results and runlog for exact source attribution.
+
+An independent review found an editorial-prefix deletion defect, directly reproduced
+and repaired by the coordinator. The repair-review assignment arrived after its
+deadline and stopped; independent final verification is missing. Development stopped
+at the worker allowance, preserving the candidate rather than integrating it.
+Next scope must address metadata/editorial interpretation and chapter classification
+without reverting to unsafe narrative deletion or accepting all old outputs as an
+oracle. Final full replay, reviewed dispositions and fresh-wheel evidence remain
+required. This section supersedes the earlier implementation-pending checkpoint;
+historical measurements and failed review attempts remain unchanged.
+
+## Editorial/chapter checkpoint and decision boundary —2026-10-18
+
+Product68156dbc has metadata-aware chapter evidence and coordinator-verified fixes
+for the two cold-review P2s. All eight anchored cases now publish safely. Final
+full replay and wheel/source verification are archived in the
+[editorial results](../../../experiments/10_gettenberg_qualification/results/gettenberg-editorial-20261018/README.md).
+They do not establish corpus acceptance:1,642 changed bodies, five known editorial
+chapter false positives and an authored long editorial-only publication remain.
+
+The [human milestone](gettenberg-editorial-milestone.md) documents the concrete
+readiness-policy choice. Development stops expanding heuristics at this boundary;
+no broad new refusal/deletion default is introduced without the decision required
+above. The next grant should resolve that contract before more implementation.
+
+
+## Approved readiness continuation — 2026-10-20
+
+The human approved the [explicit review outcome milestone](gettenberg-editorial-milestone.md).
+The bounded run may specify and implement publication readiness, measure its impact
+on the immutable cached corpus before default activation, and repair known cases.
+Preserved candidates are not accepted corpus entries; unresolved material differences
+remain explicit. No main promotion or acceptance relaxation follows from this approval.
+See the [charter](gettenberg-pilot-charter.md) for time/usage/worker bounds.
+
+
+### Readiness implementation checkpoint
+
+Product dfbe837e implements the approved explicit review outcome. See the
+[qualification update](gettenberg-qualification.md#explicit-review-outcome-checkpoint--2026-10-20).
+Uncertain candidate text is retained but withheld; reviewed selections bind source,
+metadata, extraction/chapter evidence, assessment and exact selected text. The next
+bounded scope should prioritize evidence-backed dispositions and usable review
+throughput. No blanket approval of recurring note patterns or canonical regeneration
+follows from this implementation. The 1,642 changed bodies remain unaccepted.

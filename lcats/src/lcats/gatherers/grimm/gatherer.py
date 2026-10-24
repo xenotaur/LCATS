@@ -185,9 +185,11 @@ def find_paragraphs_grimmfairytales(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Grimm stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Grimm",
         target_directory=TARGET_DIRECTORY,
         description="Grimm stories from the Gutenberg Project.",

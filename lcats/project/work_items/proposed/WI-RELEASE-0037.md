@@ -120,3 +120,13 @@ No work item is resolved by this planning reconciliation alone.
 
 WI-GETTENBERG-0008 and WI-GETTENBERG-0010 must deliver the replacement before this
 release verification resolves. WI-RELEASE-0039 runs near actual publication.
+
+
+## Linked migration evidence — 2026-10-17
+
+WI-GETTENBERG-0008 is staged via PR #522/internal merge46960f66. Its acceptance
+mapping links removed dependency pins/wrappers, caller disposition, multi-title/
+alias tests, bounded corpus comparisons and fresh isolated-wheel qualification
+without gutenbergpy. See development/evidence/gettenberg-migration-20261017/.
+This item remains proposed: main delivery, WI0010 qualification and independent
+release-blocker closeout are still required. No publication approval is implied.

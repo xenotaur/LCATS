@@ -1,0 +1,32 @@
+{
+  "canonical_tests": 3034,
+  "canonical_seconds": 97.312,
+  "focused_tests": 7,
+  "format": "passed",
+  "lint": "passed",
+  "explicit_experiment_format_lint": "passed",
+  "independent_review": "one P2 reproduced and repaired; narrow recheck clear",
+  "population": 1659,
+  "historical_changed": 1642,
+  "tranche_reviewed": 8,
+  "tranche_disposition_covered_changed": 7,
+  "changed_not_covered_by_tranche": 1635,
+  "inventory": {
+    "unreviewed": 1622,
+    "approve": 9,
+    "exclude": 7,
+    "defer": 2
+  },
+  "publication": {
+    "published": 1,
+    "needs_review": 7
+  },
+  "runner_sha256": "feb6be8ecc5a8c60b11409efa2132dc6db8ee8e286c679726ac970e1a3597dc8",
+  "final_replay_seconds": 22.237745124999947,
+  "integration_approved": false,
+  "main_promotion_approved": false,
+  "lrh": {
+    "errors": 0,
+    "existing_warnings": 351
+  }
+}

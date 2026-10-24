@@ -1,0 +1,1 @@
+{"output": "/private/tmp/gettenberg-scope-adoption-literal.json", "sha256": "f5113a8f4124ec281fe32af9e7913459132d226815e49f2f9849b1c6e59e89c5"}

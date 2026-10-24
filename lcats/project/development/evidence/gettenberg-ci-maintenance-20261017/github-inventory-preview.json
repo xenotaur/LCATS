@@ -1,0 +1,19 @@
+{
+  "applied": false,
+  "deleted_ids": [],
+  "namespace": "Linux-gutenberg-",
+  "ref": "refs/heads/main",
+  "repository": "xenotaur/LCATS",
+  "selected": [
+    {
+      "id": 6893604282,
+      "key": "Linux-gutenberg-5b9997e56721748e460ffb9a23121821ad4fd4e0b3e9df857ced7360e10a597e",
+      "ref": "refs/heads/main"
+    },
+    {
+      "id": 8967730258,
+      "key": "Linux-gutenberg-2c4b5256d799928b7159176058b177d665494413c95c97effc8899fa5b144a46",
+      "ref": "refs/heads/main"
+    }
+  ]
+}

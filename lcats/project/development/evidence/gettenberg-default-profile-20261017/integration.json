@@ -1,0 +1,132 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/521",
+  "accepted_head": "b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8",
+  "accepted_base": "d9ca9d184ebd5ebf8a195ffd364bf87817a37292",
+  "product_review_head": "dca61929cf03466bbe5e0b574f9c124c5982c0ce",
+  "merge": {
+    "backend": "github",
+    "merge_commit": "94c6d8e789fbb394ac4c7823b7e77b5208f40d74",
+    "pr": "https://github.com/xenotaur/LCATS/pull/521",
+    "state": "MERGED",
+    "status": "merged"
+  },
+  "merge_verification": {
+    "parents": [
+      "d9ca9d184ebd5ebf8a195ffd364bf87817a37292",
+      "b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8"
+    ],
+    "tree_equals_accepted_head": true
+  },
+  "ci": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T19:43:51Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39063535849/job/117486362488",
+      "name": "coverage",
+      "startedAt": "2026-10-17T19:41:39Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T19:41:52Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39063535844/job/117486309257",
+      "name": "lint",
+      "startedAt": "2026-10-17T19:41:24Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T19:43:03Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39063535846/job/117486362825",
+      "name": "test",
+      "startedAt": "2026-10-17T19:41:39Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T19:43:26Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39063532519/job/117486352229",
+      "name": "test",
+      "startedAt": "2026-10-17T19:41:36Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "PRR_kwDOKlhIbM8AAAABS2LKZA",
+      "author": {
+        "login": "copilot-pull-request-reviewer"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udd35 Needs a closer look\n\nNo actionable defects remain, but the required exact-head coverage check is still running.\n\n**No open issues** \ud83c\udf89\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds shared Gutenberg source defaults to catalog setup and metadata-dependent gathering while preserving approval, offline, reuse, and explicit override behavior.\n\n**Changes:**\n- Selects the published RDF archive and PGLAF ebook roots by default.\n- Reports endpoints, permitted origins, and approval requirements in dry-runs.\n- Adds fixture tests and updates workflow documentation and validation records.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bpreparation_test.py | Updates setup expectations for defaults. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bdefault_sources_test.py | Covers defaults, overrides, approval, and offline reuse. |\r\n| lcats/\u200btests/\u200bgatherers_tests/\u200blive_gather_test.py | Tests incomplete root overrides. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bsources_cli.py | Adds shared source resolvers. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bcatalog_cli.py | Applies defaults to setup only. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bapproval_cli.py | Reports network policy details. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgatherers/\u200bmain.py | Integrates defaults and expanded previews. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bcli.py | Updates source-option help. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0007/\u200b2026_10_17_19_33_10_GETTENBERG_DEFAULT_PROFILE.md | Records implementation and validation. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_17_19_39_21_GETTENBERG_DEFAULT_PROFILE_SELFREVIEW.md | Records independent review results. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-pilot-charter.md | Defines implementation scope and gates. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md | Logs implementation and qualification. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-default-profile-20261017/\u200bqualification.json | Preserves validation output and hashes. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-preparation.md | Documents setup defaults and maintenance boundaries. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-network.md | Distinguishes CLI defaults from routing APIs. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-gather.md | Defines source-profile behavior. |\r\n| lcats/\u200bdocs/\u200breference/\u200bcli-status.md | Updates catalog capability summary. |\r\n| lcats/\u200bdocs/\u200breference/\u200bcli-commands.md | Documents default and override options. |\r\n| lcats/\u200bdocs/\u200bindex.md | Updates gathering guide link text. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-preparation.md | Adds default setup examples. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-gather.md | Explains default gathering and offline reuse. |\n</details>\n\n<sub>Review effort: Balanced</sub>",
+      "submittedAt": "2026-10-17T19:44:04Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "COMMENTED",
+      "commit": {
+        "oid": "b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8"
+      }
+    }
+  ],
+  "comments": [
+    {
+      "id": "IC_kwDOKlhIbM8AAAABc-u6GQ",
+      "author": {
+        "login": "chatgpt-codex-connector"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"dca61929cf03466bbe5e0b574f9c124c5982c0ce\",\"has_any_findings\":false,\"has_unresolved_findings\":false,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-17T19:44:56.358340Z\">2026-10-17T19:44:56.358340Z</relative-time> | `dca6192` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+      "createdAt": "2026-10-17T19:41:12Z",
+      "includesCreatedEdit": true,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/xenotaur/LCATS/pull/521#issuecomment-6239795737",
+      "viewerDidAuthor": false
+    }
+  ],
+  "threads": [],
+  "dispositions": [
+    "Both first hosted rounds completed without actionable findings",
+    "Copilot exact-head coverage-pending observation superseded by final passing coverage check",
+    "Codex reviewed product head; later tail changed only native PR links and runlog; all source/test/docs hashes unchanged",
+    "Routine empty authoritative thread batch passed"
+  ],
+  "local_qualification": "qualification.json",
+  "budget": {
+    "start_utc": "2026-10-17T19:32:25Z",
+    "target_utc": "2026-10-17T19:52:25Z",
+    "hard_stop_utc": "2026-10-17T20:02:25Z",
+    "checkpoint_utc": "2026-10-17T19:47:00Z",
+    "assignments": 1,
+    "charged_worker_minutes": 2,
+    "peak_agents": 2,
+    "repair_cycles": 0
+  },
+  "usage": {
+    "launch_used_percent": 43,
+    "review_checkpoint_used_percent": 45,
+    "final_used_percent": 47,
+    "attribution": "shared account observations, not per-run cost"
+  },
+  "loaded_skills_sha256": {
+    "lrh-implement": "48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165",
+    "lrh-self-review": "d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c",
+    "lrh-confirm-fixes": "8afc37234fd7734552abe4cccfe9f930c815c1feb6e7c809a5056c95faab33ec",
+    "lrh-land": "47145fcca6c7e28990c6bd1d2135731f1b52e7fbdd517a5a7c0fa87b4f8b0d29"
+  },
+  "coordinator_decision": "Accept internally under charter; no main promotion or terminal closeout",
+  "limitations": [
+    "No live Gutenberg request, ResourceStore TLS qualification, full archive acquisition or whole-corpus comparison",
+    "All-collection selection has dry-run coverage, with representative mixed collection execution",
+    "External dependency and legacy experimental consumers remain for WI0008"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "scope": "Second/final narrow repair recheck of three previously reported findings only; no network or repository writes",
+  "status": "all_three_findings_resolved",
+  "unresolved_findings": [],
+  "reviewed_implementation_sha256": {
+    "lcats/src/lcats/gatherers/review_rules.py": "3bae58b573e1a384f1f94f02e79c7eac9c572bc5eec48f3549f893764ff84c2a",
+    "experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py": "4cf22f4e8ba4e1913905564a04d1b28990f11c4ffd91c6622e142bdd3728a099",
+    "experiments/10_gettenberg_qualification/scripts/reconcile_review_tranche.py": "a86140c77621884c3ed9c295d7c722fa95506c88778fbd2460e5ed1f65406867"
+  },
+  "verification": {
+    "focused_tests": "26 focused unittest tests passed with project Python and workspace PYTHONPATH",
+    "trailing_whitespace": "Independent newline, space, double newline, tab/CRLF and Unicode em-space suffix cases preserve the entire narrative including its final paragraph; every removal is a complete recognized notice. New regressions cover leading/both notice boundaries.",
+    "prior_intent": "Independent missing prior exclude, defer and approve cases each fail with cumulative inventory omits a known prior disposition. Existing conflict regression passes.",
+    "equality_flag": "Original inconsistent equality reproduction now fails; regressions verify malformed digests and both flag/hash disagreement directions.",
+    "full_audit": "Coordinator repaired-audit completed; its entire 1659-row ledger equals my earlier independent ledger exactly. 1642 changed, 7 prior resolved,1635 unresolved;46 matches,12 readiness eligible; proposed rule ID70154.",
+    "limits": "No broad rereview or full literary reading; canonical package validation remains coordinator responsibility."
+  }
+}

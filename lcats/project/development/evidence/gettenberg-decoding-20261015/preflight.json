@@ -1,0 +1,24 @@
+{
+  "run": "gettenberg-20261015-decoding",
+  "start_utc": "2026-10-15T05:02:55Z",
+  "feature_freeze_utc": "2026-10-15T05:32:55Z",
+  "target_utc": "2026-10-15T05:47:55Z",
+  "hard_stop_utc": "2026-10-15T06:02:55Z",
+  "base": "c1c9a3e6f6399e421eae40c75a38efaf3f78d7ba",
+  "branch": "codex/gettenberg-offline-decoding",
+  "scope": "WI-GETTENBERG-0005 A18/A19",
+  "planned_review_assignments": 1,
+  "worker_minutes_max": 20,
+  "same_scope_rechecks_max": 2,
+  "weekly_used_percent_launch": 74,
+  "weekly_used_percent_before_review": 75,
+  "per_run_usage": "unavailable",
+  "readiness": "yes; no warnings",
+  "staleness": false,
+  "persistent_consent_valid": false,
+  "authority": "explicit bounded run grant under pilot charter adapter",
+  "skill_sha256": {
+    "lrh-implement": "48ac749cb86b8bec8a4a3af931b29d89ff4b207b30ee703bb7d6a5f784111165",
+    "lrh-self-review": "d2cc54ad32989e8c6c598d21a70c9d5b9ce2bfb35e87031caed7606124d5921c"
+  }
+}
