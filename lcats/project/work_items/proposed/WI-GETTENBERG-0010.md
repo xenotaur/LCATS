@@ -185,3 +185,13 @@ and measured scope/provenance limits are accepted for bounded replacement delive
 with follow-up still open. The prior checkpoint's pending-decision language is
 historical. Do not rewrite experimental acceptance flags or mark native work resolved;
 internal integration checks, separate main promotion and truthful closeout remain.
+
+
+### Internal integration and main-review checkpoint — 2026-10-24
+
+Human-authorized PR #530 internal merge df055256 preserves the exact approved tree.
+The [main-promotion review guide](../../development/gettenberg-main-promotion.md)
+records current-main synchronization, fresh canonical/package qualification and the
+post-main closeout plan. A–D remain accepted with their durable backlog open. This
+satisfies the internal-integration step, not the fourth/post-main acceptance gate;
+keep this work item and staged executions nonterminal while main review is pending.

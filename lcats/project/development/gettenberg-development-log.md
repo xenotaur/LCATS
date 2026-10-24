@@ -5747,3 +5747,61 @@ resolve. All 80 accepted input IDs match the hash-pinned historical proposed led
 whose false flags and all experimental bytes remain unchanged. Product/test/package
 configuration is unchanged. This documentation commit updates #530's acceptance
 status and durable backlog; integration remains a separate action.
+
+
+### 2026-10-24 — PR #530 internal landing and main-promotion preparation
+
+Human explicitly requested landing #530 into codex/gettenberg-acquisition and a
+promotion PR to main for review. Applied the approved charter's staged-landing
+adapter, reading compatible lrh-land procedures without invoking its unchanged
+terminal closeout chain. Persistent skip consent remains invalid, skill staleness
+clean; no consent, profile or installation was modified. Explicit user authorization
+covers this internal merge, not main promotion. Native execution created before merge.
+
+Verified head c6fd5e49410feb02f58e0e5f2a1d60b7d04dcb52, base ed20e9c2, four passing
+hosted checks, no unresolved GraphQL review threads (including outdated threads),
+accepted A–D/backlog and unchanged reviewed product. Marked ready and merged with
+--match-head-commit and --merge. GitHub records merge df05525618d701be0d5a5ea2d2840774f00c1368;
+its entire tree equals the approved PR head. No branch deletion or broader PR524 merge.
+
+Created codex/gettenberg-promotion from that integration and merged current main
+22a739d25c5a72359c1f8e37f54f9059876e6798 at 0dbe9606b446be5ce34e52350947fd4911e3c89a.
+No conflicts. Two auto-merged docs retain both contributions. All 1,763 main-only
+changed/deleted tree paths are preserved exactly. An initial assertion used the
+rename-aware name-only count1,760; replaced that count assumption with explicit tree
+blob comparisons (adds/deletes counted separately). No content mismatch was found.
+Only two product modules differ from the approved candidate: llm/backend.py and
+llm/openai_backend.py, exactly as on main. Provider/gatherer/package/CI code unchanged.
+
+Full canonical scripts/test passes 2,972 tests in110.306s on the synchronized tree;
+format/lint pass; LRH0 errors/354 warnings. Merge-stage diff-check noted whitespace
+in pre-existing main archival report bytes; those were preserved rather than
+rewriting history. The actual promotion diff against current main passes diff-check.
+No canonical corpus paths change. Fresh isolated wheel/install checks follow before
+opening the review PR. Promotion guide separates49 product paths/28 test paths from
+the much larger historical evidence/control-plane inventory and states closeout gates.
+
+Native WIs0001–0004 are already resolved on main; WIs0005–0010 and associated staged
+executions remain nonterminal pending real main delivery. A–D backlog remains open;
+release WIs0037/0039 remain separate. No worker delegation or new production design.
+
+
+Promotion packaging verification completed at product0dbe9606: fresh wheel and
+physical installed tree match165 Python files/two JSON data files exactly; no
+legacy/direct-URL requirement; pip check passes. Fresh isolated fixture smoke and
+actual CLI mixed-batch cold/repeat tests pass; all70/98 loaded origin hashes match
+committed source. Recorded constrained environment is preserved. Qualification uses
+a temporary version label, with actual release version/distribution verification
+still assigned to release WIs0037/0039. New evidence bundle:
+experiments/10_gettenberg_qualification/results/gettenberg-promotion-20261024/.
+All previous evidence bytes remain unchanged. Prepare/push the main-target PR and
+verify its actual hosted checks; do not merge main or close native staged records.
+
+
+Promotion documentation/evidence checks: all20 archived artifact hashes verify and
+all new/changed document links resolve. Final LRH invocation from the repository
+root reported missing focus/current_focus.md; rerunning from the required lcats/
+package root passes0 errors/354 warnings. No repository repair was needed. Runtime,
+tests and package/check configuration remain fixed at tested0dbe9606. Main is still
+22a739d2; no existing promotion PR was found. Commit/push the prepared review packet
+and open a main-target PR; actual main merge remains human-gated.

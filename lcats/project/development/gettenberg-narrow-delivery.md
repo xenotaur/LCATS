@@ -1,5 +1,8 @@
 # Narrow gettenberg delivery candidate
 
+[Main-promotion review guide](gettenberg-main-promotion.md): PR #530 is internally
+integrated; main promotion and native delivery closeout remain pending.
+
 Current review: [2026-10-24 delivery decision sheet](gettenberg-delivery-decision.md)
 contains the qualification map and human acceptance of A–D with durable
 [post-adoption follow-up](gettenberg-post-adoption-backlog.md). Earlier dated

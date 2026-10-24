@@ -4,7 +4,9 @@
 backlog.** The [backlog](gettenberg-post-adoption-backlog.md) records all four groups,
 per-input details, evidence and completion criteria; the condition is now documented.
 Recommendation: proceed to the internal-integration workflow after final-head checks.
-Integration and main promotion have not occurred as part of this acceptance record.
+PR #530 was subsequently integrated at `df055256`; the
+[main-promotion review guide](gettenberg-main-promotion.md) records the next gate.
+Main promotion has not occurred.
 This accepts bounded replacement delivery, not an editorially clean corpus.
 
 Reviewed product: `823f33c23836aff220fab80046ab84b80584c063`; target integration base:
@@ -131,7 +133,7 @@ and pass its PR checks before integration.
 | Q5 Operational usability | Corrected normal cold/repeat batch: 1,646 published/reused, 13 refused, zero unattempted; fresh installed mixed CLI test confirms status/log semantics. A/D accepted with GPA-A/GPA-D open. |
 | Q6 Gaps/independent defects | Exact per-input residual identities and source-grounded descriptions; independent no-cleaner reproduction of 23552 parser defect; explicit decoded-wire/full-selection limits. C/D accepted with GPA-C/GPA-D open. |
 | Q7 Exact-candidate checks | Reviewed runtime equals the previously passing 2,956-test product; four hosted checks green at 823f33c2. New focused canonical 112, experiment 26, docs/live 41 (overlapping), wheel/CLI/pip checks and independent review pass. Final evidence commit validation/checks must also pass. |
-| Q8 Delivery/lifecycle | Pending by design: human-approved internal integration, separate human main promotion, truthful native closeout and downstream release verification. No delivery/promotion claimed. |
+| Q8 Delivery/lifecycle | Internal integration completed via PR #530 at df055256. Human main promotion, truthful native closeout and downstream release verification remain pending. No main delivery claimed. |
 
 The [original qualification index](gettenberg-qualification.md#capability-mapping)
 provides capability-level evidence, with [full snapshot artifacts](../../../experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/)
@@ -161,9 +163,9 @@ establish performance on every dependency version or a general speedup over gute
 1. Completed: human accepted A–D subject to durable backlog capture. The acceptance
    record and GPA-A through GPA-D fulfill that condition; historical evidence remains
    unchanged. Reconsideration of a group requires its own scoped decision.
-2. Verify the final PR head, green checks, unchanged reviewed product tree and absence
-   of new review blockers. Only then integrate #530 into `codex/gettenberg-acquisition`
-   under the applicable authorized workflow. This run stops before that action.
+2. Completed after explicit human instruction: verified final head/checks and no
+   unresolved threads, then integrated #530 into `codex/gettenberg-acquisition` at
+   `df055256`. Its tree equals the accepted PR head. See the promotion guide.
 3. Prepare one reviewable promotion PR to main with the full replacement diff,
    accepted limitations, migration instructions, source/evidence map and closeout plan.
    Human main approval remains a separate gate. Recheck CI after integration/promotion.
