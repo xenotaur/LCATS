@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0124
 title: Archive the Opus and gpt-oss checkpoint files for the 146 genre-evidence stories and derive the baseline-hash manifest from them
 type: deliverable
-status: proposed
+status: resolved
 priority: high
 owner: unassigned
 contributors: []
@@ -23,7 +23,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #533: experiments/05_metadata_genre_prefilter/archive_checkpoints.py archives the 146 Opus and 146 gpt-oss:20b validation checkpoints (292 byte-identical files, 327,005 bytes) as tracked evidence under results/full_scan/checkpoint_archive_2026-08-21/, nested by lcats_id and renamed so .gitignore is unchanged, with a per-file sha256 index and README, and derives story_hash_baseline.jsonl (146 rows) from the archived Opus files only. Verified: all 292 copies equal the originals, every hash equals the archived Opus fingerprint, the current corpora story.json sha256 and the gpt-oss hash, and each archived Opus model_assessment equals the committed one in full; 35 tests including real-archive and ignore-status tests. The originals were not touched. Not done by design: the release-time comparison check and the file-bytes versus effective-input hash decision.'
 expected_actions:
   - create_file
   - edit_file

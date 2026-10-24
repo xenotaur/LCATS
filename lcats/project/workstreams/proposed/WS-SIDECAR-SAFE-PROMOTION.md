@@ -83,8 +83,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   `project/design/genre-sidecar-story-binding.md`).
 - **WI-PROMOTE-0124**: archive the Opus and gpt-oss checkpoint files for the 146
   genre-evidence stories as tracked evidence and derive the baseline-hash manifest
-  from them. Proposed; time-sensitive, since the only copies are gitignored files
-  in one worktree.
+  from them. Resolved (PR #533; the archive is under
+  `experiments/05_metadata_genre_prefilter/results/full_scan/checkpoint_archive_2026-08-21/`).
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
