@@ -252,7 +252,10 @@ fantastic one are all speculative, and a supported claim in a realist story is n
 computed before any calendar-expired exclusion, so a story whose only speculative premises are
 expired is reported as having them.
 
-**R7. Profile categories.** Python derives a category from plausibility as written (P1) and
+**R7. Profile categories.** *The names below are adopted by the owner, with a review before
+implementation.* They must be documented in the user-facing documentation and in code comments
+next to the table that derives them, so that a reader of a report or of the code sees the same
+meaning. Python derives a category from plausibility as written (P1) and
 today (P3), only when `speculative_premises.has` is true; otherwise the category is
 `not_applicable`. Categories describe plausibility, not whether the story qualifies:
 
@@ -389,7 +392,8 @@ Recommended work items, in order, none created by this proposal:
 
 1. **Contract and validators.** The premise, timeline, interval, relation and flag records, the
    rules R2 to R8, the profile table, the provenance version, and the sidecar optional kind
-   with the changes listed under Compatibility. Depends on this proposal's adoption.
+   with the changes listed under Compatibility. The profile category names (R7) are documented
+   in code comments beside the derivation table. Depends on this proposal's adoption.
 2. **Stage, prompt and tool schema.** The opt-in flag, prompt version, a prompt and schema that
    produce the premises, the date inputs, and the author-frame `essential` and `causal`,
    payload with date
@@ -397,7 +401,8 @@ Recommended work items, in order, none created by this proposal:
 3. **Date-source tooling.** Loading owner-supplied dates and an owner override; evaluating a
    bibliographic source's coverage and terms before relying on it. Depends on 1.
 4. **Fact table seed.** The small audit table of known cases with cited sources. Depends on 2.
-5. **Rendering and report integration.** Show the profile, the conditions, and the flags.
+5. **Rendering and report integration.** Show the profile, the conditions, and the flags, and
+   document the profile category names (R7) in the user-facing documentation.
    Depends on 1 and 2.
 6. **Live validation run.** The seven-story, three-trial design from WI-SF-0119 on a private
    server with request records, comparing the model's premise lists with the hand trial.
@@ -432,8 +437,9 @@ Each has a recommendation; none is decided here.
    so coherence does not test the relation to established facts. Recommendation: do not report
    it as a condition; if wanted, report it as a separate, labelled field after the first live
    run.
-3. **Profile category names.** Recommendation: the names in R7, to be reviewed by the owner
-   before implementation.
+3. **Profile category names.** *Resolved by the owner:* use the names in R7, review them before
+   implementation, and document them in the documentation and in code comments (work items 1
+   and 5).
 4. **Whether the five-criterion prompt later changes.** Recommendation: no change until the
    live run shows how the existing prompt behaves on the period stories.
 5. **Essential and causal in the author's frame.** R8 has the new stage assess them against its
@@ -451,9 +457,9 @@ Each has a recommendation; none is decided here.
 8. **Date sources.** ISFDB coverage and terms have not been checked; several dates in the trial
    rest on sources I did not open. Recommendation: work item 3 evaluates a bibliographic source
    before it is relied on, and the owner's override always wins.
-9. **Where the new record lives.** Recommendation: a new optional analysis kind in the same
-   sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
-   Compatibility. The alternative is a separate sidecar file, which would avoid touching the
-   sidecar contract but split a story's analyses across two files; decide before work item 1.
+9. **Where the new record lives.** *Resolved by the owner:* a new optional analysis kind in the
+   same sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
+   Compatibility. The separate-sidecar-file alternative is not taken: it would avoid touching
+   the sidecar contract but split a story's analyses across two files.
 10. **Cost.** One additional call per story. Recommendation: measure it in the live run; it is
     not estimated here.
