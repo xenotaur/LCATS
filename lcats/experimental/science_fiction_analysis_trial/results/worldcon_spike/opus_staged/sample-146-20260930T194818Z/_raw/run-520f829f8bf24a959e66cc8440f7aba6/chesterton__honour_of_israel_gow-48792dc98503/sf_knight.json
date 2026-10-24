@@ -1,0 +1,100 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19427,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1288,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "chesterton/honour_of_israel_gow",
+  "story_path": "chesterton/honour_of_israel_gow/story.json",
+  "text": "",
+  "title": "Chesterton - The Honour Of Israel Gow",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.75,
+        "counterevidence_ids": [
+          "sfev-f8a1984a1871e423"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The one factual claim (diamonds and steel wheels cut glass) is offered as a deliberately false theory and is incidental; no scientific fact, theory, discovery, or natural process is materially represented. This is a detective puzzle, not a science story.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [
+          "sfev-f8a1984a1871e423",
+          "sfev-11fd5ca3a3797bb8"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary objects (candles, snuff, pencils, clockwork watches) appear, mentioned as stripped remnants. No engineered device, technique, or invention materially affects the setting, problem, or outcome in a speculative sense.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in a contemporary/near-contemporary Scotland with references to historical eras only; there is no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [
+          "sfev-127991172e75375b",
+          "sfev-2bf8688b42613e39"
+        ],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The narrative develops a psychological/moral premise (a miser's literal honesty) rather than consequences extrapolated from a scientific, technological, social, or historical premise in the SF sense. It is a character-driven mystery resolution.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [
+          "sfev-56d27cdea9d69701"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "substantial",
+        "rationale": "Father Brown inventories evidence, entertains and discards competing false hypotheses, and infers a hidden object from the gardener's methodical digging pattern\ntoward the real explanation. This resembles systematic inference and evidential reasoning, but it is ordinary detective deduction rather than scientific method proper, so materiality/interpretation is uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-a0cad0897f4c4c8e",
+          "sfev-98c4d5aa5c409f54",
+          "sfev-f71a1fa30d30df60",
+          "sfev-b6ea9d42e4e334a3"
+        ]
+      },
+      {
+        "confidence": 0.82,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them; supernatural 'black magic' is invoked rhetorically then explained away naturally.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [
+          "sfev-d8daf56dec0d3f9a",
+          "sfev-a3588c298bfca7eb"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "Events involve individual death, grave desecration, and a decapitated skull\none man's personal misfortune and eccentricity, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

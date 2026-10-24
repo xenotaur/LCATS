@@ -1,0 +1,89 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 4349,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1222,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "anderson/happy_family",
+  "story_path": "anderson/happy_family/story.json",
+  "text": "",
+  "title": "Anderson - The Happy Family",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.62,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The custom of eating snails has ended and the garden has become an overgrown forest of burdocks.",
+        "quote": "Now, there was an old manor-house, where they no longer ate snails, they\n      were quite extinct; but the burdocks were not extinct, they grew and grew\n      all over the walks and all the beds; they could not get the mastery over\n      them\n      it was a whole forest of burdocks.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "Mother Snail expresses satisfaction and a belief that the snails are privileged above all creatures.",
+        "quote": "I am very\n      happy to think that we have our good house, and the little one has his\n      also! There is more done for us than for all other creatures, sure enough;\n      but can you not see that we are folks of quality in the world?",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00008"
+        ],
+        "paraphrase": "Mother Snail voices curiosity about the extent of the world and what lies beyond it.",
+        "quote": "I should like to know how far it extends, and what there is\n      outside!",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The snails regard themselves as the most important beings and believe the world exists for their sake, contrasting with the reader's knowledge.",
+        "quote": "The old white snails were the first persons of distinction in the world,\n      that they knew; the forest was planted for their sake, and the manor-house\n      was there that they might be boiled and laid on a silver dish.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.62,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "Father Snail insists there is nothing beyond their world and he desires nothing more.",
+        "quote": "There is nothing at all,\n      said Father Snail. \n      No place can be better than\n      ours, and I have nothing to wish for!",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "From never being boiled, the snails infer that the manor-house is ruined and all humans are extinct, and their conclusion stands unchallenged.",
+        "quote": "they were never boiled, and never came on the silver\n      dishes; so from this they concluded that the manor-house had fallen to\n      ruins, and that all the men in the world were extinct; and as no one\n      contradicted them, so, of course it was so.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00021"
+        ],
+        "paraphrase": "The snails believe the rain and sun exist for their benefit, a self-centered worldview presented for the reader to notice.",
+        "quote": "And the rain beat on the\n      dock-leaves to make drum-music for their sake, and the sun shone in order\n      to give the burdock forest a color for their sakes; and they were very\n      happy, and the whole family was happy; for they, indeed were so.",
+        "raw_id": "ev07"
+      }
+    ]
+  }
+}

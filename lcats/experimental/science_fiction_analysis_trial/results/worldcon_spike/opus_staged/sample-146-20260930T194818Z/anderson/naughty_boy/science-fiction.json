@@ -1,0 +1,443 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__naughty_boy-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "This is a Hans Christian Andersen fairy tale about Cupid; no scientific facts, theories, natural processes, or speculative sciences are materially represented.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Cupid's bow and arrows are mythological/magical implements, not engineered devices or inventions affecting a setting in any technological sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a vague fairy-tale past ('a long time ago') with no speculative future, remote past, or temporal displacement of a science-fictional kind.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "Cupid's continued mischief is a moral/allegorical elaboration of a mythological premise, not consequences developed from an identifiable scientific, technological, social, or historical premise.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-050f4a730a913492",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Cupid examining and 'trying' his bow is casual testing, not systematic observation, hypothesis, measurement, or evidential reasoning driving understanding.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-09b676e63e6a05e5",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them; Cupid is a mythic figure within an ordinary domestic/earthly setting.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The storm is ordinary weather and the poet's wounding is a personal, allegorical misfortune; there is no large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-fefbe20f046fee1d",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 5380,
+            "output": 995
+          }
+        },
+        "status": "complete",
+        "story_hash": "0e66947d241c036e1c27e3e982450ebe7ea160701b456d25d8fe89416ae4389f"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__naughty_boy-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-cupid",
+            "cognitive_validation": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-050f4a730a913492",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-09b676e63e6a05e5",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ],
+              "rationale": "Cupid is a supernatural mythological figure whose powers are presented through fairy-tale/allegorical convention with no immanent, systematic, nonsupernatural account. The magic arrows and disguises are explicitly supernatural, failing Suvin's cognition criterion.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "Cupid appears as a literal, animate mythological being who wanders the empirical world (universities, churches, palaces, theaters), disguising himself among ordinary people and shooting magic arrows that cause love and heartache in real persons across generations.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-fefbe20f046fee1d",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-6cb8c6c7d700f653",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-b5b6993bc9e89c92",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ],
+              "rationale": "The reader-facing contrast between an ordinary storm-stricken cold child and the revealed love-deity, and the storyworld consequence that his arrows govern human love across generations, produce estrangement. However, this estrangement is achieved through supernatural/mythic means rather than cognitive extrapolation.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-050f4a730a913492",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-09b676e63e6a05e5",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-6cb8c6c7d700f653",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-050f4a730a913492",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-050f4a730a913492",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              },
+              {
+                "evidence_id": "sfev-09b676e63e6a05e5",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              },
+              {
+                "evidence_id": "sfev-6cb8c6c7d700f653",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              },
+              {
+                "evidence_id": "sfev-b5b6993bc9e89c92",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              },
+              {
+                "evidence_id": "sfev-fefbe20f046fee1d",
+                "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The entire narrative logic is governed by Cupid: his arrival, his arrow-shot, and his perpetual pursuit of everyone constitute the whole story and its moral frame.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-09b676e63e6a05e5",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-6cb8c6c7d700f653",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-b5b6993bc9e89c92",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-050f4a730a913492",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "The presence of a physically embodied Cupid whose arrows really pierce hearts and shape the emotional fate of every person constitutes a totalizing difference from the empirical norm, in which love is not caused by a wandering deity's projectiles.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-050f4a730a913492",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-09b676e63e6a05e5",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                },
+                {
+                  "evidence_id": "sfev-6cb8c6c7d700f653",
+                  "evidence_set_id": "sfes-7e1c3e07b7cdc9c9"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 5727,
+            "output": 1083
+          }
+        },
+        "status": "complete",
+        "story_hash": "0e66947d241c036e1c27e3e982450ebe7ea160701b456d25d8fe89416ae4389f"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+    "knight_analysis_id": "anderson__naughty_boy-knight-v1",
+    "suvin_novum_analysis_id": "anderson__naughty_boy-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-7e1c3e07b7cdc9c9",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 3542,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 3410
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-050f4a730a913492",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Cupid is described as disguising himself to continue striking people with arrows across ongoing situations.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "When the university students come from the lectures, he runs beside them in a black coat, and with a book under his arm."
+        },
+        {
+          "anchor": {
+            "end_char": 2637,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 2544
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-09b676e63e6a05e5",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The boy shoots an arrow into the old poet's heart to prove his bow still works.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And he bent his bow, took aim, and shot an arrow at the old poet, right into his heart."
+        },
+        {
+          "anchor": {
+            "end_char": 3025,
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "start_char": 2932
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6cb8c6c7d700f653",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The poet weeps after the arrow strikes his heart.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The poor poet lay on the earth and wept, for the arrow had really flown into his heart."
+        },
+        {
+          "anchor": {
+            "end_char": 3231,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 3050
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b5b6993bc9e89c92",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The poet resolves to warn children about Cupid causing sorrow.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"How naughty a boy Cupid is! I will tell all children about him, that they may take care and not play with him, for he will only cause them sorrow and many a heartache.\""
+        },
+        {
+          "anchor": {
+            "end_char": 737,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 676
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fefbe20f046fee1d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The old poet reacts with compassion and opens the door to the cold child.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Poor thing!\" said the old poet, as he went to open the door."
+        }
+      ],
+      "story_hash": "0e66947d241c036e1c27e3e982450ebe7ea160701b456d25d8fe89416ae4389f",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/naughty_boy",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "0e66947d241c036e1c27e3e982450ebe7ea160701b456d25d8fe89416ae4389f",
+  "story_path": "anderson/naughty_boy/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

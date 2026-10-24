@@ -1,0 +1,147 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 18109,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2273,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/cold_ghost__geier",
+  "story_path": "mass_quantities/cold_ghost__geier/story.json",
+  "text": "",
+  "title": "Cold Ghost",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-vengeful-cold",
+        "character_reaction_evidence_ids": [
+          "sfev-f5d27c3c21ebce43",
+          "sfev-94e47d206d7692a2"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-f5d27c3c21ebce43",
+            "sfev-a203524b4bc20794"
+          ],
+          "rationale": "The story offers no immanent, systematic, nonsupernatural account of the cold. Medical inquiry finds nothing; the only mechanism that touches it is religious exorcism and a priest's vision of divine retribution, and the cold operates as ghostly vengeance (Cahill's curse). This is an explicitly supernatural/moral-retribution device rather than an imaginary-science or coherent social-organization novum, so cognitive validation fails.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-3e3eab577e8d6d1b",
+            "sfev-0c692935a67089ca",
+            "sfev-0b35edfc1e69e388"
+          ]
+        },
+        "description": "A supernatural, personalized cold that haunts and ultimately kills the murderer Hager as the fulfillment of his dying partner Cahill's vow of revenge. The cold follows Hager everywhere, cannot be felt by anyone else, intensifies regardless of climate, and finally freezes him to death in a warm room.",
+        "estrangement_rationale": "Readers register the cold against the empirical norm that warm rooms warm people and that others share the same thermal environment; the contrast is sharpened when the materialist Hager, warm-climate Mexico, and a hot fire all fail to produce warmth, culminating in freezing to death on a warm night.",
+        "evidence_ids": [
+          "sfev-580b963bce1adb4b",
+          "sfev-1e73139ebc049f6d",
+          "sfev-676b61dc5c8f08f6",
+          "sfev-a5e531c2081bc7d5",
+          "sfev-ce937b2aca809df1",
+          "sfev-f5d27c3c21ebce43",
+          "sfev-a203524b4bc20794",
+          "sfev-0b35edfc1e69e388",
+          "sfev-3e3eab577e8d6d1b",
+          "sfev-0c692935a67089ca"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The vengeful cold governs the entire second half of the narrative: Hager's flight across a continent, his medical and religious attempts at relief, and his final death are all determined by it. It is the overriding narrative logic, not an incidental device.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-580b963bce1adb4b",
+            "sfev-676b61dc5c8f08f6",
+            "sfev-a5e531c2081bc7d5",
+            "sfev-ce937b2aca809df1",
+            "sfev-a203524b4bc20794",
+            "sfev-0b35edfc1e69e388"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "A cold that is imperceptible to others, intensifies in warm climates, and freezes a man to death in a hot room in Mexico is a totalizing violation of the empirical norm. It transforms the physical laws governing Hager's world into a personalized, agentive force.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-580b963bce1adb4b",
+            "sfev-1e73139ebc049f6d",
+            "sfev-676b61dc5c8f08f6",
+            "sfev-a5e531c2081bc7d5",
+            "sfev-ce937b2aca809df1"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-1e73139ebc049f6d",
+          "sfev-a5e531c2081bc7d5"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-580b963bce1adb4b",
+          "sfev-a203524b4bc20794",
+          "sfev-ce937b2aca809df1",
+          "sfev-0c692935a67089ca"
+        ]
+      },
+      {
+        "candidate_id": "cand-perfect-crime-scheme",
+        "character_reaction_evidence_ids": [
+          "sfev-69ae9094c07e5a93",
+          "sfev-298d6eea5e4300ad"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The scheme is coherent and systematically reasoned, but this coherence is that of ordinary criminal planning, not an imaginary science; it is noted only because it is internally consistent.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-20c7754510b0252a",
+            "sfev-d1e81b72730efe29"
+          ]
+        },
+        "description": "Hager's plan to murder his partner Cahill through calculated delay and exposure, zigzagging the dogsled to waste time so the sick man dies of cold without any visible wound, appearing as a natural death.",
+        "estrangement_rationale": "No cognitive estrangement is produced by an ordinary murder plot; it is a mimetic crime device, not a novum.",
+        "evidence_ids": [
+          "sfev-20c7754510b0252a",
+          "sfev-d1e81b72730efe29",
+          "sfev-69ae9094c07e5a93",
+          "sfev-298d6eea5e4300ad",
+          "sfev-94e47d206d7692a2"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.55,
+          "counterevidence_ids": [
+            "sfev-580b963bce1adb4b",
+            "sfev-ce937b2aca809df1"
+          ],
+          "rationale": "The crime drives the first half and motivates everything, but the overriding narrative logic of retribution belongs to the supernatural cold, so the scheme is the precipitating cause rather than the governing novum.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-69ae9094c07e5a93",
+            "sfev-d1e81b72730efe29",
+            "sfev-298d6eea5e4300ad"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "A murder-by-delayed-exposure scheme is entirely within the empirical norm of a crime story; it introduces no totalizing or world-altering difference from the author's empirical world.",
+          "status": "absent",
+          "supporting_evidence_ids": [
+            "sfev-20c7754510b0252a",
+            "sfev-d1e81b72730efe29"
+          ]
+        },
+        "reader_facing_evidence_ids": [],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-298d6eea5e4300ad",
+          "sfev-94e47d206d7692a2"
+        ]
+      }
+    ]
+  }
+}

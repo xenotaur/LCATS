@@ -1,0 +1,1016 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__shoes_of_fortune-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The narrator materially invokes real scientific facts: the speed of light and electricity, the eight-minute solar light-travel time, and Dr. Madler's astronomical 'Map of the Moon.' These are genuine scientific content, though woven into a fantasy frame.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-48875d47efedfbe8",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-997a48bd0eb2eb3f",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-bf25240a687d3ce1",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The Shoes of Fortune are a magical device that drives every episode of the plot. They function as an engineered wish-fulfilling artifact, but their nature is explicitly fairy magic rather than invention or engineering, so materiality is central but the technology reading is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8f8f618f8a2a73dd",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-8fabc5555be32f62",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-68c07dd35819d83a",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "central",
+            "rationale": "The Councillor is carried back to the remote past (era of King Hans, A.D. 1482-1513), with the transformed streetscape materially depicted. This temporal displacement is a central plot episode.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-76c3883ae6e84980",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-a6bb4cb4a10351ab",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-392ff75a4d8ddc3e",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "The story develops consequences from a clear premise (a device granting every wish), showing repeatedly that wish-fulfillment brings misery rather than happiness. This is extrapolation from a premise, though the premise is magical rather than scientific.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8f8f618f8a2a73dd",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-48875d47efedfbe8",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Characters react with confusion and speculation (illusion, drunkenness) but no systematic observation, hypothesis-testing, measurement, or evidential revision materially drives understanding or action. The Councillor's guesses are not method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The watchman's spirit travels to the moon, a nonordinary cosmic environment materially described with lunar landscape, the Selenite inhabitants, and their debates about Earth's habitability.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b50cb12ead2f9f24",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-bf25240a687d3ce1",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "Individual deaths occur (the watchman's body found dead, the Divine in a coffin), but these are personal deaths reversed by the shoes, not a large-scale disaster. A historical pestilence of 1484 is mentioned in passing. No catastrophe of broad scale is causally central, so the reading is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e8e5696e724ed03b",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-445d19ac5ca38c1a",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-36743d9921c63228",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-36743d9921c63228",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 36253,
+            "output": 1399
+          }
+        },
+        "status": "complete",
+        "story_hash": "b041011c3f054c8b0ba36d733b8485cdb5180e5ffdf4c729649e138eeceb221a"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__shoes_of_fortune-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-shoes-of-fortune",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-8f8f618f8a2a73dd",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ],
+              "rationale": "The narration reaches toward a systematic, quasi-scientific rationalization in places, framing soul-travel as carried by electricity and light-speed, and grounding the lunar landscape in Madler's real 'Map of the Moon.' However, the shoes' governing logic is explicitly framed as a gift of fairies (Fortune and Care), a supernatural/magical enchantment rather than an immanent, nonsupernatural systematic account. The competing supernatural framing makes the cognitive dimension conflicting rather than clearly coherent.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-48875d47efedfbe8",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-bf25240a687d3ce1",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "description": "The Shoes of Fortune (galoshes) instantly transport whoever wears them to any place, time, or state of being they most wish for, fulfilling every wish regarding time, place, or mode of existence.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-392ff75a4d8ddc3e",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ],
+              "rationale": "The story repeatedly contrasts the reader's familiar world (steam and railroad travel, present-day Copenhagen streets) with the estranging displacements produced by the shoes, and characters react with disorientation (the Councillor suspects a fata morgana or drunkenness), heightening cognitive estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-997a48bd0eb2eb3f",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-a6bb4cb4a10351ab",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-68c07dd35819d83a",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8155a20c56b7bdef",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8fabc5555be32f62",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-9038cbf98ff60697",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-445d19ac5ca38c1a",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-e8e5696e724ed03b",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-8f8f618f8a2a73dd",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-76c3883ae6e84980",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-8fabc5555be32f62",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-b50cb12ead2f9f24",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-68c07dd35819d83a",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-8155a20c56b7bdef",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-445d19ac5ca38c1a",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The shoes determine the entire narrative logic: every episode (the Councillor, the watchman, the clerk, the Divine) is generated by the shoes' wish-fulfilling power, and the framing thesis (whether the shoes bring happiness) governs the whole story from the fairies' opening debate to the final removal of the galoshes. They are the overriding structural device, not incidental.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8f8f618f8a2a73dd",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-76c3883ae6e84980",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8fabc5555be32f62",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-68c07dd35819d83a",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8155a20c56b7bdef",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-445d19ac5ca38c1a",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-e8e5696e724ed03b",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The shoes introduce a totalizing difference from the empirical norm: they collapse ordinary constraints of space, time, and identity, enabling backward time travel to King Hans's era, spirit-flight to the moon, bodily transformation into a bird, and instantaneous continental displacement. This world-altering wish-fulfillment premise deviates fundamentally from the authorial empirical norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8f8f618f8a2a73dd",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-76c3883ae6e84980",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8fabc5555be32f62",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-68c07dd35819d83a",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8155a20c56b7bdef",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-267075993b817f75",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-380a8259eb348449",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "novum-electric-soul-flight",
+            "cognitive_validation": {
+              "confidence": 0.5,
+              "counterevidence": [],
+              "rationale": "The narrator offers a pseudo-scientific rationalization drawing on velocity of light, electricity, and astronomical mapping, giving it a coherent imaginary-science surface, but it is presented as narratorial digression rather than a fully systematized immanent mechanism.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-48875d47efedfbe8",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-997a48bd0eb2eb3f",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-bf25240a687d3ce1",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "description": "The narrator's account of the soul as freed by an electric shock at death and soaring on the wings of electricity faster than light, enabling spirit-travel to the moon.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The narrator explicitly contrasts familiar steam travel with the far greater velocity of light and electricity, producing reader-facing estrangement, and the watchman's body dies while his spirit journeys, marking a storyworld consequence.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-997a48bd0eb2eb3f",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-e8e5696e724ed03b",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-48875d47efedfbe8",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-997a48bd0eb2eb3f",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-b50cb12ead2f9f24",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              },
+              {
+                "evidence_id": "sfev-e8e5696e724ed03b",
+                "evidence_set_id": "sfes-36743d9921c63228"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-8f8f618f8a2a73dd",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-8fabc5555be32f62",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ],
+              "rationale": "The electric-soul explanation is a local device attached to one episode (the watchman's lunar journey) and is itself enabled by the shoes; it does not govern the overriding narrative logic of the whole work. It is incidental relative to the shoes.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The reconception of death and the soul as an electrical phenomenon that permits interplanetary travel is a difference from the empirical norm, framed as an imaginative extrapolation of contemporary electrical science.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-48875d47efedfbe8",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                },
+                {
+                  "evidence_id": "sfev-b50cb12ead2f9f24",
+                  "evidence_set_id": "sfes-36743d9921c63228"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-36743d9921c63228",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-36743d9921c63228",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 36600,
+            "output": 2450
+          }
+        },
+        "status": "complete",
+        "story_hash": "b041011c3f054c8b0ba36d733b8485cdb5180e5ffdf4c729649e138eeceb221a"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-36743d9921c63228",
+    "knight_analysis_id": "anderson__shoes_of_fortune-knight-v1",
+    "suvin_novum_analysis_id": "anderson__shoes_of_fortune-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-36743d9921c63228",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.72,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00043"
+            ],
+            "paraphrase": "The Councillor offers a scientific explanation of meteors as reflections of the aurora, caused by electricity.",
+            "quote": "Such meteorous appearances are to be explained in this way\ncan the reflections of the Aurora Borealis, and it is highly probable they are caused principally by electricity.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.8,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "extrapolative_consequence",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00093"
+            ],
+            "paraphrase": "The moon-dwellers debate whether Earth can be inhabited, doubting its atmosphere suits rational life.",
+            "quote": "The Selenites disputed variously about our earth, and expressed their doubts if it could be inhabited: the air, they said, must certainly be too dense to allow any rational dweller in the moon the necessary free respiration.",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00101"
+            ],
+            "paraphrase": "The revived watchman describes his lunar experience as the worst ordeal of his life.",
+            "quote": "\"He asserted that the preceding night had been the worst that ever the malice of fate had allotted him; he would not for two silver marks again go through what he had endured while moon-stricken\"",
+            "raw_id": "ev18",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 68320,
+            "paragraph_ids": [
+              "p00179"
+            ],
+            "start_char": 68152
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-267075993b817f75",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The young Divine is instantly transported to Switzerland, traveling in a cramped coach.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In short, he was travelling. He was in the middle of Switzerland, but packed up with eight other passengers in the inside of an eternally-creaking diligence"
+        },
+        {
+          "anchor": {
+            "end_char": 70180,
+            "paragraph_ids": [
+              "p00182"
+            ],
+            "start_char": 70099
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-380a8259eb348449",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "A wish transports the Divine instantly across the Alps to Italy.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And so saying he was on the other side in Italy, between Florence and Rome."
+        },
+        {
+          "anchor": {
+            "end_char": 9091,
+            "paragraph_ids": [
+              "p00032"
+            ],
+            "start_char": 8978
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-392ff75a4d8ddc3e",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The displaced Councillor reacts with confusion, suspecting illusion or drunkenness.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"I either behold a fata morgana, or I am regularly tipsy,\" whimpered out the Councillor. \"But what's this?\""
+        },
+        {
+          "anchor": {
+            "end_char": 75196,
+            "paragraph_ids": [
+              "p00190"
+            ],
+            "start_char": 74968
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-445d19ac5ca38c1a",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The Divine's wish for the highest happiness fulfills itself as death, leaving him in a coffin.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And as he spoke the word he was again in his home; the long white curtains hung down from the windows, and in the middle of the floor stood the black coffin; in it he lay in the sleep of death. His wish was fulfilled"
+        },
+        {
+          "anchor": {
+            "end_char": 26649,
+            "paragraph_ids": [
+              "p00086"
+            ],
+            "start_char": 26418
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-48875d47efedfbe8",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains the speed of light and electricity, framing the soul's travel as carried by electricity.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It flies nineteen million times faster than the best race-horse; and yet electricity is quicker still. Death is an electric shock which our heart receives; the freed soul soars upwards on the wings of electricity."
+        },
+        {
+          "anchor": {
+            "end_char": 42702,
+            "paragraph_ids": [
+              "p00119"
+            ],
+            "start_char": 42517
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-68c07dd35819d83a",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The shoes shrink the clerk and send him journeying literally through the hearts of the audience.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And behold! to the Shoes of Fortune this was the cue; the whole man shrunk together and a most uncommon journey through the hearts of the front row of spectators, now began."
+        },
+        {
+          "anchor": {
+            "end_char": 4593,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 4354
+          },
+          "confidence": 0.92,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-76c3883ae6e84980",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The Councillor is transported back in time to the era of King Hans, finding an older, unpaved Copenhagen.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By the magic power of the shoes he was carried back to the times of King Hans; on which account his foot very naturally sank in the mud and puddles of the street, there having been in those days no pavement in Copenhagen."
+        },
+        {
+          "anchor": {
+            "end_char": 57901,
+            "paragraph_ids": [
+              "p00152"
+            ],
+            "start_char": 57718
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8155a20c56b7bdef",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The clerk is transformed into a bird, his clothes becoming feathers and wings.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He had hardly uttered these hasty words when the skirts and sleeves of his coat folded themselves together into wings; the clothes became feathers, and the galoshes claws."
+        },
+        {
+          "anchor": {
+            "end_char": 3459,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 3218
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8f8f618f8a2a73dd",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The magic shoes are explained as instantly transporting the wearer to any place, time, or state of being they wish for.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "These shoes possess the property of instantly transporting him who has them on to the place or the period in which he most wishes to be; every wish, as regards time or place, or state of being, will be immediately fulfilled"
+        },
+        {
+          "anchor": {
+            "end_char": 24509,
+            "paragraph_ids": [
+              "p00081"
+            ],
+            "start_char": 24302
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8fabc5555be32f62",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The shoes cause the watchman to take on the identity, thoughts, and feelings of the lieutenant.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In the same moment the watchman was again watchman. It was the shoes that caused the metamorphosis by means of which, unknown to himself, he took upon him the thoughts and feelings of the officer"
+        },
+        {
+          "anchor": {
+            "end_char": 36091,
+            "paragraph_ids": [
+              "p00107"
+            ],
+            "start_char": 35905
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9038cbf98ff60697",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The clerk's wish causes his head to slip through the railings instantly, trapping his body.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"Would to Heaven I had got my head through!\" said he, involuntarily; and instantly through it slipped, easily and without pain, notwithstanding it was pretty large and thick."
+        },
+        {
+          "anchor": {
+            "end_char": 26417,
+            "paragraph_ids": [
+              "p00086"
+            ],
+            "start_char": 26137
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-997a48bd0eb2eb3f",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narrator contrasts the reader's familiar steam travel with the far greater velocity of light.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "As to ourselves, we all know the speed produced by the employment of steam; we have experienced it either on railroads, or in boats when crossing the sea; but such a flight is like the travelling of a sloth in comparison with the velocity with which light moves."
+        },
+        {
+          "anchor": {
+            "end_char": 9394,
+            "paragraph_ids": [
+              "p00033"
+            ],
+            "start_char": 9166
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a6bb4cb4a10351ab",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The familiar modern street has been replaced by wooden, thatched-roof houses of an earlier age.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He gazed at the street formerly so well known to him, and now so strange in appearance, and looked at the houses more attentively: most of them were of wood, slightly put together; and many had a thatched roof."
+        },
+        {
+          "anchor": {
+            "end_char": 27563,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 27319
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b50cb12ead2f9f24",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The watchman's spirit travels to the moon in seconds, arriving at a soft, lightweight lunar landscape.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In a few seconds the watchman had done the fifty-two thousand of our miles up to the moon, which, as everyone knows, was formed out of matter much lighter than our earth; and is, so we should say, as soft as newly-fallen snow."
+        },
+        {
+          "anchor": {
+            "end_char": 27707,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 27564
+          },
+          "confidence": 0.68,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bf25240a687d3ce1",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The lunar terrain is described with reference to a real astronomical map of the moon.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev19",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He found himself on one of the many circumjacent mountain-ridges with which we are acquainted by means of Dr. Madler's \"Map of the Moon.\""
+        },
+        {
+          "anchor": {
+            "end_char": 32415,
+            "paragraph_ids": [
+              "p00099"
+            ],
+            "start_char": 32297
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e8e5696e724ed03b",
+          "evidence_type": "catastrophe",
+          "paraphrase": "While his spirit is on the moon, the watchman's body is found dead in the street.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the supposed sleeper lost his balance, the body lay motionless, stretched out on the pavement: the man was dead."
+        }
+      ],
+      "story_hash": "b041011c3f054c8b0ba36d733b8485cdb5180e5ffdf4c729649e138eeceb221a",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/shoes_of_fortune",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "b041011c3f054c8b0ba36d733b8485cdb5180e5ffdf4c729649e138eeceb221a",
+  "story_path": "anderson/shoes_of_fortune/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

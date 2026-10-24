@@ -1,0 +1,11 @@
+{
+  "failure_kind": "TypeError",
+  "failure_message": "\"Could not resolve authentication method. Expected one of api_key, auth_token, or credentials to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted\"",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/canary-20260930T162444Z/_raw/run-1b8bf7dcf03a4a0da170fbc77e35dc09/anderson__bell-bdac5ef3c713/sf_evidence-backend-error.json",
+  "run_id": "run-1b8bf7dcf03a4a0da170fbc77e35dc09",
+  "stage": "story",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "title": "Anderson - The Bell",
+  "tool_result": null
+}

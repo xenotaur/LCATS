@@ -1,0 +1,11 @@
+{
+  "failure_kind": "ValueError",
+  "failure_message": "present Novum dimensions require supporting evidence",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-97931b41b5a84183b56b87ff9754b2fe/london__love_of_life-dc87ab5a7d93/sf_suvin_novum.json",
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "london/love_of_life",
+  "story_path": "london/love_of_life/story.json",
+  "title": "London - Love Of Life",
+  "tool_result": null
+}

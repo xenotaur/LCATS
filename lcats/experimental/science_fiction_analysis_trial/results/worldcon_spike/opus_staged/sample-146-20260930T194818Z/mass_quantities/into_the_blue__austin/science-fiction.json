@@ -1,0 +1,1004 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__into_the_blue__austin-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The story touches real physiological science of high altitude (cold, dizziness, altered blood-pressure, need for oxygen), which is materially represented during the ascent. However, Toby's musings about 'something' beyond empty space and 'the way beyond the stars' are mystical rather than scientific. The genuine science present is incidental atmospheric physics rather than central speculative science, so materiality is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-5e2f51e00574f18d",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-b7face71ac578452",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-d40eb7246866b2bf",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "substantial",
+            "rationale": "The seaplane is an engineered aircraft with described specifications (thousand-mile radius, ceiling over twenty thousand feet, ex-fighting-scout design) and it materially drives the entire action and climax. But it is a contemporary (1920s) aircraft rather than a speculative invention; its role is central to plot yet it is an ordinary period technology, so the sf-relevant materiality is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-92e69c6586a00887",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-97b18140d2a12d22",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary English seaside present with no future, remote past, or temporal displacement. The final glimpse of a steamship confirms an ordinary earthly setting. No temporal element is present.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "incidental",
+            "rationale": "Toby's premise that empty space is not truly empty and that persistent climbing could reach 'some other place beyond the stars' is a speculative notion, and its consequence (his fatal determination to fly ever upward) is developed. However, this is presented as a madman's delusion rather than a rigorously extrapolated scientific or social premise, so materiality and interpretation are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b7face71ac578452",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-8d14b0b815f81935",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-d68059b53a05b8cc",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ]
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Toby merely poses vehement rhetorical questions and dismisses astronomers ('what do you or the astronomers know about it? Shut up!'). There is no observation, hypothesis testing, measurement, or evidential revision that materially drives understanding. Mere questioning does not constitute scientific method.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planet, dimension, or nonordinary cosmic environment is actually reached or depicted, and no visitor appears. Toby speaks of a destination 'beyond the stars' but the plane never leaves ordinary earthly airspace; the notion remains a deranged aspiration rather than a materially represented other place.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "There is a violent aerial crisis: a maniac firing a pistol mid-flight, the plane plunging in a vertical spin, and a fatal fall from the aircraft. This is a life-threatening disaster central to the climax, but it is a personal/individual catastrophe rather than a large-scale natural, cosmic, or technological disaster, so its qualification as a Knight-scale catastrophe is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-6aede7c25b27c490",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-d23df0397d555563",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-5180e212609c19f9",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-b57828a10799e0fc",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b57828a10799e0fc",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 28069,
+            "output": 1606
+          }
+        },
+        "status": "complete",
+        "story_hash": "a3ee06fa7de1eb7a17c57ca0cf40d883bf2b9c75424db612ef9c124e8749d4e0"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__into_the_blue__austin-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-way-beyond-stars",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b7face71ac578452",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b43780aafd4885f5",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "The idea is presented not as a coherent, systematic, immanent account but as the mystical brooding of a man the narrator repeatedly suspects of insanity. It is framed through Dante's Paradiso, mystical books, and 'mad dog' derangement rather than any immanent nonsupernatural logic. The text treats it as delusion, not as an imaginary science or coherent social order.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d40eb7246866b2bf",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-d68059b53a05b8cc",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "description": "Toby's mystical conviction that beyond the visible blue and the astronomers' 'empty space' there lies 'some other place'--a real destination reachable by simply climbing high enough in an aircraft, 'the way beyond the stars.'",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-ad4b4f4cce5a4efd",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-8d14b0b815f81935",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "The reader is confronted with Toby's contrast between the accepted astronomical view of empty space and his belief in a hidden realm beyond the stars, producing estrangement--yet the story frames it as possible madness rather than a validated novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-d68059b53a05b8cc",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b43780aafd4885f5",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-6aede7c25b27c490",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-d23df0397d555563",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-5180e212609c19f9",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-49ebc902d43ed3b3",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-d40eb7246866b2bf",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-d68059b53a05b8cc",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-b43780aafd4885f5",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-8d14b0b815f81935",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-ad4b4f4cce5a4efd",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-6aede7c25b27c490",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "Toby's obsession with reaching the 'other place' drives the entire climactic action--the relentless climb, the refusal to return, the attempt to eject the narrator, the gunfight, and Toby's death. The narrative logic of the flight is wholly governed by this conviction.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-49ebc902d43ed3b3",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-ad4b4f4cce5a4efd",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-8d14b0b815f81935",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b43780aafd4885f5",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-6aede7c25b27c490",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-5180e212609c19f9",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-5e2f51e00574f18d",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b7face71ac578452",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-94420499bdaa65aa",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "Toby articulates a cosmology in which empty space is not empty and a hidden 'other place' can be physically reached by ascent, a totalizing departure from the empirical norm. However, the narrative never confirms this norm-alteration: the physics we actually see (cold, blood-pressure, oxygen need, altitude limits) is ordinary, Toby dies of shock, and no 'other place' is reached. The world-altering difference remains confined to one deranged character's belief rather than being realized in the storyworld.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-49ebc902d43ed3b3",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-d40eb7246866b2bf",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-d68059b53a05b8cc",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b43780aafd4885f5",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-8d14b0b815f81935",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-super-scout-seaplane",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The machine is described with coherent, consistent technical detail (radius, ceiling, floats, altitude physiology) that follows immanent, nonsupernatural aeronautical logic.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-92e69c6586a00887",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-97b18140d2a12d22",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-5e2f51e00574f18d",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b7face71ac578452",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "description": "The ex-Government super-fighting-scout converted to a seaplane, with an immense radius (a thousand miles / five hundred after conversion) and a ceiling of over twenty thousand feet.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-78d866a8d4674bd7",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-21378f54e539e8b7",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "The high ceiling and radius provide a mild contrast with ordinary pleasure-flight expectations, but the plane remains an ordinary period technology rather than an estranging novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-92e69c6586a00887",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-97b18140d2a12d22",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-5e2f51e00574f18d",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b7face71ac578452",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-92e69c6586a00887",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-97b18140d2a12d22",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-5e2f51e00574f18d",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              },
+              {
+                "evidence_id": "sfev-b7face71ac578452",
+                "evidence_set_id": "sfes-b57828a10799e0fc"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.55,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ad4b4f4cce5a4efd",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b43780aafd4885f5",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "The aircraft is the necessary vehicle for the plot, but it is an incidental enabling device; the overriding narrative logic is driven by Toby's obsession, not by any novel property of the machine itself.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-92e69c6586a00887",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-5180e212609c19f9",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-5e2f51e00574f18d",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-b7face71ac578452",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ],
+              "rationale": "The aircraft is a period-plausible high-performance airplane, not a totalizing difference from the empirical norm. Its stated performance figures are within the extrapolated technology of the era, and it does not alter the story universe.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-92e69c6586a00887",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                },
+                {
+                  "evidence_id": "sfev-97b18140d2a12d22",
+                  "evidence_set_id": "sfes-b57828a10799e0fc"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-b57828a10799e0fc",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b57828a10799e0fc",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 28416,
+            "output": 2346
+          }
+        },
+        "status": "complete",
+        "story_hash": "a3ee06fa7de1eb7a17c57ca0cf40d883bf2b9c75424db612ef9c124e8749d4e0"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-b57828a10799e0fc",
+    "knight_analysis_id": "mass_quantities__into_the_blue__austin-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__into_the_blue__austin-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-b57828a10799e0fc",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 24806,
+            "paragraph_ids": [
+              "p00122"
+            ],
+            "start_char": 24523
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-21378f54e539e8b7",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator recalls the traumatic wartime moment that broke his nerve and makes flying nauseating.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the mere idea of going up in that machine made me feel sick inside, still so powerful was the memory of that moment long ago when, ten thousand feet up with a Hun just below me plunging in flames to destruction, I had felt my nerve suddenly break, my head go dizzy in an awful panic."
+        },
+        {
+          "anchor": {
+            "end_char": 22017,
+            "paragraph_ids": [
+              "p00099"
+            ],
+            "start_char": 21826
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-49ebc902d43ed3b3",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Toby speculates that continuing to climb higher would lead to reaching some other place.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "didn\\u2019t you ever feel that if you went a little higher--climbed and climbed--you would come to something--some other place? Didn\\u2019t it almost seem to you that it would be as easy as going back?"
+        },
+        {
+          "anchor": {
+            "end_char": 45021,
+            "paragraph_ids": [
+              "p00178"
+            ],
+            "start_char": 44873
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5180e212609c19f9",
+          "evidence_type": "catastrophe",
+          "paraphrase": "After recovering the plane, the narrator finds Toby has fallen out and is gone.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "only when I pulled her out of it, circled her round once for a long steady glide, did I realize that I was alone in that cockpit. There was no Toby!"
+        },
+        {
+          "anchor": {
+            "end_char": 36784,
+            "paragraph_ids": [
+              "p00151"
+            ],
+            "start_char": 36522
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5e2f51e00574f18d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator describes the physical effects of high altitude: cold, dizziness, blood-pressure changes, and labored breathing.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Thirteen thousand--thirteen thousand five hundred--fourteen thousand--fourteen thousand five hundred--fifteen thousand--I gave it up. It was icily cold. My head was dizzy, my ears sizzling with altered blood-pressure. My lungs heaved in this rarefied atmosphere."
+        },
+        {
+          "anchor": {
+            "end_char": 43654,
+            "paragraph_ids": [
+              "p00176"
+            ],
+            "start_char": 43513
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6aede7c25b27c490",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Toby, apparently deranged, fires a pistol at the narrator in mid-flight.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he was leveling that automatic pistol at me. I could see by his eyes that he was in the very act of pressing the trigger for the second time."
+        },
+        {
+          "anchor": {
+            "end_char": 9277,
+            "paragraph_ids": [
+              "p00040"
+            ],
+            "start_char": 9114
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-78d866a8d4674bd7",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator describes his loss of nerve for flying after his last wartime flight.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I had landed by a miracle with my nerve suddenly gone. I had never been in the air since--for a long time could not look at an airplane without a fit of trembling."
+        },
+        {
+          "anchor": {
+            "end_char": 34250,
+            "paragraph_ids": [
+              "p00148"
+            ],
+            "start_char": 34214
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7dd017b611dbcf2f",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator reacts with fear and trembling during the ascent.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I sank back into my seat, quivering."
+        },
+        {
+          "anchor": {
+            "end_char": 42412,
+            "paragraph_ids": [
+              "p00171"
+            ],
+            "start_char": 42373
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8d14b0b815f81935",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Toby intends to keep climbing indefinitely upward toward some destination.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Up there! On and on, until we come to--"
+        },
+        {
+          "anchor": {
+            "end_char": 10625,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 10514
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-92e69c6586a00887",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Toby describes the seaplane's technical performance specifications: a thousand-mile radius and ceiling above twenty thousand feet.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She\\u2019s worth looking at, too--built for a radius of a thousand miles and a ceiling of over twenty thousand feet."
+        },
+        {
+          "anchor": {
+            "end_char": 45971,
+            "paragraph_ids": [
+              "p00179"
+            ],
+            "start_char": 45842
+          },
+          "confidence": 0.4,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-94420499bdaa65aa",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Descending through the clouds, the narrator glimpses the sea and a distant steamship far below.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I saw a deep black gulf riven in its snowy mass--saw down through that gulf a tiny model steamship trailing a long white wake...."
+        },
+        {
+          "anchor": {
+            "end_char": 18710,
+            "paragraph_ids": [
+              "p00086"
+            ],
+            "start_char": 18564
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-97b18140d2a12d22",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains the machine's original design as a super-fighting-scout with large radius and climbing capacity.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "She was, as he explained to me, intended for a super-fighting-scout, with an immense radius, a great capacity for climb, and a second machine-gun."
+        },
+        {
+          "anchor": {
+            "end_char": 41646,
+            "paragraph_ids": [
+              "p00167"
+            ],
+            "start_char": 41617
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ad4b4f4cce5a4efd",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Toby declares his intention to keep flying upward with Sylvia rather than returning.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We\\u2019re going on--Sylvia and I."
+        },
+        {
+          "anchor": {
+            "end_char": 42890,
+            "paragraph_ids": [
+              "p00175"
+            ],
+            "start_char": 42846
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b43780aafd4885f5",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Toby speaks of a way beyond the stars as a real destination he is seeking.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "You think you know the way beyond the stars?"
+        },
+        {
+          "anchor": {
+            "end_char": 38966,
+            "paragraph_ids": [
+              "p00155"
+            ],
+            "start_char": 38793
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b7face71ac578452",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "At extreme altitude the passengers suffer physiological effects and would soon require oxygen.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We must have been somewhere about twenty thousand feet. My head seemed as though it would burst. I was breathing with difficulty. A little higher, and we should need oxygen."
+        },
+        {
+          "anchor": {
+            "end_char": 44605,
+            "paragraph_ids": [
+              "p00178"
+            ],
+            "start_char": 44558
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d23df0397d555563",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The airplane plunges into a dangerous vertical spin during the struggle.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We were vertically nose down, spinning horribly"
+        },
+        {
+          "anchor": {
+            "end_char": 16368,
+            "paragraph_ids": [
+              "p00080"
+            ],
+            "start_char": 16256
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d40eb7246866b2bf",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Toby questions whether empty space truly contains nothing between here and the stars.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There can\\u2019t be nothingness all the way, can there?\\u201d he demanded of me with a curious vehemence of interrogation."
+        },
+        {
+          "anchor": {
+            "end_char": 16831,
+            "paragraph_ids": [
+              "p00080"
+            ],
+            "start_char": 16577
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d68059b53a05b8cc",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Toby contrasts the accepted astronomical view of empty space with his belief that something lies hidden in the blue distance.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "At a distance everything melts into the blue. I have seen blank blue sky where on another day there\\u2019s a range of mountains sharp and clear across the horizon. And they pretend that in all those millions of miles there is nothing--nothing but empty space!"
+        },
+        {
+          "anchor": {
+            "end_char": 42226,
+            "paragraph_ids": [
+              "p00169"
+            ],
+            "start_char": 42018
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e820747ad5195dbb",
+          "evidence_type": "character_reaction",
+          "paraphrase": "In the crisis the narrator's nerve returns and his panic disappears.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Curiously enough, in that moment of crisis, I found my head as clear, my nerves as steady, as they had ever been in my life. All my dizzy turmoil had vanished. I forgot that I had ever had a panic in the air."
+        }
+      ],
+      "story_hash": "a3ee06fa7de1eb7a17c57ca0cf40d883bf2b9c75424db612ef9c124e8749d4e0",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/into_the_blue__austin",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "a3ee06fa7de1eb7a17c57ca0cf40d883bf2b9c75424db612ef9c124e8749d4e0",
+  "story_path": "mass_quantities/into_the_blue__austin/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

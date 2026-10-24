@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 2340,
+  "model": "claude-opus-4-8",
+  "output_tokens": 816,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "anderson/real_princess",
+  "story_path": "anderson/real_princess/story.json",
+  "text": "",
+  "title": "Anderson - The Real Princess",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.72,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The Queen-mother devises a controlled test by placing peas beneath many mattresses to check a claim.",
+        "quote": "however, she said not a word of what she was going to do; but went quietly into the bedroom, took all the bed-clothes off the bed, and put three little peas on the bedstead. She then laid twenty mattresses one upon another over the three peas, and put twenty feather beds over the mattresses.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The test's outcome is examined by questioning the subject the following morning.",
+        "quote": "The next morning she was asked how she had slept.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "A causal explanation attributes the result to an extraordinary sensitivity taken as proof of the claim.",
+        "quote": "Now it was plain that the lady must be a real Princess, since she had been able to feel the three little peas through the twenty mattresses and twenty feather beds. None but a real Princess could have had such a delicate sense of feeling.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00006"
+        ],
+        "paraphrase": "The Princess reports discomfort and pain from sleeping on the tested bed.",
+        "quote": "\"Oh, very badly indeed!\" she replied. \"I have scarcely closed my eyes the whole night through. I do not know what was in my bed, but I had something hard under me, and am all over black and blue. It has hurt me so much!\"",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The Prince is disheartened after failing to find a suitable bride.",
+        "quote": "At last he returned to his palace quite cast down, because he wished so much to have a real Princess for his wife.",
+        "raw_id": "ev05"
+      }
+    ]
+  }
+}

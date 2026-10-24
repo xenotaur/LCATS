@@ -1,0 +1,201 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_elizabeth_morey_of_new_york_1901__becke-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No evidence records were supplied; the story is a historical maritime narrative with no scientific content, but with an empty evidence set the criterion cannot be materially adjudicated.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Evidence set is empty. Ships, muskets, and carronades are ordinary period tools, not speculative inventions, but no supplied evidence exists to support any assessment.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "Empty evidence set. The tale is set in the historical past (1800s) as reportage, not a speculative remote past or time displacement, and no evidence is available to assess.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No evidence records supplied. No identifiable speculative premise is extrapolated; the narrative recounts historical events without evidence to support adjudication.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Empty evidence set. No observation/hypothesis/testing cycle materially drives events; practical seamanship judgment is not scientific method, and no evidence exists to assess.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No evidence supplied. The setting is Pacific islands on Earth, not other planets, dimensions, or cosmic environments; cannot be materially adjudicated without evidence.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "Empty evidence set. The violence is localized massacre and shipboard combat, not a large-scale disaster, and no supplied evidence exists to support any assessment.",
+            "status": "not_assessable",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-3f48165d907030b6",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3f48165d907030b6",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 12058,
+            "output": 950
+          }
+        },
+        "status": "complete",
+        "story_hash": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_elizabeth_morey_of_new_york_1901__becke-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-historical-maritime-tragedy",
+            "cognitive_validation": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "With no novum present, there is no imaginary scientific or social innovation whose immanent, nonsupernatural logic could be assessed. The world operates entirely by ordinary historical causation.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The narrative recounts the historical adventure of Elizabeth Morey, a New York woman held captive among the Tongatabu islanders after the massacre of the Portland's crew, and her subsequent rescue by the whaler Union. It is presented as a factual sea story drawn from early Sydney records and the Sydney Gazette of 1804.",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "No cognitive estrangement operates here: the reader encounters a recognizable historical world with no departure from the empirical norm. Adventure, danger, and exotic locale do not constitute Suvinian estrangement.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [],
+            "narrative_hegemony": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "Since no novum is present, there is no novum-driven narrative logic to evaluate for centrality. The plot is governed by human treachery, chance, and survival, not by any estranging innovation.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.95,
+              "counterevidence": [],
+              "rationale": "There is no totalizing or world-altering difference from the empirical norm. The story is set in the actual historical Pacific of 1802-1804, involves real ships, real geography (Tongatabu, Sydney Cove), and mundane events (shipwreck, captivity, rescue). Nothing alters the story universe from ordinary historical reality; it reads as a work of historical maritime fiction/reportage, not science fiction.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-3f48165d907030b6",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3f48165d907030b6",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 12405,
+            "output": 785
+          }
+        },
+        "status": "complete",
+        "story_hash": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-3f48165d907030b6",
+    "knight_analysis_id": "mass_quantities__the_adventure_of_elizabeth_morey_of_new_york_1901__becke-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__the_adventure_of_elizabeth_morey_of_new_york_1901__becke-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-3f48165d907030b6",
+      "quarantined": [],
+      "records": [],
+      "story_hash": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "02c36077ccc0e2a3282be6c43f3964f39992d8950202396f777193b0d7afbb28",
+  "story_path": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

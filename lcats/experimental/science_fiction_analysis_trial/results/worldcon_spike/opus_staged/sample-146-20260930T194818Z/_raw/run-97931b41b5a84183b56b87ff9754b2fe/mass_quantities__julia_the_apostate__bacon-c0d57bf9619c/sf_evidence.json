@@ -1,0 +1,79 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14240,
+  "model": "claude-opus-4-8",
+  "output_tokens": 956,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/julia_the_apostate__bacon",
+  "story_path": "mass_quantities/julia_the_apostate__bacon/story.json",
+  "text": "",
+  "title": "Julia The Apostate",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00009"
+        ],
+        "paraphrase": "Miss Trueman dislikes the fashionable nicknames her nieces use and prefers her old name.",
+        "quote": "She had never accustomed herself to those senseless\nmonosyllables that parodied her name; nor could she understand the frame\nof mind that found them preferable to the comfortable \"Aunt Jule\" of the\nold days.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00035"
+        ],
+        "paraphrase": "The narration frames the aunt's and nieces' outlooks as irreconcilably opposed.",
+        "quote": "Here were two points of view as little likely to coincide as the\nparallel lines of science, and at some such stage as this the\ndiscussions were wont to cease.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "Aunt Julia struggled and became depressed adjusting to apartment life without an attic or cellar.",
+        "quote": "The first six months of her sojourn had been almost entirely occupied\nwith accustoming herself to the absence of an attic and a cellar; long\ndays of depression they learned, finally, to trace to this incredible\nsource.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.4,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00024"
+        ],
+        "paraphrase": "The nieces' Continental breakfast is contrasted with the aunt's hearty early-morning fare.",
+        "quote": "not only tallied so accurately with their digestive and aesthetic\nnecessities, but appeared, moreover, with such gratifying regularity one\nhour later.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00134"
+        ],
+        "paraphrase": "Aunt Julia explains her attachment to her traditional domestic routines.",
+        "quote": "\"And I tell you, Carrie, when you have cleaned house regularly, spring\nand fall, for forty years, ever since you were born, it makes an awful\nbreak to give it up!",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00127"
+        ],
+        "paraphrase": "The nieces discover their aunt has married, changing her situation.",
+        "quote": "they saw upon her floured left hand an unmistakable shining\ngold band.",
+        "raw_id": "ev06"
+      }
+    ]
+  }
+}

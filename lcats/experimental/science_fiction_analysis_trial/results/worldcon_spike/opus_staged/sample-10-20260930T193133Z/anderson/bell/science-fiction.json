@@ -1,0 +1,617 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__bell-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The owl-in-a-hollow-tree explanation is a folk pseudo-explanation, not a materially represented scientific fact, theory, or natural process. The story is an allegorical fairy tale; no genuine science is developed.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No device, invention, or engineered system materially affects the setting or outcome. The bell is a symbolic, invisible presence, not an engineered artifact driving the plot.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in an ordinary contemporary town and forest with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are systematically extrapolated from an identifiable scientific, technological, social, or historical premise; the narrative is allegorical and moral, not extrapolative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Characters propose investigating the sound, lie down to listen, and reason that a small bell cannot carry so far or produce such tones. This resembles observation and inference, but it is presented in a fairy-tale, non-rigorous register with no genuine testing or evidential revision driving understanding, so materiality and interpretation are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8dd0b757abdecaa9",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-eaef9ab312261d36",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-250663270287c985",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-bcd84d8eed8eeaae",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              }
+            ]
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The forest, sea, and 'church of nature' are terrestrial and metaphorical settings, not other planets, dimensions, or nonordinary cosmic environments, nor are there visitors from such places.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "No large-scale natural, technological, cosmic, biological, or human-caused disaster is actual, impending, remembered, or causally central to the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-13b17c3dea0182b7",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-13b17c3dea0182b7",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 9221,
+            "output": 1108
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__bell-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-invisible-bell",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-5787271352b7b8c7",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7580f22a1a7733b8",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ],
+              "rationale": "The story gestures at inquiry (offering a title to whoever finds the source, a treatise on the owl, children reasoning about the bell's tone and distance), but no coherent, systematic, immanent, nonsupernatural account of the bell is ever established. The naturalistic owl hypothesis is explicitly left uncertain and unproductive ('everybody was just as wise as before'), and the resolution is explicitly religious/supernatural ('holy bell,' 'blessed spirits,' 'hallelujah'). The phenomenon is finally validated as a poetic/spiritual mystery, not an imaginary science or systematic social logic.",
+              "status": "absent",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d256bcdbe43e043e",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-bcd84d8eed8eeaae",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-250663270287c985",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ]
+            },
+            "description": "A mysterious, invisible bell whose solemn tones sound from deep within the forest, heard across the town and countryside, which no one can locate and which ultimately is revealed to be the transcendent 'holy bell' of nature and poetry sounding over those who seek it sincerely.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-250663270287c985",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7b734781d00c492c",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7580f22a1a7733b8",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-eaef9ab312261d36",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-4ca2b00959ccd562",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ],
+              "rationale": "The reader-facing contrast between the ordinary church people seek and 'nature as a vast holy church' with an 'invisible holy bell' produces a poetic estrangement, but it is a religious/allegorical mode rather than the cognitive estrangement of a novum. Characters react with wonder, skepticism ('the bell does not exist; it is only a fancy'), and resolve to keep searching, but these reactions serve the allegory of spiritual longing rather than confronting an immanent altered world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-5787271352b7b8c7",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-4ca2b00959ccd562",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-20a6feb3f3817a00",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-bcd84d8eed8eeaae",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-20a6feb3f3817a00",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-8dd0b757abdecaa9",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-7b734781d00c492c",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-7580f22a1a7733b8",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-250663270287c985",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-4ca2b00959ccd562",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-d256bcdbe43e043e",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-bcd84d8eed8eeaae",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-5787271352b7b8c7",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              },
+              {
+                "evidence_id": "sfev-eaef9ab312261d36",
+                "evidence_set_id": "sfes-13b17c3dea0182b7"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The bell is the central organizing element of the entire narrative: the whole plot is the quest to discover its source, the king's reward drives the townspeople, the confirmed children set out after it, and the culminating scene is the two boys meeting beneath the 'invisible holy bell.' It governs the story's logic even though it fails novelty and cognitive validation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-20a6feb3f3817a00",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-8dd0b757abdecaa9",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7b734781d00c492c",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7580f22a1a7733b8",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-250663270287c985",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-4ca2b00959ccd562",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-d256bcdbe43e043e",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-5787271352b7b8c7",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                },
+                {
+                  "evidence_id": "sfev-7580f22a1a7733b8",
+                  "evidence_set_id": "sfes-13b17c3dea0182b7"
+                }
+              ],
+              "rationale": "The invisible bell does not constitute a totalizing, world-altering difference from the empirical norm that reconstitutes the story universe. It functions as an allegorical/religious-poetic symbol: 'all nature was a vast holy church' and the 'invisible holy bell' sounding with 'blessed spirits' and a 'rejoicing hallelujah' frame the phenomenon as spiritual/supernatural rather than as a coherent alteration of natural law. Candidate explanations (owl, imagination) and the final symbolic resolution keep the world as the ordinary empirical world overlaid with religious poetry, not an estranged science-fictional novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-13b17c3dea0182b7",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+            "source_run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-13b17c3dea0182b7",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 9568,
+            "output": 1656
+          }
+        },
+        "status": "complete",
+        "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-13b17c3dea0182b7",
+    "knight_analysis_id": "anderson__bell-knight-v1",
+    "suvin_novum_analysis_id": "anderson__bell-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-13b17c3dea0182b7",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 2285,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 2145
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-20a6feb3f3817a00",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The king offers a reward for discovering the origin of the bell sound.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he who could discover whence the sounds proceeded, should have the\n      title of \"Universal Bell-ringer,\" even if it were not really a bell"
+        },
+        {
+          "anchor": {
+            "end_char": 6368,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 6189
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-250663270287c985",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The king's son reasons that the little bell they found could not be the source of the distant sound.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the bell was too small and too fine to\n      be heard at so great a distance, and besides it was very different tones\n      to those that could move a human heart in such a manner"
+        },
+        {
+          "anchor": {
+            "end_char": 4886,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 4785
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4ca2b00959ccd562",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Some children conclude the bell is imaginary and doesn't really exist.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "In reality the bell does not exist; it is only a\n      fancy that people have taken into their heads!"
+        },
+        {
+          "anchor": {
+            "end_char": 10939,
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "start_char": 10758
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5787271352b7b8c7",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Nature is presented as a vast cathedral, contrasting the sought-after church with the natural world.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "all nature was a vast holy church, in which the trees\n      and the buoyant clouds were the pillars, flowers and grass the velvet\n      carpeting, and heaven itself the large cupola"
+        },
+        {
+          "anchor": {
+            "end_char": 11570,
+            "paragraph_ids": [
+              "p00019"
+            ],
+            "start_char": 11406
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7580f22a1a7733b8",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The two boys reunite and finally experience the invisible bell amid nature.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They ran towards each other,\n      and stood together hand in hand in the vast church of nature and of\n      poetry, while over them sounded the invisible holy bell"
+        },
+        {
+          "anchor": {
+            "end_char": 8550,
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "start_char": 8451
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7b734781d00c492c",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The king's son resolves to keep searching for the bell no matter how far.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I must and will find the bell,\" said he, \"even if I am obliged to go to\n      the end of the world."
+        },
+        {
+          "anchor": {
+            "end_char": 935,
+            "paragraph_ids": [
+              "p00003"
+            ],
+            "start_char": 779
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8dd0b757abdecaa9",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "People propose investigating the source of the mysterious bell sound by going to examine it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I wonder if there\n      is a church out in the wood? The bell has a tone that is wondrous sweet;\n      let us stroll thither, and examine the matter nearer."
+        },
+        {
+          "anchor": {
+            "end_char": 2935,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 2845
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-bcd84d8eed8eeaae",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "A scholarly treatise is written yearly about the supposed owl, yet no real knowledge is gained.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "wrote yearly a short treatise \"On the Owl\"; but everybody was just as wise\n      as before"
+        },
+        {
+          "anchor": {
+            "end_char": 2665,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 2502
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d256bcdbe43e043e",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "A proposed naturalistic explanation attributes the sound to an owl knocking its head in a hollow tree.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he said that the sound\n      proceeded from a very large owl, in a hollow tree; a sort of learned owl,\n      that continually knocked its head against the branches"
+        },
+        {
+          "anchor": {
+            "end_char": 5704,
+            "paragraph_ids": [
+              "p00009"
+            ],
+            "start_char": 5589
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-eaef9ab312261d36",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "A child questions whether a sound is the bell and decides it needs investigation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "That surely cannot be the bell,\" said one of the children, lying down and\n      listening. \"This must be looked to."
+        }
+      ],
+      "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/bell",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "efb26f6f0d04d06386773b8c80dcacc20287eae87647ceaf5ee4cf7f8aaae9ea",
+  "story_path": "anderson/bell/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 13194,
+  "model": "claude-opus-4-8",
+  "output_tokens": 855,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "wodehouse/wilton_s_holiday",
+  "story_path": "wodehouse/wilton_s_holiday/story.json",
+  "text": "",
+  "title": "Wodehouse - Wilton's Holiday",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied for this comedic seaside romance, so no criterion can be materially substantiated. The story contains no scientific content in any case.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The story features only ordinary contemporary items (banjo, bathing-machines) that do not constitute material invention.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The setting is a contemporary seaside resort with no speculative time frame or temporal displacement.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. No identifiable scientific, technological, or historical premise is extrapolated.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. References to inductive reasoning are rhetorical humor, not material scientific method.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. No other planets, dimensions, or nonordinary cosmic environments appear.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The tide episode is a small-scale personal predicament, not a large-scale disaster, and turns out to be no danger at all.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

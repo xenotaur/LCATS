@@ -1,0 +1,674 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__cool_air__lovecraft-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "central",
+            "rationale": "The story is built on a speculative scientific theory that will and consciousness can sustain a preserved body despite organ failure, framed as scientific enhancement and experiment, and the theory's eventual failure through unforeseen deterioration.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-cde73bae4179515d",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-108c0256ae1f8bdb",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-6ebbc75c3c667d0a",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "The ammonia-absorption refrigeration system driven by a gasoline engine is an engineered device materially central to the plot; its progressive modification sustains Munoz and its breakdown drives the climax and outcome.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-b6937ad5b3f9a57e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-b83cdf3d2db7253e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-e757e406fc08090e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in 1923 contemporary New York with no speculative future, remote past, or temporal displacement; the eighteen-years-ago reference is ordinary backstory, not time travel.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "substantial",
+            "rationale": "Consequences are developed from the identifiable premise of artificial preservation: escalating cold requirements, the theory's gradual unforeseen deterioration, and the collapse when cooling fails follow logically from the initial scientific conceit.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-6ebbc75c3c667d0a",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-b83cdf3d2db7253e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-108c0256ae1f8bdb",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Munoz frames his work as theory and experiment and acknowledges an unforeseen flaw suggesting evidential revision, but the narrative shows little systematic observation, hypothesis testing, or measurement driving action; it reads more as asserted theory than demonstrated method.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-cde73bae4179515d",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-6ebbc75c3c667d0a",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is an ordinary New York rooming-house; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The pump failure and Munoz's dissolution are a personal disaster confined to one individual; there is no large-scale natural, technological, cosmic, biological, or human-caused catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e757e406fc08090e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+        "failures": [],
+        "interval": {
+          "definite_count": 3,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 12182,
+            "output": 1240
+          }
+        },
+        "status": "complete",
+        "story_hash": "f0b5216be7d1f3ded2ec94c135f0346569552b0add6ee6ad74f4361085ab9cdc"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__cool_air__lovecraft-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "novum-will-preservation",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The story offers a coherent, immanent pseudo-scientific rationale: a theory of will/consciousness overriding organic function, coupled with a concrete, systematic refrigeration mechanism (ammonia-absorption cooling, gasoline-driven pumps) that preserves the tissues. The account is naturalized rather than supernatural, framed as bizarre experiment and 'good theory,' and includes an internally consistent failure mode (unforeseen gradual deterioration when cooling stops). Present-day accuracy is not required.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cde73bae4179515d",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-b6937ad5b3f9a57e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-6ebbc75c3c667d0a",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-b83cdf3d2db7253e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "description": "Dr. Muñoz's technique of preserving a body's conscious, animate existence after biological death through willpower, scientific enhancement of consciousness, medieval formulae, and constant artificial refrigeration—he has in fact been dead for eighteen years and sustains a form of animation despite the cessation of his organs.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-0528872a92516c27",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ],
+              "rationale": "The reader-facing contrast is the concluding disclosure that Muñoz had been dead for eighteen years; the storyworld consequences are the progressive lowering of the room temperature, the fatal pump breakdown, and the unforeseen deterioration; the narrator's lasting revulsion to ammonia and cool air is character reaction evidence, though character surprise is not required for qualification.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ebec3b825332f0d7",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b83cdf3d2db7253e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-e757e406fc08090e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-6ebbc75c3c667d0a",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-cde73bae4179515d",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-b6937ad5b3f9a57e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-b83cdf3d2db7253e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-e757e406fc08090e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-6ebbc75c3c667d0a",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-108c0256ae1f8bdb",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-ebec3b825332f0d7",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The entire narrative logic derives from the preservation premise: Muñoz's need for ever-colder air, the escalating refrigeration, the pump failure catastrophe that dooms him, and the final revelation all flow directly from the novum. It is not incidental but governs the plot's rising action, climax, and resolution.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b83cdf3d2db7253e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-e757e406fc08090e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-6ebbc75c3c667d0a",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-ebec3b825332f0d7",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The premise that will and consciousness can sustain animation of a dead, preserved body indefinitely constitutes a totalizing departure from the empirical norm that death is irreversible. The revelation that Muñoz died eighteen years earlier yet continued functioning as a living man reorders the story's ontology of life and death.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-cde73bae4179515d",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-108c0256ae1f8bdb",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-ebec3b825332f0d7",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "novum-ammonia-refrigeration",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The cooling mechanism is described with coherent, concrete technical detail (absorption system, gasoline engine, pumps, piping, temperature ranges).",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b83cdf3d2db7253e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                },
+                {
+                  "evidence_id": "sfev-b6937ad5b3f9a57e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "description": "The ammonia-absorption refrigeration system with gasoline-driven pumps used to chill Dr. Muñoz's rooms.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-0528872a92516c27",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ],
+              "rationale": "The cold air produces the narrator's aversion, but the refrigeration is an ordinary technology whose estranging power is borrowed from the preservation novum it supports; it is a gadget, not a novum in its own right.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-e757e406fc08090e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-b83cdf3d2db7253e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-b6937ad5b3f9a57e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              },
+              {
+                "evidence_id": "sfev-e757e406fc08090e",
+                "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e757e406fc08090e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ],
+              "rationale": "The refrigeration is an enabling device serving the preservation premise; its breakdown matters only because it exposes the deeper novum. As a standalone mechanism it does not determine the overriding narrative logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b83cdf3d2db7253e",
+                  "evidence_set_id": "sfes-4c85ec9a5a6c7d72"
+                }
+              ],
+              "rationale": "Absorption ammonia refrigeration was an existing technology within the authorial empirical norm of 1923 and represents no totalizing world-altering difference by itself. Its significance is entirely derivative of the preservation novum rather than constituting an independent world change.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "novum-will-preservation",
+        "evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 12529,
+            "output": 2081
+          }
+        },
+        "status": "complete",
+        "story_hash": "f0b5216be7d1f3ded2ec94c135f0346569552b0add6ee6ad74f4361085ab9cdc"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+    "knight_analysis_id": "mass_quantities__cool_air__lovecraft-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__cool_air__lovecraft-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-4c85ec9a5a6c7d72",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "paraphrase": "Muñoz used medieval incantations, believing them to be psychological stimuli affecting a nervous system that no longer had organic function.",
+            "quote": "he did not scorn\nthe incantations of the medi\ffffe6valists, since he believed these cryptic\nformul\ffffe6 to contain rare psychological stimuli which might conceivably\nhave singular effects on the substance of a nervous system from which\norganic pulsations had fled",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.65,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "paraphrase": "The narrator feels an unexplained repugnance toward Muñoz on first meeting.",
+            "quote": "as I saw Doctor Mu\ffff1oz in that blast of cool air, I felt\na repugnance which nothing in his aspect could justify",
+            "raw_id": "ev09",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 19177,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 19010
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0528872a92516c27",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator retains a lasting revulsion to ammonia and cool air after the events.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There are\nthings about which it is better not to speculate, and all\nthat I can say is that I hate the smell of ammonia, and grow faint at a\ndraft of unusually cool air"
+        },
+        {
+          "anchor": {
+            "end_char": 19852,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 19752
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-108c0256ae1f8bdb",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Muñoz reveals his condition was maintained by artificial preservation after his death eighteen years prior.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It had to be done my way--artificial preservation--_for you\nsee I died that time eighteen years ago_"
+        },
+        {
+          "anchor": {
+            "end_char": 19541,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 19317
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6ebbc75c3c667d0a",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Muñoz's note admits that his method of will-based preservation eventually failed through unforeseen deterioration.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I fancy you know--what I said about the will and the nerves and the\npreserved body after the organs ceased to work. It was good theory, but\ncouldn't keep up indefinitely. There was a gradual deterioration I had\nnot foreseen."
+        },
+        {
+          "anchor": {
+            "end_char": 9023,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 8816
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b6937ad5b3f9a57e",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The cold of Muñoz's room is maintained by an ammonia-absorption refrigeration system driven by a gasoline engine.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the frigidity of his\nhabitation--some fifty-five or fifty-six degrees Fahrenheit--was\nmaintained by an absorption system of ammonia cooling, the gasoline\nengine whose pumps I had often heard in my room below"
+        },
+        {
+          "anchor": {
+            "end_char": 11375,
+            "paragraph_ids": [
+              "p00016"
+            ],
+            "start_char": 11105
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b83cdf3d2db7253e",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Over time Muñoz progressively lowers his room's temperature to below freezing to sustain himself.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "his demands for cold air increased, and with my aid he amplified the\nammonia piping of his room and modified the pumps and feed of his\nrefrigerating machine until he could keep the temperature as low as\nthirty-four or forty degrees, and finally even twenty-eight degrees"
+        },
+        {
+          "anchor": {
+            "end_char": 8470,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 8140
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cde73bae4179515d",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Muñoz explains his theory that willpower and consciousness can sustain a preserved body even when specific organs fail.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "will and consciousness are\nstronger than organic life itself, so that if a bodily frame be\nbut originally healthy and carefully preserved, it may through a\nscientific enhancement of these qualities retain a kind of nervous\nanimation despite the most serious impairments, defects, or even\nabsences in the battery of specific organs"
+        },
+        {
+          "anchor": {
+            "end_char": 14598,
+            "paragraph_ids": [
+              "p00020"
+            ],
+            "start_char": 14450
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e757e406fc08090e",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The refrigeration pump fails, ending the cooling process that keeps Muñoz preserved.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One night about eleven the pump of the\nrefrigerating machine broke down, so that within three hours the\nprocess of ammonia cooling became impossible"
+        },
+        {
+          "anchor": {
+            "end_char": 19851,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 19804
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ebec3b825332f0d7",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The final revelation that Muñoz had actually died eighteen years earlier and been artificially preserved.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "for you\nsee I died that time eighteen years ago"
+        }
+      ],
+      "story_hash": "f0b5216be7d1f3ded2ec94c135f0346569552b0add6ee6ad74f4361085ab9cdc",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/cool_air__lovecraft",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "f0b5216be7d1f3ded2ec94c135f0346569552b0add6ee6ad74f4361085ab9cdc",
+  "story_path": "mass_quantities/cool_air__lovecraft/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

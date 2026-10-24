@@ -1,0 +1,703 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__long_odds__haggard-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story references fever, the passing phrase 'survival of the fittest', and hunting lore, but none of these materially represent a scientific fact, theory, discovery, or speculative science. They are decorative or incidental to an adventure yarn.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The smoothbore rifle, matches, and the technique of firing the reeds are ordinary contemporary tools and field craft, not engineered inventions or speculative technology that transforms the setting. They are conventional to a 19th-century hunting narrative.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a specific historical past (March 1869) in contemporary Africa, not a speculative future or remote past, and involves no temporal displacement. The remote African locale is an ordinary geographic setting, not a nonordinary temporal one.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The 'survival of the fittest' remark is a passing moral observation, not a developed extrapolation of consequences from a premise. The lameness is a personal physical consequence of a wound, not a systematic extrapolation from a scientific or social premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "The narrator observes physical remains ('other indications') and infers from evidence where the lions den, a form of systematic inference from observation. However, this is ordinary hunter's tracking rather than a materially science-driven method, so its weight is uncertain and only incidental.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-c6b2d5afe3b21915",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-5c5c67d321ebb23a",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is the ordinary terrestrial African bush veldt. There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "incidental",
+            "rationale": "A fever epidemic that killed an entire kraal's population represents a biological disaster of some scale, remembered and depicted in the narrative. Its centrality is limited (it frames one early episode rather than driving the main lion-hunt plot), and the lion injuries are personal misfortune rather than large-scale catastrophe, so materiality is uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-ab491cce6182eb59",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-3a1a7d7a34f930ed",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 2,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3a1a7d7a34f930ed",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 18215,
+            "output": 1368
+          }
+        },
+        "status": "complete",
+        "story_hash": "7cba2dadefc4524d427deb6b97cb16bb04433cbceef017b03142a7c0dee892fe"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__long_odds__haggard-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-lion-hunt",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The hunting methods (smoothbore ballistics, tracking by kill remains, firing dry reeds with the wind) are coherent and nonsupernatural, but this concerns method, not a world-altering difference.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-c96c6d71b0306fde",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-c6b2d5afe3b21915",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-12263b63e1aa5e2f",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-5c5c67d321ebb23a",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ]
+            },
+            "description": "A dangerous single-handed lion hunt in which Quatermain attacks a family of lions, using fire to flush them from a reed pan, and is ultimately maimed by the black-maned lion.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-f91ceef77ef3b7f3",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-5c394c104c6ffdb8",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "rationale": "The visceral terror of lying paralyzed among feeding lions and the lasting maiming provide reader-facing intensity, but this is mundane physical danger rather than estrangement from an empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-f91ceef77ef3b7f3",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-1a347e33119a34cb",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-88ef046b908ef195",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-1a347e33119a34cb",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-1a347e33119a34cb",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-88ef046b908ef195",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-c96c6d71b0306fde",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-12263b63e1aa5e2f",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-5c5c67d321ebb23a",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-f91ceef77ef3b7f3",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The hunt drives the entire embedded narrative and its consequence (permanent lameness), but centrality within an ordinary adventure tale does not make it a novum absent the novelty dimension.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-1a347e33119a34cb",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-88ef046b908ef195",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-f91ceef77ef3b7f3",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-12263b63e1aa5e2f",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-1a347e33119a34cb",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-c96c6d71b0306fde",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-88ef046b908ef195",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "rationale": "A lion hunt in 19th-century Africa is entirely within the authorial empirical norm. There is no totalizing or world-altering difference from the empirical environment; it is an adventure-genre event, not a novum.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-hidden-white-people",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-36344b64115cc281",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-e0e3f26c072feaaf",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "rationale": "No systematic or immanent account of such a people is given; the text offers only rumour and hope, so its coherence cannot be assessed.",
+              "status": "not_assessable",
+              "supporting_evidence": []
+            },
+            "description": "The rumoured lost white people said to exist in the unexplored African interior, which Quatermain seeks in his final quest.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-36344b64115cc281",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "rationale": "The remote Tana mission location and the vanishing into the interior gesture toward an unexplored beyond, but the lost people remain rumour and produce no developed storyworld consequence.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e0e3f26c072feaaf",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-36344b64115cc281",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-36344b64115cc281",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              },
+              {
+                "evidence_id": "sfev-e0e3f26c072feaaf",
+                "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-36344b64115cc281",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-e0e3f26c072feaaf",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ],
+              "rationale": "The rumoured white people appear only in the framing preface and do not govern the central embedded lion-hunt narrative; they are a peripheral device.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.55,
+              "counterevidence": [],
+              "rationale": "A hidden lost civilization is a potential world-altering difference typical of Haggard's romances, but in this text it exists only as unverified rumour in the frame; it is never realized or developed as an actual storyworld fact.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-36344b64115cc281",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                },
+                {
+                  "evidence_id": "sfev-e0e3f26c072feaaf",
+                  "evidence_set_id": "sfes-3a1a7d7a34f930ed"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-3a1a7d7a34f930ed",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-3a1a7d7a34f930ed",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 18562,
+            "output": 1765
+          }
+        },
+        "status": "complete",
+        "story_hash": "7cba2dadefc4524d427deb6b97cb16bb04433cbceef017b03142a7c0dee892fe"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-3a1a7d7a34f930ed",
+    "knight_analysis_id": "mass_quantities__long_odds__haggard-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__long_odds__haggard-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-3a1a7d7a34f930ed",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 19269,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 19174
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-12263b63e1aa5e2f",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator devises a plan to use the wind to set fire to the reeds to flush out the lions.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "this first gave me the\nidea of firing the reeds, which, as I think I told you, were pretty dry."
+        },
+        {
+          "anchor": {
+            "end_char": 31481,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 31362
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1a347e33119a34cb",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The lion seizes the narrator's thigh in its teeth, causing agonizing injury.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the next those great white\nteeth of his had met in my thigh--I heard them grate against the bone. I\nyelled out in agony"
+        },
+        {
+          "anchor": {
+            "end_char": 583,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 357
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-36344b64115cc281",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Quatermain, unsettled by his son's death, departs England and disappears into Africa.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the death of his only son so unsettled him that he immediately\nleft England, accompanied by two companions, his old fellow-voyagers,\nSir Henry Curtis and Captain Good, and has now utterly vanished into the\ndark heart of Africa"
+        },
+        {
+          "anchor": {
+            "end_char": 5903,
+            "paragraph_ids": [
+              "p00012"
+            ],
+            "start_char": 5798
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5c394c104c6ffdb8",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator hesitates upon sensing the desolation of the deserted kraal.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I remember that I hesitated a little\nbefore going in, there was such an air of desolation about the spot."
+        },
+        {
+          "anchor": {
+            "end_char": 17714,
+            "paragraph_ids": [
+              "p00027"
+            ],
+            "start_char": 17613
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5c5c67d321ebb23a",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator sets out to investigate where the lions rested during the day.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the first thing I set to work to do was to try to\ndiscover whereabouts the brutes lay up for the day."
+        },
+        {
+          "anchor": {
+            "end_char": 32791,
+            "paragraph_ids": [
+              "p00051"
+            ],
+            "start_char": 32627
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-88ef046b908ef195",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The lion attack left the narrator permanently lame with a recurring wound.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I have been lame ever\nsince, and shall be to my dying day; in the month of March the wound\nalways troubles me a great deal, and every three years it breaks out\nraw."
+        },
+        {
+          "anchor": {
+            "end_char": 8332,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 8149
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ab491cce6182eb59",
+          "evidence_type": "catastrophe",
+          "paraphrase": "A fever epidemic killed the kraal's inhabitants, and survivors abandoned an old woman.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "she\ntold me that all the people whom I had seen had died of fever. When\nthey had died the other inhabitants of the kraal had taken the cattle\nand gone away, leaving the poor old woman"
+        },
+        {
+          "anchor": {
+            "end_char": 18875,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 18544
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c6b2d5afe3b21915",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "The narrator reasons from physical evidence to conclude the lions frequented the pan.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Before I had got half-way\nround the pan I found the remains of a blue vilderbeeste that had\nevidently been killed within the last three or four days and partially\ndevoured by lions; and from other indications about I was soon assured\nthat if the family were not in the pan that day they spent a good deal\nof their spare time there."
+        },
+        {
+          "anchor": {
+            "end_char": 17558,
+            "paragraph_ids": [
+              "p00026"
+            ],
+            "start_char": 17287
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c96c6d71b0306fde",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narrator explains the technical reasoning behind his choice of weapon and how to kill a lion.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I took the smoothbore because it shot a bullet very well; and my experience has\nbeen that a round ball from a smoothbore is quite as effective against a\nlion as an express bullet. The lion is soft, and not a difficult animal\nto finish if you hit him anywhere in the body."
+        },
+        {
+          "anchor": {
+            "end_char": 1098,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 924
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e0e3f26c072feaaf",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The narrator locates Quatermain's last communication at a remote African river far from Zanzibar.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "One letter only have I received from the old gentleman, dated from a\nmission station high up the Tana, a river on the east coast, about three\nhundred miles north of Zanzibar."
+        },
+        {
+          "anchor": {
+            "end_char": 8907,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 8820
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e25eb629deadc260",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "The narrator frames the abandonment of the old woman as an extreme application of survival of the fittest.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Those people carry the doctrine of the survival of\nthe fittest to its extreme, you see."
+        },
+        {
+          "anchor": {
+            "end_char": 15322,
+            "paragraph_ids": [
+              "p00024"
+            ],
+            "start_char": 15246
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f91ceef77ef3b7f3",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator describes lying paralyzed with terror as the lions fed nearby.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "there I lay shaking\nwith terror, and the cold perspiration pouring out of me"
+        }
+      ],
+      "story_hash": "7cba2dadefc4524d427deb6b97cb16bb04433cbceef017b03142a7c0dee892fe",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/long_odds__haggard",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "7cba2dadefc4524d427deb6b97cb16bb04433cbceef017b03142a7c0dee892fe",
+  "story_path": "mass_quantities/long_odds__haggard/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

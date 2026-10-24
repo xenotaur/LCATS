@@ -1,0 +1,523 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__the_red_fetish__long-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "incidental",
+            "rationale": "The narration offers a real physiological observation that drinking sea water intoxicates and harms, a natural-process fact. But it is a passing aside, not a materially developed scientific representation.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-d1cd5b126c6c8bb3",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "No device, engineered system, or invention materially affects the setting or outcome. Knives, clam shells, and a discarded hat are ordinary objects.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in an ordinary contemporary tropical present with no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No identifiable scientific, technological, social, or historical premise is systematically developed into extrapolated consequences; the tale is an ironic survival vignette.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, measurement, or evidential revision materially drives understanding or action; characters act on desperation and superstition.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is an ordinary Pacific island with cannibal inhabitants; there are no other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The deaths and shipwreck are personal misfortunes and localized violence, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. The evidence describes individual fates, not catastrophe of broad scale.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-6d4ce70057277471",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              },
+              {
+                "evidence_id": "sfev-07266c744eacccb6",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-78484fcaa0959791",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-78484fcaa0959791",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 14872,
+            "output": 977
+          }
+        },
+        "status": "complete",
+        "story_hash": "9e1e233e131b816cbeb41cf7d0a1b2dd238a6ff26f10ea575f14af627152c8e4"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__the_red_fetish__long-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-cannibal-fetish-worship",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The custom is rendered with an internally coherent, immanent, nonsupernatural social logic: the tribe collects one tooth per head, venerates red-haired heads, and honors the gift-giver, all consistent with an imaginary-but-plausible ethnography. This dimension is satisfiable even though the candidate is not novel.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e874b98fa1db330c",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ]
+            },
+            "description": "The island cannibals form a coherent social order that venerates severed human heads (especially red-haired/bearded ones) as protective fetishes, worshiping Van Wyck's shark-severed head that washed ashore and treating Bill as a divine benefactor.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-8ce2b1df304430a9",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "rationale": "The narration contrasts Bill's belief that cannibals are 'decent and clean and orderly' with Van Wyck's terror, producing ironic reader-facing contrast, but this is satire of expectation rather than the cognitive estrangement of an SF novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-e874b98fa1db330c",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-07266c744eacccb6",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                },
+                {
+                  "evidence_id": "sfev-6d4ce70057277471",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-e874b98fa1db330c",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              },
+              {
+                "evidence_id": "sfev-8ce2b1df304430a9",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              },
+              {
+                "evidence_id": "sfev-07266c744eacccb6",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              },
+              {
+                "evidence_id": "sfev-6d4ce70057277471",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The cannibal fetish-worship governs the story's ironic climax and denouement: Bill's dread of cannibals, the swim, Van Wyck's death, and Bill's madness all converge on the worshiped head. It is central rather than incidental.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8ce2b1df304430a9",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                },
+                {
+                  "evidence_id": "sfev-07266c744eacccb6",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.7,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-e874b98fa1db330c",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                },
+                {
+                  "evidence_id": "sfev-8ce2b1df304430a9",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                },
+                {
+                  "evidence_id": "sfev-07266c744eacccb6",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "rationale": "The cannibal head-worship, however macabre and thematically central, is presented as an existing ethnographic custom of a real-world tribe (Bantu-speaking Pacific islanders), not a totalizing world-altering difference from the empirical norm. The story universe remains the ordinary historical Pacific with traders, sloops, and known savage customs; nothing about the shared physical or social laws of the world is transformed. It is a grim ironic reversal of expectations, not an estranging novum in Suvin's sense.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-seawater-madness",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The narration offers a coherent naturalistic explanation of salt-water intoxication, which is internally consistent and nonsupernatural.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d1cd5b126c6c8bb3",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ]
+            },
+            "description": "Drinking sea water intoxicates and deranges men in a manner likened to hashish, contributing to Bill's hallucinations and eventual madness.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-84b11438979c65f9",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "rationale": "Provides a mildly estranging naturalistic gloss on Bill's hallucinatory speech, but not an SF-level cognitive estrangement.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-d1cd5b126c6c8bb3",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-d1cd5b126c6c8bb3",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              },
+              {
+                "evidence_id": "sfev-84b11438979c65f9",
+                "evidence_set_id": "sfes-78484fcaa0959791"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-84b11438979c65f9",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "rationale": "The seawater effect is an incidental atmospheric device coloring Bill's delirium; it does not determine the overriding narrative logic, which is driven by the swim and the cannibals.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-d1cd5b126c6c8bb3",
+                  "evidence_set_id": "sfes-78484fcaa0959791"
+                }
+              ],
+              "rationale": "This is presented as an ordinary physiological fact of the empirical world, not a world-altering difference. It is at most a naturalistic detail explaining Bill's mental state.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-78484fcaa0959791",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-78484fcaa0959791",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 15219,
+            "output": 1736
+          }
+        },
+        "status": "complete",
+        "story_hash": "9e1e233e131b816cbeb41cf7d0a1b2dd238a6ff26f10ea575f14af627152c8e4"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-78484fcaa0959791",
+    "knight_analysis_id": "mass_quantities__the_red_fetish__long-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__the_red_fetish__long-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-78484fcaa0959791",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 26389,
+            "paragraph_ids": [
+              "p00091"
+            ],
+            "start_char": 26204
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-07266c744eacccb6",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Bill is eventually rescued but has been driven mad by the ordeal.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Three months later Bill was taken off by a trading-sloop. He blabbered\nidiotically about the right of a head to decent burial and made\nuncomplimentary allusions to the wearing of teeth."
+        },
+        {
+          "anchor": {
+            "end_char": 533,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 416
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-64fce2a9e12ee0ad",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Bill argues they cannot survive without water and proposes swimming to the island.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "you know as well as I do that it is physically\nimpossible for us to hang on without water. What do you say to a swim?"
+        },
+        {
+          "anchor": {
+            "end_char": 16863,
+            "paragraph_ids": [
+              "p00066"
+            ],
+            "start_char": 16675
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6d4ce70057277471",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Van Wyck is killed and devoured by sharks during the swim.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The sharks made frantic dashes at Van Wyck and came away with something in\ntheir mouths. They would rush forward, their great jaws would snap--and\nthere would be less and less of Van Wyck."
+        },
+        {
+          "anchor": {
+            "end_char": 3537,
+            "paragraph_ids": [
+              "p00014"
+            ],
+            "start_char": 3451
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-84b11438979c65f9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Bill admits he has been planning to kill his companion out of thirst-driven desperation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "For three days I've\nbeen planning to kill you. I lay awake last night and watched you."
+        },
+        {
+          "anchor": {
+            "end_char": 25975,
+            "paragraph_ids": [
+              "p00090"
+            ],
+            "start_char": 25840
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8ce2b1df304430a9",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Bill reacts with horror on realizing what the cannibals present to him.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Bill opened his eyes wide with horror. He sought to express his agony\nin words, but no sound came from between his black, swollen lips."
+        },
+        {
+          "anchor": {
+            "end_char": 2550,
+            "paragraph_ids": [
+              "p00011"
+            ],
+            "start_char": 2396
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d1cd5b126c6c8bb3",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narration explains the intoxicating and harmful effect of drinking sea water.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Sea water affects some men like hashish. That morning Bill had crawled\nto the lagoon on his hands and knees and swallowed more salt than was\ngood for him."
+        },
+        {
+          "anchor": {
+            "end_char": 1327,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 1222
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e874b98fa1db330c",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narration contrasts Bill's view of cannibals as orderly with Van Wyck's fearful assumptions.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Bill knew that cannibals\nwere decent and clean and orderly; but there was no explaining that to\nVan Wyck."
+        }
+      ],
+      "story_hash": "9e1e233e131b816cbeb41cf7d0a1b2dd238a6ff26f10ea575f14af627152c8e4",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/the_red_fetish__long",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "9e1e233e131b816cbeb41cf7d0a1b2dd238a6ff26f10ea575f14af627152c8e4",
+  "story_path": "mass_quantities/the_red_fetish__long/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

@@ -211,7 +211,10 @@ Stop and decide the precedence deliberately.
 Never pass `--allow-orphaned-sidecar-deletion` to avoid this step: it disables
 the orphaned-sidecar guard for every collection and every sidecar kind at once.
 The seeded sidecars carry no story-text fingerprint, so they are not checked
-against the regenerated story text.
+against the regenerated story text. The recommended check (a side manifest of the
+original story hashes, compared with the regenerated `data/`) is described in
+[`project/design/genre-sidecar-story-binding.md`](../../project/design/genre-sidecar-story-binding.md);
+it is not built yet.
 
 **Other sidecar kinds.** Today only `genre.json` exists in `corpora/`, so this step
 covers everything that needs seeding. If a later release also holds `scenes.json`,

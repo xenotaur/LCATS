@@ -1,0 +1,359 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__all_wool__tuttle-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No scientific facts, theories, discoveries, or speculative sciences are represented. The story is a comic Western about sheep herders.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Dynamite, rifles, and a sheet-iron stove are ordinary contemporary tools/materials of the era, not engineered inventions or speculative technology that materially transforms the setting in a science-fictional sense. They function as ordinary Western-genre props.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-365a426f90683de9",
+                "evidence_set_id": "sfes-b42405b9426acaac"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in a contemporary range-country present; there is no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are developed from an identifiable scientific, technological, social, or historical premise beyond a mundane sheep-versus-cattle range conflict.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Characters guess and deduce about the 'sheep war,' but this is ordinary reasoning, not systematic observation, hypothesis testing, measurement, or evidential revision driving understanding.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is ordinary terrestrial range country; no other planets, dimensions, nonordinary cosmic environments, or visitors from them appear.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The dynamite explosion destroys a single tent and camp\\u2014a localized personal misfortune, not a large-scale natural, technological, cosmic, biological, or human-caused disaster. It lacks the broader scale required for catastrophe.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-365a426f90683de9",
+                "evidence_set_id": "sfes-b42405b9426acaac"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-b42405b9426acaac",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b42405b9426acaac",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 15448,
+            "output": 980
+          }
+        },
+        "status": "complete",
+        "story_hash": "6b1c3c7b467a9dd18b5f3a1345da61011413e8b620487bc9e7eea8a8c59bb77c"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__all_wool__tuttle-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-dynamite-stove",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The device operates by ordinary, coherent, nonsupernatural physical mechanics (explosive planted in a stove), but this is real-world chemistry, not an imaginary or systematically novel science.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ]
+            },
+            "description": "Someone loads the herders' sheet-iron stove with dynamite ('giant powder'), which detonates and destroys their entire camp.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ],
+              "rationale": "The stove explosion surprises the characters but produces no cognitive estrangement from the empirical world; it is a familiar frontier sabotage device in a realist Western setting.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-365a426f90683de9",
+                "evidence_set_id": "sfes-b42405b9426acaac"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The explosion drives the plot's escalation of the sheep-versus-cattle conflict, but it is one incident within a conventional Western tale rather than a difference that governs the whole narrative logic. It is a plot device, not a novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-365a426f90683de9",
+                  "evidence_set_id": "sfes-b42405b9426acaac"
+                }
+              ],
+              "rationale": "Dynamite in a stove is a mundane act of sabotage consistent with the empirical norm of a Western range-war setting. It introduces no totalizing or world-altering difference from the author's empirical reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-b42405b9426acaac",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-b42405b9426acaac",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 15795,
+            "output": 745
+          }
+        },
+        "status": "complete",
+        "story_hash": "6b1c3c7b467a9dd18b5f3a1345da61011413e8b620487bc9e7eea8a8c59bb77c"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-b42405b9426acaac",
+    "knight_analysis_id": "mass_quantities__all_wool__tuttle-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__all_wool__tuttle-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-b42405b9426acaac",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "Zeb explains that high-power rifles can shoot three miles and produce little audible report at such distance.",
+            "quote": "Ricky, them high-power rifles kin shoot three miles, and they don\ft make much noise a-tall. At this distance yuh wouldn\ft hear it a tall, sabe?",
+            "raw_id": "ev01",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "storyworld_change",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00064"
+            ],
+            "paraphrase": "The explosion leaves them without tent, food, or rifle, changing their situation.",
+            "quote": "Tent\ns gone,\" he announced foolishly. \"Good-by tent! Jerusalem! Zeb, our grub is all gone, too! Blewed up. Rifle gone, too",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.45,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "paraphrase": "Zeb reacts to the destruction by declaring the job unfit for them.",
+            "quote": "Now mebby you\ffll agree with me that this ain\ffft no white man\ffs job, Ricky.",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.5,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "inquiry_or_scientific_method",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00117"
+            ],
+            "paraphrase": "Zeb reasons out the attackers' movements by deduction about distance and their likely method of arrival.",
+            "quote": "I got it all figgered out, Ricky. Them jaspers never walked over to th\ff party. It\ffs all of seven miles to th\ff nearest cow-camp.",
+            "raw_id": "ev05",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 7887,
+            "paragraph_ids": [
+              "p00062"
+            ],
+            "start_char": 7790
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-365a426f90683de9",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The men discover their stove had been loaded with dynamite, destroying their camp.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Giant powder!\" exclaimed Zeb, sniffing the air. \"Somebody done put dinnamite in our stove, Ricky!"
+        }
+      ],
+      "story_hash": "6b1c3c7b467a9dd18b5f3a1345da61011413e8b620487bc9e7eea8a8c59bb77c",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/all_wool__tuttle",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "6b1c3c7b467a9dd18b5f3a1345da61011413e8b620487bc9e7eea8a8c59bb77c",
+  "story_path": "mass_quantities/all_wool__tuttle/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

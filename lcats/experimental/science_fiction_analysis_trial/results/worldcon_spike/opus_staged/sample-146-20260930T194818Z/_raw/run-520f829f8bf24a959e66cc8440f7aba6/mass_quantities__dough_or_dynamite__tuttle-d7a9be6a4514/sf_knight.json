@@ -1,0 +1,82 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 26237,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1000,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/dough_or_dynamite__tuttle",
+  "story_path": "mass_quantities/dough_or_dynamite__tuttle/story.json",
+  "text": "",
+  "title": "Dough or Dynamite",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied. The story is a Western comedy with no scientific facts, theories, or speculative sciences represented; but with an empty evidence set the criterion cannot be materially supported and is treated as not assessable per the rubric's prohibition on using absent as a fallback for missing evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. Elements like a movie camera, dynamite, and stilts appear but are ordinary period tools, not speculative engineered inventions driving an SF premise; with no supplied evidence the criterion is not assessable.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The story has a contemporary Western setting with no future, remote past, or temporal displacement; cannot be materially supported without evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. There is no identifiable scientific, technological, or social premise being extrapolated; cannot be assessed without evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The characters search for a box through trial and error, which is generic investigation, not scientific method; and without evidence the criterion cannot be materially supported.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. No other planets, dimensions, cosmic environments, or visitors appear; cannot be assessed without evidence.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.5,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. Dynamite is present as a comic hazard but there is no large-scale disaster; and with an empty evidence set the criterion cannot be materially supported.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

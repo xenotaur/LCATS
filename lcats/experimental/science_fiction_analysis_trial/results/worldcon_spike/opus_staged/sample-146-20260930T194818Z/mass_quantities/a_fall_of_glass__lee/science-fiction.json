@@ -1,0 +1,998 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__a_fall_of_glass__lee-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": "substantial",
+            "rationale": "Natural meteorological processes are materially represented: high-pressure air buffeting thin walls, wind generation through piping, and the formation of an actual tornado (twister) treated as a meteorological phenomenon, including radiation/geiger references for the outside world.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-0f51b6fedec5a468",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-50a43e54dca7e694",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-ce3b5bb02f390c20",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.92,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": "central",
+            "rationale": "Fownes's engineered clockwork weather-and-illusion machine, the bootleg pipe tapped into the dome blower, and the robotic dome weevils are inventions that materially drive the setting, action, and catastrophic outcome.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-79201a3daa3049f5",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-4ca7b2c14c6866ed",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-50a43e54dca7e694",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-88d8a02dde92a741",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The domed-city setting is future-adjacent but no speculative distant future, remote past, or temporal displacement is materially established; references to leaving the dome are spatial, not temporal.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": "central",
+            "rationale": "The story develops consequences from an identifiable social/historical premise: governments' inability to form sound foreign policy leads to 'self-containment' in domes, enforced conformity as physical necessity, and an irradiated abandoned outside world.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-e88e2011742a817b",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-369f64da4de6d777",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-e819466e8905af65",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Fownes compares the spinning cloud to a library illustration to identify the phenomenon as a twister, a minor act of observational inference, but it does not materially drive systematic investigation across the story.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-a70b2b2f67b10054",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.68,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The entire enclosed domed-city constitutes a substantially nonordinary environment, with a contrasting irradiated Open Country beyond it where geigers no longer register, functioning as another environment.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-88d8a02dde92a741",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-b4aafe1ff34b61ed",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-e819466e8905af65",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "A large-scale technological/climate disaster is actual and causally central: the entire dome air supply is forced through the bedroom, an artificial tornado tears toward and breaches the dome, the artificial sun vanishes, and optimum climate control collapses.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-293ef797f654de8d",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-ce3b5bb02f390c20",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-d643c7df435bca15",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-bbeb48c2aa7046d9",
+        "failures": [],
+        "interval": {
+          "definite_count": 5,
+          "possible_count": 6,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bbeb48c2aa7046d9",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 21023,
+            "output": 1344
+          }
+        },
+        "status": "complete",
+        "story_hash": "9f03f85c1768c43c917f78649c4b36966f852a330a8bfd7b337853896350b16c"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__a_fall_of_glass__lee-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "nc-domed-city-self-containment",
+            "cognitive_validation": {
+              "confidence": 0.82,
+              "counterevidence": [],
+              "rationale": "The order is given a coherent, immanent, nonsupernatural rationale: domes arose by governmental consent as 'self-containment' in the absence of viable foreign policy (implicitly post-nuclear, since Open Country is where geigers no longer scintillate), maintained by mechanical dome weevils and climate systems. This is a systematic social-technological explanation.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e88e2011742a817b",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-88d8a02dde92a741",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-369f64da4de6d777",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-e819466e8905af65",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "description": "A totalizing social-technological order in which humanity lives sealed inside climate-controlled domes ('self-containment') adopted by common consent of governments unable to devise a sound foreign policy. Weather, air, temperature and humidity are all artificially held at 'Optimum Dome Conditions,' natural phenomena are unknown, conformity is a physical necessity, and eccentricity is criminalized and policed. Robotic dome weevils continuously repair the falling-glass ceiling, and the outside 'Open Country' is a radioactive-cleared elsewhere.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-4f420b16696789b7",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-472117db44b8b1fc",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ],
+              "rationale": "The reader confronts a familiar civilization estranged into a sealed casserole of artificial 'Optimum' weather where a character has never smelled a real rose or seen a real moon, and where police panic at a temperature that is 'not 59 degrees.' This defamiliarizes both nature and social conformity.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-fc9247b1cd0e67f9",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-b4aafe1ff34b61ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-88d8a02dde92a741",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-e88e2011742a817b",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-d643c7df435bca15",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-88d8a02dde92a741",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-b4aafe1ff34b61ed",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-369f64da4de6d777",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-e88e2011742a817b",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-4f420b16696789b7",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-fc9247b1cd0e67f9",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-e819466e8905af65",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-d643c7df435bca15",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.85,
+              "counterevidence": [],
+              "rationale": "The dome governs the whole narrative logic: the surveillance of eccentric Fownes, the criminalization of his weather machine, his and the widow's desire to escape to the Open Country, and the climactic catastrophe of the dome's air supply and destruction all derive from the domed self-containment premise.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-369f64da4de6d777",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-b4aafe1ff34b61ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-4f420b16696789b7",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-88d8a02dde92a741",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.9,
+              "counterevidence": [],
+              "rationale": "The domed, self-contained city constitutes a world-altering difference from the empirical norm: enclosed artificial climate, engineered conformity as physical necessity, and abandonment of the open natural world. This reorders the entire social and physical universe of the story.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-88d8a02dde92a741",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-b4aafe1ff34b61ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-369f64da4de6d777",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-e88e2011742a817b",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "qualified_novum": true
+          },
+          {
+            "candidate_id": "nc-weather-simulation-machine",
+            "cognitive_validation": {
+              "confidence": 0.78,
+              "counterevidence": [],
+              "rationale": "The device is explained mechanistically: clockwork wheels, a see-saw Master Mechanism, a bootleg pipe into the dome blower, and a Studebaker valve whose progressive opening causes buffeting and eventually the runaway winds. This is a coherent immanent account.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-79201a3daa3049f5",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-4ca7b2c14c6866ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-0f51b6fedec5a468",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-50a43e54dca7e694",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "description": "Fownes's clandestine clockwork-and-plumbing apparatus that simulates natural weather and celestial phenomena: a Master Mechanism of salvaged clock wheels driving artificial sunsets, a singing moon, neon roses, scent, rain, and winds tapped illegally from the dome blower via a Studebaker valve.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-4f420b16696789b7",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ],
+              "rationale": "The homemade simulation of sunset, moon, and rain estranges the reader by presenting artificial nature as a criminal marvel within an artificial world, culminating in a real (Kansas) twister erupting from the bedroom.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4ca7b2c14c6866ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-fc9247b1cd0e67f9",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-aed75177165b6bea",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-293ef797f654de8d",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-ce3b5bb02f390c20",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-d643c7df435bca15",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-79201a3daa3049f5",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-4ca7b2c14c6866ed",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-aed75177165b6bea",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-0f51b6fedec5a468",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-50a43e54dca7e694",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-293ef797f654de8d",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-ce3b5bb02f390c20",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-d643c7df435bca15",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              },
+              {
+                "evidence_id": "sfev-a70b2b2f67b10054",
+                "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.72,
+              "counterevidence": [],
+              "rationale": "The weather machine drives the plot's mechanics and its climax: the dancing house that draws police attention, the illegal air tap, and finally the runaway valve that funnels the whole dome air supply into a twister that destroys the dome. It is the proximate engine of the story's action.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-50a43e54dca7e694",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-293ef797f654de8d",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-ce3b5bb02f390c20",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-d643c7df435bca15",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0f51b6fedec5a468",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-50a43e54dca7e694",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ],
+              "rationale": "The machine produces a striking local transformation ('the domed city vanished') but it is an eccentric jury-rigged gadget built from salvaged clock parts and a bootleg pipe, not a totalizing alteration of the empirical norm. Its novelty is derivative of, and parasitic on, the dome novum.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-79201a3daa3049f5",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-4ca7b2c14c6866ed",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                },
+                {
+                  "evidence_id": "sfev-aed75177165b6bea",
+                  "evidence_set_id": "sfes-bbeb48c2aa7046d9"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": "nc-domed-city-self-containment",
+        "evidence_set_id": "sfes-bbeb48c2aa7046d9",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-bbeb48c2aa7046d9",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 21370,
+            "output": 2585
+          }
+        },
+        "status": "complete",
+        "story_hash": "9f03f85c1768c43c917f78649c4b36966f852a330a8bfd7b337853896350b16c"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-bbeb48c2aa7046d9",
+    "knight_analysis_id": "mass_quantities__a_fall_of_glass__lee-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__a_fall_of_glass__lee-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-bbeb48c2aa7046d9",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 9505,
+            "paragraph_ids": [
+              "p00049"
+            ],
+            "start_char": 9360
+          },
+          "confidence": 0.92,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0f51b6fedec5a468",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Explains that the house shakes because Fownes illegally tapped into the dome's air-blower system, causing air buffeting.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "He\nhad a bootleg pipe connected into the dome blower system, and the\nhigh-pressure air caused some buffeting against the thin walls of the\nhouse."
+        },
+        {
+          "anchor": {
+            "end_char": 18731,
+            "paragraph_ids": [
+              "p00093"
+            ],
+            "start_char": 18575
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-265a1506b29fb07d",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "Fownes proposes leaving the dome for the open outside world of prairies and space.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Fresh air, Mrs. Deshazaway?\nSpace? Miles and miles of space where the real-estate monopoly has\nno control whatever? Where the _wind_ blows across _prairies_"
+        },
+        {
+          "anchor": {
+            "end_char": 27930,
+            "paragraph_ids": [
+              "p00145"
+            ],
+            "start_char": 27870
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-293ef797f654de8d",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The dome's entire air supply is now being forced through Fownes's bedroom after the valve is turned.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "the entire dome air supply\nis now coming through my bedroom."
+        },
+        {
+          "anchor": {
+            "end_char": 3847,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 3669
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-369f64da4de6d777",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "In this society conformity is enforced as a physical necessity and police hunt down eccentricity.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Lanfierre's job was to ferret out aberration. It couldn't be tolerated\nwithin the confines of a dome. Conformity had become more than a social\nforce; it was a physical necessity."
+        },
+        {
+          "anchor": {
+            "end_char": 4042,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 3883
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-472117db44b8b1fc",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The policeman Lanfierre has come to admire the rare eccentricity his job suppresses.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev18",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Lanfierre had become an admirer of eccentricity. He came to see that\ngenuine quirks were rare and, as time went on, due partly to his own\nsmall efforts, rarer."
+        },
+        {
+          "anchor": {
+            "end_char": 11068,
+            "paragraph_ids": [
+              "p00056"
+            ],
+            "start_char": 10868
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4ca7b2c14c6866ed",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "His machine creates an artificial sunset, moon, and garden illusion, betraying its electrical/mechanical nature.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Instead of an orange sun at perpetual high noon, there was a red sun\nsetting brilliantly, marred only by an occasional arcover which left\nthe smell of ozone in the air. There was also a gigantic moon."
+        },
+        {
+          "anchor": {
+            "end_char": 27097,
+            "paragraph_ids": [
+              "p00137"
+            ],
+            "start_char": 26971
+          },
+          "confidence": 0.82,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4f420b16696789b7",
+          "evidence_type": "character_reaction",
+          "paraphrase": "MacBride reacts with panic to the loss of the dome's controlled optimum conditions.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"These are _not_ Optimum Dome\nConditions!\" the voice wailed. \"The temperature is _not_ 59 degrees.\nThe humidity is _not_ 47%!\""
+        },
+        {
+          "anchor": {
+            "end_char": 14271,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 13997
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-50a43e54dca7e694",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Describes the network of pipes and valve through which dome air creates winds in the house.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev17",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There were attic pipes connected\nto wall pipes and wall pipes connected to cellar pipes, and they made\none gigantic skeleton that began to rattle its bones and dance as\nhigh-pressure air from the dome blower rushed in, slowly opening the\nStudebaker valve wider and wider...."
+        },
+        {
+          "anchor": {
+            "end_char": 10153,
+            "paragraph_ids": [
+              "p00053"
+            ],
+            "start_char": 9969
+          },
+          "confidence": 0.88,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-79201a3daa3049f5",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Describes the mechanical clockwork device Fownes built to simulate weather and time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The downstairs closet was like a great watch case, a profusion of\nwheels surrounding the Master Mechanism, which was a miniature see-saw\nthat went back and forth 365-1/4 times an hour."
+        },
+        {
+          "anchor": {
+            "end_char": 2382,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 2140
+          },
+          "confidence": 0.95,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-88d8a02dde92a741",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The city is enclosed in a dome whose falling glass fragments are continuously patched by robotic dome weevils.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It was precipitation peculiar to a dome: feather-light\nfragments showering harmlessly on the city from time to time. Dome\nweevils, their metal arms reaching out with molten glass, roamed the\nhuge casserole, ceaselessly patching and repairing."
+        },
+        {
+          "anchor": {
+            "end_char": 29490,
+            "paragraph_ids": [
+              "p00158"
+            ],
+            "start_char": 29329
+          },
+          "confidence": 0.78,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-a70b2b2f67b10054",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Fownes compares the spinning cloud to a book illustration to identify the phenomenon.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Humphrey Fownes took out the dust jacket he'd found in the library. He\nheld it up and carefully compared the spinning cloud in his bedroom\nwith the illustration."
+        },
+        {
+          "anchor": {
+            "end_char": 10608,
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "start_char": 10575
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-aed75177165b6bea",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Fownes activates his device and the view of the domed city is replaced by a simulated environment.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Outside, the domed city vanished."
+        },
+        {
+          "anchor": {
+            "end_char": 864,
+            "paragraph_ids": [
+              "p00005"
+            ],
+            "start_char": 750
+          },
+          "confidence": 0.9,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b4aafe1ff34b61ed",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Establishes that people live inside a domed city where natural weather is not a normal concern.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "But he was thinking about weather, which was an unusual subject to\nbegin with for a person living in a domed city."
+        },
+        {
+          "anchor": {
+            "end_char": 29813,
+            "paragraph_ids": [
+              "p00161"
+            ],
+            "start_char": 29705
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ce3b5bb02f390c20",
+          "evidence_type": "catastrophe",
+          "paraphrase": "An artificial tornado forms and moves toward the wall of the dome.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The twister roared and moved out of the bedroom, out over the rear of\nthe house toward the side of the dome."
+        },
+        {
+          "anchor": {
+            "end_char": 30769,
+            "paragraph_ids": [
+              "p00167"
+            ],
+            "start_char": 30679
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d643c7df435bca15",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The dome's climate control fails as the twister grows, the artificial sun disappears and temperature collapses.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The artificial sun vanished behind the mushrooming twister.\nOptimum temperature collapsed."
+        },
+        {
+          "anchor": {
+            "end_char": 19448,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 19220
+          },
+          "confidence": 0.72,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e819466e8905af65",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Reference to an Open Country beyond the dome where geiger counters no longer register radiation.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "they say\nthat somewhere out in the space and the roses and the moonlight,\nthe sleeping equinox yawns and rises because on a certain day it's\n_vernal_ and that's when it roams the Open Country where geigers no\nlonger scintillate."
+        },
+        {
+          "anchor": {
+            "end_char": 23502,
+            "paragraph_ids": [
+              "p00110"
+            ],
+            "start_char": 23392
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e88e2011742a817b",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Explains that humanity moved into domes because governments could not create a sound foreign policy, leading to self-containment.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Thus the\nmovement into domes began--_by common consent of the governments_. This\nis known as self-containment."
+        },
+        {
+          "anchor": {
+            "end_char": 11868,
+            "paragraph_ids": [
+              "p00059"
+            ],
+            "start_char": 11733
+          },
+          "confidence": 0.86,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fc9247b1cd0e67f9",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Fownes has never experienced real roses or a real moon, contrasting dome life with unknown natural reality.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They were all purely speculative of course. He had no idea how a rose\nreally smelled--or looked for that matter. Not to mention a moon."
+        }
+      ],
+      "story_hash": "9f03f85c1768c43c917f78649c4b36966f852a330a8bfd7b337853896350b16c",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/a_fall_of_glass__lee",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "9f03f85c1768c43c917f78649c4b36966f852a330a8bfd7b337853896350b16c",
+  "story_path": "mass_quantities/a_fall_of_glass__lee/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}
