@@ -189,12 +189,23 @@ that is contradicted at every date (for example, talking animals in a fairy tale
 direction, so the model needs no separate direction field. The window of D3 is the
 `contested` period.
 
+A premise has a `kind`: `ordinary`, or `counterfactual_divergence`, a stipulated point at which
+the story's world departs from the author's real history (for example, antibiotics invented a
+century early). A divergence contradicts the historical record by definition, so its timeline
+describes the standing of its *enabling mechanism* (what the departure would require, judged by
+what was established or open at composition), never the record, and the divergence is not
+reported as `falsified` merely because history did not go that way. The consequences the story
+draws from the divergence are separate premises with ordinary timelines.
+
 **R2. Status of a premise over an interval.** Take the closed interval `[a, b]` (unbounded if
 absent, and ending at the analysis date). Collect the standings of every period that overlaps
 it; touching boundaries overlap. If all are `supported` or `open`, the status is `present`; if
 all are `contradicted`, `absent`; otherwise `ambiguous`. A missing interval is just the widest
 interval, so a stable premise is `present` or `absent` by its single period and a
-time-sensitive one is `ambiguous` with its condition. `not_assessable` is used only when the
+time-sensitive one is `ambiguous` with its condition. A premise whose standing is `contested` at composition (for example, a recognized
+but not widely accepted scientific theory) therefore yields `ambiguous`, and the stage states
+the condition; the proposal does not try to resolve `open` versus `contested` by rule, because
+the boundary has to be judged case by case (the owner's decision). `not_assessable` is used only when the
 model cannot state the timeline at all. "Today" is the point interval at the analysis date;
 when the model cannot state today's standing (beyond its knowledge cutoff) the status is
 `not_assessable`.
@@ -217,6 +228,15 @@ characters, and `unknown` is only for a claim the stage cannot place. `different
 is explicitly `false`, or if no counted premises exist; and `ambiguous` if no counted premise is
 `true` and at least one is `unknown`. Whether a fantastic condition passes `plausible` is a separate matter.
 
+The time of a story's setting is never itself a difference, in either direction. A premise is
+novel only if it is not true of the author's real world, and that world includes the author's
+real past. A story set in an earlier period that faithfully reflects the author's own history
+(historical fiction, a realist period piece) has no novel premise from its setting, so
+`different` is `absent`; a story set in the future that changes nothing is likewise `absent`. A
+past setting becomes different only through a premise that departs from the real world: a
+`counterfactual_divergence` (R1), a time-travel element, or any other novel condition. This is
+the owner's decision on the former Open Question 1.
+
 **R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
 the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
 reading all counted premises are used; for the "today" reading, calendar-expired premises are
@@ -232,7 +252,10 @@ fantastic one are all speculative, and a supported claim in a realist story is n
 computed before any calendar-expired exclusion, so a story whose only speculative premises are
 expired is reported as having them.
 
-**R7. Profile categories.** Python derives a category from plausibility as written (P1) and
+**R7. Profile categories.** *The names below are adopted by the owner, with a review before
+implementation.* They must be documented in the user-facing documentation and in code comments
+next to the table that derives them, so that a reader of a report or of the code sees the same
+meaning. Python derives a category from plausibility as written (P1) and
 today (P3), only when `speculative_premises.has` is true; otherwise the category is
 `not_applicable`. Categories describe plausibility, not whether the story qualifies:
 
@@ -288,7 +311,7 @@ One `heinlein_temporal` analysis record per story, serialized only when the stag
   below), `status`, `failures`, `analysis_date`, `model_knowledge_cutoff`.
 - `composition`: `{earliest, latest, sources: [{kind, value, hard_bound, basis, confidence}],
   override, caveats}`.
-- `premises`: list of `{premise_id, claim, anchor: {offset, quote}, materiality,
+- `premises`: list of `{premise_id, kind, claim, anchor: {offset, quote}, materiality,
   novel_at_composition, dated_prediction, timeline: [...]}`, where `dated_prediction` is null or
   `{date: year or year-month, claim}` and `calendar_expired` is derived by Python from it (never
   asserted by the model) and appears in the assessment.
@@ -369,7 +392,8 @@ Recommended work items, in order, none created by this proposal:
 
 1. **Contract and validators.** The premise, timeline, interval, relation and flag records, the
    rules R2 to R8, the profile table, the provenance version, and the sidecar optional kind
-   with the changes listed under Compatibility. Depends on this proposal's adoption.
+   with the changes listed under Compatibility. The profile category names (R7) are documented
+   in code comments beside the derivation table. Depends on this proposal's adoption.
 2. **Stage, prompt and tool schema.** The opt-in flag, prompt version, a prompt and schema that
    produce the premises, the date inputs, and the author-frame `essential` and `causal`,
    payload with date
@@ -377,7 +401,8 @@ Recommended work items, in order, none created by this proposal:
 3. **Date-source tooling.** Loading owner-supplied dates and an owner override; evaluating a
    bibliographic source's coverage and terms before relying on it. Depends on 1.
 4. **Fact table seed.** The small audit table of known cases with cited sources. Depends on 2.
-5. **Rendering and report integration.** Show the profile, the conditions, and the flags.
+5. **Rendering and report integration.** Show the profile, the conditions, and the flags, and
+   document the profile category names (R7) in the user-facing documentation.
    Depends on 1 and 2.
 6. **Live validation run.** The seven-story, three-trial design from WI-SF-0119 on a private
    server with request records, comparing the model's premise lists with the hand trial.
@@ -400,19 +425,21 @@ Recommended work items, in order, none created by this proposal:
 
 Each has a recommendation; none is decided here.
 
-1. **Backward differences and historical fiction for `different`.** A 1950 story set in 1800
-   differs from its author's here-and-now just as a story set in 2150 does. The rubric text
-   does not say whether a backward difference counts, and the existing prompt excludes only
-   "a different setting that changes nothing about the problem" (`run_worldcon_spike.py:2568-2569`).
-   Recommendation: do not decide in code; ask the owner, and in the first implementation treat
-   a period setting as novel only if the setting is essential to the plot, recording that as
-   the stage's reading.
+1. **Backward differences and historical fiction for `different`.** *Resolved by the owner.*
+   The time of the setting is not a difference in either direction; a premise is novel only if
+   it departs from the author's real world, including the author's real past. Historical fiction
+   faithful to the author's history is not different, while an alternate history, a time-travel
+   element, or any other novel condition is. Stipulated departures from history are modelled as
+   `counterfactual_divergence` premises (R1, R4). The remaining question is how the stage tells a
+   faithful period setting from a quiet departure; the first live run should include a
+   historical-fiction control and an alternate-history control to check it.
 2. **Coherence with a story's own premises.** A fantasy can be consistent with its own premises,
    so coherence does not test the relation to established facts. Recommendation: do not report
    it as a condition; if wanted, report it as a separate, labelled field after the first live
    run.
-3. **Profile category names.** Recommendation: the names in R7, to be reviewed by the owner
-   before implementation.
+3. **Profile category names.** *Resolved by the owner:* use the names in R7, review them before
+   implementation, and document them in the documentation and in code comments (work items 1
+   and 5).
 4. **Whether the five-criterion prompt later changes.** Recommendation: no change until the
    live run shows how the existing prompt behaves on the period stories.
 5. **Essential and causal in the author's frame.** R8 has the new stage assess them against its
@@ -430,9 +457,9 @@ Each has a recommendation; none is decided here.
 8. **Date sources.** ISFDB coverage and terms have not been checked; several dates in the trial
    rest on sources I did not open. Recommendation: work item 3 evaluates a bibliographic source
    before it is relied on, and the owner's override always wins.
-9. **Where the new record lives.** Recommendation: a new optional analysis kind in the same
-   sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
-   Compatibility. The alternative is a separate sidecar file, which would avoid touching the
-   sidecar contract but split a story's analyses across two files; decide before work item 1.
+9. **Where the new record lives.** *Resolved by the owner:* a new optional analysis kind in the
+   same sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
+   Compatibility. The separate-sidecar-file alternative is not taken: it would avoid touching
+   the sidecar contract but split a story's analyses across two files.
 10. **Cost.** One additional call per story. Recommendation: measure it in the live run; it is
     not estimated here.
