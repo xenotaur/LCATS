@@ -217,6 +217,15 @@ python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   almost never the model actually running behind a local endpoint; pass
   the real model name explicitly (e.g. `--model gpt-oss:20b`).
 
+## Checkpoint Archive
+
+The per-story validation checkpoints are gitignored scratch files, but the originals
+from the 2026-08-21 Opus and `gpt-oss:20b` runs over the 146 genre-evidence stories are
+preserved as tracked evidence in `results/full_scan/checkpoint_archive_2026-08-21/`,
+with a baseline story-hash manifest at `results/full_scan/story_hash_baseline.jsonl`
+(`WI-PROMOTE-0124`). `archive_checkpoints.py verify` re-checks them; see the archive's
+README for provenance and caveats.
+
 ## Outputs
 
 The runner writes only under the requested output directory:
