@@ -189,12 +189,23 @@ that is contradicted at every date (for example, talking animals in a fairy tale
 direction, so the model needs no separate direction field. The window of D3 is the
 `contested` period.
 
+A premise has a `kind`: `ordinary`, or `counterfactual_divergence`, a stipulated point at which
+the story's world departs from the author's real history (for example, antibiotics invented a
+century early). A divergence contradicts the historical record by definition, so its timeline
+describes the standing of its *enabling mechanism* (what the departure would require, judged by
+what was established or open at composition), never the record, and the divergence is not
+reported as `falsified` merely because history did not go that way. The consequences the story
+draws from the divergence are separate premises with ordinary timelines.
+
 **R2. Status of a premise over an interval.** Take the closed interval `[a, b]` (unbounded if
 absent, and ending at the analysis date). Collect the standings of every period that overlaps
 it; touching boundaries overlap. If all are `supported` or `open`, the status is `present`; if
 all are `contradicted`, `absent`; otherwise `ambiguous`. A missing interval is just the widest
 interval, so a stable premise is `present` or `absent` by its single period and a
-time-sensitive one is `ambiguous` with its condition. `not_assessable` is used only when the
+time-sensitive one is `ambiguous` with its condition. A premise whose standing is `contested` at composition (for example, a recognized
+but not widely accepted scientific theory) therefore yields `ambiguous`, and the stage states
+the condition; the proposal does not try to resolve `open` versus `contested` by rule, because
+the boundary has to be judged case by case (the owner's decision). `not_assessable` is used only when the
 model cannot state the timeline at all. "Today" is the point interval at the analysis date;
 when the model cannot state today's standing (beyond its knowledge cutoff) the status is
 `not_assessable`.
@@ -216,6 +227,15 @@ characters, and `unknown` is only for a claim the stage cannot place. `different
 `present` if any counted premise is novel; `absent` if there are counted premises and every one
 is explicitly `false`, or if no counted premises exist; and `ambiguous` if no counted premise is
 `true` and at least one is `unknown`. Whether a fantastic condition passes `plausible` is a separate matter.
+
+The time of a story's setting is never itself a difference, in either direction. A premise is
+novel only if it is not true of the author's real world, and that world includes the author's
+real past. A story set in an earlier period that faithfully reflects the author's own history
+(historical fiction, a realist period piece) has no novel premise from its setting, so
+`different` is `absent`; a story set in the future that changes nothing is likewise `absent`. A
+past setting becomes different only through a premise that departs from the real world: a
+`counterfactual_divergence` (R1), a time-travel element, or any other novel condition. This is
+the owner's decision on the former Open Question 1.
 
 **R5. Calendar-expired and counting.** A premise with a `dated_prediction` date earlier than
 the analysis date has `calendar_expired: true`, derived by Python. For the "as written"
@@ -288,7 +308,7 @@ One `heinlein_temporal` analysis record per story, serialized only when the stag
   below), `status`, `failures`, `analysis_date`, `model_knowledge_cutoff`.
 - `composition`: `{earliest, latest, sources: [{kind, value, hard_bound, basis, confidence}],
   override, caveats}`.
-- `premises`: list of `{premise_id, claim, anchor: {offset, quote}, materiality,
+- `premises`: list of `{premise_id, kind, claim, anchor: {offset, quote}, materiality,
   novel_at_composition, dated_prediction, timeline: [...]}`, where `dated_prediction` is null or
   `{date: year or year-month, claim}` and `calendar_expired` is derived by Python from it (never
   asserted by the model) and appears in the assessment.
@@ -400,13 +420,14 @@ Recommended work items, in order, none created by this proposal:
 
 Each has a recommendation; none is decided here.
 
-1. **Backward differences and historical fiction for `different`.** A 1950 story set in 1800
-   differs from its author's here-and-now just as a story set in 2150 does. The rubric text
-   does not say whether a backward difference counts, and the existing prompt excludes only
-   "a different setting that changes nothing about the problem" (`run_worldcon_spike.py:2568-2569`).
-   Recommendation: do not decide in code; ask the owner, and in the first implementation treat
-   a period setting as novel only if the setting is essential to the plot, recording that as
-   the stage's reading.
+1. **Backward differences and historical fiction for `different`.** *Resolved by the owner.*
+   The time of the setting is not a difference in either direction; a premise is novel only if
+   it departs from the author's real world, including the author's real past. Historical fiction
+   faithful to the author's history is not different, while an alternate history, a time-travel
+   element, or any other novel condition is. Stipulated departures from history are modelled as
+   `counterfactual_divergence` premises (R1, R4). The remaining question is how the stage tells a
+   faithful period setting from a quiet departure; the first live run should include a
+   historical-fiction control and an alternate-history control to check it.
 2. **Coherence with a story's own premises.** A fantasy can be consistent with its own premises,
    so coherence does not test the relation to established facts. Recommendation: do not report
    it as a condition; if wanted, report it as a separate, labelled field after the first live
