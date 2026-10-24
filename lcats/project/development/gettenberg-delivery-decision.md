@@ -1,15 +1,19 @@
 # Gettenberg narrower delivery: human acceptance decision
 
-**Recommendation: conditional go for internal integration of PR #530 after the four
-acceptance decisions below are explicitly approved and final PR checks pass. Hold
-integration now.** No further production repair is recommended before that decision.
-This is a delivery contract decision, not a claim that the corpus is editorially clean.
+**Human accepted A–D on 2026-10-24, conditional on a durable post-adoption
+backlog.** The [backlog](gettenberg-post-adoption-backlog.md) records all four groups,
+per-input details, evidence and completion criteria; the condition is now documented.
+Recommendation: proceed to the internal-integration workflow after final-head checks.
+Integration and main promotion have not occurred as part of this acceptance record.
+This accepts bounded replacement delivery, not an editorially clean corpus.
 
 Reviewed product: `823f33c23836aff220fab80046ab84b80584c063`; target integration base:
 `ed20e9c297bf5e50e1911b84722e53f5db3edee3`. The bounded review changes experiment
 validation and documentation only. The [evidence bundle](../../../experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/README.md)
 contains the independent review, fresh wheel/CLI results and the per-input proposed
-acceptance ledger. All proposed acceptance flags remain false pending the human.
+acceptance ledger. Its historical proposed flags remain unchanged; the separate
+[acceptance record](gettenberg-adoption-acceptance.json) pins that ledger and records
+the human's subsequent disposition without rewriting measurement history.
 
 ## What is established
 
@@ -28,10 +32,23 @@ All 1,659 cleanup results and all 67 differing bodies independently reproduce. T
 67 contain no measured eligibility changes; 66 preserve the entire legacy body. The
 remaining case changes known frontmatter/tail text while retaining the narrative.
 The reviewer found no unresolved P0–P2 code or measurement-validity issues. Known
-body-contract choices below remain human decisions; this does not make them harmless
-or editorially accepted by default.
+body-contract choices below have now been explicitly accepted with follow-up; this
+does not make the outputs editorially clean or resolve the backlog.
 
-## Decisions requested
+## Human acceptance — 2026-10-24
+
+The human accepted A's exclusions with a requirement to document them durably;
+accepted B as a known limitation with a post-adoption backlog entry; accepted C
+provided it is added to the backlog; and accepted D as sufficient evidence for
+delivery provided its limits are also recorded there. No additional production
+change was requested. GPA-A through GPA-D in the linked backlog fulfill these
+conditions and remain open. Triage owner is xenotaur; implementation assignment
+and grants remain separate. Historical source/evidence identities are preserved.
+
+## Decisions presented for review — accepted with the backlog condition
+
+The recommendations below retain the detail presented to the human. Their acceptance
+is recorded above; hypothetical acceptance language is not a pending decision.
 
 ### A. Accept 13 explicit exclusions for this delivery
 
@@ -100,18 +117,19 @@ evidence. Do not silently import its broader gather redesign into this delivery.
 
 ## Qualification map for the reviewed candidate
 
-“Evidence supported” describes technical findings. It does not record the pending
-human decisions as accepted. The final documentation/evidence commit must preserve
-the reviewed runtime/test/config bytes and pass its PR checks before integration.
+“Evidence supported” describes technical findings. Human acceptance of A–D is
+recorded above; open follow-up is not evidence of implemented remediation. The final
+documentation/evidence commit must preserve the reviewed runtime/test/config bytes
+and pass its PR checks before integration.
 
 | Gate | Candidate evidence and present status |
 |---|---|
 | Q1 Provider independence | Feature matrix, migration inventory and full snapshot/index/lifecycle evidence transfer with verified source identities; fresh wheel has exactly 165 Python modules and two JSON files, no gutenbergpy/VCS requirement. Evidence supported with dated-environment limits. |
 | Q2 Consumer contract | Tests/docs cover metadata projection, resource/decode/cleanup provenance, ownership/naming, source-aware first use, cached/offline/non-Gutenberg behavior; narrow ready/skipped/refused result, historical gather_stories pair and incomplete CLI status 2. Fresh installed CLI and 41 documentation/live tests pass. Evidence supported. |
-| Q3 Causal comparison | All 1,659 inputs accounted; source, metadata, parser and normalization pinned; 67 old controls match historical bodies; current differing bodies independently reproduced. No unknown residual queue. Decisions B/C pending. |
-| Q4 Regression mitigation | Both demonstrated severe truncations repaired; narrow title/numeric context rules and adversarial tests; current all-input cleanup replay. No new code blocker found. Specific retained/changed content in B/C requires acceptance. |
-| Q5 Operational usability | Corrected normal cold/repeat batch: 1,646 published/reused, 13 refused, zero unattempted; fresh installed mixed CLI test confirms status/log semantics. Decisions A/D pending. |
-| Q6 Gaps/independent defects | Exact per-input residual identities and source-grounded descriptions; independent no-cleaner reproduction of 23552 parser defect; explicit decoded-wire/full-selection limits. Decisions C/D pending. |
+| Q3 Causal comparison | All 1,659 inputs accounted; source, metadata, parser and normalization pinned; 67 old controls match historical bodies; current differing bodies independently reproduced. No unknown residual queue. B/C accepted with GPA-B/GPA-C open. |
+| Q4 Regression mitigation | Both demonstrated severe truncations repaired; narrow title/numeric context rules and adversarial tests; current all-input cleanup replay. No new code blocker found. B/C accepted with explicit backlog limitations. |
+| Q5 Operational usability | Corrected normal cold/repeat batch: 1,646 published/reused, 13 refused, zero unattempted; fresh installed mixed CLI test confirms status/log semantics. A/D accepted with GPA-A/GPA-D open. |
+| Q6 Gaps/independent defects | Exact per-input residual identities and source-grounded descriptions; independent no-cleaner reproduction of 23552 parser defect; explicit decoded-wire/full-selection limits. C/D accepted with GPA-C/GPA-D open. |
 | Q7 Exact-candidate checks | Reviewed runtime equals the previously passing 2,956-test product; four hosted checks green at 823f33c2. New focused canonical 112, experiment 26, docs/live 41 (overlapping), wheel/CLI/pip checks and independent review pass. Final evidence commit validation/checks must also pass. |
 | Q8 Delivery/lifecycle | Pending by design: human-approved internal integration, separate human main promotion, truthful native closeout and downstream release verification. No delivery/promotion claimed. |
 
@@ -129,21 +147,20 @@ establish performance on every dependency version or a general speedup over gute
 |---|---|
 | 1 Remove active legacy dependency | Complete fresh wheel closure, installed origins, metadata/import guard tests; historical legacy experiments remain archival. |
 | 2 Feature/evidence matrix | Existing capability matrix plus source-verified full snapshot/index/accounting/lifecycle reports and current cleanup evidence (Q1/Q4). |
-| 3 First/cached/offline/unattended gather | Executed Diataxis examples, preparation/live-gather tests, current installed CLI and measured cold/repeat batch (Q2/Q5). Exclusions need A/D. |
+| 3 First/cached/offline/unattended gather | Executed Diataxis examples, preparation/live-gather tests, current installed CLI and measured cold/repeat batch (Q2/Q5). A/D accepted with open follow-up. |
 | 4 Unrelated sources avoid Gutenberg | Source-aware preparation and live-gather non-Gutenberg tests; unchanged implementation/source transfer. |
 | 5 Refresh preserves last valid catalog | Lifecycle/catalog-receipt/refresh tests and unchanged full local lifecycle evidence. No production cache touched. |
 | 6 Inspectable metadata/transformation provenance | Full raw/field round trips; immutable source/receipt/cleanup spans; per-input causal/yield identities and installed output provenance. |
 | 7 Caller migration/archive disposition | Migration inventory, preserved notebook identities and research/import guard tests; no newly introduced caller dependency. |
-| 8 Corpus/resource comparison reviewed | Complete causal ledger, normal batch yield, independently checked residuals and dated resource measurements; human A–D pending. |
+| 8 Corpus/resource comparison reviewed | Complete causal ledger, normal batch yield, independently checked residuals and dated resource measurements; human A–D accepted with open follow-up. |
 | 9 Required checks | Existing unchanged-product full canonical/format/lint evidence plus new targeted/experiment/installed review and final evidence-commit validation/CI (Q7). |
 | 10 Accurate docs/control plane | This sheet, runlog, evidence manifest and nonterminal execution/WI records; final main closeout remains pending. |
 
 ## Integration and delivery sequence
 
-1. Human accepts or amends A–D. Record the exact outcome in a new decision entry;
-   preserve these proposed and historical records rather than rewriting old evidence.
-   Rejection of a group means a bounded repair/exclusion decision for that group,
-   not an automatic broad gather overhaul.
+1. Completed: human accepted A–D subject to durable backlog capture. The acceptance
+   record and GPA-A through GPA-D fulfill that condition; historical evidence remains
+   unchanged. Reconsideration of a group requires its own scoped decision.
 2. Verify the final PR head, green checks, unchanged reviewed product tree and absence
    of new review blockers. Only then integrate #530 into `codex/gettenberg-acquisition`
    under the applicable authorized workflow. This run stops before that action.

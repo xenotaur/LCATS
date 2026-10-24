@@ -5,6 +5,15 @@ LCATS installation and `lcats gather` for smart first use. The CLI still asks
 before creating a missing catalog; `--yes` supplies unattended approval, and
 `--offline` forbids acquisition. See [gathering](gettenberg-gather.md).
 
+## Track accepted adoption limitations
+
+The [post-adoption backlog](../../project/development/gettenberg-post-adoption-backlog.md)
+records the 13 known cleanup exclusions, 55 retained-notice cases, 12 specific body
+changes and the measured qualification boundary accepted for replacement delivery.
+It lists affected IDs, evidence and follow-up criteria. These are known limitations,
+not claims that a corpus is editorially clean or that all configured inputs have
+been measured. Adoption acceptance does not authorize corpus regeneration.
+
 ## Replace implicit access with explicit sessions
 
 The old `gettenberg.api`, `cache`, `headers` and `metadata` modules are removed.

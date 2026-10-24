@@ -173,3 +173,15 @@ body effects and the measured scope/follow-up boundary. No decision is inferred 
 causal accounting or passing tests. Keep native records nonterminal and do not
 integrate until the decisions and final-head validation are recorded. Main promotion
 and release verification remain separate.
+
+
+### Human acceptance checkpoint — 2026-10-24
+
+The human accepted A–D subject to durable backlog capture. The
+[post-adoption register](../../development/gettenberg-post-adoption-backlog.md)
+and [acceptance record](../../development/gettenberg-adoption-acceptance.json)
+fulfill that condition: 13 exclusions, 55 notice additions, 12 specific body effects
+and measured scope/provenance limits are accepted for bounded replacement delivery,
+with follow-up still open. The prior checkpoint's pending-decision language is
+historical. Do not rewrite experimental acceptance flags or mark native work resolved;
+internal integration checks, separate main promotion and truthful closeout remain.

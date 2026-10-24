@@ -1,8 +1,10 @@
 # Gettenberg replacement qualification and delivery plan
 
 Current review: [2026-10-24 delivery decision sheet](gettenberg-delivery-decision.md)
-contains the candidate qualification map and four pending human acceptance decisions.
-Earlier dated measurements below remain historical; no integration is yet authorized.
+contains the qualification map and human acceptance of A–D with durable
+[post-adoption follow-up](gettenberg-post-adoption-backlog.md). Earlier dated
+measurements below remain historical. Internal integration and main delivery remain
+separate workflow steps; this record does not claim either has occurred.
 
 WI-GETTENBERG-0010; bounded run 2026-10-18. **In progress; not yet an acceptance
 or main-delivery claim.** Integration base ed20e9c297bf5e50e1911b84722e53f5db3edee3.

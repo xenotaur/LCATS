@@ -75,7 +75,9 @@ the refused sources. Metadata or extraction exclusions remain ordinary skips.
 
 A published body can still contain source notices, transcriber notes, captions or
 other frontmatter/endmatter. Conservative cleanup and successful publication do
-not certify editorially clean story text. Originals and transformation provenance
+not certify editorially clean story text. The [post-adoption backlog](../../project/development/gettenberg-post-adoption-backlog.md)
+lists the known refused inputs, retained-text cases and qualification limits.
+Originals and transformation provenance
 remain available for a separate corpus-curation step; see
 [derived-text boundaries](../explanation/gettenberg-architecture.md#derived-text-does-not-replace-its-evidence).
 

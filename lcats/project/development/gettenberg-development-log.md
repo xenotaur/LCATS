@@ -5717,3 +5717,33 @@ assignment with a final-packet completion, no additional implementation cycle.
 The final 11 documentation-example tests pass after the guide correction; their
 output is archived and included in the updated evidence manifest. All package code,
 tests and build/check configuration remain byte-identical to the reviewed product.
+
+
+### 2026-10-24 — Human accepts A–D with durable post-adoption tracking
+
+Human accepted A's 13 exclusions provided their details are retained outside a runlog;
+B's 55 additions as a known limitation; C's 12 specific body effects; and D's evidence
+boundary as sufficient for delivery, with B–D also added to a post-adoption backlog.
+Created gettenberg-post-adoption-backlog.md as the single detailed open register,
+indexed from project/design/backlog.md and linked from migration/gather guides,
+qualification, decision sheet and WI0010. It names all 13 refused IDs/titles/mechanisms,
+all 55 notice IDs and all 12 specific effects, plus coverage/provenance limitations.
+Each group has triage ownership, first action and completion evidence; positive
+narrative restorations are safeguards, not automatic rollback requests. Historical
+wire provenance cannot be invented; future acquisition coverage requires its own plan.
+
+Separate gettenberg-adoption-acceptance.json pins the historical proposed ledger and
+records the human's later acceptance. All historical experiment bytes/flags remain
+unchanged; acceptance is distinct from editorial approval and backlog completion.
+Updated current decision/gate summaries while retaining dated historical checkpoints.
+No product behavior, corpus, cache, release state or native terminal status changed.
+This documentation action records acceptance; no integration or main promotion occurs
+in it. Validate links/IDs/evidence identity and affected docs, then push to #530.
+
+
+Acceptance-record validation: canonical `scripts/test tests.gettenberg_tests.documentation_test` passes all 11 tests (0.909s); canonical
+format/lint pass; `lrh validate` reports 0 errors /351 existing warnings. Local links
+resolve. All 80 accepted input IDs match the hash-pinned historical proposed ledger,
+whose false flags and all experimental bytes remain unchanged. Product/test/package
+configuration is unchanged. This documentation commit updates #530's acceptance
+status and durable backlog; integration remains a separate action.
