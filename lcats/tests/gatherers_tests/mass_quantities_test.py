@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from unittest.mock import patch, MagicMock
 
+from lcats.gatherers import parser
 from lcats.gatherers.mass_quantities import gatherer
 from lcats.gatherers.mass_quantities import storymap
 from lcats.utils import capture
@@ -35,7 +36,9 @@ class TestGatherStories(unittest.TestCase):
         """A story with a filename is added to gathered_stories."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.return_value = (42, "/path/to/story.json", None)
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            42, "/path/to/story.json", None, "written"
+        )
 
         with capture.suppress_output():
             gathered, failed = gatherer.gather_stories(
@@ -55,7 +58,9 @@ class TestGatherStories(unittest.TestCase):
         """A story with an error is added to failed_stories."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.return_value = (99, None, "No data for this story")
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            99, None, "No data for this story", "skipped"
+        )
 
         with capture.suppress_output():
             gathered, failed = gatherer.gather_stories(
@@ -81,7 +86,7 @@ class TestGatherStories(unittest.TestCase):
 
         self.assertEqual(gathered, {})
         self.assertEqual(failed, {})
-        mock_parser.gather_story.assert_not_called()
+        mock_parser.gather_story_result.assert_not_called()
 
     @patch("lcats.gatherers.mass_quantities.gatherer.tqdm")
     @patch("lcats.gatherers.mass_quantities.gatherer.parser")
@@ -92,10 +97,10 @@ class TestGatherStories(unittest.TestCase):
         """Mix of successes and failures are partitioned correctly."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.side_effect = [
-            (1, "/path/1.json", None),
-            (2, None, "skipped"),
-            (3, "/path/3.json", None),
+        mock_parser.gather_story_result.side_effect = [
+            parser.StoryGatherResult(1, "/path/1.json", None, "written"),
+            parser.StoryGatherResult(2, None, "skipped", "skipped"),
+            parser.StoryGatherResult(3, "/path/3.json", None, "written"),
         ]
 
         with capture.suppress_output():
@@ -114,7 +119,9 @@ class TestGatherStories(unittest.TestCase):
     ):
         """DataGatherer is instantiated with TARGET_DIRECTORY."""
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.return_value = (1, "/path/1.json", None)
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            1, "/path/1.json", None, "written"
+        )
         mock_instance = MagicMock()
         mock_downloaders.DataGatherer.return_value = mock_instance
 
@@ -134,12 +141,14 @@ class TestGatherStories(unittest.TestCase):
         mock_tqdm.side_effect = lambda x: x
         mock_instance = MagicMock()
         mock_downloaders.DataGatherer.return_value = mock_instance
-        mock_parser.gather_story.return_value = (7, "/path/7.json", None)
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            7, "/path/7.json", None, "written"
+        )
 
         with capture.suppress_output():
             gatherer.gather_stories([7], log_dir=self.log_dir, source="test-source")
 
-        mock_parser.gather_story.assert_called_once_with(
+        mock_parser.gather_story_result.assert_called_once_with(
             mock_instance, 7, source="test-source"
         )
 
@@ -171,9 +180,9 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         in that order, at the expected log path."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.side_effect = [
-            (1, "/path/1.json", None),
-            (2, None, "skipped"),
+        mock_parser.gather_story_result.side_effect = [
+            parser.StoryGatherResult(1, "/path/1.json", None, "written"),
+            parser.StoryGatherResult(2, None, "skipped", "skipped"),
         ]
 
         with capture.suppress_output():
@@ -198,8 +207,8 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         one completed story's event, then run_aborted_unexpected."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.side_effect = [
-            (1, "/path/1.json", None),
+        mock_parser.gather_story_result.side_effect = [
+            parser.StoryGatherResult(1, "/path/1.json", None, "written"),
             RuntimeError("simulated crash"),
         ]
 
@@ -224,7 +233,9 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         """The log lands at <log_dir>/mass_quantities_gather_run_log.jsonl."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.return_value = (1, "/path/1.json", None)
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            1, "/path/1.json", None, "written"
+        )
 
         with capture.suppress_output():
             gatherer.gather_stories([1], log_dir=self.log_dir, source="test-source")
@@ -242,7 +253,9 @@ class TestGatherStoriesRunLogging(unittest.TestCase):
         (review finding, PR #426) -- story_count is logged as None."""
         del mock_downloaders
         mock_tqdm.side_effect = lambda x: x
-        mock_parser.gather_story.return_value = (1, "/path/1.json", None)
+        mock_parser.gather_story_result.return_value = parser.StoryGatherResult(
+            1, "/path/1.json", None, "written"
+        )
 
         def story_ids():
             yield 1

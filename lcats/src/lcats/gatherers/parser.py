@@ -6,6 +6,7 @@
 #    collapse?    fix_body, in_body, remove_non_text
 
 import os
+import dataclasses
 import difflib
 import re
 
@@ -1431,7 +1432,27 @@ def inspect_story(story, *, source):
     return _inspect_metadata(story, source.metadata(story), source)
 
 
+@dataclasses.dataclass(frozen=True)
+class StoryGatherResult:
+    """One extraction outcome; reused outputs have not been requalified.
+
+    disposition is written, reused or skipped. A published path is not evidence
+    of a new source download: writing may also use an already cached source.
+    """
+
+    story: int
+    path: str | None
+    rejection: str | None
+    disposition: str
+
+
 def gather_story(gatherer, story, *, source):
+    """Return the historical (ID, saved/existing path, rejection) tuple."""
+    result = gather_story_result(gatherer, story, source=source)
+    return result.story, result.path, result.rejection
+
+
+def gather_story_result(gatherer, story, *, source):
     """Extract and atomically publish a story using an explicit source.
 
     Args:
@@ -1440,14 +1461,15 @@ def gather_story(gatherer, story, *, source):
         source: GutenbergStorySource with a pinned catalog and explicit policy.
 
     Returns:
-        Tuple of ebook ID, saved/existing path or None, rejection or None.
+        StoryGatherResult distinguishing a new write, output reuse or exclusion.
         Source, decoding, cleanup and output errors propagate to the run boundary.
-        An existing valid output is reused before source acquisition.
+        An existing regular output is reused before source acquisition; its content
+        is not revalidated.
     """
     metadata = source.metadata(story)
     rejection = _metadata_rejection(metadata, story)
     if rejection is not None:
-        return story, None, rejection
+        return StoryGatherResult(story, None, rejection, "skipped")
     title = metadata.titles[0]
     author = list(metadata.authors)
     file_name = names.title_and_author_to_filename(
@@ -1458,10 +1480,10 @@ def gather_story(gatherer, story, *, source):
         pathlib.Path(gatherer.path) / story_slug / discovery.CANONICAL_STORY_FILENAME
     )
     if story_output.existing(existing):
-        return story, str(existing), None
+        return StoryGatherResult(story, str(existing), None, "reused")
     report = _inspect_metadata(story, metadata, source)
     if report["rejection"] is not None:
-        return story, None, report["rejection"]
+        return StoryGatherResult(story, None, report["rejection"], "skipped")
     data_to_save = {
         "name": title,
         "author": author,
@@ -1479,5 +1501,5 @@ def gather_story(gatherer, story, *, source):
         data_to_save, collection=storymap.TARGET_DIRECTORY, story_id=story_slug
     )
     _, file_path = gatherer.ensure(story_slug)
-    story_output.publish(file_path, data_to_save)
-    return story, file_path, None
+    written = story_output.publish(file_path, data_to_save)
+    return StoryGatherResult(story, file_path, None, "written" if written else "reused")

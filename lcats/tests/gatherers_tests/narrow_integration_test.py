@@ -53,7 +53,7 @@ class NarrowIntegrationTests(unittest.TestCase):
                 # RunLog code must retain the refusal instead of reporting success.
                 with (
                     mock.patch.object(
-                        gatherer.parser, "gather_story", side_effect=error
+                        gatherer.parser, "gather_story_result", side_effect=error
                     ),
                     capture.capture_output(),
                 ):

@@ -108,7 +108,7 @@ def main(argv=None):
                                 return_value=MissingClient(),
                             )
                         )
-                    for _ in range(2):
+                    for attempt in range(2):
                         stdout, stderr = io.StringIO(), io.StringIO()
                         with (
                             contextlib.redirect_stdout(stdout),
@@ -139,6 +139,21 @@ def main(argv=None):
                         require(
                             "Gathering incomplete" in stdout.getvalue(),
                             "missing incomplete summary",
+                        )
+                        require(
+                            (
+                                "2 newly written, 0 existing outputs reused"
+                                if attempt == 0
+                                else "0 newly written, 2 existing outputs reused"
+                            )
+                            in stdout.getvalue(),
+                            "publication/reuse counts disagree with cold/repeat run",
+                        )
+                        require(
+                            ("1" if args.http_404 else "0")
+                            + " download attempts returning HTTP 404"
+                            in stdout.getvalue(),
+                            "incorrect observed HTTP 404 count",
                         )
                         files = {
                             str(

@@ -83,19 +83,33 @@ prepare a catalog or fetch text. Default network policy is offline.
 for a supplied iterable. Its `ready` dictionary maps IDs to written/reused paths;
 `skipped` maps ordinary exclusions to reasons; `refused` maps cleanup refusals to
 reasons; `unavailable` maps HTTP 404 inputs to reasons. `incomplete` is true when
-`refused` or `unavailable` is nonempty. `summary` reports all four counts. No
-editorial acceptance is implied. Three-argument `BatchResult` construction still
-works; `unavailable` defaults to a new empty dictionary.
+`refused` or `unavailable` is nonempty. `reused` maps IDs to existing output paths;
+`written` returns the remaining ready paths newly published by this batch.
+Ready counts partition unique IDs: an ID written then repeated in the same batch
+remains written in the aggregate. `summary` distinguishes new writes from reuse
+and labels observed 404s as download attempts, not global unavailability.
+`http_404_attempts` counts actual failed attempts, including repeated input IDs;
+`unavailable` still maps unique IDs. If omitted in manual construction, the summary
+uses the unavailable-ID count for compatibility.
+No editorial acceptance or fresh acquisition is implied. Existing three/four-argument
+`BatchResult` construction still works; `unavailable` and `reused` default to new
+empty dictionaries (a caller supplying only ready paths classifies them as written).
 
 `gather_stories(ids, log_dir=..., *, source)` retains its historical two-dictionary
 return: ready paths and error reasons (ordinary skips, cleanup refusals and
 unavailable resources). All three entry points require an explicit source.
 Only `cleanup_refused` and terminal `http_status` errors with structured status
 404 continue; other operational exceptions propagate and the log records abortion.
-`story_ready` means newly published or reused, avoiding a false download claim.
+`story_ready` retains that event name and adds `disposition: written|reused`.
+Reuse does not revalidate contents, reacquire source bytes or rerun cleanup.
+`story_failed` adds `disposition: skipped`.
 
 `parser.gather_story(gatherer, id, *, source)` requires an explicit source and
 shares selection, body/chapter/length extraction and normalization/override rules.
+It retains its `(id, path, rejection)` tuple. `parser.gather_story_result` exposes
+those fields as `story`, `path`, `rejection` plus a `disposition` of `written`,
+`reused` or `skipped` for batch reporting. Atomic publication reports whether this
+call wrote the file or preserved a concurrent writer's output; a race is reuse.
 At that boundary CRLF and CR become LF; original bytes and decoder/cleanup evidence
 retain physical line endings. The first primary title supplies the filename using the existing naming helper. There is no legacy acquisition fallback.
 
@@ -143,7 +157,7 @@ another source. HTTP 404 transport failures are instead logged as
 distinct when redirects occur. No error response is published to the source cache,
 no story is emitted, and later inputs continue. This does not prove that an ebook
 is absent on other endpoints or permanently unavailable. HTTP 410 is not included.
-A `batch_summary` event retains ready/skipped/refused/unavailable counts and
+A `batch_summary` event retains ready/written/reused/skipped/refused/unavailable counts, `http_404_attempts`, and
 an `incomplete` flag. `run_end` means iteration finished; it does not mean every
 input was accepted. The CLI reports incomplete gathering with status 2 after
 remaining selected collections run. Other operational failures still abort.

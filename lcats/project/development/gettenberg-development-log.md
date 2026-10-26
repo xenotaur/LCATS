@@ -5907,3 +5907,37 @@ product repair; all workers complete. 72 local document links resolve; archived
 manifest and whitespace checks pass. Product remains 94d4331f. Commit and push
 the documentation/evidence to PR #534, update its description, then observe final
 head checks within the original grant. No further feature work or main merge.
+
+### 2026-10-26 22:30 UTC — Reporting clarity and isolated 1367 reproduction
+
+Human authorized distinguishing newly written outputs from reuse, reproducing
+Kenny's 1367 case in isolated output/cache directories, preserving existing data,
+and recording/pushing results in PR #534. This is a narrow follow-up to the 404
+repair, not main promotion or renewed editorial scope. One coordinator; no new
+worker assignments or persistent gate changes. Base f32e45fd. Earlier repair's
+four hosted checks passed on that head; those are historical after this change.
+
+The user's warm run completed 5,492 inputs with 1,661 ready and zero observed
+404s/refusals. Read-only inspection confirmed ebook 1367 was logged story_ready
+and its existing Findelkind output dated August 1. The parser reused that file
+before acquisition. This is expected resume behavior, not evidence that the
+mirror recovered or that legacy outputs passed current cleanup. No fresh full
+corpus run or changed acceptance boundary is authorized by this observation.
+
+Implement detailed per-story publication outcomes behind the preserved legacy
+three-value gather_story API. The atomic writer reports written versus preserved
+existing/concurrent output, so counts do not infer publication from filesystem
+timing. Batch logs retain event names and add dispositions plus written/reused
+counts. HTTP 404 attempt count is distinct from unique unavailable IDs. Report
+new writes separately from reuse and explicitly label observed HTTP failures.
+Selection, source choice, extraction, normalization, publication protection,
+refusal continuation and exit-status policy remain unchanged.
+
+Live runner reads the original catalog using Catalog's read-only connection,
+extracts exact 1367 RDF into a one-record temporary catalog, and invokes the real
+CLI with isolated output/source-cache/log roots. Only collection selection is
+substituted; a pass-through HTTP observer restricts the run to one selected URL.
+The first real GET at 22:35 UTC returned 404, CLI status 2, no story and no cached
+source/error body. Original Findelkind SHA-256 and catalog size/mtime are unchanged.
+Final evidence and validation follow below; no fallback recovery or availability
+claim about other Gutenberg endpoints follows from this reproduction.

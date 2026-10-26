@@ -22,10 +22,14 @@ def publish(path, data):
     this does not promise power-loss durability of directory entries. Temporary
     files are removed on serialization/publication failure. Existing files are
     intentionally preserved without claiming their JSON is valid.
+
+    Returns:
+        True when this call publishes; False when an existing or concurrently
+        published file is preserved. Errors still propagate.
     """
     path = pathlib.Path(path)
     if existing(path):
-        return
+        return False
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(
@@ -45,6 +49,8 @@ def publish(path, data):
         except FileExistsError:
             if not existing(path):
                 raise
+            return False
+        return True
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)

@@ -57,6 +57,17 @@ class BatchResult:
     skipped: dict[int, str]
     refused: dict[int, str]
     unavailable: dict[int, str] = dataclasses.field(default_factory=dict)
+    reused: dict[int, str] = dataclasses.field(default_factory=dict)
+    http_404_attempts: int | None = None
+
+    @property
+    def written(self):
+        """Ready outputs newly published by this batch, excluding reuse."""
+        return {
+            story: path
+            for story, path in self.ready.items()
+            if story not in self.reused
+        }
 
     @property
     def incomplete(self):
@@ -66,10 +77,16 @@ class BatchResult:
     @property
     def summary(self):
         """Return counts without implying publication or editorial acceptance."""
+        attempts = (
+            len(self.unavailable)
+            if self.http_404_attempts is None
+            else self.http_404_attempts
+        )
         return (
-            f"{len(self.ready)} ready (written or reused), "
+            f"{len(self.ready)} ready ({len(self.written)} newly written, "
+            f"{len(self.reused)} existing outputs reused), "
             f"{len(self.skipped)} skipped, {len(self.refused)} cleanup refused, "
-            f"{len(self.unavailable)} unavailable (HTTP 404)"
+            f"{attempts} download attempts returning HTTP 404"
         )
 
 
@@ -120,6 +137,9 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
     failed_stories = {}
     refused_stories = {}
     unavailable_stories = {}
+    reused_stories = {}
+    written_stories = set()
+    http_404_attempts = 0
     try:
         story_count = len(stories)
     except TypeError:
@@ -141,14 +161,14 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
             # for story in tqdm(range(1, 79061)):
             # print(story)
             try:
-                story, filename, error = parser.gather_story(
-                    gatherer, story, source=source
-                )
+                result = parser.gather_story_result(gatherer, story, source=source)
+                story, filename, error = result.story, result.path, result.rejection
             except resources.ResourceTransportError as exc:
                 if exc.code != "http_status" or exc.status != 404:
                     raise
                 # Only a confirmed missing representation is local to this input.
                 # Do not retry it, guess alternatives, or hide other failures.
+                http_404_attempts += 1
                 unavailable_stories[story] = str(exc)
                 log.event(
                     "story_source_unavailable",
@@ -170,21 +190,36 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
                 continue
             if filename:
                 gathered_stories[story] = filename
+                if result.disposition == "written":
+                    written_stories.add(story)
+                    reused_stories.pop(story, None)
+                elif story not in written_stories:
+                    # Counts partition unique ready IDs. Repeating an ID after
+                    # this batch wrote it must not erase that new publication.
+                    reused_stories[story] = filename
             if error:
                 failed_stories[story] = error
             event = "story_ready" if filename else "story_failed"
-            log.event(event, story=story)
+            log.event(event, story=story, disposition=result.disposition)
 
         log.event(
             "batch_summary",
             ready=len(gathered_stories),
+            written=len(gathered_stories) - len(reused_stories),
+            reused=len(reused_stories),
             skipped=len(failed_stories),
             refused=len(refused_stories),
             unavailable=len(unavailable_stories),
+            http_404_attempts=http_404_attempts,
             incomplete=bool(refused_stories or unavailable_stories),
         )
     return BatchResult(
-        gathered_stories, failed_stories, refused_stories, unavailable_stories
+        gathered_stories,
+        failed_stories,
+        refused_stories,
+        unavailable_stories,
+        reused_stories,
+        http_404_attempts,
     )
 
 

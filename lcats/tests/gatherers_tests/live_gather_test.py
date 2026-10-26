@@ -302,6 +302,33 @@ class LiveGatherTests(unittest.TestCase):
         self.assertEqual(output.read_bytes(), original)
         self.assertEqual(len(self.manager.status()["generations"]), 1)
 
+    def test_mixed_new_and_reused_outputs_report_publication_not_downloads(self):
+        books = self.seed_batch(ENVELOPE.encode())
+        # Publish one output first; the measured batch must distinguish reuse
+        # from the other two new outputs even though every source is cached.
+        with mock.patch.object(storymap, "SINGLE_STORIES", books[:1]):
+            self.assertEqual(self.run_gather()[1], 0)
+        with (
+            mock.patch.object(storymap, "SINGLE_STORIES", books + [books[1]]),
+            mock.patch.object(socket, "socket", side_effect=AssertionError("network")),
+        ):
+            message, code = self.run_gather()
+        self.assertEqual(code, 0)
+        self.assertIn("3 ready (2 newly written, 1 existing outputs reused)", message)
+        self.assertIn("0 download attempts returning HTTP 404", message)
+        rows = [
+            json.loads(line)
+            for line in (self.root / "logs/gather/mass_quantities_gather_run_log.jsonl")
+            .read_text()
+            .splitlines()
+        ]
+        self.assertEqual(rows[-2]["written"], 2)
+        self.assertEqual(rows[-2]["reused"], 1)
+        self.assertEqual(
+            [row["disposition"] for row in rows if row["event"] == "story_ready"][-4:],
+            ["reused", "written", "written", "reused"],
+        )
+
     def test_missing_offline_source_aborts_with_no_story_and_log(self):
         self.manager.setup(self.archive)
         with mock.patch.object(socket, "socket", side_effect=AssertionError("network")):
@@ -364,7 +391,8 @@ class LiveGatherTests(unittest.TestCase):
             self.assertEqual(code, 2)
             self.assertIn("Gathering incomplete", message)
             self.assertIn(
-                "2 ready (written or reused), 0 skipped, 1 cleanup refused", message
+                "2 ready (2 newly written, 0 existing outputs reused), 0 skipped, 1 cleanup refused",
+                message,
             )
             outputs = {p: p.read_bytes() for p in self.data.rglob("story.json")}
             self.assertEqual(len(outputs), 2)
@@ -375,7 +403,15 @@ class LiveGatherTests(unittest.TestCase):
                 },
                 {books[0], books[2]},
             )
-            self.assertEqual(self.run_gather(), (message, code))
+            repeat_message, repeat_code = self.run_gather()
+            self.assertEqual(repeat_code, code)
+            self.assertEqual(
+                repeat_message,
+                message.replace(
+                    "2 newly written, 0 existing outputs reused",
+                    "0 newly written, 2 existing outputs reused",
+                ),
+            )
             self.assertEqual({p: p.read_bytes() for p in outputs}, outputs)
         log = self.root / "logs/gather/mass_quantities_gather_run_log.jsonl"
         rows = [json.loads(line) for line in log.read_text().splitlines()]
@@ -427,6 +463,21 @@ class LiveGatherTests(unittest.TestCase):
         client.open.side_effect = open_response
         return books, client, requests
 
+    def test_repeated_missing_input_counts_attempts_separately_from_ids(self):
+        books, client, requests = self.http_batch(404)
+        with (
+            mock.patch.object(_resource_transport, "opener", return_value=client),
+            capture.capture_output(),
+        ):
+            result = gatherer.gather_batch(
+                [books[1], books[1]], source=self.source(online=True)
+            )
+        self.assertEqual(set(result.unavailable), {books[1]})
+        self.assertEqual(result.http_404_attempts, 2)
+        self.assertIn("2 download attempts returning HTTP 404", result.summary)
+        self.assertEqual(len(requests), 2)
+        self.assertFalse(list(self.data.rglob("story.json")))
+
     def test_404_continues_real_cli_and_repeat_reuses_successes_without_error_cache(
         self,
     ):
@@ -454,7 +505,15 @@ class LiveGatherTests(unittest.TestCase):
                 self.assertEqual(exit_status.exception.code, 2)
                 self.assertIn("Gathering incomplete", output.stdout.getvalue())
                 self.assertIn(
-                    "0 cleanup refused, 1 unavailable (HTTP 404)",
+                    (
+                        "2 newly written, 0 existing outputs reused"
+                        if attempt == 0
+                        else "0 newly written, 2 existing outputs reused"
+                    ),
+                    output.stdout.getvalue(),
+                )
+                self.assertIn(
+                    "0 cleanup refused, 1 download attempts returning HTTP 404",
                     output.stdout.getvalue(),
                 )
                 current = {p: p.read_bytes() for p in self.data.rglob("story.json")}
@@ -588,7 +647,7 @@ class LiveGatherTests(unittest.TestCase):
                 message, code = self.run_gather()
                 self.assertEqual(code, 0, message)
                 self.assertIn(
-                    f"0 ready (written or reused), {skipped} skipped, 0 cleanup refused",
+                    f"0 ready (0 newly written, 0 existing outputs reused), {skipped} skipped, 0 cleanup refused",
                     message,
                 )
 
@@ -781,10 +840,10 @@ class StoryPublicationTests(unittest.TestCase):
     def test_complete_json_and_existing_bytes_are_preserved(self):
         with tempfile.TemporaryDirectory() as root:
             path = pathlib.Path(root) / "story.json"
-            story_output.publish(path, {"body": "a full story"})
+            self.assertTrue(story_output.publish(path, {"body": "a full story"}))
             self.assertEqual(json.loads(path.read_text()), {"body": "a full story"})
             original = path.read_bytes()
-            story_output.publish(path, {"body": "replacement"})
+            self.assertFalse(story_output.publish(path, {"body": "replacement"}))
             self.assertEqual(path.read_bytes(), original)
             self.assertEqual(list(path.parent.glob(".story-*")), [])
 
@@ -805,7 +864,7 @@ class StoryPublicationTests(unittest.TestCase):
                 return link(source, destination)
 
             with mock.patch.object(os, "link", side_effect=concurrent_link):
-                story_output.publish(path, {"body": "loser"})
+                self.assertFalse(story_output.publish(path, {"body": "loser"}))
             self.assertEqual(path.read_bytes(), b"concurrent winner")
             self.assertEqual(list(path.parent.glob(".story-*")), [])
 

@@ -748,3 +748,26 @@ safety, ordered logs and unchanged output hashes. Real sockets are forbidden;
 POSIX alarm is 120 seconds. Output must be new and outside the installed package.
 The default runner scenario still verifies cleanup-refusal continuation. Neither
 scenario measures live availability or full-corpus yield.
+
+### Live ebook 1367 reproduction
+
+`reproduce_1367.py` reads one existing catalog record read-only and builds a tiny
+throwaway catalog. It invokes the real CLI with empty output/source-cache trees
+and permits at most one real request to the selected default-mirror URL. It
+fingerprints an existing story before/after without reusing or editing it. No
+full metadata download, shared-cache write, fallback probe or corpus regeneration.
+POSIX-only (120-second alarm); the evidence directory must be new. A completed
+experiment can record an unsuccessful gathering result; inspect its CLI status.
+
+From `lcats/` with the project environment and `PYTHONPATH=src`:
+
+```sh
+python ../experiments/10_gettenberg_qualification/scripts/reproduce_1367.py \
+  --catalog /absolute/path/to/catalog.sqlite \
+  --existing-story /absolute/path/to/findelkind__ouida/story.json \
+  --output /tmp/new-1367-evidence
+```
+
+The output retains exact RDF, JSONL events and a JSON report; temporary runtime
+state is removed. This is a time-specific observation, not an automated test of
+Gutenberg's uptime. See [the recorded result](results/gettenberg-reporting-20261026/README.md).

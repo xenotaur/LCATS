@@ -68,7 +68,19 @@ existing story extraction, normalization and overrides. It writes
 provenance. Existing regular output files are reused without replacement or a
 claim that their contents are valid. Explicit cleanup refusals and HTTP 404s from
 selected story resources leave that input unpublished and continue the batch.
-The final summary reports ready, skipped, cleanup-refused and unavailable counts;
+The final summary splits ready outputs into **newly written** and **existing
+outputs reused**, then reports skipped inputs, cleanup refusals and **download
+attempts returning HTTP 404**. These are observations from this run, not an
+availability census. Existing outputs bypass source acquisition and cleanup;
+zero observed 404s or refusals does not requalify them. New writes may use cached
+source bytes, so they are not a count of network downloads. For example:
+
+```text
+mass_quantities: 2 ready (1 newly written, 1 existing outputs reused), 0 skipped, 0 cleanup refused, 0 download attempts returning HTTP 404
+```
+
+The run log distinguishes each ready output with `disposition: written` or
+`disposition: reused` and includes `written`/`reused` batch counts. Cleanup
 refusals or unavailable sources make the run incomplete with exit 2. Inspect
 `story_cleanup_refused` for cleanup reasons, and `story_source_unavailable` for
 missing-resource IDs, status, catalog source URI, requested URL and final URL.
