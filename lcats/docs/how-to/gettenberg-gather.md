@@ -66,12 +66,18 @@ bytes, strictly decodes, removes recognized Gutenberg boilerplate, then applies
 existing story extraction, normalization and overrides. It writes
 `data/mass_quantities/<story-slug>/story.json`, retaining acquisition and derivation
 provenance. Existing regular output files are reused without replacement or a
-claim that their contents are valid. Source/decode/integrity failures abort with
-exit 2, except explicit cleanup refusals: these leave the affected input unpublished
-and continue the batch. The final CLI summary reports ready, skipped and refused
-counts and returns 2 if refusals remain. Inspect `story_cleanup_refused` log events
-for IDs and reasons; repeating the run reuses successful files but does not repair
-the refused sources. Metadata or extraction exclusions remain ordinary skips.
+claim that their contents are valid. Explicit cleanup refusals and HTTP 404s from
+selected story resources leave that input unpublished and continue the batch.
+The final summary reports ready, skipped, cleanup-refused and unavailable counts;
+refusals or unavailable sources make the run incomplete with exit 2. Inspect
+`story_cleanup_refused` for cleanup reasons, and `story_source_unavailable` for
+missing-resource IDs, status, catalog source URI, requested URL and final URL.
+A mirror 404 does not establish that the ebook is absent everywhere. No retry,
+mirror switch, alternate format or guessed URL is attempted for that item.
+Repeating the run reuses successful outputs and attempts the missing resource
+again if online; this is not an automatic repair. Other source/decode/integrity or
+filesystem failures still abort, including HTTP 410 and offline cache misses.
+Metadata or extraction exclusions remain ordinary skips.
 
 A published body can still contain source notices, transcriber notes, captions or
 other frontmatter/endmatter. Conservative cleanup and successful publication do

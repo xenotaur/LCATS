@@ -1,0 +1,45 @@
+{
+  "base_commit": "059f22ba1243d896f564d48611616887b4841b55",
+  "product_commit": "94d4331f1d1215b89599cb06ec197eb015e4bce3",
+  "reviewer": "http404_review",
+  "independent_agent_review": true,
+  "human_approval": false,
+  "findings": [],
+  "reviewed_sha256": {
+    "lcats/src/lcats/gettenberg/_resource_types.py": "ba307b39ad616efd4524e2556832e2592a1bfa64b698ba0e2cc2ffde7adf95f1",
+    "lcats/src/lcats/gettenberg/_resource_transport.py": "2fe6e9b8672046abd188522b39a093c8e904bd550d379a6b3abb0ce728fd392d",
+    "lcats/src/lcats/gatherers/mass_quantities/gatherer.py": "070fa4597bae7185c67cc9b6574cbca29012d3a5eef27123b01bf14f22517545",
+    "lcats/src/lcats/gatherers/main.py": "ffc98557ba4935ebc765a33a2ed45c90c97a8a4f1bf6e66b80671e378175cf7a",
+    "lcats/tests/gettenberg_tests/resources_test.py": "39d7995ca34962e9d3af513a7164020850ef2584805ac75a8d871773893ecbae",
+    "lcats/tests/gatherers_tests/live_gather_test.py": "eb0c7522c7512d2a46b5e50db57ac04f42d49773e78e4c0324d7a3356d19b30b",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_cli.py": "9bc7739da6ac0496758ea131c4fb097370e12898fe6915f35e0f3b2fa68a0cd9"
+  },
+  "checks": [
+    "Three new CLI/batch tests passed independently",
+    "In-memory probes confirmed redirected404 identity, no cached error/temporary artifact",
+    "Unstructured status message and mismatched error code remain fatal",
+    "Diff whitespace check passed",
+    "Updated contract docs inspected"
+  ],
+  "limitations": [
+    "Reviewer sandbox blocked loopback ResourceTests setup; coordinator ran authorized120-test suite separately",
+    "Reviewer did not independently run full suite or installed wheel, or verify archived evidence hashes"
+  ],
+  "assignments": 2,
+  "review_completed_by_utc": "2026-10-26T21:53:37Z",
+  "final_packet_recheck": {
+    "findings": [],
+    "checks": [
+      "Archived manifest hashes verified",
+      "All167 committed-source and complete wheel/physical-installed hashes verified",
+      "All loaded module origins and runner/helper/review hashes verified",
+      "Archived2977-test and120-test logs and pip check inspected",
+      "CLI outcomes and exact request order verified",
+      "Documentation and PR scope/limitations checked"
+    ],
+    "limitations": [
+      "Reports inspected; no independent full-suite, installed-runner, historical-cohort or live-acquisition execution",
+      "Final hosted checks remain outside this review"
+    ]
+  }
+}

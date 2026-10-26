@@ -228,6 +228,16 @@ local lifecycle remains an explicit offline operation with local-only provenance
 All public errors below derive from `resources.ResourceError`, itself a
 `gettenberg.errors.GettenbergError`. Each carries a machine-readable `code`.
 
+`ResourceTransportError` retains its existing two-argument `(code, message)`
+construction. Terminal non-success HTTP responses use code `http_status` and
+also provide `status` (integer), `source_uri` (catalog identity), `request_url`
+(original request) and `final_url` (failed endpoint after permitted redirects).
+These fields default to `None` for other transport failures. Consumers should
+inspect `code` and `status`, not parse the human-readable message. The resource
+store still raises on 404, does not cache the error body, and does not try another
+route. The mass-quantities batch layer alone converts a confirmed resource 404
+into an unavailable-item outcome; catalog setup and direct source calls still fail.
+
 | Error | Meaning / response |
 |---|---|
 | `ResourceInputError` | Invalid request/policy; fix caller input. |

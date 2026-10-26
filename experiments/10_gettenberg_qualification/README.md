@@ -735,3 +735,16 @@ It distinguishes actual fail-fast batch publication from isolated one-item yield
 records source provenance limits, and presents finite contract decisions for PR #530.
 Use the documented runners and explicit experiment tests there; this evidence does
 not approve editorial content, main promotion or canonical corpus publication.
+
+### HTTP 404 continuation qualification
+
+Run `scripts/qualify_narrow_cli.py NEW_OUTPUT_JSON --http-404` with the freshly
+installed qualification wheel's Python, from outside the checkout and with
+PYTHONPATH unset. It uses the sibling installed helper; no test modules or
+Gutenberg network are required. A fresh disposable catalog/resource cache and
+synthetic HTTP boundary exercise actual CLI success/404/success followed by
+reuse/404/reuse, checking status 2, exact request order, missing-source cache
+safety, ordered logs and unchanged output hashes. Real sockets are forbidden;
+POSIX alarm is 120 seconds. Output must be new and outside the installed package.
+The default runner scenario still verifies cleanup-refusal continuation. Neither
+scenario measures live availability or full-corpus yield.

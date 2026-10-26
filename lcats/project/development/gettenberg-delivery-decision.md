@@ -3,19 +3,37 @@
 **Human accepted A–D on 2026-10-24, conditional on a durable post-adoption
 backlog.** The [backlog](gettenberg-post-adoption-backlog.md) records all four groups,
 per-input details, evidence and completion criteria; the condition is now documented.
-Recommendation: proceed to the internal-integration workflow after final-head checks.
+Internal integration is complete; the promotion remains pending human review and
+current-head checks.
 PR #530 was subsequently integrated at `df055256`; the
 [main-promotion review guide](gettenberg-main-promotion.md) records the next gate.
 Main promotion has not occurred.
 This accepts bounded replacement delivery, not an editorially clean corpus.
 
 Reviewed product: `823f33c23836aff220fab80046ab84b80584c063`; target integration base:
-`ed20e9c297bf5e50e1911b84722e53f5db3edee3`. The bounded review changes experiment
-validation and documentation only. The [evidence bundle](../../../experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/README.md)
+`ed20e9c297bf5e50e1911b84722e53f5db3edee3`. The October 24 bounded review changed experiment
+validation and documentation only; the October 26 correction below changes the
+acquisition-error seam and its tests. The [evidence bundle](../../../experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/README.md)
 contains the independent review, fresh wheel/CLI results and the per-input proposed
 acceptance ledger. Its historical proposed flags remain unchanged; the separate
 [acceptance record](gettenberg-adoption-acceptance.json) pins that ledger and records
 the human's subsequent disposition without rewriting measurement history.
+
+## Review correction — HTTP 404 continuation (2026-10-26)
+
+Kenny's cold acquisition of ebook 1367 exposed a missing representation on the
+configured mirror and collection-wide abortion. The human approved a narrow
+replacement-integration correction: structured HTTP status/endpoint diagnostics,
+per-item 404 continuation, distinct unavailable counts and incomplete CLI status 2.
+No retry, mirror failover, alternative representation, 410 continuation or
+editorial behavior is added. This does not recover ebook 1367.
+
+The earlier 1,659-input yield evidence used cached historical decoded sources;
+it establishes neither live mirror coverage nor cold acquisition yield. Historical
+A–D acceptance and evidence remain unchanged. The new authored HTTP/batch/installed
+CLI checks qualify the changed failure path separately; see the
+[404 repair evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-http404-20261026/README.md).
+Main review and promotion remain human-gated.
 
 ## What is established
 

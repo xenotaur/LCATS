@@ -6,6 +6,22 @@ The human authorized landing PR #530 internally and preparing this promotion.
 That instruction does not authorize merging the promotion or publishing a package
 or corpus. A–D acceptance is already recorded and need not be requested again.
 
+## Review correction — HTTP 404 continuation (2026-10-26)
+
+Kenny's cold acquisition of ebook 1367 exposed a missing representation on the
+configured mirror and collection-wide abortion. The human approved a narrow
+replacement-integration correction: structured HTTP status/endpoint diagnostics,
+per-item 404 continuation, distinct unavailable counts and incomplete CLI status 2.
+No retry, mirror failover, alternative representation, 410 continuation or
+editorial behavior is added. This does not recover ebook 1367.
+
+The earlier 1,659-input yield evidence used cached historical decoded sources;
+it establishes neither live mirror coverage nor cold acquisition yield. Historical
+A–D acceptance and evidence remain unchanged. The new authored HTTP/batch/installed
+CLI checks qualify the changed failure path separately; see the
+[404 repair evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-http404-20261026/README.md).
+Main review and promotion remain human-gated.
+
 ## Candidate and provenance
 
 - Internal [PR #530](https://github.com/xenotaur/LCATS/pull/530) merged into
@@ -13,15 +29,19 @@ or corpus. A–D acceptance is already recorded and need not be requested again.
   Its entire merged tree exactly matches approved head `c6fd5e49410feb02f58e0e5f2a1d60b7d04dcb52`.
   All four checks passed and there were no unresolved review threads at landing.
 - Promotion branch: `codex/gettenberg-promotion`, based on that integration merge.
-  Current main `22a739d25c5a72359c1f8e37f54f9059876e6798` was merged cleanly at
+  Recorded main base `22a739d25c5a72359c1f8e37f54f9059876e6798` was merged cleanly at
   `0dbe9606b446be5ce34e52350947fd4911e3c89a` before promotion qualification.
-- Every one of 1,763 main-only changed/deleted tree paths is preserved exactly.
+- At that merge every one of 1,763 main-only changed/deleted tree paths was
+  preserved exactly. The later test-output fix adds capture to two inherited
+  genre-tool test files without changing their production code or assertions.
   The two documents changed on both sides merged cleanly: release preparation
   instructions and the shared backlog. Both contributions were inspected and retained.
-- Compared with the internally approved product, only two product files differ:
-  `llm/backend.py` and `llm/openai_backend.py`, both byte-identical to current main.
-  All gettenberg/gatherer code, package configuration and CI configuration are
-  unchanged from the qualified integration. No handwritten product repair was needed.
+- At the original promotion qualification, only two product files differed from
+  the internally approved product:
+  `llm/backend.py` and `llm/openai_backend.py`, both byte-identical to that main base.
+  At that checkpoint all gettenberg/gatherer code, package and CI configuration
+  matched the qualified integration. The 404 correction above subsequently changes
+  four acquisition/batch modules; its evidence supplements the original packet.
 - Preserved broader editorial/extraction work remains on
   `codex/gettenberg-qualification` / [PR #524](https://github.com/xenotaur/LCATS/pull/524).
   This promotion does not merge that branch or install its separated review runtime.
@@ -36,7 +56,8 @@ conservative boilerplate cleanup and inspectable transformation provenance.
 `lcats gather` remains a smart, source-aware command: prepare a missing Gutenberg
 catalog when needed and approved; reuse ready catalogs and cached originals; support
 offline/unattended policies; avoid Gutenberg setup for unrelated selected sources.
-Narrow cleanup refusals are logged per input, leave that input unpublished and allow
+Narrow cleanup refusals and selected-resource HTTP 404s are logged separately per
+input, leave that input unpublished and allow
 subsequent inputs to proceed; an incomplete run reports status 2. Other operational
 failures remain distinct. Existing story outputs are reused without overwriting them.
 
@@ -60,7 +81,7 @@ introduced. No canonical `corpora/` paths change relative to the main review bas
    [gather integration](../../src/lcats/gatherers/),
    [provider tests](../../tests/gettenberg_tests/), and
    [gather tests](../../tests/gatherers_tests/). Relative to the reviewed main base,
-   49 product paths and 28 test paths change (including retired legacy adapters/tests).
+   49 product paths and 30 test paths change (including retired legacy adapters/tests).
    Foundation WIs0001–0004 are already delivered on main; this PR completes the remainder.
 4. [Caller disposition ledger](gettenberg-migration.md), package/environment dependency
    changes, and [CI maintenance guide](../../docs/how-to/gettenberg-ci-maintenance.md).
@@ -81,7 +102,7 @@ current acceptance map first, then follow evidence links for individual claims.
 
 ## Qualification and limits
 
-The main-synchronized tree passes 2,972 canonical tests, format/lint and LRH validation
+The original main-synchronized tree passed 2,972 canonical tests, format/lint and LRH validation
 (0 errors, 354 warnings from the combined control plane). The previously reviewed
 candidate passed 2,956 tests; additional tests arrive unchanged from main. Promotion
 wheel and installed smoke evidence is recorded in the linked verification bundle;
@@ -91,8 +112,13 @@ The installed wheel is built in empty staging from committed source, preventing 
 separated modules from leaking into packaging. Qualification uses an explicit temporary
 version label, not a release-version claim. Near-publication metadata/version checks
 remain a release task. The provider source identity match permits carrying its prior
-full-snapshot, cleanup, 67-body and actual batch-yield evidence; the newly incorporated
-main LLM changes are covered by fresh canonical and installed-package checks.
+full-snapshot, cleanup, 67-body and actual batch-yield evidence at that checkpoint;
+the incorporated main LLM changes received fresh canonical and installed checks.
+The subsequent 404 repair passes 2,977 canonical tests, explicit runner checks,
+LRH validation and both installed CLI continuation scenarios. Its clean wheel and
+installed package match all 165 Python/two JSON files at product94d4331f. The prior
+metadata/cleanup/extraction algorithms and historical evidence are unchanged; new
+HTTP and batch evidence qualifies the changed acquisition-error seam separately.
 
 Measured normal-batch yield remains 1,646 published/reused, 13 refused and zero
 unattempted in the frozen 1,659-input cohort. This does not establish yield for all

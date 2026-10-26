@@ -5841,3 +5841,69 @@ The human subsequently authorized committing and pushing this test-only correcti
 and its runlog entry to PR #534. Publication uses the existing promotion branch;
 main promotion and the separate HTTP 404 repair remain pending. The tested source
 is unchanged; hosted checks must be observed against the resulting commit.
+
+
+### 2026-10-26 21:46 UTC — Narrow HTTP 404 continuation grant
+
+Human approved the proposed 45–60 minute target /90-minute maximum repair and
+update to PR #534. Start 21:46:21 UTC; target 22:46:21, hard stop 23:16:21 UTC.
+Base 059f22ba1243d896f564d48611616887b4841b55 on codex/gettenberg-promotion; no
+main integration, alternate route, 410 continuation, content-policy or corpus change.
+One coordinator and one independent reviewer planned (20-minute review plus one
+10-minute same-scope recheck maximum); no recursive delegation. Reserve final
+15 minutes for checkpoint; no automatic renewal. Usage telemetry unavailable.
+
+Approved acceptance: success/404/success must publish both successful inputs,
+record the missing resource independently of cleanup refusal, finish incomplete
+with status 2, reuse outputs on repetition and never cache the error page. Other
+transport/policy/integrity/filesystem failures remain fatal. Preserve existing
+error code and gather_stories pair; add structured HTTP fields and unavailable
+batch outcomes. Source implementation, deterministic HTTP/batch/CLI tests,
+installed CLI smoke, current docs and evidence are in scope.
+
+Prior art: extend ResourceTransportError and the existing cleanup continuation
+loop; no parallel downloader or external dependency. Demand is Kenny's reproduced
+1367 mirror 404 and the approved replacement-integration repair under WI0010.
+Native WI readiness passes; prompt idempotence is clear. Installed gates are not
+stale, persistent skip consent remains invalid and unchanged. Apply compatible
+lrh-implement procedures under the approved coordinator adapter to this existing
+PR branch; no fresh-main branch, repeated human plan gate or terminal closeout.
+
+### 2026-10-26 21:58 UTC — 404 repair qualification checkpoint
+
+Product94d4331f implements only structured terminal HTTP identity and per-item
+404 continuation. 120 focused tests and all2,977 canonical tests pass in100.173s
+with clean output. Canonical format/lint, explicit runner checks and LRH validation
+pass (0 errors/354 existing warnings). One independent read-only reviewer found
+no substantive issues; three CLI/batch tests and extra in-memory probes passed.
+Its loopback tests were sandbox-denied at setup; coordinator's authorized suite
+is separate evidence. Review completed by21:53:37, under20-minute allowance.
+
+A clean wheel from committed source was force-reinstalled into the prior isolated
+qualification venv without dependency changes. All165 Python/two JSON files match
+committed source in both wheel and physical installation. Smoke plus actual CLI
+cleanup-refusal and fresh-cache404 scenarios pass; all70/98/98 loaded hashes match.
+The404 run writes two stories and records one unavailable input; repeat reuses
+both bytes and requests only the missing source. Both exit2, with full ordered
+logs and no cached error or temporary artifact. No live Gutenberg requests or
+canonical corpus regeneration. Version label is qualification-only.
+
+Evidence: experiments/10_gettenberg_qualification/results/gettenberg-http404-20261026/.
+Earlier historical cohort/A–D evidence is unchanged and does not establish live
+resource availability. The1367 alternative-route question remains separate.
+Process lesson: per-item acquisition availability must be exercised explicitly
+through the normal batch; cached-source replay cannot cover that contract.
+Next: final evidence/link checks, push authorized correction and description to
+PR534, and observe exact-head checks. Main promotion remains human-gated.
+
+### 2026-10-26 22:02 UTC — Final packet clear; publication authorized
+
+The same independent reviewer completed a bounded final-packet recheck with no
+substantive findings. It verified archived hashes, all 167 source/wheel/physical
+installed files, loaded module identities, runner hashes, logs and report claims.
+No independent full-suite/installed execution is implied. Two assignments total
+(initial review and final packet recheck), one worker at a time, no recursion or
+product repair; all workers complete. 72 local document links resolve; archived
+manifest and whitespace checks pass. Product remains 94d4331f. Commit and push
+the documentation/evidence to PR #534, update its description, then observe final
+head checks within the original grant. No further feature work or main merge.

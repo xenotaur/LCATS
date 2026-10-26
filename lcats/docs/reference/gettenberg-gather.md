@@ -6,7 +6,8 @@
 catalog_archive=None, catalog_url=None, main_root=None, generated_root=None,
 allow_origins=(), cache_dir=None)` returns `(message, exit_code)`. Success is 0;
 input, catalog, resource and filesystem failures are 2. Completed batches with
-unresolved cleanup refusals also return 2, with an explicit incomplete summary.
+unresolved cleanup refusals or unavailable story resources (HTTP 404) also return
+2, with an explicit incomplete summary.
 Earlier completed outputs
 are retained. Metadata/extraction skips do not make the whole run fail. Collection
 selection and metadata configuration are checked before setup or execution.
@@ -23,6 +24,8 @@ The CLI spells roots `--gutenberg-main-root` and `--gutenberg-generated-root`.
 | Existing output | Reuse regular file before source acquisition; no validation/replacement |
 | Damaged original or failed strict decode | Abort; retain cached originals |
 | Ambiguous boilerplate (`cleanup_refused`) | Record refusal; continue other inputs and collections; final CLI status 2 |
+| Selected story resource returns HTTP 404 | Record unavailable item; continue other inputs and collections; final CLI status 2; no retry/fallback |
+| Other acquisition failures, including HTTP 410 or offline misses | Abort; retain previous outputs; final CLI status 2 |
 
 A dry-run can successfully report blocked preparation; it is not a prediction of
 successful execution. Selected default or explicit resource/archive URLs permit their own origins;
@@ -79,12 +82,16 @@ prepare a catalog or fetch text. Default network policy is offline.
 `BatchResult`. `gather_batch(ids, log_dir=..., *, source)` returns the same report
 for a supplied iterable. Its `ready` dictionary maps IDs to written/reused paths;
 `skipped` maps ordinary exclusions to reasons; `refused` maps cleanup refusals to
-reasons. `summary` reports these counts. No editorial acceptance is implied.
+reasons; `unavailable` maps HTTP 404 inputs to reasons. `incomplete` is true when
+`refused` or `unavailable` is nonempty. `summary` reports all four counts. No
+editorial acceptance is implied. Three-argument `BatchResult` construction still
+works; `unavailable` defaults to a new empty dictionary.
 
 `gather_stories(ids, log_dir=..., *, source)` retains its historical two-dictionary
-return: ready paths and error reasons (ordinary skips plus cleanup refusals).
-All three entry points require an explicit source. Only `cleanup_refused`
-continues; other operational exceptions propagate and the log records abortion.
+return: ready paths and error reasons (ordinary skips, cleanup refusals and
+unavailable resources). All three entry points require an explicit source.
+Only `cleanup_refused` and terminal `http_status` errors with structured status
+404 continue; other operational exceptions propagate and the log records abortion.
 `story_ready` means newly published or reused, avoiding a false download claim.
 
 `parser.gather_story(gatherer, id, *, source)` requires an explicit source and
@@ -130,7 +137,13 @@ rules precede the unchanged migration-baseline body extractor. An ambiguous
 envelope raises `ResourceDecodeError` with code `cleanup_refused`. Mass gathering
 logs `story_cleanup_refused` with the ebook ID and reason, leaves that input
 unpublished, and continues. It does not retry, weaken cleanup, or fall back to
-another source. A `batch_summary` event retains ready/skipped/refused counts and
+another source. HTTP 404 transport failures are instead logged as
+`story_source_unavailable`, with `story`, `reason`, `http_status`, `source_uri`,
+`request_url` and `final_url`. The original request and final failed endpoint are
+distinct when redirects occur. No error response is published to the source cache,
+no story is emitted, and later inputs continue. This does not prove that an ebook
+is absent on other endpoints or permanently unavailable. HTTP 410 is not included.
+A `batch_summary` event retains ready/skipped/refused/unavailable counts and
 an `incomplete` flag. `run_end` means iteration finished; it does not mean every
 input was accepted. The CLI reports incomplete gathering with status 2 after
 remaining selected collections run. Other operational failures still abort.
