@@ -49,19 +49,27 @@ class BatchResult:
 
     Skips are ordinary metadata/body exclusions. Refusals mean cleanup could not
     safely delimit a source; they remain unresolved and make the run incomplete.
-    Operational exceptions are not converted into either category.
+    Unavailable means the selected resource returned HTTP 404. Other operational
+    exceptions propagate; missing resources are not ordinary eligibility skips.
     """
 
     ready: dict[int, str]
     skipped: dict[int, str]
     refused: dict[int, str]
+    unavailable: dict[int, str] = dataclasses.field(default_factory=dict)
+
+    @property
+    def incomplete(self):
+        """Whether unresolved content refusals or missing resources remain."""
+        return bool(self.refused or self.unavailable)
 
     @property
     def summary(self):
         """Return counts without implying publication or editorial acceptance."""
         return (
             f"{len(self.ready)} ready (written or reused), "
-            f"{len(self.skipped)} skipped, {len(self.refused)} cleanup refused"
+            f"{len(self.skipped)} skipped, {len(self.refused)} cleanup refused, "
+            f"{len(self.unavailable)} unavailable (HTTP 404)"
         )
 
 
@@ -73,19 +81,19 @@ def gather(*, source):
 def gather_stories(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
     """Return the historical (ready paths, error reasons) pair.
 
-    Cleanup refusals continue and appear among errors. Use gather_batch() when
-    ordinary skips and unresolved cleanup refusals must be distinguished.
+    Cleanup refusals and resource 404s continue and appear among errors. Use
+    gather_batch() to distinguish skips, cleanup refusals and unavailable sources.
     Operational exceptions still propagate after preserving earlier outputs/logs.
     """
     result = gather_batch(stories, log_dir=log_dir, source=source)
-    return result.ready, {**result.skipped, **result.refused}
+    return result.ready, {**result.skipped, **result.refused, **result.unavailable}
 
 
 def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
-    """Gather independently safe stories and record per-input cleanup refusals.
+    """Gather independently safe stories, recording refusals and resource 404s.
 
-    Each completed input gets a run-log event. A cleanup_refused source is not
-    published, but later inputs are attempted. Other source, decoding, integrity
+    Each completed input gets a run-log event. A cleanup_refused or HTTP 404 source
+    is not published, but later inputs are attempted. Other source, decoding, integrity
     or filesystem failures propagate, preserving earlier files and an abort log.
     A run_end event means iteration finished, not that every input was accepted;
     the preceding batch_summary counts and returned result retain skips and
@@ -97,7 +105,7 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
         source: Explicit catalog-backed source; caller owns its catalog lifetime.
 
     Returns:
-        BatchResult with ready paths, ordinary skip reasons and cleanup refusals.
+        BatchResult with ready paths, skips, cleanup refusals and unavailable inputs.
     """
     if source is None:
         raise ValueError("an explicit GutenbergStorySource is required")
@@ -111,6 +119,7 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
     gathered_stories = {}
     failed_stories = {}
     refused_stories = {}
+    unavailable_stories = {}
     try:
         story_count = len(stories)
     except TypeError:
@@ -135,6 +144,22 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
                 story, filename, error = parser.gather_story(
                     gatherer, story, source=source
                 )
+            except resources.ResourceTransportError as exc:
+                if exc.code != "http_status" or exc.status != 404:
+                    raise
+                # Only a confirmed missing representation is local to this input.
+                # Do not retry it, guess alternatives, or hide other failures.
+                unavailable_stories[story] = str(exc)
+                log.event(
+                    "story_source_unavailable",
+                    story=story,
+                    reason=str(exc),
+                    http_status=exc.status,
+                    source_uri=exc.source_uri,
+                    request_url=exc.request_url,
+                    final_url=exc.final_url,
+                )
+                continue
             except resources.ResourceDecodeError as exc:
                 if exc.code != "cleanup_refused":
                     raise
@@ -155,9 +180,12 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
             ready=len(gathered_stories),
             skipped=len(failed_stories),
             refused=len(refused_stories),
-            incomplete=bool(refused_stories),
+            unavailable=len(unavailable_stories),
+            incomplete=bool(refused_stories or unavailable_stories),
         )
-    return BatchResult(gathered_stories, failed_stories, refused_stories)
+    return BatchResult(
+        gathered_stories, failed_stories, refused_stories, unavailable_stories
+    )
 
 
 def main(*, source):

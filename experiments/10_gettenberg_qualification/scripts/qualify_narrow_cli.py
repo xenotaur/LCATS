@@ -2,11 +2,15 @@
 
 From outside the checkout, with PYTHONPATH unset and a fresh wheel venv:
 python /path/to/qualify_narrow_cli.py /tmp/NEW-cli-report.json
+python /path/to/qualify_narrow_cli.py /tmp/NEW-404-report.json --http-404
 
 Requires sibling qualify_narrow_installed.py, which verifies installed origins,
 forbids legacy/review imports and sockets, and seeds disposable fixture receipts.
 This runner invokes the real CLI for success/refusal/success twice. Only collection
-selection and fixture HTTP responses are substituted. No canonical outputs or
+selection and fixture HTTP responses are substituted. With --http-404, the CLI
+uses a fresh resource cache and actual acquisition against an in-memory client:
+success/404/success, then reuse/404/reuse. No retries/fallback or error-page cache
+are allowed. Real sockets remain forbidden in both scenarios. No canonical outputs or
 existing caches are touched. POSIX alarm bounds work to 120 seconds; failures
 produce no completed report. Output must be fresh and outside the installed package.
 """
@@ -28,6 +32,11 @@ def main(argv=None):
     """Check real CLI exit/output semantics and preserve a JSON evidence record."""
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("output", type=lambda value: pathlib.Path(value).resolve())
+    ap.add_argument(
+        "--http-404",
+        action="store_true",
+        help="Exercise uncached missing-resource continuation",
+    )
     args = ap.parse_args(argv)
     require = qualify_narrow_installed.require
     require(not args.output.exists(), "output exists")
@@ -44,12 +53,45 @@ def main(argv=None):
                 qualify_narrow_installed.exercise(root)
                 from lcats import cli
                 from lcats.gatherers.mass_quantities import gatherer, storymap
+                from lcats.gettenberg import _resource_transport, lifecycle, resources
 
                 books = qualify_narrow_installed.BOOKS
                 order = [books[0], books[2], books[1]]
                 output_root = root / "cli-data"
-                runs = []
+                runs, requests = [], []
+                cache_root = root / ("http-cache" if args.http_404 else "cache")
+                if args.http_404:
+                    # Fresh cache: the earlier smoke cannot hide a live acquisition
+                    # failure behind its successful source receipts.
+                    lifecycle.CatalogManager(cache_root).setup(root / "fixture.tar.bz2")
+                urls = {
+                    f"{qualify_narrow_installed.ORIGIN}/generated/{book}/pg{book}.txt": book
+                    for book in books
+                }
+
+                class MissingClient:
+                    """Serve exact synthetic routes; only the middle input is absent."""
+
+                    def open(self, request, timeout=None):
+                        url = request.full_url
+                        require(url in urls, "speculative request route")
+                        requests.append(url)
+                        book = urls[url]
+                        narrative = "\n\n".join(
+                            f"Paragraph {i}: the travelers waited beside the river and watched the boats."
+                            for i in range(15)
+                        )
+                        body = qualify_narrow_installed.source_bytes(book, narrative)
+                        response = qualify_narrow_installed.MemoryResponse(
+                            b"<html>Missing resource</html>"
+                            if book == books[2]
+                            else body
+                        )
+                        response.status = 404 if book == books[2] else 200
+                        return response
+
                 with (
+                    contextlib.ExitStack() as transport,
                     contextlib.chdir(root),
                     mock.patch.dict(
                         os.environ,
@@ -58,19 +100,28 @@ def main(argv=None):
                     ),
                     mock.patch.object(storymap, "SINGLE_STORIES", order),
                 ):
+                    if args.http_404:
+                        transport.enter_context(
+                            mock.patch.object(
+                                _resource_transport,
+                                "opener",
+                                return_value=MissingClient(),
+                            )
+                        )
                     for _ in range(2):
                         stdout, stderr = io.StringIO(), io.StringIO()
-                        with contextlib.redirect_stdout(
-                            stdout
-                        ), contextlib.redirect_stderr(stderr):
+                        with (
+                            contextlib.redirect_stdout(stdout),
+                            contextlib.redirect_stderr(stderr),
+                        ):
                             try:
                                 cli.main(
                                     [
                                         "gather",
                                         "mass_quantities",
-                                        "--offline",
+                                        *([] if args.http_404 else ["--offline"]),
                                         "--cache-dir",
-                                        str(root / "cache"),
+                                        str(cache_root),
                                         "--gutenberg-main-root",
                                         qualify_narrow_installed.ORIGIN + "/main/",
                                         "--gutenberg-generated-root",
@@ -81,7 +132,10 @@ def main(argv=None):
                                 status = exc.code
                             else:
                                 raise ValueError("CLI did not exit")
-                        require(status == 2, "refusal must report incomplete status 2")
+                        require(
+                            status == 2,
+                            "unresolved input must report incomplete status 2",
+                        )
                         require(
                             "Gathering incomplete" in stdout.getvalue(),
                             "missing incomplete summary",
@@ -112,7 +166,11 @@ def main(argv=None):
                 expected = [
                     "run_start",
                     "story_ready",
-                    "story_cleanup_refused",
+                    (
+                        "story_source_unavailable"
+                        if args.http_404
+                        else "story_cleanup_refused"
+                    ),
                     "story_ready",
                     "batch_summary",
                     "run_end",
@@ -125,6 +183,58 @@ def main(argv=None):
                     all(events[i]["story"] == books[2] for i in (2, 8)),
                     "wrong refused input",
                 )
+                if args.http_404:
+                    missing_url = next(
+                        url for url, book in urls.items() if book == books[2]
+                    )
+                    require(
+                        requests
+                        == [
+                            next(url for url, book in urls.items() if book == b)
+                            for b in order
+                        ]
+                        + [missing_url],
+                        "unexpected retry, fallback or successful-output reacquisition",
+                    )
+                    missing_source = (
+                        f"https://www.gutenberg.org/ebooks/{books[2]}.txt.utf-8"
+                    )
+                    request = (
+                        resources.GutenbergRoutes(
+                            qualify_narrow_installed.ORIGIN + "/main/",
+                            qualify_narrow_installed.ORIGIN + "/generated/",
+                        )
+                        .resolve(missing_source)
+                        .request
+                    )
+                    require(
+                        resources.ResourceStore(cache_root).plan(request).artifact
+                        is None,
+                        "404 cached as a source",
+                    )
+                    require(
+                        not list((cache_root / "gettenberg/resources/tmp").iterdir()),
+                        "partial acquisition left behind",
+                    )
+                    for index in (2, 8):
+                        event = events[index]
+                        require(
+                            event["http_status"] == 404
+                            and event["source_uri"] == missing_source,
+                            "missing status/source identity",
+                        )
+                        require(
+                            event["request_url"] == missing_url
+                            and event["final_url"] == missing_url,
+                            "missing request identity",
+                        )
+                    for index in (4, 10):
+                        require(
+                            events[index]["unavailable"] == 1
+                            and events[index]["refused"] == 0
+                            and events[index]["incomplete"],
+                            "incorrect incomplete outcome counts",
+                        )
                 origins = qualify_narrow_installed.module_origins(package_root)
         report = {
             "completed": True,
@@ -136,6 +246,8 @@ def main(argv=None):
                 pathlib.Path(qualify_narrow_installed.__file__).read_bytes()
             ),
             "network_bytes": 0,
+            "scenario": "http-404" if args.http_404 else "cleanup-refusal",
+            "requests": requests,
             "configured_fixture_order": order,
             "runs": runs,
             "events": events,

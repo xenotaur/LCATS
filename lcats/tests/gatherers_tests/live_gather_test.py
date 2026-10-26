@@ -20,6 +20,7 @@ import tempfile
 import unittest
 from unittest import mock
 
+from lcats import cli
 from lcats.gatherers import downloaders
 from lcats.gatherers import gutenberg_source
 from lcats.gatherers import main
@@ -28,6 +29,7 @@ from lcats.gatherers import overrides
 from lcats.gatherers.sherlock import gatherer as sherlock
 from lcats.gatherers import story_output
 from lcats.gatherers.mass_quantities import storymap
+from lcats.gatherers.mass_quantities import gatherer
 from lcats.gettenberg import _resource_transport
 from lcats.gettenberg import lifecycle
 from lcats.gettenberg import resources
@@ -390,6 +392,165 @@ class LiveGatherTests(unittest.TestCase):
         )
         self.assertEqual(rows[2]["story"], books[1])
         self.assertTrue(rows[4]["incomplete"])
+
+    def http_batch(self, middle_status):
+        """Author three uncached texts; substitute only the HTTP response boundary.
+
+        IDs echo the reported failure, but all metadata and text are synthetic.
+        No live Gutenberg traffic or historical source equivalence is implied.
+        """
+        books = [978, 1367, BOOK_ID]
+        entries, responses = [], {}
+        for index, book in enumerate(books):
+            raw = fixture_record().replace(str(BOOK_ID).encode(), str(book).encode())
+            raw = raw.replace(b"The Bell", f"The Bell {index}".encode())
+            entries.append((f"{book}.rdf", raw, tarfile.REGTYPE))
+            body = ENVELOPE.replace("The Bell", f"The Bell {index}").encode()
+            status = middle_status if index == 1 else 200
+            if status != 200:
+                body = b"<html>Unavailable: this is not story text.</html>"
+            responses[f"{GENERATED_ROOT}{book}/pg{book}.txt"] = (status, body)
+        self.archive.write_bytes(catalog_test.archive_bytes(entries))
+        self.manager.setup(self.archive)
+        requests = []
+
+        def open_response(request, timeout=None):
+            requests.append(request.full_url)
+            status, body = responses[request.full_url]  # Reject speculative URLs.
+            return resources_test.MemoryResponse(
+                status=status,
+                body=body,
+                headers=(("Content-Type", "text/plain; charset=utf-8"),),
+            )
+
+        client = mock.Mock()
+        client.open.side_effect = open_response
+        return books, client, requests
+
+    def test_404_continues_real_cli_and_repeat_reuses_successes_without_error_cache(
+        self,
+    ):
+        books, client, requests = self.http_batch(404)
+        with (
+            mock.patch.object(storymap, "SINGLE_STORIES", books),
+            mock.patch.object(_resource_transport, "opener", return_value=client),
+            mock.patch.object(socket, "socket", side_effect=AssertionError("network")),
+        ):
+            for attempt in range(2):
+                with capture.capture_output() as output:
+                    with self.assertRaises(SystemExit) as exit_status:
+                        cli.main(
+                            [
+                                "gather",
+                                "mass_quantities",
+                                "--cache-dir",
+                                str(self.cache),
+                                "--gutenberg-main-root",
+                                MAIN_ROOT,
+                                "--gutenberg-generated-root",
+                                GENERATED_ROOT,
+                            ]
+                        )
+                self.assertEqual(exit_status.exception.code, 2)
+                self.assertIn("Gathering incomplete", output.stdout.getvalue())
+                self.assertIn(
+                    "0 cleanup refused, 1 unavailable (HTTP 404)",
+                    output.stdout.getvalue(),
+                )
+                current = {p: p.read_bytes() for p in self.data.rglob("story.json")}
+                self.assertEqual(len(current), 2)
+                self.assertEqual(
+                    {
+                        json.loads(raw)["metadata"]["gettenberg"]["gutenberg_id"]
+                        for raw in current.values()
+                    },
+                    {books[0], books[2]},
+                )
+                if attempt == 0:
+                    original = current
+                else:
+                    self.assertEqual(current, original)
+            expected_urls = [f"{GENERATED_ROOT}{book}/pg{book}.txt" for book in books]
+            self.assertEqual(requests, expected_urls + [expected_urls[1]])
+            missing = self.routes.resolve(
+                f"https://www.gutenberg.org/ebooks/{books[1]}.txt.utf-8"
+            ).request
+            self.assertIsNone(self.store.plan(missing).artifact)
+            self.assertEqual(
+                list((self.cache / "gettenberg/resources/tmp").iterdir()), []
+            )
+        rows = [
+            json.loads(line)
+            for line in (self.root / "logs/gather/mass_quantities_gather_run_log.jsonl")
+            .read_text()
+            .splitlines()
+        ]
+        expected = [
+            "run_start",
+            "story_ready",
+            "story_source_unavailable",
+            "story_ready",
+            "batch_summary",
+            "run_end",
+        ]
+        self.assertEqual([row["event"] for row in rows], expected * 2)
+        for offset in (0, 6):
+            event = rows[offset + 2]
+            self.assertEqual(event["story"], books[1])
+            self.assertEqual(event["http_status"], 404)
+            self.assertEqual(event["source_uri"], missing.source_uri)
+            self.assertEqual(event["request_url"], missing.request_url)
+            self.assertEqual(event["final_url"], missing.request_url)
+            self.assertEqual(rows[offset + 4]["unavailable"], 1)
+            self.assertEqual(rows[offset + 4]["refused"], 0)
+            self.assertTrue(rows[offset + 4]["incomplete"])
+
+    def test_404_batch_result_and_compatibility_pair_keep_unavailable_distinct(self):
+        books, client, _ = self.http_batch(404)
+        source = self.source(online=True)
+        with (
+            mock.patch.object(_resource_transport, "opener", return_value=client),
+            mock.patch.object(socket, "socket", side_effect=AssertionError("network")),
+            capture.capture_output(),
+        ):
+            result = gatherer.gather_batch(books, source=source)
+            ready, errors = gatherer.gather_stories(books, source=source)
+        self.assertEqual(set(result.ready), {books[0], books[2]})
+        self.assertEqual(result.skipped, {})
+        self.assertEqual(result.refused, {})
+        self.assertEqual(set(result.unavailable), {books[1]})
+        self.assertTrue(result.incomplete)
+        self.assertEqual(ready, result.ready)
+        self.assertEqual(errors, result.unavailable)
+
+    def test_other_http_statuses_abort_after_preserving_written_prefix(self):
+        for status in (403, 410, 503):
+            with self.subTest(status=status):
+                # Each status must encounter genuinely uncached sources/outputs.
+                self.cache = self.root / f"cache-{status}"
+                self.data = self.root / f"data-{status}"
+                self.manager = lifecycle.CatalogManager(self.cache)
+                self.store = resources.ResourceStore(self.cache)
+                books, client, requests = self.http_batch(status)
+                with (
+                    mock.patch.dict(os.environ, LCATS_DATA_DIR=str(self.data)),
+                    mock.patch.object(storymap, "SINGLE_STORIES", books),
+                    mock.patch.object(
+                        _resource_transport, "opener", return_value=client
+                    ),
+                    mock.patch.object(
+                        socket, "socket", side_effect=AssertionError("network")
+                    ),
+                ):
+                    message, code = self.run_gather(offline=False)
+                self.assertEqual(code, 2)
+                self.assertIn(
+                    f"Gathering failed: http_status: HTTP status {status}", message
+                )
+                self.assertEqual(len(list(self.data.rglob("story.json"))), 1)
+                self.assertNotIn(
+                    f"{GENERATED_ROOT}{books[2]}/pg{books[2]}.txt", requests
+                )
 
     def test_non_refusal_decode_error_still_aborts_after_written_prefix(self):
         books = self.seed_batch(b"invalid utf8 \xff")

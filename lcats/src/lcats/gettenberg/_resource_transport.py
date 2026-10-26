@@ -512,6 +512,10 @@ def acquire(source, policy, cache, budget, *, previous=None):
                     raise _resource_types.ResourceTransportError(
                         "http_status",
                         f"HTTP status {status}; no representation published",
+                        status=status,
+                        source_uri=source.source_uri,
+                        request_url=source.request_url,
+                        final_url=url,
                     )
                 headers = _headers(response)
                 digest, size = _body(

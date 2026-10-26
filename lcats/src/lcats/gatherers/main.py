@@ -56,7 +56,7 @@ def run(
     it does not resolve metadata-dependent story counts or import consumers.
     Selected default or explicit sources permit their origins; --yes approves
     first setup only.
-    Existing outputs are reused. Cleanup refusals do not stop mass gathering or
+    Existing outputs are reused. Cleanup refusals and HTTP 404s do not stop mass gathering or
     later collections; the final summary reports incomplete gathering with exit 2.
     Other operational failures abort with exit 2, retaining prior outputs/cache.
     """
@@ -131,12 +131,12 @@ def run(
                     result = module.gather(source=source)
                     if item.name == "mass_quantities":
                         summaries.append(f"{item.name}: {result.summary}")
-                        incomplete = incomplete or bool(result.refused)
+                        incomplete = incomplete or result.incomplete
                 else:
                     module.gather(offline=offline, cache_dir=cache_dir)
         if incomplete:
             return (
-                "Gathering incomplete: cleanup refusals remain.\n"
+                "Gathering incomplete: cleanup refusals or unavailable sources remain.\n"
                 + "\n".join(summaries),
                 2,
             )

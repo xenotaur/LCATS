@@ -32,7 +32,28 @@ class ResourceIntegrityError(ResourceError):
 
 
 class ResourceTransportError(ResourceError):
-    """An HTTP operation failed without publishing a usable cache entry."""
+    """An acquisition failed; terminal HTTP responses retain structured identity.
+
+    Existing two-argument construction and diagnostic codes remain supported.
+    Non-status failures leave the optional fields unset. A status describes the
+    attempted endpoint, not ebook availability at other locations.
+    """
+
+    def __init__(
+        self,
+        code,
+        message,
+        *,
+        status=None,
+        source_uri=None,
+        request_url=None,
+        final_url=None,
+    ):
+        super().__init__(code, message)
+        self.status = status
+        self.source_uri = source_uri
+        self.request_url = request_url
+        self.final_url = final_url
 
 
 class ResourceDeferredError(ResourceError):

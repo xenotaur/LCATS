@@ -333,9 +333,43 @@ class ResourceTests(unittest.TestCase):
                 path = "/" + str(status)
                 self.server.routes[path] = [Reply(status=status)]
                 before = len(self.server.requests)
-                with self.assertRaises(resources.ResourceTransportError):
+                with self.assertRaises(resources.ResourceTransportError) as caught:
                     self.fetch(path)
+                failure = caught.exception
+                request = self.request(path)
+                self.assertEqual(failure.code, "http_status")
+                self.assertEqual(failure.status, status)
+                self.assertEqual(failure.source_uri, request.source_uri)
+                self.assertEqual(failure.request_url, request.request_url)
+                self.assertEqual(failure.final_url, request.request_url)
                 self.assertEqual(len(self.server.requests), before + 1)
+                self.assertIsNone(self.store.plan(request).artifact)
+                self.assertEqual(
+                    list((self.cache_dir / "gettenberg/resources/tmp").iterdir()), []
+                )
+
+    def test_redirected_404_retains_original_and_failed_endpoint_identity(self):
+        self.server.routes["/book"] = [
+            Reply(status=302, headers=(("Location", "/missing"),))
+        ]
+        self.server.routes["/missing"] = [Reply(status=404, body=b"not a book")]
+        with self.assertRaises(resources.ResourceTransportError) as caught:
+            self.fetch()
+        failure = caught.exception
+        self.assertEqual(failure.status, 404)
+        self.assertEqual(failure.request_url, self.request().request_url)
+        self.assertEqual(failure.source_uri, self.request().source_uri)
+        self.assertEqual(failure.final_url, self.server.origin + "/missing")
+        self.assertIsNone(self.store.plan(self.request()).artifact)
+        self.assertEqual([r[0] for r in self.server.requests], ["/book", "/missing"])
+
+    def test_non_status_transport_errors_keep_two_argument_construction(self):
+        failure = resources.ResourceTransportError("timeout", "request timed out")
+        self.assertEqual(str(failure), "timeout: request timed out")
+        self.assertIsNone(failure.status)
+        self.assertIsNone(failure.source_uri)
+        self.assertIsNone(failure.request_url)
+        self.assertIsNone(failure.final_url)
 
     def test_retry_budget_and_success(self):
         self.server.routes["/book"] = [
