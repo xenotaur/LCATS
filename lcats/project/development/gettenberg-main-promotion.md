@@ -20,6 +20,15 @@ it establishes neither live mirror coverage nor cold acquisition yield. Historic
 A–D acceptance and evidence remain unchanged. The new authored HTTP/batch/installed
 CLI checks qualify the changed failure path separately; see the
 [404 repair evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-http404-20261026/README.md).
+A subsequent human-authorized reporting correction separates newly written outputs
+from reuse and labels observed 404 attempts explicitly. The user's warm run reused
+1367; an isolated real CLI run reproduced its mirror 404. The final installed
+wheel also returned status 2 with zero output/error-cache publication, preserving
+the original story/catalog observations. Counts are run observations, not global
+availability or requalification. [Reporting and live-reproduction evidence](../../../experiments/10_gettenberg_qualification/results/gettenberg-reporting-20261026/README.md)
+records 2,979 passing tests, installed cold/repeat scenarios and the live boundary.
+This correction changes reporting in parser/batch/publication helpers; extraction,
+normalization, selected resources and output protection remain unchanged.
 Main review and promotion remain human-gated.
 
 ## Candidate and provenance

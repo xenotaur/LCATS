@@ -13,7 +13,9 @@ This accepts bounded replacement delivery, not an editorially clean corpus.
 Reviewed product: `823f33c23836aff220fab80046ab84b80584c063`; target integration base:
 `ed20e9c297bf5e50e1911b84722e53f5db3edee3`. The October 24 bounded review changed experiment
 validation and documentation only; the October 26 correction below changes the
-acquisition-error seam and its tests. The [evidence bundle](../../../experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/README.md)
+acquisition-error seam and its tests. A subsequent reporting-only correction
+distinguishes new writes from reuse and records isolated live 1367 evidence in
+the main-promotion review guide. The [evidence bundle](../../../experiments/10_gettenberg_qualification/results/gettenberg-delivery-review-20261024/README.md)
 contains the independent review, fresh wheel/CLI results and the per-input proposed
 acceptance ledger. Its historical proposed flags remain unchanged; the separate
 [acceptance record](gettenberg-adoption-acceptance.json) pins that ledger and records

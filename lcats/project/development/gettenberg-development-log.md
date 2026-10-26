@@ -5941,3 +5941,37 @@ The first real GET at 22:35 UTC returned 404, CLI status 2, no story and no cach
 source/error body. Original Findelkind SHA-256 and catalog size/mtime are unchanged.
 Final evidence and validation follow below; no fallback recovery or availability
 claim about other Gutenberg endpoints follows from this reproduction.
+
+### 2026-10-26 22:43 UTC — Reporting and live reproduction qualified
+
+Product/runners committed at 39e5e1ac. Canonical scripts/test passes all 2,979
+tests in 101.177 seconds with clean output. Added coverage distinguishes mixed
+new/reused outputs from source-cache reuse, repeated written IDs, actual repeated
+404 attempts and concurrent publication. Format/lint and explicit Black/Ruff
+checks on both experiment runners pass. LRH: zero errors/354 existing warnings.
+An earlier 2,978-test pass preceded the repeated-ID counter refinement and is
+not substituted for final validation. No separate agent review in this follow-up.
+
+Built a clean committed-source wheel and reinstalled it into the existing isolated
+qualification dependency environment; pip check passes. All 165 Python/two JSON
+files match source/wheel/physical installation. Both installed fixture CLI runs
+(404 and cleanup refusal) show two new writes initially and two unchanged reused
+outputs on repeat, with status 2 throughout. All 98 loaded hashes per report
+match. Version label is qualification-only, not release-version proof.
+
+Final installed live1367 run reproduced the same selected-mirror 404, exactly
+one GET, status 2, zero output/source/error-cache publication. All six loaded
+module hashes match the committed product. The two live runs together made two
+requests; neither downloaded metadata or attempted recovery. Both read original
+metadata only and preserved existing Findelkind hash plus catalog size/mtime.
+No full shared-tree hash census is claimed. The first intermediate-source report
+is preserved with its own hashes, separate from final installed evidence.
+
+Durable results: experiments/10_gettenberg_qualification/results/gettenberg-reporting-20261026/.
+Includes selected events from the user's prior warm run, exact RDF, initial/final
+live reports and logs, installed fixture reports, wheel closure, compressed checks
+and artifact hashes. User docs explain why zero observed failures is not a fresh
+availability/cleanup check. Process lesson: report publication, reuse and failed
+acquisition separately instead of making warm-run success resemble fresh yield.
+Next: publish this approved follow-up to PR #534 and observe final-head checks;
+main review, source recovery and A–D limitations remain unchanged.
