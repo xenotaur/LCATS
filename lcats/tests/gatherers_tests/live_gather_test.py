@@ -180,7 +180,8 @@ class LiveGatherTests(unittest.TestCase):
     def test_short_body_is_reported_and_never_published(self):
         source, _ = self.acquire(b"The Bell\n\nJohn Smith\n\nA short story.")
         source.policy = resources.NetworkPolicy()
-        report = parser.inspect_story(BOOK_ID, source=source)
+        with capture.capture_output():
+            report = parser.inspect_story(BOOK_ID, source=source)
         self.assertIn("too short", report["rejection"])
         self.assertIn("short story", report["body"])
         self.run_gather()

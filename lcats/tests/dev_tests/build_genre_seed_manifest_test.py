@@ -13,6 +13,7 @@ import unittest
 from unittest import mock
 
 from lcats.analysis.corpus import genre_sidecar
+from lcats.utils import capture
 
 _TOOL_PATH = (
     pathlib.Path(__file__).resolve().parents[2]
@@ -115,9 +116,10 @@ class RealEvidenceTest(unittest.TestCase):
         before = _sha(EVIDENCE)
         with tempfile.TemporaryDirectory() as tmp:
             out = pathlib.Path(tmp) / "seed.jsonl"
-            code = seed.main(
-                ["--manifest-out", str(out), "--expect-count", str(EXPECTED_COUNT)]
-            )
+            with capture.capture_output():
+                code = seed.main(
+                    ["--manifest-out", str(out), "--expect-count", str(EXPECTED_COUNT)]
+                )
             lines = out.read_text(encoding="utf-8").splitlines()
         self.assertEqual(code, 0)
         self.assertEqual(len(lines), EXPECTED_COUNT)
@@ -168,9 +170,10 @@ class SyntheticEvidenceTest(unittest.TestCase):
             evidence = pathlib.Path(tmp) / "e.jsonl"
             evidence.write_text(text, encoding="utf-8")
             out = pathlib.Path(tmp) / "seed.jsonl"
-            code = seed.main(
-                ["--evidence", str(evidence), "--manifest-out", str(out), *extra]
-            )
+            with capture.capture_output():
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(out), *extra]
+                )
             return code, out.exists()
 
     def test_malformed_json_fails_and_writes_nothing(self):
@@ -211,14 +214,15 @@ class SyntheticEvidenceTest(unittest.TestCase):
 
     def test_missing_evidence_file_exits_2(self):
         with tempfile.TemporaryDirectory() as tmp:
-            code = seed.main(
-                [
-                    "--evidence",
-                    str(pathlib.Path(tmp) / "nope.jsonl"),
-                    "--manifest-out",
-                    str(pathlib.Path(tmp) / "seed.jsonl"),
-                ]
-            )
+            with capture.capture_output():
+                code = seed.main(
+                    [
+                        "--evidence",
+                        str(pathlib.Path(tmp) / "nope.jsonl"),
+                        "--manifest-out",
+                        str(pathlib.Path(tmp) / "seed.jsonl"),
+                    ]
+                )
         self.assertEqual(code, 2)
 
     def test_unwritable_manifest_location_exits_2_without_traceback(self):
@@ -228,7 +232,10 @@ class SyntheticEvidenceTest(unittest.TestCase):
                 json.dumps(_valid_record("c/one")) + "\n", encoding="utf-8"
             )
             out = pathlib.Path(tmp) / "no_such_dir" / "seed.jsonl"
-            code = seed.main(["--evidence", str(evidence), "--manifest-out", str(out)])
+            with capture.capture_output():
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(out)]
+                )
             self.assertEqual(code, 2)
             self.assertFalse(out.parent.exists())
 
@@ -239,9 +246,13 @@ class SyntheticEvidenceTest(unittest.TestCase):
                 json.dumps(_valid_record("c/one")) + "\n", encoding="utf-8"
             )
             out = pathlib.Path(tmp) / "seed.jsonl"
-            self.assertEqual(
-                seed.main(["--evidence", str(evidence), "--manifest-out", str(out)]), 0
-            )
+            with capture.capture_output():
+                self.assertEqual(
+                    seed.main(
+                        ["--evidence", str(evidence), "--manifest-out", str(out)]
+                    ),
+                    0,
+                )
             self.assertEqual(
                 sorted(p.name for p in pathlib.Path(tmp).iterdir()),
                 ["e.jsonl", "seed.jsonl"],
@@ -457,7 +468,10 @@ class SyntheticEvidenceTest(unittest.TestCase):
             evidence.write_text(text, encoding="utf-8")
             link = tmp / "link.jsonl"
             os.link(evidence, link)
-            code = seed.main(["--evidence", str(evidence), "--manifest-out", str(link)])
+            with capture.capture_output():
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(link)]
+                )
             self.assertEqual(code, 2)
             self.assertEqual(evidence.read_text(encoding="utf-8"), text)
 
@@ -480,9 +494,10 @@ class SyntheticEvidenceTest(unittest.TestCase):
             evidence = pathlib.Path(tmp) / "e.jsonl"
             text = json.dumps(_record("c/one", "x")) + "\n"
             evidence.write_text(text, encoding="utf-8")
-            code = seed.main(
-                ["--evidence", str(evidence), "--manifest-out", str(evidence)]
-            )
+            with capture.capture_output():
+                code = seed.main(
+                    ["--evidence", str(evidence), "--manifest-out", str(evidence)]
+                )
             self.assertEqual(evidence.read_text(encoding="utf-8"), text)
         self.assertEqual(code, 2)
 

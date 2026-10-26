@@ -6,6 +6,8 @@ import pathlib
 import tempfile
 import unittest
 
+from lcats.utils import capture
+
 _TOOL_PATH = (
     pathlib.Path(__file__).resolve().parents[2]
     / "tools"
@@ -142,9 +144,10 @@ class RewriteCacheDbPathTest(unittest.TestCase):
             before = json.dumps(_sidecar({"cache_db_path": "/abs/x.db"}), indent=2)
             sidecar_path.write_text(before, encoding="utf-8")
             manifest = pathlib.Path(tmp) / "manifest.jsonl"
-            code = rewrite.main(
-                ["--corpora-dir", str(root), "--manifest-out", str(manifest)]
-            )
+            with capture.capture_output():
+                code = rewrite.main(
+                    ["--corpora-dir", str(root), "--manifest-out", str(manifest)]
+                )
             self.assertEqual(code, 0)
             self.assertEqual(sidecar_path.read_text(encoding="utf-8"), before)
             lines = manifest.read_text(encoding="utf-8").splitlines()
@@ -152,14 +155,15 @@ class RewriteCacheDbPathTest(unittest.TestCase):
 
     def test_main_reports_missing_corpora_dir(self):
         with tempfile.TemporaryDirectory() as tmp:
-            code = rewrite.main(
-                [
-                    "--corpora-dir",
-                    str(pathlib.Path(tmp) / "nope"),
-                    "--manifest-out",
-                    str(pathlib.Path(tmp) / "m.jsonl"),
-                ]
-            )
+            with capture.capture_output():
+                code = rewrite.main(
+                    [
+                        "--corpora-dir",
+                        str(pathlib.Path(tmp) / "nope"),
+                        "--manifest-out",
+                        str(pathlib.Path(tmp) / "m.jsonl"),
+                    ]
+                )
         self.assertEqual(code, 2)
 
 

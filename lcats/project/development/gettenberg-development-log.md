@@ -5817,3 +5817,27 @@ instructions. Native landing/promotion record now points to #534 and remains
 in_progress; its body retains #530's internal merge identity. Main merge/promotion
 approval remains outstanding. Runtime is unchanged from tested product0dbe9606;
 observe actual final-head hosted checks before recommending main landing.
+
+
+### 2026-10-26 — Review feedback: test-output capture
+
+The human reported expected CLI diagnostics leaking into the 2,972-test output
+and requested per-test suppression so ordinary print debugging remains available.
+An 80-test reproduction covering the two genre maintenance modules and live-gather
+tests reproduced all reported message families. The genre tests came unchanged
+from main (PRs #477/#486); the short-body inspection test belongs to this migration.
+Added existing capture.capture_output contexts around only the noisy calls in
+three test files, including the per-call synthetic-evidence helper. Existing
+stderr assertions remain intact. No global unittest buffering, runner changes,
+production changes, or acquisition-policy changes. Formatting and targeted lint
+pass. Full canonical scripts/test passes all 2,972 tests in 99.632 seconds;
+output contains only the runner banner/command, progress dots and unittest summary.
+No reported diagnostic fragments remain. Before/after logs are local temporary
+artifacts at /tmp/gettenberg-output-before.log and /tmp/gettenberg-output-after.log,
+not durable archived qualification. This local, uncommitted correction is separate
+from the ebook 1367 HTTP 404 investigation; no push or main promotion occurred.
+
+The human subsequently authorized committing and pushing this test-only correction
+and its runlog entry to PR #534. Publication uses the existing promotion branch;
+main promotion and the separate HTTP 404 repair remain pending. The tested source
+is unchanged; hosted checks must be observed against the resulting commit.
