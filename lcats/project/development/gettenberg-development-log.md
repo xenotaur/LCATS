@@ -5975,3 +5975,34 @@ availability/cleanup check. Process lesson: report publication, reuse and failed
 acquisition separately instead of making warm-run success resemble fresh yield.
 Next: publish this approved follow-up to PR #534 and observe final-head checks;
 main review, source recovery and A–D limitations remain unchanged.
+
+### 2026-10-27 00:03 UTC — Workflow explanation and Kenny handoff
+
+Human requested a detailed document explaining the gathering changes and a
+shareable report for Kenny covering fixes and non-drop-in compatibility. Added
+lcats/docs/explanation/gettenberg-gather-changes.md and
+lcats/project/development/gettenberg-kenny-handoff.md, linked from the docs index,
+migration guide and promotion review guide. This is documentation only; no new
+source requests, implementation changes, corpus writes or integration approval.
+
+Both documents pin their comparison to aab07b29 versus main 22a739d2. They distinguish
+four source-integration families, four additional functional families and three
+API/reporting families as an explanatory grouping, not a required-line percentage.
+They explicitly cover the eleven thin curated-wrapper changes, old broad download
+catch versus new narrow continuation, mass-only error isolation, strict source
+preparation, metadata/provenance differences, cache migration, existing-output
+reuse, atomic publication and optional helper/result restructuring. The handoff
+includes the reproduced 1367 failure, reporting/test-output fixes, qualification
+limits and a proposed reconciliation sequence; it has not been sent to Kenny.
+
+Read-only AST comparison confirms 46 retained parser functions other than
+changed gather_story are identical ignoring locations. Normalization, overrides,
+mass story-ID map and canonical corpora have no diff in the pinned comparison.
+This is not a claim of identical generated stories: source text/metadata and
+orchestration still differ. Verified 112 document links/references, including 27
+unique pinned source/evidence destinations and code-line bounds; Markdown fences
+and whitespace pass. Existing 2,979-test/installed/live evidence is cited as the
+prior product snapshot, not a fresh test run for these documents. Canonical
+format/lint pass; LRH reports zero errors/354 existing warnings. Publish the
+documentation to PR #534 and verify final-head CI.
+Main promotion and reconciliation of Kenny's code remain pending team review.

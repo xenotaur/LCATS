@@ -66,6 +66,8 @@ cd LCATS/lcats
 
 ### Explanation
 
+- [Why gettenberg changes gathering, and what is not drop-in](explanation/gettenberg-gather-changes.md)
+
 - [Metadata, original bytes and stories](explanation/gettenberg-architecture.md)
 
 - [Why stories live in per-story bucket directories](explanation/story-bucket-layout.md) — the storage-layout migration, what changed, and why

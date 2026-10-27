@@ -5,6 +5,10 @@ LCATS installation and `lcats gather` for smart first use. The CLI still asks
 before creating a missing catalog; `--yes` supplies unattended approval, and
 `--offline` forbids acquisition. See [gathering](gettenberg-gather.md).
 
+For the detailed before/after behavior and the distinction between required
+source integration and additional workflow choices, read
+[why gettenberg changes gathering](../explanation/gettenberg-gather-changes.md).
+
 ## Track accepted adoption limitations
 
 The [post-adoption backlog](../../project/development/gettenberg-post-adoption-backlog.md)

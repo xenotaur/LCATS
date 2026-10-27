@@ -6,6 +6,10 @@ The human authorized landing PR #530 internally and preparing this promotion.
 That instruction does not authorize merging the promotion or publishing a package
 or corpus. A–D acceptance is already recorded and need not be requested again.
 
+For team reconciliation, see [the detailed workflow comparison](../../docs/explanation/gettenberg-gather-changes.md)
+and [the standalone handoff for Kenny](gettenberg-kenny-handoff.md). They distinguish
+source-contract obligations from additional behavior and API/reporting choices.
+
 ## Review correction — HTTP 404 continuation (2026-10-26)
 
 Kenny's cold acquisition of ebook 1367 exposed a missing representation on the
