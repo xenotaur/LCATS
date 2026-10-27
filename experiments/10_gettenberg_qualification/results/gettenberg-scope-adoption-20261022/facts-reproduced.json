@@ -1,0 +1,63 @@
+{
+  "scope": "Pinned static/count reproduction; not source, corpus, or delivery acceptance",
+  "original_facts_sha256": "a79dcdfff0f5d9f7814c95ce21e5527961c285aa2fb926a13345ba2d4aba08e5",
+  "reproduced_fields": {
+    "pinned_head": "6a873b611e3958bb9ddad8e84f2ad190831a9da7",
+    "qualification_base": "ed20e9c297bf5e50e1911b84722e53f5db3edee3",
+    "source_baseline": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+    "product_diff": [
+      "M\tlcats/src/lcats/cli.py",
+      "A\tlcats/src/lcats/gatherers/candidate_review.py",
+      "A\tlcats/src/lcats/gatherers/editorial_evidence.py",
+      "A\tlcats/src/lcats/gatherers/gather_result.py",
+      "A\tlcats/src/lcats/gatherers/historical_review.py",
+      "M\tlcats/src/lcats/gatherers/main.py",
+      "M\tlcats/src/lcats/gatherers/mass_quantities/gatherer.py",
+      "M\tlcats/src/lcats/gatherers/parser.py",
+      "A\tlcats/src/lcats/gatherers/readiness.py",
+      "A\tlcats/src/lcats/gatherers/review_cli.py",
+      "A\tlcats/src/lcats/gatherers/review_rules.py",
+      "A\tlcats/src/lcats/gatherers/review_store.py",
+      "A\tlcats/src/lcats/gatherers/story_body.py",
+      "M\tlcats/src/lcats/gatherers/story_output.py",
+      "M\tlcats/src/lcats/gettenberg/cleanup.py"
+    ],
+    "gettenberg_diff": [
+      "M\tlcats/src/lcats/gettenberg/cleanup.py"
+    ],
+    "baseline_common_parser_functions": 47,
+    "baseline_changed_common_parser_functions": [
+      "gather_story"
+    ],
+    "population": {
+      "compared": 1646,
+      "cleanup_refused": 13
+    },
+    "old_new_equal": 744,
+    "old_new_changed": 902,
+    "matches_retained_corpus": 742,
+    "metadata_rejections": 0,
+    "english_query_additions": 37,
+    "english_additions_in_comparison": [],
+    "english_additions_in_configured_list": [
+      28219,
+      57044
+    ],
+    "english_additions_passing_only_english": [],
+    "inputs_sha256": {
+      "experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/corpus-after.json.gz": "fd20048deaf58b726bfe7713cbb5f9eb7b88f8aad4b2b7e6c5d410d9108a19ce",
+      "experiments/10_gettenberg_qualification/results/gettenberg-qualification-20261018/index-counts-final.json": "ad77c7558215e3b55c1cc868351ad4bccbb91d2cbabe0d944c5a463293c8e004",
+      "experiments/10_gettenberg_qualification/results/gettenberg-narrative-20261018/narrative-cases.json": "f484d27664d0c14a047e4bb3503eb101fef74388949dbc0b1827111d8f4cd384"
+    },
+    "unchanged_normalization_storymap": true
+  },
+  "all_reproduced_fields_match": true,
+  "not_reproduced": {
+    "reason": "The temporary investigator report is not an archived input; parity is historical testimony.",
+    "original_observations": {
+      "coordinator_replay_matches_investigator_rows": true,
+      "investigator_report_sha256": "e7658ff21b2f92ace764adce6315391ffecafd102f59686bbece117d705b8884",
+      "note": "Exact interval field renamed to avoid implying literary judgment; coordinator rows otherwise identical. No product or corpus acceptance."
+    }
+  }
+}

@@ -115,12 +115,14 @@ def _extract_story_text(soup):
     return extractors.extract_text_between_ids(soup)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Gather the Lovecraft corpus via gatherlib.gather()."""
     headings = [
         (extractor.file, "", extractor.description) for extractor in THE_LOVECRAFT_FILES
     ]
     return gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Lovecraft",
         target_directory=TARGET_DIRECTORY,
         description="Lovecraft stories from the Gutenberg Project.",

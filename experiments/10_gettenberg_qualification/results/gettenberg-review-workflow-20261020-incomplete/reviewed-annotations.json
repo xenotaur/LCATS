@@ -1,0 +1,20 @@
+[
+  {
+    "gutenberg_id": 32878,
+    "outcome": "exclude",
+    "reviewer": "codex coordinator; source review 2026-10-20",
+    "rationale": "Coordinator source review confirms six genuine narrative divisions: PRELUDE, INTERMEZZO, SONATA, DANSE MACABRE, GRAND FINALE and RECESSIONAL at candidate paragraphs 4, 87, 152, 183, 228 and 263. Exclude from this undivided single-story collection; no narrative deletion or corpus-output acceptance is implied.",
+    "source_identity_sha256": "e8b7ace5eda1f7da018f5bf4284ab0b382f276f66eab0c1242a8783ee33143c4",
+    "candidate_sha256": "ec36bbe5a6bddeed6c3b7603c14f30bda5790e2e36b8da5303f3da1ed6cb4cde",
+    "assessment_sha256": "bf590df74c821b82f5035b7d3c6c1f5ae2066e5d8880a52cf243c97d497cfa6b"
+  },
+  {
+    "gutenberg_id": 70391,
+    "outcome": "defer",
+    "reviewer": "codex coordinator; source review 2026-10-20",
+    "rationale": "Coordinator rechecked the novelet label and transcriber note plus in-story sign contexts. These display headings do not establish chapters. Complete editorial boundary selection remains unresolved; retain the candidate for further review and do not publish.",
+    "source_identity_sha256": "43abcee6e7a854a8761f135e9176f86eae6a1affb34332ada2f0e6cca7fb975e",
+    "candidate_sha256": "f165689834c7c4ec18dc7f9f714cf792dac3ead9dc7ce454fe1a72b121c3af65",
+    "assessment_sha256": "d5e0d3ff156fbb688bc52dcf893685d4cbf11d40f835d22cf9ca26f718eeb6be"
+  }
+]

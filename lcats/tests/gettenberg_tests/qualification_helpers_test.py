@@ -1,5 +1,6 @@
 """Offline regressions for the archived qualification entry points."""
 
+import dataclasses
 import hashlib
 import importlib.util
 import io
@@ -11,8 +12,11 @@ import subprocess
 import sys
 import tarfile
 import tempfile
+import types
 import unittest
+from unittest import mock
 
+from lcats.gettenberg import rdf
 from tests.gettenberg_tests import catalog_test
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
@@ -41,13 +45,33 @@ class QualificationHelpersTests(unittest.TestCase):
         )
 
     def test_imports_do_not_execute_measurements_and_help_is_available(self):
-        for path in sorted(SCRIPTS.glob("*.py")):
+        # These entry points belong to provider qualification. Historical gather
+        # review runners remain reproducible on the preserved qualification branch,
+        # where their separated runtime dependencies exist; they are not clients
+        # of this narrower package. Keep all supported provider CLIs covered.
+        names = (
+            "measure_baseline.py",
+            "probe_legacy.py",
+            "probe_parser.py",
+            "qualify_catalog.py",
+            "qualify_lifecycle.py",
+            "qualify_migration.py",
+            "reproduce_scope_facts.py",
+            "qualify_snapshot.py",
+            "qualify_index_counts.py",
+        )
+        paths = [SCRIPTS / name for name in names]
+        paths.extend(sorted(SCRIPTS.glob("qualify_narrow_*.py")))
+        for path in paths:
             with self.subTest(script=path.name):
                 imported = subprocess.run(
                     [
                         sys.executable,
                         "-c",
-                        "import runpy,sys; runpy.run_path(sys.argv[1])",
+                        "import pathlib,runpy,sys; "
+                        "sys.path.insert(0,str(pathlib.Path(sys.argv[1]).parent)); "
+                        "sys.modules['gutenbergpy']=None; "
+                        "runpy.run_path(sys.argv[1])",
                         str(path),
                     ],
                     cwd=ROOT / "lcats",
@@ -180,3 +204,92 @@ print(live[0])
         self.assertEqual(evidence["database_table_counts"]["books"], 1)
         self.assertEqual(database.read_bytes(), original)
         self.assertTrue(output.with_name("rdf_samples.json").is_file())
+
+    def test_causal_replay_rejects_changed_missing_and_added_product_sources(self):
+        # A tiny real Git tree exercises the closure guard independently of LCATS
+        # imports. A transitive module must be pinned before it is ever loaded.
+        spec = importlib.util.spec_from_file_location(
+            "audit_cleanup_causality", SCRIPTS / "audit_cleanup_causality.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        root = self.directory / "repository"
+        product = root / "lcats/src/lcats"
+        product.mkdir(parents=True)
+        helper = product / "transitive.py"
+        helper.write_text("VALUE = 1\n", encoding="utf-8")
+        for arguments in (["init", "--quiet"], ["add", "."]):
+            subprocess.run(
+                ["git", *arguments], cwd=root, check=True, capture_output=True
+            )
+        tree = subprocess.check_output(
+            ["git", "write-tree"], cwd=root, text=True
+        ).strip()
+        self.assertEqual(set(module.product_tree_guard(root, tree)), {"transitive.py"})
+        helper.write_text("VALUE = 2\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "changed runtime product"):
+            module.product_tree_guard(root, tree)
+        helper.unlink()
+        with self.assertRaisesRegex(ValueError, "added or missing"):
+            module.product_tree_guard(root, tree)
+        helper.write_text("VALUE = 1\n", encoding="utf-8")
+        (product / "extra.py").write_text("VALUE = 3\n", encoding="utf-8")
+        with self.assertRaisesRegex(ValueError, "added or missing"):
+            module.product_tree_guard(root, tree)
+
+    def test_causal_replay_rejects_shadow_imports_including_late_imports(self):
+        spec = importlib.util.spec_from_file_location(
+            "audit_cleanup_causality", SCRIPTS / "audit_cleanup_causality.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        # The archived runner intentionally pins old product code, but the package
+        # suite must allow future product changes. Use an isolated package fixture.
+        product = self.directory / "lcats/src/lcats"
+        product.mkdir(parents=True)
+        package_path = product / "__init__.py"
+        helper_path = product / "transitive.py"
+        package_path.touch()
+        helper_path.touch()
+        package_spec = importlib.util.spec_from_file_location("lcats", package_path)
+        helper_spec = importlib.util.spec_from_file_location(
+            "lcats.transitive", helper_path
+        )
+        package = importlib.util.module_from_spec(package_spec)
+        helper = importlib.util.module_from_spec(helper_spec)
+        expected = {"__init__.py": "fixture", "transitive.py": "fixture"}
+        with mock.patch.dict(
+            sys.modules, {"lcats": package, "lcats.transitive": helper}, clear=True
+        ):
+            module.product_import_guard(root=self.directory, expected_paths=expected)
+            # A module loaded during measurement must not come from another tree.
+            helper.__file__ = str(self.directory / "shadow.py")
+            with self.assertRaisesRegex(ValueError, "wrong imported module"):
+                module.product_import_guard(
+                    root=self.directory, expected_paths=expected
+                )
+
+    def test_snapshot_checks_every_field_and_source_not_only_id(self):
+        spec = importlib.util.spec_from_file_location(
+            "qualify_snapshot", SCRIPTS / "qualify_snapshot.py"
+        )
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = catalog_test.record(84, "Fixture")
+        record = rdf.parse_record(raw, source_name="84.rdf")
+        reader = types.SimpleNamespace(get=lambda _id: record)
+        self.assertEqual(module.check_record(raw, "84.rdf", reader), record)
+        changed = dataclasses.replace(
+            record, ebook=dataclasses.replace(record.ebook, downloads=7)
+        )
+        with self.assertRaisesRegex(ValueError, "typed record mismatch"):
+            module.check_record(
+                raw, "84.rdf", types.SimpleNamespace(get=lambda _id: changed)
+            )
+        changed = dataclasses.replace(
+            record, source=dataclasses.replace(record.source, source_name="other.rdf")
+        )
+        with self.assertRaisesRegex(ValueError, "source/diagnostic mismatch"):
+            module.check_record(
+                raw, "84.rdf", types.SimpleNamespace(get=lambda _id: changed)
+            )

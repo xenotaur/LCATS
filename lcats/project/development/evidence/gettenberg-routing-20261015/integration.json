@@ -1,0 +1,179 @@
+{
+  "scope": "WI-GETTENBERG-0005 A22 explicit-root offline routing internal integration",
+  "authority": "Human authorized next bounded run; approved charter permits coordinator integration after review and qualification, never main promotion.",
+  "started_at": "2026-10-15T22:44:39Z",
+  "recorded_at": "2026-10-15T23:07:55.611076+00:00",
+  "pr": "https://github.com/xenotaur/LCATS/pull/516",
+  "merge": {
+    "baseRefName": "codex/gettenberg-acquisition",
+    "headRefOid": "49c2cc448b235b182e1dc0014c0e6aa669264ff4",
+    "mergeCommit": {
+      "oid": "26f3828e7235ea6f388d5a4e2671b88387a16151"
+    },
+    "mergedAt": "2026-10-15T23:06:12Z",
+    "state": "MERGED"
+  },
+  "verified_head": "49c2cc448b235b182e1dc0014c0e6aa669264ff4",
+  "verified_base": "0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1",
+  "merge_parents": [
+    "0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1",
+    "49c2cc448b235b182e1dc0014c0e6aa669264ff4"
+  ],
+  "merge_tree_equals_verified_head": true,
+  "source_sha256": {
+    "src/lcats/gettenberg/_resource_routing.py": "f6eba22b2876325885d9f1b8ecc5335fb5a47857036027710a2b5e0b7e6cb8fc",
+    "src/lcats/gettenberg/_resource_selection.py": "63bbc47c1b160513dcc7aaffcc6799a1b12ae73792b0c9b943cfc5b150d4224e",
+    "src/lcats/gettenberg/resources.py": "6ea3eefa0a0d8ecc06538820afdfd4f35d3fbfd027eab769b960b1e1c109fd37",
+    "tests/gettenberg_tests/routing_test.py": "f6f4f0acbba00836370f4d6b33f9e626e3b8cbd378579509ac5a520826039ed8",
+    "docs/reference/gettenberg-network.md": "5090bbf687e9ce86b65e37a7f5ca26a5309d4f80a272553db64a812011bf55f8",
+    "docs/how-to/gettenberg-resources.md": "4c6957a2d7c0f0dc4b9cb85258a7675aa8177ae143174f82f078eb30cf0f076b",
+    "docs/how-to/gettenberg-routing.md": "0a37db5135d9d049a11ca5c608819f5926ab58e0e62f50dabe3df9673d4ada20"
+  },
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T23:04:10Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38820907214/job/116717297616",
+      "name": "coverage",
+      "startedAt": "2026-10-15T23:01:45Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T23:01:18Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38820907077/job/116716976849",
+      "name": "lint",
+      "startedAt": "2026-10-15T23:00:51Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T23:03:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38820907050/job/116717291467",
+      "name": "test",
+      "startedAt": "2026-10-15T23:01:44Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T23:02:48Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38820899402/job/116717232630",
+      "name": "test",
+      "startedAt": "2026-10-15T23:01:34Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "review_coverage": {
+    "number": 516,
+    "state": "OPEN",
+    "headRefOid": "49c2cc448b235b182e1dc0014c0e6aa669264ff4",
+    "baseRefOid": "0a4aa7a801318e0ffade7aeb1e8f3f22c9a8e5d1",
+    "baseRefName": "codex/gettenberg-acquisition",
+    "reviews": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpO0MjAyNi0xMC0xNVQyMzowMjoyM1q0MjAyNi0xMC0xNVQyMzowMjoyM1rPAAAAAUpEY28="
+      },
+      "nodes": [
+        {
+          "id": "PRR_kwDOKlhIbM8AAAABSkRjbw",
+          "author": {
+            "login": "copilot-pull-request-reviewer"
+          },
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe2 Approval recommended\n\nNo blocking issues were identified in the bounded offline routing, selection integration, tests, or documentation.\n\n**0 open findings**\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds offline Gutenberg routing to the acquisition API, allowing resource selection to skip unsupported routes without changing MIME preferences or granting network access.\n\n**Changes:**\n- Maps qualified concrete paths and 17 format aliases through explicit mirror roots.\n- Adds route-aware selection while preserving source identity and diagnostics.\n- Adds offline tests, executable local-server examples, and qualification records.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `lcats/\u200btests/\u200bgettenberg_tests/\u200brouting_test.py` | Tests routing, selection, safety, and local acquisition. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bresources.py` | Exposes the routing API. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_resource_selection.py` | Adds resource eligibility filtering. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200b_resource_routing.py` | Implements offline routing and route-aware selection. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0005/\u200b2026_10_15_22_47_04_WI_GETTENBERG_0005_ROUTING.md` | Records implementation and validation outcomes. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_15_22_56_17_WI_GETTENBERG_0005_ROUTING_SELFREVIEW.md` | Records independent review results. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-route-qualification.md` | Documents qualified mappings and pinned sources. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md` | Records scope, decisions, and validation. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-acquisition-design.md` | Updates routing implementation status. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-routing-20261015/\u200bqualification.json` | Captures validation evidence and limitations. |\r\n| `lcats/\u200bdocs/\u200breference/\u200bgettenberg-network.md` | Defines routing interfaces and supported mappings. |\r\n| `lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-routing.md` | Demonstrates routing and authorized acquisition. |\r\n| `lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-resources.md` | Links acquisition to route-aware selection. |\n</details>\n\n\ud83e\udde0 **Review effort:** Balanced\n\n---\n\n\ud83d\udca1 <a href=\"/xenotaur/LCATS/new/codex/gettenberg-acquisition?filename=.github/skills/code-review/SKILL.md\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Add a `code-review` agent skill</a> or configure MCP servers for context-aware, tailored reviews. <a href=\"https://docs.github.com/copilot/how-tos/use-copilot-agents/request-a-code-review/use-code-review?tool=webui#mcp-servers-and-agent-skills\" class=\"Link--inTextBlock\" target=\"_blank\" rel=\"noopener noreferrer\">Learn more in the docs.</a>",
+          "state": "COMMENTED",
+          "submittedAt": "2026-10-15T23:02:23Z",
+          "commit": {
+            "oid": "f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f"
+          },
+          "url": "https://github.com/xenotaur/LCATS/pull/516#pullrequestreview-5540963183"
+        }
+      ]
+    },
+    "comments": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpHPAAAAAXHKR54="
+      },
+      "nodes": [
+        {
+          "id": "IC_kwDOKlhIbM8AAAABccpHng",
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f\",\"has_any_findings\":false,\"has_unresolved_findings\":false,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-15T23:04:29.256359Z\">2026-10-15T23:04:29.256359Z</relative-time> | `f0cbb30` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+          "createdAt": "2026-10-15T23:00:24Z",
+          "url": "https://github.com/xenotaur/LCATS/pull/516#issuecomment-6204049310"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": null
+      },
+      "nodes": []
+    }
+  },
+  "review_disposition": {
+    "independent": "no actionable findings; 408 Gettenberg tests",
+    "copilot": "0 open findings; approval recommended",
+    "codex": "completed with has_any_findings=false and has_unresolved_findings=false",
+    "hosted_reviewed_source": "f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f",
+    "final_head_delta": "Only execution-record PR/commit backlinks and runlog; seven frozen source/test/doc hashes match",
+    "threads": 0,
+    "pagination_exhausted": true,
+    "manual_hosted_retriggers": 0,
+    "rechecks": 0
+  },
+  "qualification": {
+    "canonical_tests": 2886,
+    "canonical_seconds": 75.963,
+    "canonical_log_sha256": "cba3dafddfe899dfa506f14bfd2ee7f4cd8f4619b0d0cbb3063a9db5153edf7a",
+    "reused_unchanged_qualification": true,
+    "format_files": 272,
+    "lint": "pass",
+    "lrh_errors": 0,
+    "lrh_existing_warnings": 351,
+    "readiness": "yes",
+    "diff_check": "pass"
+  },
+  "acceptance": {
+    "A22": "Qualified concrete main/generated/catalog URL planning and 17 alias mappings with explicit separate roots; pure route-aware MIME selection preserves original identity/order and diagnostics; unsafe paths refused; 113 saved RDF resource nodes covered; provenance/offline behavior and documentation executed over local fixtures."
+  },
+  "remaining": [
+    "Operational default-mirror qualification before choosing one for first-use CLI",
+    "Unknown historical layouts remain explicit unsupported automatic mappings; generic permitted URL acquisition remains available",
+    "Consumer/CLI migration and subsequent planned work",
+    "Human-approved main promotion and terminal native closeout; WI0005 remains proposed"
+  ],
+  "lifecycle": "Staged delivery only; native records in_progress, main unchanged at210468236ff4db78d2d7c5218562fa2d166e6400",
+  "budget": {
+    "target_minutes": 60,
+    "hard_minutes": 90,
+    "elapsed_to_merge_minutes": 21.55,
+    "assignments": 1,
+    "peak_agents_including_coordinator": 2,
+    "worker_occupancy_upper_bound_minutes": 3,
+    "weekly_account_used_percent_launch": 15,
+    "weekly_account_used_percent_closeout": 19,
+    "per_run_usage_attribution": "unavailable; account-wide observations only",
+    "scope_expansion": false,
+    "automatic_renewal": false
+  },
+  "validation_after_evidence": {
+    "lrh_errors": 0,
+    "lrh_existing_warnings": 351,
+    "readiness": "yes",
+    "git_diff_check": "pass",
+    "product_files_changed_after_merge": false
+  }
+}

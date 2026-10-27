@@ -1,0 +1,30 @@
+{
+  "checks_passed": true,
+  "product_ref": "8c9441dd",
+  "new_yield_json_sha256": "33e98e93949a496c2ff13269a94b65a5cc8b36e8ff123a412f7a36ce004a2db8",
+  "historical_yield_gzip_sha256": "119f046dd73b9713a55aa6bb54c70d1ad4eb46bc34650ca70ec8149b40e87a06",
+  "cohort": 1659,
+  "published": 1646,
+  "unchanged_refused_ids": [
+    3699,
+    3724,
+    20257,
+    35759,
+    35770,
+    35879,
+    38287,
+    38302,
+    53402,
+    70349,
+    70923,
+    71085,
+    72379
+  ],
+  "unattempted": 0,
+  "all_published_bodies_owners_sources_match_prior_one_item_census": true,
+  "repeat_preserves_all_output_bytes": true,
+  "ordinary_skips": 0,
+  "empty_source_cache_reuse": 1646,
+  "all_batch_refusals_are_reported_with_no_output": true,
+  "no_editorial_acceptance": true
+}

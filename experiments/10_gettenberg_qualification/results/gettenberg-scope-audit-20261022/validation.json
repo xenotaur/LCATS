@@ -1,0 +1,169 @@
+{
+  "python": "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+  "python_version": "3.11.9 | packaged by conda-forge | (main, Apr 19 2024, 18:34:54) [Clang 16.0.6 ]",
+  "commands": [
+    {
+      "name": "format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "format.log"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "scripts/lint"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "lint.log"
+    },
+    {
+      "name": "runner-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "runner-format.log"
+    },
+    {
+      "name": "runner-lint",
+      "command": [
+        "scripts/lint",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "runner-lint.log"
+    },
+    {
+      "name": "lrh",
+      "command": [
+        "/Users/centaur/anaconda3/bin/lrh",
+        "validate"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "lrh.log.gz"
+    },
+    {
+      "name": "help",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "help.log"
+    },
+    {
+      "name": "existing-output",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "/tmp/gettenberg-dispositions-20261020/cache",
+        "/Users/centaur/Tempspace/Projects/LCATS/cache/texts",
+        "/tmp/gettenberg-scope-audit-coordinator-20261022.json"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "existing-output.log"
+    },
+    {
+      "name": "missing-cache",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "/tmp/nonexistent-gettenberg-causality-cache",
+        "/tmp/nonexistent-gettenberg-causality-text",
+        "/tmp/gettenberg-missing-causal-output.json"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "missing-cache.log"
+    },
+    {
+      "name": "final-runner-format",
+      "command": [
+        "scripts/format",
+        "--check",
+        "--diff",
+        "--",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "final-runner-format.log"
+    },
+    {
+      "name": "final-runner-lint",
+      "command": [
+        "scripts/lint",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "final-runner-lint.log"
+    },
+    {
+      "name": "final-help",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "log": "final-help.log"
+    },
+    {
+      "name": "final-existing-output",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "/tmp/gettenberg-dispositions-20261020/cache",
+        "/Users/centaur/Tempspace/Projects/LCATS/cache/texts",
+        "/tmp/gettenberg-scope-audit-final-20261022.json"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "final-existing-output.log"
+    },
+    {
+      "name": "final-missing-cache",
+      "command": [
+        "/Users/centaur/anaconda3/envs/LCATS/bin/python",
+        "../experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py",
+        "/tmp/nonexistent-gettenberg-causality-cache",
+        "/tmp/nonexistent-gettenberg-causality-text",
+        "/tmp/gettenberg-missing-causal-output.json"
+      ],
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "log": "final-missing-cache.log"
+    }
+  ],
+  "existing_output_unchanged": true,
+  "missing_cache_no_output": true,
+  "full_suite_run": false,
+  "reason": "No production code changed; targeted new diagnostic smoke and guard checks instead.",
+  "post_review_rows_match_pre_review": true,
+  "independent_rows_match_final": true,
+  "independent_report_sha256": "094278118f50d3bbc5e0fcde886ed9f8ccb588bdbb31c91dce4667ae0abf635f",
+  "runner_sha256": "be5a2b8aaa36b338ec512032ee3a5eaecc5dac593f01825973d2788a0f1a4bfd",
+  "lrh_errors": 0,
+  "lrh_existing_warnings": 351,
+  "product_diff_from_pinned_head": "",
+  "initial_sandbox_failures": "Black local worker socket and Ruff repository cache denied. Initial shell tail exit codes did not represent command success; rerun captures subprocess return codes explicitly. Successful authorized rerun recorded above.",
+  "compressed_payloads_verified_unchanged": true
+}

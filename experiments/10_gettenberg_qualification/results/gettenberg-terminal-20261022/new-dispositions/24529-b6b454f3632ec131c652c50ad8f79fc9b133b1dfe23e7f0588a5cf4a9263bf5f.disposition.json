@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 24529,
+    "candidate_record_sha256": "115aea4ea910a10c52fd941c331136b8062a516e2f1be4df71a127b58acb3387",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_Sometimes an organizational setup grows, sets its ways, and becomes so traditional that once-necessary jobs become unnecessary. But it is sometimes quite hard to spot ju'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: selected_needs_review, retained_editorial_label.",
+    "approval": null
+}

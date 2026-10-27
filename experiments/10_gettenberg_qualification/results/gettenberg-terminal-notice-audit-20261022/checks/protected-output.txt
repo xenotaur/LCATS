@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py", line 443, in <module>
+    main()
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py", line 176, in main
+    require(
+  File "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py", line 53, in require
+    raise ValueError(message)
+ValueError: output inside protected root

@@ -13,7 +13,7 @@ from lcats.analysis.corpus import repairs_cli
 import lcats.gatherers.main
 import lcats.inspect
 from lcats import version
-from lcats.visualize import cli as visualize_cli
+from lcats.gettenberg import catalog_cli
 
 TOP_LEVEL_DESCRIPTION = (
     "LCATS is a literary case-based reasoning toolkit for gathering, inspecting, "
@@ -30,7 +30,22 @@ def _handle_info(_args):
 
 
 def _handle_gather(args):
-    return lcats.gatherers.main.run(args.gatherers, dry_run=args.dry_run)
+    return lcats.gatherers.main.run(
+        args.gatherers,
+        dry_run=args.dry_run,
+        yes=args.yes,
+        offline=args.offline,
+        catalog_archive=args.catalog_archive,
+        catalog_url=args.catalog_url,
+        main_root=args.gutenberg_main_root,
+        generated_root=args.gutenberg_generated_root,
+        allow_origins=tuple(args.allow_origin),
+        cache_dir=args.cache_dir,
+    )
+
+
+def _handle_catalog(args):
+    return catalog_cli.run(parsed_args=args)
 
 
 def _handle_inspect(args):
@@ -74,6 +89,8 @@ def _handle_linguistics(args):
 
 
 def _handle_visualize(args):
+    from lcats.visualize import cli as visualize_cli
+
     return "", visualize_cli.run(parsed_args=args)
 
 
@@ -89,7 +106,7 @@ def _handle_eval(_args):
     return "Evaluating LCATS is not yet implemented.", 1
 
 
-def build_parser() -> argparse.ArgumentParser:
+def build_parser(*, include_visualize=True) -> argparse.ArgumentParser:
     """Build and return the top-level LCATS command parser."""
     parser = argparse.ArgumentParser(
         prog="lcats",
@@ -142,8 +159,50 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Show which gatherers would run without executing downloads.",
     )
+    gather_parser.add_argument(
+        "--yes", action="store_true", help="Approve required first catalog setup only."
+    )
+    gather_parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="Forbid network access for all selected collections.",
+    )
+    gather_parser.add_argument(
+        "--cache-dir",
+        help="Cache root for catalog, original bytes and curated HTML sources.",
+    )
+    catalog_source = gather_parser.add_mutually_exclusive_group()
+    catalog_source.add_argument(
+        "--catalog-archive", help="Local RDF archive for required first setup."
+    )
+    catalog_source.add_argument(
+        "--catalog-url",
+        help="Archive URL; defaults to the published Gutenberg RDF archive.",
+    )
+    gather_parser.add_argument(
+        "--gutenberg-main-root",
+        help="Main ebook root; defaults to https://gutenberg.pglaf.org/. Override both roots together.",
+    )
+    gather_parser.add_argument(
+        "--gutenberg-generated-root",
+        help="Generated ebook root; defaults to https://gutenberg.pglaf.org/cache/epub/.",
+    )
+    gather_parser.add_argument(
+        "--allow-origin",
+        action="append",
+        default=[],
+        help="Additional permitted Gutenberg redirect origin (repeatable).",
+    )
     gather_parser.set_defaults(handler=_handle_gather)
     command_parsers["gather"] = gather_parser
+
+    catalog_parser = subparsers.add_parser(
+        "catalog",
+        parents=[catalog_cli.build_parser(add_help=False)],
+        help="Inspect or explicitly prepare the new Gutenberg catalog.",
+    )
+    catalog_parser.set_defaults(handler=_handle_catalog)
+    command_parsers["catalog"] = catalog_parser
 
     inspect_parser = subparsers.add_parser(
         "inspect",
@@ -309,24 +368,29 @@ def build_parser() -> argparse.ArgumentParser:
     linguistics_parser.set_defaults(handler=_handle_linguistics)
     command_parsers["linguistics"] = linguistics_parser
 
-    visualize_parent = visualize_cli.build_visualize_parser(add_help=False)
-    visualize_parser = subparsers.add_parser(
-        "visualize",
-        parents=[visualize_parent],
-        help="Visualize corpus metadata and document text.",
-        description=(
-            "Generate reproducible, publication-useful figures from LCATS "
-            "corpus metadata and story text."
-        ),
-        epilog=(
-            "Examples:\n"
-            "  lcats visualize genres\n"
-            "  lcats visualize genres --output-dir figures/genres --formats png,svg,pdf"
-        ),
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-    )
-    visualize_parser.set_defaults(handler=_handle_visualize)
-    command_parsers["visualize"] = visualize_parser
+    # Plotting imports create font caches. Gather/catalog must be able to plan
+    # in a pristine directory without loading unrelated execution backends.
+    if include_visualize:
+        from lcats.visualize import cli as visualize_cli
+
+        visualize_parent = visualize_cli.build_visualize_parser(add_help=False)
+        visualize_parser = subparsers.add_parser(
+            "visualize",
+            parents=[visualize_parent],
+            help="Visualize corpus metadata and document text.",
+            description=(
+                "Generate reproducible, publication-useful figures from LCATS "
+                "corpus metadata and story text."
+            ),
+            epilog=(
+                "Examples:\n"
+                "  lcats visualize genres\n"
+                "  lcats visualize genres --output-dir figures/genres --formats png,svg,pdf"
+            ),
+            formatter_class=argparse.RawDescriptionHelpFormatter,
+        )
+        visualize_parser.set_defaults(handler=_handle_visualize)
+        command_parsers["visualize"] = visualize_parser
 
     index_parser = subparsers.add_parser(
         "index",
@@ -372,7 +436,7 @@ def usage() -> str:
 
 def dispatch(command, args):
     """Dispatch a command and list of arguments using the configured parser."""
-    parser = build_parser()
+    parser = build_parser(include_visualize=command not in ("gather", "catalog"))
     argv = [command, *args]
     if command in parser.command_parsers and command != "help":
         parsed = parser.command_parsers[command].parse_args(args)
@@ -389,8 +453,10 @@ def dispatch(command, args):
 
 def main(argv=None):
     """Main entry point for the LCATS command-line interface."""
-    parser = build_parser()
     argv = list(argv) if argv is not None else sys.argv[1:]
+    parser = build_parser(
+        include_visualize=not argv or argv[0] not in ("gather", "catalog")
+    )
 
     if not argv:
         print(parser.format_help())

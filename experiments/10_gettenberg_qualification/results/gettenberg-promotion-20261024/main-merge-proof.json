@@ -1,0 +1,25 @@
+{
+  "main_ref": "22a739d25c5a72359c1f8e37f54f9059876e6798",
+  "integrated_ref": "df05525618d701be0d5a5ea2d2840774f00c1368",
+  "merge_base": "2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2",
+  "all_main_only_changes_preserved": true,
+  "main_only_tree_path_count": 1763,
+  "product_changes_from_integration": {
+    "lcats/src/lcats/llm/backend.py": {
+      "integrated_blob": "f3a4f4c92838fdff16889cd91cf8441c625d9375",
+      "main_and_candidate_blob": "bd80127a2cafb29046b5891d4a9e202dbccff8c7"
+    },
+    "lcats/src/lcats/llm/openai_backend.py": {
+      "integrated_blob": "95629c326585319200fd2f0734b6547c2cf1e7aa",
+      "main_and_candidate_blob": "f58aa530550e2fab7f010a9d61472456c97b1839"
+    }
+  },
+  "provider_gatherer_package_ci_unchanged": true,
+  "auto_merged_docs": [
+    "lcats/docs/reference/prepare-corpora-release.md",
+    "lcats/project/design/backlog.md"
+  ],
+  "limits": [
+    "Initial name-only count1760 used rename detection; tree identity checks count changed/deleted paths separately."
+  ]
+}

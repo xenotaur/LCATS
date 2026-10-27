@@ -1,0 +1,9 @@
+{
+  "starting_commit": "3c040b2d224bd03fc5c177e0c08f872fa6ec1057",
+  "files": {
+    "lcats/src/lcats/gatherers/editorial_evidence.py": "59f96137b8b0ac6f18d914cdcb6972e76cf0f485e62ac6a2ca867aa11f57f4f1",
+    "experiments/10_gettenberg_qualification/scripts/qualify_editorial_evidence.py": "56190f6595ec6f69fb2f5048d22ea26c8d109bb65b6e570763ca637d11ce52f3",
+    "lcats/tests/gatherers_tests/editorial_evidence_test.py": "884a442d14f72271d0f45c5b3337fb077c252dff3a387d6c306c5cf8002fc782",
+    "lcats/tests/gettenberg_tests/editorial_evidence_runner_test.py": "6c952700ee0e2ce740d0209d3bf88f6643c90b2d29fe3fc04868536a8ea68a09"
+  }
+}

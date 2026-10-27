@@ -1,0 +1,80 @@
+{
+  "status": "no_unresolved_P0_P1_P2_findings",
+  "reviewed_sha256": {
+    "experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py": "de9e50c7e69be1d462136cfad1a892e303cbff69f1f9d20a95db891a8b3d5d9c",
+    "experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py": "4d6acc3ab99b17c2d645ca45716f90deaf1b5f1dd4a053af836b56e355fb2197",
+    "experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py": "f3241fc340b33adc49890fa1e1f4b9896c1cc5b2389c3693af023b76dba493c2",
+    "experiments/10_gettenberg_qualification/scripts/trace_literal_terminal_notices.py": "1c2dbd628ed6c82739d0c84538e32c00c4bd913b11823b2d147742b4f0435c76",
+    "experiments/10_gettenberg_qualification/scripts/reproduce_scope_facts.py": "ff3f2c6a089746fc0832acef8fab68f93ad857cb950ea03ccab8ff933865a789",
+    "experiments/10_gettenberg_qualification/scope-facts-reproduction.md": "b45ecbd93ef5c567a98174ddde3681522e65cf3d729e59aa7d32d12d94d5e255",
+    "lcats/tests/gettenberg_tests/qualification_helpers_test.py": "67b7fcdd9c22f5c05d231d23f0b83d019601d30cdccf16d4ad3c97d539172437",
+    "lcats/project/development/gettenberg-scope-causality-audit.md": "774106108c2790f32ddc7cc8beef6f54b4668b8a9c6bb6f5638fd24ae373a35d",
+    "lcats/project/development/gettenberg-scope-meeting-brief.md": "09065c56fe5626bad685af7bbf7ca6a9e8b14bf6bdc219afcb60d7aa8a3445d4",
+    "lcats/project/work_items/proposed/WI-GETTENBERG-0010.md": "55a1ead8ca5bb265fe761d4774cfefb37e61116a756e9819dad3c5042a5d5b3d",
+    "lcats/project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md": "fb78ce7cff4f21d9459c7ae894daee63bef1a767d5f61fc6369424feb73be8a1",
+    "experiments/10_gettenberg_qualification/README.md": "31c5efbbd8eff089a939bddadb973a59dd53129aa18c016757424cf46c67e21b"
+  },
+  "focused_tests": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src PATH=/Users/centaur/anaconda3/envs/LCATS/bin:$PATH scripts/test tests.gettenberg_tests.qualification_helpers_test",
+    "count": 9,
+    "passed": true,
+    "initial_invocation_correction": "bare qualification_helpers_test failed import discovery; corrected fully qualified module passes",
+    "elapsed_seconds": 19.858
+  },
+  "independent_checks": {
+    "all_script_imports_with_legacy_blocked": 29,
+    "all_argparse_help_paths_with_legacy_blocked": 25,
+    "source_tree_files_verified": 174,
+    "loaded_product_modules_verified": 44,
+    "negative_pin_probes": [
+      "changed transitive source",
+      "added source",
+      "missing source",
+      "untracked imported module",
+      "shadow parser origin"
+    ],
+    "facts_reproduced": 18,
+    "legacy_helper_sha_bound": true,
+    "product_source_changes": false,
+    "existing_archive_byte_changes": false
+  },
+  "evidence": [
+    "/tmp/gettenberg-landing-import-help-review-20261022.json",
+    "/tmp/gettenberg-landing-pin-independent-20261022.json",
+    "/tmp/gettenberg-scope-facts-independent-landing-20261022.json"
+  ],
+  "approval_boundary": "Approved planning/Q1-Q8 adoption and PR528 internal integration only; future candidate qualification, main promotion, corpus/publication and terminal closeout remain separate.",
+  "limits": [
+    "No full-suite or hosted-CI assertion by independent reviewer.",
+    "No duplicate eight-case/full-population extraction replay in this pass.",
+    "Original archived measurements remain attributed to prior runner bytes; new facts runner explicitly excludes unarchived investigator parity."
+  ],
+  "findings": [
+    {
+      "priority": "P2",
+      "file": "lcats/tests/gettenberg_tests/qualification_helpers_test.py",
+      "lines": [
+        117,
+        118
+      ],
+      "summary": "New canonical shadow-import regression test freezes live product source tree at historical6a873b6; all future product edits would fail unit suite. Use a temporary fixture tree/module map instead.",
+      "status": "resolved_and_independently_rechecked",
+      "resolution": "Shadow-import regression now uses isolated temporary product package/module map and explicit expected paths; no live pinned product dependency."
+    }
+  ],
+  "final_recheck_utc": "2026-10-22T18:03:44.627054+00:00",
+  "commit_binding": {
+    "commit": "141e151bca8d716e8b239ac5364d35dcaac48257",
+    "all_12_reviewed_sha256_match_commit_and_worktree": true,
+    "verified_utc": "2026-10-22T18:06:15.362550+00:00"
+  },
+  "fresh_numeric_replay_recheck": {
+    "path": "/tmp/gettenberg-scope-adoption-numeric.json",
+    "sha256": "2111859ac0e50baf469cb50ab58dbf3c56c79c7d79d4c0859b07347ca64fb6b3",
+    "archived_path": "experiments/10_gettenberg_qualification/results/gettenberg-numeric-notice-audit-20261022/corpus-comparison.json.gz",
+    "archived_sha256": "b67deacb7d2388d672ac0a748e8157fde6b275bfa07be663b5cfe6081f1fa928",
+    "all_rows_equal": true,
+    "summary_equal": true,
+    "row_count": 1659
+  }
+}

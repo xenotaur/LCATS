@@ -1,0 +1,13 @@
+{
+  "database_sha256": "188b422247c48807459f3aedac6dad462244e91a2885543e3051555c0e0a39f5",
+  "english_query": {
+    "seconds": [
+      0.10528816700025345,
+      0.05502770799830614,
+      0.055357416000333615
+    ],
+    "count": 62689,
+    "ids_sha256": "baf4346b346013c50a26353a0b9808f4c0005f36d19e48283878b7bd655866f5"
+  },
+  "scope": "Read-only native SQL on rebuilt historical database; first language only, not broken legacy public-wrapper string filter; new public pagination includes all recorded language values."
+}

@@ -1,0 +1,55 @@
+{
+  "reviewer": "independent /root/causal_yield_review",
+  "reviewed_at": "2026-10-23T06:00:38.405424+00:00",
+  "scope": "Fixed-production causal accounting and disposable decoded-fixture gather yield; evidence and runner review only, not Q1\u2013Q8 acceptance or merge permission.",
+  "base_head": "95ad5afddc6841c6f7946c7ae43fd98b6f39b25f",
+  "product_ref": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "reviewed_sources": {
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_yield.py": "d4f0a7060eb08f3cc008406367e9e75b394b73a82f64743d46140ec886cf37a3",
+    "experiments/10_gettenberg_qualification/scripts/narrow_yield_test.py": "95b3d0de5aceb13a391b7eea45dc7bdf65c7077de13348970de21582e2c1d0ec",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_causality.py": "59dfe94f97d67ce90069b6c56673bc7f147b7699c211f15671dc234dfcd5d28d",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_causality_test.py": "9aabae3b3c7006c54c301b0410bfb6bacd27bf43482e25d4806a5cbec46ac043",
+    "experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/README.md": "cc9b2a937396e06f575f926c30a2306194221187e03a0255da426f6cc05d6a52"
+  },
+  "reports": {
+    "/tmp/gettenberg-yield-20261023-final.json": "7d90d518b0a1227b8fbb05db29595903c0fd1592730463bd76a35c9ff2bdd768",
+    "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/experiments/10_gettenberg_qualification/results/gettenberg-causal-yield-20261023/causal-ledger.json.gz": "97841cf092f341cad4bb091203058b953993a622902a80e758aee9cfd04445fb",
+    "/tmp/gettenberg-independent-causal-20261023.json": "36a0eba43c7a866ece8b706f4d3222f9c952966cb8eacbbca001e0579659ad35"
+  },
+  "findings": [
+    {
+      "priority": "P2",
+      "finding": "Yield provenance omitted non-Python normalization data and helper stability guards.",
+      "resolution": "Both packaged JSON inputs are bound against pinned Git bytes at start/end; helper hashes also checked start/end. New complete yield replay binds the repaired runner. Independent simulated read mutations of either JSON input were rejected.",
+      "status": "Clear-satisfied"
+    }
+  ],
+  "unresolved_p0_p2": [],
+  "nonblocking_observations": [
+    {
+      "priority": "P3",
+      "observation": "The new data/helper guard calls precede try/finally after alarm installation; a caller catching main() guard failure could retain SIGALRM.",
+      "disposition": "Coordinator explicitly deferred; this runner is documented as a standalone CLI, where guard failure exits. Current successful measurement restores the alarm. No production impact."
+    }
+  ],
+  "independent_checks": [
+    "18 focused experiment tests passed via unittest discover pattern *narrow*test.py.",
+    "All80 causal rows, summaries, product and measurement-source pins independently reproduced exactly in53.468seconds.",
+    "All55 notice-only additions inspected from complete, untruncated excerpts.",
+    "All67 legacy controls separately equal checked-in historical body hashes.",
+    "Final yield report1659unique inputs:1646published unique outputs and13refused; refusalIDs exactly join causal ledger.",
+    "All1646 output owner/body/source/receipt identities verified against pinned inputs and seeded fixture receipt hashes.",
+    "Cold cohort batch41published then3699refused/1617unattempted; repeat same abort;1646outputs reused with empty source cache.",
+    "Both JSON pin guards reject a simulated altered read without mutating product files.",
+    "Runtime diff from product91f1b422 empty; final runner/helper/data hashes match files reviewed."
+  ],
+  "limits": [
+    "Final yield replay executed by coordinator; reviewer independently verified its data and bindings, plus focused real-pipeline fixture tests. No duplicate full yield run.",
+    "Decoded UTF8 fixture transport does not establish historical wire provenance, live acquisition or pacing.",
+    "Full configured5492-ID collection not executed; measured configured-order intersection is1659.",
+    "Per-item potential yield is not production continuation behavior; Q5 remains blocked by fail-fast.",
+    "No editorial/delivery acceptance inferred from additive bodies or known mechanisms.",
+    "No full canonical suite or installed wheel run by this reviewer; coordinator records those separately."
+  ],
+  "recommendation": "Evidence and measurement tooling are suitable to present for human scope/contract decisions after coordinator canonical validation. No production behavior change or main promotion approved."
+}

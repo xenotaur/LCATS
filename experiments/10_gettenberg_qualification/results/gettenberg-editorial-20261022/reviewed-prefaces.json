@@ -1,0 +1,40 @@
+[
+  {
+    "schema_version": 1,
+    "kind": "gettenberg_preface_role_review",
+    "gutenberg_id": 63638,
+    "candidate_record_sha256": "9e51c5f06699ea7f98fbba841f13075edb7e692d0ef0eb8d53a9e23f5dbc7874",
+    "candidate_span": [
+      31,
+      356
+    ],
+    "candidate_text_sha256": "1b009de2a1b737bcf50098a78a91f28fd93430910622c8e43d9018a3a9e9518a",
+    "source_span": [
+      165,
+      495
+    ],
+    "source_text_sha256": "76823b5a8ca62e1ebb63804f1bcc60cb0011d144df7364e57b558752545f81f1",
+    "decoded_utf8_sha256": "534b85a40edf0d5e221957c5183fa0d540682d982ecc2b214ed21024cb5eb548",
+    "reviewer": "Codex coordinator, corroborated by independent source-evidence investigator",
+    "rationale": "Explicit Editor's note label; editors describe reading the story, call it PLANET'S scoop and ask readers to evaluate Mr. Loomis. This identifies an editorial promotional utterance about the independently named author/story, rather than story-world narration. The complete source paragraph is promotional editorial matter preserved as publisher_blurb with its original label. This attributes only this exact span, not the surrounding prose or the complete story. No claim of authenticated original publisher authorship beyond the cached source attribution."
+  },
+  {
+    "schema_version": 1,
+    "kind": "gettenberg_preface_role_review",
+    "gutenberg_id": 73988,
+    "candidate_record_sha256": "4543359abf8fc662d256c9f5ab0c62b411f66834b8c26af9c74fe3c3ac2c9acc",
+    "candidate_span": [
+      339,
+      936
+    ],
+    "candidate_text_sha256": "8bbe8f03e7a568a0c3724f21dcd9ef2de35ad3c33c51b1f16d64000150cff7c9",
+    "source_span": [
+      510,
+      1116
+    ],
+    "source_text_sha256": "f79b4a560a0bbd2f5c611faef1581136845b98721169d917d9849f2a1299846d",
+    "decoded_utf8_sha256": "f06ce9ea1ae43cdf16e1f001b5496884e6ff7e7c69b162b7d690e8a6d974ab04",
+    "reviewer": "Codex coordinator, corroborated by independent source-evidence investigator",
+    "rationale": "Explicit Publisher’s note label; refers to critics, the Editor's search for a story, praise, its O. Henry ending and reader rereading. Complete bracketed editorial promotion. The complete source paragraph is promotional editorial matter preserved as publisher_blurb with its original label. This attributes only this exact span, not the surrounding prose or the complete story. No claim of authenticated original publisher authorship beyond the cached source attribution."
+  }
+]

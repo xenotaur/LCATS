@@ -17,6 +17,7 @@ from unittest import mock
 from lcats.gettenberg import _lifecycle_io
 from lcats.gettenberg import errors
 from lcats.gettenberg import lifecycle
+from tests.gettenberg_tests import catalog_receipts_test
 from tests.gettenberg_tests import catalog_test
 
 
@@ -528,7 +529,13 @@ with _lifecycle_io.writer_lock(pathlib.Path(sys.argv[1]),0):
         result = doctest.testfile(
             str(path),
             module_relative=False,
-            extraglobs={"cache_dir": self.cache, "archive_path": self.archive},
+            extraglobs={
+                "cache_dir": self.cache,
+                "archive_path": self.archive,
+                "artifact": catalog_receipts_test.artifact_fixture(
+                    self.directory, self.archive.read_bytes()
+                ),
+            },
         )
         self.assertEqual(result.failed, 0)
         self.assertGreater(result.attempted, 0)

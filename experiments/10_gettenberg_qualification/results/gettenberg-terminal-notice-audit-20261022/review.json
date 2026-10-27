@@ -1,0 +1,36 @@
+{
+  "status": "no_unresolved_findings",
+  "finding": {
+    "priority": 2,
+    "issue": "missing required routes in GutenbergStorySource constructor",
+    "resolved": true,
+    "verification": "corrected explicit routes inspected; completed full1659 replay passes constructor and pinned input guards"
+  },
+  "reviewed_sha256": {
+    "terminal_notice_candidate.py": "9681b3ad05c7474b91d5bbe4e98c7a9ffec26084b9f910323224deb937c546c6",
+    "test_terminal_notice_candidate.py": "f430201f7a8df8d5d1364485ff952150036eb6132bdddb8bcdd3d8354a106c82",
+    "audit_terminal_notice.py": "baf0ff35dc0c1bf6ee425f4a3456a7d8e26d2bab4c410bd881587185b8f24700",
+    "trace_literal_terminal_notices.py": "fe441aa501438bf8dfbb79a7ea7a38827331b749bd32f1eac299dc46bc7f3bdb"
+  },
+  "focused_tests": {
+    "count": 8,
+    "status": "pass",
+    "additional_boundary_probes": 6
+  },
+  "independent_checks": [
+    "recomputed all full-census summary counts from1659rows",
+    "matched3292 baseline output hashes to original archive",
+    "verified all470 removed suffixes against source cache hashes,exact spans,text,characters and new full-line grammar",
+    "independently replayed6 cells for35401/50103; hashes and traces match fullreport",
+    "two explicit literal interventions independently restored both archived hashes",
+    "durable literal runner rows match independent literal report",
+    "product source/tests/manifests unchanged"
+  ],
+  "full_report_sha256": "0124df28a4b146d38bbd8784413484cb81b82190b7622f02dce579999f22d351",
+  "limits": [
+    "did not duplicate full1659 execution",
+    "no product/corpus acceptance",
+    "numeric marker50103 excluded by candidate; literal intervention is separate diagnostic authority",
+    "no fullsuite/network/publication"
+  ]
+}

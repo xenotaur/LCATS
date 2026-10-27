@@ -1,0 +1,169 @@
+{
+  "summary": {
+    "compared": 1646,
+    "cleanup_refused": 13
+  },
+  "body_differences": 1642,
+  "retained_corpus_differences": 1642,
+  "seconds": 217.62118466600077,
+  "baseline_parser_ref": "335855c04cd7ba936815d2635969d94fdd278c71",
+  "baseline_parser_sha256": "b0258387b355cb78cdabb089bf044219b6d3f247f26cff51ae946b09710d4976",
+  "scope": "Initial policy only, before editorial-recognition repair; descriptive changes, not acceptance. No normalization suppresses raw differences.",
+  "changed_eligibility": [
+    {
+      "id": 61198,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 63009,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 6218,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 24724,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 31964,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 64292,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 27612,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 33790,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 27709,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 70391,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 44319,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 22958,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 63028,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 61353,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 59724,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 44327,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 23153,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 69601,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 28886,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 20838,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 42640,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 32769,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 67732,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 24783,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 39216,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 61577,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 24936,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 58201,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 32878,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 63230,
+      "before": null,
+      "after": "chapters"
+    },
+    {
+      "id": 66502,
+      "before": null,
+      "after": "chapters"
+    }
+  ]
+}

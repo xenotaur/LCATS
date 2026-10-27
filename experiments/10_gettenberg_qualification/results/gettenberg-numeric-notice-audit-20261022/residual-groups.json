@@ -1,0 +1,143 @@
+{
+  "scope": "Mechanical residual grouping, not approval. Old grouping is reused with its input evidence; numeric exclusions require a separate policy decision.",
+  "comparison_sha256": "845b74e747f32ce8f59b9e3bf1884ea8f06d99fae3195c30c14dc519fa17adb6",
+  "previous_grouping_sha256": "df9df5217d0b5cbc84999450a11b9efe4ee865dda92992098c24c8122512e4eb",
+  "numeric_title_mismatch": [
+    {
+      "id": 30267,
+      "titles": [
+        "Remember the Alamo!"
+      ],
+      "decoded_utf8_sha256": "7d82e49e35ffe4bac4e8d431d5b21e251fd81308484ffb2ee02e1c5fa3d877cf"
+    },
+    {
+      "id": 42640,
+      "titles": [
+        "The Last Christmas Tree: An Idyl of Immortality"
+      ],
+      "decoded_utf8_sha256": "1a9d7c3985fc4c11f3cf72f5041084c7f18f1e8ac7c1f141d42967210555ddae"
+    },
+    {
+      "id": 51006,
+      "titles": [
+        "Obil, Keeper of Camels : $b being the parable of the man whom the disciples saw casting out devils"
+      ],
+      "decoded_utf8_sha256": "701894db2a36bb96a630e318904b7199177721207dd86a7b0a99f3fee9b5820f"
+    },
+    {
+      "id": 51668,
+      "titles": [
+        "Dream World"
+      ],
+      "decoded_utf8_sha256": "c4d154e5025f80dfe760d8a50ab7d645aa858d012f2695e8cc1c3ae11dbe5b87"
+    },
+    {
+      "id": 53035,
+      "titles": [
+        "When You Giffle..."
+      ],
+      "decoded_utf8_sha256": "cb6477283ebfff373974d2c8d00e7c921990abd35898568a2a8082b9ea56fd10"
+    },
+    {
+      "id": 56250,
+      "titles": [
+        "Santa Claus' Message: A Christmas Story"
+      ],
+      "decoded_utf8_sha256": "b802193c0086a9874022bcd241d36f998abd033509bfbccb40708771292b180c"
+    },
+    {
+      "id": 61498,
+      "titles": [
+        "If You're Smart\u2014"
+      ],
+      "decoded_utf8_sha256": "f56b68975f150752b29c0a045368b383be8b333725732c1f5b48b0033801483b"
+    },
+    {
+      "id": 61766,
+      "titles": [
+        "Asteroid H277\u2014Plus"
+      ],
+      "decoded_utf8_sha256": "9d0052d46c336b2110b25b232a433adecaf056ec906bb9730d6b80aa677c8680"
+    },
+    {
+      "id": 62443,
+      "titles": [
+        "Destination\u2014Death"
+      ],
+      "decoded_utf8_sha256": "f2b3f065ceb4edb2eef3c9d6c2e2666c9418e0b8836ddb9feea7555d9f14c0ce"
+    },
+    {
+      "id": 63720,
+      "titles": [
+        "Through the Asteroids\u2014To Hell!"
+      ],
+      "decoded_utf8_sha256": "8b61805dae715d4c02e01f506e2831585a9e74478a50fca80c652ed64d99ebae"
+    }
+  ],
+  "outside_single_line_notice_grammar": [
+    23168,
+    17083,
+    23146,
+    9215,
+    8525,
+    51622,
+    9218,
+    29181,
+    29206,
+    23556,
+    51650,
+    23329,
+    23326,
+    22810,
+    44319,
+    22844,
+    22841,
+    30035,
+    47492,
+    36867,
+    70645,
+    23161,
+    25057,
+    2347,
+    2345,
+    23553,
+    23254,
+    23557,
+    3183,
+    23252,
+    51698,
+    23555,
+    27921,
+    23701,
+    30259,
+    23165,
+    61870,
+    23003,
+    23703,
+    12830,
+    23552,
+    9204,
+    22479,
+    23548,
+    9213,
+    22967,
+    22218,
+    59289,
+    9210,
+    9214,
+    30010,
+    23550,
+    23551,
+    23198,
+    24375,
+    23549
+  ],
+  "leading_newline_difference": [
+    32655
+  ],
+  "counts": {
+    "numeric_title_mismatch": 10,
+    "outside_single_line_notice_grammar": 56,
+    "leading_newline_difference": 1
+  }
+}

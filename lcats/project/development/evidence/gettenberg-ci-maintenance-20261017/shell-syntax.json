@@ -1,0 +1,57 @@
+[
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Install LCATS",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Compute compatibility and source namespaces",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Preview selected operation and exact-ref cache inventory",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Delete selected cache IDs",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Run supported catalog maintenance",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Compute verified-operation save keys",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "cache_maintenance.yml",
+    "step": "Verify newly saved snapshots exist",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "tests.yml",
+    "step": "Install dependencies",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "tests.yml",
+    "step": "Run unit tests",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "coverage.yml",
+    "step": "Install dependencies",
+    "bash_syntax_exit": 0
+  },
+  {
+    "workflow": "coverage.yml",
+    "step": "Run coverage (report + HTML)",
+    "bash_syntax_exit": 0
+  }
+]

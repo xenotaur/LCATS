@@ -13,7 +13,9 @@ import sqlite3
 import time
 import uuid
 
+from lcats.gettenberg import _catalog_provenance
 from lcats.gettenberg import _lifecycle_io
+from lcats.gettenberg import _resource_types
 from lcats.gettenberg import _store
 from lcats.gettenberg import catalog
 from lcats.gettenberg import errors
@@ -22,7 +24,8 @@ from lcats.utils import env
 
 _ID = re.compile(r"[0-9a-f]{32}\Z")
 _HASH = re.compile(r"[0-9a-f]{64}\Z")
-_MANIFEST_VERSION = 1
+_MANIFEST_VERSION = 2
+_MANIFEST_LIMIT = 131072
 _COUNT_TABLES = (
     "ebooks",
     "sources",
@@ -184,14 +187,14 @@ class CatalogManager:
         if not path.is_dir():
             raise errors.CatalogMissingError(f"generation is missing: {identifier}")
         manifest_path = path / "manifest.json"
-        manifest = _lifecycle_io.read_json(manifest_path)
-        digest, _ = _lifecycle_io.hash_file(manifest_path, 65536)
+        manifest = _lifecycle_io.read_json(manifest_path, _MANIFEST_LIMIT)
+        digest, _ = _lifecycle_io.hash_file(manifest_path, _MANIFEST_LIMIT)
         if expected_hash is not None and digest != expected_hash:
             raise errors.CatalogLifecycleError(
                 "active manifest fingerprint differs from its pointer"
             )
         if (
-            manifest.get("version") != _MANIFEST_VERSION
+            manifest.get("version") not in (1, _MANIFEST_VERSION)
             or type(manifest.get("version")) is not int
         ):
             raise errors.CatalogSchemaError("unsupported generation manifest version")
@@ -212,6 +215,12 @@ class CatalogManager:
         for field in ("archive_bytes", "database_bytes"):
             if type(manifest.get(field)) is not int or manifest[field] <= 0:
                 raise errors.CatalogLifecycleError(f"invalid manifest {field}")
+        _catalog_provenance.validate(
+            manifest.get("source"),
+            manifest["archive_sha256"],
+            manifest["archive_bytes"],
+            manifest["version"],
+        )
         counts = manifest.get("counts")
         if (
             not isinstance(counts, dict)
@@ -359,14 +368,27 @@ class CatalogManager:
         digest, size = _lifecycle_io.hash_file(database, database_limit, deadline.check)
         return counts, digest, size
 
-    def _prepare_candidate(self, source, limits, expected_archive=None):
+    def _prepare_candidate(
+        self, source, limits, expected_archive=None, provenance=None
+    ):
         # Manifests use strict UTF-8 JSON. Reject undecodable POSIX filenames
         # before copying/building instead of failing after expensive ingestion.
+        if isinstance(source, _resource_types.SourceArtifact):
+            provenance = _catalog_provenance.acquired(source)
+            expected_archive = (source.sha256, source.size)
+            source = source.path
         input_path = str(pathlib.Path(source).absolute())
         try:
             input_path.encode("utf-8")
         except UnicodeEncodeError as exc:
             raise errors.CatalogInputError("archive path must be valid UTF-8") from exc
+        if provenance is None:
+            provenance = {
+                "kind": "local_archive",
+                "input_path": input_path,
+                "retrieved_at": None,
+                "http_etag": None,
+            }
         limits = ingestion.BuildLimits() if limits is None else limits
         if not isinstance(limits, ingestion.BuildLimits):
             raise errors.CatalogInputError("limits must be BuildLimits")
@@ -376,7 +398,9 @@ class CatalogManager:
             limits.max_compressed_bytes,
             _Deadline(self.validation_seconds).check,
             expected=expected_archive,
+            lock_timeout=self.lock_timeout,
         )
+        _catalog_provenance.validate(provenance, digest, size, _MANIFEST_VERSION)
         identifier = uuid.uuid4().hex
         path = self.root / "candidates" / identifier
         path.mkdir()
@@ -399,12 +423,7 @@ class CatalogManager:
             "database_bytes": database_size,
             "snapshot_id": snapshot,
             "counts": counts,
-            "source": {
-                "kind": "local_archive",
-                "input_path": input_path,
-                "retrieved_at": None,
-                "http_etag": None,
-            },
+            "source": provenance,
             "prepared_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         }
         try:
@@ -463,7 +482,7 @@ class CatalogManager:
             _lifecycle_io.sync_directory(self.root / "generations")
             generation = self._load(identifier)
         manifest_hash, _ = _lifecycle_io.hash_file(
-            generation.catalog_path.parent / "manifest.json", 65536
+            generation.catalog_path.parent / "manifest.json", _MANIFEST_LIMIT
         )
         _lifecycle_io.atomic_json(
             self.root / "active.json",
@@ -486,7 +505,7 @@ class CatalogManager:
 
     def setup(
         self,
-        archive: str | pathlib.Path | None = None,
+        archive: str | pathlib.Path | _resource_types.SourceArtifact | None = None,
         *,
         limits: ingestion.BuildLimits | None = None,
     ) -> Generation:
@@ -510,7 +529,7 @@ class CatalogManager:
 
     def rebuild(
         self,
-        archive: str | pathlib.Path | None = None,
+        archive: str | pathlib.Path | _resource_types.SourceArtifact | None = None,
         *,
         limits: ingestion.BuildLimits | None = None,
         allow_count_change: bool = False,
@@ -519,12 +538,15 @@ class CatalogManager:
 
         Omit archive to reuse the active generation's retained source. A changed
         ebook count requires explicit approval; the error names a recoverable
-        candidate which activate() can publish without rebuilding.
+        candidate which activate() can publish without rebuilding. Pass a
+        SourceArtifact to preserve its receipt; implicit rebuild preserves the
+        active source provenance. Supplying only a path records local input.
         """
         if type(allow_count_change) is not bool:
             raise errors.CatalogInputError("allow_count_change must be bool")
         with self._writer():
             expected_archive = None
+            provenance = None
             if archive is None:
                 active = self._active()
                 if active is None:
@@ -532,13 +554,80 @@ class CatalogManager:
                         "no active source archive to rebuild"
                     )
                 archive = active.archive_path
+                provenance = active.manifest["source"]
                 expected_archive = (
                     active.manifest["archive_sha256"],
                     active.manifest["archive_bytes"],
                 )
             return self._activate(
-                self._prepare_candidate(archive, limits, expected_archive),
+                self._prepare_candidate(archive, limits, expected_archive, provenance),
                 allow_count_change,
+            )
+
+    def update(
+        self,
+        source: _resource_types.SourceArtifact,
+        *,
+        limits: ingestion.BuildLimits | None = None,
+        allow_count_change: bool = False,
+    ) -> Generation:
+        """Apply an already acquired archive offline, reusing unchanged input.
+
+        Args:
+            source: Archive-kind SourceArtifact from ResourceStore fetch/refresh.
+            limits: Bounds for source verification and any candidate build.
+            allow_count_change: Explicitly accept a changed ebook count.
+
+        Returns:
+            The verified active generation with reused=True when archive bytes
+            match; otherwise a newly built, verified and activated generation.
+            Reuse preserves the build receipt, not the latest refresh receipt.
+
+        Raises:
+            CatalogInputError: Invalid source kind, limits or approval option.
+            CatalogLifecycleError: Receipt, source or retained generation changed.
+            CatalogCountChangeError: Candidate needs explicit count approval.
+            CatalogBuildError: Acquired bytes do not form a complete catalog.
+        """
+        if not isinstance(source, _resource_types.SourceArtifact):
+            raise errors.CatalogInputError("update requires a SourceArtifact")
+        if type(allow_count_change) is not bool:
+            raise errors.CatalogInputError("allow_count_change must be bool")
+        limits = ingestion.BuildLimits() if limits is None else limits
+        if not isinstance(limits, ingestion.BuildLimits):
+            raise errors.CatalogInputError("limits must be BuildLimits")
+        _catalog_provenance.acquired(source)
+        with self._writer():
+            active = self._active()
+            if active is not None and (source.sha256, source.size) == (
+                active.manifest["archive_sha256"],
+                active.manifest["archive_bytes"],
+            ):
+                # Check the supplied file even when another cache owns it; receipt
+                # identity alone is not evidence that these bytes remain intact.
+                deadline = _Deadline(self.validation_seconds)
+                if _lifecycle_io.hash_file(
+                    pathlib.Path(source.path),
+                    limits.max_compressed_bytes,
+                    deadline.check,
+                ) != (source.sha256, source.size):
+                    raise errors.CatalogLifecycleError(
+                        "acquired archive differs from receipt"
+                    )
+                counts, digest, size = self._verify(
+                    active.catalog_path, active.archive_path, source.sha256, source.size
+                )
+                if (counts, digest, size) != (
+                    active.manifest["counts"],
+                    active.manifest["database_sha256"],
+                    active.manifest["database_bytes"],
+                ):
+                    raise errors.CatalogLifecycleError(
+                        "active generation changed after sealing"
+                    )
+                return dataclasses.replace(active, reused=True)
+            return self._activate(
+                self._prepare_candidate(source, limits), allow_count_change
             )
 
     def activate(
@@ -623,13 +712,27 @@ class CatalogManager:
                 (self.root, r"\.active\.json\.[0-9a-f]{32}\.tmp"),
                 (self.root / "archives", r"\.archive\.[0-9a-f]{32}\.tmp"),
             ):
-                for path in sorted(directory.iterdir()):
-                    if (
-                        re.fullmatch(pattern, path.name)
-                        and path.is_file()
-                        and not path.is_symlink()
-                    ):
-                        path.unlink()
-                        removed.append(str(path))
+                archive_lock = (
+                    _lifecycle_io.archive_publication_lock(directory, self.lock_timeout)
+                    if directory.name == "archives"
+                    else contextlib.nullcontext()
+                )
+                with archive_lock:
+                    for path in sorted(directory.iterdir()):
+                        if (
+                            re.fullmatch(pattern, path.name)
+                            and path.is_file()
+                            and not path.is_symlink()
+                        ):
+                            if (
+                                directory.name == "archives"
+                                and path.stat().st_nlink > 1
+                            ):
+                                # A killed publisher can leave a temporary name
+                                # linked to a live immutable archive. Unlinking
+                                # it changes ctime during lock-free reader hashes.
+                                continue
+                            path.unlink()
+                            removed.append(str(path))
             _lifecycle_io.sync_directory(self.root / "candidates")
         return tuple(removed)

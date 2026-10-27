@@ -1,0 +1,41 @@
+{
+  "scope": "Final repaired local checkpoint checks; corpus acceptance and independent repair re-review remain open.",
+  "format": {
+    "exit_code": 0,
+    "log_sha256": "4efed281609e49860f57d127a74c7edbddae48c654dee79d0735fc1f9e5ae6c8"
+  },
+  "lint": {
+    "exit_code": 0,
+    "log_sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "experiment-format": {
+    "exit_code": 0,
+    "log_sha256": "2905ef48f08749efc5fa3e516a8355f26b1bded06e5c2654b0b8aa5375b78d3d"
+  },
+  "experiment-lint": {
+    "exit_code": 0,
+    "log_sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "canonical-tests": {
+    "exit_code": 0,
+    "log_sha256": "650fb384ea5e360d446bfbbd01530275955ce4e628daa92e2659260879b4932c",
+    "tests": 2976,
+    "seconds": 82.217,
+    "archived_log": "canonical-test.log.gz"
+  },
+  "lrh": {
+    "exit_code": 0,
+    "log_sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "errors": 0,
+    "warnings": 351
+  },
+  "focused-review-repairs": {
+    "exit_code": 0,
+    "log_sha256": "cf77456d39715ae430ffd8876c22ceed7cccbbc200be784edc3d390113d9b402",
+    "tests": 191
+  },
+  "review_red_reproductions": {
+    "expected_failure_count": 2,
+    "log_sha256": "1150d8f176d4b401609b113ec945a16039cbe6c5304a772eccc75dabebf47e1a"
+  }
+}

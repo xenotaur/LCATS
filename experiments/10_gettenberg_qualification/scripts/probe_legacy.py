@@ -12,9 +12,6 @@ import json
 import pathlib
 import sqlite3
 from unittest import mock
-from gutenbergpy.caches import sqlitecache
-from lcats.gettenberg import api
-from lcats.gettenberg import cache
 
 
 def main(argv=None):
@@ -22,6 +19,16 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("database")
     options = parser.parse_args(argv)
+    # Keep import and --help usable after dependency removal. Actual historical
+    # measurements require the recorded checkout; no compatibility shim is added.
+    try:
+        from gutenbergpy.caches import sqlitecache
+        from lcats.gettenberg import api
+        from lcats.gettenberg import cache
+    except ImportError:
+        parser.error(
+            "historical probe requires its recorded LCATS checkout and gutenbergpy environment"
+        )
     arguments = [options.database]
 
     database = pathlib.Path(arguments[0]).resolve()

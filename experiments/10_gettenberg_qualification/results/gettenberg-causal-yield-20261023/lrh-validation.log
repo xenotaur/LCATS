@@ -1,0 +1,354 @@
+Validation completed: 0 error(s), 351 warning(s)
+
+Warnings:
+- [OWNER_ROLE_INSUFFICIENT] work_items/abandoned/WI-ANNOTATE-0053.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/abandoned/WI-ANNOTATE-0053.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/abandoned/WI-META-0006.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-ASSESS-0051.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-ASSESS-0051.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0030.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0030.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0033.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0033.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0078.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0078.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0079.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0079.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0080.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0080.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-EVENT-0081.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-EVENT-0081.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-LINGUISTICS-0008.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-LINGUISTICS-0008.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-PERSIST-0004.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-PROMOTE-0118.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-PROMOTE-0118.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-SEGMENT-0106.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-SEGMENT-0106.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-VISUALIZE-0093.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-VISUALIZE-0093.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/proposed/WI-VISUALIZE-0094.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/proposed/WI-VISUALIZE-0094.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ANNOTATE-0050.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ANNOTATE-0050.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ANNOTATE-0051.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ANNOTATE-0051.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ANNOTATE-0052.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ANNOTATE-0052.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ANNOTATE-0054.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ANNOTATE-0054.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-APPLY-0005.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ASSESS-0031.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ASSESS-0031.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-ASSESS-0050.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-ASSESS-0050.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-CLEAN-0022.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-DOCS-0013.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-DOCS-0013.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-DOCS-0014.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-DOCS-0014.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-DOCS-0015.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-DOCS-0015.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0024.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0024.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0025.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0025.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0026.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0026.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0027.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0027.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0028.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0028.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0029.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0029.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0032.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0032.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0061.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0061.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EVENT-0096.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EVENT-0096.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EXPERIMENTS-0046.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EXPERIMENTS-0046.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EXPERIMENTS-0047.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EXPERIMENTS-0047.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-EXPERIMENTS-0048.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-EXPERIMENTS-0048.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GATHER-0101.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GATHER-0101.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GATHER-0103.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GATHER-0103.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GATHER-0104.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GATHER-0104.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GATHER-0105.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GATHER-0105.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0001.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0001.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0002.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0002.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0003.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0003.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0004.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0004.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0075.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0075.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0076.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0076.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0077.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0077.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-GENRE-0109.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-GENRE-0109.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-INFRA-0011.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-INFRA-0011.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-INFRA-0012.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-INFRA-0012.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0001.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0001.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0002.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0002.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0003.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0003.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0004.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0004.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0005.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0005.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0006.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0006.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0007.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0007.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0009.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0009.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0010.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0010.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0011.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0011.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0012.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0012.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0013.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0013.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LINGUISTICS-0014.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LINGUISTICS-0014.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0007.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0008.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0009.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0010.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0049.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0049.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0050.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0050.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0051.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0051.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0055.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0055.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0056.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0056.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0058.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0058.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0059.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0059.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0062.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0062.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0063.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0063.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0064.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0064.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0065.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0065.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0066.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0066.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-LLM-0074.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-LLM-0074.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-META-0023.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-META-0023.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-NORMALIZE-0017.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-OVERRIDES-0018.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0051.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0051.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0057.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0057.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0058.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0058.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0060.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0060.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0067.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0067.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PILOT-0082.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PILOT-0082.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PIPELINE-0040.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PIPELINE-0040.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PIPELINE-0041.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PIPELINE-0041.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROCESSING-0057.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROCESSING-0057.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0020.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0097.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0097.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0100.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0100.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0101.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0101.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0102.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0102.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0108.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0108.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0112.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0112.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0115.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0115.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-PROMOTE-0117.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-PROMOTE-0117.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RELEASE-0021.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-REPAIR-0001.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RESIDUAL-0019.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-REVIEW-0003.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RULES-0016.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0078.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0078.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0079.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0079.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0080.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0080.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0081.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0081.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0082.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0082.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0083.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0083.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-RUNLOG-0084.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-RUNLOG-0084.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0059.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0059.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0068.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0068.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0069.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0069.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0070.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0070.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0071.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0071.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0072.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0072.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0097.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0097.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0098.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0098.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0099.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0099.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0101.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0101.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SEGMENT-0102.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-SEGMENT-0102.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-SPANOPS-0002.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-STATS-0049.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-STATS-0049.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-STORY-0042.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-STORY-0042.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-STORY-0043.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-STORY-0043.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-STORY-0044.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-STORY-0044.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-STORY-0045.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-STORY-0045.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-TEST-0107.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-TEST-0107.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0073.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0073.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0085.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0085.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0086.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0086.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0087.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0087.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0088.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0088.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0089.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0089.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0090.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0090.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0091.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0091.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0092.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0092.md: owner 'unassigned' is not listed in contributors
+- [OWNER_ROLE_INSUFFICIENT] work_items/resolved/WI-VISUALIZE-0095.md: owner 'unassigned' lacks a typical ownership role (admin/editor)
+- [OWNER_NOT_IN_CONTRIBUTORS] work_items/resolved/WI-VISUALIZE-0095.md: owner 'unassigned' is not listed in contributors
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_02_11_14_20_DOC_WORK_WS_STORY_BUCKET_LAYOUT_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/209' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_02_15_37_30_WI_EXPERIMENTS_0046_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/212' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_02_16_23_10_WI_EXPERIMENTS_0047_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/214' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_02_21_24_02_WI_EXPERIMENTS_0048_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/215' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_05_06_37_28_LCATS_LOCAL_MODEL_EVAL_538306_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/219' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_05_18_58_47_LCATS_LOCAL_MODEL_EVAL_METHODOLOGY_FIX_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/223' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_06_02_37_36_WORLDCON_FAST_PATH_ANNOTATION_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/226' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_06_05_29_49_WI_LLM_0049_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/227' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_06_08_41_13_WS_WORLDCON_FAST_PATH_ANNOTATION_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/230' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_06_15_39_22_WI_LLM_0050_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/228' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_06_20_59_44_WS_WORLDCON_FAST_PATH_ANNOTATION_WI_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/233' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_04_02_39_WI_LLM_0051_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/229' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_04_38_38_WI_ANNOTATE_0050_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/236' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_06_45_32_WI_LLM_0055_0056_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/239' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_16_39_23_WI_ANNOTATE_0051_CLOSEOUT_NOTE.md: instruction_source value '/lrh-execute WI-ANNOTATE-0051 (inlined /lrh-land)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_18_34_55_WI_ANNOTATE_0053_ABANDON_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/243' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_07_18_37_31_WI_LLM_0049_IMPL_CLOSEOUT_NOTE.md: instruction_source value '/lrh-execute WI-LLM-0049' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_20_02_14_14_WI_SEGMENT_0069_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/320' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_20_21_39_29_WI_SEGMENT_0070_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/321' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_21_04_26_36_WI_SEGMENT_0070_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/324' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_23_06_22_01_LCATS_PROMOTE_MODE_REDESIGN_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land PR 369' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_28_17_02_28_WI_SEGMENT_0099_NEAR_MISS_FUZZY_MATCHING_EVALUATION_CONFIRM.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/409 (inline review-response)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_28_18_10_53_WI_SEGMENT_0099_NEAR_MISS_FUZZY_MATCHING_EVALUATION_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/409 (inline closeout)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_29_16_56_18_WI_SEGMENT_0101_0102_PLANNING_CONFIRM.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (inline review-response)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_29_17_04_34_WI_SEGMENT_0101_0102_PLANNING_CONFIRM_FIXES.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (inline confirm-fixes)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_29_18_25_51_WI_SEGMENT_0101_0102_PLANNING_SELFREVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (substitute self-review, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_30_08_52_03_WI_SEGMENT_0101_0102_PLANNING_SELFREVIEW_2.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (substitute self-review round 2, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_30_09_08_57_WI_SEGMENT_0101_0102_PLANNING_SELFREVIEW_3.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (substitute self-review round 3, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_00_51_14_WI_SEGMENT_0101_0102_PLANNING_SELFREVIEW_4.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/415 (substitute self-review round 4, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_09_34_37_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_SELFREVIEW.md: instruction_source value '/lrh-execute WI-SEGMENT-0101 (inlined /lrh-implement Step 7.5)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_09_45_39_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_REVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/420 (inline review-response)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_10_21_18_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_CONFIRM_FIXES.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/420 (inline confirm-fixes)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_11_11_43_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_SELFREVIEW_2.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/420 (substitute self-review, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_11_23_05_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_SELFREVIEW_3.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/420 (substitute self-review round 3, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_08_31_11_33_24_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_SELFREVIEW_4.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/420 (substitute self-review round 4, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_02_18_57_34_WI_SEGMENT_0101_PARAGRAPH_BOUNDARY_PROMPT_CONSISTENCY_CLOSEOUT_NOTE.md: instruction_source value '/lrh-execute WI-SEGMENT-0101 (inlined /lrh-land Step 7)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_02_19_13_07_WI_SEGMENT_0106_COMBINED_BOUNDARY_FIX_INVESTIGATION_REVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/422 (inline review-response)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_02_19_22_28_WI_SEGMENT_0106_COMBINED_BOUNDARY_FIX_INVESTIGATION_SELFREVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/422 (substitute self-review, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_02_19_31_47_WI_SEGMENT_0106_COMBINED_BOUNDARY_FIX_INVESTIGATION_SELFREVIEW_2.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/422 (substitute self-review round 2, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_03_09_24_33_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY_SELFREVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/425 (substitute self-review, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_03_09_45_40_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY_CONFIRM.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/425 (inline confirm-fixes)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_03_10_04_32_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY_SELFREVIEW_2.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/425 (substitute self-review round 2, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_03_10_11_09_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY_SELFREVIEW_3.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/425 (substitute self-review round 3, /lrh-confirm-fixes Step 8)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_26_23_31_20_WORLDCON_SPIKE_INCREMENTAL_SAFETY_REVIEW.md: instruction_source value '/lrh-land PR' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/AD_HOC/2026_09_26_23_32_45_WORLDCON_SPIKE_INCREMENTAL_SAFETY_CONFIRM.md: instruction_source value '/lrh-land PR' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/WI-GENRE-0075/2026_08_22_16_54_01_WI_GENRE_0075_CLOSEOUT_NOTE.md: instruction_source value '/lrh-execute WI-GENRE-0075 (inlined /lrh-land)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/WI-GENRE-0076/2026_08_22_19_54_27_WI_GENRE_0076_CLOSEOUT_NOTE.md: instruction_source value '/lrh-execute WI-GENRE-0076 (inlined /lrh-land)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/WI-SEGMENT-0102/2026_09_03_08_37_21_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY.md: instruction_source value '/lrh-execute WI-SEGMENT-0102 (inlined /lrh-implement)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/WI-SEGMENT-0102/2026_09_03_08_58_16_WI_SEGMENT_0102_FUZZY_MATCH_REGRESSION_SAFETY_REVIEW.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/425 (inline review-response)' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [EXECUTION_INSTRUCTION_SOURCE_ABSOLUTE_PATH] executions/WI-STORY-0045/2026_08_02_02_09_52_WI_STORY_0045_CLOSEOUT_NOTE.md: instruction_source value '/lrh-land https://github.com/xenotaur/LCATS/pull/207' is an absolute path (leaks local workspace layout); use a repo-relative path or a scheme-prefixed reference (e.g. promptspace:<relative-path>)
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_18_14_26_12_RUNBOOK_CACHE_CLEAN_DOC_GAP.md: line 10, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_26_03_50_10_WORLDCON_GENRE_RECONCILIATION.md: line 7, field 'commit': this string-typed field's value would implicitly resolve to a non-string YAML type (bool, null, int, float, or date) -- quote the value to keep it a string
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_26_11_59_13_WORLDCON_GENRE_RECONCILIATION_CLOSEOUT.md: line 7, field 'commit': this string-typed field's value would implicitly resolve to a non-string YAML type (bool, null, int, float, or date) -- quote the value to keep it a string
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_27_00_12_40_WI_EVENT_0030_SEGMENTATION_JSON_PARSE_CRASH.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_27_03_18_44_WI_EVENT_0030_STRICT_TOOL_SCHEMAS.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_27_19_09_28_ANTHROPIC_MAX_TOKENS_TRUNCATION_DETECTION_CLOSEOUT_NOTE.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_27_20_52_55_ERW_RELIABILITY_SCOPING_CLOSEOUT_NOTE.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_29_13_18_16_WI_EVENT_0032_CLOSEOUT_NOTE.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_29_15_22_15_WI_EVENT_0033_CLOSEOUT_NOTE.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_30_01_22_04_WS_PIPELINE_CHECKPOINTING_REVIEW.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_07_30_02_00_11_ADOPT_PIPELINE_CHECKPOINTING_PROPOSAL_REVIEW.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_09_26_23_31_20_WORLDCON_SPIKE_INCREMENTAL_SAFETY_REVIEW.md: line 10, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/AD_HOC/2026_09_26_23_32_45_WORLDCON_SPIKE_INCREMENTAL_SAFETY_CONFIRM.md: line 10, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] executions/WI-PIPELINE-0040/2026_07_30_02_25_08_WI_PIPELINE_0040_REVIEW.md: line 9, field 'instruction_source': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-ASSESS-0012.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-CLEAN-0022.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-EVENT-0032.md: line 32, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-GENRE-0003.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-META-0023.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RELEASE-0021.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0078.md: line 29, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0078.md: line 30, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0080.md: line 29, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0081.md: line 27, field 'acceptance': an unquoted ': ' inside a plain scalar collapses a list item into a one-entry mapping, or is a hard YAML syntax error -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0082.md: line 27, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-RUNLOG-0083.md: line 29, field 'acceptance': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-SEGMENT-0072.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-SF-0002.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-SF-0003.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-STORY-0045.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-VISUALIZE-0073.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value
+- [FRONTMATTER_LINT_UNSAFE_SCALAR] work_items/resolved/WI-VISUALIZE-0092.md: line 1, field 'resolution': an unquoted ' #' inside a plain scalar is read as a comment by real YAML, silently truncating everything after it -- quote the value

@@ -21,7 +21,8 @@ jobs:
       run:
         working-directory: lcats
     env:
-      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-gutenberg-cache
+      # Unit tests use temporary authored fixtures, never the maintained catalog.
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-unit-cache
 
     steps:
       - uses: actions/checkout@v4
@@ -35,14 +36,6 @@ jobs:
           cache: "pip"
           cache-dependency-path: |
             lcats/pyproject.toml
-
-      - name: Restore Gutenberg cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.LCATS_CACHE_DIR }}
-          key: ${{ runner.os }}-gutenberg-${{ hashFiles('lcats/pyproject.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-gutenberg-
 
       - name: Install dependencies
         run: |

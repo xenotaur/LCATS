@@ -1,0 +1,326 @@
+[
+  {
+    "gutenberg_id": 22589,
+    "source_identity_sha256": "3cc55f2569d1a75dbfce02b2aef8de0c738f1ac44cfde5fa8f11169d12cf9c26",
+    "candidate_sha256": "2f5a9c355ed9c2b729198b1ede74156b616da2f3b2665f812bc7f1c73f497778",
+    "assessment_sha256": "2b46e2f74df4079c449a917075149390908aa75799a93c938056039514a95673",
+    "candidate_characters": 21558,
+    "selected_spans": [
+      [
+        0,
+        21285
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 21285,
+        "end": 21558,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "b4347493c62fa6182ce82c8ba0ba291582f74e8aa3c6d8bdd1c44c2a21eccb19"
+      }
+    ],
+    "selected_sha256": "5c26b0f1293f7fb393b42f5b54c334ce1b77a3d9e7fff39d0c4035cd1a01bdd7",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 22590,
+    "source_identity_sha256": "6080dc0c2e97b0323f3ea9431530548512c010ac15d0ee80026cf80d58d823db",
+    "candidate_sha256": "0f706eacae5bf3f49fcf41975d0879c6828a3d9ca6f13021a3d43f6e79422a99",
+    "assessment_sha256": "4bce6022efeb364a10a7437a07d4121434cd90cb388e681a41abb7d132427eeb",
+    "candidate_characters": 33405,
+    "selected_spans": [
+      [
+        0,
+        33132
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 33132,
+        "end": 33405,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "0bdef3bb062860fe739a3574995591a532a896b684bdbc3fe1773cc5fee9992d"
+      }
+    ],
+    "selected_sha256": "28f3a7647d13540875794c9ebbbea3044e9b774e5bb2c4b0d7bc3c2f5bb95fbd",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 22597,
+    "source_identity_sha256": "4e944dd4374f63653703debdd087c9e189128ad34188185bd3b8c46845618749",
+    "candidate_sha256": "09e08ba1e530d505bdfd61b5bf42340c2718ea61f539ff3c458c191d8639d7f3",
+    "assessment_sha256": "6329cf014ae808a96b18f95f3b81e6898ae9bc478012bcbefa575f0d32d9259b",
+    "candidate_characters": 40864,
+    "selected_spans": [
+      [
+        0,
+        40591
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 40591,
+        "end": 40864,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "b4347493c62fa6182ce82c8ba0ba291582f74e8aa3c6d8bdd1c44c2a21eccb19"
+      }
+    ],
+    "selected_sha256": "4d9f1c5a7ddc47fd28e635e55d75218b1ebfb27249f709286215fbc6456d2915",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 24864,
+    "source_identity_sha256": "1bac5b3295c05fb4cb8bd96e51f755b3f16b473fc2bf788eaa929f3d39628b12",
+    "candidate_sha256": "1206d8d4d5cd5fc7ee9a41caad09a3daa3514dfe8f28f99128ecc5c87d020e39",
+    "assessment_sha256": "5e639d52a4117bd41f491c95ee601b0631291645de191f6f1075707c7436bd32",
+    "candidate_characters": 43681,
+    "selected_spans": [
+      [
+        0,
+        43387
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 43387,
+        "end": 43681,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "c97e034e2c3396fc29b2e93c082aa1aff5475422683520bab3cc21d977561749"
+      }
+    ],
+    "selected_sha256": "d99fcd8c125f326941c13cf9de930f33d54fccf5675607a73649ba2bd7cdc37e",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 24927,
+    "source_identity_sha256": "4f38dd7643ee4ce5ef66c8694038132d8ebb2a23b215ab4af7e5f568c7da94a9",
+    "candidate_sha256": "61beb61d6d7c4d3297302668eb1b628a971ec7bb7cfaeb599c19edf30dd051c4",
+    "assessment_sha256": "8f6dc36e577ec6d975f9c5bf314c49361ac2277db16aaa5aea1e8a29b6a3b450",
+    "candidate_characters": 12214,
+    "selected_spans": [
+      [
+        0,
+        11922
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 11922,
+        "end": 12214,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "54939fde597b9c1a14788891527afc81b25403a3f39780e7e6752815ddad9bde"
+      }
+    ],
+    "selected_sha256": "814afd7102b3a47340c96ece5a884c9f59fcd7f6a0413fbb1c1e3d335f34272a",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 24955,
+    "source_identity_sha256": "b11adda2d766da35b190b89e171e90a2cd322566b0028ccddf4ea0b8780ec501",
+    "candidate_sha256": "8b962df598f233e09fd6e8f409be240fca495e21889d5b3a6e74d36497913dfb",
+    "assessment_sha256": "a5e1640fa4f67fc549cc15062ac34a12732417704c996ec02bc2ef4fcbcaa400",
+    "candidate_characters": 20527,
+    "selected_spans": [
+      [
+        0,
+        20235
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 20235,
+        "end": 20527,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "54939fde597b9c1a14788891527afc81b25403a3f39780e7e6752815ddad9bde"
+      }
+    ],
+    "selected_sha256": "81711cfcadbd9deff881ded886d7eddb83543858d8bb89ffad3dee1fb548ea0a",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 27968,
+    "source_identity_sha256": "c91de76b8904d593897c42b90cf1aca5911b66b939cf9e9f4a647112c98f6844",
+    "candidate_sha256": "b08dbc99d464c289a92d3c3aa2e11fdf9785335d44c96e3339ae2942da738ef2",
+    "assessment_sha256": "60a5826f3736c6a236e5de011114c73ccf7e2aecc0c72dcc84305f0f05fae692",
+    "candidate_characters": 40059,
+    "selected_spans": [
+      [
+        0,
+        39786
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 39786,
+        "end": 40059,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "9ad3ac95eee8970ccb3b0f85dad87e86269057928840f98c4718761c5a9ed0c1"
+      }
+    ],
+    "selected_sha256": "19eac86b1d88fb25a7c878287fe095f158ba3f08f4b1d167853490aaa7226cf3",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 29159,
+    "source_identity_sha256": "cb989a1d763a6ee6e9b8e67c6484c81b330956d671f7d04548b7640385b6e8fb",
+    "candidate_sha256": "fd7b41f48bd6bbba33b30117d47229957a0043f3629db11dad28fdf28a3d87bf",
+    "assessment_sha256": "690f82f9573914b8fb636a6d5760bd2a0ab2e1fc267f47f1884e4d43066b0ed5",
+    "candidate_characters": 27990,
+    "selected_spans": [
+      [
+        0,
+        27718
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 27718,
+        "end": 27990,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "c6f8f26b135298e2686dc601cbb2e2034dcdc1b1809f18cc5d8c8445310cd78b"
+      }
+    ],
+    "selected_sha256": "4c979c14918c53cefbb970e907774a629079b6ade1c13dca24383c79319006c6",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 30014,
+    "source_identity_sha256": "36f76adf0676bab451f9e0a1c2a03528f046f120730cdebba1c408650b5ed8d5",
+    "candidate_sha256": "7ab34b5b064271df71b94c9ee42cfbba73bfced740be2ebf97b6fcdc70599381",
+    "assessment_sha256": "17172bc4b01fccbd76e0fdd1a1fd53ebae7f727a3ce594dc1f9b63a6a99d3651",
+    "candidate_characters": 12435,
+    "selected_spans": [
+      [
+        0,
+        12135
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 12135,
+        "end": 12435,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "4e1a19833d4c72b416d26c1ca5f9e2fdddad9b32d7a6356fbeba611fe69e301a"
+      }
+    ],
+    "selected_sha256": "6f9dc281f18093a26bf255c3d4f14835eaf92aa4d75a4d61d049c501745166c1",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 30015,
+    "source_identity_sha256": "baeb2e4d117ba8f9e31752ec8fd9a1f0883aa0185f8fc7cd08d87cd16974bf2b",
+    "candidate_sha256": "0039fdf66777d8549ed3042523e92c8480b86d6a43db75adbe2003381d90b106",
+    "assessment_sha256": "146feb398203424f6120b8c97c551fa3dbf9a4faef9b038e63e3c34fd475e194",
+    "candidate_characters": 15052,
+    "selected_spans": [
+      [
+        0,
+        14746
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 14746,
+        "end": 15052,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "ce6ef907b6d55ba9b0266d0ee4ab9c953334863300be2297e903158182b88f33"
+      }
+    ],
+    "selected_sha256": "742adafae3447f387cc183c0f9e933da1518d18e314b23679628087df9fa8b44",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 30330,
+    "source_identity_sha256": "24dc4a8092b956e9d65e41611ae0635ad0d3b92ac1c0c01d121c77b6935adda1",
+    "candidate_sha256": "ea75201d010e036d640b6f50d73888b0e1b62e51ea2329341d343053bbe05d94",
+    "assessment_sha256": "7e4922769826fa0146683d319268468120c936951b4792a8daa11485b6d1dc25",
+    "candidate_characters": 24435,
+    "selected_spans": [
+      [
+        0,
+        24149
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 24149,
+        "end": 24435,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "0700b2ea10e51114826e4d7bb0086e37f2a24e1e0cdd366da04b72254085b436"
+      }
+    ],
+    "selected_sha256": "5dcad26b3aa9190bbdaac0e2f3586fb02a51d0b3fb2b599d2c8d81d4662669dd",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  },
+  {
+    "gutenberg_id": 30361,
+    "source_identity_sha256": "e16ac82d33c36c4f57b6027c28df83636c44930254f0e79594ecfbd050af9d3b",
+    "candidate_sha256": "802ff741ca847a14bb96df1f0a1ea22abcbe1c94949f2448d558b3aa55b2ec14",
+    "assessment_sha256": "e50342b70364fcabb364c4418fa6745f38568d314b82313d6a4335ce3cfb88e1",
+    "candidate_characters": 13111,
+    "selected_spans": [
+      [
+        0,
+        12824
+      ]
+    ],
+    "omitted_spans": [
+      {
+        "start": 12824,
+        "end": 13111,
+        "kind": "publication_notice",
+        "reason": "Complete terminal publication notice; preceding text preserved.",
+        "evidence": "terminal-unbracketed-publication-notice-v1; complete bounded final note matches finite grammar",
+        "sha256": "9b7ed76186b913224361de8980f92cc9dc79547b823859da77b972c7c9959652"
+      }
+    ],
+    "selected_sha256": "9f0caac1bf022ca4001f0bc327a86f3f4720f79eb9dbb7be0aeadc58be802566",
+    "reviewer": "Codex agent: qualified terminal rule",
+    "rationale": "Qualified ordered-and-terminal-publication-notices-v1: only complete publication notices removed; exact retained characters reassessed ready, no retained editorial labels; Source-preserved typography explains every historical difference; comparison-only projection never alters published text. Per-input proof in batch ledger; no claim of complete literary reading.",
+    "schema_version": 2
+  }
+]

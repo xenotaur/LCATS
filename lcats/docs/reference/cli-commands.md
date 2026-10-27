@@ -37,6 +37,35 @@ Gather one or more configured corpora.
 | `gatherers` | Optional gatherer names. Defaults to all gatherers. |
 | `--dry-run` | Show which gatherers would run without executing downloads. |
 
+Planning validates all names before execution and reports catalog requirements.
+Unknown names return exit 2. Live `mass_quantities` uses the new catalog and source
+store. `--yes` approves missing catalog setup only; `--offline` forbids downloads
+in every selected collection. `--cache-dir` selects the cache root for both new
+Gutenberg stores and curated HTML. `--gutenberg-main-root` and
+`--gutenberg-generated-root` override the default pair; `--catalog-archive` or
+`--catalog-url` override the archive source. `--allow-origin` permits additional
+redirect origins for the new resource store. Metadata-dependent gathering defaults to the published Gutenberg RDF archive and
+the PGLAF combined mirror. Override both resource roots together; a local archive
+or explicit catalog URL replaces the archive default.
+See [gathering guide](../how-to/gettenberg-gather.md) and
+[gather reference](gettenberg-gather.md) for reuse, failures and migration boundaries.
+
+## `catalog`
+
+```bash
+lcats catalog status [--cache-dir PATH]
+lcats catalog setup [--archive PATH | --url URL] [--yes] [--offline] [--dry-run]
+lcats catalog refresh --url URL [--offline] [--dry-run] [--allow-count-change]
+lcats catalog rebuild [--archive PATH] [--dry-run] [--allow-count-change]
+```
+
+All operations accept `--cache-dir`. Setup/refresh accept repeatable
+`--allow-origin` for explicit redirect origins. Setup defaults to the published Gutenberg RDF archive; refresh requires an
+explicit URL and rebuild remains local.
+Returns JSON; exit 0 on success, 2 on failure or blocked plan. See
+[preparation guide](../how-to/gettenberg-preparation.md) for approval, cache,
+refresh and migration boundaries.
+
 ## `inspect`
 
 ```

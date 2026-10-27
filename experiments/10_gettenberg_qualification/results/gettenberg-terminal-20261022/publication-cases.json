@@ -1,0 +1,129 @@
+{
+  "cases": [
+    {
+      "id": 22589,
+      "decoded_utf8_sha256": "0d8d4ba6540637208908200a43e86731a0db4204d50d337fbd6f1f0b2b16e224",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 22590,
+      "decoded_utf8_sha256": "3255017cf0ed73b300e03a710ca50a6ccd664b1bfab6c8a343f27a0c0d5bdfe9",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 22597,
+      "decoded_utf8_sha256": "62ba2310d6efd49e51b647779ca799c4695f2ab1ab3c57fcf0faae6f614fccd3",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24529,
+      "decoded_utf8_sha256": "78fda34ae652a8b7b40a56c5b151592cf354428bc667e0b9afc13f6a16a11086",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24864,
+      "decoded_utf8_sha256": "993b40d7feb77d88b8cfea34fcc07a27e468c2804b81135eec9cfef97a95bb49",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24927,
+      "decoded_utf8_sha256": "1a4bfc1fca45e1c904be14c3d174502a447862b2e9e9bf365696bf06f0d89513",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24955,
+      "decoded_utf8_sha256": "76d057be965bb32cc116774e618495a6cbb5e768ff250fe7204ebfbfe7b5db96",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 24973,
+      "decoded_utf8_sha256": "54f283d14b12fc43a7f2a0046300cc8de07205e7501c0c8f219b0a334918a33c",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 25028,
+      "decoded_utf8_sha256": "07559c2bcdc316f665aa53317e36cfae0028e0103f0d7e175ddf1972f4c357a4",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 25035,
+      "decoded_utf8_sha256": "4b38aa766e792ee5baae820cdc3219ddf13aa5a4c6c6d1d8861a2abd3ac05537",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 25627,
+      "decoded_utf8_sha256": "bbe68357a343b77ca443a528f01c42935a976332ba0d9aa1cf8c5342cf4afe7f",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 25629,
+      "decoded_utf8_sha256": "484614caeb51103eaeb380274f5b4a31191793e9124f59165087f21e486d048a",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 26168,
+      "decoded_utf8_sha256": "1287b1dc1594851d2025da2339f97de44f9786401aa0e26bb2b8df2e8818be14",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 26761,
+      "decoded_utf8_sha256": "85f096ebbfe47a6dd46d8de742019fe638dec9c425bc6405cc0cf2a7a9be9b60",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 26968,
+      "decoded_utf8_sha256": "8e08b9e834a6bb4ec9821d7ca8a44c349fecf407c19ae7ace6cb79bae7b4b678",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 27968,
+      "decoded_utf8_sha256": "e335463500311dc8e8f9cb1b570e10de58ed812b573b06d28be92c712cc4618e",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 28698,
+      "decoded_utf8_sha256": "bd26897868dcf3c58e16e105bee4b8ab1872a524e5e5793d56d10a42bc8b48f8",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 29132,
+      "decoded_utf8_sha256": "a2a2cc2bcc86599a2782ae0e8b529d94b89fabcd5a8a313c30cac456e6bf427e",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 29159,
+      "decoded_utf8_sha256": "3db647892882cda19e3d657e519588de182559f16ac3e6eeb833c47d5533f68e",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 29623,
+      "decoded_utf8_sha256": "e2ec07fd25fc7fd5ee3aa9bf691c7e9c0a570eff2db649c858b251d19b95c871",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 30014,
+      "decoded_utf8_sha256": "41ea82be8b57b14ae8373df986e1c02ea506696c81f5d7168464b9566114b288",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 30015,
+      "decoded_utf8_sha256": "cbe904f80a61b89fa91e777844d6ed5fa85a8f14f87fe90d8960e1143a83ff81",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 30330,
+      "decoded_utf8_sha256": "52d9d3bb8095a6aa9c7c0480764e974125fe680410096ac6623b971ab833b65d",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 30361,
+      "decoded_utf8_sha256": "4cc2fc63b983921246fe2599384a1d49513f47758f521c46751bb2417b0fc234",
+      "expected_status": "needs_review"
+    },
+    {
+      "id": 30683,
+      "decoded_utf8_sha256": "a1228b9d7266652c687b80e0a2440e86f1109d41e9fe136a5693b41990cd98b1",
+      "expected_status": "needs_review"
+    }
+  ]
+}

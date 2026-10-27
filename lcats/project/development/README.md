@@ -18,3 +18,14 @@ work items, and execution records remain authoritative for delivery.
   retained runners and archival technical measurements. The experiment's
   relocation.json resolves historical paths appearing in earlier records.
   Control-plane evidence here is non-executable planning/review/CI/usage data.
+
+- [Acquisition contract and handoff](gettenberg-acquisition-design.md): WI-0005
+  design decisions, acceptance matrix and the next bounded implementation packet.
+
+- [Replacement qualification](gettenberg-qualification.md): completion/evidence
+  mapping, measured tradeoffs and human-gated promotion/closeout plan.
+- [Corpus repair scope](gettenberg-corpus-repair-plan.md): qualification blocker,
+  concrete narrative-preservation cases and proposed next-tranche acceptance.
+
+- [Narrow delivery candidate](gettenberg-narrow-delivery.md): retain/separate manifest,
+  consumer contracts and remaining Q1–Q8 qualification.

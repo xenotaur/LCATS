@@ -1,0 +1,167 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/522",
+  "target": "codex/gettenberg-acquisition",
+  "base": "003c2e08523c9360fdda3a2bfd69b42505c4c51f",
+  "accepted_head": "858f6da28bf0a1a1951429afa46e506ee29bdc3b",
+  "merge": "46960f6625b22131ecfcac1764b0da10ad8fb643",
+  "merged_at": "2026-10-17T20:56:44Z",
+  "merge_parents_verified": true,
+  "merge_tree_equals_accepted_head": true,
+  "ci": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T20:55:42Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39068607879/job/117501341474",
+      "name": "coverage",
+      "startedAt": "2026-10-17T20:53:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T20:53:50Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39068607932/job/117501341537",
+      "name": "lint",
+      "startedAt": "2026-10-17T20:53:18Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T20:54:55Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39068607978/job/117501341859",
+      "name": "test",
+      "startedAt": "2026-10-17T20:53:17Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-17T20:54:35Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/39068605467/job/117501333813",
+      "name": "test",
+      "startedAt": "2026-10-17T20:53:15Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "branch_rules": [
+    {
+      "type": "copilot_code_review",
+      "parameters": {
+        "review_on_push": false,
+        "review_draft_pull_requests": false
+      },
+      "ruleset_source_type": "Repository",
+      "ruleset_source": "xenotaur/LCATS",
+      "ruleset_id": 19016405
+    }
+  ],
+  "review_comments": [
+    {
+      "id": "IC_kwDOKlhIbM8AAAABc_nRZg",
+      "author": {
+        "login": "chatgpt-codex-connector"
+      },
+      "authorAssociation": "NONE",
+      "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"3ed49415b900fa8bec825acf453272105860c6c0\",\"has_any_findings\":false,\"has_unresolved_findings\":false,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-17T20:48:14.640427Z\">2026-10-17T20:48:14.640427Z</relative-time> | `3ed4941` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+      "createdAt": "2026-10-17T20:43:43Z",
+      "includesCreatedEdit": true,
+      "isMinimized": false,
+      "minimizedReason": "",
+      "reactionGroups": [],
+      "url": "https://github.com/xenotaur/LCATS/pull/522#issuecomment-6240719206",
+      "viewerDidAuthor": false
+    }
+  ],
+  "formal_reviews": [
+    {
+      "id": 5560026953,
+      "node_id": "PRR_kwDOKlhIbM8AAAABS2dHSQ",
+      "user": {
+        "login": "copilot-pull-request-reviewer[bot]",
+        "id": 175728472,
+        "node_id": "BOT_kgDOCnlnWA",
+        "avatar_url": "https://avatars.githubusercontent.com/in/946600?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D",
+        "html_url": "https://github.com/apps/copilot-pull-request-reviewer",
+        "followers_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/followers",
+        "following_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/following{/other_user}",
+        "gists_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/subscriptions",
+        "organizations_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/orgs",
+        "repos_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/repos",
+        "events_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/copilot-pull-request-reviewer%5Bbot%5D/received_events",
+        "type": "Bot",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udfe1 Changes recommended\n\nThe genre CLI treats invalid corpus paths as successful empty classifications.\n\n<details open>\n<summary><strong>1 open issue</strong></summary>\n\n- <picture><source media=\"(prefers-color-scheme: dark)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-dark.svg\"><source media=\"(prefers-color-scheme: light)\" srcset=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.svg\"><img src=\"https://github.githubassets.com/static/images/icons/copilot-code-review/medium-v2-light.png\" alt=\"Medium severity\" width=\"62\" height=\"18\" align=\"texttop\"></picture> [Reject nonexistent or file-valued CORPUS_ROOT paths](https://github.com/xenotaur/LCATS/pull/522#discussion_r4304450167) \u00b7 New\n</details>\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nMigrates maintained Gutenberg consumers to LCATS\u2019s internal APIs, removing the unpublished dependency while preserving historical outputs.\n\n**Changes:**\n- Replace legacy wrappers with explicit catalog and resource access.\n- Simplify research clients and add offline regression coverage.\n- Document migration boundaries, archived notebooks, and validation evidence.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bresearch_clients_test.py | Add offline research-client checks. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bmigration_test.py | Verify identities, metadata, and dependency-free imports. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bmetadata_test.py | Remove obsolete metadata-wrapper tests. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bheaders_test.py | Remove obsolete header-wrapper tests. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bcache_test.py | Remove legacy cache tests. |\r\n| lcats/\u200btests/\u200bgettenberg_tests/\u200bapi_test.py | Remove compatibility API tests. |\r\n| lcats/\u200btests/\u200bgatherers_tests/\u200bparser_test.py | Retire legacy mocked-client tests. |\r\n| lcats/\u200btests/\u200bgatherers_tests/\u200blive_gather_test.py | Cover shared inspection and rejection behavior. |\r\n| lcats/\u200btests/\u200banalysis_tests/\u200breconciliation_test.py | Test read-only collection comparisons. |\r\n| lcats/\u200btests/\u200banalysis_tests/\u200bclean_cli_test.py | Verify managed-cache and symlink cleanup. |\r\n| lcats/\u200bsrc/\u200blcats/\u200butils/\u200bgenre.py | Require caller-owned catalogs. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bmetadata.py | Remove legacy metadata adapter. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bidentifiers.py | Parse official Gutenberg source identities. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bheaders.py | Remove upstream header wrapper. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bcache.py | Remove upstream cache integration. |\r\n| lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bapi.py | Remove compatibility API. |\r\n| lcats/\u200bsrc/\u200blcats/\u200banalysis/\u200bcorpus/\u200breconciliation.py | Add deterministic source-group comparisons. |\r\n| lcats/\u200bsrc/\u200blcats/\u200banalysis/\u200bcorpus/\u200bclean_cli.py | Clear managed and legacy caches. |\r\n| lcats/\u200bpyproject.toml | Remove Git-pinned dependency. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0008/\u200b2026_10_17_20_28_02_GETTENBERG_MIGRATION_EXPERIMENT.md | Record experiment migration evidence. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0008/\u200b2026_10_17_20_20_08_GETTENBERG_MIGRATION.md | Record migration execution. |\r\n| lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_17_20_41_33_GETTENBERG_MIGRATION_SELFREVIEW.md | Record review and repair evidence. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-pilot-charter.md | Document bounded migration authorization. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-migration.md | Map callers and replacement contracts. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md | Record implementation and validation checkpoints. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200bwheel.json | Record isolated wheel checks. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200bqualification.json | Summarize final validation evidence. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200bpreflight.json | Record run boundaries. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200blocal-checks.json | Record initial local checks. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200bfixture-comparison.json | Capture five before/after comparisons. |\r\n| lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-migration-20261017/\u200bcorpus-identities.json | Record checked-in URL compatibility. |\r\n| lcats/\u200bnotebooks/\u200b15_reconcile_files.py | Replace duplicated logic with library calls. |\r\n| lcats/\u200bnotebooks/\u200b15_reconcile_files.ipynb | Use shared collection comparisons. |\r\n| lcats/\u200bnotebooks/\u200b02_extractors.ipynb | Demonstrate offline catalog and cleanup APIs. |\r\n| lcats/\u200bnotebooks/\u200b01_gatherers.ipynb | Demonstrate local HTML extraction. |\r\n| lcats/\u200bKMo/\u200bgenre.py | Add explicit catalog/corpus CLI. |\r\n| lcats/\u200benvironment.yml | Remove matching dependency pin. |\r\n| lcats/\u200bdocs/\u200breference/\u200bprepare-corpora-release.md | Update cleanup and setup guidance. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-network.md | Describe migrated gathering integration. |\r\n| lcats/\u200bdocs/\u200breference/\u200bgettenberg-gather.md | Document explicit sources and inspection. |\r\n| lcats/\u200bdocs/\u200bindex.md | Link migration guide. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-migration.md | Explain replacement APIs and clients. |\r\n| lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-catalog.md | Clarify destructive cleanup boundaries. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200bscripts/\u200bqualify_migration.py | Add bounded fixture comparison runner. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200bscripts/\u200bprobe_legacy.py | Defer historical dependency imports. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200bREADME.md | Document migration qualification. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200blegacy-notebooks/\u200bREADME.md | Explain historical environment requirements. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200blegacy-notebooks/\u200bmanifest.json | Preserve archive paths and hashes. |\r\n| experiments/\u200b10_gettenberg_qualification/\u200blegacy-notebooks/\u200b10_debug_gutenberg.ipynb | Archive historical diagnostic notebook. |\r\n| experiments/\u200b05_metadata_genre_prefilter/\u200brun_prefilter.py | Replace SQL access with catalog API. |\r\n| experiments/\u200b05_metadata_genre_prefilter/\u200brun_prefilter_test.py | Verify catalog-backed enrichment and diagnostics. |\r\n| experiments/\u200b05_metadata_genre_prefilter/\u200bREADME.md | Update catalog usage and verification instructions. |\n</details>\n\n<sub>Review effort: Balanced</sub>",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/xenotaur/LCATS/pull/522#pullrequestreview-5560026953",
+      "pull_request_url": "https://api.github.com/repos/xenotaur/LCATS/pulls/522",
+      "author_association": "NONE",
+      "_links": {
+        "html": {
+          "href": "https://github.com/xenotaur/LCATS/pull/522#pullrequestreview-5560026953"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/xenotaur/LCATS/pulls/522"
+        }
+      },
+      "submitted_at": "2026-10-17T20:50:31Z",
+      "commit_id": "54667f598c5ea7f077521cb405fb524380474b72"
+    }
+  ],
+  "threads": [
+    {
+      "comments": {
+        "nodes": [
+          {
+            "author": {
+              "login": "copilot-pull-request-reviewer"
+            },
+            "body": "With a valid catalog, a nonexistent or file-valued `CORPUS_ROOT` prints `{}` and exits successfully: `Corpora.get_corpora()` returns an empty mapping for non-directories (`lcats/src/lcats/stories.py:60\u201362`). This makes a mistyped path look like a successful zero-story classification. Validate the directory with `parser.error` before constructing `Corpora`, and cover both invalid-path cases in the CLI tests.",
+            "id": "PRRC_kwDOKlhIbM8AAAABAJCydw",
+            "url": "https://github.com/xenotaur/LCATS/pull/522#discussion_r4304450167"
+          }
+        ],
+        "pageInfo": {
+          "endCursor": null,
+          "hasNextPage": false
+        }
+      },
+      "id": "PRRT_kwDOKlhIbM6tkTFP",
+      "isOutdated": false,
+      "isResolved": true
+    }
+  ],
+  "exact_head_independent_review": {
+    "agent": "migration_final_review",
+    "result": "Clear-satisfied; no remaining actionable findings in repair delta",
+    "checks": [
+      "real fixture catalog: missing/file paths fail with exit2; empty directory succeeds",
+      "four research client tests",
+      "all source hashes match",
+      "2909-test log hash and summary match",
+      "packaged library unchanged from preceding full PR review"
+    ]
+  },
+  "authority": "Coordinator acceptance under explicitly granted WI0008 bounded pilot; not human main-promotion approval",
+  "native_lifecycle": "in_progress/proposed; canonical closeout deferred",
+  "assignments": 5,
+  "assignment_cap": 6,
+  "charged_worker_minutes": 18,
+  "worker_minute_cap": 45,
+  "peak_concurrent_agents": 2,
+  "repair_cycles": 3,
+  "manual_hosted_retriggers": 0,
+  "gutenberg_requests": 0
+}

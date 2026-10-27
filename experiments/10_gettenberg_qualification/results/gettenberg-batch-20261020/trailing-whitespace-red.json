@@ -1,0 +1,27 @@
+{
+  "candidate_length": 1247,
+  "selected_span": [
+    194,
+    1170
+  ],
+  "eligible": true,
+  "lost_final_paragraph": true,
+  "removed": [
+    {
+      "span": [
+        0,
+        194
+      ],
+      "text": "[Transcriber's Note: This etext was produced from Galaxy Science Fiction October 1954. Extensive research did not uncover any evidence that the U.S. copyright on this publication was renewed.]\n\n",
+      "sha256": "dd01e8bb36ceffca89143c844394f151b024a32599e27a2920c099ef94de08ae"
+    },
+    {
+      "span": [
+        1170,
+        1247
+      ],
+      "text": "\n\nThe traveler walked past house 13, remembering the people who lived there.\n",
+      "sha256": "df1c84bb4d21f37f24483f496484921d786faccdc87462972493ce24c942a42a"
+    }
+  ]
+}

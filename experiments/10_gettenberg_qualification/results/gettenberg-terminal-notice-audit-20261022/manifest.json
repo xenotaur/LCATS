@@ -1,0 +1,125 @@
+{
+  "README.md": {
+    "bytes": 11864,
+    "sha256": "307505c104d249c96769f9d35ad661efaef46f916d275ff7adb0f9e34abfe212"
+  },
+  "checks/commands.json": {
+    "bytes": 1789,
+    "sha256": "a7497fc907bae208f25eaa6cd265ef2fe7db2af59c2d9d0d8286227e8c1fbd1d"
+  },
+  "checks/existing-output.txt": {
+    "bytes": 729,
+    "sha256": "221552bc6aaf80e549f86cf28f0d92c88b7033db2e062cf70ec542e6c18d2694"
+  },
+  "checks/experiment-format-retry.txt": {
+    "bytes": 56,
+    "sha256": "45a468fa6205768496f23f1716ebb7575e9b723449d2099b88bf2afef60b721f"
+  },
+  "checks/experiment-format.txt": {
+    "bytes": 1251,
+    "sha256": "3146a5d15e0ef56342e80adedbf62ed991f14fcf06d665da9b94c34eba2fb01f"
+  },
+  "checks/experiment-lint.txt": {
+    "bytes": 80,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "checks/final-experiment-commands.json": {
+    "bytes": 1582,
+    "sha256": "a715392184eb7f6328f8f86d035a2f516abac1f2a5c7c9f77ac16ff0b87a6eaf"
+  },
+  "checks/final-experiment-format.txt": {
+    "bytes": 56,
+    "sha256": "26a5fd9505f2b5608a20c4fed4b4c4795e0783d03b72ade02a6af34dae8ad086"
+  },
+  "checks/final-experiment-lint.txt": {
+    "bytes": 80,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "checks/final-unit-boundaries.txt": {
+    "bytes": 1304,
+    "sha256": "7127eeb4f34821e953b321d65c056443cd9cdeb7aa55a7c83ea04c6ebeb92694"
+  },
+  "checks/format-retry.txt": {
+    "bytes": 58,
+    "sha256": "71320ca0f6b8c9190079786447f52cfbe6f81e4356d67821194ff00c98ab7a2a"
+  },
+  "checks/format.txt": {
+    "bytes": 1251,
+    "sha256": "3146a5d15e0ef56342e80adedbf62ed991f14fcf06d665da9b94c34eba2fb01f"
+  },
+  "checks/lint.txt": {
+    "bytes": 80,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "checks/literal-help.txt.gz": {
+    "bytes": 586,
+    "sha256": "46e2c190655500d516d000f577c3d8939d5f7aab2a5574df7a51a43596a7740a",
+    "uncompressed_sha256": "99a2b68d0d470934d968f54a457e3d8516ed4e4c4e5bd4d1b86123d0ae96e958"
+  },
+  "checks/lrh-final.txt.gz": {
+    "bytes": 3578,
+    "sha256": "f62b99648bd94c8a99287f02d96a16f37ffeec4c0b55548ba1b6edd3ae297496",
+    "uncompressed_sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+  },
+  "checks/lrh.txt.gz": {
+    "bytes": 3578,
+    "sha256": "f62b99648bd94c8a99287f02d96a16f37ffeec4c0b55548ba1b6edd3ae297496",
+    "uncompressed_sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b"
+  },
+  "checks/missing-cache.txt": {
+    "bytes": 636,
+    "sha256": "a6b744ff6865e0a206bb754abc547c0a02644cf6de61bf89abb4a4fe34477709"
+  },
+  "checks/negative-smokes.json": {
+    "bytes": 367,
+    "sha256": "6b9c4ff88e66d4039d6321ad986152d63e89cb7b58b537237177190c62c9002e"
+  },
+  "checks/protected-output.txt": {
+    "bytes": 640,
+    "sha256": "4c5555c8aabd758c2baa45c39063d2b05f9cc4064a0eee028abe8708eb9e2719"
+  },
+  "checks/retry-commands.json": {
+    "bytes": 613,
+    "sha256": "dfaf4e6cfb7330cffa5d0ac79226ffd56310bf055e216a8008544e44565052e4"
+  },
+  "checks/runner-help.txt": {
+    "bytes": 1118,
+    "sha256": "89b37b1e64852d93d526c3f537c5c667e32e244356513f9b781635d8ce1798f0"
+  },
+  "checks/unit-boundaries.txt": {
+    "bytes": 1146,
+    "sha256": "553ea3f055b9763954ed6c748b34ed77c3763721f5e64f678e53baeaeb734189"
+  },
+  "corpus-comparison.json.gz": {
+    "bytes": 557355,
+    "sha256": "ef92aac0adf9d45efbadcc87f1812819e11314a0df137ef87d1e8304ffde5252",
+    "uncompressed_sha256": "0124df28a4b146d38bbd8784413484cb81b82190b7622f02dce579999f22d351"
+  },
+  "independent-literal-counterfactuals.json.gz": {
+    "bytes": 2827,
+    "sha256": "2af19ea0017a12df5ac1af9dc12323f8fdc38dc7995c69e7172e44a824605e42",
+    "uncompressed_sha256": "a5b173b377e0edd5a49ccef74c1a3ec007413b46d8c95fe616aba53cdf5975ad"
+  },
+  "independent-probes.json.gz": {
+    "bytes": 1412,
+    "sha256": "5b88bf57233f242bfa139376035bab405fa9cea8f5f23bce932c8d20d05c294b",
+    "uncompressed_sha256": "8549a35d8f3839ed873d81c935269f4f3be00cf957751b17cfca6e1c8cef4e69"
+  },
+  "literal-counterfactuals.json.gz": {
+    "bytes": 2951,
+    "sha256": "1e91262ebb328b8acaceaeaad5b0f3f60952c1d80d5b1192fd5c0ae3886d7910",
+    "uncompressed_sha256": "25fc1a8b5041443520b0213eacc6727abfc28520e6401240c8175fb59f929eca"
+  },
+  "residual-inspection.json": {
+    "bytes": 7986,
+    "sha256": "df9df5217d0b5cbc84999450a11b9efe4ee865dda92992098c24c8122512e4eb"
+  },
+  "review.json": {
+    "bytes": 1755,
+    "sha256": "1e714ef312ad34a8f6e10cc52e791b90ede0ab313550c821e4b2b28ddb47c373"
+  },
+  "validation.json": {
+    "bytes": 16866,
+    "sha256": "5d6d5a007ae83e638bd4c8435f0e85b650fc8bd8ef7793499393bb8e750e205d"
+  }
+}

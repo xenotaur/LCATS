@@ -1,0 +1,48 @@
+{
+  "product_commit": "dfbe837e54380f9ec7d2f015515e9ccd42622afe",
+  "canonical": {
+    "command": "scripts/test",
+    "tests": 2998,
+    "seconds": 97.466,
+    "passed": true
+  },
+  "focused": {
+    "tests": 90,
+    "passed": true
+  },
+  "package_format_lint": "passed",
+  "explicit_experiment_format_lint": {
+    "runners": 15,
+    "passed": true
+  },
+  "lrh": {
+    "errors": 0,
+    "warnings": 351,
+    "warnings_preexisting": true,
+    "final_checkpoint_recheck": "passed"
+  },
+  "independent_review": {
+    "initial_findings": 1,
+    "severity": "P2",
+    "coordinator_verified": true,
+    "red_subcases": 3,
+    "repair": "dfbe837e",
+    "recheck": "resolved, no new findings; 90 focused checks plus offset/diagnostic drift probes"
+  },
+  "wheel": "wheel-final.json",
+  "source_reports": [
+    "census-final.json",
+    "full-corpus-final.json",
+    "readiness-cases-final.json",
+    "narratives-final.json"
+  ],
+  "source_network_bytes": 0,
+  "canonical_corpus_written": false,
+  "integration_authorized": false,
+  "historical_migration": {
+    "qualified": false,
+    "same_result_cases": 5,
+    "same_story_json_cases": 2,
+    "meaning": "Historical exact JSON equality fails; provenance differs. Negative comparison, not readiness acceptance."
+  }
+}

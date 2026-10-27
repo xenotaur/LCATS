@@ -1,0 +1,54 @@
+{
+  "substantive_commit": "141e151bca8d716e8b239ac5364d35dcaac48257",
+  "base_before_integration": "6a873b611e3958bb9ddad8e84f2ad190831a9da7",
+  "deadline": "2026-10-22T18:20:00Z",
+  "scope": "Human-approved amendment plus bounded landing repairs; no product/corpus changes",
+  "full_suite": {
+    "command": "PATH=/Users/centaur/anaconda3/envs/LCATS/bin:$PATH PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=\"$PWD/src\" scripts/test",
+    "cwd": "lcats",
+    "execution": "approved local loopback access",
+    "tests": 3120,
+    "seconds": 110.894,
+    "exit_code": 0
+  },
+  "initial_suite_attempts": [
+    {
+      "reason": "Relative PYTHONPATH resolved another editable checkout in subprocesses",
+      "failures": 6
+    },
+    {
+      "reason": "Sandbox denied loopback-server binds",
+      "errors": 102
+    }
+  ],
+  "canonical_format_lint": "pass",
+  "explicit_experiment_format_lint": "five changed/new runners pass",
+  "lrh": {
+    "errors": 0,
+    "warnings": 351
+  },
+  "local_markdown_destinations": {
+    "checked": 61,
+    "missing": 0
+  },
+  "independent_review": {
+    "reviewed_files": 12,
+    "unresolved_p0_p2": 0,
+    "focused_tests": 9,
+    "imports_without_legacy": 29,
+    "cli_help_without_legacy": 25,
+    "fixed_finding": "Use temporary package fixture; do not freeze future product revisions in canonical tests"
+  },
+  "replays": {
+    "causal_rows_exact": 8,
+    "literal_rows_exact": 2,
+    "numeric_rows_exact": 1659,
+    "numeric_summary_exact": true,
+    "facts_fields_exact": 18,
+    "numeric_seconds": 205.815
+  },
+  "historical_archives_modified": false,
+  "product_sources_modified": false,
+  "ci": "Consult final GitHub head; not inferred from local checks",
+  "qualification": "No future delivery candidate Q1\u2013Q8 pass inferred; native records remain in_progress"
+}

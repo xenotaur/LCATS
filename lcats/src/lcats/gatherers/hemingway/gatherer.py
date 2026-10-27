@@ -74,9 +74,11 @@ def find_paragraphs_menwithoutwomen(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Hemingway stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Hemingway",
         target_directory=TARGET_DIRECTORY,
         description="Hemingway stories from the Gutenberg Project.",

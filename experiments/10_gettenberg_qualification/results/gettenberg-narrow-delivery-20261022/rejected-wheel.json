@@ -1,0 +1,20 @@
+{
+  "wheel": "/tmp/gettenberg-narrow-wheel-dist-20261022/lcats-0.1.1.dev1201+g91f1b4228.d20261022-py3-none-any.whl",
+  "wheel_sha256": "35773a0495f9bb6108f71a984d839cda23e208d1cc08229a41ae0f4ccc5df366",
+  "product_commit": "91f1b422",
+  "expected_python_files": 165,
+  "actual_python_files": 174,
+  "extra_paths": [
+    "lcats/gatherers/candidate_review.py",
+    "lcats/gatherers/editorial_evidence.py",
+    "lcats/gatherers/gather_result.py",
+    "lcats/gatherers/historical_review.py",
+    "lcats/gatherers/readiness.py",
+    "lcats/gatherers/review_cli.py",
+    "lcats/gatherers/review_rules.py",
+    "lcats/gatherers/review_store.py",
+    "lcats/gatherers/story_body.py"
+  ],
+  "missing_paths": [],
+  "status": "blocked_stale_build_content"
+}

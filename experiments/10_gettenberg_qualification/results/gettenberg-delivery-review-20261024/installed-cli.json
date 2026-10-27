@@ -1,0 +1,495 @@
+{
+  "completed": true,
+  "installed_version": "0.1.0+qualification.g823f33c2",
+  "runner_sha256": "bb7452fa9d2efb92aa1b0408103aaf65fce4a903172ae0e615e13fb1fb674868",
+  "fixture_helper_sha256": "61e5a3cdd17c508ad6c856cc7ac4efed70fd8b066912e37d92fe6d4767a17e31",
+  "network_bytes": 0,
+  "configured_fixture_order": [
+    990011,
+    990013,
+    990012
+  ],
+  "runs": [
+    {
+      "exit_status": 2,
+      "stdout": "Running gatherer: mass_quantities\nGathering incomplete: cleanup refusals remain.\nmass_quantities: 2 ready (written or reused), 0 skipped, 1 cleanup refused\n",
+      "outputs": {
+        "mass_quantities/lantern_voyage_990011__smith/story.json": "8e710e494ca919b83ecfc74c3c398989666f2ff8ba28b5556dad3ca21415308b",
+        "mass_quantities/lantern_voyage_990012__smith/story.json": "5cf52acbcfb00755e9efbedb8c6e08dde8be3d5605b65c0d6bc0f5dfa96b7bd9"
+      }
+    },
+    {
+      "exit_status": 2,
+      "stdout": "Running gatherer: mass_quantities\nGathering incomplete: cleanup refusals remain.\nmass_quantities: 2 ready (written or reused), 0 skipped, 1 cleanup refused\n",
+      "outputs": {
+        "mass_quantities/lantern_voyage_990011__smith/story.json": "8e710e494ca919b83ecfc74c3c398989666f2ff8ba28b5556dad3ca21415308b",
+        "mass_quantities/lantern_voyage_990012__smith/story.json": "5cf52acbcfb00755e9efbedb8c6e08dde8be3d5605b65c0d6bc0f5dfa96b7bd9"
+      }
+    }
+  ],
+  "events": [
+    {
+      "event": "run_start",
+      "story_count": 3,
+      "timestamp": "2026-10-24T04:52:46.208808Z"
+    },
+    {
+      "event": "story_ready",
+      "story": 990011,
+      "timestamp": "2026-10-24T04:52:46.215469Z"
+    },
+    {
+      "event": "story_cleanup_refused",
+      "reason": "cleanup_refused: mismatched_pair",
+      "story": 990013,
+      "timestamp": "2026-10-24T04:52:46.217276Z"
+    },
+    {
+      "event": "story_ready",
+      "story": 990012,
+      "timestamp": "2026-10-24T04:52:46.223619Z"
+    },
+    {
+      "event": "batch_summary",
+      "incomplete": true,
+      "ready": 2,
+      "refused": 1,
+      "skipped": 0,
+      "timestamp": "2026-10-24T04:52:46.224098Z"
+    },
+    {
+      "event": "run_end",
+      "story_count": 3,
+      "timestamp": "2026-10-24T04:52:46.224179Z"
+    },
+    {
+      "event": "run_start",
+      "story_count": 3,
+      "timestamp": "2026-10-24T04:52:46.238047Z"
+    },
+    {
+      "event": "story_ready",
+      "story": 990011,
+      "timestamp": "2026-10-24T04:52:46.238905Z"
+    },
+    {
+      "event": "story_cleanup_refused",
+      "reason": "cleanup_refused: mismatched_pair",
+      "story": 990013,
+      "timestamp": "2026-10-24T04:52:46.240204Z"
+    },
+    {
+      "event": "story_ready",
+      "story": 990012,
+      "timestamp": "2026-10-24T04:52:46.240642Z"
+    },
+    {
+      "event": "batch_summary",
+      "incomplete": true,
+      "ready": 2,
+      "refused": 1,
+      "skipped": 0,
+      "timestamp": "2026-10-24T04:52:46.240973Z"
+    },
+    {
+      "event": "run_end",
+      "story_count": 3,
+      "timestamp": "2026-10-24T04:52:46.241036Z"
+    }
+  ],
+  "module_origins": {
+    "lcats": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.gatherers": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.gettenberg": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.gettenberg.errors": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/errors.py",
+      "sha256": "44c3adfae526f0d79032ca42896d725f460e946146d0fba97b107031bba2c5c1"
+    },
+    "lcats.gettenberg.cleanup": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/cleanup.py",
+      "sha256": "296a6fbbf20326a17b88dcbb568abc61c8246cdcd3b4fb9c1d10f6923a240a39"
+    },
+    "lcats.gettenberg.identifiers": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/identifiers.py",
+      "sha256": "75c478e1e64f3891e745c203e12d4aeae3eaea5900bcfadbaaf47e821d8fadc2"
+    },
+    "lcats.gettenberg.models": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/models.py",
+      "sha256": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10"
+    },
+    "lcats.gettenberg._resource_types": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_types.py",
+      "sha256": "367e0e668a794b8550961ef6ad7e3e364eb48e29cde49f2f08747c644edd711c"
+    },
+    "lcats.gettenberg._decode_types": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_decode_types.py",
+      "sha256": "b919e32473ce26265ee3ae0f2cdca6405355f90b943a70a14d87ab02fb3181bc"
+    },
+    "lcats.gettenberg._lifecycle_io": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_lifecycle_io.py",
+      "sha256": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a"
+    },
+    "lcats.gettenberg._resource_containers": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_containers.py",
+      "sha256": "18a6303bb54c3226fda539adf0dc354f84e56532d9bf7e776b3d3db7c16633c4"
+    },
+    "lcats.gettenberg._resource_selection": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_selection.py",
+      "sha256": "63bbc47c1b160513dcc7aaffcc6799a1b12ae73792b0c9b943cfc5b150d4224e"
+    },
+    "lcats.gettenberg._resource_encoding": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_encoding.py",
+      "sha256": "86b4162b0d5599dc3e1292e20f6717a8bb5da2622e459e49ce6684de4ff028b7"
+    },
+    "lcats.gettenberg._resource_refresh": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_refresh.py",
+      "sha256": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671"
+    },
+    "lcats.gettenberg._resource_io": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_io.py",
+      "sha256": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873"
+    },
+    "lcats.gettenberg._resource_provenance": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_provenance.py",
+      "sha256": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2"
+    },
+    "lcats.gettenberg._resource_decoding": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_decoding.py",
+      "sha256": "fc3a9193be9f02758a6c66ab720fb26f699890ca03e2e137f785ceb1fbd6551b"
+    },
+    "lcats.gettenberg._resource_routing": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_routing.py",
+      "sha256": "f6eba22b2876325885d9f1b8ecc5335fb5a47857036027710a2b5e0b7e6cb8fc"
+    },
+    "lcats.gettenberg._resource_transport": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_transport.py",
+      "sha256": "60968b00a313bb8cdad125202a21e6db813a32bdeb596d50562dec6840cc009d"
+    },
+    "lcats.utils.compat": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/compat.py",
+      "sha256": "238bbe15d333072286f74f503466d2122335b3dbd12d9511e9c2400e47877de9"
+    },
+    "lcats.utils.canonical_author": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/canonical_author.py",
+      "sha256": "70e32f496318979d2ad9a25a397e5876438aa7b99973c022d2cf6f8fcee219fa"
+    },
+    "lcats.utils.names": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/names.py",
+      "sha256": "62ce24c75d3f666ab1563b89e2e0fb06e360c6b870a865b30a89c97e2c5d63cd"
+    },
+    "lcats.utils": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/__init__.py",
+      "sha256": "3136c74b03ad3096a6c113652f808edb1bcf3c95924f2c64f28602ff372ec315"
+    },
+    "lcats.utils.env": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/env.py",
+      "sha256": "8a751021a519f7da2e03318522d121638a2831a2d3f2603daae9ea7192131f64"
+    },
+    "lcats.gettenberg.resources": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/resources.py",
+      "sha256": "6ea3eefa0a0d8ecc06538820afdfd4f35d3fbfd027eab769b960b1e1c109fd37"
+    },
+    "lcats.gatherers.gutenberg_source": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/gutenberg_source.py",
+      "sha256": "abcc3dece3c4fb247c6e69080d14322b561ae4e0b4cd7991698eb9c1e0bf3161"
+    },
+    "lcats.gatherers.mass_quantities": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/mass_quantities/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.constants": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/constants.py",
+      "sha256": "006a26128ec5426f6e85366ec3c0b48bd2d9c38d6f9a3cc30fea82914faff3e8"
+    },
+    "lcats.analysis": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.inspect": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/inspect.py",
+      "sha256": "636b0cb5ad98c9afba705eadf6d85157b2be8cc73b182e927f349907dc0047eb"
+    },
+    "lcats.analysis.corpus.discovery": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/discovery.py",
+      "sha256": "84a8224b6e48ddb8aec4390ba70832a1651b5dd3c3583205fd82a715fa064cd6"
+    },
+    "lcats.analysis.corpus.models": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/models.py",
+      "sha256": "36581e345f653ea388cf6cf93704f459c2f238a12479e8b47c34cb088cc95234"
+    },
+    "lcats.analysis.corpus.output": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/output.py",
+      "sha256": "7c3a8c8db7337d0d255d1e0e52992eef34dadfe817d3a893848794b2abd08cc1"
+    },
+    "lcats.analysis.corpus.detectors.boundary": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/detectors/boundary.py",
+      "sha256": "892dd114c9c0adf6edb0feeca1b2f4f5b83fee518237fb6251d109dfb991e54a"
+    },
+    "lcats.analysis.corpus.detectors.structural": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/detectors/structural.py",
+      "sha256": "16a313237255091c9bafc97abc9fced4c9863f68f17177bf189c94bbed995dbc"
+    },
+    "lcats.analysis.corpus.detectors.unicode": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/detectors/unicode.py",
+      "sha256": "b87e843bc417ca26991405efe1126dd69c30b8e6ea3d65c74bc225f94293b28c"
+    },
+    "lcats.analysis.corpus.detectors": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/detectors/__init__.py",
+      "sha256": "f2acf271b1294e20f536e6467e383914c2b5dd28672bf877957a94e69d7ecdfd"
+    },
+    "lcats.analysis.corpus.qa": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/qa.py",
+      "sha256": "0081116ade7f9142c862ad85c55c7eaa99cb5dbffa6b8b0a17848b49e93d7259"
+    },
+    "lcats.analysis.corpus.specials": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/specials.py",
+      "sha256": "c1a6fbb49ffcb042e93a9acb2a5df88ddf1124648b018aa6c3e518e1f87e7884"
+    },
+    "lcats.llm": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/llm/__init__.py",
+      "sha256": "17782371175235e1e0fde37aaf43acd2ff4195d1895952a9d7b8fb3a762eb935"
+    },
+    "lcats.llm.backend": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/llm/backend.py",
+      "sha256": "6e21d1fa57ae648ae389609585d014dffc97260ee30844ef6de5b18fe7868ce8"
+    },
+    "lcats.analysis.llm_extractor": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/llm_extractor.py",
+      "sha256": "4b0b86ca28b748b8026ad26d8d414b7bef200bea1607093d2296b733bb1d6aea"
+    },
+    "lcats.llm.tool_schema": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/llm/tool_schema.py",
+      "sha256": "846d4a785e1d36c9470a5a5e51088e2776e3564b0e54f508c2d71a41aaff470d"
+    },
+    "lcats.analysis.story_analysis": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/story_analysis.py",
+      "sha256": "1e1feff9d18b5342973a5b1a00c0a3c6c2dd12a34484cd69fe571cfeaccb46fa"
+    },
+    "lcats.analysis.corpus.stats": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/stats.py",
+      "sha256": "5b69709c4526f371e16ebde1a758c2c8cf2010f5f9bf7eba61f519cd9fde792a"
+    },
+    "lcats.analysis.corpus.cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/cli.py",
+      "sha256": "7ce09ffdfc3fc72bc924d1ee6450872f20c46f344c6e0508ddb060b28b27353e"
+    },
+    "lcats.analysis.corpus.genre_sidecar": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/genre_sidecar.py",
+      "sha256": "b964d2dc2ab3900f7f51060d86097d84603e3df3647a204f73b25995d05df7d0"
+    },
+    "lcats.analysis.corpus.processing": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/processing.py",
+      "sha256": "3c510d5fae7612f4b0a58abef916a989357000cf8ccdee49b8f004b8d3f1117a"
+    },
+    "lcats.analysis.corpus.span_ops": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/span_ops.py",
+      "sha256": "ee38dca85c35414f4aa464c2c6d722e3ff83417f12cd86d32cb4b51d389227ba"
+    },
+    "lcats.analysis.corpus.repairs": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/repairs.py",
+      "sha256": "28d58479be621721bde722fefad3c9cf8802d8d05f46168f3e640c054a7f61e9"
+    },
+    "lcats.analysis.corpus.repairs_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/repairs_cli.py",
+      "sha256": "7bf920dbcdf59e0203265e062a2d0651f8c95ede4a8f513cfcbea3c68fccce2b"
+    },
+    "lcats.analysis.corpus.review": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/review.py",
+      "sha256": "16fa8ed34ea7f12cb2ef34cd907226570a6bae4c9d85935ee302717f86f2ef00"
+    },
+    "lcats.analysis.corpus.specials_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/specials_cli.py",
+      "sha256": "86ca32ae4c4d7fefdb87d6f839981b0c6897a073cf8719d9bcc10a6b58d4242e"
+    },
+    "lcats.analysis.corpus": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/__init__.py",
+      "sha256": "e3b1f87ef53bdbb9e396ea29cbdbee26e1dea865004307db6c1f8cd208751ef6"
+    },
+    "lcats.gatherers.overrides": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/overrides.py",
+      "sha256": "d4f6bf83467109150349de4f54b8491385434595f86506280a5b80cc80f4a97d"
+    },
+    "lcats.gatherers.normalization": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/normalization.py",
+      "sha256": "081da3e25ccf0e72b81151f6ad70b78e3699c84861602f2624989d4dfd53c4a6"
+    },
+    "lcats.utils.paths": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/paths.py",
+      "sha256": "84e1ba686682ab3c90fb6b540d9a0f5680bfff659cd1af880a40c994884b63ad"
+    },
+    "lcats.gatherers.downloaders": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/downloaders.py",
+      "sha256": "ad9ac05b23254dd1d595a3a9217d19602c460d474d64cd53609d2e03930a5eb4"
+    },
+    "lcats.gatherers.mass_quantities.storymap": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/mass_quantities/storymap.py",
+      "sha256": "91a25353db2be14afced54d64b78b3a7de95dd3a9c203605f42c18ee3e746e43"
+    },
+    "lcats.gatherers.story_output": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/story_output.py",
+      "sha256": "40c40e88dc2f61294cca9ae7a64446ed5d03aa29c663d49d4624d83f5a7e254f"
+    },
+    "lcats.gatherers.parser": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/parser.py",
+      "sha256": "b0258387b355cb78cdabb089bf044219b6d3f247f26cff51ae946b09710d4976"
+    },
+    "lcats.utils.checkpoint": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/checkpoint.py",
+      "sha256": "9fa1d11ca95d19bc00860d9d49a1e4e07b550fab36228f6ded20dba22f7f4ac2"
+    },
+    "lcats.utils.run_log": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/utils/run_log.py",
+      "sha256": "0f3ffd6c491ad89de08ebb2e146897a9a942a935f19cdf1fe183a96f2c744a8d"
+    },
+    "lcats.gatherers.mass_quantities.gatherer": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/mass_quantities/gatherer.py",
+      "sha256": "88352ad0f6ea152f16e59e9ddc420f4d69618110a45763da8bf6e1f9a8552a31"
+    },
+    "lcats.gettenberg._store": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_store.py",
+      "sha256": "7d86fc9a94928333db51b9a0f9e9cb52f3c805d594dbf672f53965b9372ea192"
+    },
+    "lcats.gettenberg.rdf": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/rdf.py",
+      "sha256": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0"
+    },
+    "lcats.gettenberg.catalog": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/catalog.py",
+      "sha256": "2e9c698767fa7a00d46bde9133cf7845b4bbd38426cbf096c0a9de78b4943a85"
+    },
+    "lcats.gettenberg._catalog_provenance": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_catalog_provenance.py",
+      "sha256": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e"
+    },
+    "lcats.gettenberg.ingestion": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/ingestion.py",
+      "sha256": "d9231512e3fa7db047f7ef690122544864f6dd6edf1f15e730a1401a69b7ade2"
+    },
+    "lcats.gettenberg.lifecycle": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/lifecycle.py",
+      "sha256": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912"
+    },
+    "lcats.analysis.text_segmenter": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/text_segmenter.py",
+      "sha256": "4e44672c332c2a1427342c065297fd3ed549cec60bb6c2cdf1e4d050260dfc3c"
+    },
+    "lcats.analysis.scene_analysis": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/scene_analysis.py",
+      "sha256": "c699dcefe53c082b41543c038c67cbf05e94bbe4ce10508fe38f48907cdebe12"
+    },
+    "lcats.analysis.corpus.assess": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/assess.py",
+      "sha256": "20608667f8e21ca039d6b50b19d79d9aeb982ed33f6759d3e79103afa007a060"
+    },
+    "lcats.analysis.corpus.annotate": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/annotate.py",
+      "sha256": "c7b07f9221ed53a409b13b9326e74ff2dee86f201a615892521665009bbabbe8"
+    },
+    "lcats.analysis.corpus.annotate_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/annotate_cli.py",
+      "sha256": "1273f633b3b44f15f4482bba473be5a2dfdb004ae725cda7be74546862948fff"
+    },
+    "lcats.analysis.corpus.assess_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/assess_cli.py",
+      "sha256": "00b097d0428af8e2574bbb5f8704dac39c4f0a359423a5bad08cbaac0ad03a4d"
+    },
+    "lcats.gatherers.planning": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/planning.py",
+      "sha256": "b6843d82e3a370d923801c48d834c393ce5c4c6232125bd669bcc4570dede924"
+    },
+    "lcats.gettenberg.preparation": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/preparation.py",
+      "sha256": "155915dd675af5d23aeba9f53112b658cb9c80b0bf9dd11b57f523c51a507bd4"
+    },
+    "lcats.gettenberg.approval_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/approval_cli.py",
+      "sha256": "5a9c484c74ad72b720d2b546d523d273d31c6b1c56241af99fd3269f50697bb4"
+    },
+    "lcats.gettenberg.sources_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/sources_cli.py",
+      "sha256": "f0f699d7a0c62a9acb7b93d34866b98b991f47d8775e18a30780441da341ad63"
+    },
+    "lcats.gatherers.main": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/main.py",
+      "sha256": "57a5222255ce2c1f4a6607bd895e705f9b84fec7307014527652ea160c98c5fd"
+    },
+    "lcats.analysis.corpus.clean_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/clean_cli.py",
+      "sha256": "5de7b175ca29a0e809984e4620f3ba1fb64eca60592dd9fa8382ceae18f1be61"
+    },
+    "lcats.analysis.linguistics": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/linguistics/__init__.py",
+      "sha256": "fc82eebe7855eaf277abdade999e17c702726fe70f82e36833a24497ce83046b"
+    },
+    "lcats.analysis.event_role_world": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/event_role_world/__init__.py",
+      "sha256": "df31232ba5c6e875d25e15d026c8a50cfbc35d6e8e7a1fbb3267eb782337b67f"
+    },
+    "lcats.analysis.event_role_world.nlp_backend": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/event_role_world/nlp_backend.py",
+      "sha256": "65ca870fcf638b34361bc640e1b26f28e5c6589018e7178573f6cfad2855c637"
+    },
+    "lcats.analysis.event_role_world.schema": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/event_role_world/schema.py",
+      "sha256": "691a7a1fdfbef8cbfe6358e024d5550ca77ac0bbb4147e83c3364985d7dffda5"
+    },
+    "lcats.analysis.event_role_world.surface_feature_extractor": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/event_role_world/surface_feature_extractor.py",
+      "sha256": "52eb6a3746c8cfefa39eebcba102b9d8d45d26afd77555ccc37350469e8efc27"
+    },
+    "lcats.stories": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/stories.py",
+      "sha256": "23319b14124126e0136407fa986d30652c1a939933e9a0b0cf124b5588fa9fe8"
+    },
+    "lcats.analysis.linguistics.sidecar": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/linguistics/sidecar.py",
+      "sha256": "aa5e9cf8e5474a47076e80496dcc41f4d4adf2af4d45ed0c7361faea4bd0a7a2"
+    },
+    "lcats.analysis.linguistics.lexicon": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/linguistics/lexicon.py",
+      "sha256": "f79a1e0ce3d86fbd50c7bf8c30f79b67473e916f31ffef1f854561e99ccdfc74"
+    },
+    "lcats.analysis.linguistics.runner": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/linguistics/runner.py",
+      "sha256": "fe45ef7092ea58228912436c6bf7ae32ed038e8b309cad2f5ccd7d7bb1c7be81"
+    },
+    "lcats.analysis.corpus.linguistics_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/linguistics_cli.py",
+      "sha256": "66449a0f738039a01bc3286d1f651d841e6b747349d4874f9456f48133e2e517"
+    },
+    "lcats.analysis.corpus.sidecar_validators": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/sidecar_validators.py",
+      "sha256": "276e8ea58bb462a93c981892e7e4c1ff060abe3799d3ab6b2723be38f1c791de"
+    },
+    "lcats.analysis.corpus.promote": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/promote.py",
+      "sha256": "d4f97578c29114b1df312507a2524d58c8d701e0b807d562ba390e4845b9f830"
+    },
+    "lcats.analysis.corpus.promote_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/analysis/corpus/promote_cli.py",
+      "sha256": "f44b6db7725e9c875c04b803b199d32f4e692a35a1d68fa6a9216fa17a39bb6d"
+    },
+    "lcats.version": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/version.py",
+      "sha256": "a2da55407cf85b7103bc099f8839ed24a09122660108e065175f63329c814e4f"
+    },
+    "lcats.gettenberg.catalog_cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/catalog_cli.py",
+      "sha256": "fdf6983b79c49c79a5bdce6d052fba5d609c589597ae91e30b33bb4c7efa5323"
+    },
+    "lcats.cli": {
+      "path": "/private/tmp/gettenberg-delivery-review-20261024/venv/lib/python3.11/site-packages/lcats/cli.py",
+      "sha256": "d23944a66f82f176ebb163cb97dfe20bf77f487df4595e16013b076e444d5d1d"
+    }
+  },
+  "scope": "Authored three-input installed CLI; not real-corpus or original-wire qualification."
+}

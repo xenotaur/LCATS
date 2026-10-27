@@ -271,7 +271,31 @@ def hash_file(path: pathlib.Path, max_bytes, check=None) -> tuple[str, int]:
         raise errors.CatalogLifecycleError(f"Cannot hash file {path}: {exc}") from exc
 
 
+@contextlib.contextmanager
+def archive_publication_lock(archives, timeout=10.0):
+    """Coordinate archive publishers without weakening content stability checks.
+
+    Catalog writers and resource downloaders have separate outer locks. Both
+    take this leaf lock for publication/verification and temporary-link cleanup;
+    neither acquires an outer lock while holding it. Cache hits need no lock.
+    Keep the persistent lock outside the immutable archive namespace.
+    """
+    with writer_lock(
+        pathlib.Path(archives).parent / "archive-publication.sqlite", timeout
+    ):
+        yield
+
+
 def retain_archive(
+    source, archives, max_bytes, check=None, *, expected=None, lock_timeout=10.0
+):
+    """Retain verified bytes under the shared archive publication leaf lock."""
+    _limit(max_bytes)
+    with archive_publication_lock(archives, lock_timeout):
+        return _retain_archive(source, archives, max_bytes, check, expected=expected)
+
+
+def _retain_archive(
     source: pathlib.Path,
     archives: pathlib.Path,
     max_bytes,
@@ -298,7 +322,7 @@ def retain_archive(
             os.fsync(stream.fileno())
         if expected is not None and (digest, size) != expected:
             raise errors.CatalogLifecycleError(
-                "retained source differs from the active manifest; implicit rebuild refused"
+                "retained source differs from the expected archive identity"
             )
         target = archives / f"{digest}.tar.bz2"
         try:

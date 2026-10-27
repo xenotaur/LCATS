@@ -14,10 +14,24 @@ cd LCATS/lcats
 
 ### Tutorials
 
+- [Create a gatherer with per-file metadata](tutorials/create-file-metadata-gatherer.md) — offline fixtures, output reuse, registration, and the boundary for Standard Ebooks integration
+
+- [First offline Gutenberg catalog](tutorials/gettenberg-first-catalog.md)
+
 - [Quickstart](tutorials/quickstart.md) — from a fresh clone to your first working `lcats` command
 
 ### How-to guides
 
+- [Inspect conservative Gutenberg cleanup](how-to/gettenberg-cleanup.md)
+
+- [Maintain Gutenberg CI caches](how-to/gettenberg-ci-maintenance.md)
+
+- [Migrate callers and research notebooks](how-to/gettenberg-migration.md)
+- [Gather stories with default or explicit sources](how-to/gettenberg-gather.md)
+- [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
+
+- [Decode cached text without network access](how-to/gettenberg-decoding.md)
+- [Acquire and reuse original source bytes](how-to/gettenberg-resources.md)
 - [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
 
 - [Set up API keys](secrets-setup.md)
@@ -31,6 +45,13 @@ cd LCATS/lcats
 
 ### Reference
 
+- [Conservative Gutenberg cleanup](reference/gettenberg-cleanup.md)
+
+- [Live gathering and source contracts](reference/gettenberg-gather.md)
+- [Collection requirements and setup policy](reference/gettenberg-preparation.md)
+
+- [Strict offline text decoding](reference/gettenberg-decoding.md)
+- [Original-byte acquisition and network policy](reference/gettenberg-network.md)
 - [Local catalog lifecycle](reference/gettenberg-lifecycle.md)
 
 - [Local Gutenberg catalogs](reference/gettenberg-catalog.md) — explicit local builds and read-only queries.
@@ -46,6 +67,10 @@ cd LCATS/lcats
 - [Metadata genre prefilter](../../experiments/05_metadata_genre_prefilter/README.md) — the metadata-rule evidence pilot backing the genre-balanced corpus selection
 
 ### Explanation
+
+- [Why gettenberg changes gathering, and what is not drop-in](explanation/gettenberg-gather-changes.md)
+
+- [Metadata, original bytes and stories](explanation/gettenberg-architecture.md)
 
 - [Why stories live in per-story bucket directories](explanation/story-bucket-layout.md) — the storage-layout migration, what changed, and why
 - [Corpus analysis subsystem architecture](explanation/corpus-analysis-architecture.md) — design principles, data flow, and current capabilities of the text-quality/artifact-detection layer

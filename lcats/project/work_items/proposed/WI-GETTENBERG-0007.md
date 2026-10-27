@@ -109,3 +109,71 @@ Add focused behavior tests for the criteria above; unit tests are offline. Recor
 ## Dependencies / Order
 
 Dependencies listed above require canonical resolution or independently reviewed staged acceptance at an ancestor of the assignment base under the pilot charter. Native readiness alone does not prove dependency acceptance. No dispatch before the coordinator records that mapping and remaining budget.
+
+## Staged preparation acceptance — 2026-10-17
+
+PR518 internally merged into codex/gettenberg-acquisition at fed5030a60e2df42a0827a87d0e412562d865309;
+accepted head 4666837158149a1087cf431b66576579a1dc33f8. Canonical2943 tests and24 focused tests pass;
+independent cold review and repair verification pass, all four exact-headCI checks
+pass, and the one hosted P2 is resolved. Merge parents and tree match verified.
+Evidence: project/development/evidence/gettenberg-preparation-20261017/integration.json.
+
+Delivered: explicit collection requirements and lazy selection, read-only gather
+planning, standalone catalog status/setup/refresh/rebuild, first-setup approval
+policy, offline acquisition enforcement and Diataxis docs. Representative curated
+gathering preserves bucket identities and output bytes; existing extraction,
+normalization and overrides are unchanged.
+
+Remaining before whole-item acceptance: migrate metadata-dependent gather execution
+to the new catalog/resource APIs, connect preparation to that live path, enforce
+gather-level --yes/--offline across actual source access, and qualify an operational
+default archive/resource route before implicit online first use. Broader migrated
+collection integration tests accompany that work. Explicit-source standalone
+commands do not imply default mirror qualification. Dependency removal remains
+WI0008; main promotion and terminal closeout still require human approval.
+
+## Staged live-gather acceptance — 2026-10-17
+
+PR519 internally merged at ba4b137b721b71a23f13395f49cf4585e6861bce;
+accepted head 461d845ea29c5e72485071338647ed1d5596a385. Canonical2966 tests,
+23 authored migration tests, format/lint, LRH/readiness and all four exact-headCI
+checks pass. Cold review found a physical-line-ending regression; it was
+independently reproduced, repaired at the extractor handoff and independently
+reverified. Both first hosted rounds have no code findings. Merge parents/tree
+and32 product/test/doc hashes verified. Evidence:
+project/development/evidence/gettenberg-live-gather-20261017/integration.json.
+
+Delivered: live mass_quantities access through the new catalog, original-byte
+store, strict decoder and conservative cleanup; shared first-setup approval;
+command-wide offline and cache-root plumbing; representative bucket/body/filter/
+normalization/override preservation; retained source/catalog provenance and
+nonreplacement output publication. Existing outputs are reused, no corpus rewritten.
+
+This supersedes the live-consumer/offline migration remainder in the earlier
+preparation tranche. Whole-item acceptance still needs an operational default
+archive/resource route before implicit online first use. Explicit sources work;
+no default mirror is qualified. WI0008 still owns broader legacy consumer and
+dependency removal. Native status remains proposed/in_progress until human main
+promotion; no terminal closeout or automatic next run.
+
+## Staged default-profile acceptance — 2026-10-17
+
+PR521 internally merged at `94c6d8e789fbb394ac4c7823b7e77b5208f40d74`;
+accepted head `b9bfc0927c77fc1ac29bb748d80ad8b4cedba7e8`. This supersedes the
+explicit-only/default-route remainder above. Shared CLI defaults use the published
+RDF archive and qualified PGLAF root pair; explicit overrides, first-setup approval,
+offline dominance, ready reuse, curated isolation and refresh/rebuild separation
+remain intact. Lower-level APIs stay explicit and offline by default.
+
+Acceptance mapping: default/preparation/live-gather fixtures cover source-aware
+planning, approval, offline/denial/redirect behavior and shared setup; earlier and
+current mixed/metadata fixtures preserve bucket/body/normalization/override behavior.
+Canonical 2978 tests passed; focused 59 passed independently and by coordinator;
+Black/Ruff/LRH/readiness/diff checks passed. Both hosted first reviews have no
+code findings; all four exact-head CI checks passed. Merge parents/tree verified.
+Evidence: `project/development/evidence/gettenberg-default-profile-20261017/`.
+
+These are staged WI0007 implementation criteria, not a claim of full live archive
+or corpus qualification. No live requests were made in this run; dated operational
+endpoint evidence is retained from PR520. Broader legacy/dependency removal stays
+WI0008. Native status stays nonterminal until human-approved main delivery.

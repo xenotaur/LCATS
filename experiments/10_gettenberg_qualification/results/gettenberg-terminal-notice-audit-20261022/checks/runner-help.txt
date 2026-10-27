@@ -1,0 +1,23 @@
+usage: audit_terminal_notice.py [-h] catalog_cache text_cache output
+
+Measure one terminal-notice grammar extension on the frozen 1,659-input
+cohort. From lcats/, historical project environment, PYTHONPATH=src: python
+../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py
+CATALOG_CACHE TEXT_CACHE /tmp/NEW_REPORT.json All three cleanup paths use the
+SAME pinned pre-repair body extractor and current metadata/normalization.
+Existing decoded UTF-8 gzip cache entries are not original HTTP bytes. No
+downloads, catalog setup, cache writes or story publication. Socket creation
+is forbidden during processing. Requires already-installed historical
+Gutenbergpy for comparison only; never adds a product dependency. POSIX alarm
+900s, Git timeout 30s, gzip inputs 32MiB compressed/expanded. Output is
+exclusive and must be outside repo/cache roots; failure emits no completed
+report. Temporary historical module is removed. Tests and interpretation:
+terminal-notice results README.
+
+positional arguments:
+  catalog_cache
+  text_cache
+  output
+
+options:
+  -h, --help     show this help message and exit

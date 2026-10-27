@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 29132,
+    "candidate_record_sha256": "7534175228a95ace3a3b1e262d1ee63197be5d2132d83402a084b0a87b178599",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning '_Nothing moved or stirred. Everything was silent, dead. Only the gun showed signs of life ... and the trespassers had wrecked that for all time. The return journey to pic'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity. Additional existing rule blockers: retained_editorial_label.",
+    "approval": null
+}

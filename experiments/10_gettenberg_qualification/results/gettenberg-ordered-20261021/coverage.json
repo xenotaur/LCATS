@@ -1,0 +1,18 @@
+{
+  "population": 1659,
+  "qualified_transformations": 734,
+  "retained_span_counts": {
+    "1": 46,
+    "2": 688
+  },
+  "selected_readiness_eligible": 216,
+  "blockers": {
+    "no_matching_publication_notice": 906,
+    "selected_needs_review": 400,
+    "retained_editorial_label": 433,
+    "selected_ineligible": 1
+  },
+  "all_proposals_unapproved": true,
+  "new_qualified_decisions": 0,
+  "interpretation": "Safe removal does not approve remaining text or explain historical differences. Blocker counts overlap."
+}
