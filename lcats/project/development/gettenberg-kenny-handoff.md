@@ -1,5 +1,27 @@
 # Gettenberg/gather handoff for Kenny
 
+## Concise summary
+
+- **The goal is to remove LCATS’s dependency on `gutenbergpy`.** PR #534 replaces it with our internal `gettenberg` library, which manages Gutenberg metadata, downloads, caching, decoding, and boilerplate cleanup.
+
+- **You were right that this is not a drop-in replacement.** `lcats gather` remains the command, but Python callers now pass an explicit source object containing the catalog, cache, download locations, and network policy. Some return types and cache formats also changed.
+
+- **Authors and aliases remain separate.** The new metadata interface also distinguishes contributor roles and prefers primary titles. Different metadata or title ordering can affect story selection and filenames.
+
+- **We reproduced your ebook 1367 failure.** The selected mirror returns HTTP 404. Mass gathering now logs that input as unavailable and continues with later stories, returning exit status **2** to indicate incomplete gathering. It does not recover 1367 through another mirror.
+
+- **Error recovery is deliberately limited.** Missing resources returning 404 and ambiguous boilerplate cleanup continue per item in `mass_quantities`. Other operational failures still stop the run. This recovery has not been added to every HTML gatherer.
+
+- **Existing stories are now preserved and reused before downloading or extracting again.** Consequently, rerunning gather will not apply your extraction fixes to existing outputs. The summary now distinguishes newly written stories from reused ones; zero observed 404s does not mean every download URL was checked.
+
+- **The existing body-extraction heuristics were retained, but their inputs can differ.** New metadata, resource selection, strict decoding, and boilerplate cleanup can produce different stories even with unchanged extraction code. Broader editorial fixes are excluded from this PR.
+
+- **Validation is substantial but bounded:** 2,979 tests pass, installed-package checks pass, and the live 1367 failure was reproduced without altering existing data. Known story differences and exclusions are documented; we are not claiming every configured story is downloadable or editorially clean.
+
+- **For reconciliation, we should compare responsibilities rather than replace whole files.** Keep your extraction improvements, adapt them to the metadata/text interface, and explicitly reconcile error handling and output reuse. PR #534 is still awaiting our joint review and has not been merged to main.
+
+## Report snapshot
+
 **Prepared 2026-10-26 for team review of [PR #534](https://github.com/xenotaur/LCATS/pull/534).**
 Candidate: `aab07b291ef63c98c3ec545a9e70e6c1ed624f61`; compared with main
 `22a739d25c5a72359c1f8e37f54f9059876e6798`. The PR is awaiting joint review at this
