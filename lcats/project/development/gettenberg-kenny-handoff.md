@@ -20,6 +20,8 @@
 
 - **For reconciliation, we should compare responsibilities rather than replace whole files.** Keep your extraction improvements, adapt them to the metadata/text interface, and explicitly reconcile error handling and output reuse. PR #534 is still awaiting our joint review and has not been merged to main.
 
+- **A common result interface is a post-adoption follow-up, not part of this PR.** It would let Standard Ebooks and existing gatherers report written, reused, skipped, refused and unavailable stories consistently, independently of Gutenberg metadata. We should agree the details together before a separate implementation.
+
 ## Report snapshot
 
 **Prepared 2026-10-26 for team review of [PR #534](https://github.com/xenotaur/LCATS/pull/534).**
@@ -108,6 +110,24 @@ claim. The accepted exclusions, 55 notice-only additions, 12 body effects and
 qualification limits remain in the [post-adoption backlog][backlog]. This delivery
 does not certify editorially clean corpora. [Acceptance record][decision].
 
+## Post-adoption follow-up: shared gather results
+
+**Added 2026-10-27; proposed design, not implemented in PR #534.** Today the CLI only
+aggregates `mass_quantities`'s structured result. Other gatherers return fresh-download
+paths or nothing, and their return values are ignored by the CLI.
+
+The proposed `GatherResult` would retain per-story outcomes with a collection-local
+string ID, status, output path where applicable, and a reason for non-publication.
+Statuses would distinguish written, reused, intentionally skipped, content-refused
+and source-unavailable items. Shared counts and incomplete reporting would work for
+Standard Ebooks without a Gutenberg catalog. An item means an intended story output,
+not necessarily a source file; request-attempt statistics remain separate.
+
+We should agree this contract and inspect your gatherer before a separate bounded PR
+updates the shared helper, existing wrappers and CLI. It would preserve extraction
+and current error-recovery policies; a common result does not authorize catching
+more failures. See [GPA-E, the active follow-up][shared-result-follow-up].
+
 ## Suggested reconciliation discussion
 
 1. Agree on the source boundary: metadata, prepared text, provenance and structured failures.
@@ -117,7 +137,8 @@ does not certify editorially clean corpora. [Acceptance record][decision].
 
 The detailed explanation is in `lcats/docs/explanation/gettenberg-gather-changes.md`
 on PR #534. This report is intended to be shareable as a standalone Markdown file;
-all supporting links below use immutable repository revisions.
+evidence links below use immutable repository revisions. The shared-result follow-up
+link tracks the promotion branch so the new design entry remains discoverable.
 
 [source]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/src/lcats/gatherers/gutenberg_source.py#L82
 [batch]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/src/lcats/gatherers/mass_quantities/gatherer.py#L46
@@ -128,3 +149,5 @@ all supporting links below use immutable repository revisions.
 [backlog]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/project/development/gettenberg-post-adoption-backlog.md
 [decision]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/project/development/gettenberg-delivery-decision.md
 [migration]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/docs/how-to/gettenberg-migration.md
+
+[shared-result-follow-up]: https://github.com/xenotaur/LCATS/blob/codex/gettenberg-promotion/lcats/project/development/gettenberg-post-adoption-backlog.md#gpa-e--shared-gather-result-contract-across-collections

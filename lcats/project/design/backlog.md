@@ -28,7 +28,9 @@ Human acceptance of replacement-delivery decisions A–D on 2026-10-24 requires 
 tracking. The [post-adoption register](../development/gettenberg-post-adoption-backlog.md)
 is the single detailed backlog: GPA-A (13 source-format refusals), GPA-B (55 retained
 notices), GPA-C (12 specific body effects and separate parser/gather reconciliation),
-and GPA-D (coverage and historical-provenance limits). It includes each affected ID,
+and GPA-D (coverage and historical-provenance limits). GPA-E, recorded separately on
+2026-10-27, proposes a shared gather-result contract with Standard Ebooks coordination
+after adoption; its implementation is excluded from PR #534. The register includes affected IDs,
 evidence, triage owner, first steps and completion criteria. Delivery acceptance does
 not resolve these entries. Promote them to scoped LRH work items when selected;
 replace active register instructions with links rather than duplicating work.

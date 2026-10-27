@@ -6006,3 +6006,25 @@ prior product snapshot, not a fresh test run for these documents. Canonical
 format/lint pass; LRH reports zero errors/354 existing warnings. Publish the
 documentation to PR #534 and verify final-head CI.
 Main promotion and reconciliation of Kenny's code remain pending team review.
+
+### 2026-10-27 — Shared gather-result follow-up recorded
+
+Human approved recording the proposed shared result contract as a post-adoption
+follow-up and adding a concise explanation for Kenny, explicitly keeping implementation
+out of PR #534. Added GPA-E to the durable register and its discovery index, and a
+summary plus short section in the Kenny handoff. A–D acceptance remains unchanged.
+
+The proposal separates outcome reporting from catalog requirements, retains per-item
+identity/reasons, distinguishes written/reused/skipped/refused/unavailable outcomes,
+and reserves request-attempt counts for separate diagnostics. It records the actual
+migration boundary: eleven wrappers share gatherlib, nine discard its return, and
+its dictionary contains fresh downloads only. Scope includes accurate warm-run and
+repeated-ID accounting while preserving extraction and exception policies. Kenny's
+unseen implementation requires coordination; the estimate is not a grant. No product,
+test, experiment runner or corpus changes are part of this update.
+
+Validation: canonical format check and lint pass; local document links, reference
+definitions, fences and git whitespace checks pass. LRH reports zero errors and
+354 warnings, byte-for-byte identical to the archived reporting-run validation.
+The unit suite was not rerun for this documentation-only update; earlier product
+test evidence remains tied to its recorded snapshot.

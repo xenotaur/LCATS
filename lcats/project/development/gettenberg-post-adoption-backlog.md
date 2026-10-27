@@ -28,7 +28,7 @@ backlog records, not executable instructions or authorized implementation work i
 
 This is the single active detailed register for these follow-ups; the
 [project backlog](../design/backlog.md) is its discovery index. Stable references
-GPA-A through GPA-D below are local backlog keys, not minted LRH work-item IDs.
+GPA-A through GPA-E below are local backlog keys, not minted LRH work-item IDs.
 Before implementation, scope and promote an entry into an LRH work item with explicit
 acceptance and budget. Replace its active instructions here with a link/status to
 that item, retaining the historical IDs/evidence. Close an entry only with linked
@@ -164,3 +164,91 @@ The irrecoverable historical provenance limit can remain a permanent documented
 boundary; close that subtopic by explicit acknowledgement, not invented equivalence.
 No bulk network acquisition, canonical corpus promotion or package publication is
 authorized by this backlog or by A–D acceptance.
+
+## GPA-E — Shared gather-result contract across collections
+
+**Status:** open post-adoption design follow-up, recorded with human approval on
+2026-10-27. **Priority:** P3; agree the contract with Kenny before implementation.
+This entry is separate from the A–D delivery acceptance. Implementation belongs in
+a separately scoped PR after adoption, not PR #534, and is not a delivery blocker.
+No implementation grant or assignment to Kenny is implied.
+
+### Problem and current boundary
+
+The CLI currently reads `summary` and `incomplete` only from `mass_quantities`'s
+`BatchResult`, inside the catalog-dependent branch. Reporting outcomes is independent
+of needing Gutenberg metadata. A Standard Ebooks gatherer using per-file metadata
+and no Gutenberg catalog should be able to report outcomes through the same interface.
+Its code has not been reviewed here, so its integration effort remains unverified.
+
+All eleven curated built-ins delegate to `gatherlib.gather()`. That function returns
+only newly written downloads, not existing outputs reused; nine wrappers discard the
+return value, while Sherlock and Lovecraft return it. An empty returned dictionary
+therefore does not establish that no stories are ready. See
+[gatherlib](../../src/lcats/gatherers/gatherlib.py),
+[downloader](../../src/lcats/gatherers/downloaders.py),
+[CLI orchestration](../../src/lcats/gatherers/main.py), and
+[current mass result](../../src/lcats/gatherers/mass_quantities/gatherer.py).
+
+### Proposed contract, subject to implementation design
+
+Place the shared model under `lcats.gatherers`, independent of gettenberg. Represent
+`GatherResult.outcomes` as an immutable sequence of `ItemOutcome` records:
+
+| Field | Proposed meaning |
+|---|---|
+| `item_id` | Nonempty collection-local string identifying the intended story output; supports Gutenberg IDs, Standard Ebooks identifiers and existing story names. |
+| `status` | One of `written`, `reused`, `skipped`, `refused`, `unavailable`. |
+| `output_path` | Output location for written/reused stories; absent for other outcomes. Serialize paths explicitly as strings. |
+| `reason_code` | Stable machine-readable reason for exclusions, refusals or unavailability. |
+| `detail` | Optional human-readable diagnostic; not a field for callers to parse. |
+
+`written` means a new output was published; `reused` means an existing output was
+retained without claiming source revalidation. `skipped` is intentional collection
+exclusion; `refused` is a content check declining publication; `unavailable` is source
+unavailability recognized by an explicitly supported recovery policy. The contract
+does not make every transport failure recoverable or require every gatherer to
+produce every status.
+
+Derive status counts, `ready_count = written_count + reused_count`, and
+`incomplete = any refused or unavailable` from outcomes. Format summaries centrally.
+Retain per-item identities and reasons, not only totals. Define the unit as an intended
+story output, not a downloaded file: one file may contain several stories. Specify
+repeated-ID accounting before implementation; do not silently collapse attempts or
+mislabel a repeated item as another new write. HTTP request-attempt counts remain
+separate diagnostics, since requests and output items are different units.
+
+Collection requirements continue to choose invocation arguments. After either
+invocation branch, the CLI consumes the same result and aggregates incomplete status,
+without checking the collection name. Unexpected operational exceptions still
+propagate with existing partial-output/run-log behavior. A returned result describes
+a completed iteration, not a guarantee that every item was published; it is not a
+replacement for the persistent run log.
+
+### Scope, coordination and qualification
+
+**First step:** agree outcome meanings and identity/counting rules with Kenny; inspect
+his Standard Ebooks gatherer when available. Promote this entry into a bounded LRH
+work item and separate PR. Adapt mass results while preserving existing callers,
+including `gather_stories` and qualification runners; collect accurate outcomes at the
+shared downloader/gatherlib boundary; make all eleven wrappers return them; then
+update CLI aggregation and Standard Ebooks integration. Do not infer warm-run ready
+counts from the old fresh-download dictionary alone.
+
+Keep extraction, normalization, source selection, caching, publication and recovery
+policies unchanged. Broader exception continuation, fallback acquisition and editorial
+changes require separate decisions. Existing metadata-free gatherers must remain
+metadata-free. Document any intentional Python return-API migration.
+
+**Completion evidence:** deterministic cold/warm/mixed runs; written/reused and
+repeated-ID accounting; per-item reason retention; mixed collection CLI summaries
+and exit status independent of catalog use; unchanged abort behavior and partial logs;
+unchanged story bodies/output ownership for fixed inputs. Cover wrappers and installed
+CLI behavior, and add Standard Ebooks fixtures once its implementation is available.
+No bulk Gutenberg download or canonical corpus rewrite is needed for this reporting
+change. Update API/reference documentation and provide a JSON-serializable report.
+
+**Planning estimate, not a grant:** one 2–3-hour implementation run plus a separate
+review/verification pass, roughly 3–5 hours for the inspected repository. Kenny's
+integration is additional and depends on code inspection. Re-estimate if the work
+requires changes to extraction or error policy rather than expanding this scope.
