@@ -35,6 +35,18 @@ DOCS = pathlib.Path(__file__).resolve().parents[2] / "docs"
 
 
 class DocumentationTests(unittest.TestCase):
+    def migration_example(self, name):
+        """Select a named example without coupling tests to document block order."""
+        path = DOCS / "how-to/gettenberg-migration.md"
+        blocks = re.findall(
+            r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
+        )
+        matching = [
+            block for block in blocks if block.startswith(f"# Example: {name}\n")
+        ]
+        self.assertEqual(len(matching), 1, f"missing or duplicate example: {name}")
+        return path, matching[0]
+
     def run_doctest(self, relative_path):
         path = DOCS / relative_path
         with mock.patch.object(
@@ -73,11 +85,7 @@ class DocumentationTests(unittest.TestCase):
             self.assertFalse(cache.exists())
 
     def test_migration_catalog_query_example(self):
-        path = DOCS / "how-to/gettenberg-migration.md"
-        blocks = re.findall(
-            r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
-        )
-        self.assertEqual(len(blocks), 2)
+        path, example = self.migration_example("catalog-query")
         with tempfile.TemporaryDirectory() as temporary:
             root = pathlib.Path(temporary)
             archive = root / "fixture.tar.bz2"
@@ -93,18 +101,30 @@ class DocumentationTests(unittest.TestCase):
                 socket, "socket", side_effect=AssertionError("network forbidden")
             ):
                 lifecycle.CatalogManager(cache).setup(archive)
-                code = blocks[0].replace(
+                code = example.replace(
                     'CatalogManager("cache")', f"CatalogManager({str(cache)!r})"
                 )
                 exec(compile(code, str(path), "exec"), namespace)
             self.assertEqual(namespace["record"].ebook.gutenberg_id, 84)
             self.assertEqual(namespace["ids"], (84,))
 
+            # Exercise the complete new session example against the same real catalog.
+            path, example = self.migration_example("source-session")
+            code = example.replace('cache_dir = "cache"', f"cache_dir = {str(cache)!r}")
+            with (
+                mock.patch.object(
+                    socket, "socket", side_effect=AssertionError("network forbidden")
+                ),
+                capture.capture_output(),
+            ):
+                exec(compile(code, str(path), "exec"), namespace)
+            self.assertEqual(namespace["metadata"].ebook.gutenberg_id, 84)
+            self.assertTrue(namespace["metadata"].titles)
+            self.assertFalse(namespace["policy"].online)
+
     def test_migration_extraction_example_reuses_original_bytes_offline(self):
-        path = DOCS / "how-to/gettenberg-migration.md"
-        blocks = re.findall(
-            r"```python\n(.*?)```", path.read_text(encoding="utf-8"), re.S
-        )
+        path, inspect_example = self.migration_example("inspect-story")
+        _, publish_example = self.migration_example("publish-story")
         with tempfile.TemporaryDirectory() as temporary:
             root = pathlib.Path(temporary)
             cache = root / "cache"
@@ -147,13 +167,16 @@ class DocumentationTests(unittest.TestCase):
                     source = gutenberg_source.GutenbergStorySource(
                         library, store, routes=routes
                     )
-                    namespace = {
-                        "source": source,
-                        "gatherer": downloaders.DataGatherer(
-                            "documentation", root=root / "data", cache=cache / "html"
-                        ),
-                    }
-                    exec(compile(blocks[1], str(path), "exec"), namespace)
+                    namespace = {"source": source}
+                    # Redirect only the documented output root; execute both real examples.
+                    example = (
+                        inspect_example
+                        + "\n"
+                        + publish_example.replace(
+                            'root="migration-output"', f"root={str(root / 'data')!r}"
+                        )
+                    )
+                    exec(compile(example, str(path), "exec"), namespace)
                     report = namespace["report"]
                     self.assertIsNone(report["rejection"])
                     self.assertEqual(report["body"], live_gather_test.BODY)
@@ -166,7 +189,7 @@ class DocumentationTests(unittest.TestCase):
                     saved = output.read_bytes()
                     self.assertEqual(json.loads(saved)["body"], report["body"])
                     # Repeating the documented workflow preserves published output.
-                    exec(compile(blocks[1], str(path), "exec"), namespace)
+                    exec(compile(example, str(path), "exec"), namespace)
                     self.assertEqual(output.read_bytes(), saved)
 
     def test_catalog_reference_python_blocks(self):

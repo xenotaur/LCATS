@@ -6061,3 +6061,25 @@ fences and Python example syntax; canonical format/lint and git whitespace check
 pass. LRH: zero errors/354 warnings, exactly matching archived validation. The full
 unit suite was not rerun locally for these documentation-only changes. Main merge
 and formal closeout are separate subsequent actions, not claimed complete here.
+
+### 2026-10-27 — Approved promotion: documentation-test repair and merge checks
+
+Human chose “Add documentation to #534, then merge” after joint review with Kenny.
+The final documentation head 1f7dfa40 failed hosted test/coverage checks: existing
+migration-doc tests assumed exactly two Python fences and executed the second as
+an extraction/publication example. The expanded guide changed that ordering.
+Merge was withheld pending repair. Named example markers now identify the query,
+source session, inspection and publication snippets. Restored a concrete isolated
+publication snippet; retained body/provenance and warm byte-preservation assertions,
+and exercised the complete source session against the real fixture catalog.
+No production behavior changed and no assertions were suppressed.
+
+The first full local run mixed this branch's tests with a different checkout because
+the shared LCATS environment's editable install had moved. Its failures are not
+candidate qualification. Re-ran canonical scripts/test with PYTHONPATH pinned to
+this worktree's src: all 2,979 tests pass in 99.232 seconds. Focused documentation
+suite: 11 passing tests. Format/lint and whitespace pass; LRH has zero errors and
+354 existing warnings. Final hosted checks must pass on the repair commit before
+an exact-head-locked merge. Review-thread inspection found no threads. Formal
+WI/WS/proposal closeout remains the separately scoped post-main task; accepted
+GPA-A–E and release/reconciliation work are not closed by this merge authorization.

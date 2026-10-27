@@ -24,6 +24,7 @@ The old `gettenberg.api`, `cache`, `headers` and `metadata` modules are removed.
 There is no SQL/API compatibility layer. Choose an existing catalog explicitly:
 
 ```python
+# Example: catalog-query
 from lcats.gettenberg import lifecycle
 from lcats.gettenberg import catalog
 from lcats.utils import genre
@@ -79,6 +80,7 @@ This example requires an already prepared catalog at `cache`. It is offline and
 only inspects metadata, so it does not download story text. Run from `lcats/`:
 
 ```python
+# Example: source-session
 from lcats.gatherers import gutenberg_source
 from lcats.gettenberg import lifecycle
 from lcats.gettenberg import resources
@@ -107,6 +109,7 @@ with manager.open() as library:
 To inspect a cached story, add the following **inside that context**:
 
 ```python
+# Example: inspect-story
 from lcats.gatherers import parser
 
 report = parser.inspect_story(84, source=source)
@@ -120,9 +123,20 @@ check `metadata is not None`, then use `prepared = source.read(metadata)` and pa
 the result. A prepared text is not yet an extracted story. Do not run the old
 Gutenberg header remover again or assume identical whitespace/title ordering.
 
-For one LCATS output, construct a `downloaders.DataGatherer` with a separate
-`root` directory and call `parser.gather_story(gatherer, 84, source=source)` inside
-the context. For batch recovery and reporting, call
+For one LCATS output, add this inside the same open-catalog context. It writes
+only to the separate `migration-output` directory; choose a fresh location when
+comparing extraction changes:
+
+```python
+# Example: publish-story
+from lcats.gatherers import downloaders
+from lcats.gatherers import parser
+
+gatherer = downloaders.DataGatherer("migration_preview", root="migration-output")
+story_id, path, rejection = parser.gather_story(gatherer, 84, source=source)
+```
+
+For batch recovery and reporting, call
 `mass_quantities.gatherer.gather_batch(ids, log_dir=..., source=source)` instead;
 it uses `LCATS_DATA_DIR` for its output root, resolved when the gatherer is created.
 Set that environment variable before calling it, and keep logs outside both data
