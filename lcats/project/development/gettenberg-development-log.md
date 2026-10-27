@@ -6028,3 +6028,36 @@ definitions, fences and git whitespace checks pass. LRH reports zero errors and
 354 warnings, byte-for-byte identical to the archived reporting-run validation.
 The unit suite was not rerun for this documentation-only update; earlier product
 test evidence remains tied to its recorded snapshot.
+
+### 2026-10-27 — Caller migration guide and metadata-free gatherer tutorial
+
+Human reported joint review with Kenny and his recommendation to merge, and
+requested guidance for his locally developed old-API code and new Standard Ebooks
+gatherer. His branch remains unavailable. Expanded the migration how-to with a
+baseline-grounded old/new API map, complete catalog/source ownership example,
+projection/query differences, per-call versus batch failure semantics and isolated
+cold/warm comparison guidance. Added a tutorial using two authored HTML fixtures
+with independent per-file metadata, prototype placement, three offline tests and
+registration instructions. Linked both from the docs index and Kenny handoff.
+
+The tutorial explains that the main registry derives conventional module paths
+from planning.NAMES; no separate registry mutation is needed. This corrects the
+earlier conversational suggestion to register the module separately. It explicitly
+distinguishes fixture HTML from real Standard Ebooks EPUB/OPF/XHTML handling, the
+legacy HTML helper from the original-byte ResourceStore and mass publication path,
+and current return values from the deferred GPA-E contract. No production gatherer,
+parser, shared result API, test file or corpus was changed by this documentation PR
+update. The example Python remains fenced documentation, not control-plane code.
+
+Validation: extracted the two tutorial Python blocks into an isolated temporary
+prototype, formatted/linted them and ran all three example tests successfully.
+Executed the migration catalog and complete-source examples against the retained
+pg84 RDF fixture in a temporary USTAR archive/catalog; verified offline text-cache
+miss and metadata-free planning with network/catalog-construction guards. Initial
+smoke setup used an unsupported default PAX archive; corrected the temporary harness
+to the documented USTAR format before the successful run. No live ebook requests or
+existing data/cache changes occurred. Verified 55 local links, reference definitions,
+fences and Python example syntax; canonical format/lint and git whitespace checks
+pass. LRH: zero errors/354 warnings, exactly matching archived validation. The full
+unit suite was not rerun locally for these documentation-only changes. Main merge
+and formal closeout are separate subsequent actions, not claimed complete here.

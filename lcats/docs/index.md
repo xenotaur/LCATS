@@ -14,6 +14,8 @@ cd LCATS/lcats
 
 ### Tutorials
 
+- [Create a gatherer with per-file metadata](tutorials/create-file-metadata-gatherer.md) — offline fixtures, output reuse, registration, and the boundary for Standard Ebooks integration
+
 - [First offline Gutenberg catalog](tutorials/gettenberg-first-catalog.md)
 
 - [Quickstart](tutorials/quickstart.md) — from a fresh clone to your first working `lcats` command

@@ -128,6 +128,20 @@ updates the shared helper, existing wrappers and CLI. It would preserve extracti
 and current error-recovery policies; a common result does not authorize catching
 more failures. See [GPA-E, the active follow-up][shared-result-follow-up].
 
+## Practical guides for your next changes
+
+Added 2026-10-27: the [caller migration guide][caller-migration] now maps old helper
+calls to current APIs and includes complete catalog/source construction, per-call
+versus batch failure handling, and cold/warm comparison guidance. Use it while
+porting code written against the old interface; we do not need your branch to
+explain these public contracts.
+
+The [new gatherer tutorial][new-gatherer] builds a two-file HTML collection with
+per-file metadata and three offline tests, then shows product registration. It
+uses authored fixtures, not a purported Standard Ebooks EPUB parser. Your actual
+format parser and acquisition path still need their own fixtures and review.
+Neither guide implements the proposed shared-result contract or changes extraction.
+
 ## Suggested reconciliation discussion
 
 1. Agree on the source boundary: metadata, prepared text, provenance and structured failures.
@@ -138,7 +152,7 @@ more failures. See [GPA-E, the active follow-up][shared-result-follow-up].
 The detailed explanation is in `lcats/docs/explanation/gettenberg-gather-changes.md`
 on PR #534. This report is intended to be shareable as a standalone Markdown file;
 evidence links below use immutable repository revisions. The shared-result follow-up
-link tracks the promotion branch so the new design entry remains discoverable.
+and practical-guide links track the promotion branch to include these additions.
 
 [source]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/src/lcats/gatherers/gutenberg_source.py#L82
 [batch]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/src/lcats/gatherers/mass_quantities/gatherer.py#L46
@@ -151,3 +165,6 @@ link tracks the promotion branch so the new design entry remains discoverable.
 [migration]: https://github.com/xenotaur/LCATS/blob/aab07b291ef63c98c3ec545a9e70e6c1ed624f61/lcats/docs/how-to/gettenberg-migration.md
 
 [shared-result-follow-up]: https://github.com/xenotaur/LCATS/blob/codex/gettenberg-promotion/lcats/project/development/gettenberg-post-adoption-backlog.md#gpa-e--shared-gather-result-contract-across-collections
+
+[caller-migration]: https://github.com/xenotaur/LCATS/blob/codex/gettenberg-promotion/lcats/docs/how-to/gettenberg-migration.md
+[new-gatherer]: https://github.com/xenotaur/LCATS/blob/codex/gettenberg-promotion/lcats/docs/tutorials/create-file-metadata-gatherer.md

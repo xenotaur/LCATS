@@ -47,24 +47,121 @@ bytes with `ResourceStore`, then [decode](gettenberg-decoding.md) and
 [clean](gettenberg-cleanup.md) them. URLs found in metadata grant no network
 permission. Do not replace this with guessed URL patterns or lossy decoding.
 
-For story extraction, construct `gatherers.gutenberg_source.GutenbergStorySource`
-using the open catalog, resource store, routes and policy, then pass it explicitly:
+## Port old calls by responsibility
+
+Use this map when updating code written against the pre-replacement LCATS API
+(main baseline `22a739d2`). These are semantic migrations, not import substitutions.
+
+| Old usage | Current equivalent and difference |
+|---|---|
+| `cache.ensure_gutenberg_cache()` / implicit cache setup | Prepare a catalog through the CLI, then own a `CatalogManager.open()` context. Library reads do not initialize or refresh it. |
+| `api.get_etexts(languages="en", ...)` | `library.find_ids(catalog.Filters(languages=("en",)), limit=..., after_id=...)`; paginate explicitly. Returns ordered IDs rather than an unordered set. |
+| `api.get_matching_rows()` / `extract_book_id(row)` | Query IDs, then `library.get(id)` for typed records. Old raw rows and SQL schemas are not supported. |
+| `bookshelves=` / `downloadtype="text"` | Use `Filters(shelves=(... ,))`; MIME-format filtering/resource selection replaces the old download-type convention. There is no automatic one-to-one translation for `"text"`. |
+| `api.get_metadata("title", id)` / `metadata.titles_for(...)` | `source.metadata(id).titles`, after checking for `None`. Ordered tuples replace sets; primary titles take precedence. |
+| Author, alias, subject or language helpers | `metadata.authors`, `.aliases`, `.subjects`, `.languages` on the projection. Authors and aliases remain separate; the full record preserves contributor roles. |
+| `api.load_etext(id)` followed by `strip_headers(...)` and decoding | `source.read(metadata)` returns original artifact, decoded text and cleanup evidence. Use `.cleaned.text` for the prepared Unicode text, not another decode/strip operation. |
+| Header metadata fallback / cache skip mode | No automatic equivalent. Missing catalog metadata is explicit; a separate file-metadata reader belongs to the relevant gatherer. |
+| `parser.gather_story(gatherer, id)` | Add keyword-only `source=source`; the `(id, path, rejection)` tuple remains. |
+| `mass_quantities.gather_stories(ids)` | Add `source=source`; retains `(ready_paths, error_reasons)`. Use `gather_batch` when distinctions between skipped/refused/unavailable matter. |
+| `mass_quantities.gather()` | Requires `source=source` and returns `BatchResult`; inspect `.ready`, `.written`, `.reused`, `.skipped`, `.refused`, `.unavailable`, and `.incomplete`. |
+
+`Filters` combines dimensions with AND and values within each tuple with OR.
+Exact matching preserves case; `search_ids` provides casefolded literal substring
+search. Author filtering matches contributor names/aliases; the story projection
+separately restricts authors to creator/author roles. Review selection differences
+instead of assuming the old SQL query and new filters select identical records.
+See [catalog reference](../reference/gettenberg-catalog.md).
+
+## Construct a complete source for existing extraction code
+
+This example requires an already prepared catalog at `cache`. It is offline and
+only inspects metadata, so it does not download story text. Run from `lcats/`:
+
+```python
+from lcats.gatherers import gutenberg_source
+from lcats.gettenberg import lifecycle
+from lcats.gettenberg import resources
+
+cache_dir = "cache"
+manager = lifecycle.CatalogManager(cache_dir)
+store = resources.ResourceStore(cache_dir)
+routes = resources.GutenbergRoutes(
+    "https://gutenberg.pglaf.org/",
+    "https://gutenberg.pglaf.org/cache/epub/",
+)
+policy = resources.NetworkPolicy()  # Offline, including on a cache miss.
+
+with manager.open() as library:
+    source = gutenberg_source.GutenbergStorySource(
+        library, store, routes=routes, policy=policy
+    )
+    metadata = source.metadata(84)
+    if metadata is None:
+        print("No catalog record for ebook 84")
+    else:
+        print(metadata.titles, metadata.authors, metadata.aliases)
+        # Put existing extraction calls here while the catalog is open.
+```
+
+To inspect a cached story, add the following **inside that context**:
 
 ```python
 from lcats.gatherers import parser
 
 report = parser.inspect_story(84, source=source)
-# Inspect report["rejection"], ["body"] and ["provenance"].
-story_id, path, rejection = parser.gather_story(gatherer, 84, source=source)
-# A path identifies a published or reused story; rejection explains ineligibility.
+print(report["rejection"])
+# report also includes body, metadata and provenance; no story is published.
 ```
 
-`inspect_story` may acquire/cache eligible text according to the supplied policy,
-but never publishes a story. Use an offline policy for read-only inspection of
-already cached sources. `gather_story` preserves existing output and applies the
-same story eligibility/extraction rules. Ambiguous Gutenberg envelopes raise a
-cleanup refusal; they are not silently published or classified as ineligible.
-The broader editorial review workflow is separate from this provider migration. See [source contracts](../reference/gettenberg-gather.md).
+To feed Kenny's own extraction function instead of LCATS's existing heuristics,
+check `metadata is not None`, then use `prepared = source.read(metadata)` and pass
+`prepared.cleaned.text` to that function. Preserve `prepared.provenance()` alongside
+the result. A prepared text is not yet an extracted story. Do not run the old
+Gutenberg header remover again or assume identical whitespace/title ordering.
+
+For one LCATS output, construct a `downloaders.DataGatherer` with a separate
+`root` directory and call `parser.gather_story(gatherer, 84, source=source)` inside
+the context. For batch recovery and reporting, call
+`mass_quantities.gatherer.gather_batch(ids, log_dir=..., source=source)` instead;
+it uses `LCATS_DATA_DIR` for its output root, resolved when the gatherer is created.
+Set that environment variable before calling it, and keep logs outside both data
+and corpora roots. The catalog owner must outlive every source operation.
+
+If acquisition is desired, explicitly replace `policy` with
+`resources.NetworkPolicy(online=True, allowed_origins=("https://gutenberg.pglaf.org",))`.
+A ready catalog does not authorize network requests, and opening this source does
+not set up the catalog. Redirects to other origins require their own explicit
+permission. This example selects a known route, not an availability guarantee.
+See [acquisition policy](gettenberg-resources.md).
+
+## Preserve failure distinctions and test both cold and warm runs
+
+- An absent record or ordinary story ineligibility produces a rejection; it is
+  not the same as failed acquisition or cleanup.
+- Direct `source.read`, `inspect_story` and `gather_story` calls can raise structured
+  resource errors. Per-item continuation lives in the mass **batch** boundary,
+  which continues only cleanup refusals and terminal HTTP 404 responses.
+- Other operational failures still abort. Do not recreate the old broad exception
+  catch merely to make all inputs appear processed.
+- A reused output has not been re-extracted or requalified. Compare your changes
+  in a fresh, isolated output directory, then repeat with warm outputs to verify
+  reuse. Preserve existing data and caches instead of deleting them for a test.
+- Curated HTML gatherers retain their own downloader, decoding and publication
+  behavior. They have not inherited mass gathering's atomic publication or
+  per-item recovery just because both use `DataGatherer`.
+
+Use fixed inputs to compare selection, title/author-derived bucket names, body
+text, metadata/provenance, errors, and output reuse independently. A larger success
+count alone does not establish narrative preservation. The accepted limitations
+above remain separate follow-ups.
+
+For a new source with per-file metadata, start with the
+[new gatherer tutorial](../tutorials/create-file-metadata-gatherer.md). Neither
+`GutenbergStorySource` nor the mass parser is a required interface for all gatherers.
+The shared gather-result contract in
+[GPA-E](../../project/development/gettenberg-post-adoption-backlog.md#gpa-e--shared-gather-result-contract-across-collections)
+is a future follow-up, not an API available in this release.
 
 ## Reuse or remove old caches deliberately
 
