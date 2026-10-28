@@ -2,8 +2,8 @@
 id: "WS-GETTENBERG"
 kind: "planning_node"
 title: "LCATS-owned Gutenberg library and bounded execution pilot"
-status: "proposed"
-stage: "designed"
+status: "resolved"
+stage: "closed"
 origin: "design_review"
 summary: "Replace gutenbergpy with internal gettenberg and capture evidence from bounded coordinator-led development."
 related_focus:
@@ -11,7 +11,7 @@ related_focus:
 related_roadmap:
   - "ROADMAP-CORE"
 related_design:
-  - "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+  - "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
   - "project/development/gettenberg-pilot-charter.md"
 work_items:
   - "WI-GETTENBERG-0001"
@@ -25,7 +25,7 @@ work_items:
   - "WI-GETTENBERG-0009"
   - "WI-GETTENBERG-0010"
 execution_records: []
-evidence: []
+evidence: ["project/development/gettenberg-closeout.md", "project/development/gettenberg-delivery-decision.md"]
 exit_criteria:
   - "All ten completion criteria in PROP-LCATS-GETTENBERG-REDESIGN have linked verification evidence."
   - "Replacement and caller dispositions are delivered on main with no active gutenbergpy dependency."
@@ -159,3 +159,18 @@ validation and staged-closeout plan. WIs0001–0004 are already delivered on mai
 WIs0005–0010 remain staged pending human main promotion and verified closeout.
 Do not merge the preserved broader PR #524 as part of provider delivery or close
 post-adoption follow-up merely because this workstream later completes.
+
+## Main delivery and formal closeout — 2026-10-27
+
+PR [#534](https://github.com/xenotaur/LCATS/pull/534) delivered the replacement to
+main at `b4ec4c452ed178dd62472af9f1a46b44e70ce485`. The human approved the
+closeout plan, exact resolution notes, all four workstream exit criteria and the
+archive-sync exception. WI-GETTENBERG-0001–0010 are resolved, WS-GETTENBERG is
+closed, and the redesign proposal is adopted/implemented. Earlier milestone
+paragraphs retain their historical meaning; this dated entry records
+the current disposition. See the [formal closeout](../../development/gettenberg-closeout.md) for evidence and inventory.
+
+The post-adoption backlog GPA-A–E, PR #524's separated editorial work, Kenny's
+independent gatherer work, WI-RELEASE-0037/0039 and WS-RELEASE remain open.
+Replacement delivery does not approve package publication, corpus promotion,
+universal editorial correctness or full live-source coverage.

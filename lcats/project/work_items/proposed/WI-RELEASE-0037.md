@@ -17,7 +17,7 @@
 - "WS-GETTENBERG"
 "related_design":
 - "project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md"
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 "depends_on":
 - "WI-GETTENBERG-0008"
 - "WI-GETTENBERG-0010"
@@ -130,3 +130,14 @@ alias tests, bounded corpus comparisons and fresh isolated-wheel qualification
 without gutenbergpy. See development/evidence/gettenberg-migration-20261017/.
 This item remains proposed: main delivery, WI0010 qualification and independent
 release-blocker closeout are still required. No publication approval is implied.
+
+## Main-delivery checkpoint — 2026-10-27
+
+PR #534 delivered the replacement on main at
+`b4ec4c452ed178dd62472af9f1a46b44e70ce485`; WI-GETTENBERG-0008/0010 and
+WS-GETTENBERG are now closed. See [formal delivery closeout](../../development/gettenberg-closeout.md)
+for the acceptance map, final validation and preserved limitations. The earlier
+migration checkpoint is historical. This release item remains proposed: independently
+verify its current distribution/install and release-blocker criteria before resolving
+it. WI-RELEASE-0039 remains the near-publication gate; no package publication is
+approved by replacement delivery.

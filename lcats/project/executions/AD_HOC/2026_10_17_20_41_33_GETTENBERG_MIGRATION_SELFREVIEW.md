@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_20_41_33_GETTENBERG_MIGRATION_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_MIGRATION_SELFREVIEW)[2026-10-17T20:40:59+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_17_20_20_08_GETTENBERG_MIGRATION
 pr: https://github.com/xenotaur/LCATS/pull/522
-commit: 3ed49415b900fa8bec825acf453272105860c6c0
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T20:41:33+00:00
 agent: codex_app
 instruction_source: lrh-self-review with bounded pilot adapter

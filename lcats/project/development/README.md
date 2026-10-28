@@ -6,7 +6,7 @@ work items, and execution records remain authoritative for delivery.
 - [Gettenberg pilot charter](gettenberg-pilot-charter.md): approved scoped authority,
   workflow, budget, review, and escalation rules.
 - [Development log](gettenberg-development-log.md): observations/checkpoints.
-- [WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md): full delivery plan.
+- [WS-GETTENBERG](../workstreams/resolved/WS-GETTENBERG.md): full delivery plan.
 
 - [Gettenberg baseline](gettenberg-baseline.md): snapshot measurements, caller
   dispositions, feature/predicate matrix, fixture plan and explicit gaps.
@@ -29,3 +29,8 @@ work items, and execution records remain authoritative for delivery.
 
 - [Narrow delivery candidate](gettenberg-narrow-delivery.md): retain/separate manifest,
   consumer contracts and remaining Q1–Q8 qualification.
+
+## Delivered replacement
+
+[Formal gettenberg closeout](gettenberg-closeout.md) records PR #534's main delivery,
+resolved work items, adopted proposal, execution inventory and open follow-up boundaries.

@@ -10,8 +10,8 @@ records activation and does not renew or enlarge the grant.
 ## Purpose and activation
 
 Pilot coordinator-led implementation of the
-[approved design](../design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md)
-under [WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md). Preserve LRH
+[approved design](../design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md)
+under [WS-GETTENBERG](../workstreams/resolved/WS-GETTENBERG.md). Preserve LRH
 scope, evidence, review, and lifecycle discipline while delegating routine
 engineering decisions. The first two-hour run may deliver a qualified subset;
 it does not promise the entire replacement within that budget.

@@ -3,11 +3,12 @@
 **Human accepted A–D on 2026-10-24, conditional on a durable post-adoption
 backlog.** The [backlog](gettenberg-post-adoption-backlog.md) records all four groups,
 per-input details, evidence and completion criteria; the condition is now documented.
-Internal integration is complete; the promotion remains pending human review and
-current-head checks.
-PR #530 was subsequently integrated at `df055256`; the
-[main-promotion review guide](gettenberg-main-promotion.md) records the next gate.
-Main promotion has not occurred.
+PR #530 was integrated at `df055256`; PR #534 subsequently delivered the
+replacement to main at `b4ec4c452ed178dd62472af9f1a46b44e70ce485` on 2026-10-27
+following joint human review and passing final-head checks. The
+[main-promotion guide](gettenberg-main-promotion.md) and
+[formal closeout](gettenberg-closeout.md) record delivery and lifecycle reconciliation.
+Historical review gates below are superseded by that approved main delivery.
 This accepts bounded replacement delivery, not an editorially clean corpus.
 
 Reviewed product: `823f33c23836aff220fab80046ab84b80584c063`; target integration base:

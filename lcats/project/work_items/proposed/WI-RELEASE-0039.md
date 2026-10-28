@@ -16,7 +16,7 @@
 - "WS-RELEASE"
 "related_design":
 - "project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md"
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 "depends_on":
 - "WI-RELEASE-0037"
 "blocked_by": []

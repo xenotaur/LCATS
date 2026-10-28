@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_05_24_50_WI_GETTENBERG_0005_DECODING
 prompt_id: PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_DECODING)[2026-10-15T05:03:20+00:00]
 work_item: WI-GETTENBERG-0005
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/512
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T05:24:50+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0005.md

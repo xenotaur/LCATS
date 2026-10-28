@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_08_47_18_GETTENBERG_GATHER_MIGRATION
 prompt_id: PROMPT(WI-GETTENBERG-0007:GETTENBERG_GATHER_MIGRATION)[2026-10-17T07:58:51+00:00]
 work_item: WI-GETTENBERG-0007
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/519
-commit: 461d845ea29c5e72485071338647ed1d5596a385
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T08:47:18+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

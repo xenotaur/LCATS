@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_00_24_29_GETTENBERG_ROUTE_QUALIFICATION
 prompt_id: PROMPT(AD_HOC:GETTENBERG_ROUTE_QUALIFICATION)[2026-10-15T00:24:03+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
-pr:
-commit:
+pr: https://github.com/xenotaur/LCATS/pull/534
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T00:24:29+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0005.md

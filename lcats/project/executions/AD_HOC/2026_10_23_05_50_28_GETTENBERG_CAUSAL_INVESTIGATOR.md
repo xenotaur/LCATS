@@ -2,10 +2,10 @@
 execution_id: 2026_10_23_05_50_28_GETTENBERG_CAUSAL_INVESTIGATOR
 prompt_id: PROMPT(AD_HOC:GETTENBERG_CAUSAL_INVESTIGATOR)[2026-10-23T05:50:10+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/530
-commit: 95ad5afddc6841c6f7946c7ae43fd98b6f39b25f
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-23T05:50:28+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-narrow-delivery.md

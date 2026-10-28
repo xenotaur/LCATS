@@ -2,10 +2,10 @@
 execution_id: 2026_10_23_05_41_28_GETTENBERG_CAUSAL_YIELD
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_CAUSAL_YIELD)[2026-10-23T05:40:59+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/530
-commit: 95ad5afddc6841c6f7946c7ae43fd98b6f39b25f
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-23T05:41:28+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-narrow-delivery.md

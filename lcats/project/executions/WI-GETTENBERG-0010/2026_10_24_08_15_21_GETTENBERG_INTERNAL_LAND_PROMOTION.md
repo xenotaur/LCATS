@@ -2,10 +2,10 @@
 execution_id: 2026_10_24_08_15_21_GETTENBERG_INTERNAL_LAND_PROMOTION
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_INTERNAL_LAND_PROMOTION)[2026-10-24T08:14:38+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/534
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-24T08:15:21+00:00
 agent: codex_app
 instruction_source: Human authorized internal landing of PR530 and preparation of a main promotion PR; charter staged-closeout adapter applies

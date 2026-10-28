@@ -2,10 +2,10 @@
 execution_id: 2026_10_26_21_54_01_GETTENBERG_404_CONTINUATION_SELFREVIEW
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_404_CONTINUATION)[2026-10-26T21:46:45+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of: 2026_10_26_21_46_56_GETTENBERG_404_CONTINUATION
 pr: https://github.com/xenotaur/LCATS/pull/534
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 agent: codex_app
 instruction_source: "Independent reviewer assignment under approved bounded 404 repair"
 session_transcript: codex-app:01a13653-87a6-7743-b734-7440a42ee1be

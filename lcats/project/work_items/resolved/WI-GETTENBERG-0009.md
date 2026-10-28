@@ -1,11 +1,11 @@
 ---
-"resolution": null
+resolution: "Delivered supported catalog/cache maintenance and offline unit CI on main in PR #534 (b4ec4c45), with workflow and failure-path qualification."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0009"
 "title": "Replace Gutenberg CI cache maintenance with supported operations"
 "type": "deliverable"
-"status": "proposed"
+status: "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"
@@ -17,7 +17,7 @@
 "related_workstreams":
 - "WS-GETTENBERG"
 "related_design":
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 - "project/development/gettenberg-pilot-charter.md"
 "depends_on":
 - "WI-GETTENBERG-0004"

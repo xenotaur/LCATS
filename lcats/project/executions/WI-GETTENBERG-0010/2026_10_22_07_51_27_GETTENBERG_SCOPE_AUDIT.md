@@ -2,10 +2,10 @@
 execution_id: 2026_10_22_07_51_27_GETTENBERG_SCOPE_AUDIT
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_SCOPE_AUDIT)[2026-10-22T07:51:13+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/528
-commit: 29bd4e5ab1fae57ce2a9b741597e71f5ff0d2e33
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-22T07:51:27+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md

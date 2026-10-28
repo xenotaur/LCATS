@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_22_47_04_WI_GETTENBERG_0005_ROUTING
 prompt_id: PROMPT(WI-GETTENBERG-0005:WI_GETTENBERG_0005_ROUTING)[2026-10-15T22:46:17+00:00]
 work_item: WI-GETTENBERG-0005
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/516
-commit: f0cbb30f6d9764aa24211d5c9a69fdf8a9c6369f
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T22:47:04+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0005.md

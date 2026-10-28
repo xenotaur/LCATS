@@ -2,10 +2,10 @@
 execution_id: 2026_10_18_00_54_29_GETTENBERG_CI_MAINTENANCE
 prompt_id: PROMPT(WI-GETTENBERG-0009:GETTENBERG_CI_MAINTENANCE)[2026-10-18T00:53:59+00:00]
 work_item: WI-GETTENBERG-0009
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/523
-commit: a8416d3b
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-18T00:54:29+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0009.md

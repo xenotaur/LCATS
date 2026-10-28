@@ -343,12 +343,12 @@ process recommendation for LRH, not an LRH implementation in LCATS.
 - [Experiment archive and reproduction](../../../experiments/10_gettenberg_qualification/results/gettenberg-scope-audit-20261022/README.md).
 - [Meeting brief](gettenberg-scope-meeting-brief.md).
 - [Runlog](gettenberg-development-log.md), scope-audit grant and completion checkpoint.
-- [Original responsibilities](../design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md), lines125–143 and334–337.
+- [Original responsibilities](../design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md), lines125–143 and334–337.
 - [Baseline caller inventory](gettenberg-baseline.md), lines140–155.
 - [Original causal repair evidence](gettenberg-corpus-repair-plan.md), lines8–33.
 - [Qualification population evidence](gettenberg-qualification.md), lines83–100,157–178 and220–245.
 - [Current readiness contract](gettenberg-readiness-contract.md), lines8–52.
-- [Current WI0010 scope/gates](../work_items/proposed/WI-GETTENBERG-0010.md), lines79–92.
+- [Current WI0010 scope/gates](../work_items/resolved/WI-GETTENBERG-0010.md), lines79–92.
 - [Current source adapter](../../src/lcats/gatherers/gutenberg_source.py), lines99–156.
 - [Current body extraction](../../src/lcats/gatherers/story_body.py), lines63–96 and125–182.
 - [Current parser](../../src/lcats/gatherers/parser.py), lines1275–1283 and1345–1512.

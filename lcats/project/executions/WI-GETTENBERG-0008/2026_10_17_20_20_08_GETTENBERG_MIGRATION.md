@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_20_20_08_GETTENBERG_MIGRATION
 prompt_id: PROMPT(WI-GETTENBERG-0008:GETTENBERG_MIGRATION)[2026-10-17T20:19:44+00:00]
 work_item: WI-GETTENBERG-0008
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/522
-commit: 46960f6625b22131ecfcac1764b0da10ad8fb643
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T20:20:08+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-GETTENBERG-0008.md

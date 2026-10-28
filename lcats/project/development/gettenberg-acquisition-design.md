@@ -2,8 +2,8 @@
 
 Status: coordinator-authored design checkpoint, not implemented or independently
 reviewed. Prepared under the 15-minute planning grant `gettenberg-20261015-plan`.
-Governing scope: [WI-0005](../work_items/proposed/WI-GETTENBERG-0005.md),
-[redesign](../design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md)
+Governing scope: [WI-0005](../work_items/resolved/WI-GETTENBERG-0005.md),
+[redesign](../design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md)
 Decisions 6–8, and the [charter](gettenberg-pilot-charter.md).
 Base: `2f14e4e886c1f3fd6a6f021e3f72db6621cbb3a2` on main. WI-0002 and the
 WI-0004 lifecycle are resolved there. The next run must verify its actual base.

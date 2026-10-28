@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_19_33_10_GETTENBERG_DEFAULT_PROFILE
 prompt_id: PROMPT(WI-GETTENBERG-0007:GETTENBERG_DEFAULT_PROFILE)[2026-10-17T19:32:41+00:00]
 work_item: WI-GETTENBERG-0007
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/521
-commit: dca61929
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T19:33:10+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

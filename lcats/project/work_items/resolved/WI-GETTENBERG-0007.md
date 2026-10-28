@@ -1,11 +1,11 @@
 ---
-"resolution": null
+resolution: "Delivered source-aware preparation, catalog commands and explicit-source gather integration on main in PR #534 (b4ec4c45); shared cross-collection result reporting remains GPA-E."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0007"
 "title": "Source-aware gather preparation and catalog commands"
 "type": "deliverable"
-"status": "proposed"
+status: "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"
@@ -17,7 +17,7 @@
 "related_workstreams":
 - "WS-GETTENBERG"
 "related_design":
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 - "project/development/gettenberg-pilot-charter.md"
 "depends_on":
 - "WI-GETTENBERG-0004"

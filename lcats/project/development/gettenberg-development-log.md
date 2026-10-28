@@ -1,6 +1,6 @@
 # Gettenberg development process log
 
-For [WS-GETTENBERG](../workstreams/proposed/WS-GETTENBERG.md) under the
+For [WS-GETTENBERG](../workstreams/resolved/WS-GETTENBERG.md) under the
 [pilot charter](gettenberg-pilot-charter.md). WIs/execution records remain
 authoritative for scope/delivery. Historical entries retain their original state;
 current run checkpoints appear below.
@@ -6083,3 +6083,44 @@ suite: 11 passing tests. Format/lint and whitespace pass; LRH has zero errors an
 an exact-head-locked merge. Review-thread inspection found no threads. Formal
 WI/WS/proposal closeout remains the separately scoped post-main task; accepted
 GPA-A–E and release/reconciliation work are not closed by this merge authorization.
+
+### 2026-10-27 — Human-approved formal delivery closeout
+
+PR #534 merged at b4ec4c452ed178dd62472af9f1a46b44e70ce485 after all four final
+b3e9cab2 hosted checks passed. The human explicitly approved the full closeout
+inventory, six exact WI resolution notes, all four WS exit criteria and the scoped
+archive-sync exception. Applied native LRH updates to 72 delivered records,
+resolved WI0005–0010, closed WS-GETTENBERG and adopted/marked the redesign implemented.
+The four earlier resolved WIs retain their delivery statuses. Updated current links,
+proposal index, promotion/decision status, focus/roadmap and WI-RELEASE-0037's delivery
+checkpoint. [Formal closeout](gettenberg-closeout.md) retains the per-record inventory,
+old/new location map, acceptance evidence and explicit exclusions.
+
+PR #524's 28 records and GPA-A–E remain untouched/open. Kenny's independent gatherer
+work, WI-RELEASE-0037/0039 and WS-RELEASE remain open. No package publication, corpus
+promotion or separated editorial runtime is implied. Every selected execution record
+was compared with its main copy before mutation; #528's selected audit artifacts
+were carried into the narrow candidate, not merged as its whole branch. Historical
+execution bodies and source/evidence identities remain unchanged.
+
+LRH process observation: closeout-sync's read-only preview considered 2,290 Claude
+transcripts across unrelated projects although every selected record is Codex-authored.
+The human explicitly approved skipping archive writes for this closeout. Future LRH
+work should scope archive selection by backend/project rather than requiring a
+broad default or recurring exception. No transcript export, session alias, persistent
+consent change or agent memory write occurred. This observation is durable here.
+
+Validation results are recorded in the formal closeout after checking lifecycle
+statuses, excluded bytes, navigation, whitespace and the LRH warning baseline.
+Production tests are not repeated for control-plane-only metadata/navigation edits;
+final product qualification remains tied to the recorded delivered head.
+
+Closeout verification passed: LRH zero errors/354 warnings, byte-identical to the
+main baseline; all 72 transitions and unchanged execution bodies verified; 28
+excluded records/backlog/acceptance preserved byte-for-byte. All ten WIs resolved,
+WS/proposal lifecycle and open release items checked. No new broken local links
+among 158 inspected (two historical retired/separated-code links pre-existed).
+Canonical format/lint and whitespace passed. Initial proposal evidence-path schema
+errors and a scratch inventory-heading mismatch were corrected; Black required
+an approved rerun outside the sandbox for its local worker socket. No failed
+intermediate state was committed. No product/corpus changes or new memory writes.

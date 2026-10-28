@@ -2,14 +2,14 @@
 execution_id: 2026_10_23_08_22_02_GETTENBERG_REFUSAL_CONTINUATION
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_REFUSAL_CONTINUATION)[2026-10-23T08:20:47+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/530
-commit: 8c9441ddf707f4bdcd11afc4e9c4126d0976b8bc
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-23T08:22:02+00:00
 agent: codex_app
 instruction_source: User-authorized narrow refusal continuation and corpus-yield verification
-session_transcript: pending
+session_transcript: codex-app:01a13653-87a6-7743-b734-7440a42ee1be
 ---
 
 # Summary

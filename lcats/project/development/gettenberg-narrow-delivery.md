@@ -13,7 +13,7 @@ Status: construction/qualification checkpoint, **not release acceptance**.
 Review: [draft PR #530](https://github.com/xenotaur/LCATS/pull/530), targeting
 `codex/gettenberg-acquisition`.
 Approved scope: [scope and causality audit](gettenberg-scope-causality-audit.md),
-Q1–Q8 in [WI-GETTENBERG-0010](../work_items/proposed/WI-GETTENBERG-0010.md).
+Q1–Q8 in [WI-GETTENBERG-0010](../work_items/resolved/WI-GETTENBERG-0010.md).
 
 ## Construction and preserved identities
 

@@ -1,11 +1,11 @@
 ---
-"resolution": null
+resolution: "Delivered conservative, provenance-preserving boilerplate cleanup on main in PR #534 (b4ec4c45), with accepted exclusions and retained material tracked in GPA-A–C."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0006"
 "title": "Conservative boilerplate cleanup with diagnostics"
 "type": "deliverable"
-"status": "proposed"
+status: "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"
@@ -17,7 +17,7 @@
 "related_workstreams":
 - "WS-GETTENBERG"
 "related_design":
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 - "project/development/gettenberg-pilot-charter.md"
 "depends_on":
 - "WI-GETTENBERG-0002"

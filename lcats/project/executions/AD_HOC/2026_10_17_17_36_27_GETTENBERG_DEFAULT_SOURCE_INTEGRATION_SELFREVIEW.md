@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_17_36_27_GETTENBERG_DEFAULT_SOURCE_INTEGRATION_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_DEFAULT_SOURCE_INTEGRATION_SELFREVIEW)[2026-10-17T17:32:25+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_17_15_18_34_GETTENBERG_DEFAULT_ROUTE_PROBE
 pr: https://github.com/xenotaur/LCATS/pull/520
-commit: eb4888e950c34130ade25f833f968047c9562525
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T17:36:27+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

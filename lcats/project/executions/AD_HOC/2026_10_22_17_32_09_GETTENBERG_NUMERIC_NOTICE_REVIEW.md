@@ -2,10 +2,10 @@
 execution_id: 2026_10_22_17_32_09_GETTENBERG_NUMERIC_NOTICE_REVIEW
 prompt_id: PROMPT(AD_HOC:GETTENBERG_NUMERIC_NOTICE_REVIEW)[2026-10-22T17:29:24+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/528
-commit: c8b5e360ae801c4bec8e9c2ea90586c9c310658d
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-22T17:32:09+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md

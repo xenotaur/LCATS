@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_20_57_05_GETTENBERG_MIGRATION_CONFIRM
 prompt_id: PROMPT(AD_HOC:GETTENBERG_MIGRATION_CONFIRM)[2026-10-17T20:44:05+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_17_20_20_08_GETTENBERG_MIGRATION
 pr: https://github.com/xenotaur/LCATS/pull/522
-commit: 46960f6625b22131ecfcac1764b0da10ad8fb643
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T20:57:05+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

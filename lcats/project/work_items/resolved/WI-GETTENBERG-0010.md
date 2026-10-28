@@ -1,11 +1,11 @@
 ---
-"resolution": null
+resolution: "Qualified the bounded replacement under approved Q1–Q8 and A–D acceptance, delivered it on main in PR #534 (b4ec4c45), and reconciled native lifecycle records; GPA-A–E, PR #524 and release gates remain open."
 "blocked_reason": null
 "blocked": false
 "id": "WI-GETTENBERG-0010"
 "title": "Qualify replacement, exercise Diataxis docs and reconcile delivery"
 "type": "evaluation"
-"status": "proposed"
+status: "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"
@@ -17,7 +17,7 @@
 "related_workstreams":
 - "WS-GETTENBERG"
 "related_design":
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 - "project/development/gettenberg-pilot-charter.md"
 "depends_on":
 - "WI-GETTENBERG-0008"

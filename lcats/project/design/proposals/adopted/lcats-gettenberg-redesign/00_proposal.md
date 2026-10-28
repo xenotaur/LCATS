@@ -2,11 +2,11 @@
 id: "PROP-LCATS-GETTENBERG-REDESIGN"
 type: "design_proposal"
 title: "LCATS-owned Gutenberg catalog and acquisition library"
-status: "proposed"
+status: "adopted"
 created_on: "2026-10-13"
-updated_on: "2026-10-13"
-implementation_status: "not_started"
-implemented_by: []
+updated_on: "2026-10-27"
+implementation_status: "implemented"
+implemented_by: ["WI-GETTENBERG-0001", "WI-GETTENBERG-0002", "WI-GETTENBERG-0003", "WI-GETTENBERG-0004", "WI-GETTENBERG-0005", "WI-GETTENBERG-0006", "WI-GETTENBERG-0007", "WI-GETTENBERG-0008", "WI-GETTENBERG-0009", "WI-GETTENBERG-0010"]
 evidence: []
 supersedes: []
 superseded_by: null
@@ -549,3 +549,15 @@ and the inspected LCATS commit e0a838fb.
 [S3]: https://github.com/garethbjohnson/gutendex
 [S4]: https://github.com/c-w/Gutenberg
 [S5]: https://www.gutenberg.org/policy/robot_access.html
+
+## Main-delivery closeout — 2026-10-27
+
+Implemented by WI-GETTENBERG-0001–0010 and delivered to main via PR #534
+at `b4ec4c452ed178dd62472af9f1a46b44e70ce485`. The human confirmed all four
+workstream exit criteria and approved formal adoption. The
+[closeout inventory](../../../../development/gettenberg-closeout.md) and
+[ten-criterion/Q1–Q8 evidence map](../../../../development/gettenberg-delivery-decision.md)
+record bounded qualification and the accepted A–D limitations. GPA-A–E, Kenny's
+separate gatherer work, PR #524 and independent release verification remain open.
+These document links are body references; proposal frontmatter evidence is reserved
+for registered evidence IDs. Historical design and scope amendments above are retained.

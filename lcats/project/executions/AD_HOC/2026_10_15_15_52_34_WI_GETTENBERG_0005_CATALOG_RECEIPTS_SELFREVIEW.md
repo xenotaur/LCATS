@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_15_52_34_WI_GETTENBERG_0005_CATALOG_RECEIPTS_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_GETTENBERG_0005_CATALOG_RECEIPTS_SELFREVIEW)[2026-10-15T15:47:10+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_15_15_25_13_WI_GETTENBERG_0005_CATALOG_RECEIPTS
 pr: https://github.com/xenotaur/LCATS/pull/514
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T15:52:34+00:00
 agent: codex_app
 instruction_source: bounded charter independent diff review of WI0005 A15/A16

@@ -17,7 +17,7 @@
 "related_workstreams":
 - "WS-GETTENBERG"
 "related_design":
-- "project/design/proposals/proposed/lcats-gettenberg-redesign/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
 - "project/development/gettenberg-pilot-charter.md"
 "depends_on":
 - "WI-GETTENBERG-0002"

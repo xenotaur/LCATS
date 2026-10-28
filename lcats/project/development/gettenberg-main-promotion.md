@@ -1,10 +1,15 @@
 # Gettenberg promotion to main: review guide
 
-Status: **[PR #534](https://github.com/xenotaur/LCATS/pull/534) is open for human
-main-promotion review; not delivered to main**.
-The human authorized landing PR #530 internally and preparing this promotion.
-That instruction does not authorize merging the promotion or publishing a package
-or corpus. A–D acceptance is already recorded and need not be requested again.
+Status: **[PR #534](https://github.com/xenotaur/LCATS/pull/534) merged to main**
+on 2026-10-27 at `b4ec4c452ed178dd62472af9f1a46b44e70ce485`, after joint human
+review and approval. Final head `b3e9cab2f8992fbbbbf048d72797898b858b36c4` passed
+all four hosted checks; its pinned local suite passed 2,979 tests. The approved
+[formal closeout](gettenberg-closeout.md) reconciles the delivered lifecycle.
+A–D acceptance remains bounded by the open post-adoption backlog. Package
+publication and corpus promotion are separate, ungranted actions.
+
+The review guide below preserves the candidate's historical checkpoints and gates;
+this status supersedes its pre-merge statements.
 
 For team reconciliation, see [the detailed workflow comparison](../../docs/explanation/gettenberg-gather-changes.md)
 and [the standalone handoff for Kenny](gettenberg-kenny-handoff.md). They distinguish

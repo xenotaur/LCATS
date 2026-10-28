@@ -2,10 +2,10 @@
 execution_id: 2026_10_17_19_46_15_GETTENBERG_DEFAULT_PROFILE_CONFIRM
 prompt_id: PROMPT(AD_HOC:GETTENBERG_DEFAULT_PROFILE_CONFIRM)[2026-10-17T19:46:02+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_17_19_33_10_GETTENBERG_DEFAULT_PROFILE
 pr: https://github.com/xenotaur/LCATS/pull/521
-commit: 94c6d8e789fbb394ac4c7823b7e77b5208f40d74
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-17T19:46:15+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-pilot-charter.md

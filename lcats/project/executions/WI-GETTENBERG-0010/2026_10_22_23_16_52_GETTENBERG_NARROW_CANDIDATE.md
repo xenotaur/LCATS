@@ -2,10 +2,10 @@
 execution_id: 2026_10_22_23_16_52_GETTENBERG_NARROW_CANDIDATE
 prompt_id: PROMPT(WI-GETTENBERG-0010:GETTENBERG_NARROW_CANDIDATE)[2026-10-22T23:15:59+00:00]
 work_item: WI-GETTENBERG-0010
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/530
-commit: 91f1b42281418d613bc1744b77ada73b42405bfc
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-22T23:16:52+00:00
 agent: codex_app
 instruction_source: project/development/gettenberg-scope-causality-audit.md

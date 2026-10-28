@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_16_46_31_WI_GETTENBERG_0005_CATALOG_RECEIPTS_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_GETTENBERG_0005_CATALOG_RECEIPTS_REVIEW)[2026-10-15T16:45:49+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_15_15_25_13_WI_GETTENBERG_0005_CATALOG_RECEIPTS
 pr: https://github.com/xenotaur/LCATS/pull/514
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T16:46:31+00:00
 agent: codex_app
 instruction_source: PR514 hosted Unicode provenance finding under bounded charter

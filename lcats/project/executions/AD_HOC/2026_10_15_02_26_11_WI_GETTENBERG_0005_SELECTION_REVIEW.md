@@ -2,10 +2,10 @@
 execution_id: 2026_10_15_02_26_11_WI_GETTENBERG_0005_SELECTION_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_GETTENBERG_0005_SELECTION_REVIEW)[2026-10-15T02:25:49+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_15_02_20_16_WI_GETTENBERG_0005_SELECTION
 pr: https://github.com/xenotaur/LCATS/pull/511
-commit:
+commit: b4ec4c452ed178dd62472af9f1a46b44e70ce485
 created_at: 2026-10-15T02:26:11+00:00
 agent: codex_app
 instruction_source: PR511 first hosted review under bounded sprint charter
