@@ -1,0 +1,141 @@
+{
+  "completed": true,
+  "installed_version": "0.1.1.dev1253+g997624270",
+  "runner_sha256": "32badd769b2feccd45399c337bb2d7f4321b220f8d008286a788c666eaab0743",
+  "helper_sha256": "61e5a3cdd17c508ad6c856cc7ac4efed70fd8b066912e37d92fe6d4767a17e31",
+  "records": [
+    {
+      "id": 10000,
+      "source": "pg10000.rdf",
+      "sha256": "708eab35674c25d6543be161d4fdc5f35ce83d839ad534c6ee481c3abf90ae2e"
+    },
+    {
+      "id": 10001,
+      "source": "pg10001.rdf",
+      "sha256": "b00978501e7574526d6e8d07296ca5f5547acddcd988598cba3a031ec90fc8cf"
+    },
+    {
+      "id": 10040,
+      "source": "pg10040.rdf",
+      "sha256": "eb1f341a0b11cee6e80c8a52d21a78c8cc543f8d4860a36f6574b74dfaa66d26"
+    },
+    {
+      "id": 11008,
+      "source": "pg11008.rdf",
+      "sha256": "6dc0f1b72b45ee7d6da0962557ccb1320bbd1b1d8e833fd2df3d7582162f6469"
+    },
+    {
+      "id": 15813,
+      "source": "pg15813.rdf",
+      "sha256": "2d8181521f5dc8ecc726845b3b215d118a87c86701a3e868e6f4324b54c37906"
+    },
+    {
+      "id": 16264,
+      "source": "pg16264.rdf",
+      "sha256": "24ed4072ac89b25a9fde42f06fc5d637e07ece3ad5ee3d5ccf23582b0c237817"
+    },
+    {
+      "id": 84,
+      "source": "pg84.rdf",
+      "sha256": "0749023a4406a934d92126c9e3fdd6d9975e8dc1ccb941e8c545188844b33628"
+    },
+    {
+      "id": 990099,
+      "source": "authored.rdf",
+      "sha256": "40ff6b7f40c0f9dd042d7caf6c75d5d9bee5b2dde58c653f13b6a38dfd30ea9e"
+    }
+  ],
+  "authored_titles": [
+    "First title",
+    "Second title",
+    "Alternate title"
+  ],
+  "authored_aliases": [
+    "Alice Example",
+    "Another Name"
+  ],
+  "network_bytes": 0,
+  "offline_reopen": true,
+  "module_origins": {
+    "lcats": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.gettenberg": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "lcats.gettenberg.errors": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/errors.py",
+      "sha256": "44c3adfae526f0d79032ca42896d725f460e946146d0fba97b107031bba2c5c1"
+    },
+    "lcats.gettenberg.models": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/models.py",
+      "sha256": "f882c43bb6979a6cf6dfbdb114ac36e5d3fa027c3faec17cf7b5620825314b10"
+    },
+    "lcats.gettenberg._store": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_store.py",
+      "sha256": "7d86fc9a94928333db51b9a0f9e9cb52f3c805d594dbf672f53965b9372ea192"
+    },
+    "lcats.gettenberg.rdf": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/rdf.py",
+      "sha256": "419f951a1732856c67eeddeaab4e0a127838ec0f592189187832a8b755b837d0"
+    },
+    "lcats.gettenberg.catalog": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/catalog.py",
+      "sha256": "2e9c698767fa7a00d46bde9133cf7845b4bbd38426cbf096c0a9de78b4943a85"
+    },
+    "lcats.gettenberg._lifecycle_io": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_lifecycle_io.py",
+      "sha256": "c6c168d79a6b3447cfedafd57ca34456a185b9b317df1718f926180cdf9eab2a"
+    },
+    "lcats.gettenberg._resource_types": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_types.py",
+      "sha256": "ba307b39ad616efd4524e2556832e2592a1bfa64b698ba0e2cc2ffde7adf95f1"
+    },
+    "lcats.gettenberg._resource_refresh": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_refresh.py",
+      "sha256": "fa0835229467c52dbc586f7832e2808a37e7544687dd7628ec09bfe24797a671"
+    },
+    "lcats.gettenberg._resource_io": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_io.py",
+      "sha256": "e6203109a12290d5044503a1951f6130295b42b80717098ba553c46376651873"
+    },
+    "lcats.gettenberg._resource_provenance": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_provenance.py",
+      "sha256": "2bd0a3c0f7663a11db0b31619fa5799533e31002b641d3b3fdc31f8da4a866f2"
+    },
+    "lcats.gettenberg._catalog_provenance": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/_catalog_provenance.py",
+      "sha256": "eef61ddcbf7bbc812b1ec4b22043a4a1abf259f908078431974afe7d0a74c72e"
+    },
+    "lcats.gettenberg.ingestion": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/ingestion.py",
+      "sha256": "d9231512e3fa7db047f7ef690122544864f6dd6edf1f15e730a1401a69b7ade2"
+    },
+    "lcats.utils.compat": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/utils/compat.py",
+      "sha256": "238bbe15d333072286f74f503466d2122335b3dbd12d9511e9c2400e47877de9"
+    },
+    "lcats.utils.canonical_author": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/utils/canonical_author.py",
+      "sha256": "70e32f496318979d2ad9a25a397e5876438aa7b99973c022d2cf6f8fcee219fa"
+    },
+    "lcats.utils.names": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/utils/names.py",
+      "sha256": "62ce24c75d3f666ab1563b89e2e0fb06e360c6b870a865b30a89c97e2c5d63cd"
+    },
+    "lcats.utils": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/utils/__init__.py",
+      "sha256": "3136c74b03ad3096a6c113652f808edb1bcf3c95924f2c64f28602ff372ec315"
+    },
+    "lcats.utils.env": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/utils/env.py",
+      "sha256": "8a751021a519f7da2e03318522d121638a2831a2d3f2603daae9ea7192131f64"
+    },
+    "lcats.gettenberg.lifecycle": {
+      "path": "/private/tmp/lcats-release-0037-venv/lib/python3.11/site-packages/lcats/gettenberg/lifecycle.py",
+      "sha256": "38ac0507646bb42d571324f85f4cf5d0e63e83903c700c563f248b35f9429912"
+    }
+  }
+}

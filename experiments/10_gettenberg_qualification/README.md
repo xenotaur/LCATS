@@ -771,3 +771,20 @@ python ../experiments/10_gettenberg_qualification/scripts/reproduce_1367.py \
 The output retains exact RDF, JSONL events and a JSON report; temporary runtime
 state is removed. This is a time-specific observation, not an automated test of
 Gutenberg's uptime. See [the recorded result](results/gettenberg-reporting-20261026/README.md).
+
+## Delivered-main dependency verification — 2026-10-28
+
+[WI-RELEASE-0037 verification](results/release-blocker-20261028/README.md) checks
+normal sdist/wheel builds, fresh dependency installation, complete package identity,
+installed title/alias queries and offline gather/refusal/404 behavior at main
+99762427. The package and corpus remain unchanged. This does not execute the
+near-publication gate or close the post-adoption editorial backlog.
+
+- `qualify_release_artifacts.py REPO REF WHEEL SDIST INSTALLED_LCATS NEW_JSON`
+  compares all tracked package files and rejects legacy/direct-URL dependencies;
+  project Python with packaging, no network/product imports, 30-second Git timeouts.
+- `qualify_release_catalog.py FIXTURE_DIRECTORY NEW_JSON` runs in the fresh wheel
+  venv outside the checkout with PYTHONPATH unset; seven real RDF fixtures plus an
+  authored multi-title/alias record, socket guard and 120-second POSIX ceiling.
+- `python -m unittest release_artifacts_test -v` from scripts/ validates the artifact
+  runner's false-success defenses with temporary Git/zip/tar/install fixtures.
