@@ -3,8 +3,8 @@ execution_id: 2026_10_28_19_32_57_WI_RELEASE_0037_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_RELEASE_0037_SELFREVIEW)[2026-10-28T19:32:34+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of:
-pr:
+rerun_of: 2026_10_28_19_38_01_WI_RELEASE_0037
+pr: https://github.com/xenotaur/LCATS/pull/537
 commit:
 created_at: 2026-10-28T19:32:57+00:00
 agent: codex_app
@@ -36,5 +36,5 @@ not cross-vendor equivalence. Final lrh validation accompanies primary record.
 
 # Follow-up
 
-Backfill primary execution ID and PR once created. First real hosted PR review
+Primary execution ID and PR #537 are now linked. First real hosted PR review
 is not skipped. No PyPI publication, WI0039 closure or editorial/gather expansion.

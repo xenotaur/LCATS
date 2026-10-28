@@ -6166,3 +6166,10 @@ findings. Reviewer reran full artifact closure, installed catalog/gather smoke a
 seven gate tests; coordinator reverified its exact artifact report and loaded-module
 hashes. Same model family; no nested review and no manual hosted bot retrigger.
 The independent report and rerun outputs are retained in the verification packet.
+
+PR #537 opened against main for the evidence and archival runner changes. Primary
+execution 2026_10_28_19_38_01_WI_RELEASE_0037 and side self-review record are linked
+to that PR and this Codex session. Native lifecycle remains in_progress/proposed
+until review, merge and closeout. Final local validation remains zero errors/354
+unchanged warnings; product/CI/corpus tree unchanged. Hosted checks are a subsequent
+PR signal, not predeclared by the archived local evidence.
