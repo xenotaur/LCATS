@@ -2,14 +2,14 @@
 execution_id: 2026_10_27_20_07_27_WI_SF_0126_HEINLEIN_TEMPORAL_WORK_ITEMS_REVIEW
 prompt_id: PROMPT(AD_HOC:WI_SF_0126_HEINLEIN_TEMPORAL_WORK_ITEMS_REVIEW)[2026-10-27T20:07:18+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/536
-commit:
+commit: 222ceea44ff403c665d4e1a00da82b0897fbd6c7
 created_at: 2026-10-27T20:07:27+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/536
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary

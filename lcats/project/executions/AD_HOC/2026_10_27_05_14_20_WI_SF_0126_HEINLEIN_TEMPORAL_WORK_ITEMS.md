@@ -2,14 +2,14 @@
 execution_id: 2026_10_27_05_14_20_WI_SF_0126_HEINLEIN_TEMPORAL_WORK_ITEMS
 prompt_id: PROMPT(AD_HOC:WI_SF_0126_HEINLEIN_TEMPORAL_WORK_ITEMS)[2026-10-26T08:18:07+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/536
-commit:
+commit: 222ceea44ff403c665d4e1a00da82b0897fbd6c7
 created_at: 2026-10-27T05:14:20+00:00
 agent: claude_app
 instruction_source: project/design/proposals/proposed/heinlein-temporal-reference/00_proposal.md
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
