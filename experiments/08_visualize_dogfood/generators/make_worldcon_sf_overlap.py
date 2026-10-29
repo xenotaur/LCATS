@@ -81,9 +81,26 @@ def git_head() -> str | None:
         return None
 
 
+def manifest_path(path: Path) -> str:
+    """Return a stable repository-relative or explicitly external path."""
+    try:
+        return str(path.relative_to(ROOT))
+    except ValueError:
+        return f"external:{path.resolve()}"
+
+
 def normalized_model_genre(value: str) -> str:
     genre = value.strip().lower()
     return genre if genre in GENRES else "other"
+
+
+def normalize_svg_outputs() -> None:
+    """Remove renderer-added trailing whitespace before hashing outputs."""
+    for path in sorted(OUTPUT.glob("*.svg")):
+        text = path.read_text(encoding="utf-8")
+        normalized = "\n".join(line.rstrip() for line in text.splitlines()) + "\n"
+        if normalized != text:
+            path.write_text(normalized, encoding="utf-8")
 
 
 def input_inventory() -> list[dict[str, str | None]]:
@@ -94,7 +111,7 @@ def input_inventory() -> list[dict[str, str | None]]:
     paths.extend(sorted(SF_ROOT.rglob("science-fiction.json")))
     return [
         {
-            "path": str(path.relative_to(ROOT)),
+            "path": manifest_path(path),
             "sha256": sha256_file(path),
             "git_revision": git_revision(path),
         }
@@ -710,12 +727,13 @@ def main() -> None:
     make_left_figure(rows)
     make_joint_figure(rows)
     make_figure(rows)
+    normalize_svg_outputs()
     manifest = {
         "prototype": "worldcon-sf-overlap-option-1-plus-option-4-v1",
         "universe": {
             "story_count": len(rows),
             "source_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
-            "science_fiction_root": str(SF_ROOT.relative_to(ROOT)),
+            "science_fiction_root": manifest_path(SF_ROOT),
             "canonical_preservation_commit": CANONICAL_PRESERVATION_COMMIT,
         },
         "provenance": {
