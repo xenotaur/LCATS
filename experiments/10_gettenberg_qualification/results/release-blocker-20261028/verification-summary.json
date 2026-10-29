@@ -1,0 +1,30 @@
+{
+  "product_commit": "9976242705b68c2ad239184fd260c6ce4ae74f8d",
+  "environment_install_entries_checked": 430,
+  "environment_has_legacy_or_direct_url_install_requirement": false,
+  "loaded_module_counts_checked_against_artifact_closure": {
+    "installed-smoke.json": 70,
+    "installed-cli-refusal.json": 98,
+    "installed-cli-404.json": 98,
+    "installed-catalog.json": 20
+  },
+  "product_tests_dependencies_ci_corpora_unchanged": true,
+  "canonical_tests": {
+    "count": 3014,
+    "seconds": 99.377,
+    "result": "OK"
+  },
+  "experiment_runner_tests": {
+    "count": 7,
+    "result": "OK"
+  },
+  "python_version": "3.11.9",
+  "platform": "macOS arm64",
+  "version_override_used": false,
+  "publication_authorized": false,
+  "notes": [
+    "Independent review recorded separately before PR creation.",
+    "Full frozen corpus was not rerun: accepted 1659-input evidence retains its scope.",
+    "Fresh installation resolved runtime dependencies from current package indexes; exact versions retained."
+  ]
+}

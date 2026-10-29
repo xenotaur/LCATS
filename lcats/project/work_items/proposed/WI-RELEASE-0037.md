@@ -141,3 +141,13 @@ migration checkpoint is historical. This release item remains proposed: independ
 verify its current distribution/install and release-blocker criteria before resolving
 it. WI-RELEASE-0039 remains the near-publication gate; no package publication is
 approved by replacement delivery.
+
+## Verification candidate — 2026-10-28
+
+Verified delivered main `9976242705b68c2ad239184fd260c6ce4ae74f8d`; see the
+[acceptance/evidence report](../../../../experiments/10_gettenberg_qualification/results/release-blocker-20261028/README.md).
+Normal sdist/wheel build and fresh installation retain all 188 tracked package files,
+exclude gutenbergpy/direct-URL requirements, and pass installed catalog/gather checks.
+Canonical suite: 3,014 tests pass. This item remains proposed pending independent
+review, PR merge and formal closeout; WI-RELEASE-0039/WS-RELEASE remain open.
+No product, CI, package declaration or canonical corpus changes are included.

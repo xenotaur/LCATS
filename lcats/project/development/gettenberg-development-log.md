@@ -6124,3 +6124,52 @@ Canonical format/lint and whitespace passed. Initial proposal evidence-path sche
 errors and a scratch inventory-heading mismatch were corrected; Black required
 an approved rerun outside the sandbox for its local worker socket. No failed
 intermediate state was committed. No product/corpus changes or new memory writes.
+
+### 2026-10-28 — WI-RELEASE-0037 delivered-main packaging verification
+
+Human approved the proposed 45–60-minute target / 90-minute maximum verification
+run. Pinned main 9976242705b68c2ad239184fd260c6ce4ae74f8d in an isolated worktree,
+branch codex/wi-release-0037. Readiness passes without warnings; prior-art/demand
+checks were already present in the WI. Prompt:
+PROMPT(WI-RELEASE-0037:WI_RELEASE_0037)[2026-10-28T19:00:06+00:00].
+The preceding human approval supplied the implementation plan authority; no repeated
+confirmation was requested for routine branch/evidence choices.
+
+Normal isolated sdist-then-wheel build derives version 0.1.1.dev1253+g997624270
+without a pretend-version override. Fresh runtime venv installation and pip check
+pass. A new archival artifact gate compares every tracked package file against Git,
+sdist, wheel and physical installation and parses all dependency requirements.
+All 188 files match (165 Python, two JSON, 21 existing other assets). Earlier
+empty-staging builds omitted those other assets; the first gate attempt detected
+that difference instead of silently excluding it. Seven negative/positive gate
+tests cover changed/missing/extra files and forbidden dependencies/overwrite.
+
+Reused the narrow installed gather/CLI runners; added an installed catalog check
+for seven retained RDF fixtures and an authored multiple-title/alias record.
+All pass with sockets denied, isolated output/cache roots and no Gutenberg request.
+Canonical suite passes 3,014 tests in 99.377s. Initial sandbox run failed on 99
+loopback fixture binds and three tokenizer-cache lookups; the permitted rerun
+passed with no test/product edits. Source tests pin PYTHONPATH; installed checks
+unset it and verify module origins. The shared development install was not changed.
+
+The [release verification packet](../../../experiments/10_gettenberg_qualification/results/release-blocker-20261028/README.md)
+records acceptance mapping, actual commands, hashes, dependencies, build warnings,
+failed initial checks and limits. This is dependency-blocker verification, not
+publication approval or an expanded corpus/editorial grant. Existing MANIFEST.in
+path warnings do not omit either JSON asset; release-version and package-asset
+policy remain separate from this narrow verification. WI-RELEASE-0039, GPA-A–E,
+PR #524 and Kenny's work stay open. Independent review and PR completion are
+recorded in the subsequent checkpoint; WI0037 remains proposed until closeout.
+
+Independent pre-push review completed in one cold-context pass with no actionable
+findings. Reviewer reran full artifact closure, installed catalog/gather smoke and
+seven gate tests; coordinator reverified its exact artifact report and loaded-module
+hashes. Same model family; no nested review and no manual hosted bot retrigger.
+The independent report and rerun outputs are retained in the verification packet.
+
+PR #537 opened against main for the evidence and archival runner changes. Primary
+execution 2026_10_28_19_38_01_WI_RELEASE_0037 and side self-review record are linked
+to that PR and this Codex session. Native lifecycle remains in_progress/proposed
+until review, merge and closeout. Final local validation remains zero errors/354
+unchanged warnings; product/CI/corpus tree unchanged. Hosted checks are a subsequent
+PR signal, not predeclared by the archived local evidence.
