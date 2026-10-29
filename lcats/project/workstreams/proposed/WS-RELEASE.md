@@ -68,8 +68,8 @@ express.
 ## Work Items
 
 - **WI-RELEASE-0037** — Resolve the `gutenbergpy` VCS-pin PyPI-publish
-  blocker through the internal WS-GETTENBERG replacement. Proposed,
-  open.
+  blocker through the internal WS-GETTENBERG replacement. Resolved after
+  artifact/install qualification and PR #537 main merge (2026-10-29).
 - **WI-RELEASE-0038** — `lcats.version` module, `--version` CLI flag,
   `scripts/version` helper. Resolved, merged (PR #183).
 - **WI-RELEASE-0039** — Pre-launch verification gate: re-checks the

@@ -162,7 +162,7 @@ After an approved main merge actually lands:
 3. Reconcile WS-GETTENBERG and the redesign proposal against all ten completion
    criteria, retaining GPA-A through GPA-D as open follow-up. Workstream completion
    does not silently implement or close those backlog entries.
-4. Verify [WI-RELEASE-0037](../work_items/proposed/WI-RELEASE-0037.md) against actual
+4. Verify [WI-RELEASE-0037](../work_items/resolved/WI-RELEASE-0037.md) against actual
    main delivery and its own wheel/sdist metadata requirements. It is not resolved by
    this promotion-preparation run. [WI-RELEASE-0039](../work_items/proposed/WI-RELEASE-0039.md)
    remains a separate check immediately before actual PyPI publication.

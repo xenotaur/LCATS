@@ -540,7 +540,7 @@ and the inspected LCATS commit e0a838fb.
 - lcats/src/lcats/utils/run_log.py — existing run-event infrastructure.
 - lcats/src/lcats/utils/checkpoint.py — existing checkpoint contracts.
 - lcats/docs/reference/gather-overrides.md — replayable normalization.
-- lcats/project/work_items/proposed/WI-RELEASE-0037.md.
+- lcats/project/work_items/resolved/WI-RELEASE-0037.md.
 - lcats/project/work_items/proposed/WI-RELEASE-0039.md.
 - lcats/project/workstreams/proposed/WS-RELEASE.md.
 

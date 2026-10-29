@@ -1,11 +1,11 @@
 ---
-"resolution": null
+"resolution": "Verified the delivered gettenberg replacement resolves the gutenbergpy/direct-URL dependency blocker through matching sdist/wheel/installed artifacts, fresh installation and qualified behavior in PR #537 (commit 7f195775248e0bca9f42bf68254f13a5b0e5e11d); WI-RELEASE-0039 remains the separate pre-publication gate."
 "blocked_reason": null
 "blocked": false
 "id": "WI-RELEASE-0037"
 "title": "Verify LCATS-owned gettenberg resolves the PyPI dependency blocker"
 "type": "deliverable"
-"status": "proposed"
+"status": "resolved"
 "owner": "xenotaur"
 "contributors":
 - "xenotaur"
@@ -151,3 +151,17 @@ exclude gutenbergpy/direct-URL requirements, and pass installed catalog/gather c
 Canonical suite: 3,014 tests pass. This item remains proposed pending independent
 review, PR merge and formal closeout; WI-RELEASE-0039/WS-RELEASE remain open.
 No product, CI, package declaration or canonical corpus changes are included.
+
+## Resolution — 2026-10-29
+
+Human approved review, merge and closeout. PR #537 merged to main at
+`7f195775248e0bca9f42bf68254f13a5b0e5e11d`, following independent local review
+and four successful hosted checks on head `c801f957`. No unresolved review threads
+remained. Copilot reported insufficient quota, which is not a substantive review;
+the independent review and its rerun evidence are retained in the linked packet.
+The preceding proposed-state checkpoints are historical.
+
+All five acceptance criteria are demonstrated by the packet and delivered main.
+This resolves the dependency-blocker verification only. WI-RELEASE-0039, WS-RELEASE,
+the release-readiness proposal, GPA-A–E, PR #524 and Kenny's work remain open.
+No package publication, release version selection or corpus regeneration is authorized.

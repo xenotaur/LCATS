@@ -6173,3 +6173,29 @@ to that PR and this Codex session. Native lifecycle remains in_progress/proposed
 until review, merge and closeout. Final local validation remains zero errors/354
 unchanged warnings; product/CI/corpus tree unchanged. Hosted checks are a subsequent
 PR signal, not predeclared by the archived local evidence.
+
+## 2026-10-29 — WI-RELEASE-0037 main merge and closeout
+
+Human authorized review, merge and resolution. Rechecked exact head `c801f957`,
+all four successful hosted checks and no unresolved review threads. Copilot's
+quota-exhausted comment was not substantive review; the independent local review
+and rerun evidence remain the review signal. SHA-locked PR #537 merge landed at
+`7f195775248e0bca9f42bf68254f13a5b0e5e11d`.
+
+Isolated main closeout resolves WI-RELEASE-0037 and lands its primary/self-review
+records through native LRH commands, preserving their narratives and Codex session
+pointers. Current navigation follows the moved WI. LRH validation reports zero
+errors and the same 354 baseline warnings; whitespace checks pass. Product, CI,
+corpus and archived qualification bytes are unchanged.
+
+Human explicitly approved "Approve one-closeout archive-sync exception" for
+#537. Archive sync was skipped with no archive writes or transcript exports;
+existing Codex session pointers are retained. Installed closeout-sync scans
+unrelated Claude transcripts and cannot archive this Codex session. This approval
+is limited to this closeout; persistent consent and future defaults are unchanged.
+See execution `2026_10_29_09_17_07_WI_RELEASE_0037_CLOSEOUT_NOTE`.
+
+WI-RELEASE-0039, WS-RELEASE, release-readiness proposal, GPA-A–E, PR #524 and
+Kenny's separate work remain open. No publication or corpus regeneration is
+authorized. Memory: nothing written; durable lessons already live in the packet
+and runlog.

@@ -2,10 +2,10 @@
 execution_id: 2026_10_28_19_32_57_WI_RELEASE_0037_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_RELEASE_0037_SELFREVIEW)[2026-10-28T19:32:34+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_28_19_38_01_WI_RELEASE_0037
 pr: https://github.com/xenotaur/LCATS/pull/537
-commit:
+commit: 7f195775248e0bca9f42bf68254f13a5b0e5e11d
 created_at: 2026-10-28T19:32:57+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-RELEASE-0037.md

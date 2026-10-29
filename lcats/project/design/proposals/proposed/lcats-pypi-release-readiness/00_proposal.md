@@ -174,8 +174,8 @@ future release-smoke/runbook items.
 Multi-stage; delivered against a governing workstream (recommended next
 step: `/lrh-workstream`):
 
-1. `WI-RELEASE-0037` (existing, proposed) — resolve the `gutenbergpy`
-   dependency blocker.
+1. `WI-RELEASE-0037` (resolved 2026-10-29) — dependency blocker verified
+   through the internal replacement; PR #537 merged at `7f195775`.
 2. `WI-RELEASE-0038` (existing, resolved) — `lcats.version`, `--version`,
    `scripts/version`. Already delivered.
 3. `WI-RELEASE-0039` (existing, proposed): reverify the internal replacement
@@ -191,7 +191,7 @@ step: `/lrh-workstream`):
 - `logical_robotics_harness/docs/how-to/run-a-release.md` — comparison
   reference for release-tooling scope; not adopted wholesale, see
   Non-Goals.
-- `project/work_items/proposed/WI-RELEASE-0037.md`,
+- `project/work_items/resolved/WI-RELEASE-0037.md`,
   `project/work_items/resolved/WI-RELEASE-0038.md`.
 
 ## Open Questions
