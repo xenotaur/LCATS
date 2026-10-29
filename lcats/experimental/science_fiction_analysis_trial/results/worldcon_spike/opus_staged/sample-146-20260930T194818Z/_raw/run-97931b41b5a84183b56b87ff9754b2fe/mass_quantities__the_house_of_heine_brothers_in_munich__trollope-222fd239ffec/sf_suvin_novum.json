@@ -1,0 +1,73 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 26669,
+  "model": "claude-opus-4-8",
+  "output_tokens": 916,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope",
+  "story_path": "mass_quantities/the_house_of_heine_brothers_in_munich__trollope/story.json",
+  "text": "",
+  "title": "The House of Heine Brothers, in Munich",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-heine-bank-partnership",
+        "character_reaction_evidence_ids": [
+          "sfev-a75d30f58d80c093",
+          "sfev-bbf693d2dcb6492c"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The banking operations and partnership are rendered with coherent, systematic, nonsupernatural social and economic logic, but this coherence is simply that of ordinary realism rather than an imaginary novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-23f33f37c125d451",
+            "sfev-b39da55756799027"
+          ]
+        },
+        "description": "The banking house of Heine Brothers and the granting of a partnership to Herbert Onslow, which resolves the marriage plot.",
+        "estrangement_rationale": "The narrator's contrasts between English and German banking and between English and German manners create reader-facing contrast, but these are comparative cultural observations within a realist frame, not cognitive estrangement produced by a novum.",
+        "evidence_ids": [
+          "sfev-23f33f37c125d451",
+          "sfev-8f92817cf0aef4eb",
+          "sfev-a75d30f58d80c093",
+          "sfev-b39da55756799027",
+          "sfev-bbf693d2dcb6492c"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The partnership question drives the central marriage plot: the delay frustrates Herbert, and the eventual grant of the partnership resolves the story. It is narratively central, but centrality alone does not make it a novum absent novelty.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-a75d30f58d80c093",
+            "sfev-b39da55756799027",
+            "sfev-bbf693d2dcb6492c"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-b39da55756799027"
+          ],
+          "rationale": "A 19th-century Munich banking firm and the conferral of a business partnership are entirely consistent with the author's empirical realist norm. There is no totalizing or world-altering difference from the empirical world; this is a mundane commercial and domestic arrangement.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-23f33f37c125d451",
+          "sfev-8f92817cf0aef4eb"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-b39da55756799027"
+        ]
+      }
+    ]
+  }
+}

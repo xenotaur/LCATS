@@ -1,0 +1,8 @@
+{
+  "status": "clean_wheel_python_closure_verified",
+  "wheel": "/tmp/gettenberg-narrow-wheel-clean-dist-20261022/lcats-0.1.1.dev1201+g91f1b4228.d20261022-py3-none-any.whl",
+  "wheel_sha256": "eac11bac66c6abc27cb1a2b235670b0f62126041b7ec9fb75e10b6246e3335cf",
+  "product_commit": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "python_pathset_and_bytes_match": 165,
+  "supersedes_contaminated_wheel_sha256": "35773a0495f9bb6108f71a984d839cda23e208d1cc08229a41ae0f4ccc5df366"
+}

@@ -1,0 +1,73 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 22556,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1003,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "chesterton/secret_garden",
+  "story_path": "chesterton/secret_garden/story.json",
+  "text": "",
+  "title": "Chesterton - The Secret Garden",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-detective-method",
+        "character_reaction_evidence_ids": [],
+        "cognitive_validation": {
+          "confidence": 0.85,
+          "counterevidence_ids": [],
+          "rationale": "The investigative process is coherent, immanent, and nonsupernatural: the doctor enumerates logical difficulties, determines cuts were made after decapitation on examination, and assesses the tool used. This is rationally structured, but cognitive validity alone does not make a novum.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-21899e8098521e48",
+            "sfev-98c76846efa313e0",
+            "sfev-bd1aaeeb4ee0f480",
+            "sfev-ea1ae0326892332a"
+          ]
+        },
+        "description": "The rationalist detective method (Valentin's and Dr. Simon's systematic forensic examination and enumeration of logical difficulties) used to investigate the double-beheading mystery in a sealed garden.",
+        "estrangement_rationale": "The forensic observations (post-mortem cuts, the impossibility of a knife making the cut) create reader-facing puzzlement, but this is ordinary mystery suspense rather than cognitive estrangement from an altered empirical norm.",
+        "evidence_ids": [
+          "sfev-21899e8098521e48",
+          "sfev-98c76846efa313e0",
+          "sfev-bd1aaeeb4ee0f480",
+          "sfev-ea1ae0326892332a"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.6,
+          "counterevidence_ids": [],
+          "rationale": "The rational investigation drives much of the plot's unfolding, but it functions as the genre machinery of detective fiction rather than a world-governing novelty; the story's logic is a mystery-solution, not a science-fictional estrangement.",
+          "status": "ambiguous",
+          "supporting_evidence_ids": [
+            "sfev-21899e8098521e48",
+            "sfev-bd1aaeeb4ee0f480"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.9,
+          "counterevidence_ids": [
+            "sfev-21899e8098521e48",
+            "sfev-98c76846efa313e0",
+            "sfev-bd1aaeeb4ee0f480",
+            "sfev-ea1ae0326892332a"
+          ],
+          "rationale": "Systematic forensic inquiry and logical deduction are entirely consistent with the empirical norm of the author's world; they represent no totalizing world-altering difference from the implied ordinary reality. The detective methods are conventional criminal investigation, not a novum.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-98c76846efa313e0",
+          "sfev-ea1ae0326892332a"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-21899e8098521e48"
+        ]
+      }
+    ]
+  }
+}

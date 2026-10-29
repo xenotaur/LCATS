@@ -1,0 +1,189 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/518",
+  "head": "4666837158149a1087cf431b66576579a1dc33f8",
+  "base": "549383c0a2feb5fb8ab58d9afad7c4732186a225",
+  "merge": {
+    "baseRefName": "codex/gettenberg-acquisition",
+    "headRefOid": "4666837158149a1087cf431b66576579a1dc33f8",
+    "mergeCommit": {
+      "oid": "fed5030a60e2df42a0827a87d0e412562d865309"
+    },
+    "mergedAt": "2026-10-17T02:44:52Z",
+    "state": "MERGED"
+  },
+  "coordinator_acceptance": "approved internal staged integration under explicit human pilot charter; no main authority",
+  "parent_order_verified": true,
+  "merge_tree_matches_accepted_head": true,
+  "source_sha256": {
+    "docs/how-to/gettenberg-preparation.md": "44347dd209502d5deb3cd9444a1df021cb89e475ccd135bac38d3f15a749e85e",
+    "docs/index.md": "45ca1d252d73f29357f13a0f3e4949729af43488ac0ab0d16397c5ca20859dbb",
+    "docs/reference/cli-commands.md": "1d4bfdf78f4af35086c35811b35b4bdd921bfa4bb59acc1d2f80730d31dcda99",
+    "docs/reference/cli-status.md": "1039946cb14648b30a6c42a72940eda1a1fa9a34066d12596d44e7038d061333",
+    "docs/reference/gettenberg-preparation.md": "869c29992de5e204f85994f95fb1825cfb4966edf3709a09845ac529008659fa",
+    "src/lcats/analysis/corpus/clean_cli.py": "7ae7ca07af4b7262a8e48dda13b68c13012d3a4ebba2da40f3187fef5efdf40f",
+    "src/lcats/cli.py": "679ed018d590737e72085783c7bc63c8072f8306cb6abfefe6267d9fc50846de",
+    "src/lcats/gatherers/main.py": "c4f30855f5af1a9486176c859c19a0d6b854b291ea2604bd1cfdfa66ca537e57",
+    "src/lcats/gatherers/planning.py": "b6843d82e3a370d923801c48d834c393ce5c4c6232125bd669bcc4570dede924",
+    "src/lcats/gettenberg/catalog_cli.py": "1927b374c9fd6613fc7913f4b74ece5cb05b7941e01c092607b269733e50b20b",
+    "src/lcats/gettenberg/preparation.py": "155915dd675af5d23aeba9f53112b658cb9c80b0bf9dd11b57f523c51a507bd4",
+    "tests/gettenberg_tests/preparation_test.py": "c618125b4512ba0dda0597d2a89252538ce448e5f3658c0c988575c7e3ede819"
+  },
+  "canonical": {
+    "command": "scripts/test",
+    "exit": 0,
+    "tests": 2943,
+    "seconds": 71.502
+  },
+  "focused": {
+    "command": "scripts/test tests/gettenberg_tests/preparation_test.py",
+    "exit": 0,
+    "tests": 24
+  },
+  "ci": {
+    "baseRefName": "codex/gettenberg-acquisition",
+    "headRefOid": "4666837158149a1087cf431b66576579a1dc33f8",
+    "statusCheckRollup": [
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T02:43:53Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38995929067/job/117288371694",
+        "name": "coverage",
+        "startedAt": "2026-10-17T02:41:47Z",
+        "status": "COMPLETED",
+        "workflowName": "Coverage"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T02:42:20Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38995929066/job/117288371788",
+        "name": "lint",
+        "startedAt": "2026-10-17T02:41:49Z",
+        "status": "COMPLETED",
+        "workflowName": "Lint and formatting checks"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T02:43:04Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38995929027/job/117288371886",
+        "name": "test",
+        "startedAt": "2026-10-17T02:41:48Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      },
+      {
+        "__typename": "CheckRun",
+        "completedAt": "2026-10-17T02:43:08Z",
+        "conclusion": "SUCCESS",
+        "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38995927256/job/117288366400",
+        "name": "test",
+        "startedAt": "2026-10-17T02:41:46Z",
+        "status": "COMPLETED",
+        "workflowName": "Python tests"
+      }
+    ]
+  },
+  "reviews": {
+    "number": 518,
+    "state": "OPEN",
+    "headRefOid": "4666837158149a1087cf431b66576579a1dc33f8",
+    "baseRefName": "codex/gettenberg-acquisition",
+    "baseRefOid": "549383c0a2feb5fb8ab58d9afad7c4732186a225",
+    "reviews": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpO0MjAyNi0xMC0xN1QwMjozODoxNVq0MjAyNi0xMC0xN1QwMjozODoxNVrPAAAAAUsjuKY="
+      },
+      "nodes": [
+        {
+          "author": {
+            "login": "copilot-pull-request-reviewer"
+          },
+          "state": "COMMENTED",
+          "body": "<!-- ccr-overview-v2 -->\n\n### \ud83d\udd35 Needs a closer look\n\nSetup and network-authorization changes need final human review, and the supplied evidence leaves required hosted qualification and exact-head CI pending.\n\n**No open issues** \ud83c\udf89\n\n<details>\n<summary><strong>What changed in this PR</strong></summary>\n\nAdds source-aware gather planning and explicit catalog preparation as a staged migration from legacy Gutenberg consumers.\n\n**Changes:**\n- Validates collection selections before execution and makes gather dry-runs read-only.\n- Adds approval-scoped catalog setup plus status, refresh, and rebuild commands.\n- Adds behavioral tests, usage documentation, and qualification records.\n\n| File | Description |\r\n| ---- | ----------- |\r\n| `lcats/\u200btests/\u200bgettenberg_tests/\u200bpreparation_test.py` | Tests approval, offline operation, planning, and compatibility. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bpreparation.py` | Adds read-only planning and approved setup. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgettenberg/\u200bcatalog_cli.py` | Exposes explicit catalog lifecycle commands. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgatherers/\u200bplanning.py` | Defines collection requirements and selection validation. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bgatherers/\u200bmain.py` | Loads selected gatherers lazily and reports dry-runs. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200bcli.py` | Registers catalog commands and defers plotting imports. |\r\n| `lcats/\u200bsrc/\u200blcats/\u200banalysis/\u200bcorpus/\u200bclean_cli.py` | Defers legacy cache initialization. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bWI-GETTENBERG-0007/\u200b2026_10_17_02_35_47_GETTENBERG_PREPARATION.md` | Records staged implementation and validation. |\r\n| `lcats/\u200bproject/\u200bexecutions/\u200bAD_HOC/\u200b2026_10_17_02_35_21_GETTENBERG_PREPARATION_SELFREVIEW.md` | Records independent review evidence. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-pilot-charter.md` | Documents run scope and authorization boundaries. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bgettenberg-development-log.md` | Records implementation decisions and qualification progress. |\r\n| `lcats/\u200bproject/\u200bdevelopment/\u200bevidence/\u200bgettenberg-preparation-20261017/\u200bqualification.json` | Captures validation results and pending gates. |\r\n| `lcats/\u200bdocs/\u200breference/\u200bgettenberg-preparation.md` | Documents preparation APIs and authority contracts. |\r\n| `lcats/\u200bdocs/\u200breference/\u200bcli-status.md` | Lists catalog command availability. |\r\n| `lcats/\u200bdocs/\u200breference/\u200bcli-commands.md` | Documents catalog syntax and gather limitations. |\r\n| `lcats/\u200bdocs/\u200bindex.md` | Links preparation documentation. |\r\n| `lcats/\u200bdocs/\u200bhow-to/\u200bgettenberg-preparation.md` | Explains setup, refresh, rebuild, and migration boundaries. |\n</details>\n\n<sub>Review effort: Balanced</sub>",
+          "submittedAt": "2026-10-17T02:38:12Z",
+          "commit": {
+            "oid": "68ac68d90754c50c548da8b78f4879c599c6c282"
+          }
+        },
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "state": "COMMENTED",
+          "body": "<!-- codex-review-receipt:v1 -->\n\n\n### \ud83d\udca1 Codex Review\n\nHere are some automated review suggestions for this pull request.\n\n**Reviewed commit:** `ded7b60c28`\n    \n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\".\n\nIf Codex has suggestions, it will comment; otherwise it will react with \ud83d\udc4d.\n\n\n\n\nCodex can also answer questions or update the PR. Try commenting \"@codex address that feedback\".\n            \n</details>",
+          "submittedAt": "2026-10-17T02:38:15Z",
+          "commit": {
+            "oid": "ded7b60c28659f5e2c81d9929fb2ca414450ef3a"
+          }
+        }
+      ]
+    },
+    "comments": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpHPAAAAAXNAf9M="
+      },
+      "nodes": [
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "<!-- codex-pull-request-review-summary -->\n<!-- codex-review-state:v1 {\"code_review\":{\"commit_sha\":\"ded7b60c28659f5e2c81d9929fb2ca414450ef3a\",\"has_any_findings\":true,\"has_unresolved_findings\":true,\"status\":\"completed\"},\"security_review\":{\"commit_sha\":null,\"has_any_findings\":null,\"has_unresolved_findings\":null,\"status\":null}} -->\n\n## Codex Review Summary\n\nThis comment shows the latest Codex review activity on this pull request.\n\n| Review | Status | Commit | Review trigger |\n| --- | --- | --- | --- |\n| \ud83d\udcdd **Code Review** | \u2705 **Completed** <relative-time datetime=\"2026-10-17T02:38:17.720035Z\">2026-10-17T02:38:17.720035Z</relative-time> | `ded7b60` | PR opened |\n\n\n\n<details> <summary>\u2139\ufe0f About Codex in GitHub</summary>\n<br/>\n\n[Your team has set up Codex to review pull requests in this repo](https://chatgpt.com/codex/cloud/settings/general). Reviews are triggered when you\n- Open a pull request for review\n- Mark a draft as ready\n- Comment \"@codex review\" or \"@codex security review\".\n\nCodex reacts with \ud83d\udc40 while any review is running, comments if it has suggestions, and reacts with \ud83d\udc4d once all reviews finish with no findings.\n\n</details>",
+          "createdAt": "2026-10-17T02:35:33Z"
+        }
+      ]
+    },
+    "reviewThreads": {
+      "pageInfo": {
+        "hasNextPage": false,
+        "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xN1QwMjozODoxNVrOrW_2Hw=="
+      },
+      "nodes": [
+        {
+          "id": "PRRT_kwDOKlhIbM6tb_Yf",
+          "isResolved": true,
+          "isOutdated": false,
+          "path": "lcats/src/lcats/cli.py",
+          "line": 156,
+          "comments": {
+            "pageInfo": {
+              "hasNextPage": false,
+              "endCursor": "Y3Vyc29yOnYyOpK0MjAyNi0xMC0xN1QwMjozODoxNVrPAAAAAQBbLeI="
+            },
+            "nodes": [
+              {
+                "id": "PRRC_kwDOKlhIbM8AAAABAFst4g",
+                "author": {
+                  "login": "chatgpt-codex-connector"
+                },
+                "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Preserve the catalog prefix in nested command help**\n\nWhen a user runs `lcats catalog setup --help` (similarly for `status`, `refresh`, and `rebuild`), these subcommand parsers retain the `prog` value assigned when the standalone parent parser was constructed, so argparse prints usage such as `usage: cli.py setup ...` rather than `usage: lcats catalog setup ...`. Construct the nested parsers with the final catalog program name, or build them directly on `catalog_parser`, so the new command's help shows a valid invocation.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.\n\n<!-- codex-code-review-finding:v1 -->",
+                "createdAt": "2026-10-17T02:38:15Z",
+                "originalCommit": {
+                  "oid": "ded7b60c28659f5e2c81d9929fb2ca414450ef3a"
+                },
+                "commit": {
+                  "oid": "4666837158149a1087cf431b66576579a1dc33f8"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "pagination_exhausted": true,
+  "all_threads_resolved": true,
+  "unresolved_p0_p2": 0,
+  "manual_hosted_retriggers": 0,
+  "acceptance_mapping": {
+    "1": "collection requirement records and selection validation, lazy imports, no-catalog fixed URL execution regression; actual metadata consumer migration pending",
+    "2": "preparation API and standalone setup approval/offline/dry-run verified; gather-level yes/offline flags intentionally pending consumer migration",
+    "3": "standalone status/setup/refresh/local rebuild compose same lifecycle/acquisition APIs, setup never refreshes or approves changed counts",
+    "4": "real curated gathering preserves bucket identities and existing outputs; extraction/normalization/overrides unchanged; broader migrated consumer coverage pending"
+  },
+  "native_state": "WI remains proposed; all execution records in_progress until human main delivery",
+  "main_at_closeout": "210468236ff4db78d2d7c5218562fa2d166e6400"
+}

@@ -1,0 +1,70 @@
+{
+  "README.md": {
+    "bytes": 3960,
+    "sha256": "0a7cff8264fb962da5770e04a8bbee9fb38a6a65d4bdf35c98369db219acfcee"
+  },
+  "causal-replay.json.gz": {
+    "bytes": 15455,
+    "sha256": "24a34b77ad36f106e7ca7e2001d6356e58008c5f5240c3922e64e49c602167dc"
+  },
+  "facts-reproduced.json": {
+    "bytes": 2991,
+    "sha256": "aa0f972dea576a304919a8906894934bb1ac41e00a0cedce108820c4e9cdf6e8"
+  },
+  "format.txt": {
+    "bytes": 1251,
+    "sha256": "3146a5d15e0ef56342e80adedbf62ed991f14fcf06d665da9b94c34eba2fb01f"
+  },
+  "full-tests.txt.gz": {
+    "bytes": 656,
+    "sha256": "87abaa32f6e9565b8666e4646feafda3cf3c13dafcc56904fc1d6faae05a3750"
+  },
+  "independent-import-help.json": {
+    "bytes": 4943,
+    "sha256": "7a9c9f9d61094545cf0a9fb47db4c91e9b70d227709f89452f052f2b3b6ced4d"
+  },
+  "independent-pins.json": {
+    "bytes": 737,
+    "sha256": "81c98ce998aec20714996e3b36bcd8e84da7abf56bedf5d225ac3fc51f769092"
+  },
+  "independent-review.json": {
+    "bytes": 4901,
+    "sha256": "8d18a04c5edff6ece15ffd5e40d4be4dec1b4f09c19264aacbac91ea2ea1c7b4"
+  },
+  "initial-tests-sandbox-sockets.txt.gz": {
+    "bytes": 5984,
+    "sha256": "74cb96febe6e5b2cc6436f53a286466a661c2f2fb436d7aabac37de043e6b571"
+  },
+  "initial-tests-wrong-import-root.txt.gz": {
+    "bytes": 2450,
+    "sha256": "8d893c045f67c1ad56305167c6ba39264a0523fc46bb8e99ad7d82fcbda74c27"
+  },
+  "lint.txt": {
+    "bytes": 80,
+    "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e"
+  },
+  "literal-replay.json.gz": {
+    "bytes": 2950,
+    "sha256": "f01d66d862df66157cd56723e42ead040081d831b3840131d6364db0acb7d515"
+  },
+  "literal-run.txt": {
+    "bytes": 144,
+    "sha256": "6898594edb86f4064cd4b0d1debfd6617505fbdda0fbe9a98f17f2de154bb8fc"
+  },
+  "lrh.txt.gz": {
+    "bytes": 3578,
+    "sha256": "f62b99648bd94c8a99287f02d96a16f37ffeec4c0b55548ba1b6edd3ae297496"
+  },
+  "numeric-replay.json.gz": {
+    "bytes": 482958,
+    "sha256": "539e4479f246679d794f2498201a9a1d5b50d15de642e9140a0efaaf0cf01b82"
+  },
+  "numeric-run.txt": {
+    "bytes": 693,
+    "sha256": "ad6839e68ca891402f5bf3723e209b24dc3b0fab6ebf328785bfa68e92f5c9ae"
+  },
+  "validation.json": {
+    "bytes": 1797,
+    "sha256": "721ef74a3e9eef9e26c52f4b876ca3e2c600b4d7ea8eb1de2c4f88be036e72db"
+  }
+}

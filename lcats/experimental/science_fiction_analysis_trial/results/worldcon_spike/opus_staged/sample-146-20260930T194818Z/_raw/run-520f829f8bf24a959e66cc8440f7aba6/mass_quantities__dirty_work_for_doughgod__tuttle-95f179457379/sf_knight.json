@@ -1,0 +1,87 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 21913,
+  "model": "claude-opus-4-8",
+  "output_tokens": 996,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/dirty_work_for_doughgod__tuttle",
+  "story_path": "mass_quantities/dirty_work_for_doughgod__tuttle/story.json",
+  "text": "",
+  "title": "Dirty Work for Doughgod",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "This is a comic Western story about cowboys, a school-teacher, and mistaken identities. No scientific fact, theory, natural process, or speculative science is materially represented.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "Only ordinary period items appear (buckboard, rifle, telegraph, a box of dynamite). None functions as an invention or engineered system that materially shapes the problem in a science-fictional sense; they are incidental Western props.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in an ordinary contemporaneous Western town. There is no speculative future, remote past, or temporal displacement.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The premise (trustees refuse a female teacher, cowboys scheme to disguise her) drives a farcical social plot, not consequences developed from an identifiable scientific, technological, or systematic historical premise in the SF sense.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-b83249ab8f6495c8",
+          "sfev-aba3dd374c5d62d0"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Characters bumble and guess; no observation, hypothesis, testing, measurement, or evidential revision materially drives understanding or action.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The setting is entirely terrestrial and ordinary. No other planets, dimensions, nonordinary cosmic environments, or visitors from them appear.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The runaway team and comic mishaps are personal, small-scale slapstick misfortunes, not a large-scale natural, technological, cosmic, biological, or human-caused disaster.",
+        "status": "absent",
+        "supporting_evidence_ids": [
+          "sfev-01305e648f3d46da"
+        ]
+      }
+    ]
+  }
+}

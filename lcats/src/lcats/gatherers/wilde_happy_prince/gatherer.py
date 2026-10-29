@@ -48,9 +48,11 @@ def find_paragraphs_happyprince(soup, start_heading_text):
     return "\n".join(paragraphs)
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Wilde stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Wilde",
         target_directory=TARGET_DIRECTORY,
         description="Wilde stories from the Gutenberg Project.",

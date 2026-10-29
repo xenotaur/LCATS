@@ -1,0 +1,27 @@
+{
+  "scope": "shared account weekly usage, not attributable per-run tokens or cost",
+  "numerical_stop_threshold": null,
+  "observations": [
+    {
+      "utc": "2026-10-14T17:13:39Z",
+      "used_percent": 33
+    },
+    {
+      "utc": "2026-10-14T17:27:00Z",
+      "used_percent": 34
+    },
+    {
+      "utc": "2026-10-14T17:43:50Z",
+      "used_percent": 38
+    },
+    {
+      "utc": "2026-10-14T17:52:03Z",
+      "used_percent": 38
+    },
+    {
+      "utc": "2026-10-14T18:01:05Z",
+      "used_percent": 40
+    }
+  ],
+  "source": "Codex get_usage_limits, rateLimitsByLimitId.codex.primary; rounded percentages"
+}

@@ -1,0 +1,43 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 4242,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1518,
+  "run_id": "run-4c7fdbacdc73409ea115f663189e608f",
+  "stage": "sf_knight",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "criterion_1": {
+      "evidence_ids": [
+        "sfev-47d640717e3cd279"
+      ],
+      "rationale": "Narrator attributes bell sound to a large owl, providing natural explanation.",
+      "status": "present"
+    },
+    "criterion_2": {
+      "status": "absent"
+    },
+    "criterion_3": {
+      "status": "absent"
+    },
+    "criterion_4": {
+      "status": "absent"
+    },
+    "criterion_5": {
+      "status": "absent"
+    },
+    "criterion_6": {
+      "status": "absent"
+    },
+    "criterion_7": {
+      "status": "absent"
+    },
+    "rubric_id": "knight-seven-v1"
+  }
+}

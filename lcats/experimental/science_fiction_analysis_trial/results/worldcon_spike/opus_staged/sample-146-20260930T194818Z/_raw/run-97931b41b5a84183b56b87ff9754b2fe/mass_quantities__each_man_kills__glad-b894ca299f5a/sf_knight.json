@@ -1,0 +1,101 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 20045,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1546,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/each_man_kills__glad",
+  "story_path": "mass_quantities/each_man_kills__glad/story.json",
+  "text": "",
+  "title": "Each Man Kills",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.78,
+        "counterevidence_ids": [
+          "sfev-0181d4a604d2b639",
+          "sfev-1c4e993feaf40074",
+          "sfev-7d4d508f68aba09b"
+        ],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "The story is supernatural/gothic horror about vampirism. The explanations offered (creatures of darkness, revenants, cats leaping over corpses, Holy Water) are folkloric and religious, not scientific facts, theories, natural processes, or speculative sciences. The anemia and sanatorium references are decorative, not a scientific treatment. No material scientific content is present.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.72,
+        "counterevidence_ids": [
+          "sfev-4c2d81085b9e7c38"
+        ],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "The instruments in the story (wooden stakes, Holy Water, crucifix, bell, an antique poison pin) are ritual or ordinary objects, not engineered inventions or devices in a science-fictional sense. No device, technique, or engineered system materially affects the setting as technology. The staking is a religious exorcism rite, not an invention.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-5b186b4a16fbbba1"
+        ],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "The story is set in contemporary 1947 with ordinary travel from America to Transylvania. There is no speculative future, remote past, or temporal displacement. Transylvania is an ordinary foreign country with legendary associations, not a speculative time setting. The travel evidence describes mundane geographic relocation.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "incidental",
+        "rationale": "The story develops consequences from the premise of becoming a revenant: the progression from feeding on animals to a child, and the inevitable doom of killing and damning the loved one. However, this extrapolation proceeds from a supernatural/folkloric premise rather than an identifiable scientific, technological, social, or historical one, so materiality and fit to the criterion are uncertain.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-7fd54f829bb757de",
+          "sfev-f38e8d9729ea0e65"
+        ]
+      },
+      {
+        "confidence": 0.65,
+        "counterevidence_ids": [
+          "sfev-ec961a13943055b2",
+          "sfev-9204a636a37a15d2"
+        ],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "Tod haunts reading rooms and Maria researches vampire folklore for a thesis, but this is generic reading of legends and superstition, not observation, hypothesis, testing, measurement, evidential revision, or systematic inference that materially drives understanding. No scientific method is demonstrated; the characters accept supernatural lore as given.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.7,
+        "counterevidence_ids": [
+          "sfev-5b186b4a16fbbba1"
+        ],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. The revenants are supernatural undead operating within an ordinary earthly Transylvanian setting, not cosmic or dimensional visitors. This is gothic horror, not a tale of other places or extraterrestrial/extradimensional visitors.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.62,
+        "counterevidence_ids": [
+          "sfev-4c2d81085b9e7c38",
+          "sfev-4bfcb464f75acbb9"
+        ],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "The deaths and staking are personal and intimate tragedies, not a large-scale disaster. While vampirism could theoretically propagate, the story's actual events concern individual victims (Tod, Maria, a child, some animals). There is no natural, technological, cosmic, biological, or human-caused large-scale catastrophe that is actual, impending, remembered, or causally central.",
+        "status": "absent",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

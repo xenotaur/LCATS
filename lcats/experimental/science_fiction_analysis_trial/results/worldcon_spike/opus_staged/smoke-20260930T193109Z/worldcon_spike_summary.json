@@ -1,0 +1,127 @@
+{
+  "backend_kind": "fake",
+  "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+  "decision": "proceed",
+  "manifest_path": "experimental/science_fiction_analysis_trial/manifests/worldcon_spike_manifest.json",
+  "mode": "smoke",
+  "model": "fake-worldcon-spike",
+  "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z",
+  "plan": {
+    "approve_full_sample": false,
+    "approve_paid": false,
+    "backend_kind": "fake",
+    "base_url": null,
+    "budget_usd": 0.0,
+    "code_commit": "b2cccd38923774e91ebed143cd6a6962c750ebf1",
+    "cumulative_budget_usd": 0.0,
+    "estimated_cost_usd": 0.0,
+    "estimated_story_cost_usd": 0.0,
+    "manifest_fingerprint": "582e99655cf896469277ce9fd90b2df29419e1f965e50e90408552ee61b52454",
+    "max_stories": 3,
+    "max_tokens": 4096,
+    "mode": "smoke",
+    "model": "fake-worldcon-spike",
+    "output_root": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z",
+    "paid_model_calls_authorized": false,
+    "prior_spend_usd": 0.0,
+    "resume": false,
+    "retry_policy": {
+      "backoff": "bounded_exponential_0.25_to_2.0_seconds",
+      "content_filter": "never",
+      "deterministic_validation": "never",
+      "transient_provider_or_network": "once",
+      "truncation": "once_with_doubled_max_tokens"
+    },
+    "story_count": 3,
+    "story_ids": [
+      "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "lovecraft/the_colour_out_of_space",
+      "anderson/bell"
+    ],
+    "temperature": 0.0
+  },
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "source_worldcon_manifest": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+  "status": "complete",
+  "stories": [
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 14076,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.267,
+      "output_tokens": 941,
+      "qualified_novum_count": 1,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/mass_quantities__2_b_r_0_2_b__vonnegut-90e306f7034f",
+      "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/mass_quantities/2_b_r_0_2_b__vonnegut/science-fiction.json",
+      "status": "complete",
+      "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+      "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+      "title": "2 B R 0 2 B"
+    },
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 55591,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.317,
+      "output_tokens": 1010,
+      "qualified_novum_count": 1,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/lovecraft__the_colour_out_of_space-c84ecbf37caa",
+      "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/lovecraft/the_colour_out_of_space/science-fiction.json",
+      "status": "complete",
+      "story_id": "lovecraft/the_colour_out_of_space",
+      "story_path": "lovecraft/the_colour_out_of_space/story.json",
+      "title": "The Colour out of Space by H. P. Lovecraft"
+    },
+    {
+      "dominant_novum_id": "novum-1",
+      "failure_kind": null,
+      "failure_message": null,
+      "input_tokens": 11123,
+      "knight_interval": {
+        "definite_count": 3,
+        "possible_count": 3,
+        "total_count": 7
+      },
+      "latency_seconds": 0.329,
+      "output_tokens": 1093,
+      "qualified_novum_count": 1,
+      "quarantine_path": null,
+      "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/_raw/run-62effbdb52d2477b851a8b045994e90d/anderson__bell-bdac5ef3c713",
+      "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+      "sidecar_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/smoke-20260930T193109Z/anderson/bell/science-fiction.json",
+      "status": "complete",
+      "story_id": "anderson/bell",
+      "story_path": "anderson/bell/story.json",
+      "title": "Anderson - The Bell"
+    }
+  ],
+  "totals": {
+    "complete": 3,
+    "cumulative_estimated_cost_usd": 0.0,
+    "estimated_cost_usd": 0.0,
+    "failed": 0,
+    "input_tokens": 80790,
+    "latency_seconds": 0.913,
+    "output_tokens": 3044,
+    "prior_spend_usd": 0.0,
+    "stories": 3
+  },
+  "version": "worldcon-knight-novum-spike-summary-v1",
+  "work_item": "WI-SF-0012"
+}

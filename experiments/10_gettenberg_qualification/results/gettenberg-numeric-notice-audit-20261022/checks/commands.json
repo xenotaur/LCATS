@@ -1,0 +1,64 @@
+[
+  {
+    "name": "package-format",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff"
+    ],
+    "returncode": 0,
+    "seconds": 11.228
+  },
+  {
+    "name": "package-lint",
+    "command": [
+      "scripts/lint"
+    ],
+    "returncode": 0,
+    "seconds": 0.295
+  },
+  {
+    "name": "experiment-format",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff",
+      "--",
+      "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate_test.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.336
+  },
+  {
+    "name": "experiment-lint",
+    "command": [
+      "scripts/lint",
+      "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/numeric_notice_candidate_test.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.154
+  },
+  {
+    "name": "focused-tests",
+    "command": [
+      "scripts/test",
+      "numeric_notice_candidate_test"
+    ],
+    "returncode": 0,
+    "seconds": 0.064
+  },
+  {
+    "name": "help",
+    "command": [
+      "python",
+      "../experiments/10_gettenberg_qualification/scripts/audit_numeric_notices.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.582
+  }
+]

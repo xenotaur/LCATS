@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 30015,
+    "candidate_record_sha256": "09c16336d07ae811e9389a71b800708e7e7a8042f79404421bccd1d220b73a9c",
+    "outcome": "defer",
+    "reviewer": "Codex agent: terminal cohort source inspection",
+    "rationale": "The opening separately presents teaser-like material beginning 'Early morning deliveries were part of the Honeychile Bakery Service. But on this particular morning the service was reversed!'. The following paragraph starts a scene or narrative account. The historical baseline retained this opening too, so terminal-note removal and historical equivalence do not establish its editorial role. Preserve all text and defer pending positive source-grounded classification and an explicit selection; do not infer deletion from italics, position or similarity.",
+    "approval": null
+}

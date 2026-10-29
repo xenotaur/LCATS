@@ -1,0 +1,10 @@
+{
+  "scope": "Read-only checked-in corpus Gutenberg source URL scan; not content equivalence or acquisition qualification",
+  "stories_checked": 1868,
+  "nested_urls": {
+    "https://www.gutenberg.org/files/204/204-h/204-h.htm": 12,
+    "https://www.gutenberg.org/files/1595/1595-h/1595-h.htm": 24,
+    "https://www.gutenberg.org/files/1661/1661-h/1661-h.htm": 12
+  },
+  "failures": []
+}

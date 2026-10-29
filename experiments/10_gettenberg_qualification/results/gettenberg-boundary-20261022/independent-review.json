@@ -1,0 +1,16 @@
+{
+  "mode": "cold diff review under approved pilot adapter",
+  "agent": "/root/boundary_notice_review",
+  "base_commit": "819e62fa48b9644ee16f3b9b3734dabcc36257d1",
+  "findings": [],
+  "verification": {
+    "all_group_rows_reproduced": 1477,
+    "all_proofs_independently_checked": 133,
+    "complete_historical_explanations": 25,
+    "new_approvals": 0,
+    "new_resolutions": 0,
+    "targeted_tests": 9
+  },
+  "nonblocking_checkpoint_gap": "Archive README and native record still pending at review time; coordinator must finish and verify before delivery.",
+  "scope": "Scoped diff and full census/proofs; no literary assessment or final full-suite verification by reviewer."
+}

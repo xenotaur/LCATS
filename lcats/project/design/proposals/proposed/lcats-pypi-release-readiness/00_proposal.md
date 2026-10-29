@@ -4,7 +4,7 @@ type: design_proposal
 title: LCATS PyPI Release Readiness — Dependency Blocker, Minimal Tooling, and a Pre-Launch Verification Gate
 status: proposed
 created_on: 2026-07-29
-updated_on: 2026-07-29
+updated_on: 2026-10-14
 implementation_status: partial
 implemented_by:
   - WI-RELEASE-0038
@@ -23,7 +23,18 @@ adding a dedicated work item that re-verifies the blocker's resolution
 status immediately before the real publish is attempted, rather than
 treating a one-time decision as permanently settled.
 
-## Background / Motivation
+## 2026-10-14 decision amendment
+
+The owner approved PROP-LCATS-GETTENBERG-REDESIGN in PR #501: replace the external
+package with LCATS-owned gettenberg, without vendoring, publishing a fork, or
+waiting upstream. WS-GETTENBERG owns implementation; WI-RELEASE-0037 verifies
+its delivered release-blocker evidence. WI-RELEASE-0039 remains mandatory in
+an imminent-publication session and rechecks the current internal replacement,
+packaging and behavior. No publication/CI authorization or release-gate closure
+is implied. Earlier upstream/vendor/fork discussion below is historical context.
+
+## Background / Motivation (historical motivation)
+
 
 `PROP-LCATS-PACKAGING-MODERNIZATION` (adopted, implemented) brought
 `lcats/pyproject.toml` to PEP 621/639 standard and added `setuptools-scm`
@@ -107,10 +118,9 @@ Options considered:
 **Chosen: a dedicated pre-launch verification work item**, separate from
 `WI-RELEASE-0037` itself. Rationale: the interval between resolving
 `WI-RELEASE-0037` and actually publishing could be long enough for
-upstream state to change (a new `gutenbergpy` PyPI release could land,
-making a chosen vendor/fork solution obsolete or reversible), or for a
-vendored/forked copy to have silently drifted from what was verified at
-implementation time. A one-time decision recorded in a now-closed work
+the internal implementation, general dependencies, or Gutenberg source formats
+to change after qualification. Recheck actual release-candidate evidence rather
+than assuming implementation-time verification still applies. A one-time decision recorded in a now-closed work
 item has no mechanism to force a second look; a standing, explicitly-scoped
 item does. This directly satisfies the request to have "a specific item to
 check back in on that element of the release before launch."
@@ -146,9 +156,8 @@ future release-smoke/runbook items.
 
 ## Non-Goals
 
-- Does not decide vendor vs. fork-and-publish vs. wait-on-upstream for the
-  `gutenbergpy` blocker — that decision remains `WI-RELEASE-0037`'s own
-  scope.
+- Does not reopen the internal redesign selected in PROP-LCATS-GETTENBERG-REDESIGN;
+  detailed implementation is owned by WS-GETTENBERG.
 - Does not scope `scripts/release-smoke` or a release runbook now —
   deferred to future work items once the dependency blocker is resolved
   and actual publish is imminent.
@@ -165,15 +174,12 @@ future release-smoke/runbook items.
 Multi-stage; delivered against a governing workstream (recommended next
 step: `/lrh-workstream`):
 
-1. `WI-RELEASE-0037` (existing, proposed) — resolve the `gutenbergpy`
-   dependency blocker.
+1. `WI-RELEASE-0037` (resolved 2026-10-29) — dependency blocker verified
+   through the internal replacement; PR #537 merged at `7f195775`.
 2. `WI-RELEASE-0038` (existing, resolved) — `lcats.version`, `--version`,
    `scripts/version`. Already delivered.
-3. **New work item** (to be scoped via `/lrh-work-item` after this
-   proposal and its workstream land): a pre-launch verification gate —
-   re-check `gutenbergpy` upstream release status and/or the chosen fix's
-   continued validity, run immediately before any real PyPI publish
-   attempt, blocking that publish until confirmed current.
+3. `WI-RELEASE-0039` (existing, proposed): reverify the internal replacement
+   and current distribution immediately before any real PyPI publish attempt.
 4. Deferred, not yet scoped: `scripts/release-smoke`, release runbook,
    PyPI project reservation and Trusted Publishing setup — future work
    items once steps 1 and 3 make a real publish imminent.
@@ -185,7 +191,7 @@ step: `/lrh-workstream`):
 - `logical_robotics_harness/docs/how-to/run-a-release.md` — comparison
   reference for release-tooling scope; not adopted wholesale, see
   Non-Goals.
-- `project/work_items/proposed/WI-RELEASE-0037.md`,
+- `project/work_items/resolved/WI-RELEASE-0037.md`,
   `project/work_items/resolved/WI-RELEASE-0038.md`.
 
 ## Open Questions

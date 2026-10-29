@@ -1,0 +1,11 @@
+{
+  ".github/workflows/cache_maintenance.yml": "221dc160b7d2fbf606b7b5a3fe9fa579d5943a05ad3a849ce156171991ded55b",
+  ".github/workflows/tests.yml": "875d050a1e9f4d42697a2c22eaae5dcfca3e85a557189937de4ed04725a44eba",
+  ".github/workflows/coverage.yml": "6acc934c8044bfbc394715bb93cb06fa5c0c6e7bc7d1c4b6f5390490eb2bba71",
+  "lcats/src/lcats/dev/gettenberg_ci.py": "2aacdc1e2f6d461465b433f5b8f6902aa1fc6a3fc03fbc54bf42d2a40cfeed01",
+  "lcats/tests/dev_tests/gettenberg_ci_test.py": "90f141758bce4fa1937b2d0aacb7d9974d03c7587eccce9bbf5906c60fbec825",
+  "lcats/tools/gettenberg_ci.py": "8625eca5a00649bcdcbd6d791b744785026a3ba8ff767676a61b3d331abcba54",
+  "lcats/tools/README.md": "d864ac4491e886dcada60eff0ced678f79f1db709c416933c1d5182698a22648",
+  "lcats/docs/index.md": "6d4a9358455ad8dd54a201fc390ccdeac861f5855d439258a0f471a8f6f4ef75",
+  "lcats/docs/how-to/gettenberg-ci-maintenance.md": "56b92a55bb2b034a9312bb50ef45e40cfdf04214a495819fe4989bea260ae819"
+}

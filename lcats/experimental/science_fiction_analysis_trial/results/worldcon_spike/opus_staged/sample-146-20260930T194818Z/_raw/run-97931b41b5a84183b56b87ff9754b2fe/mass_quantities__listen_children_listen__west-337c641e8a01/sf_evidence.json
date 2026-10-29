@@ -1,0 +1,129 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12862,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1543,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/listen_children_listen__west",
+  "story_path": "mass_quantities/listen_children_listen__west/story.json",
+  "text": "",
+  "title": "Listen, children ... listen!",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.8,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00099"
+        ],
+        "paraphrase": "The mirror has become an actual opening in the cabin wall through which moonlight and wind pour.",
+        "quote": "The moonshine was pouring in through a wide opening in the north wall--through the place where the mirror stood! And a cold wind was pouring in with it.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00101"
+        ],
+        "paraphrase": "The narrator hears katydids, setting up a contradiction with the known season.",
+        "quote": "Only the chorus of katydids answered.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00102"
+        ],
+        "paraphrase": "The narrator notes the impossibility of hearing katydids in spring, marking something out of the natural order.",
+        "quote": "But this was spring! Katydids sang only in the fall!",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.75,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00105"
+        ],
+        "paraphrase": "The grandmother's decayed teeth appear restored to being white and firm near the mirror-opening.",
+        "quote": "And I noticed, with the lack of surprise which accompanies nightmares, that her teeth were white and firm in the moonglow.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00099"
+        ],
+        "paraphrase": "The narrator reacts with terror upon realizing the room's orientation has changed.",
+        "quote": "My bare toes curled with terror as I realized what it was.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00114"
+        ],
+        "paraphrase": "The narrator screams and rushes after his grandmother as she moves toward the opening.",
+        "quote": "\"No, Maw! Don't leave--wait for me!\" I screamed, plunging from bed and racing wildly after her receding back.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00115"
+        ],
+        "paraphrase": "After the event, the mirror is found shattered and the narrator is injured.",
+        "quote": "My face was badly cut--I still wear the scar--and the mirror was shattered in its frame.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00057"
+        ],
+        "paraphrase": "A doctor examines the grandmother and finds nothing physically wrong.",
+        "quote": "the physician looked at Maw's tongue, thumped her chest, asked her a few questions, which she answered with sly humor, and pronounced her sound.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00108"
+        ],
+        "paraphrase": "The narrator hears the dead grandfather's wagon approaching, as in years past, through the opening.",
+        "quote": "Far in the distance, across rolling hills which lay bathed in beauty and above the fresh staccato mutter of katydids, I too caught the creak of wheels on a gravel road, the jingle of trace chains and the rumble of a half-empty jolt-wagon bed.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00120"
+        ],
+        "paraphrase": "The grandmother's disappearance ends with a body found far away, explained mundanely by others but disbelieved by the narrator.",
+        "quote": "Several months later a woman's body was found in White River, full fifteen miles away. People said it must be grandmother, that she must have wandered that far before she died of exposure.",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00051"
+        ],
+        "paraphrase": "The narrator is frightened by hearing two voices coming from his grandmother alone at the mirror.",
+        "quote": "But what frightened me was the chatter in two distinct voices which still continued.",
+        "raw_id": "ev11"
+      }
+    ]
+  }
+}

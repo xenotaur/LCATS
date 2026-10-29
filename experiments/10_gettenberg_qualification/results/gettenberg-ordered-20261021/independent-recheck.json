@@ -1,0 +1,32 @@
+{
+  "scope": "Final narrow repair recheck: versionless v1 compatibility, equivalent v1/v2 cumulative intent, differing blurb intent, and directly related regression tests.",
+  "worktree": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+  "findings": [],
+  "prior_findings": [
+    {
+      "title": "Versionless v1 historical reconciliation",
+      "status": "resolved",
+      "verified": "Independently reran reproduce_versionless_v1.py. Product load/export accepted schema version 1; current and baseline reconciliation both returned approval_verified=true. Permanent regression also passed and checks original artifact bytes remain unchanged."
+    },
+    {
+      "title": "Equivalent v1/v2 content intent",
+      "status": "resolved",
+      "verified": "Independently reran reproduce_v1_v2_intent.py. Inventory is approve:1 and historical_resolution is prior_review_baseline_reconciled. Added a third explicit approval with the same retained range but publisher_blurb metadata placement: inventory becomes conflict:1 and historical_resolution becomes null."
+    }
+  ],
+  "targeted_tests": {
+    "command": "PYTHONPATH=/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src /Users/centaur/anaconda3/envs/LCATS/bin/python -m unittest tests.gettenberg_tests.disposition_tranche_evidence_test.DispositionTrancheEvidenceTests.test_versionless_v1_approval_keeps_historical_reconciliation_compatibility tests.gettenberg_tests.review_batch_evidence_test.ReviewBatchEvidenceTests.test_equivalent_v1_v2_approvals_do_not_create_a_false_inventory_conflict tests.gettenberg_tests.review_batch_evidence_test.ReviewBatchEvidenceTests.test_ordered_recording_mode_exports_a_replayable_v2_decision tests.gettenberg_tests.documentation_test.DocumentationTests.test_review_guide_commands_publish_only_explicit_selected_narrative tests.gatherers_tests.ordered_review_test.OrderedReviewTests.test_conflict_compares_all_spans_and_editorial_role",
+    "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats",
+    "result": "5 tests passed",
+    "coverage": "Real versionless disposition reconciliation, cumulative inventory and historical accounting, ordered --record-qualified runner output/export, documented --omissions command through publication, and differing editorial role conflict."
+  },
+  "inspection": "Read current repaired decision_intent and reconciliation version checks, permanent regression additions, and the documentation fixture's command execution/export/publication sequence. No new concern found in this narrow scope.",
+  "constraints": {
+    "whole_suite_duplicated": false,
+    "network_calls": false,
+    "repository_edits": false,
+    "subagents": false
+  },
+  "verdict": "Both reported defects are repaired and independently verified. No remaining blocker found within the reviewed ordered-span implementation scope.",
+  "qualification_limit": "This recheck does not authorize corpus acceptance, main/integration promotion, merging, or closure of the whole-PR corpus gates."
+}

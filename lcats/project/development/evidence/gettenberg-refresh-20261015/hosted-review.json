@@ -1,0 +1,54 @@
+{
+  "pr": 513,
+  "observed_head": "1d1dfc6b657556d2830dd4b804a9db228bedc548",
+  "base": "9fb1c767c7eeca6cdab23d3b9fcfbe171a738997",
+  "reviewed_product_head": "8ba826841dd02f0ca032fef0bdd82fead9dc547a",
+  "delta_to_observed_head": "two execution-record PR backlinks only",
+  "reviews": [
+    {
+      "author": "copilot-pull-request-reviewer",
+      "submitted_at": "2026-10-15T07:03:19Z",
+      "state": "COMMENTED",
+      "commit": "8ba826841dd02f0ca032fef0bdd82fead9dc547a"
+    },
+    {
+      "author": "chatgpt-codex-connector",
+      "submitted_at": "2026-10-15T07:04:37Z",
+      "state": "COMMENTED",
+      "commit": "8ba826841dd02f0ca032fef0bdd82fead9dc547a"
+    }
+  ],
+  "findings": [
+    {
+      "thread_id": "PRRT_kwDOKlhIbM6sqKeu",
+      "path": "lcats/src/lcats/gettenberg/_resource_io.py",
+      "line": 288,
+      "comments": [
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Validate receipt metadata before linking the body**\n\nWhen a successful response produces more than `_METADATA_LIMIT` of receipt metadata\u2014possible with the allowed 8 KiB source/redirect URLs and selected headers\u2014this call now fails only after `_immutable` has linked the complete body into `objects/` or `archives/`. The request remains a cache miss, so repeated acquisitions with unique bodies can accumulate permanently unreachable files up to the configured body-size limit; validate/serialize the receipt before publishing its body, as the previous implementation did.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+          "createdAt": "2026-10-15T07:04:37Z",
+          "url": "https://github.com/xenotaur/LCATS/pull/513#discussion_r4280042615"
+        }
+      ]
+    },
+    {
+      "thread_id": "PRRT_kwDOKlhIbM6sqKe2",
+      "path": "lcats/src/lcats/gettenberg/_resource_io.py",
+      "line": 211,
+      "comments": [
+        {
+          "author": {
+            "login": "chatgpt-codex-connector"
+          },
+          "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Reject 304 receipts without returned validators**\n\nFor a persisted schema-2 receipt with `status == 304`, `validation_headers` may currently be empty or contain only representation metadata and still pass cache lookup. Such a receipt could never be produced by `validated_receipt`, which requires a returned matching ETag or Last-Modified value, yet offline consumers will accept it as evidence of successful validation; require at least one syntactically valid validator in the 304 validation headers.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+          "createdAt": "2026-10-15T07:04:37Z",
+          "url": "https://github.com/xenotaur/LCATS/pull/513#discussion_r4280042627"
+        }
+      ]
+    }
+  ],
+  "pagination_complete": true
+}

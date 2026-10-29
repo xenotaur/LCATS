@@ -1,0 +1,179 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 14061,
+  "model": "claude-opus-4-8",
+  "output_tokens": 2676,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "london/white_man_s_way",
+  "story_path": "london/white_man_s_way/story.json",
+  "text": "",
+  "title": "London - The White Man's Way",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.7,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Old Ebbits is described as weary of life and fearful of death.",
+        "quote": "He was oppressed by the weight and the\ntorment of this thing called life, and still more was he\noppressed by the fear of death.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits contrasts the inconsistent behavior of the white man with a consistency the Indian expects.",
+        "quote": "But the white man speaks true in different\nways.\ta To-day he speaks true one way, to-morrow he speaks\ntrue another way, and there is no understanding him nor his\nway.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits contrasts the predictability of nature and Indian custom with the unpredictability of the white man.",
+        "quote": "Always does the Indian do the one thing in the one way.\ta Always\ndoes the moose come down from the high mountains when the winter\nis here.\ta Always does the salmon come in the spring when the\nice has gone out of the river.\ta Always does everything do\nall things in the same way, and the Indian knows and\nunderstands.\ta But the white man does not do all things in\nthe same way, and the Indian does not know nor understand.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "The narrator's culture chews and swallows tobacco juice, while the white man spits it out, from Ebbits's perspective a foolish waste.",
+        "quote": "But the white man!\ta When his mouth is full with the juice,\nwhat does he do?\ta That juice, that juice of great value, he\nspits it out in the snow and it is lost.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits describes the Indian law that a thief must be killed, contrasting it with white man's treatment.",
+        "quote": "When man takes your meat, or your\ncanoe, or your wife, you kill that man.\ta That is the law,\nand it is a good law.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits describes imprisonment as the white man feeding and sheltering a thief rather than punishing him, which he finds baffling.",
+        "quote": "He has a\nhouse.\ta He puts Mobits in that house.\ta The roof is\ngood.\ta The walls are thick.\ta He makes a fire that\nMobits may be warm.\ta He gives Mobits plenty grub to\neat.",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Zilla wails in grief over the death of her first-born son Moklan.",
+        "quote": "Ai! ai!\ta wailed Zilla.\ta \tCrafty and\nwise was he, and my first-born!",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits explains the customary law that compensation must be paid for deaths caused by bad hunting or dangerous water.",
+        "quote": "if you have in thy country bad hunting, or bad water, you must\nmake payment.\ta It is just.\ta It is the law.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.45,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Yamikan is taken far down the river to a lake (the sea) larger than all the land, a place beyond the village's experience.",
+        "quote": "All the\nway do they take him down the river to the end, where it runs\ninto a lake which is larger than all the land and large as the\nsky.",
+        "raw_id": "ev09"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits marvels that the white man's iron boat does not sink, something beyond his understanding.",
+        "quote": "Also, it is made of iron, this boat, and yet does it not\nsink.\ta This I do not understand",
+        "raw_id": "ev10"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits struggles to believe there is a land (California) where no snow ever falls, contrasting with his own world.",
+        "quote": "a land where there is no snow.\ta I cannot believe\nthis.\ta It is not in the nature of things that when winter\ncomes there shall be no snow.",
+        "raw_id": "ev11"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits seeks to verify the name of the snowless country by cross-checking it to determine whether he was told the truth.",
+        "quote": "I have heard the name\nbefore, but I would hear it again, if it be the same\ta thus\nwill I know if I have heard lies or true talk.",
+        "raw_id": "ev12"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "A visiting white man collects insects, eggshells, bird skins, and old bones, which Ebbits describes as incomprehensible scientific collecting.",
+        "quote": "All the time does he seek after bugs and\nflies.\ta He does not eat the bugs and flies, then why does he\nseek after them?",
+        "raw_id": "ev13"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Unlike Yamikan, Bidarshik is hanged for killing a white man, leaving Ebbits without sons.",
+        "quote": "He takes\nBidarshik to Cambell Fort, and he ties a rope around his neck,\nso, and, when his feet are no more on the ground, he\ndies.",
+        "raw_id": "ev14"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits, reasoning from Yamikan's earlier outcome, advises his son to kill a white man expecting the same reward, but the outcome differs.",
+        "quote": "Go forth,\ta I say,\n\tand find a white man, and, even as Yamikan, do you kill\nthat white man.\ta Then will the soldier white men come and\nget you, and even as they took Yamikan will they take you across\nthe salt lake to the white man's land.",
+        "raw_id": "ev15"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00001"
+        ],
+        "paraphrase": "Ebbits laments that the white man's behavior changes from day to day, making it impossible to predict.",
+        "quote": "How was I to know the way of the white man is never\ntwice the same?",
+        "raw_id": "ev16"
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 4096,
+  "input_tokens": 4373,
+  "model": "fake-worldcon-spike",
+  "output_tokens": 373,
+  "run_id": "run-62effbdb52d2477b851a8b045994e90d",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.5,
+        "evidence_type": "storyworld_change",
+        "paraphrase": "Spike evidence for storyworld_change.",
+        "quote": "Everything was perfectly swell.",
+        "raw_id": "ev-storyworld"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paraphrase": "Spike evidence for scientific_or_technical_explanation.",
+        "quote": "There were no prisons, no slums, no insane asylums, no cripples, no\npoverty, no wars.",
+        "raw_id": "ev-explanation"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paraphrase": "Spike evidence for inquiry_or_scientific_method.",
+        "quote": "All diseases were conquered. So was old age.",
+        "raw_id": "ev-method"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "extrapolative_consequence",
+        "paraphrase": "Spike evidence for extrapolative_consequence.",
+        "quote": "Death, barring accidents, was an adventure for volunteers.",
+        "raw_id": "ev-consequence"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paraphrase": "Spike evidence for reader_facing_contrast.",
+        "quote": "The population of the United States was stabilized at forty-million\nsouls.",
+        "raw_id": "ev-contrast"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paraphrase": "Spike evidence for character_reaction.",
+        "quote": "One bright morning in the Chicago Lying-in Hospital, a man named Edward\nK. Wehling, Jr., waited for his wife to give birth. He was the only man\nwaiting. Not many people were born",
+        "raw_id": "ev-reaction"
+      }
+    ]
+  }
+}

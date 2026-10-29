@@ -1,0 +1,14 @@
+{
+  "scope": "Independent complete source identity/slice/diagnostics/body metric comparison, not duplicate full body execution",
+  "report_sha256": "8ac5f4d3c5a38f1405953355cfee108f946bd8ea11ecf1eb1533a5ed6a2927c0",
+  "all_rows_match_prior_measured_fields": 1659,
+  "summary_verified": {
+    "inputs": 1659,
+    "refused": 13,
+    "compared": 1646,
+    "legacy_differences": 67
+  },
+  "product_ref": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "runner_sha256": "8202eaddf8b6b89f69c8e713c6dd7d7c680becf912cf2fc0821502458794f490",
+  "comparison_boundary": "Prior two severe-case supplemental traces are not emitted by this runner; first exact-dict probe rejected solely these additional prior trace fields, then comparison explicitly excluded them."
+}

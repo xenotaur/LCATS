@@ -1,0 +1,59 @@
+{
+  "baseRefOid": "5cfd2d71caf6f3eedfdfc0b830b5c5ff1a74ba3b",
+  "headRefOid": "12fa03be342e2d0f98ba584efd925c1e52e9cad5",
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-14T23:56:59Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38656943050/job/116168831297",
+      "name": "coverage",
+      "startedAt": "2026-10-14T23:54:57Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-14T23:55:24Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38656943053/job/116168831311",
+      "name": "lint",
+      "startedAt": "2026-10-14T23:54:57Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-14T23:56:02Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38656943041/job/116168831431",
+      "name": "test",
+      "startedAt": "2026-10-14T23:54:57Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-14T23:56:23Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38656937261/job/116168812921",
+      "name": "test",
+      "startedAt": "2026-10-14T23:54:53Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "review": {
+    "head": "12fa03be342e2d0f98ba584efd925c1e52e9cad5",
+    "rounds": 2,
+    "final_findings": 0,
+    "resolved_original_threads": 7
+  },
+  "merge": {
+    "mergeCommit": {
+      "oid": "35f80fb53c1820ff70708df0ab049266f25dc3c7"
+    },
+    "state": "MERGED"
+  }
+}

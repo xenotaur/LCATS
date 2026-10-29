@@ -1,0 +1,86 @@
+{
+  "run": "gettenberg-20261014-3",
+  "start_utc": "2026-10-14T19:27:21Z",
+  "target_freeze_utc": "2026-10-14T20:27:21Z",
+  "hard_stop_utc": "2026-10-14T20:57:21Z",
+  "integration_confirmed_by_utc": "2026-10-14T20:26:41Z",
+  "qualified_source": "2e86857875ecba9959aba2f9e6e59d21c9a658f9",
+  "qualified_pr_head": "f061633b4c8c2ee867eeff7a68bbc48bd2cf2719",
+  "base": "3de743cdc679eb66042c88df53141e11d4a4bafe",
+  "branch": "codex/gettenberg-pilot-20261014",
+  "merge": {
+    "backend": "github",
+    "merge_commit": "1ea08da3bee85dab50f9bcdad2a26fc3263690f7",
+    "pr": "https://github.com/xenotaur/LCATS/pull/507",
+    "state": "MERGED",
+    "status": "merged"
+  },
+  "checks": [
+    {
+      "conclusion": "success",
+      "databaseId": 38631730562,
+      "event": "pull_request",
+      "headSha": "f061633b4c8c2ee867eeff7a68bbc48bd2cf2719",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38631730562",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38631730558,
+      "event": "pull_request",
+      "headSha": "f061633b4c8c2ee867eeff7a68bbc48bd2cf2719",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38631730558",
+      "workflowName": "Coverage"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38631730565,
+      "event": "pull_request",
+      "headSha": "f061633b4c8c2ee867eeff7a68bbc48bd2cf2719",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38631730565",
+      "workflowName": "Python tests"
+    },
+    {
+      "conclusion": "success",
+      "databaseId": 38631726063,
+      "event": "push",
+      "headSha": "f061633b4c8c2ee867eeff7a68bbc48bd2cf2719",
+      "status": "completed",
+      "url": "https://github.com/xenotaur/LCATS/actions/runs/38631726063",
+      "workflowName": "Python tests"
+    }
+  ],
+  "review_threads": {
+    "pageInfo": {
+      "hasNextPage": false
+    },
+    "nodes": [
+      {
+        "id": "PRRT_kwDOKlhIbM6sgGII",
+        "isResolved": true
+      },
+      {
+        "id": "PRRT_kwDOKlhIbM6sgHwg",
+        "isResolved": true
+      },
+      {
+        "id": "PRRT_kwDOKlhIbM6sgHxf",
+        "isResolved": true
+      }
+    ]
+  },
+  "review_status": "Automatic Codex/Copilot reviews complete; three hosted threads resolved after verified repairs; independent assignment4 cleared final source and adjacent recovery fix.",
+  "acceptance_map": "qualification-map.json",
+  "assignments_used": 4,
+  "assignment_cap": 6,
+  "conservative_worker_minutes": 17,
+  "worker_minutes_cap": 45,
+  "active_workers": 0,
+  "native_status": "WI proposed and execution records in_progress pending human-approved main promotion",
+  "main_promoted": false,
+  "unattempted": "WI-0005 onward: acquisition, cleanup of story boilerplate, gather integration, caller migration, dependency removal, CI migration, final replacement qualification",
+  "recommendation": "Human-reviewed earlier offline-foundation main milestone before WI-0005 because coherent subsystem boundary and accumulated review size; not authorized by this run."
+}

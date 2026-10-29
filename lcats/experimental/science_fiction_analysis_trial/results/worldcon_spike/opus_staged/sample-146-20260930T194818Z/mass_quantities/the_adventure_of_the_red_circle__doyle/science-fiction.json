@@ -1,0 +1,999 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_the_red_circle__doyle-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "No scientific fact, theory, discovery, natural process, or speculative science is materially represented. The story is a detective narrative relying on ordinary deductive reasoning, not science.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The candle window-flash signaling and newspaper cipher are ordinary period communication methods and a simple substitution code, not an engineered invention or device that speculatively affects the setting. This is a commonplace covert-communication technique, not technology in the SF sense.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-cd70b69a0e467784",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-03bbe15af9ecf37e",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in the contemporary present with only ordinary recent-past backstory (fleeing Italy four years prior, emigration to America). There is no speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-690246d7141d1d93",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ]
+          },
+          {
+            "confidence": 0.65,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "No consequences are developed from an identifiable scientific, technological, or speculative premise. The plot extends from a criminal-society premise in a purely realistic mode without extrapolative development of a novum.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "substantial",
+            "rationale": "Holmes materially drives the plot through systematic observation, inference, and hypothesis-testing: reasoning from the burnt match length, the cigarette stub, the printed 'match' error to infer a substituted lodger, then decoding the flash cipher letter by letter and cross-checking with Watson. This is sustained evidential inference, not mere questioning.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-ffa2bb1843134363",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-2bfbbdfb189b9079",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-aebc4090ea938638",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-288acdbb02bf972e",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-7f34ac3e57baf1e6",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-492201b7e570442d",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-03bbe15af9ecf37e",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-5d239b96858c71e8",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "No other planets, dimensions, nonordinary cosmic environments, or visitors from them. The characters are ordinary human immigrants from Italy/America; foreign origin does not qualify.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The events are individual crimes\ndomestic violence and a single killing, plus a foiled dynamite plot. Though a planned bombing of Castalotte's house is mentioned, it is prevented and remains a discrete criminal act rather than a large-scale catastrophe that is actual, impending, or causally central in a disaster sense.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-5af59b6fa281b334",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-e4aabb551747a3b1",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-b4f0b072dcb68e36",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+        "failures": [],
+        "interval": {
+          "definite_count": 1,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 23731,
+            "output": 1331
+          }
+        },
+        "status": "complete",
+        "story_hash": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__the_adventure_of_the_red_circle__doyle-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-flash-cipher-signaling",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The signaling method is presented as a coherent, systematic, nonsupernatural mechanism with an internally consistent code that Holmes reconstructs step by step, but this coherence merely describes a mundane technique.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-03bbe15af9ecf37e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5d239b96858c71e8",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-cd70b69a0e467784",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "description": "A window-flash light-signaling system using a numeric substitution cipher (one flash = A, two = B, etc.) by which the hidden husband communicates warnings to his concealed wife, later exploited by Holmes to summon her.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-be453d808ee0c53d",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "The flashing signals create a moment of decoding suspense for the reader, but this is a conventional mystery device, not cognitive estrangement from an altered empirical norm.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-03bbe15af9ecf37e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5d239b96858c71e8",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-cd70b69a0e467784",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-03bbe15af9ecf37e",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-5d239b96858c71e8",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-cd70b69a0e467784",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-be453d808ee0c53d",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-690246d7141d1d93",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "The signaling drives several key scenes and Holmes's solution, but the overriding narrative logic is the criminal-society revenge plot, not the communication device itself.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-03bbe15af9ecf37e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5d239b96858c71e8",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-cd70b69a0e467784",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-03bbe15af9ecf37e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5d239b96858c71e8",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-cd70b69a0e467784",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "Cipher signaling and coded newspaper advertisements are ordinary period devices consistent with the empirical norm of Edwardian London. Nothing about them constitutes a totalizing world-altering difference from the author's implied empirical reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-holmes-deductive-method",
+            "cognitive_validation": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The method is coherent, systematic, immanent, and explicitly nonsupernatural, but this is analytic technique rather than an imaginary science that changes the world.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-288acdbb02bf972e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-2bfbbdfb189b9079",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-aebc4090ea938638",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-7f34ac3e57baf1e6",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-ffa2bb1843134363",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "description": "Holmes's systematic method of forensic observation and inference, extracting large conclusions from small physical clues (match length, cigarette stub, pencil marks, grammatical errors).",
+            "estrangement": {
+              "character_reaction_evidence": [],
+              "rationale": "The method impresses but does not estrange the reader from an empirical norm; it operates entirely within the ordinary world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-288acdbb02bf972e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-aebc4090ea938638",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-7f34ac3e57baf1e6",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-492201b7e570442d",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-288acdbb02bf972e",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-2bfbbdfb189b9079",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-aebc4090ea938638",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-7f34ac3e57baf1e6",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-ffa2bb1843134363",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-492201b7e570442d",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "Holmes's method structures the entire investigative narrative, but centrality of an ordinary character skill does not convert it into a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-ffa2bb1843134363",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-492201b7e570442d",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-7f34ac3e57baf1e6",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-288acdbb02bf972e",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-2bfbbdfb189b9079",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-aebc4090ea938638",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-7f34ac3e57baf1e6",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-ffa2bb1843134363",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "Deductive reasoning is a character's skill exercised within an unaltered empirical world; it introduces no totalizing difference from the implied authorial norm.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-red-circle-secret-society",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The society's organization, funding by blackmail, and enforcement mechanisms are depicted as a coherent, nonsupernatural social system, but a realistic social organization here reflects the world rather than reconstituting it.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-b4f0b072dcb68e36",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5af59b6fa281b334",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-e4aabb551747a3b1",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "description": "The Red Circle, a Neapolitan criminal brotherhood allied to the old Carbonari, whose inescapable oaths, blackmail, and murder-by-lot system drive the story's tragedy.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-94d11a99ebea3e18",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-9db4e14eb72a4f92",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "The society generates dread and menace, but this is the ordinary estrangement of crime fiction, not cognitive estrangement from an altered empirical world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-5af59b6fa281b334",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-e4aabb551747a3b1",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-b4f0b072dcb68e36",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-690246d7141d1d93",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-5af59b6fa281b334",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-e4aabb551747a3b1",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-b4f0b072dcb68e36",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-690246d7141d1d93",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-94d11a99ebea3e18",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              },
+              {
+                "evidence_id": "sfev-9db4e14eb72a4f92",
+                "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The society governs the overriding motive, threat, and resolution of the plot, yet its centrality does not make it a science-fictional novum because it introduces no departure from the empirical norm.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-5af59b6fa281b334",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-9db4e14eb72a4f92",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-690246d7141d1d93",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-b4f0b072dcb68e36",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-5af59b6fa281b334",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                },
+                {
+                  "evidence_id": "sfev-690246d7141d1d93",
+                  "evidence_set_id": "sfes-6f0f6b03ca3e60a5"
+                }
+              ],
+              "rationale": "A criminal secret society is a realistic social institution within the empirical historical norm (Carbonari, Mafia-type organizations); it is not a totalizing or world-altering difference from the author's implied reality.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 24078,
+            "output": 2795
+          }
+        },
+        "status": "complete",
+        "story_hash": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+    "knight_analysis_id": "mass_quantities__the_adventure_of_the_red_circle__doyle-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__the_adventure_of_the_red_circle__doyle-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-6f0f6b03ca3e60a5",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 19246,
+            "paragraph_ids": [
+              "p00097"
+            ],
+            "start_char": 19132
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-03bbe15af9ecf37e",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes decodes flashed signals letter by letter using a numeric cipher.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A single flash--that is A, surely.  Now, then.  How many\ndid you make it?  Twenty.  So did I.  That should mean T."
+        },
+        {
+          "anchor": {
+            "end_char": 6770,
+            "paragraph_ids": [
+              "p00050"
+            ],
+            "start_char": 6679
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-288acdbb02bf972e",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes infers from the cigarette stub that a clean-shaven person smoked it, contradicting the description.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I don't understand that.  I should say that only a clean-shaven man\ncould have smoked this."
+        },
+        {
+          "anchor": {
+            "end_char": 5084,
+            "paragraph_ids": [
+              "p00028"
+            ],
+            "start_char": 4860
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-2bfbbdfb189b9079",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes makes detailed observations about the pencil and torn paper to draw inferences.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The words are\nwritten with a broad-pointed, violet-tinted pencil of a not unusual\npattern.  You will observe that the paper is torn away at the side here\nafter the printing was done, so that the 's' of 'soap' is partly gone."
+        },
+        {
+          "anchor": {
+            "end_char": 9553,
+            "paragraph_ids": [
+              "p00059"
+            ],
+            "start_char": 9401
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-492201b7e570442d",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes reasons out that communication must occur via newspaper advertisements and reviews the extracts.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There seems no other way, and\nfortunately we need concern ourselves with the one paper only.  Here\nare the Daily Gazette extracts of the last fortnight."
+        },
+        {
+          "anchor": {
+            "end_char": 26577,
+            "paragraph_ids": [
+              "p00133"
+            ],
+            "start_char": 26450
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5af59b6fa281b334",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The body of the giant is found stabbed to death with a knife.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "from the centre of\nhis broad, brown, upturned throat there projected the white haft of a\nknife driven blade-deep into his body."
+        },
+        {
+          "anchor": {
+            "end_char": 20089,
+            "paragraph_ids": [
+              "p00099"
+            ],
+            "start_char": 19934
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5d239b96858c71e8",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes interprets the cipher as Italian, deducing the message and its intended recipient.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And not a very\nobscure cipher, Watson,\" said he.  \"Why, of course, it is Italian!  The\nA means that it is addressed to a woman.  'Beware! Beware!  Beware!'"
+        },
+        {
+          "anchor": {
+            "end_char": 31752,
+            "paragraph_ids": [
+              "p00160"
+            ],
+            "start_char": 31577
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-690246d7141d1d93",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "The couple recounts fleeing Italy and relocating to America four years prior.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "We fled together, were married at Bari, and sold my jewels to gain the\nmoney which would take us to America.  This was four years ago, and we\nhave been in New York ever since."
+        },
+        {
+          "anchor": {
+            "end_char": 8555,
+            "paragraph_ids": [
+              "p00057"
+            ],
+            "start_char": 8378
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7f34ac3e57baf1e6",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes deduces a substitution of lodgers from the grammatical error suggesting a non-English speaker using a dictionary.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "This other, however, prints 'match' when it should have\nbeen 'matches.'  I can imagine that the word was taken out of a\ndictionary, which would give the noun but not the plural."
+        },
+        {
+          "anchor": {
+            "end_char": 1422,
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "start_char": 1367
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-94d11a99ebea3e18",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The landlady expresses fear and sleeplessness over the mysterious lodger.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It frightens me, Mr. Holmes.  I\ncan't sleep for fright."
+        },
+        {
+          "anchor": {
+            "end_char": 28460,
+            "paragraph_ids": [
+              "p00145"
+            ],
+            "start_char": 28315
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9db4e14eb72a4f92",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Emilia Lucca reacts with joyful relief and dancing at the sight of Gorgiano's corpse.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "she sprang\ninto the air with a cry of joy.  Round and round the room she danced,\nher hands clapping, her dark eyes gleaming with delighted wonder"
+        },
+        {
+          "anchor": {
+            "end_char": 6551,
+            "paragraph_ids": [
+              "p00048"
+            ],
+            "start_char": 6381
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-aebc4090ea938638",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes reasons from physical clues (burnt match length) to deduce their use.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The matches have, of course, been\nused to light cigarettes.  That is obvious from the shortness of the\nburnt end.  Half the match is consumed in lighting a pipe or cigar."
+        },
+        {
+          "anchor": {
+            "end_char": 12185,
+            "paragraph_ids": [
+              "p00067"
+            ],
+            "start_char": 12009
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-b4f0b072dcb68e36",
+          "evidence_type": "catastrophe",
+          "paraphrase": "Mr. Warren is abducted, driven off, and dumped, in a case of mistaken identity.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "two men came up behind\nhim, threw a coat over his head, and bundled him into a cab that was\nbeside the curb.  They drove him an hour, and then opened the door and\nshot him out."
+        },
+        {
+          "anchor": {
+            "end_char": 15799,
+            "paragraph_ids": [
+              "p00085"
+            ],
+            "start_char": 15697
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-be453d808ee0c53d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The hidden lodger reacts with horror upon noticing the observers.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I caught a glimpse of a dark, beautiful,\nhorrified face glaring at the narrow opening of the box-room."
+        },
+        {
+          "anchor": {
+            "end_char": 38869,
+            "paragraph_ids": [
+              "p00168"
+            ],
+            "start_char": 38768
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-cd70b69a0e467784",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The wife explains the arrangement of window-flash signaling as their means of communication.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev16",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "he would signal to me from a\ncertain window, but when the signals came they were nothing but\nwarnings"
+        },
+        {
+          "anchor": {
+            "end_char": 25968,
+            "paragraph_ids": [
+              "p00132"
+            ],
+            "start_char": 25860
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e4aabb551747a3b1",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The investigators discover a bloody trail leading to an inner room.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "there was\noutlined a fresh track of blood.  The red steps pointed towards us and\nled away from an inner room"
+        },
+        {
+          "anchor": {
+            "end_char": 2271,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 2142
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ffa2bb1843134363",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Holmes states a methodical principle of attending to every small detail when investigating.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "If I take it up I must understand every detail,\" said he.  \"Take time\nto consider.  The smallest point may be the most essential."
+        }
+      ],
+      "story_hash": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/the_adventure_of_the_red_circle__doyle",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "b0ec1b008005de106e8d3bef8a099cc3265fd3a019a5d838ac24819ab3fc930e",
+  "story_path": "mass_quantities/the_adventure_of_the_red_circle__doyle/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

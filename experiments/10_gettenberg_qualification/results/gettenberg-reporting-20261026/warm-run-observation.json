@@ -1,0 +1,31 @@
+{
+  "source_log": "/Users/centaur/Workspace/LCATS/LCATS/lcats/logs/gather/mass_quantities_gather_run_log.jsonl",
+  "observed_checkout_commit": "f32e45fdf89c84c0ca313efd5f3068edb77bf7c0",
+  "events": [
+    {
+      "event": "run_start",
+      "story_count": 5492,
+      "timestamp": "2026-10-26T22:24:50.252277Z"
+    },
+    {
+      "event": "story_ready",
+      "story": 1367,
+      "timestamp": "2026-10-26T22:24:51.213451Z"
+    },
+    {
+      "event": "batch_summary",
+      "incomplete": false,
+      "ready": 1661,
+      "refused": 0,
+      "skipped": 3831,
+      "timestamp": "2026-10-26T22:29:26.389146Z",
+      "unavailable": 0
+    },
+    {
+      "event": "run_end",
+      "story_count": 5492,
+      "timestamp": "2026-10-26T22:29:26.389221Z"
+    }
+  ],
+  "scope": "Existing user run, not repeated by this experiment; selected events only."
+}

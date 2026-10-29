@@ -8,6 +8,7 @@ This `project/` directory is the LRH planning and memory layer for LCATS.
 - Completed foundations: ingestion, survey/classification, and immediate correctness fixes.
 
 ## Directory Guide
+- `development/`: bounded process-experiment charters and evidence-linked logs.
 - `goal/`: long- and near-term intent.
 - `roadmap/`: phase-structured progress with completion state.
 - `focus/`: narrow active priority.
@@ -19,3 +20,12 @@ This `project/` directory is the LRH planning and memory layer for LCATS.
 
 ## Operating Rule
 If work is complete, move it out of active `work_items/` and record it in `memory/decision_log.md`.
+
+## Control-plane boundary
+
+Follow [the canonical repository policy](../STYLE.md#2-repository-structure).
+This directory contains documentation and non-executable planning/evidence data,
+including Markdown examples, images, JSON/JSONL/YAML and logs. Runnable code and
+notebooks belong outside the control plane. Link experiment runners and archival
+results under repository-root `experiments/`; use `lcats/experimental/` for
+prototypes and `lcats/src/lcats/` for tested reusable/product logic.

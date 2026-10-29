@@ -13,7 +13,6 @@ import shutil
 import sys
 
 from lcats.gatherers import main as gatherers_main
-from lcats.gettenberg import cache as gettenberg_cache
 from lcats.utils import env
 from lcats.utils import paths
 
@@ -81,14 +80,22 @@ def _clean_data(gatherer_names):
 
 
 def _clean_cache():
-    """Clear every cache mechanism: resources, and the Gutenberg cache."""
-    paths.makedirs(env.cache_resources_dir())
-    paths.clear_directory_contents(env.cache_resources_dir())
-    print(f"cleared: {env.cache_resources_dir()}")
-    gettenberg_cache.clear_all()
-    print(f"cleared: {gettenberg_cache.GUTENBERG_TEXTS}")
-    print(f"cleared: {gettenberg_cache.GUTENBERG_TMP}")
-    print(f"cleared: {gettenberg_cache.GUTENBERG_ROOT} (index DB, RDF archive)")
+    """Clear known source/catalog caches, preserving root directories/symlinks.
+
+    This explicit destructive maintenance command requires other LCATS processes
+    to be stopped. CatalogManager.cleanup is the separate retention operation for
+    pruning abandoned candidates while preserving published catalogs. Legacy cache
+    files are also cleared, so upgrading does not strand a large RDF archive.
+    """
+    root = env.cache_root()
+    for name in ("resources", "gettenberg", "texts", "tmp"):
+        target = root / name
+        paths.makedirs(target)
+        paths.clear_directory_contents(target)
+        print(f"cleared: {target}")
+    for name in ("gutenbergindex.db", "rdf-files.tar.bz2"):
+        (root / name).unlink(missing_ok=True)
+        print(f"cleared: {root / name}")
 
 
 def run(argv=None, parsed_args=None) -> int:

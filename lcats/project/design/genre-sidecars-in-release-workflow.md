@@ -152,6 +152,11 @@ absolute paths are removed on the way in.
 
 ## Drafted revised release procedure (text only; not applied)
 
+> **Superseded by `WI-PROMOTE-0115`.** The step was added to the runbook as
+> **step 3b**, *before* the preview, not as 6b after it: an unseeded preview is
+> blocked while a seeded `data/` previews clean. The draft below keeps its
+> original wording for history; follow the runbook, not this draft.
+
 Between today's step 6 (preview) and step 7 (promote), add:
 
 > **6b. Seed tranche-promoted sidecars into `data/`** — directory `lcats/`.
@@ -180,14 +185,19 @@ applied now (see the doc change in this PR).
    `corpora/` sidecars. Reuse the logic in `tools/rewrite_genre_cache_db_path.py`.
 2. **Add step 6b and the guard explanation to the release runbook**
    (`prepare-corpora-release.md`, `corpus-promotion.md`) once item 1 exists.
-3. **Release preflight and rule for other sidecar kinds** (investigation).
+3. **Release preflight and rule for other sidecar kinds** (investigation). Done in
+   `project/design/sidecar-kinds-release-rule.md` (`WI-PROMOTE-0117`); the rest of
+   this item's text is the original ask.
    State the pipeline-vs-tranche-promoted rule for `linguistics.json` and
    `scenes.json`, and whether the preflight should assert that every
    `corpora/` sidecar has a counterpart in `data/` after seeding (the guard
    dry-run already reports this).
 4. **Story-text binding for genre sidecars** (design). Add a story-text
    fingerprint to the sidecar provenance so a seeded sidecar can be detected as
-   stale. Schema change; needs its own design pass. Optional, P3.
+   stale. Schema change; needs its own design pass. Optional, P3. Investigated in
+   `project/design/genre-sidecar-story-binding.md` (`WI-PROMOTE-0118`): the original
+   story hashes survive and match, and the recommendation is a side manifest and a
+   release-time comparison, not a schema change.
 
 ## Reproduction
 

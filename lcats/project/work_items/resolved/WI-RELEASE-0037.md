@@ -1,0 +1,167 @@
+---
+"resolution": "Verified the delivered gettenberg replacement resolves the gutenbergpy/direct-URL dependency blocker through matching sdist/wheel/installed artifacts, fresh installation and qualified behavior in PR #537 (commit 7f195775248e0bca9f42bf68254f13a5b0e5e11d); WI-RELEASE-0039 remains the separate pre-publication gate."
+"blocked_reason": null
+"blocked": false
+"id": "WI-RELEASE-0037"
+"title": "Verify LCATS-owned gettenberg resolves the PyPI dependency blocker"
+"type": "deliverable"
+"status": "resolved"
+"owner": "xenotaur"
+"contributors":
+- "xenotaur"
+"assigned_agents": []
+"related_focus": []
+"related_roadmap": []
+"related_workstreams":
+- "WS-RELEASE"
+- "WS-GETTENBERG"
+"related_design":
+- "project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
+"depends_on":
+- "WI-GETTENBERG-0008"
+- "WI-GETTENBERG-0010"
+"blocked_by": []
+"expected_actions":
+- "edit_file"
+- "create_file"
+- "run_tests"
+- "create_pr"
+"forbidden_actions":
+- "force_push"
+- "delete_branch"
+- "publish_package"
+- "modify_ci_pipeline"
+"acceptance":
+- "The approved internal redesign is delivered on main with no active gutenbergpy imports or installation\
+  \ requirements; no vendor/fork/wait path is substituted."
+- "pyproject.toml and environment.yml remove the external dependency consistently, and built distribution\
+  \ metadata contains no direct URL/VCS requirements."
+- "Real parser-to-SQLite tests cover multiple titles and contributor aliases; caller migration, offline/first-use\
+  \ behavior and corpus comparisons have linked verification."
+- "A fresh wheel installation works without gutenbergpy; canonical validation and independent review qualify\
+  \ the release blocker resolution."
+- "lrh validate reports zero errors; publication and near-publication WI-RELEASE-0039 remain separate."
+"required_evidence":
+- "manual_review"
+- "lrh_validate"
+- "test_output"
+"artifacts_expected":
+- "project/executions/WI-RELEASE-0037/"
+- "pyproject.toml"
+- "environment.yml"
+- "src/lcats/gettenberg/"
+---
+
+## Summary
+
+Verify that WS-GETTENBERG delivers the internally owned replacement and removes
+the external gutenbergpy dependency from runtime and distribution metadata.
+Implementation belongs to the linked gettenberg work items; this item retains
+release-blocker ownership rather than duplicating their code changes.
+
+## Problem / Context
+
+### Historical decision context (superseded 2026-10-14)
+
+The original item investigated waiting for upstream, vendoring its cache-builder
+closure, or publishing a maintained fork. Alias/title fixes motivated the VCS
+pin. That history remains available in this file at commit `5cfd2d71`; it is
+not an active implementation instruction. The owner chose a full internal
+redesign in PROP-LCATS-GETTENBERG-REDESIGN (PR #501), without a hard release date.
+The upstream-release watch no longer blocks the decision.
+
+### Duplication search
+
+- Existing gettenberg implementation and WS-GETTENBERG own replacement delivery.
+- No sibling consumer or separate replacement is known; no vendor/fork project is planned.
+- Recommendation: verify/link delivered evidence rather than implement twice.
+
+### Demand search
+
+- WI-GETTENBERG-0008 and WI-GETTENBERG-0010 supply migration/qualification evidence.
+- WS-RELEASE and the release-readiness proposal retain release coordination.
+- Recommendation: keep this gate open until delivery is demonstrated.
+
+## Scope
+
+Release-blocker verification of the internal replacement, package/environment
+requirements, fresh-wheel installation, and linked behavior evidence.
+
+## Required Changes
+
+1. Inspect delivered gettenberg migration/qualification evidence against the
+   approved design; verify aliases and titles through the real ingestion path.
+2. Build and inspect wheel/sdist metadata for external gutenbergpy and other
+   direct URL requirements; verify a fresh installation without gutenbergpy.
+3. Link exact commits, commands/results and reviewer findings in the execution
+   record. Do not infer delivery from an internal integration merge.
+4. Resolve only after human-approved main delivery and demonstrated acceptance;
+   leave WI-RELEASE-0039 to an imminent publication session.
+
+## Non-Goals
+
+No vendoring, upstream wait, fork publication, CI changes, package publication,
+release infrastructure expansion, or automatic corpus promotion.
+
+## Acceptance Criteria
+
+All frontmatter acceptance criteria are verified with linked exact-head evidence.
+No work item is resolved by this planning reconciliation alone.
+
+## Validation
+
+- `scripts/format --check --diff`, `scripts/lint`, `scripts/test`, `lrh validate`.
+- Fresh wheel build/install, dependency metadata inspection and supported offline
+  catalog/gather smoke tests against recorded fixtures.
+- Independent review of evidence, not just a green automated check.
+
+## Dependencies / Order
+
+WI-GETTENBERG-0008 and WI-GETTENBERG-0010 must deliver the replacement before this
+release verification resolves. WI-RELEASE-0039 runs near actual publication.
+
+
+## Linked migration evidence — 2026-10-17
+
+WI-GETTENBERG-0008 is staged via PR #522/internal merge46960f66. Its acceptance
+mapping links removed dependency pins/wrappers, caller disposition, multi-title/
+alias tests, bounded corpus comparisons and fresh isolated-wheel qualification
+without gutenbergpy. See development/evidence/gettenberg-migration-20261017/.
+This item remains proposed: main delivery, WI0010 qualification and independent
+release-blocker closeout are still required. No publication approval is implied.
+
+## Main-delivery checkpoint — 2026-10-27
+
+PR #534 delivered the replacement on main at
+`b4ec4c452ed178dd62472af9f1a46b44e70ce485`; WI-GETTENBERG-0008/0010 and
+WS-GETTENBERG are now closed. See [formal delivery closeout](../../development/gettenberg-closeout.md)
+for the acceptance map, final validation and preserved limitations. The earlier
+migration checkpoint is historical. This release item remains proposed: independently
+verify its current distribution/install and release-blocker criteria before resolving
+it. WI-RELEASE-0039 remains the near-publication gate; no package publication is
+approved by replacement delivery.
+
+## Verification candidate — 2026-10-28
+
+Verified delivered main `9976242705b68c2ad239184fd260c6ce4ae74f8d`; see the
+[acceptance/evidence report](../../../../experiments/10_gettenberg_qualification/results/release-blocker-20261028/README.md).
+Normal sdist/wheel build and fresh installation retain all 188 tracked package files,
+exclude gutenbergpy/direct-URL requirements, and pass installed catalog/gather checks.
+Canonical suite: 3,014 tests pass. This item remains proposed pending independent
+review, PR merge and formal closeout; WI-RELEASE-0039/WS-RELEASE remain open.
+No product, CI, package declaration or canonical corpus changes are included.
+
+## Resolution — 2026-10-29
+
+Human approved review, merge and closeout. PR #537 merged to main at
+`7f195775248e0bca9f42bf68254f13a5b0e5e11d`, following independent local review
+and four successful hosted checks on head `c801f957`. No unresolved review threads
+remained. Copilot reported insufficient quota, which is not a substantive review;
+the independent review and its rerun evidence are retained in the linked packet.
+The preceding proposed-state checkpoints are historical.
+
+All five acceptance criteria are demonstrated by the packet and delivered main.
+This resolves the dependency-blocker verification only. WI-RELEASE-0039, WS-RELEASE,
+the release-readiness proposal, GPA-A–E, PR #524 and Kenny's work remain open.
+No package publication, release version selection or corpus regeneration is authorized.

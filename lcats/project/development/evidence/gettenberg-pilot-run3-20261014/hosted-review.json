@@ -1,0 +1,26 @@
+[
+  {
+    "id": 4275774979,
+    "author": "chatgpt-codex-connector[bot]",
+    "body": "**<sub><sub>![P2 Badge](https://img.shields.io/badge/P2-yellow?style=flat)</sub></sub>  Persist newly created managed directories**\n\nOn a fresh cache, this creates `cache_dir/gettenberg` (and potentially `cache_dir` itself) without fsyncing the directories that contain those new entries. Later publication only syncs directories inside `gettenberg`, so a POSIX power loss after `setup()` returns can lose the entire managed root even though the pointer and generation contents were reported durable. Fsync each parent after creating its child before relying on the new hierarchy.\n\nUseful? React with \ud83d\udc4d\u00a0/ \ud83d\udc4e.",
+    "path": "lcats/src/lcats/gettenberg/lifecycle.py",
+    "original_commit": "a96f755987dc7af3d00bf64a891d61de8aa81f67",
+    "url": "https://github.com/xenotaur/LCATS/pull/507#discussion_r4275774979"
+  },
+  {
+    "id": 4275785773,
+    "author": "Copilot",
+    "body": "The retained-source identity check happens after `retain_archive` has published the copied bytes under their new digest. If the active archive was altered, this raises as intended but leaves a second archive that `cleanup()` will never remove; repeated failed implicit rebuilds can permanently consume up to the compressed-size limit each time. Compare the expected identity before publication, or let `retain_archive` discard a mismatching temp before creating the hard link.",
+    "path": "lcats/src/lcats/gettenberg/lifecycle.py",
+    "original_commit": "a96f755987dc7af3d00bf64a891d61de8aa81f67",
+    "url": "https://github.com/xenotaur/LCATS/pull/507#discussion_r4275785773"
+  },
+  {
+    "id": 4275785863,
+    "author": "Copilot",
+    "body": "`atomic_json` reports any post-replace directory-sync failure as `CatalogPublicationError(published=True)`. At this call site only the candidate manifest has been published\u2014`active.json` has not changed\u2014yet the public recovery guidance interprets `published=True` as possible catalog activation. Distinguish candidate-manifest publication from active-pointer publication (or translate this case to a non-publication lifecycle error) so callers are not given a false activation ambiguity.",
+    "path": "lcats/src/lcats/gettenberg/lifecycle.py",
+    "original_commit": "a96f755987dc7af3d00bf64a891d61de8aa81f67",
+    "url": "https://github.com/xenotaur/LCATS/pull/507#discussion_r4275785863"
+  }
+]

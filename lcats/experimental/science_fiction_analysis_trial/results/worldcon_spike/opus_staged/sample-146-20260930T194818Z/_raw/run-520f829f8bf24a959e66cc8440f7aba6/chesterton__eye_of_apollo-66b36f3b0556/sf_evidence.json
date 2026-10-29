@@ -1,0 +1,109 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 16294,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1456,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_evidence",
+  "story_id": "chesterton/eye_of_apollo",
+  "story_path": "chesterton/eye_of_apollo/story.json",
+  "text": "",
+  "title": "Chesterton - The Eye Of Apollo",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00044"
+        ],
+        "paraphrase": "Kalon offers a pseudo-scientific/occult explanation of levitation as a mastery over matter to account for the death.",
+        "quote": "It is well known to all students of the higher truths that certain adepts and illuminati have in history attained the power of levitation\\u2014that is, of being self-sustained upon the empty air. It is but a part of that general conquest of matter which is the main element in our occult wisdom.",
+        "raw_id": "ev01"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00092"
+        ],
+        "paraphrase": "Father Brown reconstructs a motive by reasoning from an observed detail about the victim's blindness.",
+        "quote": "I thought of the blindness, and felt sure she had wanted Pauline to sign in solitude because she had wanted her not to sign at all.",
+        "raw_id": "ev02"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00093"
+        ],
+        "paraphrase": "Brown deduces the mechanism of the second crime from the physical clue of an unfilled fountain pen.",
+        "quote": "By habit and her strong will and memory she could still write almost as well as if she saw; but she could not tell when her pen needed dipping. Therefore, her fountain pens were carefully filled by her sister\\u2014all except this fountain pen.",
+        "raw_id": "ev03"
+      },
+      {
+        "confidence": 0.65,
+        "evidence_type": "inquiry_or_scientific_method",
+        "paragraph_ids": [
+          "p00100"
+        ],
+        "paraphrase": "Brown identifies the murderer by inferring from Kalon's lack of reaction to the noise.",
+        "quote": "There came a crash and a scream down the street, and the priest of Apollo did not start or look round. I did not know what it was. But I knew that he was expecting it.",
+        "raw_id": "ev04"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00025"
+        ],
+        "paraphrase": "Flambeau reacts to discovering Pauline's dead body.",
+        "quote": "For the last four minutes Flambeau had looked down on it; had seen the brained and bleeding figure of that beautiful woman who denied the existence of tragedy.",
+        "raw_id": "ev05"
+      },
+      {
+        "confidence": 0.6,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00026"
+        ],
+        "paraphrase": "Pauline dies by falling down the lift shaft.",
+        "quote": "that beautiful and defiant body had been dashed down the open well of the lift to death at the bottom",
+        "raw_id": "ev06"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00020"
+        ],
+        "paraphrase": "The narration contrasts the blinking priest with the sun-staring prophet.",
+        "quote": "Father Brown could not look at anything without blinking; but the priest of Apollo could look on the blaze at noon without a quiver of the eyelid.",
+        "raw_id": "ev07"
+      },
+      {
+        "confidence": 0.55,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00089"
+        ],
+        "paraphrase": "Brown explains that staring at the sun damaged Pauline's sight, tying the cult practice to a physical cause of blindness.",
+        "quote": "It came with this precious prophet, or whatever he calls himself, who taught her to stare at the hot sun with the naked eye. It was called accepting Apollo.",
+        "raw_id": "ev08"
+      },
+      {
+        "confidence": 0.5,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00013"
+        ],
+        "paraphrase": "Pauline expresses fervent enthusiasm for modern machinery and mechanical science.",
+        "quote": "Her bright black eyes blazed with abstract anger against those who rebuke mechanic science and ask for the return of romance. Everyone, she said, ought to be able to manage machines, just as she could manage the lift.",
+        "raw_id": "ev09"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "failure_kind": "ValueError",
+  "failure_message": "present Novum dimensions require supporting evidence",
+  "raw_response_path": "experimental/science_fiction_analysis_trial/results/worldcon_spike/opus_staged/sample-146-20260930T194818Z/_raw/run-520f829f8bf24a959e66cc8440f7aba6/mass_quantities__dough_or_dynamite__tuttle-d7a9be6a4514/sf_suvin_novum.json",
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "mass_quantities/dough_or_dynamite__tuttle",
+  "story_path": "mass_quantities/dough_or_dynamite__tuttle/story.json",
+  "title": "Dough or Dynamite",
+  "tool_result": null
+}

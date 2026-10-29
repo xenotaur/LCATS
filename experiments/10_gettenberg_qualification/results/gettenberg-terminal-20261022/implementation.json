@@ -1,0 +1,9 @@
+{
+  "starting_commit": "c54d17ebae0d34e2ce2493cf4f9e135b7ef388cb",
+  "files": {
+    "lcats/src/lcats/gatherers/review_rules.py": "21abcdddbc3da73419d8f4fda9de2ab4f1bcd448d1ad46c114ebbaacff218229",
+    "experiments/10_gettenberg_qualification/scripts/qualify_review_batch.py": "235baf1a3a8b48318ea77d6a671604ecaa6ec1a6047fd1bd7ace93c7bb565c7d",
+    "lcats/tests/gatherers_tests/trailing_notice_test.py": "b2f7e73cf41897ed24100f8e6e77c1c61a8470e8c9338cb4bf11e9721f48acea",
+    "lcats/tests/gettenberg_tests/terminal_batch_evidence_test.py": "e6141a55ce2863e4c172cc38ffbd14572fd6c2231c08032d4f28c2c603bdd7ca"
+  }
+}

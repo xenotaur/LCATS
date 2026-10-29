@@ -1,0 +1,24 @@
+{
+  "product_commit": "94d4331f1d1215b89599cb06ec197eb015e4bce3",
+  "files": {
+    "installed-cli-404.log.gz": "866dfbb2be8f95050fe6e4c65bd978e734357565afe7bfe1d4cbe026415695be",
+    "focused.log.gz": "59b3923b419ef435fde0c2d2dd247603b664284e2cf1ee1338f05ea626cbd998",
+    "build.log.gz": "e0a8b3c0d7251f1344f1c3509fc0ddfa1ffcd8bed4263024ff0785a6504285c7",
+    "independent-review.json": "ec307278d5be3b12d266c51afa5dc74b48f361acd0ac9cedf3c5a935c6fc60eb",
+    "installed-cli-refusal.log.gz": "866dfbb2be8f95050fe6e4c65bd978e734357565afe7bfe1d4cbe026415695be",
+    "tests.log.gz": "c7a8337fafbea47366fc38d20f4365e75a1cddfde340af7413a008bcef1c12a0",
+    "installed-cli-404.json": "693d271dad7e4de7942fe7d8d70d8a48acea10c2e0975be308df6f42c45b098a",
+    "format.log.gz": "a8b820448b02306bebc40ff0ffd8bc5aa0abd9612a83612f79f4404ef4019461",
+    "install.log.gz": "c2d479becb9bdb6073380932f6e79ac435684df196b0bbc3a9e2d014d6785901",
+    "versions.log.gz": "afac418eef1c77efb138e9605295babb6139df4c4881022f0cd475ba95e68141",
+    "lrh.log.gz": "cb31c257225a3492b67ea045830ed3e7b8dcd1a4d2827c696f3146b24cfd6b8c",
+    "installed-smoke.json": "e891a48faaf5d276f1266a13279a359c0bc53b4582da443cc36a0bb59b12a234",
+    "installed-cli-refusal.json": "2826b7eeb51b2fb249de3166796da4b05928fc27fe4c96dba241900cfaf9b28e",
+    "installed-packages.json": "80ae2826f51338004177352bdbde5b3eee5f750a17fce81afaca44d8dc2f139f",
+    "runner-lint.log.gz": "c8c8467aa7a656d7379cb3210a540af48e6d4c8cd61533c367ed4cc6428396c1",
+    "pip-check.log.gz": "3e4cf6952f32777a9582d83c1b1b06b347528ca765022b6c97f049c340fd32d7",
+    "wheel-closure.json": "bfce31efa114c58dd95dceef802b1f37de01504587e85adc1653a4fb89b3c90b",
+    "installed-smoke.log.gz": "4e47d7f54ed3dab0d124d3986b2e9da52203c00323595777ed2191a04f96c016",
+    "lint.log.gz": "c8c8467aa7a656d7379cb3210a540af48e6d4c8cd61533c367ed4cc6428396c1"
+  }
+}

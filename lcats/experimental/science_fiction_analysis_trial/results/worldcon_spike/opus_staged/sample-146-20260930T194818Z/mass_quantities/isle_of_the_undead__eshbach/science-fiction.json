@@ -1,0 +1,828 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__isle_of_the_undead__eshbach-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story is supernatural horror (vampires, undead, blood pacts). The pseudo-explanations offered (blood transforms victims, undead must return to tombs) are occult lore, not scientific facts, theories, discoveries, natural processes, or speculative sciences. No material scientific content is present.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "The gunpowder Cliff uses is ordinary historical explosive, and the silver horn is a magical/occult instrument rather than an engineered invention that speculatively affects the setting. These are conventional or supernatural objects, not a science-fictional device, technique, or invention.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": "substantial",
+            "rationale": "An ancient galley from the era of Alexander the Great and its Persian crew persist into the present day, explicitly framed as out of their own time. This evokes temporal displacement, but it is presented as supernatural undeath/preservation rather than genuine time travel, so materiality and interpretation are uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4b3a9a3e13c8e239",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-4c32dc492790dcde",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ]
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The narrative does not develop systematic consequences from an identifiable scientific, technological, social, or historical premise. The blood-feast arrangement is described as a fixed supernatural pact, not an extrapolated chain of consequences from a rational premise.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Cliff reasons from observations (the sailors' blades cut flesh, so real blades lie among the bones; the vampires depend on their tombs) to deduce means of escape. This is everyday practical inference under duress rather than sustained scientific method with hypothesis and testing, so materiality is limited.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-8f49db23ded25569",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-44bf9ba9b6992eeb",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ]
+          },
+          {
+            "confidence": 0.5,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": "substantial",
+            "rationale": "The isolated Isle of the Undead with its dead forest, skull-shaped rock, and castle of undead is a substantially nonordinary environment populated by supernatural visitors from the past. It reads as a Gothic/horror locale rather than a cosmic or extraterrestrial place, making the science-fictional character uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-4c32dc492790dcde",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-5367fe057283235d",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ]
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": "central",
+            "rationale": "The climax features a large-scale disaster: explosions trigger an earthquake that grinds the island to bits, the skull-rock barrier splits and sinks, and the whole island is destroyed by fire and seismic collapse. This catastrophe is actual and causally central to the resolution.",
+            "status": "present",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-989d1bf0b43eb3d9",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-381bfc89318fdb47",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-57b615e017729b23",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-47c3a309d7883c49",
+        "failures": [],
+        "interval": {
+          "definite_count": 1,
+          "possible_count": 4,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-47c3a309d7883c49",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 30086,
+            "output": 1415
+          }
+        },
+        "status": "complete",
+        "story_hash": "25a44e5877baf8dbc7f5d773c9da7703bf3f6855f07d43f2ddbbfd2bb7905325"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__isle_of_the_undead__eshbach-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-undead-blood-economy",
+            "cognitive_validation": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-0b66d8966fa2ba90",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-57b615e017729b23",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-44bf9ba9b6992eeb",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ],
+              "rationale": "The undead, vampire Masters, blasphemous Latin incantations, animated skeletons, and blood-magic are presented as overtly supernatural and demonic rather than as an immanent, nonsupernatural, systematic account. The 'rules' (must return to tombs before sunrise, a drop of blood binds one to the Master, chilling Presence and incantation) function as occult/horror conventions, not imaginary science or coherent social organization grounded in a nonsupernatural logic. Suvin's cognition requirement is failed.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "An immortal cult of vampire 'Masters' and their undead servants on a hidden island, sustained by a systematized blood-supply operation in which human agents (Corio and two others) periodically deliver captive humans on alternating months so the dead-alive have a constant supply of fresh blood, in exchange for gold, gems, and extended life.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-ac97dba0e0fe77b5",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-f17aadae607b8cfb",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-1c2e6aadc945fcbd",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ],
+              "rationale": "Readers encounter a decayed galley from the age of Alexander manned by bloodless drowned corpses appearing in the present, and a scheduled blood-tribute economy, contrasted sharply against the modern yacht party and radio dance orchestra. Characters react with dread and horror.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4b3a9a3e13c8e239",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-4c32dc492790dcde",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-5367fe057283235d",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-95327956ed032657",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-e50205e75bde2434",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-44bf9ba9b6992eeb",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-989d1bf0b43eb3d9",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-381bfc89318fdb47",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-4b3a9a3e13c8e239",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-4c32dc492790dcde",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-5367fe057283235d",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-95327956ed032657",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-e50205e75bde2434",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-57b615e017729b23",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-0b66d8966fa2ba90",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-44bf9ba9b6992eeb",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-989d1bf0b43eb3d9",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-381bfc89318fdb47",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-1c2e6aadc945fcbd",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.8,
+              "counterevidence": [],
+              "rationale": "The undead blood-economy governs the entire narrative logic: the abduction, the island, the torture ceremony, the captives' fate, the climax, and the island's destruction all flow from it. It is not incidental.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-95327956ed032657",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-e50205e75bde2434",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-0b66d8966fa2ba90",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-44bf9ba9b6992eeb",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-989d1bf0b43eb3d9",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-381bfc89318fdb47",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The story posits a totalizing difference from the empirical norm: an island populated by centuries-old undead and vampire Masters served by an ancient resurrected galley crewed by animated corpses, a world-altering supernatural order sustained across historical eras. This alters the crucial aspect of the story universe.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-95327956ed032657",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-e50205e75bde2434",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-57b615e017729b23",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-0b66d8966fa2ba90",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-4b3a9a3e13c8e239",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-4c32dc492790dcde",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                },
+                {
+                  "evidence_id": "sfev-5367fe057283235d",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ]
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-corio-horn",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "Its effects (commanding the undead, luring souls, promising dominion) are magical/occult and given no immanent nonsupernatural mechanism.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "Corio's four-piped silver horn producing distinct tonal notes that can awaken the undead crew, induce paralysis-sleep in living humans, and irresistibly lure victims with promises of earthly dominion.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-1c2e6aadc945fcbd",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ],
+              "rationale": "The horn's ability to summon corpses and enslave the will is an eerie contrast to any ordinary instrument, but it reads as a magical gadget within an occult framework.",
+              "reader_facing_evidence": [],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-0b66d8966fa2ba90",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              },
+              {
+                "evidence_id": "sfev-1c2e6aadc945fcbd",
+                "evidence_set_id": "sfes-47c3a309d7883c49"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.65,
+              "counterevidence": [],
+              "rationale": "The horn is a recurring plot device serving the antagonist, but it is an instrument subordinate to the undead-cult premise; it does not itself determine the overriding narrative logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "novelty": {
+              "confidence": 0.4,
+              "counterevidence": [],
+              "rationale": "The horn exhibits an unusual, quasi-hypnotic power over both the living and the dead, but it operates as an instrument within the broader supernatural undead order rather than constituting a distinct world-altering difference on its own.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-0b66d8966fa2ba90",
+                  "evidence_set_id": "sfes-47c3a309d7883c49"
+                }
+              ]
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-47c3a309d7883c49",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-47c3a309d7883c49",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 30433,
+            "output": 2155
+          }
+        },
+        "status": "complete",
+        "story_hash": "25a44e5877baf8dbc7f5d773c9da7703bf3f6855f07d43f2ddbbfd2bb7905325"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-47c3a309d7883c49",
+    "knight_analysis_id": "mass_quantities__isle_of_the_undead__eshbach-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__isle_of_the_undead__eshbach-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-47c3a309d7883c49",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 48038,
+            "paragraph_ids": [
+              "p00174"
+            ],
+            "start_char": 47918
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-01b52dad79692646",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Cliff identifies the kegs as pirate gunpowder and conceives a plan to use it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Gunpowder! Of\ncourse--he had heard Corio mention pirates and their treasure, and\nthis had been their cache of explosive."
+        },
+        {
+          "anchor": {
+            "end_char": 29338,
+            "paragraph_ids": [
+              "p00105"
+            ],
+            "start_char": 29248
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-0b66d8966fa2ba90",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The narration explains the vampires' need to return to their tombs before sunrise.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev14",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Before sunrise they must be in\ntheir tombs under the castle, to sleep until another night."
+        },
+        {
+          "anchor": {
+            "end_char": 26971,
+            "paragraph_ids": [
+              "p00096"
+            ],
+            "start_char": 26856
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1c2e6aadc945fcbd",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Cliff reacts with fear and helplessness at the power controlling his friend.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev13",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The marrow melted from Cliff Darrell's bones. What--what could he do\nagainst a power that did _that_ to Les Starke?"
+        },
+        {
+          "anchor": {
+            "end_char": 56725,
+            "paragraph_ids": [
+              "p00201"
+            ],
+            "start_char": 56589
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-381bfc89318fdb47",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The island's skull-shaped rock splits and sinks amid fire as it is destroyed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev12",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "At that moment they saw the barrier\nof rock like a skull split and sink into the sea. Beyond, cleansing\ntongues of flame licked the sky."
+        },
+        {
+          "anchor": {
+            "end_char": 53928,
+            "paragraph_ids": [
+              "p00191"
+            ],
+            "start_char": 53714
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-44bf9ba9b6992eeb",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Cliff deduces the vampires depend on their tombs and flee when the graves are destroyed.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev15",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Down there somewhere were\ntheir graves--graves rent and broken by the explosion--graves\nthreatened by the flames--and panic had seized the vampires, fear of\nthe death which would result with exile from their tombs!"
+        },
+        {
+          "anchor": {
+            "end_char": 3170,
+            "paragraph_ids": [
+              "p00013"
+            ],
+            "start_char": 3040
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4b3a9a3e13c8e239",
+          "evidence_type": "temporal_or_spatial_displacement",
+          "paraphrase": "An ancient galley from the era of Alexander the Great appears in the present day, described as out of its own time.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It's--it's--it _can't_ be, damn it!--but it's a\ngalley, a ship from the days of Alexander the Great! What's it\ndoing--here--_now_?"
+        },
+        {
+          "anchor": {
+            "end_char": 1996,
+            "paragraph_ids": [
+              "p00010"
+            ],
+            "start_char": 1777
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4c32dc492790dcde",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "An impossibly ancient, decayed ship emerges intact and moving from the fog.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Out of the winding-sheet of fog into the moonlight crept a strange,\nstrange craft, her crumbling timbers blackened and rotted with\nincredible age. The corpse of a ship, she seemed, resurrected from the\ngrave of the sea."
+        },
+        {
+          "anchor": {
+            "end_char": 3849,
+            "paragraph_ids": [
+              "p00015"
+            ],
+            "start_char": 3699
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-5367fe057283235d",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The galley's crew are drowned-looking, bloodless corpses that nonetheless move.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "all, _all_ were a bloodless white, the skin of\ntheir faces puffed and bloated and horribly wrinkled, like flesh that\nhad been under water a long time."
+        },
+        {
+          "anchor": {
+            "end_char": 36522,
+            "paragraph_ids": [
+              "p00129"
+            ],
+            "start_char": 36445
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-57b615e017729b23",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Corio explains that introducing his blood transforms a person into a servant of the Master.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A drop of my blood in your veins,\nand you will belong to the Master, as I do."
+        },
+        {
+          "anchor": {
+            "end_char": 44575,
+            "paragraph_ids": [
+              "p00163"
+            ],
+            "start_char": 44430
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8f49db23ded25569",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Cliff reasons from observed facts to deduce a means of escape.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Those Persian sailors were armed! Their swords and knives were real,\nfor they cut flesh! Somewhere among their bones must lie sharp-edged\nblades!"
+        },
+        {
+          "anchor": {
+            "end_char": 35229,
+            "paragraph_ids": [
+              "p00125"
+            ],
+            "start_char": 35050
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-95327956ed032657",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Corio explains the arrangement by which captives are brought as food for the undead.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "we entered into a pact with\nthe--Master, a pact sealed with blood. In exchange for our lives we\nthree were to bring other humans to this island for the feasting of\nthe dead-alive."
+        },
+        {
+          "anchor": {
+            "end_char": 54956,
+            "paragraph_ids": [
+              "p00193"
+            ],
+            "start_char": 54795
+          },
+          "confidence": 0.85,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-989d1bf0b43eb3d9",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The explosions trigger an earthquake that destroys the entire island.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "An earthquake! The\nexplosions had jarred the none-too-stable understrata of rock into\nspasmodic motion that must grind everything to bits! The island was\ndoomed!"
+        },
+        {
+          "anchor": {
+            "end_char": 646,
+            "paragraph_ids": [
+              "p00004"
+            ],
+            "start_char": 533
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ac97dba0e0fe77b5",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Vilma reacts with dread and foreboding to the eerie scene.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Vilma Bradley shuddered and shrank against Clifford Darrell's brawny\nform. \"It's--it's ghastly, Cliff!\" she said."
+        },
+        {
+          "anchor": {
+            "end_char": 35398,
+            "paragraph_ids": [
+              "p00125"
+            ],
+            "start_char": 35230
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e50205e75bde2434",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "Corio describes the scheduled system that keeps the undead supplied with blood.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Every third month each of us must return with our\ncargo when the moon is full; and since we come back on alternating\nmonths, they have a constant supply of fresh blood."
+        },
+        {
+          "anchor": {
+            "end_char": 4008,
+            "paragraph_ids": [
+              "p00016"
+            ],
+            "start_char": 3851
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f17aadae607b8cfb",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narration emphasizes horror at the moving dead crew.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Dead men ... men whose movements were stiffly wooden ... as dead as\ntheir faces. But most horrible was the fact that they were there, that\nthey moved at all!"
+        }
+      ],
+      "story_hash": "25a44e5877baf8dbc7f5d773c9da7703bf3f6855f07d43f2ddbbfd2bb7905325",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/isle_of_the_undead__eshbach",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "25a44e5877baf8dbc7f5d773c9da7703bf3f6855f07d43f2ddbbfd2bb7905325",
+  "story_path": "mass_quantities/isle_of_the_undead__eshbach/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

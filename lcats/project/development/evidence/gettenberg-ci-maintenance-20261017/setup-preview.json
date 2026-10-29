@@ -1,0 +1,26 @@
+{
+  "command": [
+    "lcats",
+    "catalog",
+    "setup",
+    "--cache-dir",
+    "/tmp/gettenberg-ci-preview-20261017",
+    "--url",
+    "https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2",
+    "--dry-run"
+  ],
+  "result": {
+    "acquisition": "download",
+    "action": "setup",
+    "allowed_origins": [
+      "https://www.gutenberg.org"
+    ],
+    "approval_required": true,
+    "cache_dir": "/private/tmp/gettenberg-ci-preview-20261017",
+    "catalog_state": "missing",
+    "max_archive_bytes": 268435456,
+    "online": true,
+    "reason": "permitted cache miss",
+    "source": "https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2"
+  }
+}

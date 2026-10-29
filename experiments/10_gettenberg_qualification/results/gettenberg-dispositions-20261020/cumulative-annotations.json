@@ -1,0 +1,83 @@
+[
+  {
+    "gutenberg_id": 32878,
+    "outcome": "exclude",
+    "reviewer": "codex coordinator; source review 2026-10-20",
+    "rationale": "Coordinator source review confirms six genuine narrative divisions: PRELUDE, INTERMEZZO, SONATA, DANSE MACABRE, GRAND FINALE and RECESSIONAL at candidate paragraphs 4, 87, 152, 183, 228 and 263. Exclude from this undivided single-story collection; no narrative deletion or corpus-output acceptance is implied.",
+    "source_identity_sha256": "e8b7ace5eda1f7da018f5bf4284ab0b382f276f66eab0c1242a8783ee33143c4",
+    "candidate_sha256": "ec36bbe5a6bddeed6c3b7603c14f30bda5790e2e36b8da5303f3da1ed6cb4cde",
+    "assessment_sha256": "bf590df74c821b82f5035b7d3c6c1f5ae2066e5d8880a52cf243c97d497cfa6b"
+  },
+  {
+    "gutenberg_id": 70391,
+    "outcome": "defer",
+    "reviewer": "codex coordinator; source review 2026-10-20",
+    "rationale": "Coordinator rechecked the novelet label and transcriber note plus in-story sign contexts. These display headings do not establish chapters. Complete editorial boundary selection remains unresolved; retain the candidate for further review and do not publish.",
+    "source_identity_sha256": "43abcee6e7a854a8761f135e9176f86eae6a1affb34332ada2f0e6cca7fb975e",
+    "candidate_sha256": "f165689834c7c4ec18dc7f9f714cf792dac3ead9dc7ce454fe1a72b121c3af65",
+    "assessment_sha256": "d5e0d3ff156fbb688bc52dcf893685d4cbf11d40f835d22cf9ca26f718eeb6be"
+  },
+  {
+    "gutenberg_id": 27612,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Four named narrative divisions; retained corpus contains only the final section. Exclude under unchanged unchaptered collection requirement.",
+    "source_identity_sha256": "5250d3c66e2722c5c1297d8e7593c3fdcf0b79644b0e72d4ab783c5922dfc282",
+    "candidate_sha256": "c30988c1ec8a78f020f515df9909e9efc3f35325c573462fd4b8ddd4a6be8e72",
+    "assessment_sha256": "31f7bbfbfb9041bec2ed212e8ad6faa35c957da4ecdf3ee8d39fa85bb9f99baf"
+  },
+  {
+    "gutenberg_id": 61198,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Numbered II\u2013IV divisions introduce real Retief narrative; retained corpus begins late in Yith dialogue. Exclude rather than reaccept earlier narrative loss.",
+    "source_identity_sha256": "2def92d9d4c658dd515deb234d6109db66e4b95be220b76118ffef54529db637",
+    "candidate_sha256": "148f8dbc9638b031b39e15c665cfdb7c93c912ad7c37e6b65edd4e3b551d1aad",
+    "assessment_sha256": "aa50f221b28f2c37f80aa043979d7d14a12399514ed88f019f17228c9c90f3ab"
+  },
+  {
+    "gutenberg_id": 64292,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Numbered II\u2013V narrative divisions in Tang/Lutscher story; retained corpus starts after earlier narrative. Exclude under existing unchaptered scope.",
+    "source_identity_sha256": "4224757272458a5a77177f7b4cc5d5f592dd2eef75b524b664a0caf68ac2cdda",
+    "candidate_sha256": "2ee3e72cd1bd0ad8481e7201597c8c331df67ad4ffdb4a84bf483f8fa1e65bde",
+    "assessment_sha256": "b3627809301ee9b50f2b392931ccb37463b914f463427a18564a0f1464b61ab9"
+  },
+  {
+    "gutenberg_id": 27709,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Farce with I\u2013XII dramatic divisions and cast labels; retained corpus is trailing publisher advertisements, not the play. Exclude divided work.",
+    "source_identity_sha256": "e91c24e5272cb279e0aaa823c3ca09c1399ff70a5275b385309a7d44ec8a2839",
+    "candidate_sha256": "8e695cafd0ea164529676b75e97c17a34c1b7977bcf15a6e71269559d4fe9da8",
+    "assessment_sha256": "62ddca90b5b210983989c8b3577c36bf7c8b509ecb84fbbfb917ea23c26d9496"
+  },
+  {
+    "gutenberg_id": 61353,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "I opens Magnan claim discussion; III introduces Retief on the planetoid. Actual narrative divisions independent of whether II is present; retained corpus starts in later Leatherwell dialogue.",
+    "source_identity_sha256": "3f4b995991096a00808cb6bcf64999cca0b7ba6ef83cc190ad28a270238c7e81",
+    "candidate_sha256": "fd0edc2296db257cb53941f220962734bde6b02f9530ac5a0b5eb89b23264fe6",
+    "assessment_sha256": "a61be62f7f9fbfc1dadcfe70cc537cd7a0550723893f43c0a67d44719ac1d691"
+  },
+  {
+    "gutenberg_id": 32769,
+    "outcome": "exclude",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Contents corroborated by actual I AT BIRMINGHAM TOWN HALL and II THE PROCLAMATION narrative headings. Retained corpus is trailing ads; exclude divided narrative.",
+    "source_identity_sha256": "8746d7a258923a32b0fbc117c41c98e6d239ea2542bd6e7321eb8a1b9c3a00f5",
+    "candidate_sha256": "2302ff45e032f9d63dd313c055e20b87c531fc36f8d15509c78edbaa471d15c3",
+    "assessment_sha256": "66eb6af34618a494bbcac522dc67cdb0f68b8ff40d43b40f675f177f14c61c8c"
+  },
+  {
+    "gutenberg_id": 63889,
+    "outcome": "defer",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Complete narrative read. Interior illustration caption interrupts the story; contiguous span selection cannot remove it while preserving both sides. Legacy body already contains it. Defer pending a source-bound interior editorial solution; do not approve contamination or truncate.",
+    "source_identity_sha256": "66453b8c473a38a02e603d1f4da9e1a557a883a9a8e6effbfd9104ea16128330",
+    "candidate_sha256": "2bfa2fcd27bd1c1187ce9c73c0f5100e6a138d5f01f7dc855d0fc416185d41c0",
+    "assessment_sha256": "be6cd94390ef65087c6e251ef3f3ba1aef3cd65d5a57d66740bba4b46f064938"
+  }
+]

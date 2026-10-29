@@ -1,0 +1,100 @@
+{
+  "base": "d9ca9d184ebd5ebf8a195ffd364bf87817a37292",
+  "scope": "CLI default-source profile, no live Gutenberg acquisition",
+  "source_sha256": {
+    "docs/how-to/gettenberg-gather.md": "6c6b77557fe6c3fd6fcb6b90058b326f28ffec498f6f0e9d3275227b05732df9",
+    "docs/how-to/gettenberg-preparation.md": "b97a195d1bd11234f4aa16eeb2e5571b834880daf4759e0434c1d8ebb4149d9b",
+    "docs/index.md": "80f8c7a9ceab6879ea429c107b557787c1b17653ff3ee10bb511084c65077b9a",
+    "docs/reference/cli-commands.md": "7131a6b98ed23066e8f2146ad29226696c0721bd713d34231c1635bd218fe1eb",
+    "docs/reference/cli-status.md": "4f0cc5a708d16d32a288d4cbf5eafde24639f5e2dda84bc2226bd17367d00e89",
+    "docs/reference/gettenberg-gather.md": "62f6099407f92172751022a76f9cbd3417c6be83fff720e76b207027c623a904",
+    "docs/reference/gettenberg-network.md": "16478f5cbe13ddd0f6946d642bdf74c6b89e830ba8c3f7e12095fa96d95a13d2",
+    "docs/reference/gettenberg-preparation.md": "65392d882aa1415491fa69e23060bb06c1d03c20f0955e500b1676d9e618d55f",
+    "src/lcats/cli.py": "d23944a66f82f176ebb163cb97dfe20bf77f487df4595e16013b076e444d5d1d",
+    "src/lcats/gatherers/main.py": "46d7273cd843814b66b003d49c0dbb28ab93942e70d0acbfbfa64e6ea028e63f",
+    "src/lcats/gettenberg/approval_cli.py": "5a9c484c74ad72b720d2b546d523d273d31c6b1c56241af99fd3269f50697bb4",
+    "src/lcats/gettenberg/catalog_cli.py": "fdf6983b79c49c79a5bdce6d052fba5d609c589597ae91e30b33bb4c7efa5323",
+    "src/lcats/gettenberg/sources_cli.py": "f0f699d7a0c62a9acb7b93d34866b98b991f47d8775e18a30780441da341ad63",
+    "tests/gatherers_tests/live_gather_test.py": "b24131c734ba2ff01f86d51ddbfc996b99cb5f1604c1c5a96b594954f6d6bcc2",
+    "tests/gettenberg_tests/default_sources_test.py": "5bf8fe53906b11b9ae9353ce039a36b144c92c86c028285945d8180c4193b824",
+    "tests/gettenberg_tests/preparation_test.py": "4368de319daccc3fed22fe0e8926f6898410bb5908a26971400101352b507ab8"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "black": "25.11.0",
+    "ruff": "0.15.0",
+    "PYTHONPATH": "worktree lcats/src"
+  },
+  "commands": [
+    {
+      "command": "scripts/version tools",
+      "exit_code": 0,
+      "stdout": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src/lcats/dev/versioning.py:13: DeprecationWarning: lcats.utils is now a package. Legacy utilities are still available via `import lcats.utils`, but consider importing specific submodules, e.g. `from lcats.utils import names`.\n  from lcats.utils import paths\nLCATS package metadata\nlcats 0.1.1.dev544+g1f85d9dc3\n\nlcats CLI\nlcats 0.1.1.dev544+g1f85d9dc3\n\nPython\nPython 3.11.9\n\nRuff\nruff 0.15.0\n\nBlack\nblack, 25.11.0 (compiled: yes)\nPython (CPython) 3.11.9\n\npip\npip 26.2.1 from /Users/centaur/anaconda3/envs/LCATS/lib/python3.11/site-packages/pip (python 3.11)\n\n"
+    },
+    {
+      "command": "scripts/format --check --diff",
+      "exit_code": 0,
+      "stdout": "All done! \u2728 \ud83c\udf70 \u2728\n284 files would be left unchanged.\n"
+    },
+    {
+      "command": "scripts/lint",
+      "exit_code": 0,
+      "stdout": "Checking lint with ruff...\nAll checks passed!\nChecking formatting with black...\n"
+    },
+    {
+      "command": "scripts/test",
+      "exit_code": 0,
+      "stdout": "Testing lcats ...\n+ python -m unittest discover -s tests -p '*_test.py'\n.................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................error: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpn3hgtwho/e.jsonl:2: duplicate lcats_id c/one\n....error: expected 2 records, found 1\n..error: --manifest-out would overwrite the evidence file\n...error: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpww5t1sg_/e.jsonl:2: invalid JSON: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)\n....error: evidence file not found: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmp_2k8tq9r/nope.jsonl\n.error: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpx5gmm873/e.jsonl:1: missing non-empty lcats_id\n..error: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpb6omat42/e.jsonl:1: record is not an object\n.......error: --manifest-out would overwrite the evidence file\n......error: cannot write /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpux2yb2if/no_such_dir/seed.jsonl: [Errno 2] No such file or directory: '/var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpux2yb2if/no_such_dir/.seed.jsonl.62g0hphj.tmp'\n....error: corpora dir not found: /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpetr8h6a5/nope\n................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................\n----------------------------------------------------------------------\nRan 2978 tests in 86.153s\n\nOK\n146 seed records (146 cache_db_path values reduced to a basename); manifest written to /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpsealw98q/seed.jsonl\n1 seed records (1 cache_db_path values reduced to a basename); manifest written to /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpox3__53t/seed.jsonl\n1 seed records (1 cache_db_path values reduced to a basename); manifest written to /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpt7aflj_o/seed.jsonl\nscanned 1 genre.json files; 1 need rewriting (1 values); manifest written to /var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/tmpyp2e89bq/manifest.jsonl\n\n"
+    }
+  ],
+  "focused": {
+    "command": "python -m unittest tests.gettenberg_tests.default_sources_test tests.gettenberg_tests.preparation_test tests.gatherers_tests.live_gather_test",
+    "exit_code": 0,
+    "stdout": "...........................................................\n----------------------------------------------------------------------\nRan 59 tests in 3.640s\n\nOK\n"
+  },
+  "lrh_validate": {
+    "errors": 0,
+    "warnings": 351
+  },
+  "readiness": "yes",
+  "manual_previews": {
+    "gather": "Selected 1 collections (story counts not evaluated).\nmass_quantities: gutenberg; catalog use: enrichment\nCatalog: missing; preparation: setup (permitted cache miss).\nMetadata-dependent selection/enrichment counts are unresolved in this plan.\nCatalog source: https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2\nResource main root: https://gutenberg.pglaf.org/\nResource generated root: https://gutenberg.pglaf.org/cache/epub/\nPermitted origins: https://gutenberg.pglaf.org, https://www.gutenberg.org\nCatalog setup approval required: True\nNetwork: permitted for missing sources during execution; catalog setup requires approval.\n",
+    "catalog": {
+      "acquisition": "download",
+      "action": "setup",
+      "allowed_origins": [
+        "https://www.gutenberg.org"
+      ],
+      "approval_required": true,
+      "cache_dir": "/private/tmp/gettenberg-default-profile/pristine-cache",
+      "catalog_state": "missing",
+      "max_archive_bytes": 268435456,
+      "online": true,
+      "reason": "permitted cache miss",
+      "source": "https://www.gutenberg.org/cache/epub/feeds/rdf-files.tar.bz2"
+    },
+    "cache_created": false
+  },
+  "review": {
+    "status": "clean",
+    "frozen_diff_sha256": "3830364a6544cae8107cb005d730a9426b282274495a17a462db0a4f7d68cae3",
+    "mode": "cold diff-mode",
+    "focused_tests": 59,
+    "focused_seconds": 3.902,
+    "findings": 0,
+    "charged_worker_minutes": 2,
+    "limitations": [
+      "No full-suite rerun or external requests by reviewer",
+      "No actual execution of every built-in collection; default all-selection dry-run and representative mixed execution covered",
+      "Hosted review and CI pending"
+    ]
+  },
+  "tooling_friction": [
+    "scripts/format without an option failed with empty black_args under the host shell; scripts/format --quiet -- <changed paths> succeeded",
+    "scripts/test --log is unsupported here; canonical scripts/test with shell output redirection succeeded"
+  ],
+  "limits": [
+    "No live ResourceStore TLS/client or full archive download validation",
+    "No corpus-wide comparison or dependency-removal acceptance"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "merge_commit": "35f80fb53c1820ff70708df0ab049266f25dc3c7",
+  "resolved_work_items": 4,
+  "landed_records": 21,
+  "preserved_existing_record_bodies": 19,
+  "original_pr_and_session_attribution_preserved": true,
+  "lrh_errors": 0,
+  "lrh_warnings": 351,
+  "session_sync": {
+    "completed": true,
+    "mirrored": 20,
+    "exports_harvested": 0,
+    "aliases_reconciled": 0
+  },
+  "logs": {
+    "lrh-closeout": {
+      "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+      "local_path": "/tmp/gettenberg-repair/lrh-closeout.txt"
+    },
+    "session-sync": {
+      "sha256": "01077349a7a53922051c7d07a2eaa8dd66ebafb786387dae0a93fe244cca4c4e",
+      "local_path": "/tmp/gettenberg-repair/session-sync.txt"
+    }
+  }
+}

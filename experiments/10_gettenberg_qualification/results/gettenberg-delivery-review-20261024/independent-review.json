@@ -1,0 +1,143 @@
+{
+  "reviewer": "/root/delivery_independent_review",
+  "completed_at_utc": "2026-10-24T04:50:47.923478+00:00",
+  "reviewed_head": "823f33c23836aff220fab80046ab84b80584c063",
+  "target_base": "ed20e9c297bf5e50e1911b84722e53f5db3edee3",
+  "refusal_delta_start": "28db0b60",
+  "review_status": "No unresolved P0-P2 code or measurement-validity findings within reviewed scope.",
+  "findings_p0_p2": [],
+  "scope": "Independent review of actual four-module product diff and changed tests; narrow notice corroboration, refusal continuation, logs/return/exit integration, runner validity, evidence transfer and remaining qualification gates. No edits, commits, remote mutations, integration or delegation.",
+  "reviewed_source_sha256": {
+    "experiments/10_gettenberg_qualification/scripts/audit_cleanup_causality.py": "de9e50c7e69be1d462136cfad1a892e303cbff69f1f9d20a95db891a8b3d5d9c",
+    "experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py": "4d6acc3ab99b17c2d645ca45716f90deaf1b5f1dd4a053af836b56e355fb2197",
+    "experiments/10_gettenberg_qualification/scripts/narrow_yield_test.py": "ce11d7e79eff0c69cc61c49e1670adc06ee004944b3bb041ee9974d8fa2f73f2",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_causality.py": "59dfe94f97d67ce90069b6c56673bc7f147b7699c211f15671dc234dfcd5d28d",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_installed.py": "61e5a3cdd17c508ad6c856cc7ac4efed70fd8b066912e37d92fe6d4767a17e31",
+    "experiments/10_gettenberg_qualification/scripts/qualify_narrow_yield.py": "38ce152c95d301eabff0033fc673a62f787f8566cbb741a6d2becfd944470fdf",
+    "lcats/src/lcats/gatherers/gutenberg_source.py": "abcc3dece3c4fb247c6e69080d14322b561ae4e0b4cd7991698eb9c1e0bf3161",
+    "lcats/src/lcats/gatherers/main.py": "57a5222255ce2c1f4a6607bd895e705f9b84fec7307014527652ea160c98c5fd",
+    "lcats/src/lcats/gatherers/mass_quantities/gatherer.py": "88352ad0f6ea152f16e59e9ddc420f4d69618110a45763da8bf6e1f9a8552a31",
+    "lcats/src/lcats/gatherers/normalization.py": "081da3e25ccf0e72b81151f6ad70b78e3699c84861602f2624989d4dfd53c4a6",
+    "lcats/src/lcats/gatherers/parser.py": "b0258387b355cb78cdabb089bf044219b6d3f247f26cff51ae946b09710d4976",
+    "lcats/src/lcats/gatherers/story_output.py": "40c40e88dc2f61294cca9ae7a64446ed5d03aa29c663d49d4624d83f5a7e254f",
+    "lcats/src/lcats/gettenberg/cleanup.py": "296a6fbbf20326a17b88dcbb568abc61c8246cdcd3b4fb9c1d10f6923a240a39",
+    "lcats/tests/gatherers_tests/live_gather_test.py": "17c6cc9cf60ad749d21e6cc7f7371a4bc0940922d3939ae95b26450a5636b11b",
+    "lcats/tests/gatherers_tests/mass_quantities_test.py": "4b216d4eb917d1ed8f728c228a903c7f4ec447aff7e3fa80eabb09cc22a2b02f",
+    "lcats/tests/gatherers_tests/narrow_integration_test.py": "ce57018894509086217c0bec5083fabb4e502bfa0f5776322e9483952e742f46",
+    "lcats/tests/gettenberg_tests/cleanup_context_test.py": "71149a41f0fe91545343ff28da19beaf3d1b01ce7c97408a3e28d33e3e4f1fc2",
+    "lcats/tests/gettenberg_tests/cleanup_test.py": "09f9d943fd492e036c4ea6b5f51222b0675b977f5fd5d8af01e04315fc1efa3e",
+    "lcats/tests/gettenberg_tests/documentation_test.py": "5a407a35a62f8a0de2039453b521a4a9b3059c5046869bff079893f9236bdf94",
+    "lcats/tests/gettenberg_tests/qualification_helpers_test.py": "836bfb1db3bd74ec33f9fce92ab803bce04b26b469222e214784f871a92f2902"
+  },
+  "checks": [
+    {
+      "command": "git diff ed20e9c297bf5e50e1911b84722e53f5db3edee3..823f33c23836aff220fab80046ab84b80584c063 -- lcats/src lcats/tests",
+      "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+      "result": "Reviewed actual source/test delta; four product modules only."
+    },
+    {
+      "command": "git diff 28db0b60..823f33c23836aff220fab80046ab84b80584c063 -- lcats/src lcats/tests",
+      "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS",
+      "result": "Reviewed narrow refusal-restoration delta; only main.py and mass_quantities/gatherer.py product changes."
+    },
+    {
+      "command": "PATH=/Users/centaur/anaconda3/envs/LCATS/bin:$PATH PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src scripts/test tests.gettenberg_tests.cleanup_test tests.gettenberg_tests.cleanup_context_test tests.gettenberg_tests.qualification_helpers_test tests.gettenberg_tests.documentation_test tests.gatherers_tests.live_gather_test tests.gatherers_tests.narrow_integration_test tests.gatherers_tests.mass_quantities_test",
+      "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats",
+      "exit_code": 0,
+      "tests": 112,
+      "seconds": 13.003,
+      "output": "focused-canonical-tests.txt"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats/src /Users/centaur/anaconda3/envs/LCATS/bin/python -m unittest discover -s ../experiments/10_gettenberg_qualification/scripts -p '*_test.py'",
+      "cwd": "/Users/centaur/.codex/worktrees/gettenberg-proposal/LCATS/lcats",
+      "exit_code": 0,
+      "tests": 26,
+      "seconds": 4.181,
+      "output": "experiment-tests.txt"
+    },
+    {
+      "invocation": "LCATS Python stdin probes (exact inline source retained in reviewer tool transcript)",
+      "result": "Fresh pure cleanup on all1659 inputs with actual catalog resource context; every prior slice/diagnostic reproduced;13 refusals.",
+      "output": "independent-cleanup.json"
+    },
+    {
+      "invocation": "LCATS Python stdin probes (exact inline source retained in reviewer tool transcript)",
+      "result": "Fresh current cleaner/parser/normalization replay of all67 different bodies; every archived body hash reproduced. Historical corpus bytes/hash verified. Direct fix_body probe independently drops23552 final387-character paragraph without any cleaner.",
+      "output": "independent-body-probes.json"
+    },
+    {
+      "invocation": "LCATS Python stdin report joins and SHA256 checks",
+      "result": "All165 current source modules exactly match repaired-yield report; all1646 cold/repeat output bodies/owners/sources/receipts reconcile,13 refusals and zero unattempted match logs/results; empty-cache reuse verified in report.",
+      "output": "independent-evidence-verification.json"
+    },
+    {
+      "invocation": "LCATS Python stdin source transfer checks",
+      "result": "Snapshot and lifecycle reports each pin28 modules; only cleanup differs. Whole165-module historical ledger differs exactly at the four reviewed production modules.",
+      "output": "independent-transfer-check.json"
+    },
+    {
+      "invocation": "LCATS Python zipfile/filesystem byte comparisons",
+      "result": "Fresh wheel and installed physical tree each exactly match all165 current Python modules and2 JSON files; no gutenbergpy/VCS dependency in metadata;70 installed smoke module origins/hashes verified.",
+      "output": "independent-wheel-check.json"
+    }
+  ],
+  "technical_assessment": [
+    "Only explicit ResourceDecodeError cleanup_refused is localized; other operational failures retain abort behavior. Batch result and CLI distinguish incompleteness, ordinary skips and ready/reused paths. Historical gather_stories tuple remains available.",
+    "Numeric notice cuts require positive exact source/catalog/envelope ID agreement, projected title match, a terminal whole physical line, nonempty preceding content and an already-qualified envelope. Title notice forms and v2 envelope exceptions remain narrow; context/provenance are explicit.",
+    "Full-cohort control flow evidence supports1646 publications then1646 unchanged reuses with13 explicit refusals and zero unattempted. It does not establish all5492 configured inputs or historic wire fidelity.",
+    "All67 residual bodies independently reproduce. Known non-narrative additions remain contamination under a strict clean-story contract and require explicit bounded acceptance; they are not automatically equivalent because narrative is retained.",
+    "23552 candidate preserves387 characters of final narrative that unchanged fix_body can delete when that paragraph is terminal.42640 removes166 characters of prior-publication note/title, retains narrative, and adds230 characters of colophon/notice.70645 is a distinct16465-character source-prefix restoration."
+  ],
+  "remaining_acceptance_gates": {
+    "Q1": "Transfer existing feature/snapshot/lifecycle evidence with matched source/dependency/config assumptions; current independent source checks and wheel closure support transfer, without claiming rerun performance or every dependency-version combination.",
+    "Q2": "Final map must state metadata/resource/naming and new gather/gather_batch result contracts, historical tuple compatibility, exit2 incompleteness, first-use/cached/offline/non-Gutenberg behavior; focused docs/live tests support these.",
+    "Q3_Q4_Q6": "All1659 outcomes and67+13 residuals are causally accounted; adopt explicit bounded disposition/body-contract decisions, preserve known independent parser defect follow-up and the accepted historic wire-provenance boundary. No blanket clean-corpus or unknown-equivalence claim.",
+    "Q5": "Measured fail-fast defect repaired; usable cohort batch verified. Explicitly accept13 known refusals and1659/5492 cohort scope; do not conflate synthetic transport with historic/live acquisition.",
+    "Q7": "Coordinator must finish exact final-head canonical full-suite/format/lint/LRH/CI evidence and acceptance map. Reviewer ran focused canonical/experiment tests, not a full canonical suite; fresh wheel bytes and coordinator installed smoke origins independently verified.",
+    "Q8": "Human main-promotion decision, truthful nonterminal-to-terminal native closeout only after delivery, and release follow-up remain separate. This review grants no integration/main/corpus/package publication authority."
+  },
+  "recommendation": {
+    "code_quality": "Suitable to present for delivery qualification; no P0-P2 revision requested.",
+    "preintegration": "Conditional on completed WI0010 preintegration acceptance mapping/checks and explicit human dispositions for remaining known effects/scope. This code review alone does not establish acceptance or authorize integration.",
+    "human_acceptance": "Required for bounded body/refusal/evidence-scope decisions and separately for main promotion."
+  },
+  "limitations": [
+    "No duplicate full frozen-cohort yield run; independently checked all archived rows/pins and ran fresh cleanup/body probes plus real-pipeline authored tests.",
+    "No independent full snapshot/build benchmark rerun; source-transfer checks only.",
+    "No full canonical suite or hosted CI run by reviewer.",
+    "Fresh wheel build/install/smoke executed by coordinator; reviewer independently compared archive/installed bytes and smoke origin hashes.",
+    "Review pinned to823f33c2. Coordinator evidence/control-plane edits still in progress are outside this reviewed-source conclusion.",
+    "No code changes or new editorial subsystem recommended."
+  ],
+  "evidence": {
+    "focused-canonical-tests.txt": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/focused-canonical-tests.txt",
+      "sha256": "dbb1a61b854772937ddb8a388b41c0b181235c071e542e35f9d26715e66ba209"
+    },
+    "experiment-tests.txt": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/experiment-tests.txt",
+      "sha256": "9753215cfb01d7eed310a2dc84a1536403846fce6be4d43a86da4875b19604da"
+    },
+    "independent-cleanup.json": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/independent-cleanup.json",
+      "sha256": "1248d0955a13847064e9e2b7c85b5dbc137938de71e3eef11e9b50824d3cb898"
+    },
+    "independent-body-probes.json": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/independent-body-probes.json",
+      "sha256": "e84016231d9cd40218af99755811f7bc6f6c5d7497e07de5f9ab0fe968fcb54d"
+    },
+    "independent-evidence-verification.json": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/independent-evidence-verification.json",
+      "sha256": "471d769856d95bef0b5572c07988950577c9f0a0f5b69e8bc77a9bc0d60148de"
+    },
+    "independent-transfer-check.json": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/independent-transfer-check.json",
+      "sha256": "279184033c763c49887204268afc9098f26f57a51047d923978fcb789a6942be"
+    },
+    "independent-wheel-check.json": {
+      "path": "/tmp/gettenberg-delivery-review-20261024/independent-wheel-check.json",
+      "sha256": "b8b044f8c6e96a731c732dfd994b120d9d8e3c349316fe2ad876a58b8261c31f"
+    }
+  }
+}

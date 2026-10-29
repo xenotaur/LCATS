@@ -1,0 +1,332 @@
+[
+  {
+    "filename": "22579-203ef3378616a87f6ca39b6e1b6557a51356169b8c7674d763f722df29ce10d4.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/22579-203ef3378616a87f6ca39b6e1b6557a51356169b8c7674d763f722df29ce10d4.disposition.json",
+    "sha256": "2a3686e5a4e885316900ae6f45ae9fff80203464d09151da859c9a0a59183fb9",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "23104-aa2601a30f4bee118ad89688d002b48125ea71250fa096bb581ece61d6cd6809.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/23104-aa2601a30f4bee118ad89688d002b48125ea71250fa096bb581ece61d6cd6809.disposition.json",
+    "sha256": "5adb199697e3605b6487c43e4abce9695fd44c127a65c1a87671f6fd1542bae8",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "23148-33499531181b17dfcdf807a5cf13f51018619f2af9fd79e799619a1f50fc523c.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/23148-33499531181b17dfcdf807a5cf13f51018619f2af9fd79e799619a1f50fc523c.disposition.json",
+    "sha256": "cb8e0a5620e46dfa9c3eb2308f792088620abbfa0d784107fd9a666b273c8049",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "23762-f43ad998fda11ecbc1b57bd778162f4f223a4d472ab813e211f351d20607cff1.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/23762-f43ad998fda11ecbc1b57bd778162f4f223a4d472ab813e211f351d20607cff1.disposition.json",
+    "sha256": "3aab00642370884c74d5ba416f7aeeab78cff45c6c41aa3cac8032e801f673fc",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "27612-1b8947ff811bc96beb191f041f5bada57e3489d4c0a7194b515abec515e1b745.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/27612-1b8947ff811bc96beb191f041f5bada57e3489d4c0a7194b515abec515e1b745.disposition.json",
+    "sha256": "0e4a463516d2b10a6d12802606d16116112bd8b94093ada5d44d41a0f120783a",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "27709-7cd0d1a65b2bd2fb8677c4e280449c206c6b211a4e8203ee30921eb020b0f181.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/27709-7cd0d1a65b2bd2fb8677c4e280449c206c6b211a4e8203ee30921eb020b0f181.disposition.json",
+    "sha256": "56035b6d12ee9d4e5534a5a57aeded0297e3e81e5c4a5361ff9ff94312047e53",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "32484-09321c0757e81e492ac96a4bf81acd6d2474bc24870046f5e48ca23b1f9fb0b8.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/32484-09321c0757e81e492ac96a4bf81acd6d2474bc24870046f5e48ca23b1f9fb0b8.disposition.json",
+    "sha256": "3f822e1866a4e6ad42a8b711956c32eee8829c2b8b6f76718929325e71069568",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "32655-6a60c716dc52affd2d21ff2c9648020c8503d5d1d7b625a46231216068d0978a.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/32655-6a60c716dc52affd2d21ff2c9648020c8503d5d1d7b625a46231216068d0978a.disposition.json",
+    "sha256": "a70651a7ddb1b6af83d99cb6fdad5e9e72f1b5b20faca2095ac75b032b601a91",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "32769-0830b19a51e3b13af7cd6762a6f30294b667303dfa02bf52c3fca497e47e55ed.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/32769-0830b19a51e3b13af7cd6762a6f30294b667303dfa02bf52c3fca497e47e55ed.disposition.json",
+    "sha256": "5d9df59317bc598bee5b17c656c7c06dc83132bc8f692fa41598714644d65c89",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "32878-f1e42a59623d8562b20da61ec8c33e482541fe305ae8dbc3410ad15c7cff73c7.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/32878-f1e42a59623d8562b20da61ec8c33e482541fe305ae8dbc3410ad15c7cff73c7.disposition.json",
+    "sha256": "57943a1fa5e5a1cf45cd2460673afa56f376bdac8812a40039bd5c7a7952cdeb",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "35401-28aa93000e1cf7c1b1da701768222b92f7a9059c88daf1bcf6821ad9b5c13b33.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/35401-28aa93000e1cf7c1b1da701768222b92f7a9059c88daf1bcf6821ad9b5c13b33.disposition.json",
+    "sha256": "c639a93c609dcd5d7ce76841ba67861d24d269b9e2b9d0ab5641f15202d9f7c0",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "42640-9b7e59c1d520f3070a57316dacb98c328a8f825b6a77bcfead6fadab585f2a01.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/42640-9b7e59c1d520f3070a57316dacb98c328a8f825b6a77bcfead6fadab585f2a01.disposition.json",
+    "sha256": "f81e6b0f6bbfa22080797d52e926f1af890e49d932edd009843b19dce634363c",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "50103-0a18a79378fce01589cb5379a4568fda86ea3883e9368b18cab9e2a4a2d06899.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/50103-0a18a79378fce01589cb5379a4568fda86ea3883e9368b18cab9e2a4a2d06899.disposition.json",
+    "sha256": "6f6bc80cd38359db3205f37cbc3e07b593b5309b396e6c7cbcec2f84434f40b1",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "50796-9ddaed9b52ce4361171e44d79f849f0a20ffd9cd5a6b043e7c9ef42d5e6415cd.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/50796-9ddaed9b52ce4361171e44d79f849f0a20ffd9cd5a6b043e7c9ef42d5e6415cd.disposition.json",
+    "sha256": "3ac352d1d667f88bf071255cfb1562ef83d26bfd512bffb09f008239894d4f87",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "50800-572f18aca838b06a404283c2233e219a51af90e62d9ed4985c812f9e98c8daa2.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/50800-572f18aca838b06a404283c2233e219a51af90e62d9ed4985c812f9e98c8daa2.disposition.json",
+    "sha256": "7f86ecd97d547908356e235605b66e1849984a08723524d3bc46e6e739e49a6a",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "50892-50f175ce37514815ef16749fb71600a1d22f5f07135f5f2dcba8ce8e3d91807e.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/50892-50f175ce37514815ef16749fb71600a1d22f5f07135f5f2dcba8ce8e3d91807e.disposition.json",
+    "sha256": "d9d82344f953ed50c3df4e1e88d111ea9240451f8eec6f7b1df3edb29acfc256",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "51258-d9c6032ea8c5c265a95bc33377180904f811cc62c421ffbd317d425cb90f1072.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/51258-d9c6032ea8c5c265a95bc33377180904f811cc62c421ffbd317d425cb90f1072.disposition.json",
+    "sha256": "5939ebc107f4d2404bb5a15b22438dbd849ee43ebf64950275d42ff322919cf6",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "51589-7e89bb6ecec12011ab4716ef0ec18c3e7d29932a2a5e6eda1f0fa39f12249488.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/51589-7e89bb6ecec12011ab4716ef0ec18c3e7d29932a2a5e6eda1f0fa39f12249488.disposition.json",
+    "sha256": "a6ac9144c6c2d6f2619cbd3722c7bb7f25659874276b707da21a7bed18b53d5e",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "51597-960d7a7008854ceaf588d05cb403b5ae2df903bda7f0de94841dfb51f6b66da0.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/51597-960d7a7008854ceaf588d05cb403b5ae2df903bda7f0de94841dfb51f6b66da0.disposition.json",
+    "sha256": "5b953bfb9c0009744ec60a57e89338f16086a241d16cda6d2006ef7a99e687df",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "51713-2f166b684c2f4f264e52d3a3a27da74421c7c7fe98399f157da3a6c4c2b6303d.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/51713-2f166b684c2f4f264e52d3a3a27da74421c7c7fe98399f157da3a6c4c2b6303d.disposition.json",
+    "sha256": "c18d8f4dc4af5f92e9119624e051ed975f8e5fc0599563f74edca4ac6632c61a",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "61198-6fcb8da6b57835c1e1289d3506e93ac9062d55a0c6ac6b83f2202f7aeaf594ec.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/61198-6fcb8da6b57835c1e1289d3506e93ac9062d55a0c6ac6b83f2202f7aeaf594ec.disposition.json",
+    "sha256": "ad0033d0a7b42c0573ed192b510a20d5af40e3a80abdaa9be9b86192bd38064f",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "61353-60595b651d5b33afe9c266e8cc3067b6d8ff377dd6f5b82cf1fe0e4f36ca95e1.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/61353-60595b651d5b33afe9c266e8cc3067b6d8ff377dd6f5b82cf1fe0e4f36ca95e1.disposition.json",
+    "sha256": "e2b4bb8c688eae685fbfd9a4a7c083a6e5cf34cdbd7a7766e48b672c42e007ae",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "63889-78f41bab3906e1399128b84e4ddfb5a1ae71fd0056bae93093498307a0b39be3.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/63889-78f41bab3906e1399128b84e4ddfb5a1ae71fd0056bae93093498307a0b39be3.disposition.json",
+    "sha256": "0624579de6e3e9afe731c10d9d8ce02f2fb5cb56f0c272a28c8a1eab39068517",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "64292-4b5ce09fe271745189373046b3e5a91f9b582ba61ebcb46c3e00bca1824b525f.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-dispositions-20261020/dispositions/64292-4b5ce09fe271745189373046b3e5a91f9b582ba61ebcb46c3e00bca1824b525f.disposition.json",
+    "sha256": "4158ea92ef9f21f9e68f410c00f78426e291b7b62c3de05d76c2aa5300d25934",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "69213-351d04946f8b6318ec632cdcaacdc0c2b9edceec105542b34083323cb9ce60c1.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/69213-351d04946f8b6318ec632cdcaacdc0c2b9edceec105542b34083323cb9ce60c1.disposition.json",
+    "sha256": "f20281b477b6d5b2e2fb207bbb05477e8195589b42344054ee6e17c8dab05bb5",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "69257-5194538654b075fccc3c04e8c7f3522104cc66ecd9308433077444868ded0b4a.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/69257-5194538654b075fccc3c04e8c7f3522104cc66ecd9308433077444868ded0b4a.disposition.json",
+    "sha256": "9217763bfc639f1c55ba5c1e0578c146e6b358d1abf4b067529e661e431641ec",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "70154-e4a17bd2cf5711be00137b905ac35fe3323d84608b0d5e33c3262c0f887e52ac.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-batch-20261020/dispositions/70154-e4a17bd2cf5711be00137b905ac35fe3323d84608b0d5e33c3262c0f887e52ac.disposition.json",
+    "sha256": "770b65bf5be2b16e4ee8c1efae7f755fc01dacc64663d6a358ac1dc4084763f5",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "70217-a3af848a4e92f6496a8a978ba880486e48e48d5a680802f905daf61eec7d51cd.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/new-dispositions/70217-a3af848a4e92f6496a8a978ba880486e48e48d5a680802f905daf61eec7d51cd.disposition.json",
+    "sha256": "d451f2d230320726c07dc47f921ecb1bd3205d9e69838fb2c3f7eae35bbd90f9",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "70391-81ddfff02aaf7cbb205bf32e478edf806fc6a4f93b6dde1cb4302961fe459fe0.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/70391-81ddfff02aaf7cbb205bf32e478edf806fc6a4f93b6dde1cb4302961fe459fe0.disposition.json",
+    "sha256": "cccf4fa2cfb377e0debb642a2fcee6eabe2ac40eb8cf88005d387c1f6e994548",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "70645-216c2c0d3ca4458dd802f9359e01b70d83af98cc90aab85ce1377a2b1fbf2754.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-residual-20261022/inherited-dispositions/70645-216c2c0d3ca4458dd802f9359e01b70d83af98cc90aab85ce1377a2b1fbf2754.disposition.json",
+    "sha256": "aba97053b63beea07385cd53b7d72923c2f6cc7a55400cf741fa778003b5cba2",
+    "in_launch_inventory": true
+  },
+  {
+    "filename": "22589-ae170489deff18873b49451b0a7f8207636f09cb25dd4e178de6530bb323f146.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/22589-ae170489deff18873b49451b0a7f8207636f09cb25dd4e178de6530bb323f146.disposition.json",
+    "sha256": "76f276aa5f0c03e305c71d6155c1eb3f46e28ce2a6c015d8cd4e02edef42ed40",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "22590-c7eb3a6bcfebd3a849191e47d9f99dcf69d75777a93c448a9e291f7ebdeb9bb6.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/22590-c7eb3a6bcfebd3a849191e47d9f99dcf69d75777a93c448a9e291f7ebdeb9bb6.disposition.json",
+    "sha256": "553a97e6b617774a788e4487bef6ba580bfd781728fab6464272dd39dced0191",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "22597-92bb43b0d41279ad87b82c72fb586015408c998a732c93ca29fcd0ac31df5c79.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/22597-92bb43b0d41279ad87b82c72fb586015408c998a732c93ca29fcd0ac31df5c79.disposition.json",
+    "sha256": "5ad13be9f7962aaaaa03cc1ae50c68f1c3afede355ac3e0b8329d157da8299db",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "24529-b6b454f3632ec131c652c50ad8f79fc9b133b1dfe23e7f0588a5cf4a9263bf5f.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/24529-b6b454f3632ec131c652c50ad8f79fc9b133b1dfe23e7f0588a5cf4a9263bf5f.disposition.json",
+    "sha256": "d25fbdc60bd355ce2385268569b43e3dc262f2acd07deee7a0d69cca462ced18",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "24864-2613777531dee5d95629a034e4bf93206cdd6407bbad05c5e925c7d9e44a1f5b.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/24864-2613777531dee5d95629a034e4bf93206cdd6407bbad05c5e925c7d9e44a1f5b.disposition.json",
+    "sha256": "0dc05e189cddc9524668dc437d7e2caff9c7615dd745eb5d2d7ff8b6414ef4d6",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "24927-b98a212aa8f8707025bcc1466f122c63ff6b4659173aa2bf8f89058c176e4a90.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/24927-b98a212aa8f8707025bcc1466f122c63ff6b4659173aa2bf8f89058c176e4a90.disposition.json",
+    "sha256": "f38fcd0e05e4f4953fdf288ab459c3c8ab7fd9aeb0c8cf2af0bbe6d836199931",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "24955-b4453fcb187426ae14f4d45a9270fc0b2f1639c17466989767cb27960e6e1023.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/24955-b4453fcb187426ae14f4d45a9270fc0b2f1639c17466989767cb27960e6e1023.disposition.json",
+    "sha256": "2e64c2798956f0d8320cad8ec6f92c4318b1f9f60e733bb2d716183e14ed4036",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "24973-d1b2386ed235399fbcd102bb4a2a70dc99b2f499a52582c00cdb1d1985e5259b.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/24973-d1b2386ed235399fbcd102bb4a2a70dc99b2f499a52582c00cdb1d1985e5259b.disposition.json",
+    "sha256": "887645889469069131923eb1bf7425f7066806a3701254abc9d825f11596d5a8",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "25028-d39aaaf1c32e24600ab7ae82ab892a52820d2c433184ceb1146770567e4462d3.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/25028-d39aaaf1c32e24600ab7ae82ab892a52820d2c433184ceb1146770567e4462d3.disposition.json",
+    "sha256": "a94ef937db27ef70a52ac09ec2812162c8834b705e32d4ae7a74f9df6078373c",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "25035-c44bb23d9805be84d90b9e95ad9b7e0fa27813dcb9dd3e43c9f3292e5a341d76.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/25035-c44bb23d9805be84d90b9e95ad9b7e0fa27813dcb9dd3e43c9f3292e5a341d76.disposition.json",
+    "sha256": "84619fa831c9237e2f891f7388a882937091825bf17cf1318f9c6936d65f2db3",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "25627-152e74bb30c8dc68e90f283b146d38c4ccb16f26b7e0ebaf2217ddb9826f63f1.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/25627-152e74bb30c8dc68e90f283b146d38c4ccb16f26b7e0ebaf2217ddb9826f63f1.disposition.json",
+    "sha256": "c6b50ea6b057de49149837269dc556cb5368ac6db84d97cfb8eb576a14701473",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "25629-a4480823d0efedf4bc795b9f20ecc3cb643ee90120a2b86f903f7cff548f65f0.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/25629-a4480823d0efedf4bc795b9f20ecc3cb643ee90120a2b86f903f7cff548f65f0.disposition.json",
+    "sha256": "59f3f328f2261b741e1d22d16f2b4f239b73cd6c66c51179b136fa9090ec3180",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "26168-ebc0ccc0861b3bb04752a2aba541a799cd72f548d56a6d2cbd992abe4476e3b0.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/26168-ebc0ccc0861b3bb04752a2aba541a799cd72f548d56a6d2cbd992abe4476e3b0.disposition.json",
+    "sha256": "eb691f46ed9fd9dec64bc80b34ac455e3f7beff16f1d8cc8ab31ee2af4b94f0e",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "26761-3c66b904d9faaa2efeee3495cd610702a19e6532d3d4fc72e43c464ee76b5333.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/26761-3c66b904d9faaa2efeee3495cd610702a19e6532d3d4fc72e43c464ee76b5333.disposition.json",
+    "sha256": "b8d2430a733b36af873dd7583b8afb4704ab691980bd2ed2b4233746bad09231",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "26968-eb2a7a53b67a30fc078dae38d2cdd29aa29e7ad2139626ee975f606132f6c999.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/26968-eb2a7a53b67a30fc078dae38d2cdd29aa29e7ad2139626ee975f606132f6c999.disposition.json",
+    "sha256": "21dab0f3db81f296f917f09858994c5d48f6c8864ef8b546d5142c4902af6744",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "27968-658ecec36125b2ea1b621f30bbe05f371e527d6aa6c75a7408d7c09dfa4e4d5c.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/27968-658ecec36125b2ea1b621f30bbe05f371e527d6aa6c75a7408d7c09dfa4e4d5c.disposition.json",
+    "sha256": "c79912bf4eaa9cec8ab488c48613138c40ebcfdcbf9e2c90b66dff15d9b9366e",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "28698-eeb28618647cc47412478c2d6825f0600f427e7588b71b5e42188d1a4fc2f61d.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/28698-eeb28618647cc47412478c2d6825f0600f427e7588b71b5e42188d1a4fc2f61d.disposition.json",
+    "sha256": "48666cf027e6c454fdc1a6fb353a84dd01f76b731726b4b914dec67d15186127",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "29132-020e533187a9c1c1064d0600a1537b5a2e3f2f282ec3a4061182200e86346b22.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/29132-020e533187a9c1c1064d0600a1537b5a2e3f2f282ec3a4061182200e86346b22.disposition.json",
+    "sha256": "e9e5b6496cb0d604407cd141c5b365412221ab7c1e5faab45ea7dcde215e2fa0",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "29159-eab9a5639263505e4fde3c819dc21423d97b199463c46191503c7749c431bbb5.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/29159-eab9a5639263505e4fde3c819dc21423d97b199463c46191503c7749c431bbb5.disposition.json",
+    "sha256": "fa8c6bf5e8cec6f831a887fc0fbd8ed9c9c46a2e0ff25c9915c6453187bce94e",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "29623-88019cb061fd0d690ac24547218d73f53c08c4541025603cc5af2635a2865f92.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/29623-88019cb061fd0d690ac24547218d73f53c08c4541025603cc5af2635a2865f92.disposition.json",
+    "sha256": "37d70164a760e7e8f3a49eed835aa90c9b511215c4ca4060f08a07f8288f2854",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "30014-1c914b0ed9d5f895e285ab9daf1bdbba09e8421086308d660616df3f17a5a47c.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/30014-1c914b0ed9d5f895e285ab9daf1bdbba09e8421086308d660616df3f17a5a47c.disposition.json",
+    "sha256": "dd6b4d609e186a49e15ff4a6e6352cb802a61b1fb4c3cd3c0c31c17f7ebb4e05",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "30015-f51436d16171c08cf50c1d77c0177466d99dd459756219d5b1225fa3fa960124.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/30015-f51436d16171c08cf50c1d77c0177466d99dd459756219d5b1225fa3fa960124.disposition.json",
+    "sha256": "91d079f0073c4b25ad3877fbe918bc7290adc82afb1002543d7563e96b2ed549",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "30330-38656eb6cd0cc154f28b2151db68a56f64a1138a39dd2d4498797e7d05d0f71d.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/30330-38656eb6cd0cc154f28b2151db68a56f64a1138a39dd2d4498797e7d05d0f71d.disposition.json",
+    "sha256": "5fdc9680291e3b85b9e172ac41642cb7270b43e6141e7c671e6dc3e53cc06559",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "30361-a9b327f92db52428494d8fea1efd038ef40b505eef56885227f2817c1748777f.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/30361-a9b327f92db52428494d8fea1efd038ef40b505eef56885227f2817c1748777f.disposition.json",
+    "sha256": "07b93539d59435675f3ffae4fbb89ee29b1d1410ca9ce72e5f1880f9836ad13a",
+    "in_launch_inventory": false
+  },
+  {
+    "filename": "30683-8ced313c0085664a85b0f3ae99c5b29f0aab8694fcdfe8212ce35ecc962b0771.disposition.json",
+    "repository_path": "experiments/10_gettenberg_qualification/results/gettenberg-terminal-20261022/new-dispositions/30683-8ced313c0085664a85b0f3ae99c5b29f0aab8694fcdfe8212ce35ecc962b0771.disposition.json",
+    "sha256": "924c6a21d1231cf06e352b4ab5d7171c449926450a04e6b7ec60f8074f5801b0",
+    "in_launch_inventory": false
+  }
+]

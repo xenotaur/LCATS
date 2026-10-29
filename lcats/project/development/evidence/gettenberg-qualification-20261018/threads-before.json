@@ -1,0 +1,30 @@
+{
+  "pull_request": {
+    "number": 524,
+    "owner": "xenotaur",
+    "repo": "LCATS"
+  },
+  "threads": [
+    {
+      "comments": {
+        "nodes": [
+          {
+            "author": {
+              "login": "copilot-pull-request-reviewer"
+            },
+            "body": "With a valid catalog but a missing or empty collection directory, `iter_collection_story_files()` yields no paths (`discovery.py:87\u201396`). This guard accepts that result, so the runner writes `completed: true`, no rows, and zero differences without comparing any stories. Reject missing directories and empty canonical-story selections inside the existing error-recording block, and add regression tests for both cases.",
+            "id": "PRRC_kwDOKlhIbM8AAAABAKlYuA",
+            "url": "https://github.com/xenotaur/LCATS/pull/524#discussion_r4306065592"
+          }
+        ],
+        "pageInfo": {
+          "endCursor": null,
+          "hasNextPage": false
+        }
+      },
+      "id": "PRRT_kwDOKlhIbM6toJc_",
+      "isOutdated": false,
+      "isResolved": false
+    }
+  ]
+}

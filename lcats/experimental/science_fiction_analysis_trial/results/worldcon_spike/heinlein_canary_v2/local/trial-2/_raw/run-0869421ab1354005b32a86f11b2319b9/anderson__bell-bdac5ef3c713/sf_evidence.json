@@ -1,0 +1,59 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 3743,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1934,
+  "run_id": "run-0869421ab1354005b32a86f11b2319b9",
+  "stage": "sf_evidence",
+  "story_id": "anderson/bell",
+  "story_path": "anderson/bell/story.json",
+  "text": "",
+  "title": "Anderson - The Bell",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.92,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00004"
+        ],
+        "paraphrase": "The narrator reports an explanation attributing the bell sound to a large owl.",
+        "quote": "he said that the sound proceeded from a very large owl, in a hollow tree; a sort of learned owl, that continually knocked its head against the branches.",
+        "raw_id": "e1"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00007"
+        ],
+        "paraphrase": "The children realize the bell is imaginary.",
+        "quote": "Now we are there! In reality the bell does not exist; it is only a fancy that people have taken into their heads!",
+        "raw_id": "e2"
+      },
+      {
+        "confidence": 0.78,
+        "evidence_type": "reader_facing_contrast",
+        "paragraph_ids": [
+          "p00011"
+        ],
+        "paraphrase": "The narrative contrasts expectation of an audible bell with the reality of a small, faint one.",
+        "quote": "Was it that which people had heard? Yes, everybody was unanimous on the subject, except one, who said that the bell was too small and too fine to be heard at so great a distance, and besides it was very different tones to those that could move a human heart in such a manner.",
+        "raw_id": "e3"
+      },
+      {
+        "confidence": 0.73,
+        "evidence_type": "temporal_or_spatial_displacement",
+        "paragraph_ids": [
+          "p00015"
+        ],
+        "paraphrase": "The character intends to travel beyond usual limits.",
+        "quote": "I must and will find the bell, even if I am obliged to go to the end of the world.",
+        "raw_id": "e4"
+      }
+    ]
+  }
+}

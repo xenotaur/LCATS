@@ -1,0 +1,607 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "london__sun_dog_trail-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "This is a Jack London wilderness narrative. No scientific facts, theories, discoveries, natural processes, or speculative sciences are materially represented. Cold and freezing are ordinary environmental conditions, not science content.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Revolvers, canoes, and sleds are ordinary contemporary tools of the setting, not inventions or engineered systems that speculatively affect the world. No device or technique in a science-fictional sense drives the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The story is set in the 1897 Klondike gold rush, a historical past contemporary to the author's era, not a speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.7,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The narrative develops human obsession and endurance but does not extrapolate consequences from an identifiable scientific, technological, or speculative social premise. It is a realist adventure/character study.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.45,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": "incidental",
+            "rationale": "Sitka Charley reasons from observed visual clues to infer facts (the woman crying, the stakes of the card game). This is systematic inference from evidence, but it is applied to interpreting paintings rather than driving understanding of a natural phenomenon, so materiality is incidental and interpretation uncertain.",
+            "status": "ambiguous",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-3aa4fa0d7c8622f9",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-f9408281752268f8",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              }
+            ]
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is terrestrial Alaska. Sun-dogs and northern lights are ordinary atmospheric phenomena, not other planets, dimensions, nonordinary cosmic environments, or visitors from them.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "McKeon's death and the impending freeze-up are personal misfortunes and ordinary seasonal hardship, not large-scale natural, technological, cosmic, biological, or human-caused disaster. They lack the broad scale required for the catastrophe criterion.",
+            "status": "absent",
+            "supporting_evidence": [
+              {
+                "evidence_id": "sfev-36fca9f96ebd9485",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-8dd113aa56509d96",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              }
+            ]
+          }
+        ],
+        "evidence_set_id": "sfes-442021db8e407a91",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 1,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-442021db8e407a91",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 25515,
+            "output": 1097
+          }
+        },
+        "status": "complete",
+        "story_hash": "c6b88260ac92f5db9943ad84acdcedff819badfc86101f2936f50ebf649295f6"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "london__sun_dog_trail-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-sundog-pursuit",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The trail conditions, freeze-up dynamics, dog logistics, and hunger economics are rendered with coherent, systematic, nonsupernatural realism. But this is ordinary realism rather than an immanent imaginary science, and it exists in the absence of any novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8dd113aa56509d96",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-36fca9f96ebd9485",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ]
+            },
+            "description": "The relentless, money-fueled pursuit across 1500 miles of Alaskan trail by the man and woman ('baby wolves') to hunt down and kill the one-eyed stranger-man.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-d90ee52e48cd9484",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "rationale": "The estrangement here is the wilderness ordeal and the inscrutable motive, framed through the 'picture without beginning or end' motif, but it does not constitute a science-fictional novum.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ab458660be945754",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-36fca9f96ebd9485",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-8dd113aa56509d96",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-8dd113aa56509d96",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-36fca9f96ebd9485",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-d90ee52e48cd9484",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-ab458660be945754",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "The pursuit is the governing narrative logic of Sitka Charley's embedded tale, driving every event. However, centrality alone does not make it a novum, since it lacks the required novelty.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-8dd113aa56509d96",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-36fca9f96ebd9485",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-d90ee52e48cd9484",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-8dd113aa56509d96",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-36fca9f96ebd9485",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "rationale": "The pursuit-and-kill across a harsh Klondike landscape involves no totalizing or world-altering difference from the author's empirical norm. It is a naturalistic tale of human obsession, hardship, and revenge set in the historical 1897 gold-rush Yukon. Nothing changes the story universe or a crucial aspect of it; the estrangement is geographic and psychological, not ontological.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          },
+          {
+            "candidate_id": "cand-picture-epistemology",
+            "cognitive_validation": {
+              "confidence": 0.6,
+              "counterevidence": [],
+              "rationale": "Charley's inferences from the faro painting and the crying woman are coherent, systematic, and nonsupernatural reasoning. But this is ordinary deduction, not an imaginary science, and there is no novum for it to validate.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-3aa4fa0d7c8622f9",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-f9408281752268f8",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ]
+            },
+            "description": "The framing conceit that life can be read as 'pictures without beginning or end' — a mode of interpreting reality that Sitka Charley develops by reasoning from visible evidence.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-f5656819af903f30",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "rationale": "The conceit estranges ordinary perception by framing lived moments as unresolved pictures, but it is an aesthetic frame, not a science-fictional novum with storyworld consequences.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-ab458660be945754",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "storyworld_consequence_evidence": []
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-ab458660be945754",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-3aa4fa0d7c8622f9",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-f9408281752268f8",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              },
+              {
+                "evidence_id": "sfev-f5656819af903f30",
+                "evidence_set_id": "sfes-442021db8e407a91"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.5,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-36fca9f96ebd9485",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "rationale": "The picture conceit frames the narrative but functions as a thematic/structural device rather than a world-governing logic with material consequences; its centrality is interpretive, not causal.",
+              "status": "ambiguous",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-ab458660be945754",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-ab458660be945754",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-3aa4fa0d7c8622f9",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                },
+                {
+                  "evidence_id": "sfev-f9408281752268f8",
+                  "evidence_set_id": "sfes-442021db8e407a91"
+                }
+              ],
+              "rationale": "This is a literary/aesthetic framing device and a mode of inference, not a totalizing world-altering difference from the empirical norm. It changes how the story is told, not the story universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-442021db8e407a91",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-442021db8e407a91",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 25862,
+            "output": 1764
+          }
+        },
+        "status": "complete",
+        "story_hash": "c6b88260ac92f5db9943ad84acdcedff819badfc86101f2936f50ebf649295f6"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-442021db8e407a91",
+    "knight_analysis_id": "london__sun_dog_trail-knight-v1",
+    "suvin_novum_analysis_id": "london__sun_dog_trail-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-442021db8e407a91",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.6,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "reader_facing_contrast",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Sitka Charley contrasts static pictures with life, saying pictures lack beginning and end.",
+            "quote": "That picture is all end,\n\" he said.\n\"It has no beginning.",
+            "raw_id": "ev02",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.55,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "scientific_or_technical_explanation",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "paraphrase": "Sitka Charley explains the physiological danger of breathing extreme cold air, causing lung damage and later illness.",
+            "quote": "Better that we\ndon\ttravel to-day,\" I say, \"else will the\nfrost be unwarmed in the breathing and bite all the edges of our\nlungs.\n\nAfter that we will have bad cough, and maybe next\nspring will come pneumonia.",
+            "raw_id": "ev07",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 28883,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 28669
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-36fca9f96ebd9485",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The travelers find McKeon dead in his snow-buried cabin, removing their expected food source.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "I go\ninside.\n\nMcKeon is dead.\n\nMaybe two or three weeks he\nis dead.\n\nA sickness had come upon him so that he could not\nleave the cabin.\n\nThe wind and the snow had covered the\ncabin.\n\nHe had eaten his grub and died."
+        },
+        {
+          "anchor": {
+            "end_char": 6053,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 5925
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-3aa4fa0d7c8622f9",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Sitka Charley deduces details of the depicted card game from visible clues in the painting.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "There are no chips on the table,\" Sitka Charley\nexplained.\n\n\"The men are playing with markers.\nThat means the roof is the limit."
+        },
+        {
+          "anchor": {
+            "end_char": 9689,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 9524
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8dd113aa56509d96",
+          "evidence_type": "catastrophe",
+          "paraphrase": "The impending freeze-up of the waterways threatens to strand travelers and force a long overland journey.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Maybe one\nday, maybe three days, maybe six days, any day maybe freeze-up\ncome, then no more water, all ice, everybody walk, Dawson six\nhundred miles, long time walk."
+        },
+        {
+          "anchor": {
+            "end_char": 4052,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 3907
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ab458660be945754",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Sitka Charley draws a distinction between life, where events resolve, and pictures, where nothing happens.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It is not life,\" he delivered himself\ndogmatically.\n\"In life little girl die or get\nwell.\n\nSomething happen in life.\n\nIn picture nothing\nhappen."
+        },
+        {
+          "anchor": {
+            "end_char": 33554,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 33306
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d90ee52e48cd9484",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Sitka Charley describes a moment of insight during hardship that changed his view of money and life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And after that\nnever again do I care for money.\n\nFor that day a large\nwisdom came to me.\n\nThere was a great light, and I saw\nclear, and I knew that it was not for money that a man must live,\nbut for a happiness that no man can give, or buy, or sell"
+        },
+        {
+          "anchor": {
+            "end_char": 306,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 207
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f5656819af903f30",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The narrator observes Sitka Charley's intense contemplation and is curious about it.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Something was going on in that\nmind of his, and, whatever it was, I knew it was well worth\nknowing."
+        },
+        {
+          "anchor": {
+            "end_char": 3609,
+            "paragraph_ids": [
+              "p00001"
+            ],
+            "start_char": 3431
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f9408281752268f8",
+          "evidence_type": "inquiry_or_scientific_method",
+          "paraphrase": "Sitka Charley reasons from observed physical evidence to conclude the woman is crying rather than asleep.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Perhaps she is asleep,\" he repeated.\n\nHe\nstudied it closely.\n\n\"No, she is not asleep.\n\nThe\nshoulders show that she is not asleep.\n\nI have seen the\nshoulders of a woman who cried."
+        }
+      ],
+      "story_hash": "c6b88260ac92f5db9943ad84acdcedff819badfc86101f2936f50ebf649295f6",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "london/sun_dog_trail",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "c6b88260ac92f5db9943ad84acdcedff819badfc86101f2936f50ebf649295f6",
+  "story_path": "london/sun_dog_trail/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

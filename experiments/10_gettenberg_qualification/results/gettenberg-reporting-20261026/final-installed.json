@@ -1,0 +1,112 @@
+{
+  "completed": true,
+  "started_at": "2026-10-26T22:40:50.863883+00:00",
+  "finished_at": "2026-10-26T22:40:51.080187+00:00",
+  "python": "3.11.9 | packaged by conda-forge | (main, Apr 19 2024, 18:34:54) [Clang 16.0.6 ]",
+  "runner_sha256": "f41a8b322fb8d78e113c500d9ddd334917ff3fb9d4ec769457b642e179a80aa6",
+  "original_catalog_info": {
+    "schema_version": 1,
+    "parser_version": "1",
+    "archive_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gettenberg/archives/9a5fa33b491b2e5cb689d803a2b126905ba2f45cf32f569f8a99bcc2663b8a16.tar.bz2",
+    "limits": {
+      "max_compressed_bytes": 268435456,
+      "max_member_bytes": 2097152,
+      "max_expanded_bytes": 4294967296,
+      "max_members": 200000,
+      "max_database_bytes": 4294967296,
+      "max_seconds": 600.0
+    },
+    "report": {
+      "output_path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gettenberg/candidates/26db2ec471424efaa46e7b22ed5edf26/catalog.sqlite",
+      "status": "complete",
+      "archive_sha256": "9a5fa33b491b2e5cb689d803a2b126905ba2f45cf32f569f8a99bcc2663b8a16",
+      "archive_bytes": 126818475,
+      "expanded_bytes": 2153267200,
+      "members": 79689,
+      "imported": 79689,
+      "rejected": 0,
+      "uncommitted": 0,
+      "diagnostics": 223,
+      "elapsed_seconds": 435.16931520798244,
+      "database_bytes": 2191507456
+    },
+    "status": "complete"
+  },
+  "rdf_source_name": "cache/epub/1367/pg1367.rdf",
+  "rdf_sha256": "1043f33ba1b85650c39310e2fa126ab20cfa71c9bdde977ccac2901d30248c31",
+  "source_uri": "https://www.gutenberg.org/ebooks/1367.txt.utf-8",
+  "request_url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt",
+  "existing_story": "/Users/centaur/Tempspace/Projects/LCATS/data/mass_quantities/findelkind__ouida/story.json",
+  "protected_before": {
+    "catalog": {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gettenberg/generations/26db2ec471424efaa46e7b22ed5edf26/catalog.sqlite",
+      "size": 2191507456,
+      "mtime_ns": 1793050282943742325
+    },
+    "story_sha256": "0f4146e363f01fb8564141248806f5ce3a92a83a0b6588a59613cd96ad81dd16"
+  },
+  "protected_after": {
+    "catalog": {
+      "path": "/Users/centaur/Tempspace/Projects/LCATS/cache/gettenberg/generations/26db2ec471424efaa46e7b22ed5edf26/catalog.sqlite",
+      "size": 2191507456,
+      "mtime_ns": 1793050282943742325
+    },
+    "story_sha256": "0f4146e363f01fb8564141248806f5ce3a92a83a0b6588a59613cd96ad81dd16"
+  },
+  "module_sha256": {
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/cli.py": "d23944a66f82f176ebb163cb97dfe20bf77f487df4595e16013b076e444d5d1d",
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/parser.py": "d36c98c78966b37897b23c60a6f2a02ce4ee9af7a96f4fa8d362c553c6ca57e8",
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/mass_quantities/gatherer.py": "bccfb5c08cf8ee2e123dfba1e4382bb0ca6bdc83163deba6cc9fb68fd000ac1a",
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/story_output.py": "b16b87ce11758a7364e74c450de688a8c04f1e6a8c0de63ecf498d6fc4dc6be4",
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/gatherers/gutenberg_source.py": "abcc3dece3c4fb247c6e69080d14322b561ae4e0b4cd7991698eb9c1e0bf3161",
+    "/private/tmp/gettenberg-promotion-20261024/venv/lib/python3.11/site-packages/lcats/gettenberg/_resource_transport.py": "2fe6e9b8672046abd188522b39a093c8e904bd550d379a6b3abb0ce728fd392d"
+  },
+  "requests": [
+    {
+      "url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt",
+      "method": "GET",
+      "status": 404
+    }
+  ],
+  "cli_status": 2,
+  "stdout": "Running gatherer: mass_quantities\nGathering incomplete: cleanup refusals or unavailable sources remain.\nmass_quantities: 0 ready (0 newly written, 0 existing outputs reused), 0 skipped, 0 cleanup refused, 1 download attempts returning HTTP 404\n",
+  "stderr": "\r  0%|          | 0/1 [00:00<?, ?it/s]\r100%|##########| 1/1 [00:00<00:00,  6.88it/s]\r100%|##########| 1/1 [00:00<00:00,  6.88it/s]\n",
+  "output_hashes": {},
+  "cached_source": false,
+  "temporary_acquisition_files": [],
+  "events": [
+    {
+      "event": "run_start",
+      "story_count": 1,
+      "timestamp": "2026-10-26T22:40:50.918885Z"
+    },
+    {
+      "event": "story_source_unavailable",
+      "final_url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt",
+      "http_status": 404,
+      "reason": "http_status: HTTP status 404; no representation published",
+      "request_url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt",
+      "source_uri": "https://www.gutenberg.org/ebooks/1367.txt.utf-8",
+      "story": 1367,
+      "timestamp": "2026-10-26T22:40:51.076467Z"
+    },
+    {
+      "event": "batch_summary",
+      "http_404_attempts": 1,
+      "incomplete": true,
+      "ready": 0,
+      "refused": 0,
+      "reused": 0,
+      "skipped": 0,
+      "timestamp": "2026-10-26T22:40:51.076720Z",
+      "unavailable": 1,
+      "written": 0
+    },
+    {
+      "event": "run_end",
+      "story_count": 1,
+      "timestamp": "2026-10-26T22:40:51.076782Z"
+    }
+  ],
+  "isolated_root": "/private/var/folders/fh/5b9j24597tlc600x4bb8hr5w0000gn/T/gettenberg-1367-live-_iiq0ot1"
+}

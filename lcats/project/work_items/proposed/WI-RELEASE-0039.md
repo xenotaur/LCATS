@@ -1,166 +1,117 @@
 ---
-resolution: null
-blocked_reason: null
-blocked: false
-id: WI-RELEASE-0039
-title: Pre-launch verification of the gutenbergpy dependency resolution before real PyPI publish
-type: evaluation
-status: proposed
-owner: xenotaur
-contributors:
-  - xenotaur
-assigned_agents: []
-related_focus: []
-related_roadmap: []
-related_workstreams:
-  - WS-RELEASE
-related_design:
-  - project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md
-depends_on:
-  - WI-RELEASE-0037
-blocked_by: []
-expected_actions:
-  - create_report
-  - edit_file
-  - create_pr
-forbidden_actions:
-  - force_push
-  - delete_branch
-  - publish_package
-  - modify_ci_pipeline
-acceptance:
-  - A verification report exists confirming, as of a date immediately preceding the real PyPI publish attempt, whether gutenbergpy has a newer PyPI release incorporating PR #25/#26 (which would make "wait on upstream" viable even if WI-RELEASE-0037 originally chose otherwise)
-  - If WI-RELEASE-0037 chose vendoring - the report confirms the vendored copy in lcats/src/lcats/gettenberg/ still matches what was verified at implementation time, and checks for any new upstream commits to the vendored files that should be considered for re-porting
-  - If WI-RELEASE-0037 chose re-fork-and-publish - the report confirms the LCATS-controlled fork's PyPI package is still current, its own dependency pin in lcats/pyproject.toml resolves correctly, and the fork has not fallen behind any relevant upstream security fixes
-  - If findings suggest WI-RELEASE-0037's original decision should be revisited, that discrepancy is surfaced to the user before any publish proceeds - this item does not unilaterally change the dependency pin or re-decide vendor vs. fork vs. wait
-  - This item is not resolved until it has actually been run and reported on in the same work session as an imminent real PyPI publish attempt - an early dry run does not satisfy its purpose
-  - lrh validate reports 0 errors
-required_evidence:
-  - manual_review
-  - lrh_validate
-artifacts_expected:
-  - project/executions/WI-RELEASE-0039/
+"resolution": null
+"blocked_reason": null
+"blocked": false
+"id": "WI-RELEASE-0039"
+"title": "Reverify internal gettenberg readiness immediately before real PyPI publish"
+"type": "evaluation"
+"status": "proposed"
+"owner": "xenotaur"
+"contributors":
+- "xenotaur"
+"assigned_agents": []
+"related_focus": []
+"related_roadmap": []
+"related_workstreams":
+- "WS-RELEASE"
+"related_design":
+- "project/design/proposals/proposed/lcats-pypi-release-readiness/00_proposal.md"
+- "project/design/proposals/adopted/lcats-gettenberg-redesign/00_proposal.md"
+"depends_on":
+- "WI-RELEASE-0037"
+"blocked_by": []
+"expected_actions":
+- "create_report"
+- "edit_file"
+- "create_pr"
+"forbidden_actions":
+- "force_push"
+- "delete_branch"
+- "publish_package"
+- "modify_ci_pipeline"
+"acceptance":
+- "A dated report in the same work session as an imminent real PyPI publish verifies the delivered internal\
+  \ gettenberg replacement and current release candidate."
+- "Fresh distribution metadata and installation have no gutenbergpy or direct URL/VCS requirement, and\
+  \ the current supported Python/environment constraints are verified."
+- "Current parser/title/alias, first-use/offline, cache recovery and caller migration evidence remains\
+  \ valid for the release candidate; relevant dependency/security or upstream data-format changes are\
+  \ assessed."
+- "Any discrepancy is reported to the human before publication; the item does not silently redesign or\
+  \ change dependencies."
+- "An early dry run does not resolve this item; lrh validate reports zero errors."
+"required_evidence":
+- "manual_review"
+- "lrh_validate"
+"artifacts_expected":
+- "project/executions/WI-RELEASE-0039/"
 ---
 
 ## Summary
 
-Re-verify, immediately before any real LCATS PyPI publish is attempted,
-that `WI-RELEASE-0037`'s `gutenbergpy` dependency-blocker resolution is
-still current — catching upstream releases, drift in a vendored/forked
-copy, or other changes that could make the original decision stale.
+Reverify the delivered internal gettenberg replacement immediately before an
+actual LCATS PyPI publication attempt. This gate is tied to the publish event,
+not completion of the implementation pilot or an arbitrary date.
 
 ## Problem / Context
 
-`PROP-LCATS-PYPI-RELEASE-READINESS`'s Design Decision 1 ("How to keep the
-dependency-blocker resolution honest over time") identified that
-resolving `WI-RELEASE-0037` once and treating it as permanently settled
-has a real gap: the interval between that resolution and an actual
-publish attempt could be long enough for upstream `gutenbergpy` state to
-change (a new PyPI release could land, making a chosen vendor/fork
-solution unnecessary or reversible), or for a vendored/forked copy to
-have silently drifted from what was verified at implementation time. A
-one-time decision recorded in a now-closed work item has no built-in
-mechanism to force a second look before the point where drift actually
-matters — the moment of real publish. This work item is that standing
-mechanism, per the proposal's and governing workstream's
-(`WS-RELEASE`) explicit design.
+### Historical decision context (superseded 2026-10-14)
+
+The original gate revisited upstream release availability and vendor/fork drift.
+Its timing requirement remains; the selected implementation is now internally
+owned gettenberg under PROP-LCATS-GETTENBERG-REDESIGN. The original text is
+preserved in this file's history at `5cfd2d71`. A later upstream gutenbergpy
+release does not automatically reverse the owner's approved redesign.
 
 ### Duplication search
-- In-repo: No existing implementation or decision record found (grepped
-  `project/work_items/`, `project/design/proposals/` for
-  "pre-launch"/"pre-publish"/"release gate"/"publish verification").
-- Sibling repos: None identified — this is LCATS-specific.
-- External libraries: None applicable — this is a manual verification
-  gate, not a library concern.
-- Recommendation: Proceed.
+
+- This is WS-RELEASE's existing near-publication gate; no second gate is created.
+- No sibling service/library substitutes for checking the actual LCATS release.
 
 ### Demand search
-- Work items: None found beyond the originating proposal/workstream
-  themselves.
-- Proposals: `PROP-LCATS-PYPI-RELEASE-READINESS` is this item's own
-  originating proposal, not a duplicate demand.
-- Backlog: No `project/design/backlog.md` in this repo.
-- Recommendation: No action.
+
+- WI-RELEASE-0037 supplies dependency-blocker resolution; gettenberg qualification
+  supplies implementation evidence, which must still match the release candidate.
+- Recommendation: retain the imminent-publication timing and human escalation.
 
 ## Scope
 
-- Confirm `gutenbergpy`'s current PyPI release status against the
-  upstream fixes (`raduangelescu/gutenbergpy` PR #25/#26).
-- If `WI-RELEASE-0037` chose vendoring or forking-and-publishing, confirm
-  that solution is still intact and current.
-- Surface any discrepancy to the user before a real publish proceeds —
-  do not silently re-decide or auto-correct.
+Current release candidate, packaging independence, supported behavior, retained
+provenance and relevant general dependency/source-format changes.
 
 ## Required Changes
 
-1. Check the current `gutenbergpy` PyPI release version and changelog
-   for whether it now includes the alias-table/title-index fixes from
-   PR #25/#26 — if so, "wait on upstream" may now be viable even if
-   `WI-RELEASE-0037` originally chose otherwise, and that should be
-   surfaced as a live option, not silently ignored.
-2. If `WI-RELEASE-0037` chose vendoring: diff the vendored copy in
-   `lcats/src/lcats/gettenberg/` against its recorded origin to confirm
-   no accidental drift, and check `raduangelescu/gutenbergpy:master` for
-   any new commits to the vendored files' upstream originals since
-   `WI-RELEASE-0037` was resolved.
-3. If `WI-RELEASE-0037` chose re-fork-and-publish: confirm the
-   LCATS-controlled fork's PyPI package is still installable and
-   current, and that `lcats/pyproject.toml`'s pin to it still resolves.
-4. Write findings into this work item's execution record. If findings
-   suggest the original `WI-RELEASE-0037` decision should be revisited,
-   stop and report to the user — do not change the dependency pin or
-   re-decide vendor/fork/wait as part of this item.
-5. Do not perform the actual PyPI publish as part of this work item.
+1. Confirm with the human that a real publish is imminent; identify exact
+   candidate commit/version and the previously delivered replacement evidence.
+2. Rebuild/inspect/install the distribution in an isolated environment without
+   gutenbergpy. Verify no direct URL requirements and current environment support.
+3. Recheck affected behavior and evidence after intervening changes, including
+   titles/aliases, offline/first-use, cache recovery and caller migration.
+4. Assess relevant dependency/security or Gutenberg source-format changes;
+   report discrepancies to the human instead of silently revising the design.
+5. Record dated commands/results and review. Do not perform publication here.
 
 ## Non-Goals
 
-- Does not implement or change the `gutenbergpy` dependency fix itself —
-  that remains `WI-RELEASE-0037`'s scope, even if this item's findings
-  suggest revisiting it.
-- Does not perform the actual PyPI publish — `forbidden_actions` bars
-  `publish_package`.
-- Does not set up ongoing or automated monitoring of `gutenbergpy`'s
-  release status — this is a one-time manual gate run immediately before
-  a specific publish attempt, not continuous integration.
+No publication, CI changes, periodic upstream-release monitoring, automatic
+redesign, or premature resolution immediately after WI-RELEASE-0037.
 
 ## Acceptance Criteria
 
-- A verification report exists confirming, as of a date immediately
-  preceding the real PyPI publish attempt, whether `gutenbergpy` has a
-  newer PyPI release incorporating PR #25/#26.
-- If vendoring was chosen: the report confirms the vendored copy still
-  matches what was verified at implementation time, and checks for new
-  upstream commits worth re-porting.
-- If re-fork-and-publish was chosen: the report confirms the fork's
-  PyPI package is still current and its dependency pin resolves
-  correctly.
-- If findings suggest the original decision should be revisited, that
-  is surfaced to the user before any publish proceeds — this item does
-  not unilaterally act on it.
-- This item is not resolved until it has actually been run and reported
-  on in the same work session as an imminent real PyPI publish attempt.
-- `lrh validate` reports 0 errors.
+All frontmatter criteria hold in the same work session as imminent publication.
+An earlier rehearsal or pilot result is evidence input, not satisfaction.
 
 ## Validation
 
-- `lrh validate`
-- Manual check documented against `https://pypi.org/project/gutenbergpy/`
-  (or the chosen alternative package, if `WI-RELEASE-0037` published a
-  fork)
+- `lrh validate` and exact-release-candidate package metadata/install checks.
+- Relevant canonical/behavior checks and dated manual review of the evidence.
 
 ## Risk Notes
 
-- This item's value depends entirely on being run at the right time.
-  Resolving it prematurely — e.g., immediately after `WI-RELEASE-0037`
-  without an actual imminent publish — defeats its purpose. Whoever
-  executes it should confirm a real publish is genuinely about to happen
-  before treating this item as satisfied.
-- Cannot be meaningfully executed until `WI-RELEASE-0037` has resolved —
-  see `depends_on`.
+This gate loses its purpose if resolved before publication is actually imminent.
+WI-RELEASE-0037 must first resolve; any discrepancy returns to the human.
 
 ## Dependencies / Order
 
-Depends on `WI-RELEASE-0037` (cannot meaningfully run before that
-item's vendor/fork/wait decision is made). Should run as the final step
-before any real PyPI publish attempt, not scheduled to a fixed date —
-timing is tied to the publish event itself, not the calendar.
+Depends on WI-RELEASE-0037. Run immediately before the actual publication attempt;
+this pilot does not execute or resolve it.

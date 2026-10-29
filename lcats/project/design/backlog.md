@@ -22,6 +22,19 @@ severity first (silent > loud > cosmetic), then effort-to-fix — a silent
 failure gives no signal to prompt anyone to notice it, so it's worth fixing
 before a loud one even if the loud one blocks more use cases.
 
+## Gettenberg adoption follow-up — open
+
+Human acceptance of replacement-delivery decisions A–D on 2026-10-24 requires durable
+tracking. The [post-adoption register](../development/gettenberg-post-adoption-backlog.md)
+is the single detailed backlog: GPA-A (13 source-format refusals), GPA-B (55 retained
+notices), GPA-C (12 specific body effects and separate parser/gather reconciliation),
+and GPA-D (coverage and historical-provenance limits). GPA-E, recorded separately on
+2026-10-27, proposes a shared gather-result contract with Standard Ebooks coordination
+after adoption; its implementation is excluded from PR #534. The register includes affected IDs,
+evidence, triage owner, first steps and completion criteria. Delivery acceptance does
+not resolve these entries. Promote them to scoped LRH work items when selected;
+replace active register instructions with links rather than duplicating work.
+
 ---
 
 ### `_locate_anchor_span`'s whitespace-tolerant fallback never handles paragraph-marker leakage or curly-quote typography — P2, resolved
@@ -865,7 +878,14 @@ proposed here since at least one (`WI-ANNOTATE-0051`) is already
 
 ---
 
-## Check back on `gutenbergpy` upstream release status for `WI-RELEASE-0037` — P3, decision blocked on external response
+## Check back on `gutenbergpy` upstream release status for `WI-RELEASE-0037` — historical, superseded 2026-10-14
+
+**Superseded:** PR #501 selected the LCATS-owned gettenberg redesign. The watch
+and kickoff prompt below are retained as historical context, not active
+instructions or an external-response blocker. WS-GETTENBERG now implements the
+replacement; WI-RELEASE-0037 verifies delivery and WI-RELEASE-0039 retains its
+immediately-before-publication check. Neither release item is resolved here.
+
 
 Noted 2026-07-29, while formalizing `WS-RELEASE`/`PROP-LCATS-PYPI-RELEASE-READINESS`.
 `WI-RELEASE-0037` (resolve the `gutenbergpy` `git+https` direct-VCS-dependency
@@ -1190,3 +1210,53 @@ Decide whether to extend the scripts' scope (likely surfacing existing
 violations) or document the gap.
 
 **Related:** PR #448.
+
+### Two per-story sidecars the code writes are not registered sidecar kinds (`linguistics.lexicon.json`, `science-fiction.json`) — P1, silent loss
+
+The validator registry (`src/lcats/analysis/corpus/sidecar_validators.py:121-127`)
+registers only `genre.json`, `scenes.json`, `linguistics.json` and
+`linguistics.tokens.json`, so the orphaned-sidecar guard cannot see two other
+per-story files the code writes: `linguistics.lexicon.json`
+(`lcats linguistics --include-lexicon`; `lexicon.py:16`, `runner.py:534`) and
+`science-fiction.json` (`science_fiction/pipeline.py:208-234`, experiment-local and
+blocked from the protected `data/` and `corpora/` roots by default via
+`utils/checkpoint.py`). In a scratch copy, `replace` of a collection holding a
+lexicon sidecar exits `0` with no warning and deletes it, and
+`insert --sidecar linguistics.lexicon.json` is refused without
+`--allow-unvalidated`. Both are prospective, since neither exists in `corpora/`
+today; the lexicon is the likelier to reach a release, so it is the P1 half.
+
+**First concrete step:** register a validator for each shape (a code change with
+tests, alongside the registry's basename-collision check) and correct the
+registry's "all 4 currently-produced sidecar kinds" comment. Until then, run the
+read-only unregistered-name check in `project/design/sidecar-kinds-release-rule.md`
+before a release; it prints nothing today.
+
+**Related:** `project/design/sidecar-kinds-release-rule.md`; `WI-PROMOTE-0117`;
+`WS-SIDECAR-SAFE-PROMOTION`.
+
+### Preserve the 146 original story hashes and add a release-time story-binding check for the seeded genre sidecars — P2, preservation is time-sensitive
+
+`WI-PROMOTE-0118` found that the original per-story `story_content_hash` values from
+the 2026-08-21 Opus run exist, but only as 146 gitignored checkpoint files
+(`.gitignore:137`) in one sibling worktree (`lcats-special-char-strategy-c18aa7`, under
+`experiments/05_metadata_genre_prefilter/results/full_scan/<collection>__<story>/validation.json`),
+and that all 146 equal the sha256 of today's `story.json` bytes. A fresh clone, `git clean -fdx` or removing
+that worktree loses them, and the committed results hold no hash at all. The
+recommendation (`project/design/genre-sidecar-story-binding.md`) is a side manifest
+of `{lcats_id, story_content_hash}`, compared with the regenerated `data/` at
+release time, with no sidecar schema change.
+
+**First concrete step:** archive the 146 Opus checkpoint files themselves (about
+160 KB in total; `.gitignore:137` matches them, so they need a forced add or an
+ignore exception), and derive the hash manifest from the archived files so the link
+to the model run can be re-checked; a recent precedent is the "preserve staged Opus
+run artifacts" data PR. Then build the comparison as a small tool plus a runbook
+step, using file bytes (conservative: also flags unused fields such as `year`) or an
+effective-input hash over `author`, `url` and the body (exact), never a body hash
+alone (it misses changes the model is shown), decide the re-assess-or-accept
+rule, and measure whether a fresh `lcats gather` reproduces the stored text
+byte-for-byte (not measured here).
+
+**Related:** `project/design/genre-sidecar-story-binding.md`; `WI-PROMOTE-0118`;
+`WS-SIDECAR-SAFE-PROMOTION`.

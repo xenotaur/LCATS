@@ -1,0 +1,33 @@
+{
+  "population": 1659,
+  "historical_changed": 1642,
+  "resolved": 14,
+  "unresolved": 1628,
+  "residual_groups": {
+    "additional_boundary_text": 1477,
+    "mixed_or_unclassified": 97,
+    "explained_typography": 18,
+    "normalization_requires_review": 32,
+    "no_candidate": 2,
+    "baseline_unavailable": 2
+  },
+  "additional_boundary_by_selection": {
+    "no_qualified_notice_selection": 804,
+    "qualified_notice_removed": 673
+  },
+  "additional_boundary_locations": {
+    "prefix_only": 1013,
+    "prefix_and_suffix": 408,
+    "suffix_only": 56
+  },
+  "meaning": "Diagnostic comparison shapes, not editorial classifications or approval. Candidate/normalization/baseline/projection hashes are bound in final ledger.",
+  "full_source_corpus_identity_checks": 1659,
+  "prior_intent_counts": {
+    "unreviewed": 1610,
+    "none": 19,
+    "approve": 13,
+    "exclude": 7,
+    "defer": 10
+  },
+  "no_new_proposals_on_cumulative_replay": true
+}

@@ -1,0 +1,73 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 19341,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1014,
+  "run_id": "run-a4040fba5a324ae980b1deceeafa67cf",
+  "stage": "sf_suvin_novum",
+  "story_id": "london/brown_wolf",
+  "story_path": "london/brown_wolf/story.json",
+  "text": "",
+  "title": "London - Brown Wolf",
+  "tool_result": {
+    "dominant_novum_id": "",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-wolf-dog-choice",
+        "character_reaction_evidence_ids": [
+          "sfev-48fe5c250e6b78e8",
+          "sfev-d69c5117184709f2",
+          "sfev-4a405048a4cd6abb"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.7,
+          "counterevidence_ids": [],
+          "rationale": "The dog's behavior is explained through coherent, nonsupernatural terms (homing instinct, conditioning to trail commands, bond with the man who raised him). The account is systematic and immanent, but this coherence describes ordinary animal psychology rather than an imaginary scientific or social innovation.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-6e7eb61c603c9b45"
+          ]
+        },
+        "description": "A semi-wild dog ('Wolf'/'Brown') who is given the agency to choose between two masters/lives and does so, functioning as a locus of will that drives the narrative's central conflict.",
+        "estrangement_rationale": "The dog's barking for the first time and his visible agonized deliberation create a moment of wonder for the characters, but this is emotional contrast within a naturalistic frame, not cognitive estrangement from an altered empirical norm.",
+        "evidence_ids": [
+          "sfev-48fe5c250e6b78e8",
+          "sfev-4a405048a4cd6abb",
+          "sfev-6e7eb61c603c9b45",
+          "sfev-d69c5117184709f2"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.8,
+          "counterevidence_ids": [],
+          "rationale": "The dog and the question of his ownership and choice govern the entire narrative logic: the story builds to and resolves on his decision. It is central rather than incidental.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-4a405048a4cd6abb",
+            "sfev-48fe5c250e6b78e8",
+            "sfev-d69c5117184709f2"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.85,
+          "counterevidence_ids": [
+            "sfev-4a405048a4cd6abb",
+            "sfev-48fe5c250e6b78e8",
+            "sfev-6e7eb61c603c9b45"
+          ],
+          "rationale": "A loyal, intelligent dog who must choose between owners is entirely consistent with the ordinary empirical world. The dog's deliberation, homing instinct, and eventual decision are naturalistic animal behaviors, not a totalizing or world-altering difference from the empirical norm. Nothing about the story universe is altered; no estranging novum reshapes reality.",
+          "status": "absent",
+          "supporting_evidence_ids": []
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-48fe5c250e6b78e8"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-4a405048a4cd6abb"
+        ]
+      }
+    ]
+  }
+}

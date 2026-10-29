@@ -56,9 +56,10 @@ lcats clean
 ```
 
 `lcats clean` clears every `data/<gatherer>` directory and every cache
-mechanism: `cache/resources`, plus `mass_quantities`'s separate
-`cache/texts`/`cache/tmp` and its Gutenberg metadata cache
-(`cache/gutenbergindex.db`, `cache/rdf-files.tar.bz2`). It's safe on a
+mechanism: `cache/resources`, the catalog/source store at `cache/gettenberg`,
+and legacy `cache/texts`, `cache/tmp`, `cache/gutenbergindex.db` and
+`cache/rdf-files.tar.bz2`. Stop other LCATS processes before this destructive
+operation; it removes source receipts and all catalog generations. It's safe on a
 symlinked `data/`/`cache/` setup (some machines point these at a
 scratch/tempspace location, to keep large regenerated data out of a
 backup system) — only contents are ever removed, never the directory or
@@ -66,8 +67,8 @@ symlink itself — and it self-heals a dangling symlink it encounters along
 the way (one whose target directory no longer exists), rather than
 crashing on the next `lcats gather` the way a bare `os.makedirs` does.
 
-Clearing the Gutenberg metadata cache means the *first* metadata lookup
-in the next `lcats gather mass_quantities` rebuilds it from scratch —
+Clearing the Gutenberg metadata cache means the next `lcats gather mass_quantities`
+requests setup approval (or needs `--yes` when unattended) to build it again —
 downloading and parsing the whole Gutenberg RDF catalog, not just the
 per-story text this section already warns about. Expect that one rebuild
 to take a while, regardless of how small a subset of `mass_quantities`
@@ -123,6 +124,126 @@ force a genuinely fresh, fully-networked run, clear the cache too:
 `lcats clean --cache-only` (or bare `lcats clean`, which clears both
 `data/` and `cache/` together — see step 2 above).
 
+## 3b. Seed the tranche-promoted sidecars
+
+**Directory:** `lcats/`.
+
+`lcats clean` empties `data/`, and `lcats gather` regenerates stories only. The
+146 `genre.json` sidecars promoted by PR #362 exist only in `corpora/`, so
+nothing above puts them back into `data/` — and `lcats promote replace` then
+refuses (exit `1`, `orphaned sidecar` blocks, 7 collections) rather than delete
+them. This step restores them into `data/`, from the tracked evidence file, so
+`data/` is the complete release source. It adds sidecars only: no story file is
+touched.
+
+**Full release** (you ran a bare `lcats clean` and `lcats gather`). Build the
+seed manifest outside the repository, then preview and apply it:
+
+```bash
+SEED="$(mktemp -d)/genre_seed.jsonl"
+python tools/build_genre_seed_manifest.py --manifest-out "$SEED" --expect-count 146
+lcats promote insert --sidecar genre --tranche-manifest "$SEED" --dest data/ --dry-run
+```
+
+The build prints `146 seed records (146 cache_db_path values reduced to a
+basename); manifest written to ...`. The `--dry-run` prints 146 lines of
+`would promote sidecar: <collection>/<story>` and exits `0`; it writes nothing.
+**Only if it did exactly that**, apply it:
+
+```bash
+lcats promote insert --sidecar genre --tranche-manifest "$SEED" --dest data/
+```
+
+Expected: 146 `promoted sidecar: <collection>/<story>` lines, exit `0`.
+
+**Single-collection release** (you ran `lcats clean <collection>` and
+`lcats gather <collection>`). `data/` still holds the sidecars you seeded for
+every other collection, and `promote insert` has no collection selector, so the
+full manifest would be rejected for all of them. Seed only the collection you
+regenerated, from a manifest filtered to it. Build `$SEED` as above, then:
+
+```bash
+COLLECTION=wodehouse
+grep -F "\"lcats_id\": \"$COLLECTION/" "$SEED" > "${SEED%.jsonl}_$COLLECTION.jsonl"
+wc -l < "${SEED%.jsonl}_$COLLECTION.jsonl"
+lcats promote insert --sidecar genre --tranche-manifest "${SEED%.jsonl}_$COLLECTION.jsonl" --dest data/ --dry-run
+```
+
+Then apply it exactly as above (same `--tranche-manifest`, no `--dry-run`) once
+the dry-run is clean. The trailing `/` in the pattern keeps one collection name
+from matching another that begins with it. Only seven collections have seeded
+sidecars today; the filtered line count must be:
+
+| Collection | Lines | Collection | Lines |
+|---|---|---|---|
+| `anderson` | 18 | `lovecraft` | 10 |
+| `chesterton` | 12 | `mass_quantities` | 84 |
+| `grimm` | 2 | `wodehouse` | 12 |
+| `london` | 8 | every other collection | 0 |
+
+The counts sum to 146. A collection with `0` has nothing to seed: skip this step
+for it, and a scoped `lcats promote replace <collection>` is not blocked. If a
+collection in the table with a non-zero count gives `0`, the filter did not match
+(the pattern depends on the manifest's `"lcats_id": "` spacing); stop rather than
+skip, because the scoped `replace` would then be blocked.
+
+**If the dry-run fails** (exit `1`, `rejected:` lines — typically `no story.json
+at data/<collection>/<story>`, meaning regeneration no longer produces a story
+that has a seeded sidecar, or `gather` did not finish): nothing was written. Fix
+the cause and re-run the dry-run. Do not run the real `insert` until it reports
+exactly the expected count with exit `0`.
+
+**If the real `insert` reports any rejection:** `insert` writes record by
+record and is not transactional, so the other records were written. Do not
+continue to step 4 or on to `replace`, and do not just retry — a retry on the
+same `data/` rejects every sidecar already written (exit `1`). The step 6
+preview does not catch this either: after a partial `insert` it can still exit
+`0` and look clean, so the stop rule here is the only guard. Restore a clean
+`data/` (re-run step 2 and step 3, scoped to the collection for a
+single-collection release), fix the cause, and re-run the dry-run and the
+`insert` from scratch.
+
+**If a pipeline-produced `genre.json` is already in `data/`** (for example from
+`lcats annotate`): `insert` refuses and exits `1`. Do not switch to `upsert` — it
+overwrites the whole file and would silently discard that file's assessments.
+Stop and decide the precedence deliberately.
+
+Never pass `--allow-orphaned-sidecar-deletion` to avoid this step: it disables
+the orphaned-sidecar guard for every collection and every sidecar kind at once.
+The seeded sidecars carry no story-text fingerprint, so they are not checked
+against the regenerated story text. The recommended check (a side manifest of the
+original story hashes, compared with the regenerated `data/`) is described in
+[`project/design/genre-sidecar-story-binding.md`](../../project/design/genre-sidecar-story-binding.md);
+it is not built yet.
+
+**Other sidecar kinds.** Today only `genre.json` exists in `corpora/`, so this step
+covers everything that needs seeding. If a later release also holds `scenes.json`,
+`linguistics.json` or `linguistics.tokens.json` in `corpora/`, step 6's preview
+will block on them the same way; seed each kind with create-only
+`lcats promote insert --sidecar <kind>` from a tracked source before `replace`,
+and never use `upsert` or `--allow-orphaned-sidecar-deletion`. The rule, the
+evidence and the two unregistered kinds (`linguistics.lexicon.json` and
+`science-fiction.json`, which the guard cannot see) are in
+[`project/design/sidecar-kinds-release-rule.md`](../../project/design/sidecar-kinds-release-rule.md).
+The guard does not cover a story missing from the regenerated `data/` (`replace`
+deletes the story and its sidecars with exit `0`), nor a sidecar name it does not
+know. After `gather` and the seed step, from `lcats/`, these two read-only checks
+should print nothing; the note explains each:
+
+```bash
+# sidecar names the guard cannot see
+find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' \
+  ! -name story.json ! -name genre.json ! -name scenes.json \
+  ! -name linguistics.json ! -name linguistics.tokens.json
+
+# corpora/ sidecars whose story is missing from the regenerated data/
+find ../corpora -mindepth 3 -maxdepth 3 -name '*.json' ! -name story.json |
+  while read -r f; do
+    b=$(dirname "${f#../corpora/}")
+    [ -f "data/$b/story.json" ] || echo "no story.json in data/ for: $b ($(basename "$f"))"
+  done
+```
+
 ## 4. Verify
 
 **Directory:** `lcats/`.
@@ -175,15 +296,18 @@ lcats promote replace --dry-run
 
 Reports, per collection, either `would promote: <name> -> <name>` or
 `blocked: <name> (N finding(s) across M stories)` with the specific findings
-listed. This makes no changes regardless of what it finds — see
+listed. If it instead shows `blocked: ... orphaned sidecar(s)`, step 3b was
+skipped or did not finish: go back and seed before continuing. This makes no
+changes regardless of what it finds — see
 [`corpus-promotion.md`](corpus-promotion.md) for the full command reference,
 including `--source`/`--dest` and why they default correctly only when run
 from `lcats/`.
 
 ## 7. Promote (the actual release step)
 
-This step changes tracked files in `corpora/`. Everything above this line is
-read-only.
+This step changes tracked files in `corpora/`. Nothing above this line writes
+under `corpora/`: the earlier steps change only regenerable local state,
+including `data/` (step 3b seeds it with the tranche-promoted sidecars).
 
 The `cd` commands below use `git rev-parse --show-toplevel` rather than a
 relative `cd ..`/`cd lcats`, so they work regardless of whether you run 7a,
@@ -214,16 +338,20 @@ regenerated `data/`. Commit the result as its own PR.
 
 If it exits `1` with `orphaned sidecar` blocks, a registered sidecar (for
 example `genre.json`) exists in `corpora/` for a story but not in the
-regenerated `data/`, and `replace` refused to delete it for that collection. Exit `1` does not mean nothing changed: collections that were not blocked are still promoted (each collection is gated independently). Do **not** pass
+regenerated `data/`, and `replace` refused to delete it for that collection.
+Exit `1` does not mean nothing changed: collections that were not blocked are
+still promoted (each collection is gated independently). The usual cause is a
+skipped or unfinished [step 3b](#3b-seed-the-tranche-promoted-sidecars): seed
+`data/`, re-run the step 6 preview, and promote again. Do **not** pass
 `--allow-orphaned-sidecar-deletion` to get past this: it disables the guard for
-every collection and every sidecar kind at once, and a release run today would
-delete the 146 tranche-promoted `genre.json` sidecars. Stop and see
+every collection and every sidecar kind at once, and it would delete the 146
+tranche-promoted `genre.json` sidecars. See
 [`genre-sidecars-in-release-workflow.md`](../../project/design/genre-sidecars-in-release-workflow.md)
-for why this happens and the recommended fix.
+for why this happens.
 
 ## If verification finds problems
 
-A finding after a genuine fresh regeneration (step 2 → 3 → 4, in order) means
+A finding after a genuine fresh regeneration (step 2 → 3 → 3b → 4, in order) means
 a defect exists that the current rule table, override files, or allowlist
 don't yet cover. Do not edit the story JSON directly — every fix is a
 versioned pipeline input:
@@ -237,6 +365,10 @@ versioned pipeline input:
 
 This is the same disposition method used to reach the current clean state;
 see the `WI-RESIDUAL-0019` execution record for worked examples of each.
+
+Whenever you re-run step 2 or step 3 to re-check a fix, `data/` is emptied or
+partly regenerated again, so re-run [step 3b](#3b-seed-the-tranche-promoted-sidecars)
+before step 4 and the preview.
 
 ## Optional next step: quality/genre assessment
 

@@ -6,7 +6,6 @@ import unittest
 import unittest.mock
 
 from lcats.analysis.corpus import clean_cli
-from lcats.gettenberg import cache as gettenberg_cache
 from lcats.utils import capture
 
 
@@ -19,10 +18,10 @@ class CleanCliTest(unittest.TestCase):
 
         self.data_root = self.tmp_dir / "data"
         self.cache_root = self.tmp_dir / "cache"
-        self.texts_dir = self.tmp_dir / "cache_texts"
-        self.tmp_unpack = self.tmp_dir / "cache_tmp"
-        self.index_db = self.tmp_dir / "cache_index.db"
-        self.rdf_archive = self.tmp_dir / "cache_rdf.tar.bz2"
+        self.texts_dir = self.cache_root / "texts"
+        self.tmp_unpack = self.cache_root / "tmp"
+        self.index_db = self.cache_root / "gutenbergindex.db"
+        self.rdf_archive = self.cache_root / "rdf-files.tar.bz2"
 
         self.data_root.mkdir()
         (self.data_root / "sherlock").mkdir()
@@ -47,31 +46,13 @@ class CleanCliTest(unittest.TestCase):
                 "LCATS_CACHE_DIR": str(self.cache_root),
             },
         )
-        self._p_texts = unittest.mock.patch.object(
-            gettenberg_cache, "GUTENBERG_TEXTS", self.texts_dir
-        )
-        self._p_tmp = unittest.mock.patch.object(
-            gettenberg_cache, "GUTENBERG_TMP", self.tmp_unpack
-        )
-        self._p_index_db = unittest.mock.patch.object(
-            gettenberg_cache, "GUTENBERG_INDEX_DB", self.index_db
-        )
-        self._p_rdf_archive = unittest.mock.patch.object(
-            gettenberg_cache, "GUTENBERG_RDF_ARCHIVE", self.rdf_archive
-        )
         self._p_env.start()
-        self._p_texts.start()
-        self._p_tmp.start()
-        self._p_index_db.start()
-        self._p_rdf_archive.start()
-
-    def tearDown(self):
-        self._p_rdf_archive.stop()
-        self._p_index_db.stop()
-        self._p_tmp.stop()
-        self._p_texts.stop()
-        self._p_env.stop()
-        self._tmp.cleanup()
+        self.addCleanup(self._p_env.stop)
+        self.addCleanup(self._tmp.cleanup)
+        self.managed = self.cache_root / "gettenberg"
+        (self.managed / "generations" / "fixture").mkdir(parents=True)
+        (self.managed / "generations" / "fixture" / "catalog.sqlite").touch()
+        (self.managed / "active.json").write_text("{}")
 
     def test_no_args_clears_all_of_data_and_cache(self):
         with capture.suppress_output():
@@ -84,6 +65,7 @@ class CleanCliTest(unittest.TestCase):
         self.assertEqual(list(self.tmp_unpack.iterdir()), [])
         self.assertFalse(self.index_db.exists())
         self.assertFalse(self.rdf_archive.exists())
+        self.assertEqual(list(self.managed.iterdir()), [])
         # The directories themselves survive -- only contents are cleared.
         self.assertTrue(self.data_root.is_dir())
         self.assertTrue(self.cache_root.is_dir())
@@ -126,6 +108,33 @@ class CleanCliTest(unittest.TestCase):
         self.assertEqual(list(self.texts_dir.iterdir()), [])
         self.assertFalse(self.index_db.exists())
         self.assertFalse(self.rdf_archive.exists())
+        self.assertEqual(list(self.managed.iterdir()), [])
+
+    def test_nested_links_are_unlinked_without_deleting_external_data(self):
+        target = self.tmp_dir / "external"
+        target.mkdir()
+        preserved = target / "source.txt"
+        preserved.write_text("immutable original")
+        (self.managed / "external-link").symlink_to(target)
+        with capture.suppress_output():
+            self.assertEqual(clean_cli.run(["--cache-only"]), 0)
+        self.assertEqual(preserved.read_text(), "immutable original")
+        self.assertFalse((self.managed / "external-link").is_symlink())
+
+    def test_symlinked_managed_root_survives_and_legacy_file_links_do_not_follow(self):
+        target = self.tmp_dir / "managed-target"
+        self.managed.rename(target)
+        self.managed.symlink_to(target)
+        external = self.tmp_dir / "original.db"
+        external.write_bytes(b"original")
+        self.index_db.unlink()
+        self.index_db.symlink_to(external)
+        with capture.suppress_output():
+            self.assertEqual(clean_cli.run(["--cache-only"]), 0)
+        self.assertTrue(self.managed.is_symlink())
+        self.assertEqual(list(target.iterdir()), [])
+        self.assertEqual(external.read_bytes(), b"original")
+        self.assertFalse(self.index_db.is_symlink())
 
     def test_data_only_and_cache_only_are_mutually_exclusive(self):
         with capture.capture_output() as captured:

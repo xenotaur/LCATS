@@ -39,7 +39,18 @@ class TestCli(unittest.TestCase):
         )
         self.assertEqual(expected_message, actual_message)
         self.assertEqual(expected_status, actual_status)
-        mock_run.assert_called_once_with(["sherlock"], dry_run=True)
+        mock_run.assert_called_once_with(
+            ["sherlock"],
+            dry_run=True,
+            yes=False,
+            offline=False,
+            catalog_archive=None,
+            catalog_url=None,
+            main_root=None,
+            generated_root=None,
+            allow_origins=(),
+            cache_dir=None,
+        )
 
     @mock.patch("lcats.analysis.corpus.cli.run_survey")
     def test_dispatch_survey(self, mock_run_survey):

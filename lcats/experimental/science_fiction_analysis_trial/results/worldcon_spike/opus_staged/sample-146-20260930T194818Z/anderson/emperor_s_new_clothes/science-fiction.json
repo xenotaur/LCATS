@@ -1,0 +1,463 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "anderson__emperor_s_new_clothes-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "The story invokes no scientific facts, theories, or natural processes. The 'wonderful property' of the cloth is a con artist's fraud with no scientific basis; it is a social/moral fable, not science.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "Weaving looms are ordinary, and crucially the cloth does not exist; the weavers merely pretend. No device, invention, or engineered system materially operates. The plot turns on human vanity and deception, not on any functioning technology.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The setting is a vaguely historical 'many years ago' fairy-tale court with no speculative future, remote past, or temporal displacement. The generic past-tense framing is an incidental fairy-tale convention, not a materially rendered remote past.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.75,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "The story develops social consequences of vanity and conformity, but not from any identifiable scientific or technological premise; the premise is a moral fable/hoax, not an extrapolation of a real science-fictional novum.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.8,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "Characters observe an empty loom and privately doubt, but they suppress and falsify their observations rather than test hypotheses or revise beliefs evidentially. The child's blunt statement is honesty, not systematic inquiry. No scientific method materially drives action.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.9,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The entire story takes place in an ordinary earthly royal capital. There are no other planets, dimensions, nonordinary cosmic environments, or visitors from them. The 'strangers' are merely traveling con men.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.85,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The Emperor's public embarrassment is a personal/social humiliation, not a large-scale natural, technological, cosmic, biological, or human-caused catastrophe. No disaster is actual, impending, remembered, or causally central.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-4d623183b9c29be9",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4d623183b9c29be9",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 7913,
+            "output": 1205
+          }
+        },
+        "status": "complete",
+        "story_hash": "9a32712cd46906154cbf1f382ecbeb50350e1d7eadd134b3c0b5829869a1fbba"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "anderson__emperor_s_new_clothes-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-invisible-cloth",
+            "cognitive_validation": {
+              "confidence": 0.75,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-7e98dec3029d95ac",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-d11fc859037b8a5d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-73556ff261f2107d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ],
+              "rationale": "There is no systematic, immanent account of how such selectively-invisible cloth could work; the premise is presented as a con and is exposed as having no referent. The story offers no imaginary science or social mechanism validating the property\nit relies on collective pretense, which is a psychological/satirical device rather than a coherent novum logic.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "description": "The impostor weavers' 'magic' cloth, purportedly woven with the property of being invisible to anyone unfit for their office or foolish/simple. In fact there is no cloth at all; the supposed property is a swindle that operates socially rather than physically.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-7e98dec3029d95ac",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-73556ff261f2107d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ],
+              "rationale": "The reader is told directly that the frames are empty (sfev-d11fc859037b8a5d) while characters praise the nonexistent cloth, producing satirical estrangement. This contrast exposes social conformity rather than a science-fictional cognitive difference. The child's blunt truth and the crowd's eventual acknowledgment reinforce that no actual novum operates.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-d11fc859037b8a5d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-c26975dbebdb5d3c",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-6b12e8f5ffbc1611",
+                "evidence_set_id": "sfes-4d623183b9c29be9"
+              },
+              {
+                "evidence_id": "sfev-7e98dec3029d95ac",
+                "evidence_set_id": "sfes-4d623183b9c29be9"
+              },
+              {
+                "evidence_id": "sfev-d11fc859037b8a5d",
+                "evidence_set_id": "sfes-4d623183b9c29be9"
+              },
+              {
+                "evidence_id": "sfev-73556ff261f2107d",
+                "evidence_set_id": "sfes-4d623183b9c29be9"
+              },
+              {
+                "evidence_id": "sfev-c26975dbebdb5d3c",
+                "evidence_set_id": "sfes-4d623183b9c29be9"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The purported cloth and its property drive the entire plot: the Emperor's commission, the ministers' false reports, the procession, and the climactic exposure all follow from it. It governs the narrative logic, even though it functions as satire rather than a real novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-6b12e8f5ffbc1611",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-d11fc859037b8a5d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-73556ff261f2107d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-c26975dbebdb5d3c",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.8,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-6b12e8f5ffbc1611",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-d11fc859037b8a5d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                },
+                {
+                  "evidence_id": "sfev-73556ff261f2107d",
+                  "evidence_set_id": "sfes-4d623183b9c29be9"
+                }
+              ],
+              "rationale": "The claimed world-altering property\ncloth selectively invisible by moral/intellectual fitness\nis never real within the storyworld. The narration and the child's plain statement establish that the looms and frames are empty and the Emperor is literally naked. There is no totalizing empirical difference from the implied norm; the ordinary physics of the world hold entirely. The 'novum' is a fraud and a social allegory, not an operative cognitive innovation altering the universe.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-4d623183b9c29be9",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": true,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-4d623183b9c29be9",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 8260,
+            "output": 1195
+          }
+        },
+        "status": "complete",
+        "story_hash": "9a32712cd46906154cbf1f382ecbeb50350e1d7eadd134b3c0b5829869a1fbba"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-4d623183b9c29be9",
+    "knight_analysis_id": "anderson__emperor_s_new_clothes-knight-v1",
+    "suvin_novum_analysis_id": "anderson__emperor_s_new_clothes-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-4d623183b9c29be9",
+      "quarantined": [
+        {
+          "candidate": {
+            "confidence": 0.7,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00008"
+            ],
+            "paraphrase": "The minister worries that his inability to see the cloth means he is a simpleton, and resolves to hide it.",
+            "quote": "\"Is it possible that I am a simpleton? I have never thought so myself; and no one must know it now if I am so.\"",
+            "raw_id": "ev03",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        },
+        {
+          "candidate": {
+            "confidence": 0.75,
+            "end_char": null,
+            "entity_ids": [],
+            "event_ids": [],
+            "evidence_type": "character_reaction",
+            "normalization_notes": [],
+            "paragraph_ids": [
+              "p00018"
+            ],
+            "paraphrase": "The Emperor is alarmed that he cannot see the cloth and fears it means he is unfit.",
+            "quote": "\"How is this?\" said the Emperor to himself. \"I can see nothing! This is indeed a terrible affair! Am I a simpleton, or am I unfit to be an Emperor?\"",
+            "raw_id": "ev04",
+            "schema_errors": [],
+            "source": "model",
+            "source_chunk_id": null,
+            "start_char": null
+          },
+          "reason": "quote could not be located in prepared story"
+        }
+      ],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 1080,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 783
+          },
+          "confidence": 0.75,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-6b12e8f5ffbc1611",
+          "evidence_type": "scientific_or_technical_explanation",
+          "paraphrase": "The weavers claim their cloth has a special property: it is invisible to anyone unfit for office or foolish.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "they knew how to weave stuffs of the most beautiful colors and elaborate patterns, the clothes manufactured from which should have the wonderful property of remaining invisible to everyone who was unfit for the office he held, or who was extraordinarily simple in character"
+        },
+        {
+          "anchor": {
+            "end_char": 10935,
+            "paragraph_ids": [
+              "p00029"
+            ],
+            "start_char": 10874
+          },
+          "confidence": 0.8,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-73556ff261f2107d",
+          "evidence_type": "character_reaction",
+          "paraphrase": "A child openly states the truth that the Emperor is wearing nothing.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"But the Emperor has nothing at all on!\" said a little child."
+        },
+        {
+          "anchor": {
+            "end_char": 3142,
+            "paragraph_ids": [
+              "p00007"
+            ],
+            "start_char": 2989
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-7e98dec3029d95ac",
+          "evidence_type": "character_reaction",
+          "paraphrase": "The old minister is astonished that he can see nothing on the looms.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"What can be the meaning of this?\" thought the old man, opening his eyes very wide. \"I cannot discover the least bit of thread on the looms.\""
+        },
+        {
+          "anchor": {
+            "end_char": 11265,
+            "paragraph_ids": [
+              "p00031"
+            ],
+            "start_char": 11079
+          },
+          "confidence": 0.65,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-c26975dbebdb5d3c",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The whole crowd acknowledges the truth aloud, and the Emperor privately admits the people are right.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "\"But he has nothing at all on!\" at last cried out all the people. The Emperor was vexed, for he knew that the people were right; but he thought the procession must go on now!"
+        },
+        {
+          "anchor": {
+            "end_char": 6873,
+            "paragraph_ids": [
+              "p00017"
+            ],
+            "start_char": 6723
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d11fc859037b8a5d",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "The narration reveals to the reader that the frames are empty, contrasting with the characters' praise.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "and at the same time they pointed to the empty frames; for they imagined that everyone else could see this exquisite piece of workmanship."
+        }
+      ],
+      "story_hash": "9a32712cd46906154cbf1f382ecbeb50350e1d7eadd134b3c0b5829869a1fbba",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "anderson/emperor_s_new_clothes",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "9a32712cd46906154cbf1f382ecbeb50350e1d7eadd134b3c0b5829869a1fbba",
+  "story_path": "anderson/emperor_s_new_clothes/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

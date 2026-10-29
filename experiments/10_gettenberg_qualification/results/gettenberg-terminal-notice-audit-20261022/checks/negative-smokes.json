@@ -1,0 +1,20 @@
+[
+  {
+    "name": "existing-output",
+    "returncode": 1,
+    "expected": "output exists",
+    "passed": true
+  },
+  {
+    "name": "missing-cache",
+    "returncode": 1,
+    "expected": "existing caches required",
+    "passed": true
+  },
+  {
+    "name": "protected-output",
+    "returncode": 1,
+    "expected": "output inside protected root",
+    "passed": true
+  }
+]

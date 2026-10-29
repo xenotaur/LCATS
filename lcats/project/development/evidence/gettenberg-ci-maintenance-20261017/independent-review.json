@@ -1,0 +1,27 @@
+{
+  "frozen_diff_sha256": "3c99e2902c89cdf1572d597f55e5e105e7e2780c256be9ce129c9d1f421b94b4",
+  "assignments": 2,
+  "charged_worker_minutes": 25,
+  "first_assignment_complete": false,
+  "continuation_complete": true,
+  "behavioral_findings": [],
+  "format_finding": {
+    "priority": 2,
+    "file": "lcats/src/lcats/dev/gettenberg_ci.py",
+    "line_before_repair": 132,
+    "independently_reproduced": true,
+    "resolution": "Black-only repair; coordinator checked AST equality with frozen diff; format/lint/focused checks all exit0"
+  },
+  "scope": "Nine product/workflow/documentation files; final control-plane claims excluded",
+  "limitations": [
+    "No live maintenance or remote upload/deletion rehearsal",
+    "No full-catalog performance qualification"
+  ],
+  "upstream_sources": [
+    "https://raw.githubusercontent.com/actions/cache/v4/restore/action.yml",
+    "https://raw.githubusercontent.com/actions/cache/v4/src/saveImpl.ts",
+    "https://docs.github.com/en/actions/reference/workflows-and-actions/expressions",
+    "https://cli.github.com/manual/gh_api",
+    "https://cli.github.com/manual/gh_cache_delete"
+  ]
+}

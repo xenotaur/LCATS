@@ -1,0 +1,166 @@
+{
+  "cache_maintenance.yml": {
+    "before_triggers": {
+      "workflow_dispatch": {
+        "inputs": {
+          "action": {
+            "description": "What to do",
+            "required": "true",
+            "type": "choice",
+            "options": [
+              "delete",
+              "rebuild",
+              "delete_and_rebuild"
+            ]
+          },
+          "key_prefix": {
+            "description": "Cache key prefix to delete (e.g., ubuntu-latest-gutenberg-)",
+            "required": "true",
+            "default": "Linux-gutenberg-",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "after_triggers": {
+      "workflow_dispatch": {
+        "inputs": {
+          "operation": {
+            "description": "Inspect/delete GitHub caches, or maintain a catalog",
+            "required": "true",
+            "default": "inspect",
+            "type": "choice",
+            "options": [
+              "inspect",
+              "setup",
+              "rebuild",
+              "refresh",
+              "delete"
+            ]
+          },
+          "dry_run": {
+            "description": "Preview only (no Gutenberg cache restore, acquisition, build, save or deletion)",
+            "required": "true",
+            "default": "true",
+            "type": "boolean"
+          },
+          "cache_kind": {
+            "description": "Namespace to inspect/delete on the selected branch ref",
+            "required": "true",
+            "default": "catalog",
+            "type": "choice",
+            "options": [
+              "catalog",
+              "source",
+              "legacy"
+            ]
+          },
+          "allow_count_change": {
+            "description": "Explicitly accept changed ebook counts during refresh/rebuild",
+            "required": "true",
+            "default": "false",
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "before_jobs": [
+      "cache_maintenance"
+    ],
+    "after_jobs": [
+      "cache_maintenance"
+    ],
+    "unchanged_triggers_and_jobs": false
+  },
+  "tests.yml": {
+    "before_triggers": {
+      "pull_request": "",
+      "push": "",
+      "schedule": [
+        {
+          "cron": "0 9 * * 1"
+        }
+      ],
+      "workflow_dispatch": ""
+    },
+    "after_triggers": {
+      "pull_request": "",
+      "push": "",
+      "schedule": [
+        {
+          "cron": "0 9 * * 1"
+        }
+      ],
+      "workflow_dispatch": ""
+    },
+    "before_jobs": [
+      "test"
+    ],
+    "after_jobs": [
+      "test"
+    ],
+    "unchanged_triggers_and_jobs": true
+  },
+  "coverage.yml": {
+    "before_triggers": {
+      "pull_request": "",
+      "push": {
+        "branches": [
+          "main"
+        ]
+      },
+      "schedule": [
+        {
+          "cron": "0 9 * * 1"
+        }
+      ],
+      "workflow_dispatch": ""
+    },
+    "after_triggers": {
+      "pull_request": "",
+      "push": {
+        "branches": [
+          "main"
+        ]
+      },
+      "schedule": [
+        {
+          "cron": "0 9 * * 1"
+        }
+      ],
+      "workflow_dispatch": ""
+    },
+    "before_jobs": [
+      "coverage"
+    ],
+    "after_jobs": [
+      "coverage"
+    ],
+    "unchanged_triggers_and_jobs": true
+  },
+  "lint.yml": {
+    "before_triggers": {
+      "pull_request": "",
+      "push": {
+        "branches": [
+          "main"
+        ]
+      }
+    },
+    "after_triggers": {
+      "pull_request": "",
+      "push": {
+        "branches": [
+          "main"
+        ]
+      }
+    },
+    "before_jobs": [
+      "lint"
+    ],
+    "after_jobs": [
+      "lint"
+    ],
+    "unchanged_triggers_and_jobs": true
+  }
+}

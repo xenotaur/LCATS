@@ -1,0 +1,14 @@
+{
+  "completed": true,
+  "unchanged_population_ledger_rows": 1659,
+  "source_and_corpus_identities_unchanged": 1659,
+  "inherited_dispositions_unchanged": 55,
+  "positive_span_reviews_verified": [
+    63638,
+    73988
+  ],
+  "no_new_dispositions": true,
+  "historical_resolved": 14,
+  "historical_unresolved": 1628,
+  "scope": "Exact source ranges, original-coordinate retained text and separate editorial bytes; semantic role judgments independently corroborated, not authenticated authorship."
+}

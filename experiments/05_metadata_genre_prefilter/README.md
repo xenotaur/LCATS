@@ -3,7 +3,7 @@
 `WI-GENRE-0002` extends the dry-run scaffold from `WI-GENRE-0001` into an
 experiment-local metadata-rule evidence pilot. The runner discovers LCATS story
 buckets, uses LCATS path identity as the primary story ID, reads Gutenberg
-subjects from an explicitly supplied existing SQLite cache in read-only mode,
+subjects from an explicitly supplied LCATS-owned catalog in read-only mode,
 records all matching metadata genre-rule evidence, and writes a deterministic
 40-story pilot manifest (the default mode, below).
 
@@ -19,13 +19,24 @@ The runner is deliberately read-only. It does not import
 not build, download, refresh, or repair the Gutenberg metadata cache. Missing
 cache state is reported in the summary instead of being fixed automatically.
 
-Before running a cache-backed pilot, sync or expose an existing local
-`gutenbergindex.db` and pass it with `--cache-db`. If `--cache-db` is omitted,
-the runner reports `cache.status: "not_supplied"` and does not read any default
-cache location. If an explicitly supplied cache is absent or does not match a
-supported schema, candidate rows still emit assessment-shaped metadata evidence,
-but with empty `raw_subjects`, empty rule matches, and a cache status explaining
-the readiness state.
+Before running a catalog-backed pilot, prepare a catalog separately using the
+[LCATS catalog workflow](../../lcats/docs/how-to/gettenberg-catalog.md), then pass
+the complete SQLite catalog file with `--cache-db`. The retained CLI option name
+does not imply support for the former gutenbergpy database. If `--cache-db` is
+omitted, the runner reports `cache.status: "not_supplied"` and does not read any default
+cache location. If an explicitly supplied catalog is absent, unreadable,
+incompatible, or incompletely ingested, candidate rows still emit
+assessment-shaped metadata evidence, but with empty `raw_subjects`, empty rule matches, and a cache status explaining
+the readiness state (`missing`, `not_file`, `empty`, `unreadable`,
+`incompatible`, or `incomplete`). Ready catalogs report `ready`.
+
+`WI-GETTENBERG-0008` replaces SQL/schema probing with the explicit read-only
+`lcats.gettenberg.catalog.Catalog` API and imports the stable
+`lcats.utils.genre.GENRE_RULES` directly. Subject strings remain sorted and
+deduplicated before rule matching; story IDs, rule order, and genre mappings
+are unchanged. Historical result files retain their original bytes and source
+identities: archived pre-migration measurements used the former cache reader
+and are not represented as outputs of this updated runner.
 
 ## Usage
 
@@ -37,13 +48,13 @@ python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   --output experiments/05_metadata_genre_prefilter/results/smoke
 ```
 
-With an existing Gutenberg metadata cache:
+With an existing complete LCATS Gutenberg catalog:
 
 ```bash
 python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   --dry-run \
   --corpus-root corpora \
-  --cache-db /path/to/existing/gutenbergindex.db \
+  --cache-db /path/to/existing/catalog.sqlite \
   --output experiments/05_metadata_genre_prefilter/results/pilot_40
 ```
 
@@ -52,7 +63,7 @@ Optional repeated-volume cap:
 ```bash
 python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   --dry-run \
-  --cache-db /path/to/existing/gutenbergindex.db \
+  --cache-db /path/to/existing/catalog.sqlite \
   --max-per-gutenberg-id 2 \
   --output experiments/05_metadata_genre_prefilter/results/pilot_40_capped
 ```
@@ -74,7 +85,7 @@ collection like the 40-story pilot. No API calls; free.
 python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   --full-scan \
   --corpus-root corpora \
-  --cache-db /path/to/existing/gutenbergindex.db \
+  --cache-db /path/to/existing/catalog.sqlite \
   --target-total 160 \
   --output experiments/05_metadata_genre_prefilter/results/full_scan
 ```
@@ -217,6 +228,15 @@ python experiments/05_metadata_genre_prefilter/run_prefilter.py \
   almost never the model actually running behind a local endpoint; pass
   the real model name explicitly (e.g. `--model gpt-oss:20b`).
 
+## Checkpoint Archive
+
+The per-story validation checkpoints are gitignored scratch files, but the originals
+from the 2026-08-21 Opus and `gpt-oss:20b` runs over the 146 genre-evidence stories are
+preserved as tracked evidence in `results/full_scan/checkpoint_archive_2026-08-21/`,
+with a baseline story-hash manifest at `results/full_scan/story_hash_baseline.jsonl`
+(`WI-PROMOTE-0124`). `archive_checkpoints.py verify` re-checks them; see the archive's
+README for provenance and caveats.
+
 ## Outputs
 
 The runner writes only under the requested output directory:
@@ -250,7 +270,7 @@ Each candidate row includes a `metadata_assessment` object:
   source volume that contributed multiple LCATS story buckets.
 - `method`: method name/version and pipeline name/version.
 - `provenance`: LCATS story identity plus Gutenberg/cache provenance.
-- `evidence.raw_subjects`: Gutenberg subject strings read from the cache.
+- `evidence.raw_subjects`: Gutenberg subject strings read through the catalog API.
 - `evidence.raw_rule_matches`: every matching rule label with matched patterns.
 - `result.target_candidates`: direct mappings into the 8 LCATS target genres.
 - `result.suggestive_target_candidates`: non-direct but useful target hints,
@@ -298,3 +318,24 @@ run (and the three-way agreement report it would produce) is a separate,
 explicitly-gated follow-up step, matching this experiment's own
 established go-ahead discipline (real spend/wall-clock only after
 explicit review, never bundled silently into a wiring change).
+
+## Offline Verification
+
+From `lcats/` in the project environment:
+
+```bash
+scripts/format --check --diff ../experiments/05_metadata_genre_prefilter/run_prefilter.py ../experiments/05_metadata_genre_prefilter/run_prefilter_test.py
+scripts/lint ../experiments/05_metadata_genre_prefilter/run_prefilter.py ../experiments/05_metadata_genre_prefilter/run_prefilter_test.py
+PYTHONPATH=src python -m unittest discover -s ../experiments/05_metadata_genre_prefilter -p '*_test.py'
+```
+
+The tests author small RDF records, package them in temporary local archives,
+and build real catalogs with `ingestion.build_catalog`. They cover unchanged
+metadata genre classification and selection, subject deduplication, missing
+IDs, read-only byte preservation, and unavailable/incompatible/incomplete
+catalog diagnostics. They require no Gutenberg requests or corpus writes.
+The runner and tests use Python and SQLite through the standard library plus
+the LCATS project environment; no platform-specific cache service is needed.
+The metadata scan reads one record at a time and retains candidate rows in
+memory. Read failures after successful preflight propagate instead of silently
+reporting a successful complete scan.

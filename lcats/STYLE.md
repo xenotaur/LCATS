@@ -71,24 +71,38 @@ Guiding rules:
 
 ## 2. Repository Structure
 
-```
-<root>/
-├── corpora/        # DATA ONLY (no code)
-├── experiments/    # Experimental pipelines (non-production)
-├── lcats/          # EXECUTION ROOT
-│   ├── lcats/      # Python package (import root)
-│   ├── tests/
-│   ├── scripts/
-│   ├── tools/
-│   ├── notebooks/
-│   ├── output/
-│   └── ...
-```
+| Location | Responsibility |
+|---|---|
+| `lcats/project/` | LRH control plane: plans, decisions, execution records, runlogs, review/CI evidence and links to experimental results. Documentation and non-executable data only. |
+| `lcats/experimental/` | Prototypes and temporary investigations. May be removed or graduate into experiments and/or library code. |
+| `experiments/NN_name/` | Durable experiments: documented runners, analysis and archival results kept together for reproducibility. |
+| `lcats/src/lcats/` | Reusable/product domain logic, with unit tests in `lcats/tests/`. |
+| `corpora/` | Released data only; no executable code. |
 
-Key rules:
-- `<root>/lcats` = execution + tooling layer
-- `<root>/lcats/lcats` = importable module
-- No code in `corpora/` or `experiments/`
+Run package commands from `lcats/`; the importable package is `lcats/src/lcats/`.
+Existing maintenance commands belong in `lcats/scripts/` or `lcats/tools/`.
+
+The control plane may contain Markdown code examples, images, JSON, JSONL, YAML,
+logs and other non-executable evidence. It must not contain runnable modules,
+scripts or notebooks, including code disguised as a text file. Link to the
+actual runner and its results instead. LRH configuration remains in `project/`.
+
+Promote exploratory work deliberately: reusable/domain behavior goes into the
+library; durable experiment orchestration and results go into `experiments/`.
+Important code must be tested, but experiment-specific measurement code need not
+become a distributed API. Historical comparison runners may require an old
+revision/environment; document that rather than adding legacy dependencies to
+production. Do not duplicate source or outputs across these locations.
+
+Every retained runner needs purpose, invocation/working directory, inputs/outputs,
+resource and network behavior, failure semantics, platform assumptions, and
+comments explaining non-obvious decisions. Keep scripts thin where library
+capabilities already exist. Format/lint/test changed experiment code explicitly:
+default package scripts cover `src`, `tests`, and `tools`, not all experiments.
+
+Preserve historical measurement bytes and original source attribution. When
+moving evidence, update current navigation and provide an old-to-new path map;
+do not rewrite past measurements as if revised runners produced them.
 
 ---
 

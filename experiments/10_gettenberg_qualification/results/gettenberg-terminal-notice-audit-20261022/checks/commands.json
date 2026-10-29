@@ -1,0 +1,80 @@
+[
+  {
+    "name": "format",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff"
+    ],
+    "returncode": 1,
+    "seconds": 0.51
+  },
+  {
+    "name": "lint",
+    "command": [
+      "scripts/lint"
+    ],
+    "returncode": 0,
+    "seconds": 0.342
+  },
+  {
+    "name": "experiment-format",
+    "command": [
+      "scripts/format",
+      "--check",
+      "--diff",
+      "--",
+      "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+    ],
+    "returncode": 1,
+    "seconds": 0.306
+  },
+  {
+    "name": "experiment-lint",
+    "command": [
+      "scripts/lint",
+      "../experiments/10_gettenberg_qualification/scripts/terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/test_terminal_notice_candidate.py",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py"
+    ],
+    "returncode": 0,
+    "seconds": 0.167
+  },
+  {
+    "name": "unit-boundaries",
+    "command": [
+      "python",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "../experiments/10_gettenberg_qualification/scripts",
+      "-p",
+      "test_terminal_notice_candidate.py",
+      "-v"
+    ],
+    "returncode": 0,
+    "seconds": 0.061
+  },
+  {
+    "name": "runner-help",
+    "command": [
+      "python",
+      "../experiments/10_gettenberg_qualification/scripts/audit_terminal_notice.py",
+      "--help"
+    ],
+    "returncode": 0,
+    "seconds": 0.673
+  },
+  {
+    "name": "lrh",
+    "command": [
+      "/Users/centaur/anaconda3/bin/lrh",
+      "validate"
+    ],
+    "returncode": 0,
+    "seconds": 2.002
+  }
+]

@@ -1,0 +1,62 @@
+{
+  "authority": "Human instruction: Integrate PR 511 please.",
+  "scope": "Internal integration of WI-GETTENBERG-0005 A17 only; no new feature run or main promotion",
+  "pr": "https://github.com/xenotaur/LCATS/pull/511",
+  "merged_at": "2026-10-15T04:51:55Z",
+  "merge_commit": "8c3f9c139977e728b72c12cc3ea8dffb27a0f90d",
+  "verified_head": "5ca97617b72a32162f28826808c65542f38d27ca",
+  "verified_base": "c447c15be9f2314201750b9615fdef04af7bf5d9",
+  "base_branch": "codex/gettenberg-acquisition",
+  "checks": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T02:29:47Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38671088527/job/116214134520",
+      "name": "coverage",
+      "startedAt": "2026-10-15T02:27:35Z",
+      "status": "COMPLETED",
+      "workflowName": "Coverage"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T02:28:05Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38671088551/job/116214134024",
+      "name": "lint",
+      "startedAt": "2026-10-15T02:27:35Z",
+      "status": "COMPLETED",
+      "workflowName": "Lint and formatting checks"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T02:29:14Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38671088566/job/116214134357",
+      "name": "test",
+      "startedAt": "2026-10-15T02:27:35Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-10-15T02:28:56Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/xenotaur/LCATS/actions/runs/38671084250/job/116214119817",
+      "name": "test",
+      "startedAt": "2026-10-15T02:27:32Z",
+      "status": "COMPLETED",
+      "workflowName": "Python tests"
+    }
+  ],
+  "unresolved_review_threads": 0,
+  "reviewed_hashes_match_integrated_tree": true,
+  "merge_tree_equals_verified_head_tree": true,
+  "canonical_tests_from_qualified_head": 2763,
+  "local_tests_rerun": false,
+  "validation_rationale": "Merge tree equals already tested/reviewed head; only non-executable evidence appended after integration. LRH validation rerun for evidence.",
+  "main_promotion": false,
+  "work_item_status": "proposed",
+  "execution_status": "in_progress",
+  "historical_evidence": "Original sprint-stop and pending-CI evidence preserved; this record supersedes that delivery state."
+}

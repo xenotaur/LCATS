@@ -1,0 +1,10 @@
+{
+    "schema_version": 1,
+    "kind": "gettenberg_candidate_disposition",
+    "gutenberg_id": 63889,
+    "candidate_record_sha256": "62f1ce23521fffc0d23f6448e04956106089767ed60bf6e320574a57a4bf9b47",
+    "outcome": "defer",
+    "reviewer": "Codex coordinator \u2014 source review 2026-10-20, agent-authored",
+    "rationale": "Complete narrative read. Interior illustration caption interrupts the story; contiguous span selection cannot remove it while preserving both sides. Legacy body already contains it. Defer pending a source-bound interior editorial solution; do not approve contamination or truncate.",
+    "approval": null
+}

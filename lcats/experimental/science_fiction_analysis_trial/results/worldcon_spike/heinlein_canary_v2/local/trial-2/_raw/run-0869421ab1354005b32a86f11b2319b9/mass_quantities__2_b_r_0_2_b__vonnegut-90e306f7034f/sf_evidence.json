@@ -1,0 +1,69 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": null,
+  "cache_read_input_tokens": null,
+  "effective_max_tokens": 8192,
+  "input_tokens": 5833,
+  "model": "gpt-oss:20b",
+  "output_tokens": 1761,
+  "run_id": "run-0869421ab1354005b32a86f11b2319b9",
+  "stage": "sf_evidence",
+  "story_id": "mass_quantities/2_b_r_0_2_b__vonnegut",
+  "story_path": "mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+  "text": "",
+  "title": "2 B R 0 2 B",
+  "tool_result": {
+    "evidence": [
+      {
+        "confidence": 0.95,
+        "evidence_type": "storyworld_change",
+        "paragraph_ids": [
+          "p00002"
+        ],
+        "paraphrase": "The world lacks typical social ills and conflict.",
+        "quote": "There were no prisons, no slums, no insane asylums, no cripples, no poverty, no wars.",
+        "raw_id": "e1"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "scientific_or_technical_explanation",
+        "paragraph_ids": [
+          "p00003"
+        ],
+        "paraphrase": "Medical advances eliminated disease and aging.",
+        "quote": "All diseases were conquered. So was old age.",
+        "raw_id": "e2"
+      },
+      {
+        "confidence": 0.85,
+        "evidence_type": "extrapolative_consequence",
+        "paragraph_ids": [
+          "p00005"
+        ],
+        "paraphrase": "Population control led to a capped national population.",
+        "quote": "The population of the United States was stabilized at forty-million souls.",
+        "raw_id": "e3"
+      },
+      {
+        "confidence": 0.97,
+        "evidence_type": "catastrophe",
+        "paragraph_ids": [
+          "p00100"
+        ],
+        "paraphrase": "A violent act results in the death of a key character.",
+        "quote": "Wehling shot Dr. Hitz dead. 'There's room for one--a great big one,' he said.",
+        "raw_id": "e4"
+      },
+      {
+        "confidence": 0.9,
+        "evidence_type": "character_reaction",
+        "paragraph_ids": [
+          "p00101"
+        ],
+        "paraphrase": "The shooter expresses indifference toward the victim's death.",
+        "quote": "And then he shot Leora Duncan. 'It's only death,' he said to her as she fell.",
+        "raw_id": "e5"
+      }
+    ]
+  }
+}

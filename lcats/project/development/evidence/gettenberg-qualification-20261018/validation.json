@@ -1,0 +1,44 @@
+{
+  "canonical_tests": {
+    "passed": 2944,
+    "seconds": 108.968,
+    "command": "scripts/test"
+  },
+  "package_format": "passed",
+  "package_lint": "passed",
+  "experiment_black": {
+    "passed": true,
+    "files": 12
+  },
+  "experiment_ruff": "passed",
+  "cold_review": {
+    "new_actionable_defects": 0,
+    "known_blocker_reproduced": true,
+    "manifest_entries_verified": 11,
+    "product_source_hashes_verified": 165,
+    "runner_source_hashes_verified": 12,
+    "corpus_input_hashes_verified": 1659,
+    "changed_tests_passed": 50,
+    "helper_tests_passed": 7,
+    "limitations": [
+      "Broad reviewer tests hit sandbox loopback-bind PermissionError; coordinator canonical suite passed under approved execution.",
+      "No independent repeat of full builds, snapshot replay or bulk corpus extraction."
+    ]
+  },
+  "acceptance": "blocked by real-corpus differences; checkpoint must remain unmerged",
+  "lrh": {
+    "errors": 0,
+    "preexisting_warnings": 351
+  },
+  "post_review_repair": {
+    "canonical_tests": 2945,
+    "seconds": 88.062,
+    "focused_tests": 12,
+    "package_format": "passed",
+    "package_lint": "passed",
+    "experiment_format": "passed (12 files)",
+    "experiment_lint": "passed",
+    "lrh_errors": 0,
+    "lrh_preexisting_warnings": 351
+  }
+}

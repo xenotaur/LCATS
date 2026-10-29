@@ -1,0 +1,571 @@
+{
+  "analyses": {
+    "knight": [
+      {
+        "analysis_id": "mass_quantities__especially_dance_hall_women__ellerbe_ellerbe-knight-v1",
+        "criteria": [
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_1",
+            "materiality": null,
+            "rationale": "Mining, ore assay value, and geology appear only as ordinary period realism, not as materially represented scientific facts, theories, or speculative science.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_2",
+            "materiality": null,
+            "rationale": "A pick, lamp, banjo, and mine are ordinary contemporary tools; no device or invention functions speculatively or as an engineered novum driving the story.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_3",
+            "materiality": null,
+            "rationale": "The fifteen-year jump is ordinary narrative chronology, not a speculative future, remote past, or temporal displacement.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_4",
+            "materiality": null,
+            "rationale": "Rosie's inferences about newly rich miners abandoning poor women are ordinary social reasoning, not extrapolation from an identifiable scientific, technological, or historical premise in the Knight sense.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.55,
+            "counterevidence": [],
+            "criterion_id": "criterion_5",
+            "materiality": null,
+            "rationale": "No observation, hypothesis, testing, measurement, or evidential revision materially drives understanding; Rosie's perfume suspicion is ordinary intuition, later simply corrected.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_6",
+            "materiality": null,
+            "rationale": "The setting is an ordinary terrestrial Colorado mining region; no other planets, dimensions, nonordinary cosmic environments, or visitors appear.",
+            "status": "absent",
+            "supporting_evidence": []
+          },
+          {
+            "confidence": 0.6,
+            "counterevidence": [],
+            "criterion_id": "criterion_7",
+            "materiality": null,
+            "rationale": "The story's crises are personal and emotional; there is no natural, technological, cosmic, biological, or human-caused large-scale disaster, actual or impending.",
+            "status": "absent",
+            "supporting_evidence": []
+          }
+        ],
+        "evidence_set_id": "sfes-93c58a6f48804282",
+        "failures": [],
+        "interval": {
+          "definite_count": 0,
+          "possible_count": 0,
+          "total_count": 7
+        },
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-93c58a6f48804282",
+          "prompt_hash": "a15e7178cd5e9b79fd2823d4b8cb442062fa06aa74f592ed09598788ce919adb",
+          "rubric_version": "knight-seven-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "a1caa886cd7ef63e61409140309092bdb0bd9a324b21489e683e46d4c7d7e4da",
+          "token_usage": {
+            "input": 16756,
+            "output": 974
+          }
+        },
+        "status": "complete",
+        "story_hash": "af22f450c7e55b6e3d77da271565aa2d6ce049e867adb2107bc57e66169fd270"
+      }
+    ],
+    "suvin_novum": [
+      {
+        "analysis_id": "mass_quantities__especially_dance_hall_women__ellerbe_ellerbe-suvin-v1",
+        "candidates": [
+          {
+            "candidate_id": "cand-mineral-strike",
+            "cognitive_validation": {
+              "confidence": 0.7,
+              "counterevidence": [],
+              "rationale": "The strike is coherent, systematic, immanent, and nonsupernatural, grounded in ordinary geology and assaying, but this coherence is that of realism, not of an estranging novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-d353eea7b63a04d8",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ]
+            },
+            "description": "Jim Briggs's discovery of a rich ore vein ('two hundred dollars to the ton'), which promises sudden wealth and upends the couple's settled life.",
+            "estrangement": {
+              "character_reaction_evidence": [
+                {
+                  "evidence_id": "sfev-eca20f9076e40915",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-9e066c15c3b4b9ae",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-8b41e19a8ec696b3",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-f71980eb5431f942",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-ae7d8a683bd72233",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ],
+              "rationale": "The story offers reader-facing contrast (Rosie's dance-hall appearance vs. honest character) and storyworld change (relocation, time jump, the strike), but these are the ordinary contrasts and turns of a realist regional drama, not cognitive estrangement from an empirical norm. There is no imaginary science or novel social organization structuring the world.",
+              "reader_facing_evidence": [
+                {
+                  "evidence_id": "sfev-4e1443171f16899f",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ],
+              "storyworld_consequence_evidence": [
+                {
+                  "evidence_id": "sfev-d353eea7b63a04d8",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-fd0160962c6d92d3",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-1de3af4b64ae6f92",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ]
+            },
+            "evidence": [
+              {
+                "evidence_id": "sfev-d353eea7b63a04d8",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              },
+              {
+                "evidence_id": "sfev-e0f2d783e75a7ebd",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              },
+              {
+                "evidence_id": "sfev-eca20f9076e40915",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              },
+              {
+                "evidence_id": "sfev-f8043af9a6402adc",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              },
+              {
+                "evidence_id": "sfev-1de3af4b64ae6f92",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              },
+              {
+                "evidence_id": "sfev-fd0160962c6d92d3",
+                "evidence_set_id": "sfes-93c58a6f48804282"
+              }
+            ],
+            "narrative_hegemony": {
+              "confidence": 0.75,
+              "counterevidence": [],
+              "rationale": "The strike is the pivot of the plot: it ends the couple's stable poverty and triggers Rosie's dread and crisis, driving the remaining narrative. However, centrality alone does not make it a novum.",
+              "status": "present",
+              "supporting_evidence": [
+                {
+                  "evidence_id": "sfev-e0f2d783e75a7ebd",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-eca20f9076e40915",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-f8043af9a6402adc",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ]
+            },
+            "novelty": {
+              "confidence": 0.85,
+              "counterevidence": [
+                {
+                  "evidence_id": "sfev-d353eea7b63a04d8",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                },
+                {
+                  "evidence_id": "sfev-e0f2d783e75a7ebd",
+                  "evidence_set_id": "sfes-93c58a6f48804282"
+                }
+              ],
+              "rationale": "A mining strike is a mundane event fully consistent with the mining-camp realism of the author's empirical world. It introduces no totalizing or world-altering difference from the empirical norm; it is a plausible economic event in a Colorado mining setting.",
+              "status": "absent",
+              "supporting_evidence": []
+            },
+            "qualified_novum": false
+          }
+        ],
+        "dominant_novum_id": null,
+        "evidence_set_id": "sfes-93c58a6f48804282",
+        "failures": [],
+        "novum_systems": [],
+        "provenance": {
+          "backend": "anthropic",
+          "chunk_config_hash": null,
+          "code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+          "estimated_cost_usd": 0.0,
+          "generated_at": "fixed-for-byte-stability",
+          "generation_parameters": {
+            "max_tokens": 4096,
+            "reused_from_checkpoint": false,
+            "source_code_commit": "c28436fa41d780ded5312c69eefcd5edcc07b095",
+            "source_run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+            "temperature": 0.0
+          },
+          "model": "claude-opus-4-8",
+          "parent_evidence_set_id": "sfes-93c58a6f48804282",
+          "prompt_hash": "21360292e5f9163146e163d3b60e4c5a8663dd2a025cfcf483ec4aa7a5ecb29a",
+          "rubric_version": "suvin-novum-v1",
+          "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+          "schema_hash": "e9a05f830d031902a2a43f2e704ff3f7b14ca998f027e6841adbfb1f43eef8bb",
+          "token_usage": {
+            "input": 17103,
+            "output": 1068
+          }
+        },
+        "status": "complete",
+        "story_hash": "af22f450c7e55b6e3d77da271565aa2d6ce049e867adb2107bc57e66169fd270"
+      }
+    ]
+  },
+  "current": {
+    "evidence_set_id": "sfes-93c58a6f48804282",
+    "knight_analysis_id": "mass_quantities__especially_dance_hall_women__ellerbe_ellerbe-knight-v1",
+    "suvin_novum_analysis_id": "mass_quantities__especially_dance_hall_women__ellerbe_ellerbe-suvin-v1"
+  },
+  "evidence_sets": [
+    {
+      "conflicts": [],
+      "evidence_set_id": "sfes-93c58a6f48804282",
+      "quarantined": [],
+      "records": [
+        {
+          "anchor": {
+            "end_char": 7166,
+            "paragraph_ids": [
+              "p00040"
+            ],
+            "start_char": 7109
+          },
+          "confidence": 0.7,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-1de3af4b64ae6f92",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The narrative jumps ahead fifteen years.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev03",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Fifteen years later, Rosie Briggs stood in the door of it"
+        },
+        {
+          "anchor": {
+            "end_char": 6555,
+            "paragraph_ids": [
+              "p00031"
+            ],
+            "start_char": 6447
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-4e1443171f16899f",
+          "evidence_type": "reader_facing_contrast",
+          "paraphrase": "Rosie's dance-hall appearance contrasts with her honest character.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev11",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "her rouged cheeks and scarlet\nlips and half-bared heaving breasts contrasted strangely with her\nhonest eyes."
+        },
+        {
+          "anchor": {
+            "end_char": 22872,
+            "paragraph_ids": [
+              "p00098"
+            ],
+            "start_char": 22762
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-8b41e19a8ec696b3",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Rosie feels her old troubled self returning.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev10",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "The current of her life had swept past its one clean\ntranquil place and was swirling along muddied and normal."
+        },
+        {
+          "anchor": {
+            "end_char": 8903,
+            "paragraph_ids": [
+              "p00044"
+            ],
+            "start_char": 8640
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-9e066c15c3b4b9ae",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Rosie has transformed over the years into a dignified woman.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev04",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "in the midst of cleanness and\nsilence unbroken since that old rocky backbone of the continent thrust\nitself up into the sun, she had risen slowly out of the shards of the\nlife of Captain Mac and come, late but surely, into her heritage of\nwomanliness and dignity."
+        },
+        {
+          "anchor": {
+            "end_char": 591,
+            "paragraph_ids": [
+              "p00002"
+            ],
+            "start_char": 579
+          },
+          "confidence": 0.5,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-ae7d8a683bd72233",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Jim is pained by seeing Rosie drunk.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev01",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "It hurt him."
+        },
+        {
+          "anchor": {
+            "end_char": 12352,
+            "paragraph_ids": [
+              "p00054"
+            ],
+            "start_char": 12276
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-d353eea7b63a04d8",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "Jim announces he has struck a valuable ore vein.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [
+                "decoded literal Unicode escape in quote",
+                "used bounded whitespace/typography/case fallback"
+              ],
+              "raw_id": "ev06",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Struck it, by thunder! Two hundred dollars to the ton, if it\\u2019s worth a\ncent!"
+        },
+        {
+          "anchor": {
+            "end_char": 12760,
+            "paragraph_ids": [
+              "p00055"
+            ],
+            "start_char": 12681
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-e0f2d783e75a7ebd",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Rosie anticipates the wealth will end their stable life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev07",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "Whatever\nelse it meant, it meant the end of this; the beginning of uncertainty."
+        },
+        {
+          "anchor": {
+            "end_char": 12207,
+            "paragraph_ids": [
+              "p00053"
+            ],
+            "start_char": 12084
+          },
+          "confidence": 0.6,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-eca20f9076e40915",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Rosie feels dread when she realizes Jim has struck ore.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev05",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "And when it cut across the stillness like\nthe whistle of a locomotive it struck her cold. It chilled the core of\nher spirit"
+        },
+        {
+          "anchor": {
+            "end_char": 18547,
+            "paragraph_ids": [
+              "p00088"
+            ],
+            "start_char": 18410
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f71980eb5431f942",
+          "evidence_type": "character_reaction",
+          "paraphrase": "Rosie reacts with sudden dread to smelling perfume on Jim's coat.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev09",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "A knife seemed to unfold inside of Rosie. It cut her song off in the\nmiddle of the line and brought her upright in her chair with a gasp."
+        },
+        {
+          "anchor": {
+            "end_char": 14619,
+            "paragraph_ids": [
+              "p00065"
+            ],
+            "start_char": 14491
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-f8043af9a6402adc",
+          "evidence_type": "extrapolative_consequence",
+          "paraphrase": "Rosie reasons that newly rich miners abandon the poor women who supported them.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev08",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "They always left the women they had picked up\nwhen they were poor. Especially dance hall women. Even when they were\ntheir wives."
+        },
+        {
+          "anchor": {
+            "end_char": 7105,
+            "paragraph_ids": [
+              "p00039"
+            ],
+            "start_char": 7005
+          },
+          "confidence": 0.55,
+          "entity_ids": [],
+          "event_ids": [],
+          "evidence_id": "sfev-fd0160962c6d92d3",
+          "evidence_type": "storyworld_change",
+          "paraphrase": "The couple relocates to a new place and starts a new life.",
+          "provenance": [
+            {
+              "backend": "anthropic",
+              "normalization_notes": [],
+              "raw_id": "ev02",
+              "source": "model",
+              "source_chunk_id": null
+            }
+          ],
+          "quote": "By one means and another they made their way into the Gray Dome country\nand Jim built a cabin there."
+        }
+      ],
+      "story_hash": "af22f450c7e55b6e3d77da271565aa2d6ce049e867adb2107bc57e66169fd270",
+      "version": "science-fiction-evidence-set-v1"
+    }
+  ],
+  "lcats_id": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe",
+  "partial_success": null,
+  "schema_version": "science-fiction-sidecar-v1",
+  "story_hash": "af22f450c7e55b6e3d77da271565aa2d6ce049e867adb2107bc57e66169fd270",
+  "story_path": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe/story.json",
+  "validation": {
+    "findings": [],
+    "valid": true
+  }
+}

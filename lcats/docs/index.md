@@ -14,9 +14,25 @@ cd LCATS/lcats
 
 ### Tutorials
 
+- [Create a gatherer with per-file metadata](tutorials/create-file-metadata-gatherer.md) — offline fixtures, output reuse, registration, and the boundary for Standard Ebooks integration
+
+- [First offline Gutenberg catalog](tutorials/gettenberg-first-catalog.md)
+
 - [Quickstart](tutorials/quickstart.md) — from a fresh clone to your first working `lcats` command
 
 ### How-to guides
+
+- [Inspect conservative Gutenberg cleanup](how-to/gettenberg-cleanup.md)
+
+- [Maintain Gutenberg CI caches](how-to/gettenberg-ci-maintenance.md)
+
+- [Migrate callers and research notebooks](how-to/gettenberg-migration.md)
+- [Gather stories with default or explicit sources](how-to/gettenberg-gather.md)
+- [Plan gathering and prepare a catalog](how-to/gettenberg-preparation.md)
+
+- [Decode cached text without network access](how-to/gettenberg-decoding.md)
+- [Acquire and reuse original source bytes](how-to/gettenberg-resources.md)
+- [Prepare and recover a local Gutenberg catalog](how-to/gettenberg-catalog.md)
 
 - [Set up API keys](secrets-setup.md)
 - [Secrets hygiene: responding to and preventing leaked API keys](how-to/secrets-hygiene.md)
@@ -24,10 +40,23 @@ cd LCATS/lcats
 - [Point `OpenAIBackend` at a local OpenAI-compatible endpoint](how-to/local-openai-endpoint.md) — Ollama/vLLM/LM Studio via `base_url`, and which pipeline stages a local model is actually evidenced to be viable for
 - [Run `lcats linguistics`](how-to/run-linguistics.md) — local NLP setup, sidecar output, and resumable batch behavior
 - [Run `lcats visualize`](how-to/run-visualize.md) — genres/words/tfidf/topics examples, preprocessing defaults, and the two-genre-count-definitions gotcha
-- [Prepare a corpora release](reference/prepare-corpora-release.md) — manual, agent-free runbook: clear, regenerate, verify, and promote `data/` into `corpora/`
+- [Prepare a corpora release](reference/prepare-corpora-release.md) — manual, agent-free runbook: clear, regenerate, seed tranche-promoted sidecars, verify, and promote `data/` into `corpora/`
 - [Run the cross-segment relation density pilot](../../experiments/03_cross_segment_relation_pilot/running_the_pilot.md) — manual runbook: environment setup, zero-cost smoke testing (including spaCy/Stanza), the real run (safely resumable after a crash or interrupt via per-stage checkpointing), and closing out the work item
 
 ### Reference
+
+- [Conservative Gutenberg cleanup](reference/gettenberg-cleanup.md)
+
+- [Live gathering and source contracts](reference/gettenberg-gather.md)
+- [Collection requirements and setup policy](reference/gettenberg-preparation.md)
+
+- [Strict offline text decoding](reference/gettenberg-decoding.md)
+- [Original-byte acquisition and network policy](reference/gettenberg-network.md)
+- [Local catalog lifecycle](reference/gettenberg-lifecycle.md)
+
+- [Local Gutenberg catalogs](reference/gettenberg-catalog.md) — explicit local builds and read-only queries.
+
+- [Gutenberg metadata records and RDF parser](reference/gettenberg-records.md) — typed source metadata, bounds, diagnostics and JSON export
 
 - [CLI status matrix](reference/cli-status.md)
 - [CLI command reference](reference/cli-commands.md) — flags and arguments for every `lcats` subcommand
@@ -38,6 +67,10 @@ cd LCATS/lcats
 - [Metadata genre prefilter](../../experiments/05_metadata_genre_prefilter/README.md) — the metadata-rule evidence pilot backing the genre-balanced corpus selection
 
 ### Explanation
+
+- [Why gettenberg changes gathering, and what is not drop-in](explanation/gettenberg-gather-changes.md)
+
+- [Metadata, original bytes and stories](explanation/gettenberg-architecture.md)
 
 - [Why stories live in per-story bucket directories](explanation/story-bucket-layout.md) — the storage-layout migration, what changed, and why
 - [Corpus analysis subsystem architecture](explanation/corpus-analysis-architecture.md) — design principles, data flow, and current capabilities of the text-quality/artifact-detection layer

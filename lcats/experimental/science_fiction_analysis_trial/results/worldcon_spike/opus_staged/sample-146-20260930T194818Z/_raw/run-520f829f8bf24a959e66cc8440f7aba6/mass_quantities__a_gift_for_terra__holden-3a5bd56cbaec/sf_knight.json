@@ -1,0 +1,109 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 24354,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1321,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/a_gift_for_terra__holden",
+  "story_path": "mass_quantities/a_gift_for_terra__holden/story.json",
+  "text": "",
+  "title": "A Gift For Terra",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.8,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "substantial",
+        "rationale": "The psibeam draws on psychokinesis and ESP/PK 'psi' phenomena, explicitly treated as one of Nature's phenomena amplified a million-fold, a speculative-science premise materially represented.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8e288e65e09872cf",
+          "sfev-883fd29396e65d03"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "central",
+        "rationale": "The psibeam device is the engineered invention that drives the plot: it induces Johnny's dreams, forces his ship down, and becomes the weapon he offers to use against the returning crews.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-8e288e65e09872cf",
+          "sfev-883fd29396e65d03",
+          "sfev-b2b009e6c4ba3e9f",
+          "sfev-e6a3bcf673d8e73a"
+        ]
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "central",
+        "rationale": "The story is set in a speculative future with the first Earth-Mars flight and a 273-day interplanetary voyage, materially framing the setting.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-73df4aca8eea7720",
+          "sfev-96cd05aabf9b817c"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "central",
+        "rationale": "The premise that gifted advanced knowledge, weaponized through distrust, destroys a civilization is developed into consequences on Mars and the impending doom threatening Earth via the returning crews.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-29bcc827dd3fb0f6",
+          "sfev-7c3de7687490fc86",
+          "sfev-fe51f0aabeed023f",
+          "sfev-461926760197b81e"
+        ]
+      },
+      {
+        "confidence": 0.55,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "incidental",
+        "rationale": "The Martians analyze Johnny's brain over eleven days and read encephalotapes, and Johnny demands causal explanation before belief; these gesture at systematic inference, but generic investigation/questioning does not clearly amount to hypothesis-testing driving the plot.",
+        "status": "ambiguous",
+        "supporting_evidence_ids": [
+          "sfev-f42bfad121948507",
+          "sfev-0f605f70e5db2f9c"
+        ]
+      },
+      {
+        "confidence": 0.95,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "central",
+        "rationale": "The entire story unfolds on Mars with an underground Martian civilization and out-System invaders from Aldebaran, a nonordinary cosmic setting with alien visitors.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-51870cea95a89ca5",
+          "sfev-73df4aca8eea7720"
+        ]
+      },
+      {
+        "confidence": 0.85,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "central",
+        "rationale": "Planet-wide war destroyed the Martian civilization, and an analogous large-scale catastrophe impends over Earth if the invaders' 'gift' reaches it, causally central to the plot.",
+        "status": "present",
+        "supporting_evidence_ids": [
+          "sfev-7c3de7687490fc86",
+          "sfev-fe51f0aabeed023f",
+          "sfev-6d2700d18841df41",
+          "sfev-461926760197b81e"
+        ]
+      }
+    ]
+  }
+}

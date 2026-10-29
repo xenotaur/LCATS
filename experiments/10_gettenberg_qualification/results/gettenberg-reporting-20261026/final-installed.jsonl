@@ -1,0 +1,4 @@
+{"event": "run_start", "story_count": 1, "timestamp": "2026-10-26T22:40:50.918885Z"}
+{"event": "story_source_unavailable", "final_url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt", "http_status": 404, "reason": "http_status: HTTP status 404; no representation published", "request_url": "https://gutenberg.pglaf.org/cache/epub/1367/pg1367.txt", "source_uri": "https://www.gutenberg.org/ebooks/1367.txt.utf-8", "story": 1367, "timestamp": "2026-10-26T22:40:51.076467Z"}
+{"event": "batch_summary", "http_404_attempts": 1, "incomplete": true, "ready": 0, "refused": 0, "reused": 0, "skipped": 0, "timestamp": "2026-10-26T22:40:51.076720Z", "unavailable": 1, "written": 0}
+{"event": "run_end", "story_count": 1, "timestamp": "2026-10-26T22:40:51.076782Z"}

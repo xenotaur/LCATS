@@ -1,0 +1,91 @@
+{
+  "purpose": "PR 508 approved review repairs",
+  "canonical_tests": 2675,
+  "focused_tests": 197,
+  "lrh_errors": 0,
+  "lrh_warnings": 351,
+  "preserved_measurements": 9,
+  "verified_current_links": 24,
+  "logs": {
+    "tools": {
+      "sha256": "63df52565ef0fa8f87d869bd15706aefc9ba5ae564f92be13ceb561a27b7c612",
+      "bytes": 624,
+      "local_path": "/tmp/gettenberg-repair/tools.txt"
+    },
+    "format": {
+      "sha256": "604e56e964f42c1c9cfa331d2ef558e00897bd52616ba55644b9744f188b9a29",
+      "bytes": 58,
+      "local_path": "/tmp/gettenberg-repair/format.txt"
+    },
+    "lint": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "bytes": 80,
+      "local_path": "/tmp/gettenberg-repair/lint.txt"
+    },
+    "experiment-lint": {
+      "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+      "bytes": 80,
+      "local_path": "/tmp/gettenberg-repair/experiment-lint.txt"
+    },
+    "tests": {
+      "sha256": "e94ca28c38482a9dfacbfc9dbeeb5254575c8dec7f051b9ada346a8bea586daf",
+      "bytes": 4543,
+      "local_path": "/tmp/gettenberg-repair/tests.txt"
+    },
+    "focused-tests": {
+      "sha256": "6bdfb6804398f1b1b202b282adccb8c83b2624e4463e0cf1e579557223ba2d97",
+      "bytes": 387,
+      "local_path": "/tmp/gettenberg-repair/focused-tests.txt"
+    },
+    "lrh": {
+      "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+      "bytes": 60852,
+      "local_path": "/tmp/gettenberg-repair/lrh.txt"
+    }
+  },
+  "followup": {
+    "canonical_tests": 2676,
+    "focused_tests": 198,
+    "lrh_errors": 0,
+    "lrh_warnings": 351,
+    "finding": "Restore per-member tar header release in archival parser probe",
+    "regression": "Temporary faulty helper fails live-retention limit by 5026971 bytes; repaired helper passes",
+    "logs": {
+      "format-final": {
+        "sha256": "604e56e964f42c1c9cfa331d2ef558e00897bd52616ba55644b9744f188b9a29",
+        "bytes": 58,
+        "local_path": "/tmp/gettenberg-repair/format-final.txt"
+      },
+      "lint-final": {
+        "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+        "bytes": 80,
+        "local_path": "/tmp/gettenberg-repair/lint-final.txt"
+      },
+      "experiment-lint-final": {
+        "sha256": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+        "bytes": 80,
+        "local_path": "/tmp/gettenberg-repair/experiment-lint-final.txt"
+      },
+      "tests-final": {
+        "sha256": "30cbaedfefb464e652c86fed68aed18b2352b9c4b4e9b1843f7e3d4dd6858940",
+        "bytes": 4544,
+        "local_path": "/tmp/gettenberg-repair/tests-final.txt"
+      },
+      "lrh-final": {
+        "sha256": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+        "bytes": 60852,
+        "local_path": "/tmp/gettenberg-repair/lrh-final.txt"
+      },
+      "focused-tests-streaming": {
+        "sha256": "cb16ffa9b17dbb7a225e4c26f35e58c950600acfe73b00f702c86fcb2440c737",
+        "bytes": 388,
+        "local_path": "/tmp/gettenberg-repair/focused-tests-streaming.txt"
+      },
+      "streaming-regression-proof": {
+        "sha256": "fe4d860971aa6651dabbd6c7a885319a9cfaed5fd9a31ece4001c552ebd2f3f0",
+        "bytes": 889,
+        "local_path": "/tmp/gettenberg-repair/streaming-regression-proof.txt"
+      }
+    }
+  }
+}

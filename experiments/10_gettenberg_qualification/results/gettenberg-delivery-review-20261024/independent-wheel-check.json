@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "wheel": "lcats-0.1.0+qualification.g823f33c2-py3-none-any.whl",
+  "wheel_sha256": "a54f70d0f0979f4eb296ae5b463b50c27ed3598f4c0f8e43e671698b156d0be3",
+  "python_paths": 165,
+  "json_paths": 2,
+  "exact_current_source_wheel_installed_pathsets_and_bytes": true,
+  "legacy_dependency_absent_from_metadata": true,
+  "installed_smoke_origins_verified": 70,
+  "coordinator_smoke_json_sha256": "1561e98d089b790c437b636e14d8c78fde2f7bc21329ba1071b3d735e2dbb106",
+  "limits": [
+    "Build and installed smoke executed by coordinator; reviewer independently inspected archive, installed files and smoke-origin hashes.",
+    "Only qualification version differs; no production release or publication."
+  ]
+}

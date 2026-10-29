@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import copy
 import json
 
-from typing import Optional
+from typing import Any, Callable, Optional
 
 from lcats.llm import backend
 
@@ -30,6 +31,9 @@ class OpenAIBackend:
         import openai
 
         self._client = openai.OpenAI(api_key=api_key, base_url=base_url)
+        # Optional request capture (see backend.RequestRecordingBackend). Off
+        # by default; callers opt in by setting a callable.
+        self.request_recorder: Optional[Callable[[dict[str, Any]], None]] = None
 
     def complete(
         self,
@@ -67,6 +71,12 @@ class OpenAIBackend:
             }
         else:
             kwargs["response_format"] = {"type": "json_object"}
+
+        if self.request_recorder is not None:
+            # Report the request as built, before sending it, so a failed
+            # call (truncation, no tool call, provider error) still leaves a
+            # record. The messages (system prompt and story text) are left out.
+            self.request_recorder(_describe_request(kwargs))
 
         response = self._client.chat.completions.create(**kwargs)
         choice = response.choices[0]
@@ -158,3 +168,11 @@ def _capture_message(message: object) -> str:
         sort_keys=True,
         default=str,
     )
+
+
+def _describe_request(kwargs: dict[str, Any]) -> dict[str, Any]:
+    """Return a copy of the provider request without the messages."""
+
+    return {
+        key: copy.deepcopy(value) for key, value in kwargs.items() if key != "messages"
+    }

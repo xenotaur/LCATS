@@ -38,9 +38,11 @@ ANDERSON_HEADINGS = [
 ]
 
 
-def gather():
+def gather(*, offline=False, cache_dir=None):
     """Extract the Anderson stories from the Gutenberg Project."""
     gatherlib.gather(
+        offline=offline,
+        cache_dir=cache_dir,
         corpus="Anderson",
         target_directory=TARGET_DIRECTORY,
         description="Anderson stories from the Gutenberg Project.",

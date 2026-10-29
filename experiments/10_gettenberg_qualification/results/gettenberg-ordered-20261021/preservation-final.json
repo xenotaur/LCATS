@@ -1,0 +1,8 @@
+{
+  "qualified": true,
+  "checked": 1659,
+  "census_sha256": "72355e022743deb1707c84bc6af9f364f3a502f2f6416dec42d1b426733f395e",
+  "compressed_decoded_and_corpus_hashes_unchanged": true,
+  "after_canonical_tests": true,
+  "canonical_test_log_sha256": "b26c7fb9ca3a7f09d5cd157473da3c88cd733bbc97609180bbd7cf33348e3350"
+}

@@ -1,0 +1,16 @@
+{
+  "pr": "https://github.com/xenotaur/LCATS/pull/530",
+  "base_branch": "codex/gettenberg-acquisition",
+  "base_commit": "ed20e9c297bf5e50e1911b84722e53f5db3edee3",
+  "published_construction_head": "4365c2a80deec84083e7c9685468bed488611723",
+  "product_commit": "91f1b42281418d613bc1744b77ada73b42405bfc",
+  "draft": true,
+  "merged": false,
+  "release_accepted": false,
+  "ci_status": "pending final checkpoint head; consult linked PR checks",
+  "preserved_combined_head": "b1254805c85bc34c0924e112732822c5e1436df5",
+  "canonical_test_count": 2955,
+  "canonical_tests_passed": true,
+  "unresolved_historical_body_differences": 67,
+  "cleanup_refusals": 13
+}

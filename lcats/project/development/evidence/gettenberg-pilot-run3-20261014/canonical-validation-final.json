@@ -1,0 +1,28 @@
+{
+  "source_head": "2e86857875ecba9959aba2f9e6e59d21c9a658f9",
+  "independently_reviewed_source": "2e86857875ecba9959aba2f9e6e59d21c9a658f9",
+  "commands": {
+    "scripts/format --check --diff": "exit0",
+    "scripts/lint": "exit0",
+    "scripts/test": {
+      "exit_code": 0,
+      "tests": 2668,
+      "elapsed_seconds": 64.618
+    },
+    "lrh validate": {
+      "exit_code": 0,
+      "errors": 0,
+      "existing_warnings": 351
+    },
+    "lrh work-items readiness WI-GETTENBERG-0004": "ready without warnings",
+    "git diff --check": "exit0"
+  },
+  "focused_gettenberg_tests": 190,
+  "log_sha256": {
+    "qualified-format.txt": "27e8e2bfeb1cbc86e3e87451068a4778d9dc935fcf017c0914da742e1d002427",
+    "qualified-lint.txt": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "qualified-tests.txt": "3e98676a54bee67bc8c6699268db1009b00f8e94076ed1ffa1bfa8c46482dde6",
+    "qualified-lrh.txt": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "qualified-readiness.json": "184e12d96e49ae11538d6c4a86417917a3b20211d0f8599651167388ecce5916"
+  }
+}

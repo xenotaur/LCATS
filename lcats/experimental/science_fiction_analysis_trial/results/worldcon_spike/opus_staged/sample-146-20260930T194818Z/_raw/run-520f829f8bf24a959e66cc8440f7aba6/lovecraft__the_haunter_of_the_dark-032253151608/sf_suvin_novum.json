@@ -1,0 +1,93 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 31219,
+  "model": "claude-opus-4-8",
+  "output_tokens": 1702,
+  "run_id": "run-520f829f8bf24a959e66cc8440f7aba6",
+  "stage": "sf_suvin_novum",
+  "story_id": "lovecraft/the_haunter_of_the_dark",
+  "story_path": "lovecraft/the_haunter_of_the_dark/story.json",
+  "text": "",
+  "title": "The Haunter of the Dark by H. P. Lovecraft",
+  "tool_result": {
+    "dominant_novum_id": "cand-haunter-trapezohedron",
+    "novum_candidates": [
+      {
+        "candidate_id": "cand-haunter-trapezohedron",
+        "character_reaction_evidence_ids": [
+          "sfev-3b6b7ece80d3dc83",
+          "sfev-8df2809a768d92f0",
+          "sfev-90c323f7e9c77a8b",
+          "sfev-b38c76e3acfadac5"
+        ],
+        "cognitive_validation": {
+          "confidence": 0.62,
+          "counterevidence_ids": [],
+          "rationale": "The story develops a coherent, systematic, immanent logic: the entity is summoned by gazing into the stone, cannot exist in light, flees weak light, is banished by strong light, and must be re-summoned. Blake even speculates in materialist terms (radioactivity, phosphorescence) and decodes the artifact's history through a systematic cipher/Aklo-language inquiry. This imaginary-science framework is non-supernatural in presentation and governs events consistently; present-day buildability is not required.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-3c9ea6afc3e5e52d",
+            "sfev-7ce14ae8d6bf365c",
+            "sfev-63b56cee3e3afc4a",
+            "sfev-d973cc1ee57c7a54"
+          ]
+        },
+        "description": "The Shining Trapezohedron and the Haunter of the Dark it summons: a crystal artifact from Yuggoth that functions as a 'window on all time and space,' capable of calling forth a cosmic entity that can exist only in darkness, is repelled by light, establishes psychic rapport with the gazer, and ultimately destroys Blake. Governed by a coherent internal rule-set (gaze summons it, light banishes it, darkness frees it, re-summoning required).",
+        "estrangement_rationale": "The story repeatedly juxtaposes a skeptical, materialist frame (lightning/electrical shock, mephitic vapors, charlatanry) against the diary's account of a cosmic entity, inviting the reader to weigh empirical norm against the novum. Storyworld consequences (steeple disturbances, the entity's descent during blackouts, the violent release and wind) and character reactions (Blake's fever of horror, frantic calls to the power company, his death mask of fright) register the estranging difference.",
+        "evidence_ids": [
+          "sfev-f031e475f512c24b",
+          "sfev-d8dec12dfa7d469f",
+          "sfev-3c9ea6afc3e5e52d",
+          "sfev-7ce14ae8d6bf365c",
+          "sfev-63629086f997e466",
+          "sfev-d973cc1ee57c7a54",
+          "sfev-63b56cee3e3afc4a"
+        ],
+        "narrative_hegemony": {
+          "confidence": 0.75,
+          "counterevidence_ids": [],
+          "rationale": "The artifact and the entity it calls forth govern the entire narrative logic: Blake's investigation, the storyworld disturbances on Federal Hill, the power-outage escalations, the sleepwalking rapport, and Blake's death all follow from the summoning and the light/darkness rule. The whole plot is determined by this candidate, not an incidental device.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-a7edd6f40cd24b11",
+            "sfev-afebf33820a2e386",
+            "sfev-bb04baa13d3683b5",
+            "sfev-63629086f997e466"
+          ]
+        },
+        "novelty": {
+          "confidence": 0.7,
+          "counterevidence_ids": [
+            "sfev-88e5026ae12ca0ae",
+            "sfev-294355a4079a03e8"
+          ],
+          "rationale": "The artifact is presented as a window on all time and space with a cosmic, eons-spanning provenance (Yuggoth, crinoid things, serpent-men, Atlantis) and summons an entity whose existence collapses spatial distance ('far is near and near is far'). This constitutes a totalizing difference from the empirical norm, altering the story universe's ontology. The narrator's naturalistic framings are offered as competing readings but the diary-based storyworld consistently treats the difference as real.",
+          "status": "present",
+          "supporting_evidence_ids": [
+            "sfev-f031e475f512c24b",
+            "sfev-d8dec12dfa7d469f",
+            "sfev-3c9ea6afc3e5e52d",
+            "sfev-63629086f997e466"
+          ]
+        },
+        "reader_facing_evidence_ids": [
+          "sfev-1e120298ecb4d6a0",
+          "sfev-161f231b46472c79",
+          "sfev-88e5026ae12ca0ae",
+          "sfev-294355a4079a03e8",
+          "sfev-0bc1f4c98a23d3b2"
+        ],
+        "storyworld_consequence_evidence_ids": [
+          "sfev-a7edd6f40cd24b11",
+          "sfev-afebf33820a2e386",
+          "sfev-bb04baa13d3683b5",
+          "sfev-23b099593a45a501",
+          "sfev-fa610e304b0e4f76"
+        ]
+      }
+    ]
+  }
+}

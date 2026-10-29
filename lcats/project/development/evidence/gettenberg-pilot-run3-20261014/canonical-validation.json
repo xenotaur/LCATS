@@ -1,0 +1,29 @@
+{
+  "source_head": "8bccd4c4",
+  "independently_reviewed_source": "ff072c13c49fe993d489c632e10ea58a24e098e4",
+  "commands": {
+    "scripts/format --check --diff": "exit0",
+    "scripts/lint": "exit0",
+    "scripts/test": {
+      "exit_code": 0,
+      "tests": 2665,
+      "elapsed_seconds": 67.432
+    },
+    "lrh validate": {
+      "exit_code": 0,
+      "errors": 0,
+      "existing_warnings": 351
+    },
+    "lrh work-items readiness WI-GETTENBERG-0004": "ready without warnings",
+    "git diff --check": "exit0"
+  },
+  "focused_gettenberg_tests": 187,
+  "scope": "Canonical local checks; full-source lifecycle and exact-head CI are separate gates",
+  "log_sha256": {
+    "canonical-format.txt": "27e8e2bfeb1cbc86e3e87451068a4778d9dc935fcf017c0914da742e1d002427",
+    "canonical-lint.txt": "1397baa3226f4b000a52596769f4ee438fba70a708088f60fe110397f5cce70e",
+    "canonical-tests.txt": "c6147d0962eaf45136cfa820c687aac3cd3592c97f0d1c50b964f40a2116ceed",
+    "canonical-lrh.txt": "a21407ee10badb64ec7673d5c7f6ee37c927df0ee664b08f09a9a7c93605c45b",
+    "tools.txt": "63df52565ef0fa8f87d869bd15706aefc9ba5ae564f92be13ceb561a27b7c612"
+  }
+}

@@ -1,0 +1,9 @@
+verified 200/1659
+verified 400/1659
+verified 600/1659
+verified 800/1659
+verified 1000/1659
+verified 1200/1659
+verified 1400/1659
+verified 1600/1659
+{"output": "/private/tmp/gettenberg-scope-adoption-numeric.json", "summary": {"rows": 1659, "numeric_rule_applied": 367, "compared": 1646, "remaining_differences": 67, "additional_legacy_equalities": 366, "new_differences_from_prior_equal": 0, "new_differences_from_original_equal": 0, "body_changes_from_title_candidate": 366, "body_eligibility_changes_from_title_candidate": 0, "body_eligibility_differences_from_legacy": 0, "unchanged_outputs_reproduced": 1279, "combined_restored_legacy_equalities": 835, "refused": 13}, "seconds": 205.815}

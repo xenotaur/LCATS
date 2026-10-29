@@ -1,0 +1,82 @@
+{
+  "attempt": 1,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 0,
+  "effective_max_tokens": 4096,
+  "input_tokens": 12300,
+  "model": "claude-opus-4-8",
+  "output_tokens": 940,
+  "run_id": "run-97931b41b5a84183b56b87ff9754b2fe",
+  "stage": "sf_knight",
+  "story_id": "mass_quantities/the_marriage_of_william_durrant__cummings",
+  "story_path": "mass_quantities/the_marriage_of_william_durrant__cummings/story.json",
+  "text": "",
+  "title": "The Marriage of William Durrant",
+  "tool_result": {
+    "knight_criteria": [
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_1",
+        "materiality": "none",
+        "rationale": "No evidence records were supplied, so no criterion can be materially supported. The story itself is a domestic marital narrative with no scientific content, but per instructions absence of supplied evidence is treated as not_assessable rather than absent.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_2",
+        "materiality": "none",
+        "rationale": "The evidence set is empty; no supplied record can support a device or invention affecting the story. Only ordinary contemporary items (telephone, piano) appear, which would not qualify regardless.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_3",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The narrative is set in an ordinary contemporary period with no speculative future, remote past, or temporal displacement.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_4",
+        "materiality": "none",
+        "rationale": "The empty evidence set provides nothing to assess extrapolation from a scientific, technological, social, or historical premise.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_5",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The narrator's rationalizing self-justification is not systematic scientific inference, and no record supports this criterion.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_6",
+        "materiality": "none",
+        "rationale": "The evidence set is empty; no supplied record supports other planets, dimensions, nonordinary cosmic environments, or visitors.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      },
+      {
+        "confidence": 0.9,
+        "counterevidence_ids": [],
+        "criterion_id": "criterion_7",
+        "materiality": "none",
+        "rationale": "No evidence records supplied. The word 'catastrophe' appears in the story but refers metaphorically to a personal marital misfortune, not a large-scale disaster; and there is no evidence record to cite.",
+        "status": "not_assessable",
+        "supporting_evidence_ids": []
+      }
+    ]
+  }
+}

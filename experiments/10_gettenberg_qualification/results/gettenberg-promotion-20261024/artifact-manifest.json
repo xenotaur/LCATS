@@ -1,0 +1,25 @@
+{
+  "product_ref": "0dbe9606b446be5ce34e52350947fd4911e3c89a",
+  "files_sha256": {
+    "build.log.gz": "b29ef78e7b491618bb5ee1550fed0608d9add3f6f2859a3130967612568ceb7f",
+    "canonical-tests.log.gz": "d9f8264bf93f2a39a61f924e48ee25e3cb5416f6e17ebea5d710aa93f32f25a6",
+    "pr530-merged.json": "5c0f1154cde944294fd5fe145331562ef8911b1958b688ca87d4b1e16dcc4d9c",
+    "main-merge-proof.json": "de5ffc80e48e633eb801ff1a22d9e3b498f65fe5d35b036777b9fd65a35e9428",
+    "installed-closure.json": "42ad142596de308a8bb99c28ed5a02068cec3ec1d5a738f20b006f1360c1510f",
+    "pr530-before-merge.json": "8f663c6caa44d1e326ef764bd7ed6093675d3f738fd72416dab0ed2c5f4fad25",
+    "change-inventory.json": "2d2e219e2a3dad32e5f2a08664b9ce6d56e82fee46ab43280ae8a46006762a78",
+    "installed-cli.json": "e09aad8d7729b3dc0056aa9ef583d0a0fb7dfdeafe04264937bd50cbfd58bf4c",
+    "README.md": "e4cefe970988df9aea8ae8f185401aff9ea3b29c4ae565554f842b2dd36a7f59",
+    "format.log.gz": "a8b820448b02306bebc40ff0ffd8bc5aa0abd9612a83612f79f4404ef4019461",
+    "install.log.gz": "f6852aa4aa498e3c4c38acdd3c0d49d9f2700159239ff98a42b3ca2923d6969d",
+    "installed-cli.log.gz": "866dfbb2be8f95050fe6e4c65bd978e734357565afe7bfe1d4cbe026415695be",
+    "pr530-review-threads.json": "ee948d473f7a4956120ebd511c7a9e12fdef87ed82acd4b23da2776b4527e379",
+    "lrh.log.gz": "cb31c257225a3492b67ea045830ed3e7b8dcd1a4d2827c696f3146b24cfd6b8c",
+    "installed-smoke.json": "9cc1f6896d13e57842dd285d138a42edd4330a4ec30bbc05defb43d2d004411d",
+    "installed-packages.json": "1abf7eb4e9e17bab12de477940eb5d9343575a90ba8e0257abb2c5c8129d0271",
+    "pip-check.log.gz": "16d69470b095a30a010c6c5e1ed5a9b942d36be167bf5543496f4573efe9f084",
+    "wheel-closure.json": "bff1f8d1b4517169d172427956c5ffeeea8b56f2ec80ba5b62c55dedcfde311c",
+    "installed-smoke.log.gz": "50f38883be3caa14a56ebc300d5be32e7e6741e045a040ec7b0f9b71048a9bfc",
+    "lint.log.gz": "c8c8467aa7a656d7379cb3210a540af48e6d4c8cd61533c367ed4cc6428396c1"
+  }
+}
