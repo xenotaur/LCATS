@@ -1,7 +1,7 @@
 # Premise-first trial on six control stories for the temporal-reference design
 
 Work item: WI-SF-0123. This is the evidence file cited by
-`project/design/proposals/proposed/heinlein-temporal-reference/00_proposal.md`.
+`project/design/proposals/adopted/heinlein-temporal-reference/00_proposal.md`.
 
 ## What this is, and what it is not
 
