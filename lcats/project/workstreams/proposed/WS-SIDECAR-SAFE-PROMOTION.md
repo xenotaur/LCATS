@@ -18,6 +18,7 @@ work_items:
   - WI-PROMOTE-0117
   - WI-PROMOTE-0118
   - WI-PROMOTE-0124
+  - WI-PROMOTE-0125
 exit_criteria:
   - "Every sidecar kind registered in sidecar_validators._REGISTRY (genre.json, scenes.json, linguistics.json, linguistics.tokens.json) has a documented release rule and a verified seed or regeneration path"
   - "The release runbook states or links that rule, so an operator following it cannot lose a registered sidecar"
@@ -52,6 +53,8 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   schema change or story-text fingerprint is needed), and where any check would run (`WI-PROMOTE-0118`).
 - Durable archive of the original genre-evidence checkpoint files and a baseline
   story-hash manifest derived from them (`WI-PROMOTE-0124`).
+- A real-spaCy reproduction of linguistics sidecar release seeding, closing the gap
+  the release-rule note left as "Not reproduced" (`WI-PROMOTE-0125`).
 - Runbook edits (`docs/reference/prepare-corpora-release.md`) only where an
   operator step changes.
 
@@ -85,6 +88,10 @@ the runbook must not lose evidence sidecars. It is not driven by WorldCon timing
   genre-evidence stories as tracked evidence and derive the baseline-hash manifest
   from them. Resolved (PR #533; the archive is under
   `experiments/05_metadata_genre_prefilter/results/full_scan/checkpoint_archive_2026-08-21/`).
+- **WI-PROMOTE-0125**: reproduce linguistics sidecar release seeding with a real spaCy
+  run (the two registered linguistics kinds, a real lexicon file, the single-collection
+  live-scan case and the stray-story rejection), and update the release-rule note.
+  Proposed.
 
 Resolved provenance, not listed in `work_items` because they predate this
 workstream: `WI-PROMOTE-0108`, `WI-GENRE-0109`, `WI-PROMOTE-0112`,
