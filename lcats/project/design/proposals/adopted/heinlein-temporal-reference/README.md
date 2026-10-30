@@ -1,7 +1,7 @@
 ---
 id: PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE
 type: design_proposal_set
-status: proposed
+status: adopted
 implementation_status: not_started
 ---
 

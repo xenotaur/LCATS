@@ -2,9 +2,9 @@
 id: PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE
 type: design_proposal
 title: Judge the Heinlein Conditions Against the Author's World at the Time of Writing
-status: proposed
+status: adopted
 created_on: 2026-10-22
-updated_on: 2026-10-22
+updated_on: 2026-10-30
 implementation_status: not_started
 implemented_by: []
 supersedes: []
@@ -423,7 +423,7 @@ Recommended work items, in order, none created by this proposal:
 
 ## Open Questions
 
-Each has a recommendation; none is decided here.
+Each had a recommendation. The owner has since decided or answered questions 1, 3, 5, 7, 8 and 9 (below); the rest stand as recommended unless the owner objects.
 
 1. **Backward differences and historical fiction for `different`.** *Resolved by the owner.*
    The time of the setting is not a difference in either direction; a premise is novel only if
@@ -446,17 +446,20 @@ Each has a recommendation; none is decided here.
    author-time premises, and takes only `human` from the existing record. Remaining question:
    whether `human` also needs reassessment. Recommendation: copy it in the first
    implementation, and compare the two records' statuses in the live run to see whether any
-   differ for a reason the frame explains.
+   differ for a reason the frame explains. *Decided by the owner:* copy `human`, and compare
+   in the live run.
 6. **Model knowledge cutoff and recall.** Recommendation: record the cutoff and the analysis
    date with every result, require the stage to name each fact and date, and add the fact
    table as an audit layer (work item 4).
 7. **What a first live run must show.** Recommendation: the model's premise lists match the
    hand trial closely enough that the owner accepts the disagreements; the lists are stable
    across three trials; and model-asserted dates are reviewed against the table where it
-   covers them.
+   covers them. *Decided by the owner:* keep this bar for now; the run also includes a
+   historical-fiction control and an alternate-history control (question 1).
 8. **Date sources.** ISFDB coverage and terms have not been checked; several dates in the trial
    rest on sources I did not open. Recommendation: work item 3 evaluates a bibliographic source
-   before it is relied on, and the owner's override always wins.
+   before it is relied on, and the owner's override always wins. *Decided by the owner:* leave the choice to work
+   item 3.
 9. **Where the new record lives.** *Resolved by the owner:* a new optional analysis kind in the
    same sidecar (`analyses.heinlein_temporal`), omitted when empty, with the changes under
    Compatibility. The separate-sidecar-file alternative is not taken: it would avoid touching
