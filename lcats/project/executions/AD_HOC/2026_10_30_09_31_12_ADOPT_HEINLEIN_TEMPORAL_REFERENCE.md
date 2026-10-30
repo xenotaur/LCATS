@@ -2,14 +2,14 @@
 execution_id: 2026_10_30_09_31_12_ADOPT_HEINLEIN_TEMPORAL_REFERENCE
 prompt_id: PROMPT(AD_HOC:ADOPT_HEINLEIN_TEMPORAL_REFERENCE)[2026-10-30T09:30:58+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/538
-commit:
+commit: 4a653f2fe893899d97744ab907c23964e140e7a7
 created_at: 2026-10-30T09:31:12+00:00
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/538
-session_transcript: pending
+session_transcript: claude-app:dff6f127-44db-417c-9b1e-0f962af4c00a
 ---
 
 # Summary
