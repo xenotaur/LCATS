@@ -240,8 +240,11 @@ class HeinleinSidecarTest(unittest.TestCase):
         ):
             with self.subTest(cls=cls.__name__):
                 names = [field.name for field in dataclasses.fields(cls)]
+                # heinlein_temporal_analyses was appended after heinlein_analyses
+                # (WI-SF-0126); earlier positions are unchanged.
                 self.assertEqual(
-                    ["heinlein_analyses"], names[names.index(previous_last) + 1 :]
+                    ["heinlein_analyses", "heinlein_temporal_analyses"],
+                    names[names.index(previous_last) + 1 :],
                 )
 
     def test_sidecar_round_trips_with_current_pointer(self):
