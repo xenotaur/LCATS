@@ -11,9 +11,12 @@ from __future__ import annotations
 import dataclasses
 from collections.abc import Mapping, Sequence
 from types import MappingProxyType
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from lcats.analysis.science_fiction import evidence
+
+if TYPE_CHECKING:
+    from lcats.analysis.science_fiction import heinlein_temporal
 
 SCIENCE_FICTION_SIDECAR_VERSION = "science-fiction-sidecar-v1"
 KNIGHT_RUBRIC_VERSION = "knight-seven-v1"
@@ -631,13 +634,17 @@ class CurrentPointers:
     knight_analysis_id: str | None = None
     suvin_novum_analysis_id: str | None = None
     heinlein_analysis_id: str | None = None
+    # Appended last so positional construction of earlier fields is unchanged.
+    heinlein_temporal_analysis_id: str | None = None
 
     def to_dict(self) -> dict[str, str | None]:
         data = dataclasses.asdict(self)
-        # Omit the optional Heinlein pointer when unset so sidecars and
-        # checkpoint fingerprints produced before Heinlein existed stay stable.
+        # Omit the optional Heinlein pointers when unset so sidecars and
+        # checkpoint fingerprints produced before they existed stay stable.
         if data["heinlein_analysis_id"] is None:
             del data["heinlein_analysis_id"]
+        if data["heinlein_temporal_analysis_id"] is None:
+            del data["heinlein_temporal_analysis_id"]
         return data
 
 
@@ -676,6 +683,9 @@ class ScienceFictionSidecarEnvelope:
     schema_version: str = SCIENCE_FICTION_SIDECAR_VERSION
     # Appended last so positional construction of earlier fields is unchanged.
     heinlein_analyses: tuple[HeinleinAnalysis, ...] = ()
+    heinlein_temporal_analyses: tuple[
+        heinlein_temporal.HeinleinTemporalAnalysis, ...
+    ] = ()
 
     def __post_init__(self) -> None:
         if self.schema_version != SCIENCE_FICTION_SIDECAR_VERSION:
@@ -717,7 +727,10 @@ class ScienceFictionSidecarEnvelope:
         findings: list[ValidationFinding] = []
         evidence_set_ids = set(self.evidence_set_ids)
         for path, label, analysis in _iter_analyses(
-            self.knight_analyses, self.suvin_novum_analyses, self.heinlein_analyses
+            self.knight_analyses,
+            self.suvin_novum_analyses,
+            self.heinlein_analyses,
+            self.heinlein_temporal_analyses,
         ):
             if analysis.story_hash != self.story_hash:
                 findings.append(
@@ -825,6 +838,16 @@ class ScienceFictionSidecarEnvelope:
             current_evidence_set_id=self.current.evidence_set_id,
             findings=findings,
         )
+        _validate_current_analysis(
+            self.current.heinlein_temporal_analysis_id,
+            analyses=self.heinlein_temporal_analyses,
+            path="$.current.heinlein_temporal_analysis_id",
+            label="Heinlein temporal",
+            story_hash=self.story_hash,
+            evidence_set_ids=evidence_set_ids,
+            current_evidence_set_id=self.current.evidence_set_id,
+            findings=findings,
+        )
         return ValidationResult.from_findings(tuple(findings))
 
     def to_dict(self) -> dict[str, Any]:
@@ -839,6 +862,11 @@ class ScienceFictionSidecarEnvelope:
         if self.heinlein_analyses:
             analyses["heinlein"] = [
                 analysis.to_dict() for analysis in self.heinlein_analyses
+            ]
+        # Optional date-aware detector, omitted when empty for the same reason.
+        if self.heinlein_temporal_analyses:
+            analyses["heinlein_temporal"] = [
+                analysis.to_dict() for analysis in self.heinlein_temporal_analyses
             ]
         return {
             "schema_version": self.schema_version,
@@ -948,12 +976,9 @@ def _iter_analyses(
     knight_analyses: tuple[KnightAnalysis, ...],
     suvin_novum_analyses: tuple[SuvinNovumAnalysis, ...],
     heinlein_analyses: tuple[HeinleinAnalysis, ...] = (),
-) -> tuple[
-    tuple[str, str, KnightAnalysis | SuvinNovumAnalysis | HeinleinAnalysis], ...
-]:
-    analyses: list[
-        tuple[str, str, KnightAnalysis | SuvinNovumAnalysis | HeinleinAnalysis]
-    ] = []
+    heinlein_temporal_analyses: tuple[Any, ...] = (),
+) -> tuple[tuple[str, str, Any], ...]:
+    analyses: list[tuple[str, str, Any]] = []
     analyses.extend(
         (f"$.analyses.knight[{index}]", "Knight", analysis)
         for index, analysis in enumerate(knight_analyses)
@@ -965,6 +990,10 @@ def _iter_analyses(
     analyses.extend(
         (f"$.analyses.heinlein[{index}]", "Heinlein", analysis)
         for index, analysis in enumerate(heinlein_analyses)
+    )
+    analyses.extend(
+        (f"$.analyses.heinlein_temporal[{index}]", "Heinlein temporal", analysis)
+        for index, analysis in enumerate(heinlein_temporal_analyses)
     )
     return tuple(analyses)
 
