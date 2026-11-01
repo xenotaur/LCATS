@@ -1596,7 +1596,7 @@ def _run_knight_stage(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(result, evidence_set),
+                decisions=_knight_decisions(result, evidence_set, log=log),
                 provenance=_provenance(
                     story=story,
                     options=options,
@@ -1629,7 +1629,7 @@ def _run_knight_stage(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(tool_result, evidence_set),
+                decisions=_knight_decisions(tool_result, evidence_set, log=log),
                 provenance=provenance,
             ),
             response,
@@ -1709,10 +1709,11 @@ def _validate_suvin_result(
     run_id: str,
     system_prompt: str,
     tool_schema: dict[str, Any],
+    log: run_log.RunLog | None = None,
 ) -> None:
     if not isinstance(result, dict):
         raise ValueError(f"{SUVIN_STAGE} tool_result must be an object")
-    candidates = _novum_candidates(result, evidence_set)
+    candidates = _novum_candidates(result, evidence_set, log=log)
     novum.build_analysis(
         analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
         story_hash=prepared.story_hash,
@@ -1784,6 +1785,7 @@ def _run_suvin_stage(
                 run_id=run_id,
                 system_prompt=system_prompt,
                 tool_schema=tool_schema,
+                log=log,
             ),
         )
         if not isinstance(tool_result, dict):
@@ -1801,7 +1803,7 @@ def _run_suvin_stage(
             run_id=run_id,
             rubric_version=models.SUVIN_RUBRIC_VERSION,
         )
-        candidates = _novum_candidates(tool_result, evidence_set)
+        candidates = _novum_candidates(tool_result, evidence_set, log=log)
         return (
             novum.build_analysis(
                 analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
@@ -1954,7 +1956,7 @@ def _run_heinlein_stage(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(result, evidence_set),
+                decisions=_heinlein_decisions(result, evidence_set, log=log),
                 provenance=provenance_for(stage_response),
             ),
         )
@@ -1968,7 +1970,7 @@ def _run_heinlein_stage(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(tool_result, evidence_set),
+                decisions=_heinlein_decisions(tool_result, evidence_set, log=log),
                 provenance=provenance_for(response),
             ),
             response,
@@ -2086,6 +2088,8 @@ def _partial_success_record(
 def _knight_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[knight.CriterionAdjudication, ...]:
     by_id = {
         item.get("criterion_id"): item
@@ -2112,6 +2116,9 @@ def _knight_decisions(
                 supporting_evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     support,
+                    log=log,
+                    stage=KNIGHT_STAGE,
+                    field=f"knight_criteria[{criterion_id}].supporting_evidence_ids",
                 ),
                 rationale=str(item.get("rationale", "")),
                 confidence=_optional_float(item.get("confidence")),
@@ -2138,6 +2145,8 @@ def _require_string_list(
 def _heinlein_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[heinlein.CriterionAdjudication, ...]:
     """Convert model output to decisions without inventing or defaulting anything.
 
@@ -2205,10 +2214,18 @@ def _heinlein_decisions(
                 criterion_id=criterion_id,
                 status=str(status),
                 supporting_evidence_ids=_existing_evidence_ids(
-                    evidence_set, tuple(supporting)
+                    evidence_set,
+                    tuple(supporting),
+                    log=log,
+                    stage=HEINLEIN_STAGE,
+                    field=f"heinlein_criteria[{criterion_id}].supporting_evidence_ids",
                 ),
                 counterevidence_ids=_existing_evidence_ids(
-                    evidence_set, tuple(counterevidence)
+                    evidence_set,
+                    tuple(counterevidence),
+                    log=log,
+                    stage=HEINLEIN_STAGE,
+                    field=f"heinlein_criteria[{criterion_id}].counterevidence_ids",
                 ),
                 rationale=rationale,
                 confidence=float(confidence),
@@ -2220,6 +2237,8 @@ def _heinlein_decisions(
 def _novum_candidates(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[novum.CandidateAdjudication, ...]:
     candidates = []
     for index, raw_item in enumerate(
@@ -2233,35 +2252,69 @@ def _novum_candidates(
             novum.CandidateAdjudication(
                 candidate_id=candidate_id,
                 description=str(item.get("description", candidate_id)),
-                novelty=_dimension(item.get("novelty", {}), evidence_set),
+                novelty=_dimension(
+                    item.get("novelty", {}),
+                    evidence_set,
+                    log=log,
+                    field_prefix=f"novum_candidates[{index - 1}].novelty",
+                ),
                 cognitive_validation=_dimension(
                     item.get("cognitive_validation", {}),
                     evidence_set,
+                    log=log,
+                    field_prefix=(
+                        f"novum_candidates[{index - 1}].cognitive_validation"
+                    ),
                 ),
                 narrative_hegemony=_dimension(
                     item.get("narrative_hegemony", {}),
                     evidence_set,
+                    log=log,
+                    field_prefix=(
+                        f"novum_candidates[{index - 1}].narrative_hegemony"
+                    ),
                 ),
                 estrangement=novum.EstrangementAdjudication(
                     reader_facing_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(item.get("reader_facing_evidence_ids", ())),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".reader_facing_evidence_ids"
+                        ),
                     ),
                     storyworld_consequence_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(
                             item.get("storyworld_consequence_evidence_ids", ())
                         ),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".storyworld_consequence_evidence_ids"
+                        ),
                     ),
                     character_reaction_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(item.get("character_reaction_evidence_ids", ())),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".character_reaction_evidence_ids"
+                        ),
                     ),
                     rationale=str(item.get("estrangement_rationale", "")),
                 ),
                 evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     _string_tuple(item.get("evidence_ids", ())),
+                    log=log,
+                    stage=SUVIN_STAGE,
+                    field=f"novum_candidates[{index - 1}].evidence_ids",
                 ),
             )
         )
@@ -2292,6 +2345,9 @@ def _dominant_novum_id(
 def _dimension(
     raw: Any,
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
+    field_prefix: str = "dimension",
 ) -> novum.DimensionAdjudication:
     if not isinstance(raw, dict):
         raw = {
@@ -2303,10 +2359,16 @@ def _dimension(
         supporting_evidence_ids=_existing_evidence_ids(
             evidence_set,
             _string_tuple(raw.get("supporting_evidence_ids", ())),
+            log=log,
+            stage=SUVIN_STAGE,
+            field=f"{field_prefix}.supporting_evidence_ids",
         ),
         counterevidence_ids=_existing_evidence_ids(
             evidence_set,
             _string_tuple(raw.get("counterevidence_ids", ())),
+            log=log,
+            stage=SUVIN_STAGE,
+            field=f"{field_prefix}.counterevidence_ids",
         ),
         rationale=str(raw.get("rationale", "")),
         confidence=_optional_float(raw.get("confidence")),
@@ -3612,6 +3674,10 @@ def _load_expectations(value: Any) -> dict[str, Any]:
 def _existing_evidence_ids(
     evidence_set: evidence.EvidenceSet,
     evidence_ids: tuple[str, ...],
+    *,
+    log: run_log.RunLog | None = None,
+    stage: str | None = None,
+    field: str | None = None,
 ) -> tuple[str, ...]:
     available = {
         record.evidence_id: record.evidence_id for record in evidence_set.records
@@ -3620,7 +3686,19 @@ def _existing_evidence_ids(
         for provenance in record.provenance:
             if provenance.raw_id:
                 available[provenance.raw_id] = record.evidence_id
-    return tuple(available[item] for item in evidence_ids if item in available)
+    resolved: list[str] = []
+    for item in evidence_ids:
+        if item in available:
+            resolved.append(available[item])
+        elif log is not None:
+            log.event(
+                "unknown_evidence_id",
+                action="dropped",
+                evidence_id=item,
+                field=field,
+                stage=stage,
+            )
+    return tuple(resolved)
 
 
 def _list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:
