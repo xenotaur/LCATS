@@ -22,6 +22,7 @@ depends_on:
   - WI-LINGUISTICS-0006
   - WI-LINGUISTICS-0007
   - WI-LINGUISTICS-0014
+  - WI-LINGUISTICS-0015
 blocked_by: []
 expected_actions:
   - create_file
