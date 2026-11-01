@@ -1,11 +1,11 @@
 ---
-resolution: null
+resolution: "Implemented and merged in PR #493"
 blocked_reason: null
 blocked: false
 id: WI-LINGUISTICS-0015
 title: Re-audit repaired pilot and decide POS quality gate
 type: evaluation
-status: proposed
+status: resolved
 owner: unassigned
 contributors: []
 assigned_agents: []
