@@ -2,13 +2,13 @@
 execution_id: 2026_10_06_01_54_15_WORLDCON_GENRE_VISUALIZATIONS_CONFIRM
 prompt_id: PROMPT(AD_HOC:WORLDCON_GENRE_VISUALIZATIONS_CONFIRM)[2026-10-06T01:54:15+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/470
-commit: a40787ca
+commit: 272e5e0c05d965ff1d925ea9d7f2d430968eff21
 agent: codex_app
 instruction_source: PR URL plus user confirmation to resolve all four review threads
-session_transcript: pending
+session_transcript: codex-app:01a0e95a-70cb-7da1-a4ac-aa13bfe2e0b1
 created_at: 2026-10-06T01:54:15+00:00
 ---
 

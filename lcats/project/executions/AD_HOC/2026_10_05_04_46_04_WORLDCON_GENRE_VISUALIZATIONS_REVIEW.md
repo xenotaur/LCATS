@@ -2,13 +2,13 @@
 execution_id: 2026_10_05_04_46_04_WORLDCON_GENRE_VISUALIZATIONS_REVIEW
 prompt_id: PROMPT(AD_HOC:WORLDCON_GENRE_VISUALIZATIONS_REVIEW)[2026-10-05T03:44:09+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 
 pr: https://github.com/xenotaur/LCATS/pull/470
-commit: 07353b6c
+commit: 272e5e0c05d965ff1d925ea9d7f2d430968eff21
 agent: codex_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/470
-session_transcript: pending
+session_transcript: codex-app:01a0e95a-70cb-7da1-a4ac-aa13bfe2e0b1
 created_at: 2026-10-05T04:46:04+00:00
 ---
 
