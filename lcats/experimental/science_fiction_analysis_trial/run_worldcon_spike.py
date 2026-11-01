@@ -690,6 +690,40 @@ def _append_story_result(
     return path
 
 
+class _StageRunLog:
+    """Forward run-log events while de-duplicating one response's diagnostics."""
+
+    def __init__(
+        self,
+        delegate: run_log.RunLog | None,
+        *,
+        run_id: str | None = None,
+        story_id: str | None = None,
+    ):
+        self.delegate = delegate
+        self.run_id = run_id
+        self.story_id = story_id
+        self._unknown_evidence_events: set[tuple[Any, ...]] = set()
+
+    def reset_response_events(self) -> None:
+        self._unknown_evidence_events.clear()
+
+    def event(self, event: str, **fields: Any) -> None:
+        if event == "unknown_evidence_id":
+            fields.setdefault("run_id", self.run_id)
+            fields.setdefault("story_id", self.story_id)
+            key = (
+                fields.get("stage"),
+                fields.get("field"),
+                fields.get("evidence_id"),
+            )
+            if key in self._unknown_evidence_events:
+                return
+            self._unknown_evidence_events.add(key)
+        if self.delegate is not None:
+            self.delegate.event(event, **fields)
+
+
 def _run_checkpointed_model_stage(
     *,
     stage: str,
@@ -701,7 +735,7 @@ def _run_checkpointed_model_stage(
     payload: dict[str, Any],
     tool_schema: dict[str, Any],
     run_id: str,
-    log: run_log.RunLog | None,
+    log: run_log.RunLog | _StageRunLog | None,
     resume: bool,
     validate_result: Callable[[llm_backend.BackendResponse, Any], None],
 ) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path, bool]:
@@ -729,6 +763,8 @@ def _run_checkpointed_model_stage(
             log=log,
         )
         try:
+            if isinstance(log, _StageRunLog):
+                log.reset_response_events()
             validate_result(response, tool_result)
         except Exception as error:
             error.raw_response_path = raw_path
@@ -1569,6 +1605,7 @@ def _run_knight_stage(
     reused = False
     system_prompt = _knight_system_prompt()
     tool_schema = _knight_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     provenance = _provenance(
         story=story,
         options=options,
@@ -1590,13 +1627,13 @@ def _run_knight_stage(
             payload=_knight_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda response, result: knight.build_analysis(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(result, evidence_set, log=log),
+                decisions=_knight_decisions(result, evidence_set, log=stage_log),
                 provenance=_provenance(
                     story=story,
                     options=options,
@@ -1629,7 +1666,7 @@ def _run_knight_stage(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(tool_result, evidence_set, log=log),
+                decisions=_knight_decisions(tool_result, evidence_set, log=stage_log),
                 provenance=provenance,
             ),
             response,
@@ -1752,6 +1789,7 @@ def _run_suvin_stage(
     reused = False
     system_prompt = _suvin_system_prompt()
     tool_schema = _suvin_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     provenance = _provenance(
         story=story,
         options=options,
@@ -1773,7 +1811,7 @@ def _run_suvin_stage(
             payload=_suvin_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda response, result: _validate_suvin_result(
                 story=story,
@@ -1785,7 +1823,7 @@ def _run_suvin_stage(
                 run_id=run_id,
                 system_prompt=system_prompt,
                 tool_schema=tool_schema,
-                log=log,
+                log=stage_log,
             ),
         )
         if not isinstance(tool_result, dict):
@@ -1803,7 +1841,7 @@ def _run_suvin_stage(
             run_id=run_id,
             rubric_version=models.SUVIN_RUBRIC_VERSION,
         )
-        candidates = _novum_candidates(tool_result, evidence_set, log=log)
+        candidates = _novum_candidates(tool_result, evidence_set, log=stage_log)
         return (
             novum.build_analysis(
                 analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
@@ -1923,6 +1961,7 @@ def _run_heinlein_stage(
     reused = False
     system_prompt = _heinlein_system_prompt()
     tool_schema = _heinlein_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     analysis_id = f"{_stable_slug(story.story_id)}-heinlein-v1"
 
     def provenance_for(
@@ -1950,13 +1989,13 @@ def _run_heinlein_stage(
             payload=_heinlein_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda stage_response, result: heinlein.build_analysis(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(result, evidence_set, log=log),
+                decisions=_heinlein_decisions(result, evidence_set, log=stage_log),
                 provenance=provenance_for(stage_response),
             ),
         )
@@ -1970,7 +2009,7 @@ def _run_heinlein_stage(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(tool_result, evidence_set, log=log),
+                decisions=_heinlein_decisions(tool_result, evidence_set, log=stage_log),
                 provenance=provenance_for(response),
             ),
             response,

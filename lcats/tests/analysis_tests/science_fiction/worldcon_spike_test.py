@@ -172,6 +172,30 @@ class _UnexpectedBackend:
         raise AssertionError("backend should not be called for a reused checkpoint")
 
 
+class _UnknownEvidenceBackend:
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+
+    def complete(self, **kwargs):
+        response = self.delegate.complete(**kwargs)
+        result = copy.deepcopy(response.tool_result)
+        tool_name = kwargs["tool"]["name"]
+        if tool_name == run_worldcon_spike.KNIGHT_TOOL_NAME:
+            result["knight_criteria"][0]["supporting_evidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        elif tool_name == run_worldcon_spike.HEINLEIN_TOOL_NAME:
+            result["heinlein_criteria"][0]["counterevidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        elif tool_name == run_worldcon_spike.SUVIN_TOOL_NAME:
+            result["novum_candidates"][0]["novelty"]["supporting_evidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        response.tool_result = result
+        return response
+
+
 class _ValidationConnectionBackend:
     def __init__(self):
         self.calls = 0
@@ -388,6 +412,59 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                 story["knight_interval"],
             )
             self.assertEqual(1, story["qualified_novum_count"])
+
+    def test_unknown_ids_are_logged_once_for_fresh_and_resumed_runs(self):
+        output_root = self.root / "unknown-id-runs"
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_UnknownEvidenceBackend(),
+        ):
+            first = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    include_heinlein=True,
+                )
+            )
+
+        self.assertEqual("complete", first["status"])
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_UnexpectedBackend(),
+        ):
+            resumed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    include_heinlein=True,
+                    resume=True,
+                )
+            )
+
+        self.assertEqual("complete", resumed["status"])
+        events = [
+            json.loads(line)
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if json.loads(line)["event"] == "unknown_evidence_id"
+        ]
+        by_run = {}
+        for event in events:
+            by_run.setdefault(event["run_id"], []).append(event)
+        self.assertEqual(2, len(by_run))
+        expected_stages = {
+            run_worldcon_spike.KNIGHT_STAGE,
+            run_worldcon_spike.SUVIN_STAGE,
+            run_worldcon_spike.HEINLEIN_STAGE,
+        }
+        for run_events in by_run.values():
+            self.assertEqual(expected_stages, {event["stage"] for event in run_events})
+            self.assertEqual(3, len(run_events))
 
     def test_sample_requires_successful_smoke_summary(self):
         with self.assertRaisesRegex(ValueError, "smoke-summary"):
