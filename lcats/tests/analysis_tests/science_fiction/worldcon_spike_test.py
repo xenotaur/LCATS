@@ -2252,9 +2252,7 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
         prepared = self.prepared[
             self._find("baseline", "vonnegut", "sf_evidence")["story_path"]
         ]
-        raw = run_worldcon_spike._fake_tool_result(
-            {"text": prepared.normalized_text}
-        )
+        raw = run_worldcon_spike._fake_tool_result({"text": prepared.normalized_text})
         evidence_set = run_worldcon_spike._build_evidence_set(
             prepared,
             {"evidence": raw["evidence"]},
@@ -2300,9 +2298,7 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
             "dominant_novum_id": raw["dominant_novum_id"],
         }
         candidate = suvin_result["novum_candidates"][0]
-        candidate["novelty"]["supporting_evidence_ids"].append(
-            "ev-unknown-suvin"
-        )
+        candidate["novelty"]["supporting_evidence_ids"].append("ev-unknown-suvin")
         run_worldcon_spike._novum_candidates(
             suvin_result,
             evidence_set,
@@ -2310,9 +2306,7 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
         )
 
         dropped = [
-            event
-            for event in log.events
-            if event["event"] == "unknown_evidence_id"
+            event for event in log.events if event["event"] == "unknown_evidence_id"
         ]
         self.assertEqual(
             {
@@ -2336,9 +2330,7 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
         prepared = self.prepared[
             self._find("baseline", "vonnegut", "sf_evidence")["story_path"]
         ]
-        raw = run_worldcon_spike._fake_tool_result(
-            {"text": prepared.normalized_text}
-        )
+        raw = run_worldcon_spike._fake_tool_result({"text": prepared.normalized_text})
         evidence_set = run_worldcon_spike._build_evidence_set(
             prepared,
             {"evidence": raw["evidence"]},
@@ -2363,9 +2355,9 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
             "novum_candidates": copy.deepcopy(raw["novum_candidates"]),
             "dominant_novum_id": raw["dominant_novum_id"],
         }
-        suvin_result["novum_candidates"][0]["novelty"][
-            "supporting_evidence_ids"
-        ] = ["ev-unknown-suvin"]
+        suvin_result["novum_candidates"][0]["novelty"]["supporting_evidence_ids"] = [
+            "ev-unknown-suvin"
+        ]
         with self.assertRaisesRegex(ValueError, "supporting evidence"):
             novum.build_analysis(
                 analysis_id="unknown-suvin",

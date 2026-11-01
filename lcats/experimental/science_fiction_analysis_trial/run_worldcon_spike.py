@@ -2270,9 +2270,7 @@ def _novum_candidates(
                     item.get("narrative_hegemony", {}),
                     evidence_set,
                     log=log,
-                    field_prefix=(
-                        f"novum_candidates[{index - 1}].narrative_hegemony"
-                    ),
+                    field_prefix=(f"novum_candidates[{index - 1}].narrative_hegemony"),
                 ),
                 estrangement=novum.EstrangementAdjudication(
                     reader_facing_evidence_ids=_existing_evidence_ids(
@@ -3073,9 +3071,7 @@ def _enforce_run_gate(
         _enforce_paid_run_gate(gate, options)
         _verify_paid_source_manifest(manifest)
         if options.mode != CANARY_MODE and options.prior_spend_usd is None:
-            raise ValueError(
-                "paid sample/full stages require --prior-spend-usd"
-            )
+            raise ValueError("paid sample/full stages require --prior-spend-usd")
         if options.prior_spend_usd is not None and (
             not math.isfinite(options.prior_spend_usd) or options.prior_spend_usd < 0
         ):
@@ -3135,7 +3131,10 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
         raise ValueError("paid model calls require model to match approved_model")
     if not math.isfinite(gate.estimated_cost_usd) or gate.estimated_cost_usd <= 0:
         raise ValueError("paid model calls require positive estimated_cost_usd")
-    if not math.isfinite(gate.estimated_story_cost_usd) or gate.estimated_story_cost_usd <= 0:
+    if (
+        not math.isfinite(gate.estimated_story_cost_usd)
+        or gate.estimated_story_cost_usd <= 0
+    ):
         raise ValueError("paid model calls require positive estimated_story_cost_usd")
     if not math.isfinite(gate.cumulative_budget_usd) or gate.cumulative_budget_usd <= 0:
         raise ValueError("paid model calls require positive cumulative_budget_usd")
@@ -3163,7 +3162,9 @@ def _verify_paid_source_manifest(manifest: SpikeManifest) -> None:
     digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
     if digest != manifest.source_worldcon_manifest_sha256:
         raise ValueError("source manifest sha256 does not match its contents")
-    count = sum(1 for line in source_path.read_text(encoding="utf-8").splitlines() if line)
+    count = sum(
+        1 for line in source_path.read_text(encoding="utf-8").splitlines() if line
+    )
     if count != manifest.source_worldcon_manifest_expected_count:
         raise ValueError("source manifest story count does not match its declaration")
     git_path = f"{manifest.source_worldcon_manifest_git_commit}:{manifest.source_worldcon_manifest}"
@@ -3633,9 +3634,7 @@ def _load_gate(mode: str, data: dict[str, Any]) -> RunGate:
             data.get("paid_model_calls_authorized", False)
         ),
         estimated_cost_usd=float(data.get("estimated_cost_usd", 0.0)),
-        estimated_story_cost_usd=float(
-            data.get("estimated_story_cost_usd", 0.0)
-        ),
+        estimated_story_cost_usd=float(data.get("estimated_story_cost_usd", 0.0)),
         requires_smoke_success=bool(data.get("requires_smoke_success", False)),
         requires_full_sample_approval=bool(
             data.get("requires_full_sample_approval", False)
