@@ -1,0 +1,43 @@
+# Worldcon genre/analysis contingency table
+
+Long-form counts by metadata-selected genre, metadata/model agreement, Knight definite-score band, and Suvin outcome.
+
+| Selected genre | Agreement | Knight band | Suvin outcome | Count |
+|---|---|---:|---|---:|
+| adventure | agreement | 0 | not qualified | 3 |
+| adventure | agreement | 0 | failed | 1 |
+| adventure | agreement | 1-2 | not qualified | 1 |
+| adventure | disagreement | 0 | not qualified | 1 |
+| fantasy | agreement | 0 | not qualified | 18 |
+| fantasy | agreement | 1-2 | not qualified | 1 |
+| fantasy | agreement | 3-4 | not qualified | 1 |
+| horror | agreement | 0 | qualified | 1 |
+| horror | agreement | 0 | not qualified | 7 |
+| horror | agreement | 1-2 | qualified | 1 |
+| horror | agreement | 1-2 | not qualified | 5 |
+| horror | agreement | 3-4 | qualified | 5 |
+| horror | agreement | 5-7 | qualified | 1 |
+| humor | agreement | 0 | qualified | 1 |
+| humor | agreement | 0 | not qualified | 11 |
+| humor | agreement | 0 | failed | 3 |
+| humor | agreement | 1-2 | not qualified | 1 |
+| humor | disagreement | 0 | not qualified | 2 |
+| humor | disagreement | 0 | failed | 1 |
+| humor | disagreement | 1-2 | qualified | 1 |
+| mystery | agreement | 0 | not qualified | 8 |
+| mystery | agreement | 0 | failed | 2 |
+| mystery | agreement | 1-2 | not qualified | 8 |
+| mystery | disagreement | 0 | not qualified | 2 |
+| romance | agreement | 0 | not qualified | 11 |
+| romance | agreement | 0 | failed | 3 |
+| romance | disagreement | 0 | not qualified | 5 |
+| romance | disagreement | 1-2 | not qualified | 1 |
+| science fiction | agreement | 1-2 | qualified | 2 |
+| science fiction | agreement | 3-4 | qualified | 6 |
+| science fiction | agreement | 5-7 | qualified | 9 |
+| science fiction | agreement | 5-7 | not qualified | 2 |
+| science fiction | disagreement | 5-7 | not qualified | 1 |
+| western | agreement | 0 | not qualified | 10 |
+| western | agreement | 0 | failed | 3 |
+| western | agreement | 1-2 | not qualified | 2 |
+| western | disagreement | 0 | not qualified | 5 |
