@@ -1,10 +1,17 @@
 """Library for chunking long stories into manageable pieces using tiktoken."""
 
 import codecs
+import functools
 from dataclasses import dataclass
 from typing import List, Optional
 
 import tiktoken
+
+
+@functools.lru_cache(maxsize=8)
+def _get_encoding_for_model(model: str) -> "tiktoken.Encoding":
+    """Cache the encoding for a model to avoid slow initialization on every call."""
+    return tiktoken.encoding_for_model(model)
 
 
 @dataclass
@@ -17,7 +24,7 @@ class Chunk:
 
 def count_tokens(text: str, model: str = "gpt-3.5-turbo") -> int:
     """Count the number of tokens in a text string for a given model using tiktoken."""
-    encoding = tiktoken.encoding_for_model(model)
+    encoding = _get_encoding_for_model(model)
     return len(encoding.encode(text))
 
 
@@ -50,7 +57,7 @@ def chunk_story(
             f"({max_tokens}), or chunking never advances."
         )
 
-    enc = tiktoken.encoding_for_model(model_name)
+    enc = _get_encoding_for_model(model_name)
     tokens = enc.encode(story_text)
 
     if end_token_limit is not None:
