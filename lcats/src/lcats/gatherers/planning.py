@@ -42,6 +42,7 @@ NAMES = (
     "anderson",
     "chesterton",
     "london",
+#    "standard_ebooks",
     "mass_quantities",
 )
 REQUIREMENTS = {

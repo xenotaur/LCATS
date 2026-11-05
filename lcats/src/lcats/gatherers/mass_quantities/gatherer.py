@@ -13,6 +13,8 @@ from lcats.utils import env
 from lcats.utils import paths
 from lcats.utils import run_log
 
+from lcats.gatherers import manifest
+
 # Outside data/ and corpora/ (both protected by run_log.RunLog's own
 # re-validation) - matches gatherlib.gather()'s own DEFAULT_GATHER_LOG_DIR
 # and <corpus>_gather_run_log.jsonl naming convention (WI-GATHER-0105).
