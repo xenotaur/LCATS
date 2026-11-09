@@ -179,10 +179,15 @@ class StandingPeriod:
 
 
 def validate_timeline(timeline: tuple[StandingPeriod, ...]) -> None:
-    """Require an ordered timeline that covers all time without a gap (R1)."""
+    """Require an ordered timeline that covers all time without a gap (R1).
+
+    An empty timeline is valid and means the model cannot state the premise's
+    timeline at all (R2): every status derived from it is ``not_assessable``
+    and the premise is never counted as supported.
+    """
 
     if not timeline:
-        raise ValueError("a premise needs at least one standing period")
+        return
     if timeline[0].from_date is not None or timeline[-1].to_date is not None:
         raise ValueError("a standing timeline must cover all time (open at both ends)")
     for previous, current in zip(timeline, timeline[1:], strict=False):
@@ -260,6 +265,12 @@ class Premise:
             # definition (R4); its timeline describes its enabling mechanism (R1).
             raise ValueError("a counterfactual_divergence premise must be novel")
         validate_timeline(self.timeline)
+
+    @property
+    def timeline_known(self) -> bool:
+        """False when the model could not state the timeline at all (R2)."""
+
+        return bool(self.timeline)
 
     @property
     def counted(self) -> bool:
@@ -458,7 +469,7 @@ def _unsettled_beyond_cutoff(
     stable; that is a stated limit of the rule, not a guarantee.
     """
 
-    if model_knowledge_cutoff is None:
+    if model_knowledge_cutoff is None or not premise.timeline:
         return False
     if _analysis_month(analysis_date) <= month_range(model_knowledge_cutoff)[1]:
         return False
@@ -560,7 +571,8 @@ def is_speculative(
 ) -> bool:
     """R6: novel at composition, or not ``supported`` at some date in the interval."""
 
-    if premise.novel_at_composition == "true":
+    if premise.novel_at_composition == "true" or not premise.timeline:
+        # An unknown timeline is not known to be supported (R2, R6).
         return True
     start, end = _composition_window(composition, analysis_date)
     return any(
@@ -630,6 +642,8 @@ def premise_condition(
 ) -> str | None:
     """State why an as-written status is ambiguous, from the periods it spans."""
 
+    if not premise.timeline:
+        return f"{premise.premise_id}: standing timeline could not be determined"
     start, end = _composition_window(composition, analysis_date)
     standings = standings_over(premise.timeline, start, end)
     if status_from_standings(standings) != "ambiguous":

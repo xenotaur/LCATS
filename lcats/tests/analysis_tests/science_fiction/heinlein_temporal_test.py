@@ -39,7 +39,7 @@ def _premise(
         anchor=heinlein_temporal.PremiseAnchor(offset=10, quote=f"Quote {premise_id}."),
         materiality=materiality,
         novel_at_composition=novel,
-        timeline=timeline or (_period("supported"),),
+        timeline=(_period("supported"),) if timeline is None else timeline,
         dated_prediction=prediction,
     )
 
@@ -144,8 +144,7 @@ class TimelineTest(unittest.TestCase):
                     _period("supported", "1902", None),
                 )
             )
-        with self.assertRaises(ValueError):
-            heinlein_temporal.validate_timeline(())
+        heinlein_temporal.validate_timeline(())  # unknown timeline is allowed
 
     def test_touching_and_adjacent_periods_are_accepted(self):
         _premise(
@@ -419,6 +418,64 @@ class SpeculativeAndProfileTest(unittest.TestCase):
             {row[2] for row in rows} | {"not_applicable"}
             == heinlein_temporal.PROFILE_CATEGORIES
         )
+
+
+class UnknownTimelineTest(unittest.TestCase):
+    """R2: ``not_assessable`` is used when the model cannot state the timeline."""
+
+    def test_an_empty_timeline_is_a_valid_unknown(self):
+        premise = _premise(timeline=())
+
+        self.assertFalse(premise.timeline_known)
+        self.assertTrue(_premise().timeline_known)
+
+    def test_statuses_and_relation_are_not_assessable(self):
+        premise = _premise(timeline=())
+        interval = _interval("1957", "1957")
+
+        self.assertEqual(
+            "not_assessable",
+            heinlein_temporal.status_as_written(premise, interval, ANALYSIS_DATE),
+        )
+        self.assertEqual(
+            "not_assessable",
+            heinlein_temporal.status_today(premise, ANALYSIS_DATE, "2025-01"),
+        )
+        self.assertEqual(
+            "not_assessable",
+            heinlein_temporal.relation_to_today(
+                premise, interval, ANALYSIS_DATE, "2025-01"
+            ),
+        )
+
+    def test_an_unknown_premise_is_speculative_and_explains_itself(self):
+        premise = _premise("mystery", timeline=())
+        interval = _interval("1957", "1957")
+
+        self.assertTrue(
+            heinlein_temporal.is_speculative(premise, interval, ANALYSIS_DATE)
+        )
+        self.assertEqual(
+            "mystery: standing timeline could not be determined",
+            heinlein_temporal.premise_condition(premise, interval, ANALYSIS_DATE),
+        )
+
+    def test_an_unknown_premise_prevents_a_vacuous_present(self):
+        analysis = _analysis(premises=(_premise(timeline=()),))
+        assessment = analysis.assessment()
+
+        self.assertEqual("ambiguous", assessment["plausible_as_written"])
+        self.assertEqual("ambiguous", assessment["plausible_today"])
+        self.assertEqual("undetermined", assessment["category"])
+        self.assertIn("could not be determined", assessment["condition"])
+
+    def test_an_unknown_premise_round_trips_and_validates(self):
+        analysis = _analysis(premises=(_premise(timeline=()),))
+        data = analysis.to_dict()
+
+        self.assertEqual([], data["premises"][0]["timeline"])
+        rebuilt = heinlein_temporal.analysis_from_dict(data)
+        self.assertEqual(analysis.assessment(), rebuilt.assessment())
 
 
 class VerdictTest(unittest.TestCase):
