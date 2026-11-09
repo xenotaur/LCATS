@@ -1235,28 +1235,21 @@ before a release; it prints nothing today.
 **Related:** `project/design/sidecar-kinds-release-rule.md`; `WI-PROMOTE-0117`;
 `WS-SIDECAR-SAFE-PROMOTION`.
 
-### Preserve the 146 original story hashes and add a release-time story-binding check for the seeded genre sidecars — P2, preservation is time-sensitive
+### Build the release-time story-binding check for the seeded genre sidecars — P2
 
-`WI-PROMOTE-0118` found that the original per-story `story_content_hash` values from
-the 2026-08-21 Opus run exist, but only as 146 gitignored checkpoint files
-(`.gitignore:137`) in one sibling worktree (`lcats-special-char-strategy-c18aa7`, under
-`experiments/05_metadata_genre_prefilter/results/full_scan/<collection>__<story>/validation.json`),
-and that all 146 equal the sha256 of today's `story.json` bytes. A fresh clone, `git clean -fdx` or removing
-that worktree loses them, and the committed results hold no hash at all. The
-recommendation (`project/design/genre-sidecar-story-binding.md`) is a side manifest
-of `{lcats_id, story_content_hash}`, compared with the regenerated `data/` at
-release time, with no sidecar schema change.
+The original per-story `story_content_hash` values are now preserved: `WI-PROMOTE-0124`
+(PR #533) archived the 146 Opus and 146 gpt-oss:20b checkpoint files under
+`experiments/05_metadata_genre_prefilter/results/full_scan/checkpoint_archive_2026-08-21/`
+and derived `story_hash_baseline.jsonl` (146 rows) from them; `archive_checkpoints.py
+verify` re-checks them. What remains is the check itself, recommended in
+`project/design/genre-sidecar-story-binding.md`.
 
-**First concrete step:** archive the 146 Opus checkpoint files themselves (about
-160 KB in total; `.gitignore:137` matches them, so they need a forced add or an
-ignore exception), and derive the hash manifest from the archived files so the link
-to the model run can be re-checked; a recent precedent is the "preserve staged Opus
-run artifacts" data PR. Then build the comparison as a small tool plus a runbook
-step, using file bytes (conservative: also flags unused fields such as `year`) or an
-effective-input hash over `author`, `url` and the body (exact), never a body hash
-alone (it misses changes the model is shown), decide the re-assess-or-accept
-rule, and measure whether a fresh `lcats gather` reproduces the stored text
-byte-for-byte (not measured here).
+**First concrete step:** build the comparison of the regenerated `data/` against that
+baseline as a small tool plus a runbook step, using file bytes (conservative: also flags
+unused fields such as `year`) or an effective-input hash over `author`, `url` and the
+body (exact), never a body hash alone (it misses changes the model is shown); decide the
+re-assess-or-accept rule; and measure whether a fresh `lcats gather` reproduces the
+stored text byte for byte (not measured).
 
 **Related:** `project/design/genre-sidecar-story-binding.md`; `WI-PROMOTE-0118`;
-`WS-SIDECAR-SAFE-PROMOTION`.
+`WI-PROMOTE-0124`; `WS-SIDECAR-SAFE-PROMOTION`.
