@@ -2,7 +2,7 @@
 id: WI-PROMOTE-0125
 title: Reproduce linguistics sidecar release seeding with a real spaCy run
 type: investigation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -23,7 +23,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Implemented and merged in PR #542 (investigation only; no code, corpora/ or data/ change): reproduced linguistics sidecar release seeding with real spaCy 3.8.14 / en_core_web_sm 3.8.0 output for 5 stories, rows L1-L13 in project/design/sidecar-kinds-release-rule.md. Findings: both registered linguistics kinds seed with create-only insert and then pass replace; insert re-serializes without a trailing newline and escapes non-ASCII, so byte identity holds only for payloads written by insert itself and the earlier broader claim was corrected; replace silently deletes unregistered linguistics.lexicon.json; the single-collection and stray-story cases were reproduced; story_path and input.source_path are not validated against the destination. Workstream exit criterion 1 is MET for genre rows 1-9, linguistics rows L1-L5 and L10-L12, and scenes, with the caveat that the scenes rows used a synthetic segments-empty payload and that linguistics.lexicon.json and science-fiction.json fall outside the criterion. The other workstream exit criteria are not assessed here, and WS-SIDECAR-SAFE-PROMOTION was not closed.'
 expected_actions:
   - read_files
   - run_tests
