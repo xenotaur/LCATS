@@ -9,6 +9,7 @@ import tempfile
 from typing import Any
 
 from lcats.analysis.science_fiction import evidence
+from lcats.analysis.science_fiction import heinlein_temporal
 from lcats.analysis.science_fiction import models
 
 SCHEMA_VERSION = models.SCIENCE_FICTION_SIDECAR_VERSION
@@ -20,6 +21,7 @@ PARTIAL_SUCCESS_STAGE_NAMES = frozenset(
         "knight",
         "suvin_novum",
         "heinlein",
+        "heinlein_temporal",
         "sidecar",
         "publication",
     }
@@ -80,6 +82,7 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
     current_knight_analysis_id: str | None = None
     current_suvin_analysis_id: str | None = None
     current_heinlein_analysis_id: str | None = None
+    current_heinlein_temporal_analysis_id: str | None = None
     if isinstance(current, dict):
         current_evidence_set_id = _optional_string_or_none(
             current,
@@ -105,6 +108,12 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
             "$.current.heinlein_analysis_id",
             findings,
         )
+        current_heinlein_temporal_analysis_id = _optional_string_or_none(
+            current,
+            "heinlein_temporal_analysis_id",
+            "$.current.heinlein_temporal_analysis_id",
+            findings,
+        )
         if (
             current_evidence_set_id is not None
             and current_evidence_set_id not in evidence_ids_by_set
@@ -120,6 +129,7 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
     knight_index: dict[str, dict[str, Any]] = {}
     suvin_index: dict[str, dict[str, Any]] = {}
     heinlein_index: dict[str, dict[str, Any]] = {}
+    heinlein_temporal_index: dict[str, dict[str, Any]] = {}
     if isinstance(analyses, dict):
         knight_items = _require_list(analyses, "knight", "$.analyses.knight", findings)
         suvin_items = _require_list(
@@ -154,6 +164,22 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
                 evidence_ids_by_set=evidence_ids_by_set,
                 findings=findings,
             )
+        # Optional date-aware detector: absent unless that stage ran.
+        if "heinlein_temporal" in analyses:
+            heinlein_temporal_items = _require_list(
+                analyses,
+                "heinlein_temporal",
+                "$.analyses.heinlein_temporal",
+                findings,
+            )
+            heinlein_temporal_index = _validate_analyses(
+                heinlein_temporal_items,
+                path="$.analyses.heinlein_temporal",
+                label="Heinlein temporal",
+                story_hash=story_hash,
+                evidence_ids_by_set=evidence_ids_by_set,
+                findings=findings,
+            )
 
     _validate_current_analysis(
         current_knight_analysis_id,
@@ -176,6 +202,14 @@ def validate_sidecar(data: Any) -> models.ValidationResult:
         index=heinlein_index,
         path="$.current.heinlein_analysis_id",
         label="Heinlein",
+        current_evidence_set_id=current_evidence_set_id,
+        findings=findings,
+    )
+    _validate_current_analysis(
+        current_heinlein_temporal_analysis_id,
+        index=heinlein_temporal_index,
+        path="$.current.heinlein_temporal_analysis_id",
+        label="Heinlein temporal",
         current_evidence_set_id=current_evidence_set_id,
         findings=findings,
     )
@@ -606,6 +640,8 @@ def _validate_analyses(
             _validate_suvin_analysis(analysis, base, findings)
         elif label == "Heinlein":
             _validate_heinlein_analysis(analysis, base, findings)
+        elif label == "Heinlein temporal":
+            _validate_heinlein_temporal_analysis(analysis, base, findings)
         if _is_non_empty_string(evidence_set_id):
             _validate_analysis_references(
                 analysis,
@@ -936,6 +972,61 @@ def _validate_heinlein_analysis(
         )
     if isinstance(interval, dict):
         _validate_heinlein_interval(interval, statuses, f"{base}.interval", findings)
+
+
+def _validate_heinlein_temporal_analysis(
+    analysis: dict[str, Any],
+    base: str,
+    findings: list[models.ValidationFinding],
+) -> None:
+    """Validate a date-aware record by rebuilding it and re-deriving its values.
+
+    The model-asserted inputs are parsed and checked by the record types; the
+    stored ``assessment`` must equal what Python derives from them, so a value
+    edited by hand, or derived by an older rule, is reported.
+    """
+
+    _validate_provenance(
+        analysis,
+        f"{base}.provenance",
+        expected_rubric_version=heinlein_temporal.TEMPORAL_RUBRIC_VERSION,
+        findings=findings,
+    )
+    try:
+        rebuilt = heinlein_temporal.analysis_from_dict(analysis)
+    except (ValueError, TypeError, AttributeError) as error:
+        findings.append(
+            _finding(
+                base,
+                "invalid_heinlein_temporal",
+                f"Heinlein temporal analysis is invalid: {error}",
+            )
+        )
+        return
+    # Everything outside ``assessment`` must also survive a rebuild unchanged, so
+    # values the parser coerces or ignores (a non-string source, an extra key)
+    # are reported rather than silently accepted.
+    stored_rest = {k: v for k, v in analysis.items() if k != "assessment"}
+    rebuilt_rest = {k: v for k, v in rebuilt.to_dict().items() if k != "assessment"}
+    if _canonical_json(stored_rest) != _canonical_json(rebuilt_rest):
+        findings.append(
+            _finding(
+                base,
+                "heinlein_temporal_record_mismatch",
+                "Heinlein temporal record must match its normalized form",
+            )
+        )
+    # Compare canonical JSON, not Python equality, so False/0 and True/1 differ.
+    if _canonical_json(analysis.get("assessment")) != _canonical_json(
+        rebuilt.assessment()
+    ):
+        findings.append(
+            _finding(
+                f"{base}.assessment",
+                "heinlein_temporal_assessment_mismatch",
+                "Heinlein temporal assessment must match values derived from its premises",
+            )
+        )
 
 
 def _validate_heinlein_interval(
@@ -1864,6 +1955,12 @@ def _validate_stage_name(
 
 def _result(findings: list[models.ValidationFinding]) -> models.ValidationResult:
     return models.ValidationResult.from_findings(tuple(findings))
+
+
+def _canonical_json(value: Any) -> str:
+    """Serialize with sorted keys so comparison is type-aware (``0`` != ``false``)."""
+
+    return json.dumps(value, sort_keys=True, default=repr)
 
 
 def _finding(path: str, kind: str, message: str) -> models.ValidationFinding:

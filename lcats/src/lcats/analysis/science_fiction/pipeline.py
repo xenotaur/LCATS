@@ -32,6 +32,7 @@ class SidecarAssemblyInputs:
     configuration: dict[str, Any] = dataclasses.field(default_factory=dict)
     # Appended last so positional construction of earlier fields is unchanged.
     heinlein_analyses: tuple[models.HeinleinAnalysis, ...] = ()
+    heinlein_temporal_analyses: tuple[Any, ...] = ()
 
 
 @dataclasses.dataclass(frozen=True)
@@ -69,6 +70,11 @@ def effective_fingerprint(inputs: SidecarAssemblyInputs) -> dict[str, Any]:
         payload["heinlein_analyses"] = [
             item.to_dict() for item in inputs.heinlein_analyses
         ]
+    # Same rule for the date-aware detector.
+    if inputs.heinlein_temporal_analyses:
+        payload["heinlein_temporal_analyses"] = [
+            item.to_dict() for item in inputs.heinlein_temporal_analyses
+        ]
     encoded = json.dumps(payload, sort_keys=True, separators=(",", ":"))
     return {
         "version": PIPELINE_FINGERPRINT_VERSION,
@@ -90,6 +96,7 @@ def assemble_sidecar(
         knight_analyses=inputs.knight_analyses,
         suvin_novum_analyses=inputs.suvin_novum_analyses,
         heinlein_analyses=inputs.heinlein_analyses,
+        heinlein_temporal_analyses=inputs.heinlein_temporal_analyses,
         current=_select_current(inputs),
         partial_success=inputs.partial_success,
     )
@@ -257,14 +264,16 @@ def _select_current(inputs: SidecarAssemblyInputs) -> models.CurrentPointers:
             current_evidence_set_id=current_evidence_set_id,
             story_hash=inputs.story_hash,
         ),
+        heinlein_temporal_analysis_id=_latest_complete_analysis_id(
+            inputs.heinlein_temporal_analyses,
+            current_evidence_set_id=current_evidence_set_id,
+            story_hash=inputs.story_hash,
+        ),
     )
 
 
 def _latest_complete_analysis_id(
-    analyses: tuple[
-        models.KnightAnalysis | models.SuvinNovumAnalysis | models.HeinleinAnalysis,
-        ...,
-    ],
+    analyses: tuple[Any, ...],
     *,
     current_evidence_set_id: str | None,
     story_hash: str,
