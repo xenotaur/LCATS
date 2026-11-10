@@ -146,6 +146,23 @@ class TimelineTest(unittest.TestCase):
             )
         heinlein_temporal.validate_timeline(())  # unknown timeline is allowed
 
+    def test_adjacent_day_precision_periods_in_one_month_are_accepted(self):
+        premise = _premise(
+            timeline=(
+                _period("open", None, "1965-07-14"),
+                _period("contradicted", "1965-07-15", None),
+            )
+        )
+
+        self.assertEqual(2, len(premise.timeline))
+        with self.assertRaises(ValueError):
+            _premise(
+                timeline=(
+                    _period("open", None, "1965-07-15"),
+                    _period("contradicted", "1965-07-14", None),
+                )
+            )
+
     def test_overlapping_interiors_are_rejected(self):
         with self.assertRaises(ValueError):
             _premise(
@@ -485,6 +502,19 @@ class UnknownTimelineTest(unittest.TestCase):
         self.assertEqual("undetermined", assessment["category"])
         self.assertIn("could not be determined", assessment["condition"])
 
+    def test_an_uncounted_unknown_premise_does_not_explain_the_record(self):
+        analysis = _analysis(
+            premises=(
+                _premise("main"),
+                _premise("minor", timeline=(), materiality="incidental"),
+            )
+        )
+        assessment = analysis.assessment()
+
+        self.assertIsNone(assessment["condition"])
+        by_id = {item["premise_id"]: item for item in assessment["per_premise"]}
+        self.assertIn("could not be determined", by_id["minor"]["condition"])
+
     def test_an_unknown_premise_round_trips_and_validates(self):
         analysis = _analysis(premises=(_premise(timeline=()),))
         data = analysis.to_dict()
@@ -822,6 +852,25 @@ class SidecarWiringTest(unittest.TestCase):
         ] = "evergreen"
 
         self.assertIn("heinlein_temporal_assessment_mismatch", self._kinds(broken))
+
+    def test_validator_rejects_edits_outside_the_assessment(self):
+        data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))
+        edits = (
+            lambda a: a["premises"][0]["timeline"][0].update(source=5),
+            lambda a: a["premises"][0]["anchor"].update(extra=1),
+            lambda a: a["composition"].update(caveats=[1, 2]),
+        )
+        for edit in edits:
+            broken = copy.deepcopy(data)
+            edit(broken["analyses"]["heinlein_temporal"][0])
+            with self.subTest(edit=edit):
+                self.assertTrue(
+                    {
+                        "invalid_heinlein_temporal",
+                        "heinlein_temporal_record_mismatch",
+                    }
+                    & self._kinds(broken)
+                )
 
     def test_validator_distinguishes_json_types_in_derived_values(self):
         data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))

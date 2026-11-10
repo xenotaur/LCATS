@@ -1003,6 +1003,19 @@ def _validate_heinlein_temporal_analysis(
             )
         )
         return
+    # Everything outside ``assessment`` must also survive a rebuild unchanged, so
+    # values the parser coerces or ignores (a non-string source, an extra key)
+    # are reported rather than silently accepted.
+    stored_rest = {k: v for k, v in analysis.items() if k != "assessment"}
+    rebuilt_rest = {k: v for k, v in rebuilt.to_dict().items() if k != "assessment"}
+    if _canonical_json(stored_rest) != _canonical_json(rebuilt_rest):
+        findings.append(
+            _finding(
+                base,
+                "heinlein_temporal_record_mismatch",
+                "Heinlein temporal record must match its normalized form",
+            )
+        )
     # Compare canonical JSON, not Python equality, so False/0 and True/1 differ.
     if _canonical_json(analysis.get("assessment")) != _canonical_json(
         rebuilt.assessment()

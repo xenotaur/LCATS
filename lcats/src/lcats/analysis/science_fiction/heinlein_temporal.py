@@ -154,6 +154,8 @@ class StandingPeriod:
     def __post_init__(self) -> None:
         _require_choice(self.standing, STANDINGS, "standing")
         _require_choice(self.basis, BASES, "basis")
+        if not isinstance(self.source, str):
+            raise ValueError("source must be a string")
         for value in (self.from_date, self.to_date):
             if value is not None:
                 month_range(value)
@@ -178,6 +180,15 @@ class StandingPeriod:
         }
 
 
+def _boundary_is_compatible(end_date: str, start_date: str) -> bool:
+    """True when two boundaries sharing a month do not actually overlap."""
+
+    if start_date == end_date:
+        return True
+    day_precision = len(end_date) == 10 and len(start_date) == 10
+    return day_precision and start_date > end_date
+
+
 def validate_timeline(timeline: tuple[StandingPeriod, ...]) -> None:
     """Require an ordered timeline that covers all time without a gap (R1).
 
@@ -199,9 +210,13 @@ def validate_timeline(timeline: tuple[StandingPeriod, ...]) -> None:
             raise ValueError("standing periods must be ordered by start")
         if current.start > previous.end + 1:
             raise ValueError("standing periods must not leave a gap")
-        # Periods may only overlap where they name the same boundary (previous
-        # ``to`` equals next ``from``); any other overlap is a malformed timeline.
-        if current.start <= previous.end and current.from_date != previous.to_date:
+        # Periods may only share a month where they name the same boundary
+        # (previous ``to`` equals next ``from``) or, at day precision, where the
+        # next period begins on a later day than the previous one ends. Any
+        # other overlap is a malformed timeline.
+        if current.start <= previous.end and not _boundary_is_compatible(
+            previous.to_date, current.from_date
+        ):
             raise ValueError("standing periods must not overlap")
 
 
@@ -348,6 +363,8 @@ class CompositionInterval:
                 month_range(value)
         if not isinstance(self.override, bool):
             raise ValueError("override must be a boolean")
+        if not all(isinstance(caveat, str) for caveat in self.caveats):
+            raise ValueError("caveats must be strings")
         if self.start > self.end:
             raise ValueError("the composition interval must not end before it starts")
 
@@ -762,7 +779,13 @@ class HeinleinTemporalAnalysis:
             "plausible": written,
         }
         verdict, consistency, violations = verdict_as_written(statuses)
-        conditions = [item["condition"] for item in per_premise if item["condition"]]
+        # Only counted premises affect a derived status, so only they explain it.
+        counted_ids = {premise.premise_id for premise in counted}
+        conditions = [
+            item["condition"]
+            for item in per_premise
+            if item["condition"] and item["premise_id"] in counted_ids
+        ]
         return {
             "plausible_as_written": written,
             "plausible_today": plausible_today,
