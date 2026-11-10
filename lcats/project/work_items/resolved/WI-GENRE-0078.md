@@ -2,7 +2,7 @@
 id: WI-GENRE-0078
 title: Generate three-way genre-evidence comparison report
 type: evaluation
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -25,7 +25,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: 'Created and reviewed the proposed three-way genre comparison work item, including provenance validation, exhaustive agreement taxonomy, and execution evidence; implementation remains a separate future workflow.'
 expected_actions:
   - create_file
   - edit_file
