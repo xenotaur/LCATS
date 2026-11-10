@@ -146,6 +146,22 @@ class TimelineTest(unittest.TestCase):
             )
         heinlein_temporal.validate_timeline(())  # unknown timeline is allowed
 
+    def test_overlapping_interiors_are_rejected(self):
+        with self.assertRaises(ValueError):
+            _premise(
+                timeline=(
+                    _period("open", None, "1970"),
+                    _period("contradicted", "1960", None),
+                )
+            )
+        with self.assertRaises(ValueError):
+            _premise(
+                timeline=(
+                    _period("open", None, "1970-06"),
+                    _period("contradicted", "1970-05", None),
+                )
+            )
+
     def test_touching_and_adjacent_periods_are_accepted(self):
         _premise(
             timeline=(_period("open", None, "1965-07"), _period("supported", "1965-07"))
@@ -714,6 +730,23 @@ def _inputs(*, with_temporal: bool, analysis=None) -> pipeline.SidecarAssemblyIn
     )
 
 
+class CriterionRationaleTest(unittest.TestCase):
+    def test_rationale_must_be_a_string(self):
+        for bad in (None, {"a": 1}, 3, ["x"]):
+            with self.subTest(bad=bad):
+                with self.assertRaises(ValueError):
+                    heinlein_temporal.CriterionAssessment("absent", (), bad)
+        heinlein_temporal.CriterionAssessment("absent", (), "")
+
+    def test_a_loaded_null_rationale_is_rejected(self):
+        for key in ("essential_as_written", "causal_as_written"):
+            data = _analysis().to_dict()
+            data["assessment"][key]["rationale"] = None
+            with self.subTest(key=key):
+                with self.assertRaises(ValueError):
+                    heinlein_temporal.analysis_from_dict(data)
+
+
 class SidecarWiringTest(unittest.TestCase):
     def _kinds(self, data) -> set[str]:
         return {finding.kind for finding in sidecar.validate_sidecar(data).findings}
@@ -789,6 +822,21 @@ class SidecarWiringTest(unittest.TestCase):
         ] = "evergreen"
 
         self.assertIn("heinlein_temporal_assessment_mismatch", self._kinds(broken))
+
+    def test_validator_distinguishes_json_types_in_derived_values(self):
+        data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))
+        edits = (
+            lambda a: a["per_premise"][0].update(calendar_expired=0),
+            lambda a: a["speculative_premises"].update(has=0),
+            lambda a: a["speculative_premises"].update(counted=False),
+        )
+        for edit in edits:
+            broken = copy.deepcopy(data)
+            edit(broken["analyses"]["heinlein_temporal"][0]["assessment"])
+            with self.subTest(edit=edit):
+                self.assertIn(
+                    "heinlein_temporal_assessment_mismatch", self._kinds(broken)
+                )
 
     def test_validator_rejects_invalid_inputs_wrong_rubric_and_dangling_pointer(self):
         data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))

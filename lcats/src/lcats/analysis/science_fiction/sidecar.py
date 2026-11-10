@@ -1003,7 +1003,10 @@ def _validate_heinlein_temporal_analysis(
             )
         )
         return
-    if analysis.get("assessment") != rebuilt.assessment():
+    # Compare canonical JSON, not Python equality, so False/0 and True/1 differ.
+    if _canonical_json(analysis.get("assessment")) != _canonical_json(
+        rebuilt.assessment()
+    ):
         findings.append(
             _finding(
                 f"{base}.assessment",
@@ -1939,6 +1942,12 @@ def _validate_stage_name(
 
 def _result(findings: list[models.ValidationFinding]) -> models.ValidationResult:
     return models.ValidationResult.from_findings(tuple(findings))
+
+
+def _canonical_json(value: Any) -> str:
+    """Serialize with sorted keys so comparison is type-aware (``0`` != ``false``)."""
+
+    return json.dumps(value, sort_keys=True, default=repr)
 
 
 def _finding(path: str, kind: str, message: str) -> models.ValidationFinding:

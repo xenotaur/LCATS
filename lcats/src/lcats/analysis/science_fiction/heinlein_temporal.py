@@ -199,6 +199,10 @@ def validate_timeline(timeline: tuple[StandingPeriod, ...]) -> None:
             raise ValueError("standing periods must be ordered by start")
         if current.start > previous.end + 1:
             raise ValueError("standing periods must not leave a gap")
+        # Periods may only overlap where they name the same boundary (previous
+        # ``to`` equals next ``from``); any other overlap is a malformed timeline.
+        if current.start <= previous.end and current.from_date != previous.to_date:
+            raise ValueError("standing periods must not overlap")
 
 
 @dataclasses.dataclass(frozen=True)
@@ -376,6 +380,8 @@ class CriterionAssessment:
     def __post_init__(self) -> None:
         _require_choice(self.status, models.DECISION_STATES, "status")
         _require_unique_strings(self.premise_ids, "premise_ids")
+        if not isinstance(self.rationale, str):
+            raise ValueError("rationale must be a string")
         if self.status == "present" and not self.premise_ids:
             raise ValueError("a present criterion must cite supporting premises")
 
