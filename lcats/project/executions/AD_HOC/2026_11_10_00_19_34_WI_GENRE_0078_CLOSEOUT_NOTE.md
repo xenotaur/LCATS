@@ -2,10 +2,10 @@
 execution_id: 2026_11_10_00_19_34_WI_GENRE_0078_CLOSEOUT_NOTE
 prompt_id: PROMPT(AD_HOC:WI_GENRE_0078_CLOSEOUT_NOTE)[2026-11-10T00:19:30+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_10_15_22_48_48_WI_GENRE_0078
 pr: https://github.com/xenotaur/LCATS/pull/515
-commit: "cb3868990934b2ff27a394ac2bc46946f9e15517"
+commit: cb3868990934b2ff27a394ac2bc46946f9e15517
 agent: codex
 instruction_source: "https://github.com/xenotaur/LCATS/pull/515 (inline closeout)"
 session_transcript: codex-app:01a0fdae-9d9e-7062-9923-58755737c5aa
