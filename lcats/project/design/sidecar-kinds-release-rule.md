@@ -1,8 +1,10 @@
 # Release rule for sidecar kinds other than genre.json
 
 Status: investigation result for `WI-PROMOTE-0117` (workstream
-`WS-SIDECAR-SAFE-PROMOTION`). It states a rule and records the evidence; it
-changes no code and no `corpora/` or `data/` content. It extends
+`WS-SIDECAR-SAFE-PROMOTION`), extended by `WI-PROMOTE-0125`, which reproduced the
+linguistics kinds with real spaCy output (see "Linguistics reproduction"). It states
+a rule and records the evidence; it changes no code and no `corpora/` or `data/`
+content. It extends
 `project/design/genre-sidecars-in-release-workflow.md`, which solved the problem
 for `genre.json` only (that note's follow-up 3).
 
@@ -105,14 +107,34 @@ Limits worth stating:
 - `insert` is create-only and not transactional, and has no collection selector
   (`--source` scans the whole tree). A single-collection release needs a source
   tree containing only that collection; a stray story with no `story.json` in
-  `data/` is rejected, which fails the run (reproduced, row 9).
+  `data/` is rejected, which fails the run (reproduced, Reproduction row 9; linguistics: L12).
 - For `genre.json`, a pipeline-written file already in `data/` is refused by
   `insert` (`promote.py:910-930`). A legacy flat `genre.json` is refused in every
   mode, including `upsert`, because that check runs before the `overwrite`
   branch.
-- `insert` re-serializes with `indent=2`, so a sidecar that was stored compact
-  round-trips semantically equal but not byte-identical. Canonically formatted
-  files, such as the real `genre.json` files, round-trip byte-identical.
+- `insert` re-serializes with `json.dumps(payload, indent=2)` (`promote.py:944`):
+  default `ensure_ascii=True`, no `sort_keys`, no trailing newline. A sidecar
+  therefore round-trips byte-identical only if it was written by that same call
+  (the real `genre.json` files, Reproduction row 4). A sidecar from another writer
+  round-trips semantically equal but not byte-identical. The linguistics writer
+  (`sidecar.py:1109`) uses `ensure_ascii=False`, `sort_keys=True` and a trailing
+  newline, so in the reproduction below all 10 registered-kind files (v1) and all
+  5 lexicon files changed bytes on the first cycle: a dropped final newline, plus
+  `\uXXXX` escapes for non-ASCII text in the Wodehouse token files (tokens grew by up to 203
+  bytes). A second seed-and-replace cycle on the v1 files changed
+  nothing, so the reformatting happens once, at the first seeding.
+- The linguistics validators check schema shape, not location: `insert` accepted
+  a payload whose `story_path` (`gen/wodehouse/...`) named a different directory
+  from where it landed (`data/wodehouse/...`). `story_path` and
+  `input.source_path` record the path exactly as given, so an absolute-path
+  invocation writes a machine-local absolute path into the sidecar (seen in an
+  earlier scratch run; the L-rows all used relative paths). Run `lcats linguistics` with relative paths from
+  `lcats/` (for example `data/<collection>`) so the committed payload stays
+  portable.
+- Token-detail sidecars are large: the five stories measured 81 KiB to 1.1 MiB at
+  v1 and 160 KiB to 2.2 MiB at v2. Whether to commit them to `corpora/` is a
+  size and policy decision this note does not make; the rule only says how to
+  carry them if they are committed.
 
 ## Preflight question: two read-only checks, no new command
 
@@ -122,9 +144,9 @@ story present in both trees, and exits `1`. It does not cover two cases:
 - **A story missing from the regenerated `data/`.** The guard skips it by design
   (`promote.py:406-409`: a wholesale `replace` legitimately retires a story), so
   `replace` deletes the story and its sidecars, exits `0`, and prints no warning
-  (reproduced, row 8 below). For a registered kind the seed step catches it:
+  (reproduced, Reproduction row 8 below). For a registered kind the seed step catches it:
   `insert` rejects `no story.json at data/...`, exits `1`, and the runbook's stop
-  rule applies (row 9).
+  rule applies (Reproduction row 9).
 - **A file whose name is not registered.** The guard cannot see it at all.
 
 Two read-only checks cover both, from `lcats/`, and print nothing when clean. The
@@ -168,10 +190,18 @@ a code change and therefore not part of this investigation. Both are recorded in
 
 ## Not reproduced
 
-`linguistics.json` and `linguistics.tokens.json` seeding was not reproduced in a
-scratch copy: it needs a real linguistics payload, which needs a spaCy run. The
-rule for them rests on the shared registry mechanism and on the `scenes.json`
-result below, which exercises the same dispatch.
+`linguistics.json` and `linguistics.tokens.json` seeding is now reproduced with real
+spaCy output (see "Linguistics reproduction" at the end). Still not reproduced:
+
+- `science-fiction.json`: read from the code only.
+- `scenes.json` with a real `lcats annotate` payload: the rows below used a
+  synthetic `{"segments": []}`, which is all the registered validator checks.
+- The linguistics kinds with any backend or model other than spaCy 3.8.14 with
+  `en_core_web_sm` 3.8.0 (the `stanza` backend and the `md`/`lg` models are not
+  installed), on any machine other than the one that ran it, and over the full
+  1,868-story corpus (five stories were run).
+- A release that regenerates `data/` with `lcats gather`: the scratch `data/` trees
+  were built by copying `story.json` files.
 
 ## Reproduction
 
@@ -201,3 +231,60 @@ A first attempt at step 2 failed because the scratch collection was named `c1`
 while the payloads carried `wodehouse/<story>` ids; `insert` correctly refused the
 mismatch. That was a fixture error, found, reported and corrected before the
 rerun above.
+
+## Linguistics reproduction
+
+`WI-PROMOTE-0125`, run from `lcats/` with `PYTHONPATH=$(pwd)/src` against checkout
+`62d929e7`, in scratch trees outside the repository (no network; the real
+`corpora/` and `data/` were not written).
+
+**Tool versions.** spaCy 3.8.14 with `en_core_web_sm` 3.8.0 (the payload records
+`core_web_sm@3.8.0`), thinc 8.3.13, numpy 2.3.0, Python 3.11.9 in the `LCATS` conda
+environment, macOS arm64. Extractor `lcats.analysis.linguistics` v1. Schemas
+`linguistics-sidecar-v1`, `linguistics-token-detail-v1` and `-v2`, and
+`linguistics-lexicon-v1`.
+
+**Fixture.** Five real stories copied from `corpora/`: `wodehouse/one_touch_of_nature`,
+`wodehouse/sea_of_troubles`, `wodehouse/wilton_s_holiday`,
+`mass_quantities/king_of_the_hill__blish` and
+`mass_quantities/five_o_clock_tea_farce__howells` (two names contain `__`). A scratch
+`corpora/` holds the stories and their real sidecars; a scratch `lcats/data/` beside
+it holds only `story.json`. The sidecars came from relative-path runs of
+`lcats linguistics --backend spacy --include-token-detail --token-detail-version v1`
+(and `v2 --include-lexicon` for the lexicon rows) over `gen/wodehouse` and
+`gen/mass_quantities` from `lcats/`; each run took about 10 seconds for the five
+stories. Every `linguistics.json`, v1 and v2 `linguistics.tokens.json` passed the
+registry validator (5 of 5 each); `linguistics.lexicon.json` has none.
+
+| Step | Command (scratch paths elided) | Result |
+|---|---|---|
+| L1 | `lcats promote replace wodehouse --source data --dest ../corpora --dry-run`, then real; same for `mass_quantities` | blocked, exit 1 both times: 6 orphaned sidecars across 3 stories (`linguistics.json` and `linguistics.tokens.json` each), then 4 across 2; nothing deleted |
+| L2 | `insert --sidecar linguistics --source ../corpora --dest data --dry-run`, then real; same for `--sidecar linguistics.tokens.json` | exit 0; 5 would promote, then 5 promoted per kind (10 in `data/`) |
+| L3 | the real `insert` of each kind again | exit 1, all 5 rejected per kind: `already exists (insert mode is create-only ...)` |
+| L4 | `replace` of each collection, `--dry-run` then real | exit 0 all four runs. Round trip: 5 of 5 `story.json` byte-identical; all 10 sidecars semantically equal, none byte-identical (dropped final newline; `\uXXXX` escapes in the Wodehouse token files) |
+| L5 | the same cycle again on the result of L4 | `diff -rq` against the L4 result: identical, so the reformat is one-time |
+| L6 | v2 + lexicon tree: unseeded `replace wodehouse --dry-run` | blocked, exit 1, 6 orphans; the lexicon files are not counted |
+| L7 | `insert --sidecar linguistics.lexicon.json --source ../corpora --dest data` | exit 2, `no registered validator ...` |
+| L8 | v2 tree: seed the two registered kinds, then `replace` both collections | exit 0 (dry-run and real); the 5 `linguistics.lexicon.json` files are gone, with no warning |
+| L9 | same, but first `insert --sidecar linguistics.lexicon.json ... --allow-unvalidated` | exit 0; the 5 lexicon files survive `replace`, semantically equal and not byte-identical |
+| L10 | `data/` holds only `wodehouse`; `insert --sidecar <kind> --source ../corpora` | exit 1 per kind: 3 promoted, 2 rejected (`no story.json at data/mass_quantities/...`) |
+| L11 | same state, `--source` a tree holding only a copy of `corpora/wodehouse` | exit 0 per kind, 3 promoted; `replace wodehouse` exit 0; the `mass_quantities` sidecars in `corpora/` (4) untouched |
+| L12 | one story absent from the regenerated `data/`; `insert --sidecar <kind> --source ../corpora` | exit 1 per kind: 4 promoted, 1 rejected (`no story.json at data/wodehouse/sea_of_troubles`) |
+| L13 | spaCy run twice on two stories (v2 + lexicon), identical relative paths and versions | 6 of 6 files byte-identical |
+
+**What this changes.** The rule is unchanged: the registered linguistics kinds seed
+with create-only `insert`, the lexicon is a silent-loss hazard until registered, and a
+single-collection release needs a source tree with only that collection. What was
+inferred is now reproduced for linguistics (L1 to L5, L10 to L12), and the
+byte-identical claim is corrected above: it holds only for payloads written by
+`insert` itself. Determinism (L13) holds on one machine and one set of versions; a
+different spaCy or model version is not covered.
+
+**Workstream exit criterion 1.** `WS-SIDECAR-SAFE-PROMOTION` exit criterion 1 (every
+registered kind has a documented release rule and a verified seed or regeneration
+path) is now met: `genre.json` (Reproduction rows 1 to 9), the two linguistics kinds
+(L1 to L5, L10 to L12) and `scenes.json`. One caveat: the `scenes.json` rows used a
+synthetic payload, which is sufficient only because its registered validator checks
+nothing beyond `segments` being a list. `linguistics.lexicon.json` and
+`science-fiction.json` are not registered, so they fall outside the criterion; they
+remain backlog hazards. The workstream's other criteria are not assessed here.
