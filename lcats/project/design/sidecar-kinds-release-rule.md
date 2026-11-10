@@ -267,8 +267,8 @@ registry validator (5 of 5 each); `linguistics.lexicon.json` has none.
 | L7 | `insert --sidecar linguistics.lexicon.json --source ../corpora --dest data` | exit 2, `no registered validator ...` |
 | L8 | v2 tree: seed the two registered kinds, then `replace` both collections | exit 0 (dry-run and real); the 5 `linguistics.lexicon.json` files are gone, with no warning |
 | L9 | same, but first `insert --sidecar linguistics.lexicon.json ... --allow-unvalidated` | exit 0; the 5 lexicon files survive `replace`, semantically equal and not byte-identical |
-| L10 | `data/` holds only `wodehouse`; `insert --sidecar <kind> --source ../corpora` | exit 1 per kind: 3 promoted, 2 rejected (`no story.json at data/mass_quantities/...`) |
-| L11 | same state, `--source` a tree holding only a copy of `corpora/wodehouse` | exit 0 per kind, 3 promoted; `replace wodehouse` exit 0; the `mass_quantities` sidecars in `corpora/` (4) untouched |
+| L10 | `data/` holds only `wodehouse`; `insert --sidecar <kind> --source ../corpora` | exit 1 per kind: 3 promoted, 2 rejected (`no story.json at data/mass_quantities/...`); the 3 promoted sidecars stay in `data/`, since `insert` is not transactional |
+| L11 | `data/` reset to the story-only `wodehouse` fixture (L10's 3 promoted sidecars would otherwise be rejected as create-only); `--source` a tree holding only a copy of `corpora/wodehouse` | exit 0 per kind, 3 promoted; `replace wodehouse` exit 0; the `mass_quantities` sidecars in `corpora/` (4) untouched |
 | L12 | one story absent from the regenerated `data/`; `insert --sidecar <kind> --source ../corpora` | exit 1 per kind: 4 promoted, 1 rejected (`no story.json at data/wodehouse/sea_of_troubles`) |
 | L13 | spaCy run twice on two stories (v2 + lexicon), identical relative paths and versions | 6 of 6 files byte-identical |
 
