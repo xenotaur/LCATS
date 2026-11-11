@@ -63,12 +63,11 @@ class LCATSTestCase(unittest.TestCase):
         return replacement
 
 
-
 class TestStorymap(LCATSTestCase):
     def test_storymap_target_directory(self):
         modules = SimpleNamespace(storymap=storymap)
 
-        self.assertEqual(modules.storymap.TARGET_DIRECTORY, 'mass_quantities')
+        self.assertEqual(modules.storymap.TARGET_DIRECTORY, "mass_quantities")
 
     def test_storymap_ids_are_sorted_positive_integers(self):
         modules = SimpleNamespace(storymap=storymap)
@@ -87,18 +86,18 @@ class TestStorymap(LCATSTestCase):
 
         self.assertIn(64092, modules.storymap.STORIES_TO_EXCLUDE)
 
-        self.assertIn('Flehr, Paul', modules.storymap.PEN_NAMES['Pohl, Frederik'])
+        self.assertIn("Flehr, Paul", modules.storymap.PEN_NAMES["Pohl, Frederik"])
 
-        self.assertIn('epistolary', modules.storymap.EXCLUDED_SUBJECTS)
+        self.assertIn("epistolary", modules.storymap.EXCLUDED_SUBJECTS)
 
     def test_storymap_title_exclusions(self):
         modules = SimpleNamespace(storymap=storymap)
 
-        self.assertIn('volume', modules.storymap.EXCLUDED_TITLE_PART_WORDS)
+        self.assertIn("volume", modules.storymap.EXCLUDED_TITLE_PART_WORDS)
 
-        self.assertIn('poem', modules.storymap.EXCLUDED_TITLE_WORDS)
+        self.assertIn("poem", modules.storymap.EXCLUDED_TITLE_WORDS)
 
-        self.assertIn('THE END', modules.storymap.TITLE_EXCEPTIONS)
+        self.assertIn("THE END", modules.storymap.TITLE_EXCEPTIONS)
 
 
 if __name__ == "__main__":
