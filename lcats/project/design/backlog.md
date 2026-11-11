@@ -1288,8 +1288,10 @@ are accepted; the mixed case is the only ambiguous one. A model that writes a co
 
 **First concrete step:** decide the rule (reject and tell the prompt to use one
 granularity per boundary, or read the coarse side at the finer side's granularity), then
-state it in R1 and in the `WI-SF-0127` prompt; add a test pair either way. Cheapest
-evidence: see whether the live run (`WI-SF-0131`) ever produces a mixed boundary before
-writing code.
+state it in R1 and in the date-aware stage prompt (`_heinlein_temporal_system_prompt` in
+`experimental/science_fiction_analysis_trial/run_worldcon_spike.py`, merged by `WI-SF-0127`,
+which today only tells the model to write the same string on both sides of a shared
+boundary); add a test pair either way. Cheapest evidence: see whether the live run
+(`WI-SF-0131`) ever produces a mixed boundary before writing code.
 
 **Related:** `PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE` (R1); `WI-SF-0126`; `WI-SF-0127`.
