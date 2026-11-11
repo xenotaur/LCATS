@@ -10,7 +10,8 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import Mock, patch
+from unittest.mock import patch
+from lcats.gatherers.mass_quantities import storymap
 
 
 class CaptureOutput:
@@ -61,7 +62,6 @@ class LCATSTestCase(unittest.TestCase):
 
         return replacement
 
-from lcats.gatherers.mass_quantities import storymap
 
 
 class TestStorymap(LCATSTestCase):

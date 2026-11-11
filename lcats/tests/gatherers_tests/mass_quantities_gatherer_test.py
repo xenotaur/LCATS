@@ -12,6 +12,14 @@ from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
+from lcats.gatherers import downloaders, normalization, parser, registry, story_output
+from lcats.gatherers.mass_quantities import storymap
+from lcats.gettenberg import resources
+from lcats.utils import env, names, paths, run_log
+
+from lcats.gatherers.mass_quantities import gatherer
+
+
 
 class CaptureOutput:
     """Capture console output without relying on another test framework."""
@@ -60,16 +68,6 @@ class LCATSTestCase(unittest.TestCase):
         self.addCleanup(patcher.stop)
 
         return replacement
-
-from dataclasses import dataclass
-
-from lcats.gatherers import downloaders, normalization, parser, registry, story_output
-from lcats.gatherers.mass_quantities import storymap
-from lcats.analysis.corpus import discovery
-from lcats.gettenberg import resources
-from lcats.utils import env, names, paths, run_log
-
-from lcats.gatherers.mass_quantities import gatherer
 
 
 class TestMassQuantitiesGatherer(LCATSTestCase):

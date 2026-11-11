@@ -11,6 +11,14 @@ import unittest
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
+import json
+import requests
+from bs4 import BeautifulSoup
+from urllib.parse import parse_qs, urlparse
+
+from lcats.gatherers import downloaders, normalization, parser, registry
+from lcats.gatherers.standard_ebooks import gatherer
+from lcats.utils import names
 
 
 class CaptureOutput:
@@ -61,14 +69,6 @@ class LCATSTestCase(unittest.TestCase):
 
         return replacement
 
-import json
-import requests
-from bs4 import BeautifulSoup
-from urllib.parse import parse_qs, urlparse
-
-from lcats.gatherers import downloaders, normalization, parser, registry
-from lcats.gatherers.standard_ebooks import gatherer
-from lcats.utils import names
 
 SITE = "https://standardebooks.org"
 COLLECTION = f"{SITE}/ebooks/example-author/collected-stories"

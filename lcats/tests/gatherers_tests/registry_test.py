@@ -10,7 +10,11 @@ import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
-from unittest.mock import Mock, patch
+from unittest.mock import patch
+import json
+import sqlite3
+
+from lcats.gatherers import registry
 
 
 class CaptureOutput:
@@ -61,10 +65,6 @@ class LCATSTestCase(unittest.TestCase):
 
         return replacement
 
-import json
-import sqlite3
-
-from lcats.gatherers import registry
 
 
 def database_fixture(tmp_path):
