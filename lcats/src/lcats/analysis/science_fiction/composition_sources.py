@@ -49,6 +49,13 @@ real owner decision::
 
 Dates are ``YYYY``, ``YYYY-MM`` or ``YYYY-MM-DD``. Unknown keys, a duplicate
 story ID, a missing basis, and an entry with neither date are rejected.
+
+An owner entry REPLACES the whole computed interval; it is not merged with the
+other sources. An entry with only ``earliest`` leaves the top of the interval
+open and discards any upper bound the other sources supported (the caveat names
+the interval it replaced), so give both bounds when both are known. Record each
+documented date as the bound it supports: a completion date is an upper bound, a
+commencement date a lower bound.
 """
 
 from __future__ import annotations

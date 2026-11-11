@@ -104,10 +104,17 @@ No ISFDB figure is available for any of them.
   the corpus unit may be a book. The Bell's first-publication date belongs to the Danish original, not
   the English text analysed; the translation date is unknown.
 - **"Written" differs from "published".** For the Lovecraft stories and The
-  Blue Cross the writing date differs from the first publication. The
-  composition interval's upper bound is the publication; a documented writing
-  date is separate, story-specific evidence and would be a lower bound only if
-  the owner records it.
+  Blue Cross the writing date differs from the first publication. Record each
+  documented date as the bound it actually supports:
+  - a **completion** ("finished", "written by") date says the story existed by
+    then, so it is an UPPER bound, and a tighter one than the publication date
+    (for example "written March 1927" for a September 1927 publication);
+  - a **commencement** ("begun") date is a LOWER bound;
+  - a known composition range gives both.
+  The sources behind this report do not say which kind a bare "written" date
+  is ("summer 1926" for The Call of Cthulhu is such a case), so the owner
+  decides before it is entered. Career milestones and a vague "written in" are
+  not bounds.
 - **Independence.** Gutenberg's "Produced from" note names the issue
   transcribed, which usually is the first appearance for magazine stories but
   does not prove it. The archive.org contents list is ISFDB-derived, so using it
@@ -127,7 +134,12 @@ No ISFDB figure is available for any of them.
    two opened sources agree and the owner has checked them (a date with weak
    independence, like Sunburn's, needs the owner to open the issue scan). A single-source or year-only date is recorded as
    such (use the year), and an unconfirmed date is not used.
-4. **The owner's override always wins.** A date used in the live run
+4. **An owner entry replaces the whole interval.** It does not merge with the
+   computed bounds: an entry with only `earliest` leaves the interval open at
+   the top and discards the upper bound the other sources supported (the
+   recorded caveat names the interval that was replaced). Supply both bounds
+   when both are known, and give only one deliberately.
+5. **The owner's override always wins.** A date used in the live run
    (`WI-SF-0131`) needs a cited source or an owner entry. A story whose date is
    wrong by a few years can flip a time-sensitive reading (A Case of Sunburn
    flips at Mariner 4, 15 July 1965); Sunburn's April 1957 date is two sources

@@ -276,6 +276,20 @@ class OwnerOverrideTest(unittest.TestCase):
 
         self.assertEqual(("1990", "1995"), (interval.earliest, interval.latest))
 
+    def test_an_owner_entry_replaces_the_whole_interval_not_merges_with_it(self):
+        # Documented behaviour: an earliest-only owner entry discards the upper
+        # bound the other sources supported, so both bounds should be given.
+        interval = cs.build_interval(
+            owner=self._owner(earliest="1926", latest=None),
+            bibliographic=_bib("1928-02"),
+            lifespan=_life("1890", "1937"),
+        )
+
+        self.assertEqual(("1926", None), (interval.earliest, interval.latest))
+        self.assertIn(
+            "overrides the computed interval 1890 to 1928-02", interval.caveats
+        )
+
     def test_owner_dates_may_give_only_one_bound(self):
         interval = cs.build_interval(owner=self._owner(earliest=None))
 
