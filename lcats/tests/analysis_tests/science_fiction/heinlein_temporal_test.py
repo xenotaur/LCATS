@@ -524,6 +524,48 @@ class UnknownTimelineTest(unittest.TestCase):
         self.assertEqual(analysis.assessment(), rebuilt.assessment())
 
 
+class CompositionWindowTest(unittest.TestCase):
+    def test_a_composition_after_the_analysis_date_is_rejected(self):
+        for composition in (
+            _interval("2040", None),
+            _interval(None, "2040"),
+            _interval("2026-12", "2027"),
+            _interval("2026-11", "2026-12"),
+        ):
+            with self.subTest(earliest=composition.earliest, latest=composition.latest):
+                with self.assertRaises(ValueError):
+                    heinlein_temporal.validate_composition_window(
+                        composition, ANALYSIS_DATE
+                    )
+                with self.assertRaises(ValueError):
+                    _analysis(composition=composition)
+
+    def test_the_analysis_month_and_earlier_are_accepted(self):
+        for composition in (
+            _interval(None, None),
+            _interval("1957", "1957"),
+            _interval("2026-10", "2026-10"),
+            _interval("2026-10", None),
+        ):
+            with self.subTest(earliest=composition.earliest, latest=composition.latest):
+                heinlein_temporal.validate_composition_window(
+                    composition, ANALYSIS_DATE
+                )
+                _analysis(composition=composition)
+
+    def test_the_sidecar_validator_rejects_a_stored_late_composition(self):
+        data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))
+        broken = copy.deepcopy(data)
+        broken["analyses"]["heinlein_temporal"][0]["composition"].update(
+            earliest="2040", latest=None
+        )
+
+        self.assertIn(
+            "invalid_heinlein_temporal",
+            {f.kind for f in sidecar.validate_sidecar(broken).findings},
+        )
+
+
 class VerdictTest(unittest.TestCase):
     def _statuses(self, **overrides):
         statuses = {name: "present" for name in models.HEINLEIN_CRITERION_IDS}

@@ -2118,6 +2118,7 @@ def _temporal_inputs(
             ),
             override=True,
         )
+    heinlein_temporal.validate_composition_window(composition, analysis_date)
     return analysis_date, options.model_knowledge_cutoff, composition
 
 

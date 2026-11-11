@@ -2983,6 +2983,8 @@ class WorldconSpikeHeinleinTemporalStageTest(unittest.TestCase):
         bad_inputs = (
             {"composition_earliest": "garbage"},
             {"composition_earliest": "1960", "composition_latest": "1950"},
+            {"composition_earliest": "2040"},
+            {"composition_latest": "2040"},
             {"analysis_date": "notadate"},
             {"model_knowledge_cutoff": "junk"},
         )

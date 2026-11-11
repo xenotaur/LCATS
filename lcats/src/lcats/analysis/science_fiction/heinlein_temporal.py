@@ -681,6 +681,30 @@ def premise_condition(
     return f"{premise.premise_id}: composition interval spans " + "; ".join(spans)
 
 
+def validate_composition_window(
+    composition: CompositionInterval, analysis_date: str
+) -> None:
+    """Reject a composition date after the analysis date (R2).
+
+    A story cannot have been written after the date it is analysed on. Left
+    unchecked, an interval starting after the analysis date is inverted once an
+    open end is capped at that date, and the premises it covers come out
+    ``not_assessable`` with no speculative flag: a misleading
+    ``not_applicable`` profile. The analysis month itself is allowed.
+    """
+
+    analysis_month = _analysis_month(analysis_date)
+    for name, value in (
+        ("earliest", composition.earliest),
+        ("latest", composition.latest),
+    ):
+        if value is not None and month_range(value)[0] > analysis_month:
+            raise ValueError(
+                f"composition {name} {value!r} is after the analysis date "
+                f"{analysis_date!r}"
+            )
+
+
 # --- the analysis record ------------------------------------------------
 
 
@@ -715,6 +739,7 @@ class HeinleinTemporalAnalysis:
                 "Heinlein temporal analysis must use heinlein-temporal-v1 provenance"
             )
         month_range(self.analysis_date)
+        validate_composition_window(self.composition, self.analysis_date)
         if self.model_knowledge_cutoff is not None:
             month_range(self.model_knowledge_cutoff)
         premise_ids = tuple(premise.premise_id for premise in self.premises)
