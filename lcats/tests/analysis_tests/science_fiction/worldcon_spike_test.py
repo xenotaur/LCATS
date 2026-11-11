@@ -2853,6 +2853,50 @@ class WorldconSpikeHeinleinTemporalStageTest(unittest.TestCase):
                     "failed", data["analyses"]["heinlein_temporal"][0]["status"]
                 )
 
+    def test_a_failed_stage_keeps_the_runs_composition_inputs(self):
+        _, _, data, _ = self._run(
+            "failed-keeps-dates",
+            _TemporalOverrideBackend(lambda result: "not an object"),
+            composition_earliest="1957",
+            composition_latest="1958",
+        )
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("failed", record["status"])
+        self.assertEqual("1957", record["composition"]["earliest"])
+        self.assertEqual("1958", record["composition"]["latest"])
+        self.assertEqual("owner_supplied", record["composition"]["sources"][0]["kind"])
+
+    def test_the_fake_quote_is_an_unchanged_substring_of_the_paragraph(self):
+        for body in (
+            "The\nship left now",
+            "The  ship   left now",
+            "Single",
+            "Tab\tseparated words here",
+        ):
+            with self.subTest(body=body):
+                payload = {"text": f"[p1] {body}\n\n[p2] other"}
+                result = run_worldcon_spike._fake_heinlein_temporal_result(payload)
+                self.assertIn(result["premises"][0]["quote"], body)
+
+    def test_the_default_analysis_date_is_resolved_once_per_run(self):
+        with patch.object(run_worldcon_spike, "_make_backend") as make:
+            make.return_value = _TemporalOverrideBackend()
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=self.root / "default-date",
+                    max_stories=2,
+                    include_heinlein_temporal=True,
+                )
+            )
+
+        dates = set()
+        for story in summary["stories"]:
+            data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+            dates.add(data["analyses"]["heinlein_temporal"][0]["analysis_date"])
+        self.assertEqual(1, len(dates))
+
     def test_a_quote_not_in_the_cited_paragraph_is_rejected(self):
         def wrong_quote(result):
             result["premises"][0]["quote"] = "words that are not in the story"

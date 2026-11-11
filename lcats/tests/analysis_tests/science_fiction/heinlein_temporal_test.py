@@ -1199,6 +1199,46 @@ class BuildAnalysisTest(unittest.TestCase):
         self.assertEqual(analysis.assessment(), rebuilt.assessment())
 
 
+class RequiredKeysTest(unittest.TestCase):
+    def test_an_omitted_key_is_rejected_but_an_explicit_null_is_allowed(self):
+        period = {"standing": "supported", "source": "A fact."}
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[_tool_premise(timeline=[period])]))
+        explicit = dict(period, **{"from": None, "to": None})
+        analysis = _build(_tool_result(premises=[_tool_premise(timeline=[explicit])]))
+        self.assertEqual(1, len(analysis.premises[0].timeline))
+
+    def test_every_premise_criterion_and_result_key_is_required(self):
+        premise = _tool_premise()
+        del premise["dated_prediction"]
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[premise]))
+        for key in ("kind", "claim", "quote", "materiality", "timeline"):
+            broken = _tool_premise()
+            del broken[key]
+            with self.subTest(key=key):
+                with self.assertRaises(ValueError):
+                    _build(_tool_result(premises=[broken]))
+        for key in ("status", "premise_ids", "rationale"):
+            criterion = {"status": "absent", "premise_ids": [], "rationale": ""}
+            del criterion[key]
+            with self.subTest(criterion=key):
+                with self.assertRaises(ValueError):
+                    _build(_tool_result(causal=criterion))
+        for key in ("premises", "essential", "causal"):
+            result = _tool_result()
+            del result[key]
+            with self.subTest(result=key):
+                with self.assertRaises(ValueError):
+                    _build(result)
+        with self.assertRaises(ValueError):
+            _build(
+                _tool_result(
+                    premises=[_tool_premise(dated_prediction={"date": "1985"})]
+                )
+            )
+
+
 class BorrowHumanTest(unittest.TestCase):
     def test_copies_human_and_the_source_id_from_a_matching_complete_record(self):
         human, statuses = heinlein_temporal.borrow_human(
@@ -1245,8 +1285,10 @@ class FailedAnalysisTest(unittest.TestCase):
             failure=models.FailureRecord(
                 stage="heinlein_temporal", kind="ValueError", message="x"
             ),
+            composition=_interval("1957", "1958"),
         )
 
+        self.assertEqual("1957", analysis.composition.earliest)
         self.assertEqual("failed", analysis.status)
         self.assertEqual("not_assessable", analysis.essential.status)
         self.assertEqual("indeterminate", analysis.assessment()["verdict_as_written"])

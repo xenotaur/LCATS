@@ -16,6 +16,7 @@ import math
 import json
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import time
@@ -265,6 +266,12 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
     selected_stories = select_stories(manifest, options.mode)
     if options.max_stories is not None:
         selected_stories = selected_stories[: options.max_stories]
+    if options.include_heinlein_temporal and options.analysis_date is None:
+        # Resolve the default once, so the gate and every story use one date
+        # even when a run crosses midnight.
+        options = dataclasses.replace(
+            options, analysis_date=datetime.date.today().isoformat()
+        )
     _enforce_run_gate(manifest, options, selected_stories)
     plan = _plan(options, manifest, selected_stories, output_root)
     run_id = _new_run_id()
@@ -2257,6 +2264,7 @@ def _run_heinlein_temporal_stage(
                 analysis_date=analysis_date,
                 model_knowledge_cutoff=cutoff,
                 failure=failure,
+                composition=composition,
             ),
             response,
             raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
@@ -3356,7 +3364,10 @@ def _fake_heinlein_temporal_result(payload: dict[str, Any]) -> dict[str, Any]:
     first = str(payload["text"]).split("\n\n", 1)[0]
     label, _, body = first.partition("] ")
     paragraph_id = label.lstrip("[")
-    quote = " ".join(body.split()[:3]) or body
+    # An unchanged substring of the paragraph, so the anchor check finds it
+    # even when the first words are separated by a line break or extra spaces.
+    words = re.match(r"\S+(?:\s+\S+){0,2}", body)
+    quote = words.group(0) if words else body
     return {
         "premises": [
             {

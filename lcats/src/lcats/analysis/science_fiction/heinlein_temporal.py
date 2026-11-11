@@ -1103,8 +1103,13 @@ def failed_analysis(
     analysis_date: str,
     model_knowledge_cutoff: str | None,
     failure: models.FailureRecord,
+    composition: CompositionInterval | None = None,
 ) -> HeinleinTemporalAnalysis:
-    """Build a failed record without affecting any other detector."""
+    """Build a failed record without affecting any other detector.
+
+    The run's validated ``composition`` is kept so a failed record still shows
+    which date inputs the run was given.
+    """
 
     unfinished = CriterionAssessment(
         "not_assessable", (), "Heinlein temporal adjudication did not complete."
@@ -1116,6 +1121,7 @@ def failed_analysis(
         provenance=provenance,
         analysis_date=analysis_date,
         model_knowledge_cutoff=model_knowledge_cutoff,
+        composition=composition or CompositionInterval(),
         premises=(),
         essential=unfinished,
         causal=unfinished,
@@ -1124,9 +1130,23 @@ def failed_analysis(
     )
 
 
+def _require_keys(data: Mapping[str, Any], keys: set[str], name: str) -> None:
+    """Every key is required; an explicit null is allowed, an omission is not.
+
+    The runner's JSON fallback does not enforce the tool schema, so an omitted
+    ``from``/``to`` must not quietly become an open bound (a fact supported for
+    all time) and an omitted ``dated_prediction`` must not become "no prediction".
+    """
+
+    missing = keys - set(data)
+    if missing:
+        raise ValueError(f"{name} is missing keys: {sorted(missing)!r}")
+
+
 def _tool_period(data: Any) -> StandingPeriod:
     data = _mapping(data, "standing period")
     _unexpected(data, _TOOL_PERIOD_KEYS, "standing period")
+    _require_keys(data, _TOOL_PERIOD_KEYS, "standing period")
     _require_non_empty_string(data.get("source"), "standing period source")
     return StandingPeriod(
         standing=data.get("standing"),
@@ -1140,6 +1160,7 @@ def _tool_period(data: Any) -> StandingPeriod:
 def _tool_premise(data: Any, paragraphs: Mapping[str, Any]) -> Premise:
     data = _mapping(data, "premise")
     _unexpected(data, _TOOL_PREMISE_KEYS, "premise")
+    _require_keys(data, _TOOL_PREMISE_KEYS, "premise")
     paragraph = paragraphs.get(data.get("paragraph_id"))
     if paragraph is None:
         raise ValueError(
@@ -1156,6 +1177,7 @@ def _tool_premise(data: Any, paragraphs: Mapping[str, Any]) -> Premise:
     if prediction is not None:
         prediction = _mapping(prediction, "dated_prediction")
         _unexpected(prediction, {"date", "claim"}, "dated_prediction")
+        _require_keys(prediction, {"date", "claim"}, "dated_prediction")
         prediction = DatedPrediction(
             date=prediction.get("date"), claim=prediction.get("claim")
         )
@@ -1176,6 +1198,7 @@ def _tool_premise(data: Any, paragraphs: Mapping[str, Any]) -> Premise:
 def _tool_criterion(data: Any, name: str) -> CriterionAssessment:
     data = _mapping(data, name)
     _unexpected(data, _TOOL_CRITERION_KEYS, name)
+    _require_keys(data, _TOOL_CRITERION_KEYS, name)
     return CriterionAssessment(
         status=data.get("status"),
         premise_ids=tuple(_sequence(data.get("premise_ids"), f"{name} premise_ids")),
@@ -1207,6 +1230,7 @@ def build_analysis(
 
     result = _mapping(tool_result, "tool_result")
     _unexpected(result, _TOOL_RESULT_KEYS, "tool_result")
+    _require_keys(result, _TOOL_RESULT_KEYS, "tool_result")
     by_id = {paragraph.paragraph_id: paragraph for paragraph in paragraphs}
     return HeinleinTemporalAnalysis(
         analysis_id=analysis_id,
