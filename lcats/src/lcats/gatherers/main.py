@@ -11,7 +11,7 @@ from lcats.gettenberg import preparation
 from lcats.gettenberg import resources
 from lcats.gettenberg import sources_cli
 
-from lcats.gatherers import manifest
+from lcats.gatherers import registry
 
 GATHERERS = {name: f"lcats.gatherers.{name}.gatherer" for name in planning.NAMES}
 
@@ -137,7 +137,7 @@ def run(
                 else:
                     module.gather(offline=offline, cache_dir=cache_dir)
 
-        manifest.export_manifest(include_source=True)
+        registry.export_registry(include_source=True)
         if incomplete:
             return (
                 "Gathering incomplete: cleanup refusals or unavailable sources remain.\n"

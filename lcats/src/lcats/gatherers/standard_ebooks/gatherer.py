@@ -3,15 +3,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from pathlib import Path
 from time import sleep
 from urllib.parse import parse_qs, urlencode, urlunparse, unquote, urljoin, urlparse
-import argparse
 import re
 import sys
-import unicodedata
 import os
 import json
+import hashlib
+import tempfile
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup, Tag
@@ -20,21 +20,64 @@ import time
 import lcats.gatherers.downloaders as downloaders
 from lcats import constants
 from lcats.utils import names
+from lcats.utils import env
 from lcats.gatherers import normalization
 from lcats.gatherers import parser
-from lcats.gatherers import manifest
+from lcats.gatherers import registry
 
-DEFAULT_URL = (
-    "https://standardebooks.org/subjects/shorts"
-    "?per-page=48&view=list"
-)
+DEFAULT_URL = "https://standardebooks.org/subjects/shorts" "?per-page=48&view=list"
 
 HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 "
-        "(compatible; StandardEbooksCollectionExtractor/1.0)"
-    )
+    "User-Agent": ("Mozilla/5.0 " "(compatible; StandardEbooksCollectionExtractor/1.0)")
 }
+
+
+# Metadata cache only: individual story pages are still downloaded on each run.
+# DEFAULT_CACHE_DIR = Path.home() / ".cache" / "lcats" / "standard_ebooks"
+DEFAULT_CACHE_DIR = env.cache_root() / "standard_ebooks"
+METADATA_MODES = {"refresh", "cached"}
+
+
+def _metadata_cache_dir(cache_dir) -> Path:
+    """Resolve an optional cache directory without creating it on reads."""
+    return (
+        DEFAULT_CACHE_DIR
+        if cache_dir is False or cache_dir is None
+        else Path(cache_dir)
+    )
+
+
+def _cache_file(cache_dir, kind: str, url: str, extension: str) -> Path:
+    """Use a stable URL-derived name (including URL query parameters)."""
+    digest = hashlib.sha256(url.encode("utf-8")).hexdigest()
+    return _metadata_cache_dir(cache_dir) / kind / f"{digest}.{extension}"
+
+
+def _atomic_cache_write(path: Path, content: str) -> None:
+    """Avoid leaving incomplete cache entries if writing is interrupted."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            encoding="utf-8",
+            dir=path.parent,
+            prefix=f".{path.name}.",
+            suffix=".tmp",
+            delete=False,
+        ) as handle:
+            temp_path = Path(handle.name)
+            handle.write(content)
+        os.replace(temp_path, path)
+    finally:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
+
+
+def _check_metadata_mode(mode: str) -> None:
+    if mode not in METADATA_MODES:
+        raise ValueError(f"metadata_mode must be one of {sorted(METADATA_MODES)}")
+
 
 def set_page_parameter(url: str, page_number: int) -> str:
     """Return the URL with its page parameter set to page_number."""
@@ -43,9 +86,7 @@ def set_page_parameter(url: str, page_number: int) -> str:
 
     query["page"] = [str(page_number)]
 
-    return urlunparse(
-        parsed._replace(query=urlencode(query, doseq=True))
-    )
+    return urlunparse(parsed._replace(query=urlencode(query, doseq=True)))
 
 
 def canonicalize_url(url: str) -> str:
@@ -75,16 +116,9 @@ def is_collection_url(url: str, site_host: str) -> bool:
     if parsed.netloc.casefold() != site_host.casefold():
         return False
 
-    path_parts = [
-        part
-        for part in parsed.path.strip("/").split("/")
-        if part
-    ]
+    path_parts = [part for part in parsed.path.strip("/").split("/") if part]
 
-    return (
-        len(path_parts) == 3
-        and path_parts[0].casefold() == "ebooks"
-    )
+    return len(path_parts) == 3 and path_parts[0].casefold() == "ebooks"
 
 
 def extract_collection_urls(
@@ -104,9 +138,7 @@ def extract_collection_urls(
         if not isinstance(href, str):
             continue
 
-        absolute_url = canonicalize_url(
-            urljoin(page_url, href)
-        )
+        absolute_url = canonicalize_url(urljoin(page_url, href))
 
         if not is_collection_url(absolute_url, site_host):
             continue
@@ -126,6 +158,9 @@ def get_collection_urls(
     start_url: str = DEFAULT_URL,
     delay: float = 0.5,
     maximum_pages: int = 1000,
+    *,
+    metadata_mode: str = "refresh",
+    cache_dir=False,
 ) -> list[str]:
     """
     Return all collection URLs from every results page.
@@ -133,6 +168,21 @@ def get_collection_urls(
     Pagination ends when a page contains no collection URLs that have not
     already appeared on an earlier page.
     """
+    _check_metadata_mode(metadata_mode)
+    cached_path = _cache_file(cache_dir, "collection_lists", start_url, "json")
+    if metadata_mode == "cached":
+        if not cached_path.is_file():
+            raise FileNotFoundError(f"No saved collection URL list: {cached_path}")
+        stored = json.loads(cached_path.read_text(encoding="utf-8"))
+        if (
+            not isinstance(stored, dict)
+            or stored.get("start_url") != start_url
+            or not isinstance(stored.get("urls"), list)
+            or not all(isinstance(url, str) for url in stored["urls"])
+        ):
+            raise ValueError(f"Invalid collection URL cache: {cached_path}")
+        return stored["urls"]
+
     session = requests.Session()
     session.headers.update(HEADERS)
 
@@ -150,11 +200,7 @@ def get_collection_urls(
             page_url,
         )
 
-        new_urls = [
-            url
-            for url in page_urls
-            if url.casefold() not in seen_urls
-        ]
+        new_urls = [url for url in page_urls if url.casefold() not in seen_urls]
 
         if not new_urls:
             break
@@ -167,15 +213,16 @@ def get_collection_urls(
             time.sleep(delay)
 
     else:
-        raise RuntimeError(
-            f"Reached the safety limit of {maximum_pages} pages."
-        )
+        raise RuntimeError(f"Reached the safety limit of {maximum_pages} pages.")
 
+    _atomic_cache_write(
+        cached_path,
+        json.dumps({"start_url": start_url, "urls": all_urls}, indent=2),
+    )
     return all_urls
 
-USER_AGENT = (
-    "Mozilla/5.0 (compatible; StandardEbooksStoryExtractor/1.0)"
-)
+
+USER_AGENT = "Mozilla/5.0 (compatible; StandardEbooksStoryExtractor/1.0)"
 
 
 @dataclass(frozen=True)
@@ -313,15 +360,15 @@ def is_non_story_title(title: str) -> bool:
     return normalized in NON_STORY_TITLES
 
 
-def canonicalize_url(url: str) -> str:
-    """Remove fragments and trailing slashes from a URL."""
-    parsed = urlparse(url)
+# def canonicalize_url(url: str) -> str:
+#    """Remove fragments and trailing slashes from a URL."""
+#    parsed = urlparse(url)
 
-    return parsed._replace(
-        fragment="",
-        query="",
-        path=parsed.path.rstrip("/"),
-    ).geturl()
+#    return parsed._replace(
+#        fragment="",
+#        query="",
+#        path=parsed.path.rstrip("/"),
+#    ).geturl()
 
 
 def is_story_url(url: str, toc_url: str) -> bool:
@@ -482,10 +529,7 @@ def choose_story_container(soup: BeautifulSoup) -> Tag:
 
     def prose_score(element: Tag) -> int:
         paragraphs = element.find_all("p")
-        return sum(
-            len(paragraph.get_text(" ", strip=True))
-            for paragraph in paragraphs
-        )
+        return sum(len(paragraph.get_text(" ", strip=True)) for paragraph in paragraphs)
 
     return max(unique_candidates, key=prose_score)
 
@@ -558,12 +602,53 @@ def block_text(element: Tag) -> str:
     return "\n".join(lines).strip()
 
 
-def gather_story(gatherer, html: str, expected_title: str, author: str, url: str):
-    """Extract the readable text of an individual story page."""
+def _story_registry_key(title: str, author: str) -> tuple[str, str, str]:
+    """Return filename and registry keys using the same rules as gather_story."""
+    title_key = normalize_inline_text(title).casefold()
+    file_name = names.title_and_author_to_filename(
+        title_key, [author], ext=constants.FILE_SUFFIX, max_len=50
+    )
+    title_db, author_part = file_name.split("__", 1)
+    author_db = author_part.rsplit(".", 1)[0]
+    return file_name, title_db, author_db
+
+
+def _story_exists(title: str, author: str) -> bool:
+    """Check for a previously registered story without modifying the registry."""
+    _, title_db, author_db = _story_registry_key(title, author)
+    return registry.check_story(title_db, author_db)
+
+
+def _add_saved_story(title_db: str, author_db: str) -> None:
+    """Record a story only after its output has been written successfully."""
+    registry.add_story(title_db, author_db, source="Standard EBooks")
+
+
+def gather_story(
+    gatherer,
+    html: str,
+    expected_title: str,
+    author: str,
+    url: str,
+    *,
+    registry_checked: bool = False,
+):
+    """Extract and save a story; register it only after successful publication."""
 
     # Initialize the variable if it doesn't exist yet
     if not hasattr(gather_story, "story"):
-        gather_story.story = 0 
+        gather_story.story = 0
+
+    # Ensure that each output file has its TOC title. Some story pages may
+    # display it in the body, while others may not.
+    title_key = normalize_inline_text(expected_title).casefold()
+
+    file_name, title_db, author_db = _story_registry_key(expected_title, author)
+
+    # gather_collection checks before downloading; direct callers check here.
+    # Neither path registers a story until the JSON file has been saved.
+    if not registry_checked and _story_exists(expected_title, author):
+        return gather_story.story, None, "Standard EBooks -- Story already appears"
 
     soup = BeautifulSoup(html, "html.parser")
     container = choose_story_container(soup)
@@ -585,9 +670,7 @@ def gather_story(gatherer, html: str, expected_title: str, author: str, url: str
     for element in container.find_all(list(block_names)):
         # Do not extract a child paragraph separately when its containing
         # blockquote or preformatted block will also be extracted.
-        if element.name == "p" and element.find_parent(
-            ["blockquote", "pre"]
-        ):
+        if element.name == "p" and element.find_parent(["blockquote", "pre"]):
             continue
 
         # Avoid headings nested inside another selected block.
@@ -621,13 +704,8 @@ def gather_story(gatherer, html: str, expected_title: str, author: str, url: str
         if not deduplicated or block != deduplicated[-1]:
             deduplicated.append(block)
 
-    # Ensure that each output file has its TOC title. Some story pages may
-    # display it in the body, while others may not.
-    title_key = normalize_inline_text(expected_title).casefold()
-
     first_blocks = {
-        normalize_inline_text(block).casefold()
-        for block in deduplicated[:3]
+        normalize_inline_text(block).casefold() for block in deduplicated[:3]
     }
 
     if title_key not in first_blocks:
@@ -636,26 +714,16 @@ def gather_story(gatherer, html: str, expected_title: str, author: str, url: str
     body = "\n\n".join(deduplicated[1:])
     body = re.sub(r"\n{3,}", "\n\n", body).strip()
 
-    # if contains chapters, we skip it. 
+    # if contains chapters, we skip it.
 
-    if (parser.chaptered(body)):
+    if parser.chaptered(body):
         print("Story contains chapters..., skipping")
         return (gather_story.story, None, "Story has chapters, skipping.")
-                
-    # are all these collections one author?  
-    file_name = names.title_and_author_to_filename(
-        title_key, [author], ext=constants.FILE_SUFFIX, max_len=50
-    )
-
-    title_db = file_name.split("__")[0]
-    author_db = file_name.split("__")[1].split(".")[0]
 
     if title_db == "endnotes":
         return (gather_story.story, None, "Endnotes are not gathered")
     if title_db == "epigraph":
         return (gather_story.story, None, "Epigraphs are not gathered")
-    
-    manifest.check_and_add(title_db, author_db, source="Standard EBooks")
 
     # The story's canonical slug (no extension): names the bucket
     # subdirectory (Decision 8 of PROP-LCATS-STORY-BUCKET-LAYOUT) and is
@@ -680,17 +748,13 @@ def gather_story(gatherer, html: str, expected_title: str, author: str, url: str
         },
     }
 
-
     path = gatherer.path
 
-    
     # Apply replayable gather-time repairs (rules + per-story overrides) before
     # the first write so the fix is reproduced on every regeneration, not stored
     # as a one-off.
     normalization.normalize_story_dict(
-        data_to_save,
-        collection=path, 
-        story_id=story_slug   
+        data_to_save, collection=path, story_id=story_slug
     )
 
     # Ensure the file path exists.
@@ -700,69 +764,59 @@ def gather_story(gatherer, html: str, expected_title: str, author: str, url: str
     with open(file_path, "w", encoding="utf-8") as json_file:
         json.dump(data_to_save, json_file, indent=4)
 
+    _add_saved_story(title_db, author_db)
     gather_story.story = gather_story.story + 1
     return gather_story.story - 1, file_path, None
 
-def get_author_from_standard_ebooks_url (url):
-    return (url.split("/")[4].replace("-", " "))
-            
-def get_title_from_standard_ebooks_url (url):
-    return (url.split("/")[5])
 
-def create_download_callback(story_name, url, start_heading_text, description):
-    """Create a download callback function for a specific story."""
-
-    def story_download_callback(contents):
-        """Download a specific Sherlock story from the Gutenberg Project."""
-        if contents is None:
-            raise ValueError(f"Failed to download {url}")
-
-        story_soup = BeautifulSoup(contents, "lxml")
-
-        story_text = find_paragraphs_adventures(story_soup, start_heading_text)
-        if story_text is None:
-            raise ValueError(
-                f"Failed to find text for {story_name} given {start_heading_text} in {url}"
-            )
-
-        story_data = {
-            "author": "Arthur Conan Doyle",
-            "year": 1891,
-            "url": url,
-            "name": story_name,
-        }
-
-        return description, story_text, story_data
-
-    return story_download_callback
+def get_author_from_standard_ebooks_url(url):
+    return url.split("/")[4].replace("-", " ")
 
 
+def get_title_from_standard_ebooks_url(url):
+    return url.split("/")[5]
 
-def gather_collection(toc_url, delay = 5):
+
+def gather_collection(toc_url, delay=5, *, metadata_mode="refresh", cache_dir=False):
     """Run DataGatherers for one collection of stories from StandardEBooks."""
 
     full_toc_url = toc_url + "/text"
     author = get_author_from_standard_ebooks_url(toc_url)
-    author_last_name = names.canonical_author.last_name(names.canonical_author.canonical_key(author)) 
+    author_last_name = names.canonical_author.last_name(
+        names.canonical_author.canonical_key(author)
+    )
     title = get_title_from_standard_ebooks_url(toc_url)
-    
-    target_directory = "standard_ebooks/" + author_last_name + "-" + title 
-    
+
+    target_directory = "standard_ebooks/" + author_last_name + "-" + title
+
     gatherer = downloaders.DataGatherer(
-        target_directory, 
+        target_directory,
         description=title + " by " + author + " stories from standardEBooks.",
         license="Public domain, from standardEBooks",
     )
 
-    print(gatherer.path)
-    root_path = gatherer.root
-    
+    _check_metadata_mode(metadata_mode)
+    cached_path = _cache_file(cache_dir, "tables_of_contents", full_toc_url, "html")
     session = make_session()
 
     try:
-        print(f"Downloading table of contents: {full_toc_url}")
-        toc_html = download_page(session, full_toc_url)
+        if metadata_mode == "cached":
+            if not cached_path.is_file():
+                raise FileNotFoundError(f"No saved table of contents: {cached_path}")
+            print(f"Reading saved table of contents: {full_toc_url}")
+            toc_html = cached_path.read_text(encoding="utf-8")
+        else:
+            print(f"Downloading table of contents: {full_toc_url}")
+            toc_html = download_page(session, full_toc_url)
         stories = extract_story_links(toc_html, full_toc_url)
+        if metadata_mode == "refresh":
+            _atomic_cache_write(cached_path, toc_html)
+    except (FileNotFoundError, OSError) as error:
+        # Cached mode is intentionally strict: never fall back to the network.
+        if metadata_mode == "cached":
+            raise
+        print(f"Could not cache the table of contents: {error}", file=sys.stderr)
+        return {}
     except requests.RequestException as error:
         print(
             f"Could not download the table of contents: {error}",
@@ -775,27 +829,39 @@ def gather_collection(toc_url, delay = 5):
 
     print(f"Found {len(stories)} story links.")
     print(stories)
-    
+
     failures: list[tuple[Story, str]] = []
-    used_names: set[str] = set()
 
     gathered_stories = {}
     failed_stories = {}
 
     for story in stories:
-        print(
-            f"[{story.number:03d}/{len(stories):03d}] "
-            f"Downloading: {story.title}"
-        )
+        # Use the TOC title and author to check the registry without changing it.
+        # Missing stories are added only after successful extraction and saving.
+        if _story_exists(story.title, author):
+            print(
+                f"[{story.number:03d}/{len(stories):03d}] "
+                f"Skipping previously registered story: {story.title}"
+            )
+            continue
+
+        print(f"[{story.number:03d}/{len(stories):03d}] " f"Downloading: {story.title}")
 
         try:
             html = download_page(session, story.url)
-            story_id, filename, error = gather_story(gatherer, html, story.title, author, story.url)
+            story_id, filename, error = gather_story(
+                gatherer,
+                html,
+                story.title,
+                author,
+                story.url,
+                registry_checked=True,
+            )
             if filename:
                 gathered_stories[story_id] = filename
             if error:
                 failed_stories[story_id] = error
-            
+
         except (requests.RequestException, ValueError, OSError) as error:
             failures.append((story, str(error)))
             print(
@@ -819,22 +885,36 @@ def gather_collection(toc_url, delay = 5):
 
     return gathered_stories
 
-#def gather():
-def gather(*, offline=False, cache_dir=False):
+
+# def gather():
+def gather(*, offline=False, cache_dir=False, metadata_mode="refresh"):
     """Extract the StandardEBooks collections of stories.
-    NO CHECK FOR DUPES YET"""
-    
+    ``metadata_mode="refresh"`` downloads the collection list and TOCs and saves
+    them; ``metadata_mode="cached"`` uses only previously saved metadata.
+    Both modes still download individual story pages. Thus ``offline=True``
+    is unsupported here and rejected rather than implying an offline run.
+    """
+    if offline:
+        raise ValueError("Offline story downloads are not supported by this gatherer")
+    _check_metadata_mode(metadata_mode)
     print("Gathering StandardEBooks stories.")
 
-    total = 0 
-    collection_urls = get_collection_urls()
+    total = 0
+    collection_urls = get_collection_urls(
+        metadata_mode=metadata_mode,
+        cache_dir=cache_dir,
+    )
 
     for collection_url in collection_urls:
-        downloads = gather_collection(collection_url)
+        downloads = gather_collection(
+            collection_url,
+            metadata_mode=metadata_mode,
+            cache_dir=cache_dir,
+        )
         total = total + len(downloads)
-        
+
     print(f" - Total stories in StandardEBooks corpus: {total}")
 
 
-#if __name__ == "__main__":
+# if __name__ == "__main__":
 #    main()

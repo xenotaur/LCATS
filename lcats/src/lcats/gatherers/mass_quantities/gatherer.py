@@ -13,8 +13,6 @@ from lcats.utils import env
 from lcats.utils import paths
 from lcats.utils import run_log
 
-from lcats.gatherers import manifest
-
 # Outside data/ and corpora/ (both protected by run_log.RunLog's own
 # re-validation) - matches gatherlib.gather()'s own DEFAULT_GATHER_LOG_DIR
 # and <corpus>_gather_run_log.jsonl naming convention (WI-GATHER-0105).
@@ -163,6 +161,8 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
             # for story in tqdm(range(1, 79061)):
             # print(story)
             try:
+                # The parser checks registry membership before acquisition and
+                # registers only after it confirms a published or existing file.
                 result = parser.gather_story_result(gatherer, story, source=source)
                 story, filename, error = result.story, result.path, result.rejection
             except resources.ResourceTransportError as exc:

@@ -31,6 +31,7 @@ class CollectionRequirement:
 
 
 NAMES = (
+    "standard_ebooks",
     "sherlock",
     "lovecraft",
     "ohenry_four_million",
@@ -42,9 +43,9 @@ NAMES = (
     "anderson",
     "chesterton",
     "london",
-#    "standard_ebooks",
     "mass_quantities",
 )
+
 REQUIREMENTS = {
     name: CollectionRequirement(
         name,

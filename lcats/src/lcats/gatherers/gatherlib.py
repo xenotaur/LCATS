@@ -4,8 +4,11 @@ import pathlib
 
 from bs4 import BeautifulSoup
 from lcats.gatherers import downloaders
+from lcats import constants
 from lcats.utils import names
 from lcats.utils import run_log
+
+from lcats.gatherers import registry
 
 DEFAULT_DIVISION_TAGS = ["h2", "div"]
 DEFAULT_HEADING_TAGS = ["h2", "h3"]
@@ -176,6 +179,20 @@ def gather(
             filename = names.normalize_basename(raw_filename)[0]
             url = entry_url(*entry) if entry_url is not None else gutenberg_url
             story_name = name_source(*entry) if name_source is not None else filename
+
+            file_name = names.title_and_author_to_filename(
+                filename, [author], ext=constants.FILE_SUFFIX, max_len=50
+            )
+
+            title_db = file_name.split("__")[0]
+            author_db = file_name.split("__")[1].split(".")[0]
+            if not registry.check_and_add(
+                title_db,
+                author_db,
+                mode="discard",
+                source=author + " Gutenberg mass retrieval",
+            ):
+                continue
 
             gatherer.download(
                 filename,
