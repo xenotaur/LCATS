@@ -9,11 +9,12 @@ Python from those inputs, so a stored derived value can always be re-derived
 and checked.
 
 The five-criterion ``heinlein-five-v1`` record is unchanged and still the
-source of ``human``. This contract treats ``human``, ``existing_statuses`` and
-the premise anchors as stored inputs and checks only their shape: matching
-``human`` to the selected Heinlein analysis, and anchors to the story text,
-belong to the stage that produces the record (WI-SF-0127). Rule numbers (R1 to R8) and decision numbers (D1 to D9)
-refer to the proposal.
+source of ``human``. The record validators treat ``human``, ``existing_statuses``
+and the premise anchors as stored inputs and check only their shape. The
+stage that produces a record does the matching (WI-SF-0127): ``borrow_human``
+copies ``human`` from the selected Heinlein analysis, and ``build_analysis``
+anchors each premise to a quote found in the cited story paragraph. Rule
+numbers (R1 to R8) and decision numbers (D1 to D9) refer to the proposal.
 
 Profile category names (R7). The machine tokens are stored in the record; the
 plain names are what reports and documentation show. The table that derives
@@ -680,6 +681,30 @@ def premise_condition(
     return f"{premise.premise_id}: composition interval spans " + "; ".join(spans)
 
 
+def validate_composition_window(
+    composition: CompositionInterval, analysis_date: str
+) -> None:
+    """Reject a composition date after the analysis date (R2).
+
+    A story cannot have been written after the date it is analysed on. Left
+    unchecked, an interval starting after the analysis date is inverted once an
+    open end is capped at that date, and the premises it covers come out
+    ``not_assessable`` with no speculative flag: a misleading
+    ``not_applicable`` profile. The analysis month itself is allowed.
+    """
+
+    analysis_month = _analysis_month(analysis_date)
+    for name, value in (
+        ("earliest", composition.earliest),
+        ("latest", composition.latest),
+    ):
+        if value is not None and month_range(value)[0] > analysis_month:
+            raise ValueError(
+                f"composition {name} {value!r} is after the analysis date "
+                f"{analysis_date!r}"
+            )
+
+
 # --- the analysis record ------------------------------------------------
 
 
@@ -714,6 +739,7 @@ class HeinleinTemporalAnalysis:
                 "Heinlein temporal analysis must use heinlein-temporal-v1 provenance"
             )
         month_range(self.analysis_date)
+        validate_composition_window(self.composition, self.analysis_date)
         if self.model_knowledge_cutoff is not None:
             month_range(self.model_knowledge_cutoff)
         premise_ids = tuple(premise.premise_id for premise in self.premises)
@@ -779,6 +805,10 @@ class HeinleinTemporalAnalysis:
             "plausible": written,
         }
         verdict, consistency, violations = verdict_as_written(statuses)
+        if self.status != "complete":
+            # A failed or partial record has no premises to judge, so the
+            # statuses above are vacuous; never present them as a verdict.
+            verdict = "indeterminate"
         # Only counted premises affect a derived status, so only they explain it.
         counted_ids = {premise.premise_id for premise in counted}
         conditions = [
@@ -1006,4 +1036,216 @@ def analysis_from_dict(data: Mapping[str, Any]) -> HeinleinTemporalAnalysis:
         ),
         status=data.get("status"),
         failures=failures,
+    )
+
+
+# --- building a record from a stage response (WI-SF-0127) ----------------
+
+# The stage asks the model only for facts: premises with standing timelines and
+# the author-frame ``essential`` and ``causal`` statuses. The model never
+# returns a derived value (status over an interval, relation, flag, category or
+# verdict) and never states a basis: every fact and date it names is recorded
+# as ``model_asserted`` so a later fact table can audit it.
+_TOOL_PREMISE_KEYS = {
+    "premise_id",
+    "kind",
+    "claim",
+    "paragraph_id",
+    "quote",
+    "materiality",
+    "novel_at_composition",
+    "dated_prediction",
+    "timeline",
+}
+_TOOL_PERIOD_KEYS = {"from", "to", "standing", "source"}
+_TOOL_CRITERION_KEYS = {"status", "premise_ids", "rationale"}
+_TOOL_RESULT_KEYS = {"premises", "essential", "causal"}
+
+
+def borrow_human(
+    source: models.HeinleinAnalysis | None,
+    *,
+    story_hash: str,
+    evidence_set_id: str,
+) -> tuple[BorrowedHuman, dict[str, str]]:
+    """Copy ``human`` from the selected Heinlein analysis (R8, Open Question 5).
+
+    The source must be complete and match both ``story_hash`` and
+    ``evidence_set_id``. A missing, failed or mismatched source gives
+    ``not_computed`` and no comparison statuses, never a stage failure. Also
+    returns the source's five statuses so the live run can compare them.
+    """
+
+    if (
+        source is None
+        or source.status != "complete"
+        or source.story_hash != story_hash
+        or source.evidence_set_id != evidence_set_id
+    ):
+        return BorrowedHuman(), {}
+    statuses = {item.criterion_id: item.status for item in source.criteria}
+    if "human" not in statuses:
+        return BorrowedHuman(), {}
+    return (
+        BorrowedHuman(
+            status=statuses["human"], source_heinlein_analysis_id=source.analysis_id
+        ),
+        statuses,
+    )
+
+
+def failed_analysis(
+    *,
+    analysis_id: str,
+    story_hash: str,
+    evidence_set_id: str,
+    provenance: models.ProvenanceRecord,
+    analysis_date: str,
+    model_knowledge_cutoff: str | None,
+    failure: models.FailureRecord,
+    composition: CompositionInterval | None = None,
+) -> HeinleinTemporalAnalysis:
+    """Build a failed record without affecting any other detector.
+
+    The run's validated ``composition`` is kept so a failed record still shows
+    which date inputs the run was given.
+    """
+
+    unfinished = CriterionAssessment(
+        "not_assessable", (), "Heinlein temporal adjudication did not complete."
+    )
+    return HeinleinTemporalAnalysis(
+        analysis_id=analysis_id,
+        story_hash=story_hash,
+        evidence_set_id=evidence_set_id,
+        provenance=provenance,
+        analysis_date=analysis_date,
+        model_knowledge_cutoff=model_knowledge_cutoff,
+        composition=composition or CompositionInterval(),
+        premises=(),
+        essential=unfinished,
+        causal=unfinished,
+        status="failed",
+        failures=(failure,),
+    )
+
+
+def _require_keys(data: Mapping[str, Any], keys: set[str], name: str) -> None:
+    """Every key is required; an explicit null is allowed, an omission is not.
+
+    The runner's JSON fallback does not enforce the tool schema, so an omitted
+    ``from``/``to`` must not quietly become an open bound (a fact supported for
+    all time) and an omitted ``dated_prediction`` must not become "no prediction".
+    """
+
+    missing = keys - set(data)
+    if missing:
+        raise ValueError(f"{name} is missing keys: {sorted(missing)!r}")
+
+
+def _tool_period(data: Any) -> StandingPeriod:
+    data = _mapping(data, "standing period")
+    _unexpected(data, _TOOL_PERIOD_KEYS, "standing period")
+    _require_keys(data, _TOOL_PERIOD_KEYS, "standing period")
+    _require_non_empty_string(data.get("source"), "standing period source")
+    return StandingPeriod(
+        standing=data.get("standing"),
+        basis="model_asserted",
+        from_date=data.get("from"),
+        to_date=data.get("to"),
+        source=data.get("source"),
+    )
+
+
+def _tool_premise(data: Any, paragraphs: Mapping[str, Any]) -> Premise:
+    data = _mapping(data, "premise")
+    _unexpected(data, _TOOL_PREMISE_KEYS, "premise")
+    _require_keys(data, _TOOL_PREMISE_KEYS, "premise")
+    paragraph = paragraphs.get(data.get("paragraph_id"))
+    if paragraph is None:
+        raise ValueError(
+            f"premise paragraph_id {data.get('paragraph_id')!r} is unknown"
+        )
+    quote = data.get("quote")
+    _require_non_empty_string(quote, "premise quote")
+    position = paragraph.text.find(quote)
+    if position < 0:
+        raise ValueError(
+            f"premise quote is not in paragraph {data.get('paragraph_id')!r}"
+        )
+    prediction = data.get("dated_prediction")
+    if prediction is not None:
+        prediction = _mapping(prediction, "dated_prediction")
+        _unexpected(prediction, {"date", "claim"}, "dated_prediction")
+        _require_keys(prediction, {"date", "claim"}, "dated_prediction")
+        prediction = DatedPrediction(
+            date=prediction.get("date"), claim=prediction.get("claim")
+        )
+    return Premise(
+        premise_id=data.get("premise_id"),
+        kind=data.get("kind"),
+        claim=data.get("claim"),
+        anchor=PremiseAnchor(offset=paragraph.start_char + position, quote=quote),
+        materiality=data.get("materiality"),
+        novel_at_composition=data.get("novel_at_composition"),
+        dated_prediction=prediction,
+        timeline=tuple(
+            _tool_period(item) for item in _sequence(data.get("timeline"), "timeline")
+        ),
+    )
+
+
+def _tool_criterion(data: Any, name: str) -> CriterionAssessment:
+    data = _mapping(data, name)
+    _unexpected(data, _TOOL_CRITERION_KEYS, name)
+    _require_keys(data, _TOOL_CRITERION_KEYS, name)
+    return CriterionAssessment(
+        status=data.get("status"),
+        premise_ids=tuple(_sequence(data.get("premise_ids"), f"{name} premise_ids")),
+        rationale=data.get("rationale"),
+    )
+
+
+def build_analysis(
+    *,
+    analysis_id: str,
+    story_hash: str,
+    evidence_set_id: str,
+    provenance: models.ProvenanceRecord,
+    analysis_date: str,
+    model_knowledge_cutoff: str | None,
+    composition: CompositionInterval,
+    human: BorrowedHuman,
+    existing_statuses: Mapping[str, str],
+    tool_result: Any,
+    paragraphs: Any,
+) -> HeinleinTemporalAnalysis:
+    """Validate a stage response and build the record (unknown keys are rejected).
+
+    ``paragraphs`` are the prepared story paragraphs (``paragraph_id``,
+    ``start_char``, ``text``). A premise anchor is the paragraph start plus the
+    position of the quoted text inside it, so a quote that is not in the cited
+    paragraph is rejected instead of being given a made-up offset.
+    """
+
+    result = _mapping(tool_result, "tool_result")
+    _unexpected(result, _TOOL_RESULT_KEYS, "tool_result")
+    _require_keys(result, _TOOL_RESULT_KEYS, "tool_result")
+    by_id = {paragraph.paragraph_id: paragraph for paragraph in paragraphs}
+    return HeinleinTemporalAnalysis(
+        analysis_id=analysis_id,
+        story_hash=story_hash,
+        evidence_set_id=evidence_set_id,
+        provenance=provenance,
+        analysis_date=analysis_date,
+        model_knowledge_cutoff=model_knowledge_cutoff,
+        composition=composition,
+        premises=tuple(
+            _tool_premise(item, by_id)
+            for item in _sequence(result.get("premises"), "premises")
+        ),
+        essential=_tool_criterion(result.get("essential"), "essential"),
+        causal=_tool_criterion(result.get("causal"), "causal"),
+        human=human,
+        existing_statuses=existing_statuses,
     )

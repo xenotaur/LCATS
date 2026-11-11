@@ -2645,6 +2645,434 @@ class _OpenAIShapedClient:
         return types.SimpleNamespace(choices=[choice], usage=usage, model="stub-model")
 
 
+class _TemporalOverrideBackend:
+    """Delegate to the deterministic backend, overriding the date-aware stage."""
+
+    def __init__(self, override=None, raises=False):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+        self.override = override
+        self.raises = raises
+        self.tools = []
+
+    def complete(self, **kwargs):
+        name = kwargs["tool"]["name"]
+        self.tools.append(name)
+        if name == run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME and self.raises:
+            raise RuntimeError("provider content filter rejected request")
+        response = self.delegate.complete(**kwargs)
+        if name == run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME and self.override:
+            response.tool_result = self.override(response.tool_result)
+        return response
+
+
+def _temporal_options(root, **updates):
+    updates.setdefault("analysis_date", "2026-11-10")
+    return run_worldcon_spike.RunnerOptions(
+        manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+        output_root=root,
+        max_stories=1,
+        include_heinlein_temporal=True,
+        **updates,
+    )
+
+
+class WorldconSpikeHeinleinTemporalStageTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.root = pathlib.Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def _run(self, name, backend=None, **updates):
+        backend = backend or _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                _temporal_options(self.root / name, **updates)
+            )
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+        return summary, story, data, backend
+
+    def test_stage_is_off_by_default_and_leaves_outputs_unchanged(self):
+        summary = run_worldcon_spike.run_spike(
+            run_worldcon_spike.RunnerOptions(
+                manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                output_root=self.root / "off",
+                max_stories=1,
+            )
+        )
+        story = summary["stories"][0]
+        data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+
+        self.assertNotIn("heinlein_temporal_category", story)
+        self.assertNotIn("heinlein_temporal_verdict", story)
+        self.assertNotIn("heinlein_temporal_categories", summary["totals"])
+        self.assertNotIn("include_heinlein_temporal", summary["plan"])
+        self.assertNotIn("heinlein_temporal", data["analyses"])
+        self.assertNotIn("heinlein_temporal_analysis_id", data["current"])
+        report = (self.root / "off" / "worldcon_spike_report.md").read_text("utf-8")
+        self.assertNotIn("temporal", report)
+
+    def test_enabled_stage_publishes_a_valid_record_summary_and_report(self):
+        summary, story, data, backend = self._run("on")
+
+        self.assertEqual("complete", summary["status"])
+        self.assertTrue(summary["plan"]["include_heinlein_temporal"])
+        self.assertEqual("evergreen", story["heinlein_temporal_category"])
+        self.assertEqual(
+            1, summary["totals"]["heinlein_temporal_categories"]["evergreen"]
+        )
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("complete", record["status"])
+        self.assertEqual("2026-11-10", record["analysis_date"])
+        self.assertEqual("heinlein-temporal-v1", record["provenance"]["rubric_version"])
+        self.assertEqual(
+            record["analysis_id"], data["current"]["heinlein_temporal_analysis_id"]
+        )
+        self.assertIsNone(data["partial_success"])
+        self.assertEqual(
+            1, backend.tools.count(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME)
+        )
+        report = (self.root / "on" / "worldcon_spike_report.md").read_text("utf-8")
+        self.assertIn("Heinlein temporal category: `evergreen`", report)
+        raw_dir = pathlib.Path(story["raw_response_path"])
+        self.assertTrue(
+            (raw_dir / f"{run_worldcon_spike.HEINLEIN_TEMPORAL_STAGE}.json").exists()
+        )
+        index = json.loads((raw_dir / "index.json").read_text("utf-8"))
+        self.assertIn(run_worldcon_spike.HEINLEIN_TEMPORAL_STAGE, index["stages"])
+
+    def test_every_fact_and_date_is_recorded_as_model_asserted(self):
+        _, _, data, _ = self._run("basis")
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        bases = {
+            p["basis"] for premise in record["premises"] for p in premise["timeline"]
+        }
+        self.assertEqual({"model_asserted"}, bases)
+
+    def test_human_is_not_computed_without_the_heinlein_stage(self):
+        _, _, data, _ = self._run("no-source")
+
+        human = data["analyses"]["heinlein_temporal"][0]["assessment"]["human"]
+        self.assertEqual("not_computed", human["status"])
+        self.assertIsNone(human["source_heinlein_analysis_id"])
+        self.assertNotIn("heinlein", data["analyses"])
+
+    def test_human_is_copied_from_the_same_runs_heinlein_record(self):
+        _, _, data, _ = self._run("with-source", include_heinlein=True)
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        heinlein = data["analyses"]["heinlein"][0]
+        human = record["assessment"]["human"]
+        self.assertEqual(heinlein["analysis_id"], human["source_heinlein_analysis_id"])
+        expected = next(
+            item["status"]
+            for item in heinlein["criteria"]
+            if item["criterion_id"] == "human"
+        )
+        self.assertEqual(expected, human["status"])
+        self.assertEqual(
+            sorted(run_worldcon_spike.models.HEINLEIN_CRITERION_IDS),
+            sorted(record["existing_statuses"]),
+        )
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+
+    def test_a_failed_heinlein_source_gives_not_computed_without_failing(self):
+        backend = _HeinleinOverrideBackend(lambda result: "not an object")
+        backend_tools = backend.tools
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=backend):
+            summary = run_worldcon_spike.run_spike(
+                _temporal_options(self.root / "bad-source", include_heinlein=True)
+            )
+        data = sidecar.load_json(pathlib.Path(summary["stories"][0]["sidecar_path"]))
+
+        self.assertEqual("failed", data["analyses"]["heinlein"][0]["status"])
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("complete", record["status"])
+        self.assertEqual("not_computed", record["assessment"]["human"]["status"])
+        self.assertIn(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, backend_tools)
+
+    def test_the_human_source_is_a_stage_fingerprint_input(self):
+        root = self.root / "fingerprint"
+        first = _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=first):
+            run_worldcon_spike.run_spike(
+                _temporal_options(root, include_heinlein=True, resume=True)
+            )
+        self.assertIn(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, first.tools)
+
+        # Same stage inputs: the checkpoint is reused and no call is made.
+        same = _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=same):
+            run_worldcon_spike.run_spike(
+                _temporal_options(root, include_heinlein=True, resume=True)
+            )
+        self.assertNotIn(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, same.tools)
+
+        # The borrowed human source is gone, so the stage must run again.
+        changed = _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=changed):
+            run_worldcon_spike.run_spike(_temporal_options(root, resume=True))
+        self.assertIn(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, changed.tools)
+
+    def test_a_malformed_response_is_quarantined_and_isolated(self):
+        _, story, data, _ = self._run(
+            "malformed", _TemporalOverrideBackend(lambda result: "not an object")
+        )
+
+        self.assertEqual("complete", story["status"])
+        self.assertEqual("complete", data["analyses"]["knight"][0]["status"])
+        self.assertEqual("complete", data["analyses"]["suvin_novum"][0]["status"])
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("failed", record["status"])
+        self.assertEqual("indeterminate", record["assessment"]["verdict_as_written"])
+        self.assertEqual(
+            [run_worldcon_spike.HEINLEIN_TEMPORAL_RECORD_STAGE],
+            [f["stage"] for f in data["partial_success"]["failed_stages"]],
+        )
+        self.assertNotIn("heinlein_temporal_analysis_id", data["current"])
+        self.assertNotIn("heinlein_temporal_category", story)
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+
+    def test_a_model_supplied_derived_value_or_unknown_key_is_rejected(self):
+        def add_status(result):
+            result["premises"][0]["status_as_written"] = "present"
+            return result
+
+        def add_top_level(result):
+            result["verdict"] = "qualifies"
+            return result
+
+        for name, override in (("derived", add_status), ("top", add_top_level)):
+            with self.subTest(name):
+                _, _, data, _ = self._run(name, _TemporalOverrideBackend(override))
+                self.assertEqual(
+                    "failed", data["analyses"]["heinlein_temporal"][0]["status"]
+                )
+
+    def test_a_failed_stage_keeps_the_runs_composition_inputs(self):
+        _, _, data, _ = self._run(
+            "failed-keeps-dates",
+            _TemporalOverrideBackend(lambda result: "not an object"),
+            composition_earliest="1957",
+            composition_latest="1958",
+        )
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("failed", record["status"])
+        self.assertEqual("1957", record["composition"]["earliest"])
+        self.assertEqual("1958", record["composition"]["latest"])
+        self.assertEqual("owner_supplied", record["composition"]["sources"][0]["kind"])
+
+    def test_the_fake_quote_is_an_unchanged_substring_of_the_paragraph(self):
+        for body in (
+            "The\nship left now",
+            "The  ship   left now",
+            "Single",
+            "Tab\tseparated words here",
+        ):
+            with self.subTest(body=body):
+                payload = {"text": f"[p1] {body}\n\n[p2] other"}
+                result = run_worldcon_spike._fake_heinlein_temporal_result(payload)
+                self.assertIn(result["premises"][0]["quote"], body)
+
+    def test_the_default_analysis_date_is_resolved_once_per_run(self):
+        with patch.object(run_worldcon_spike, "_make_backend") as make:
+            make.return_value = _TemporalOverrideBackend()
+            summary = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=self.root / "default-date",
+                    max_stories=2,
+                    include_heinlein_temporal=True,
+                )
+            )
+
+        dates = set()
+        for story in summary["stories"]:
+            data = sidecar.load_json(pathlib.Path(story["sidecar_path"]))
+            dates.add(data["analyses"]["heinlein_temporal"][0]["analysis_date"])
+        self.assertEqual(1, len(dates))
+
+    def test_a_quote_not_in_the_cited_paragraph_is_rejected(self):
+        def wrong_quote(result):
+            result["premises"][0]["quote"] = "words that are not in the story"
+            return result
+
+        _, _, data, _ = self._run("quote", _TemporalOverrideBackend(wrong_quote))
+
+        self.assertEqual("failed", data["analyses"]["heinlein_temporal"][0]["status"])
+
+    def test_an_unknown_timeline_is_accepted_and_never_a_vacuous_present(self):
+        def unknown(result):
+            result["premises"][0]["timeline"] = []
+            return result
+
+        _, _, data, _ = self._run("unknown", _TemporalOverrideBackend(unknown))
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("complete", record["status"])
+        self.assertEqual("ambiguous", record["assessment"]["plausible_as_written"])
+
+    def test_a_raising_backend_fails_only_this_stage_and_writes_request_records(self):
+        _, story, data, backend = self._run(
+            "raising", _TemporalOverrideBackend(raises=True)
+        )
+
+        self.assertEqual("complete", story["status"])
+        self.assertEqual("failed", data["analyses"]["heinlein_temporal"][0]["status"])
+        self.assertEqual("complete", data["analyses"]["knight"][0]["status"])
+        raw_root = pathlib.Path(story["raw_response_path"])
+        raw_root = raw_root.parent if raw_root.is_file() else raw_root
+        record = json.loads(
+            (raw_root / "request-sf_heinlein_temporal.json").read_text("utf-8")
+        )
+        self.assertEqual(run_worldcon_spike.HEINLEIN_TEMPORAL_STAGE, record["stage"])
+        self.assertEqual(
+            run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME,
+            record["request"]["tool"]["name"],
+        )
+        self.assertTrue(
+            (
+                raw_root
+                / f"{run_worldcon_spike.HEINLEIN_TEMPORAL_STAGE}-backend-error.json"
+            ).exists()
+            or list(raw_root.glob("sf_heinlein_temporal-backend-error*.json"))
+        )
+
+    def test_enabling_the_stage_reuses_every_existing_stage_checkpoint(self):
+        root = self.root / "reuse"
+        first = _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=first):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=root,
+                    max_stories=1,
+                    include_heinlein=True,
+                    resume=True,
+                )
+            )
+        self.assertNotIn(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, first.tools)
+
+        second = _TemporalOverrideBackend()
+        with patch.object(run_worldcon_spike, "_make_backend", return_value=second):
+            summary = run_worldcon_spike.run_spike(
+                _temporal_options(root, include_heinlein=True, resume=True)
+            )
+
+        self.assertEqual("complete", summary["status"])
+        self.assertEqual([run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME], second.tools)
+
+    def test_the_stage_is_rejected_for_paid_backends_with_its_own_rule(self):
+        with self.assertRaisesRegex(ValueError, "date-aware Heinlein stage"):
+            run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=run_worldcon_spike.DEFAULT_MANIFEST,
+                    output_root=self.root / "paid",
+                    backend_kind=run_worldcon_spike.ANTHROPIC_BACKEND,
+                    include_heinlein_temporal=True,
+                    dry_run=True,
+                )
+            )
+
+    def test_prompt_and_schema_state_the_owner_decisions(self):
+        prompt = run_worldcon_spike._heinlein_temporal_system_prompt()
+        schema = run_worldcon_spike._heinlein_temporal_tool_schema()
+
+        self.assertIn("never itself a difference", prompt)
+        self.assertIn("counterfactual_divergence", prompt)
+        self.assertIn("MECHANISM", prompt)
+        self.assertIn("Python derives all of those", prompt)
+        for slot_id in ("essential", "causal"):
+            self.assertIn(run_worldcon_spike._heinlein_slot_text(slot_id), prompt)
+        self.assertEqual(run_worldcon_spike.HEINLEIN_TEMPORAL_TOOL_NAME, schema["name"])
+        properties = schema["input_schema"]["properties"]
+        self.assertEqual({"premises", "essential", "causal"}, set(properties))
+        self.assertFalse(schema["input_schema"]["additionalProperties"])
+        premise = properties["premises"]["items"]
+        self.assertFalse(premise["additionalProperties"])
+        self.assertNotIn(
+            "basis", premise["properties"]["timeline"]["items"]["properties"]
+        )
+
+    def test_inputs_and_composition_are_recorded(self):
+        _, _, data, _ = self._run(
+            "inputs",
+            model_knowledge_cutoff="2025-06",
+            composition_earliest="1957",
+            composition_latest="1958-03",
+        )
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("2026-11-10", record["analysis_date"])
+        self.assertEqual("2025-06", record["model_knowledge_cutoff"])
+        composition = record["composition"]
+        self.assertEqual("1957", composition["earliest"])
+        self.assertEqual("1958-03", composition["latest"])
+        self.assertEqual("owner_supplied", composition["sources"][0]["kind"])
+
+    def test_a_missing_composition_leaves_an_unbounded_interval_with_a_caveat(self):
+        _, _, data, _ = self._run("unbounded")
+
+        composition = data["analyses"]["heinlein_temporal"][0]["composition"]
+        self.assertIsNone(composition["earliest"])
+        self.assertIsNone(composition["latest"])
+        self.assertTrue(composition["caveats"])
+
+    def test_invalid_date_inputs_fail_the_run_before_any_model_call(self):
+        bad_inputs = (
+            {"composition_earliest": "garbage"},
+            {"composition_earliest": "1960", "composition_latest": "1950"},
+            {"composition_earliest": "2040"},
+            {"composition_latest": "2040"},
+            {"analysis_date": "notadate"},
+            {"model_knowledge_cutoff": "junk"},
+        )
+        for updates in bad_inputs:
+            with self.subTest(**updates):
+                backend = _TemporalOverrideBackend()
+                with patch.object(
+                    run_worldcon_spike, "_make_backend", return_value=backend
+                ):
+                    with self.assertRaises(ValueError):
+                        run_worldcon_spike.run_spike(
+                            _temporal_options(self.root / "bad", **updates)
+                        )
+                self.assertEqual([], backend.tools)
+
+    def test_the_command_line_flags_reach_the_options(self):
+        args = run_worldcon_spike._parse_args(
+            [
+                "--include-heinlein-temporal",
+                "--analysis-date",
+                "2026-11-10",
+                "--model-knowledge-cutoff",
+                "2025-06",
+                "--composition-earliest",
+                "1957",
+                "--composition-latest",
+                "1958",
+            ]
+        )
+        options = run_worldcon_spike._options_from_args(args)
+
+        self.assertTrue(options.include_heinlein_temporal)
+        self.assertEqual("2026-11-10", options.analysis_date)
+        self.assertEqual("2025-06", options.model_knowledge_cutoff)
+        self.assertEqual(
+            ("1957", "1958"), (options.composition_earliest, options.composition_latest)
+        )
+        self.assertFalse(
+            run_worldcon_spike._options_from_args(
+                run_worldcon_spike._parse_args([])
+            ).include_heinlein_temporal
+        )
+
+
 class WorldconRequestRecordTest(unittest.TestCase):
     """Request records make the tool-forcing request observable per attempt."""
 

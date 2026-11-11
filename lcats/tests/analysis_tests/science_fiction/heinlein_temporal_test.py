@@ -524,6 +524,48 @@ class UnknownTimelineTest(unittest.TestCase):
         self.assertEqual(analysis.assessment(), rebuilt.assessment())
 
 
+class CompositionWindowTest(unittest.TestCase):
+    def test_a_composition_after_the_analysis_date_is_rejected(self):
+        for composition in (
+            _interval("2040", None),
+            _interval(None, "2040"),
+            _interval("2026-12", "2027"),
+            _interval("2026-11", "2026-12"),
+        ):
+            with self.subTest(earliest=composition.earliest, latest=composition.latest):
+                with self.assertRaises(ValueError):
+                    heinlein_temporal.validate_composition_window(
+                        composition, ANALYSIS_DATE
+                    )
+                with self.assertRaises(ValueError):
+                    _analysis(composition=composition)
+
+    def test_the_analysis_month_and_earlier_are_accepted(self):
+        for composition in (
+            _interval(None, None),
+            _interval("1957", "1957"),
+            _interval("2026-10", "2026-10"),
+            _interval("2026-10", None),
+        ):
+            with self.subTest(earliest=composition.earliest, latest=composition.latest):
+                heinlein_temporal.validate_composition_window(
+                    composition, ANALYSIS_DATE
+                )
+                _analysis(composition=composition)
+
+    def test_the_sidecar_validator_rejects_a_stored_late_composition(self):
+        data = pipeline.assemble_sidecar_data(_inputs(with_temporal=True))
+        broken = copy.deepcopy(data)
+        broken["analyses"]["heinlein_temporal"][0]["composition"].update(
+            earliest="2040", latest=None
+        )
+
+        self.assertIn(
+            "invalid_heinlein_temporal",
+            {f.kind for f in sidecar.validate_sidecar(broken).findings},
+        )
+
+
 class VerdictTest(unittest.TestCase):
     def _statuses(self, **overrides):
         statuses = {name: "present" for name in models.HEINLEIN_CRITERION_IDS}
@@ -936,3 +978,317 @@ class SidecarWiringTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class _Paragraph:
+    def __init__(self, paragraph_id, start_char, text):
+        self.paragraph_id = paragraph_id
+        self.start_char = start_char
+        self.text = text
+
+
+PARAGRAPHS = (
+    _Paragraph("p1", 0, "Mars was a world of blue mist."),
+    _Paragraph("p2", 32, "The ship left in 1985 for the red planet."),
+)
+
+
+def _tool_premise(**overrides):
+    premise = {
+        "premise_id": "mars",
+        "kind": "ordinary",
+        "claim": "Mars is habitable.",
+        "paragraph_id": "p1",
+        "quote": "blue mist",
+        "materiality": "central",
+        "novel_at_composition": "true",
+        "dated_prediction": None,
+        "timeline": [
+            {"from": None, "to": "1965", "standing": "open", "source": "Pre-Mariner."},
+            {
+                "from": "1965",
+                "to": None,
+                "standing": "contradicted",
+                "source": "Mariner 4 flyby, July 1965.",
+            },
+        ],
+    }
+    premise.update(overrides)
+    return premise
+
+
+def _tool_result(**overrides):
+    result = {
+        "premises": [_tool_premise()],
+        "essential": {"status": "present", "premise_ids": ["mars"], "rationale": "E."},
+        "causal": {"status": "absent", "premise_ids": [], "rationale": "C."},
+    }
+    result.update(overrides)
+    return result
+
+
+def _build(tool_result, **overrides):
+    arguments = dict(
+        analysis_id="temporal-1",
+        story_hash="story-hash",
+        evidence_set_id="evidence-set-1",
+        provenance=models.ProvenanceRecord(
+            run_id="run-temporal",
+            rubric_version=heinlein_temporal.TEMPORAL_RUBRIC_VERSION,
+            generated_at="2026-10-31T00:00:00Z",
+        ),
+        analysis_date=ANALYSIS_DATE,
+        model_knowledge_cutoff=None,
+        composition=_interval("1957-04", "1957-04"),
+        human=heinlein_temporal.BorrowedHuman(),
+        existing_statuses={},
+        tool_result=tool_result,
+        paragraphs=PARAGRAPHS,
+    )
+    arguments.update(overrides)
+    return heinlein_temporal.build_analysis(**arguments)
+
+
+def _heinlein_source(
+    status="complete", story_hash="story-hash", set_id="evidence-set-1"
+):
+    criteria = tuple(
+        models.HeinleinCriterion(
+            criterion_id=criterion_id,
+            status="not_assessable" if criterion_id == "human" else "present",
+            supporting_evidence=(
+                () if criterion_id == "human" else (_evidence_reference(),)
+            ),
+            rationale="r",
+        )
+        for criterion_id in models.HEINLEIN_CRITERION_IDS
+    )
+    return models.HeinleinAnalysis(
+        analysis_id="heinlein-1",
+        story_hash=story_hash,
+        evidence_set_id=set_id,
+        criteria=criteria,
+        provenance=models.ProvenanceRecord(
+            run_id="run-heinlein",
+            rubric_version=models.HEINLEIN_RUBRIC_VERSION,
+            generated_at="2026-10-31T00:00:00Z",
+        ),
+        status=status,
+    )
+
+
+def _evidence_reference():
+    return models.EvidenceReference(
+        evidence_set_id="evidence-set-1", evidence_id="ev-1"
+    )
+
+
+class BuildAnalysisTest(unittest.TestCase):
+    def test_builds_a_record_with_model_asserted_basis_and_a_found_anchor(self):
+        analysis = _build(_tool_result())
+
+        premise = analysis.premises[0]
+        self.assertEqual(
+            "Mars was a world of blue mist.".index("blue mist"), premise.anchor.offset
+        )
+        self.assertEqual({"model_asserted"}, {p.basis for p in premise.timeline})
+        self.assertEqual("present", analysis.essential.status)
+        self.assertEqual("absent", analysis.assessment()["plausible_today"])
+
+    def test_anchor_offset_is_paragraph_start_plus_position(self):
+        result = _tool_result(
+            premises=[_tool_premise(paragraph_id="p2", quote="red planet")]
+        )
+
+        premise = _build(result).premises[0]
+
+        self.assertEqual(
+            32 + PARAGRAPHS[1].text.index("red planet"), premise.anchor.offset
+        )
+
+    def test_rejects_a_quote_that_is_not_in_the_cited_paragraph(self):
+        for bad in (
+            _tool_premise(quote="not in the story"),
+            _tool_premise(quote="red planet"),  # in p2, not p1
+            _tool_premise(paragraph_id="p9"),
+        ):
+            with self.subTest(bad=bad["paragraph_id"], quote=bad["quote"]):
+                with self.assertRaises(ValueError):
+                    _build(_tool_result(premises=[bad]))
+
+    def test_unknown_keys_are_rejected_at_every_level(self):
+        period = dict(_tool_premise()["timeline"][0], extra=1)
+        cases = (
+            _tool_result(extra=1),
+            _tool_result(premises=[_tool_premise(extra=1)]),
+            _tool_result(premises=[_tool_premise(timeline=[period])]),
+            _tool_result(
+                premises=[
+                    _tool_premise(
+                        dated_prediction={"date": "1985", "claim": "c", "x": 1}
+                    )
+                ]
+            ),
+            _tool_result(
+                essential={
+                    "status": "absent",
+                    "premise_ids": [],
+                    "rationale": "",
+                    "x": 1,
+                }
+            ),
+        )
+        for index, bad in enumerate(cases):
+            with self.subTest(index=index):
+                with self.assertRaises(ValueError):
+                    _build(bad)
+
+    def test_a_model_supplied_derived_value_is_rejected_not_discarded(self):
+        premise = _tool_premise(status_as_written="present")
+
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[premise]))
+
+    def test_every_period_must_name_its_source(self):
+        period = {"from": None, "to": None, "standing": "supported", "source": ""}
+
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[_tool_premise(timeline=[period])]))
+
+    def test_criteria_must_cite_known_premises_and_be_present_with_support(self):
+        with self.assertRaises(ValueError):
+            _build(
+                _tool_result(
+                    essential={
+                        "status": "present",
+                        "premise_ids": ["nope"],
+                        "rationale": "",
+                    }
+                )
+            )
+        with self.assertRaises(ValueError):
+            _build(
+                _tool_result(
+                    causal={"status": "present", "premise_ids": [], "rationale": ""}
+                )
+            )
+
+    def test_an_empty_timeline_is_the_unknown_case(self):
+        analysis = _build(_tool_result(premises=[_tool_premise(timeline=[])]))
+
+        self.assertFalse(analysis.premises[0].timeline_known)
+        self.assertEqual("ambiguous", analysis.assessment()["plausible_as_written"])
+
+    def test_a_dated_prediction_is_parsed(self):
+        result = _tool_result(
+            premises=[
+                _tool_premise(dated_prediction={"date": "1985", "claim": "Landing."})
+            ]
+        )
+
+        analysis = _build(result)
+
+        self.assertEqual("1985", analysis.premises[0].dated_prediction.date)
+        self.assertTrue(analysis.assessment()["per_premise"][0]["calendar_expired"])
+
+    def test_the_built_record_round_trips_and_validates(self):
+        analysis = _build(_tool_result())
+
+        rebuilt = heinlein_temporal.analysis_from_dict(analysis.to_dict())
+
+        self.assertEqual(analysis.assessment(), rebuilt.assessment())
+
+
+class RequiredKeysTest(unittest.TestCase):
+    def test_an_omitted_key_is_rejected_but_an_explicit_null_is_allowed(self):
+        period = {"standing": "supported", "source": "A fact."}
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[_tool_premise(timeline=[period])]))
+        explicit = dict(period, **{"from": None, "to": None})
+        analysis = _build(_tool_result(premises=[_tool_premise(timeline=[explicit])]))
+        self.assertEqual(1, len(analysis.premises[0].timeline))
+
+    def test_every_premise_criterion_and_result_key_is_required(self):
+        premise = _tool_premise()
+        del premise["dated_prediction"]
+        with self.assertRaises(ValueError):
+            _build(_tool_result(premises=[premise]))
+        for key in ("kind", "claim", "quote", "materiality", "timeline"):
+            broken = _tool_premise()
+            del broken[key]
+            with self.subTest(key=key):
+                with self.assertRaises(ValueError):
+                    _build(_tool_result(premises=[broken]))
+        for key in ("status", "premise_ids", "rationale"):
+            criterion = {"status": "absent", "premise_ids": [], "rationale": ""}
+            del criterion[key]
+            with self.subTest(criterion=key):
+                with self.assertRaises(ValueError):
+                    _build(_tool_result(causal=criterion))
+        for key in ("premises", "essential", "causal"):
+            result = _tool_result()
+            del result[key]
+            with self.subTest(result=key):
+                with self.assertRaises(ValueError):
+                    _build(result)
+        with self.assertRaises(ValueError):
+            _build(
+                _tool_result(
+                    premises=[_tool_premise(dated_prediction={"date": "1985"})]
+                )
+            )
+
+
+class BorrowHumanTest(unittest.TestCase):
+    def test_copies_human_and_the_source_id_from_a_matching_complete_record(self):
+        human, statuses = heinlein_temporal.borrow_human(
+            _heinlein_source(),
+            story_hash="story-hash",
+            evidence_set_id="evidence-set-1",
+        )
+
+        self.assertEqual("not_assessable", human.status)
+        self.assertEqual("heinlein-1", human.source_heinlein_analysis_id)
+        self.assertEqual(set(models.HEINLEIN_CRITERION_IDS), set(statuses))
+
+    def test_missing_failed_or_mismatched_sources_give_not_computed(self):
+        failed = dataclasses.replace(_heinlein_source(), status="failed")
+        cases = {
+            "missing": None,
+            "failed": failed,
+            "other story": _heinlein_source(story_hash="other"),
+            "other evidence": _heinlein_source(set_id="other"),
+        }
+        for name, source in cases.items():
+            with self.subTest(name):
+                human, statuses = heinlein_temporal.borrow_human(
+                    source, story_hash="story-hash", evidence_set_id="evidence-set-1"
+                )
+                self.assertEqual("not_computed", human.status)
+                self.assertIsNone(human.source_heinlein_analysis_id)
+                self.assertEqual({}, statuses)
+
+
+class FailedAnalysisTest(unittest.TestCase):
+    def test_a_failed_record_is_valid_and_never_asserts_a_verdict(self):
+        analysis = heinlein_temporal.failed_analysis(
+            analysis_id="temporal-1",
+            story_hash="story-hash",
+            evidence_set_id="evidence-set-1",
+            provenance=models.ProvenanceRecord(
+                run_id="run-temporal",
+                rubric_version=heinlein_temporal.TEMPORAL_RUBRIC_VERSION,
+                generated_at="2026-10-31T00:00:00Z",
+            ),
+            analysis_date=ANALYSIS_DATE,
+            model_knowledge_cutoff=None,
+            failure=models.FailureRecord(
+                stage="heinlein_temporal", kind="ValueError", message="x"
+            ),
+            composition=_interval("1957", "1958"),
+        )
+
+        self.assertEqual("1957", analysis.composition.earliest)
+        self.assertEqual("failed", analysis.status)
+        self.assertEqual("not_assessable", analysis.essential.status)
+        self.assertEqual("indeterminate", analysis.assessment()["verdict_as_written"])

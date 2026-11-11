@@ -326,3 +326,34 @@ comparison finds a difference that changes the meaning of a condition and a
 `heinlein-five-v2` rubric is minted, rerun the canary. A wording-only change to
 the rubric text changes the Heinlein stage prompt, so earlier Heinlein
 checkpoints are not reused.
+
+## Date-aware stage (opt-in, not yet run live)
+
+`--include-heinlein-temporal` adds a separate stage, `sf_heinlein_temporal`,
+that extracts a story's material premises with their standing timelines and
+judges `essential` and `causal` in the author's frame. It is governed by
+`PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE` and implemented by `WI-SF-0127`. It
+leaves the five-criterion stage, its prompt and its checkpoints untouched, and
+it has **not been run against any model**: only the fake backend has exercised
+it. A live validation is `WI-SF-0131`.
+
+Inputs: `--analysis-date` (default today), `--model-knowledge-cutoff`, and an
+owner-supplied composition interval with `--composition-earliest` and
+`--composition-latest`. With no interval the stage records an unbounded one and
+says so. `human` is copied from this run's Heinlein record when `--include-heinlein`
+is also set and that record is complete and matches the story and evidence set;
+otherwise it is `not_computed` and the stage still runs. The source analysis ID
+is part of the stage checkpoint fingerprint.
+
+Like the Heinlein stage it is rejected on any paid-call backend, with its own
+message, because it adds a model call per story that no approved estimate covers.
+
+Fake-backend smoke (no model):
+
+```bash
+PYTHONPATH=src python experimental/science_fiction_analysis_trial/run_worldcon_spike.py --manifest experimental/science_fiction_analysis_trial/manifests/heinlein_canary_manifest.json --mode smoke --backend fake --include-heinlein --include-heinlein-temporal --analysis-date 2026-11-10 --output-root /tmp/lcats-heinlein-temporal-smoke
+```
+
+It processes both smoke stories and publishes a `heinlein_temporal` record for
+each. The fake response is a fixed placeholder, so its category and verdict say
+nothing about the stage's quality.

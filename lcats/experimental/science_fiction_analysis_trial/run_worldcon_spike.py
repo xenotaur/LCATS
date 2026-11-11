@@ -11,10 +11,12 @@ import argparse
 import dataclasses
 import hashlib
 import ipaddress
+import datetime
 import math
 import json
 import os
 import pathlib
+import re
 import subprocess
 import sys
 import time
@@ -24,6 +26,7 @@ from typing import Any, Callable, Iterable
 
 from lcats.analysis.science_fiction import evidence
 from lcats.analysis.science_fiction import heinlein
+from lcats.analysis.science_fiction import heinlein_temporal
 from lcats.analysis.science_fiction import knight
 from lcats.analysis.science_fiction import models
 from lcats.analysis.science_fiction import novum
@@ -49,18 +52,24 @@ EVIDENCE_STAGE = "sf_evidence"
 KNIGHT_STAGE = "sf_knight"
 SUVIN_STAGE = "sf_suvin_novum"
 HEINLEIN_STAGE = "sf_heinlein"
+HEINLEIN_TEMPORAL_STAGE = "sf_heinlein_temporal"
 MANIFEST_SNAPSHOT_FILENAME = "manifest_snapshot.json"
 EVIDENCE_RECORD_STAGE = "evidence"
 KNIGHT_RECORD_STAGE = "knight"
 SUVIN_RECORD_STAGE = "suvin_novum"
 HEINLEIN_RECORD_STAGE = "heinlein"
+HEINLEIN_TEMPORAL_RECORD_STAGE = "heinlein_temporal"
 EVIDENCE_TOOL_NAME = "record_science_fiction_evidence"
 KNIGHT_TOOL_NAME = "record_knight_adjudication"
 SUVIN_TOOL_NAME = "record_suvin_novum_adjudication"
 HEINLEIN_TOOL_NAME = "record_heinlein_adjudication"
+HEINLEIN_TEMPORAL_TOOL_NAME = "record_heinlein_temporal_premises"
 # The optional Heinlein stage has its own prompt version so enabling it never
 # changes PROMPT_VERSION, which feeds the Knight and Suvin checkpoint payloads.
 HEINLEIN_PROMPT_VERSION = "worldcon-heinlein-spike-prompt-v2"
+# The optional date-aware Heinlein stage (PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE)
+# has its own prompt version for the same reason. It has not been run live.
+HEINLEIN_TEMPORAL_PROMPT_VERSION = "worldcon-heinlein-temporal-spike-prompt-v1"
 DEFAULT_MANIFEST = (
     pathlib.Path(__file__).resolve().parent
     / "manifests"
@@ -161,6 +170,14 @@ class RunnerOptions:
     max_failures: int | None = None
     resume: bool = False
     include_heinlein: bool = False
+    include_heinlein_temporal: bool = False
+    # Inputs of the date-aware stage. The analysis date defaults to today when
+    # unset; an owner-supplied composition interval is the only date source
+    # until the date tooling of WI-SF-0128 exists.
+    analysis_date: str | None = None
+    model_knowledge_cutoff: str | None = None
+    composition_earliest: str | None = None
+    composition_latest: str | None = None
 
 
 @dataclasses.dataclass(frozen=True)
@@ -185,14 +202,19 @@ class StoryResult:
     quarantine_path: str | None = None
     heinlein_verdict: str | None = None
     heinlein_interval: dict[str, int] | None = None
+    heinlein_temporal_category: str | None = None
+    heinlein_temporal_verdict: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         data = dataclasses.asdict(self)
         # Heinlein is opt-in: omit its keys when unset so existing runs emit
-        # byte-identical story rows.
+        # byte-identical story rows. The date-aware stage is omitted the same way.
         if data["heinlein_verdict"] is None:
             del data["heinlein_verdict"]
             del data["heinlein_interval"]
+        if data["heinlein_temporal_category"] is None:
+            del data["heinlein_temporal_category"]
+            del data["heinlein_temporal_verdict"]
         return data
 
 
@@ -244,6 +266,12 @@ def run_spike(options: RunnerOptions) -> dict[str, Any]:
     selected_stories = select_stories(manifest, options.mode)
     if options.max_stories is not None:
         selected_stories = selected_stories[: options.max_stories]
+    if options.include_heinlein_temporal and options.analysis_date is None:
+        # Resolve the default once, so the gate and every story use one date
+        # even when a run crosses midnight.
+        options = dataclasses.replace(
+            options, analysis_date=datetime.date.today().isoformat()
+        )
     _enforce_run_gate(manifest, options, selected_stories)
     plan = _plan(options, manifest, selected_stories, output_root)
     run_id = _new_run_id()
@@ -537,6 +565,28 @@ def _run_story(
                 input_tokens += heinlein_response.input_tokens
                 output_tokens += heinlein_response.output_tokens
             stage_paths[HEINLEIN_STAGE] = heinlein_raw_path
+        temporal_analysis: heinlein_temporal.HeinleinTemporalAnalysis | None = None
+        if options.include_heinlein_temporal:
+            (
+                temporal_analysis,
+                temporal_response,
+                temporal_raw_path,
+                temporal_reused,
+            ) = _run_heinlein_temporal_stage(
+                story=story,
+                prepared=prepared,
+                evidence_set=evidence_set,
+                heinlein_analysis=heinlein_analysis,
+                options=options,
+                active_backend=active_backend,
+                output_root=output_root,
+                run_id=run_id,
+                log=log,
+            )
+            if not temporal_reused:
+                input_tokens += temporal_response.input_tokens
+                output_tokens += temporal_response.output_tokens
+            stage_paths[HEINLEIN_TEMPORAL_STAGE] = temporal_raw_path
         _write_raw_artifact_index(
             output_root=output_root,
             story=story,
@@ -545,7 +595,7 @@ def _run_story(
         )
 
         partial_success = _partial_success_record(
-            knight_analysis, suvin_analysis, heinlein_analysis
+            knight_analysis, suvin_analysis, heinlein_analysis, temporal_analysis
         )
         sidecar_inputs = pipeline.SidecarAssemblyInputs(
             lcats_id=story.story_id,
@@ -556,6 +606,9 @@ def _run_story(
             suvin_novum_analyses=(suvin_analysis,),
             heinlein_analyses=(
                 (heinlein_analysis,) if heinlein_analysis is not None else ()
+            ),
+            heinlein_temporal_analyses=(
+                (temporal_analysis,) if temporal_analysis is not None else ()
             ),
             partial_success=partial_success,
             configuration=_sidecar_configuration(options),
@@ -576,6 +629,11 @@ def _run_story(
         suvin_analysis = sidecar_inputs.suvin_novum_analyses[0]
         heinlein_complete = (
             heinlein_analysis is not None and heinlein_analysis.status == "complete"
+        )
+        temporal_assessment = (
+            temporal_analysis.assessment()
+            if temporal_analysis is not None and temporal_analysis.status == "complete"
+            else None
         )
         return StoryResult(
             run_id=run_id,
@@ -610,6 +668,14 @@ def _run_story(
             heinlein_verdict=(heinlein_analysis.verdict if heinlein_complete else None),
             heinlein_interval=(
                 heinlein_analysis.interval.to_dict() if heinlein_complete else None
+            ),
+            heinlein_temporal_category=(
+                temporal_assessment["category"] if temporal_assessment else None
+            ),
+            heinlein_temporal_verdict=(
+                temporal_assessment["verdict_as_written"]
+                if temporal_assessment
+                else None
             ),
         )
     except Exception as error:
@@ -1899,6 +1965,10 @@ def _sidecar_configuration(options: RunnerOptions) -> dict[str, Any]:
     }
     if options.include_heinlein:
         configuration["heinlein_prompt_version"] = HEINLEIN_PROMPT_VERSION
+    if options.include_heinlein_temporal:
+        configuration["heinlein_temporal_prompt_version"] = (
+            HEINLEIN_TEMPORAL_PROMPT_VERSION
+        )
     return configuration
 
 
@@ -2027,6 +2097,181 @@ def _run_heinlein_stage(
         )
 
 
+def _temporal_inputs(
+    options: RunnerOptions,
+) -> tuple[str, str | None, heinlein_temporal.CompositionInterval]:
+    """The analysis date, model knowledge cutoff and owner-supplied interval."""
+
+    analysis_date = options.analysis_date or datetime.date.today().isoformat()
+    heinlein_temporal.month_range(analysis_date)
+    if options.model_knowledge_cutoff is not None:
+        heinlein_temporal.month_range(options.model_knowledge_cutoff)
+    earliest = options.composition_earliest
+    latest = options.composition_latest
+    if earliest is None and latest is None:
+        composition = heinlein_temporal.CompositionInterval(
+            caveats=("no composition date was supplied; the interval is unbounded",)
+        )
+    else:
+        composition = heinlein_temporal.CompositionInterval(
+            earliest=earliest,
+            latest=latest,
+            sources=(
+                heinlein_temporal.CompositionSource(
+                    kind="owner_supplied",
+                    value=f"{earliest or 'unknown'} to {latest or 'unknown'}",
+                    basis="supplied to the runner by the owner",
+                ),
+            ),
+            override=True,
+        )
+    heinlein_temporal.validate_composition_window(composition, analysis_date)
+    return analysis_date, options.model_knowledge_cutoff, composition
+
+
+def _run_heinlein_temporal_stage(
+    *,
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+    heinlein_analysis: models.HeinleinAnalysis | None,
+    options: RunnerOptions,
+    active_backend: llm_backend.LLMBackend,
+    output_root: pathlib.Path,
+    run_id: str,
+    log: run_log.RunLog | None,
+) -> tuple[
+    heinlein_temporal.HeinleinTemporalAnalysis,
+    llm_backend.BackendResponse,
+    pathlib.Path,
+    bool,
+]:
+    """Run the optional date-aware Heinlein stage; a failure never affects others.
+
+    ``human`` is copied from the Heinlein analysis of this run when it is
+    complete and matches this story and evidence set; otherwise it is
+    ``not_computed`` and the stage still runs. Every derived value is computed
+    in Python by ``heinlein_temporal``.
+    """
+
+    response = _empty_response(options)
+    tool_result: Any = None
+    raw_path: pathlib.Path | None = None
+    reused = False
+    system_prompt = _heinlein_temporal_system_prompt()
+    tool_schema = _heinlein_temporal_tool_schema()
+    analysis_id = f"{_stable_slug(story.story_id)}-heinlein-temporal-v1"
+    analysis_date, cutoff, composition = _temporal_inputs(options)
+    human, existing_statuses = heinlein_temporal.borrow_human(
+        heinlein_analysis,
+        story_hash=prepared.story_hash,
+        evidence_set_id=evidence_set.evidence_set_id,
+    )
+
+    def provenance_for(
+        stage_response: llm_backend.BackendResponse,
+    ) -> models.ProvenanceRecord:
+        return _provenance(
+            story=story,
+            options=options,
+            response=stage_response,
+            parent_evidence_set_id=evidence_set.evidence_set_id,
+            system_prompt=system_prompt,
+            tool_schema=tool_schema,
+            run_id=run_id,
+            rubric_version=heinlein_temporal.TEMPORAL_RUBRIC_VERSION,
+        )
+
+    def build(
+        stage_response: llm_backend.BackendResponse, result: Any
+    ) -> heinlein_temporal.HeinleinTemporalAnalysis:
+        return heinlein_temporal.build_analysis(
+            analysis_id=analysis_id,
+            story_hash=prepared.story_hash,
+            evidence_set_id=evidence_set.evidence_set_id,
+            provenance=provenance_for(stage_response),
+            analysis_date=analysis_date,
+            model_knowledge_cutoff=cutoff,
+            composition=composition,
+            human=human,
+            existing_statuses=existing_statuses,
+            tool_result=result,
+            paragraphs=prepared.paragraphs,
+        )
+
+    try:
+        response, tool_result, raw_path, reused = _run_checkpointed_model_stage(
+            stage=HEINLEIN_TEMPORAL_STAGE,
+            story=story,
+            output_root=output_root,
+            options=options,
+            active_backend=active_backend,
+            system_prompt=system_prompt,
+            payload=_heinlein_temporal_payload(
+                story, prepared, evidence_set, human, analysis_date, cutoff, composition
+            ),
+            tool_schema=tool_schema,
+            run_id=run_id,
+            log=log,
+            resume=options.resume,
+            validate_result=build,
+        )
+        return build(response, tool_result), response, raw_path, reused
+    except Exception as error:
+        raw_path = getattr(error, "raw_response_path", raw_path)
+        response = dataclasses.replace(
+            response,
+            input_tokens=getattr(error, "input_tokens", response.input_tokens),
+            output_tokens=getattr(error, "output_tokens", response.output_tokens),
+        )
+        response.effective_max_tokens = getattr(
+            error,
+            "effective_max_tokens",
+            getattr(response, "effective_max_tokens", None),
+        )
+        if raw_path is None:
+            candidate = (
+                output_root
+                / "_raw"
+                / run_id
+                / _checkpoint_item_id(story)
+                / f"{HEINLEIN_TEMPORAL_STAGE}-backend-error.json"
+            )
+            if candidate.exists():
+                raw_path = candidate
+        _record_stage_failure(
+            output_root=output_root,
+            story=story,
+            stage=HEINLEIN_TEMPORAL_STAGE,
+            error=error,
+            tool_result=tool_result,
+            raw_path=raw_path,
+            run_id=run_id,
+            log=log,
+        )
+        failure = models.FailureRecord(
+            stage=HEINLEIN_TEMPORAL_RECORD_STAGE,
+            kind=type(error).__name__,
+            message=str(error),
+            recoverable=True,
+        )
+        return (
+            heinlein_temporal.failed_analysis(
+                analysis_id=analysis_id,
+                story_hash=prepared.story_hash,
+                evidence_set_id=evidence_set.evidence_set_id,
+                provenance=provenance_for(response),
+                analysis_date=analysis_date,
+                model_knowledge_cutoff=cutoff,
+                failure=failure,
+                composition=composition,
+            ),
+            response,
+            raw_path or output_root / "_raw" / run_id / _checkpoint_item_id(story),
+            reused,
+        )
+
+
 def _record_stage_failure(
     *,
     output_root: pathlib.Path,
@@ -2062,6 +2307,7 @@ def _partial_success_record(
     knight_analysis: models.KnightAnalysis,
     suvin_analysis: models.SuvinNovumAnalysis,
     heinlein_analysis: models.HeinleinAnalysis | None = None,
+    temporal_analysis: heinlein_temporal.HeinleinTemporalAnalysis | None = None,
 ) -> models.PartialSuccessRecord | None:
     completed = [EVIDENCE_RECORD_STAGE]
     failures: list[models.FailureRecord] = []
@@ -2075,6 +2321,10 @@ def _partial_success_record(
         if heinlein_analysis.status == "complete":
             completed.append(HEINLEIN_RECORD_STAGE)
         failures.extend(heinlein_analysis.failures)
+    if temporal_analysis is not None:
+        if temporal_analysis.status == "complete":
+            completed.append(HEINLEIN_TEMPORAL_RECORD_STAGE)
+        failures.extend(temporal_analysis.failures)
     if not failures:
         return None
     return models.PartialSuccessRecord(
@@ -2413,6 +2663,33 @@ def _heinlein_payload(
     }
 
 
+def _heinlein_temporal_payload(
+    story: SpikeStory,
+    prepared: preparation.StoryPreparation,
+    evidence_set: evidence.EvidenceSet,
+    human: heinlein_temporal.BorrowedHuman,
+    analysis_date: str,
+    model_knowledge_cutoff: str | None,
+    composition: heinlein_temporal.CompositionInterval,
+) -> dict[str, Any]:
+    # The borrowed ``human`` status and its source analysis ID are part of the
+    # payload on purpose: they feed the stage checkpoint fingerprint, so a
+    # changed or missing Heinlein source never reuses a stale record.
+    return {
+        "stage": HEINLEIN_TEMPORAL_STAGE,
+        "prompt_version": HEINLEIN_TEMPORAL_PROMPT_VERSION,
+        "story_id": story.story_id,
+        "story_hash": prepared.story_hash,
+        "evidence_set_id": evidence_set.evidence_set_id,
+        "analysis_date": analysis_date,
+        "model_knowledge_cutoff": model_knowledge_cutoff,
+        "composition": composition.to_dict(),
+        "human_source_heinlein_analysis_id": human.source_heinlein_analysis_id,
+        "human_status": human.status,
+        "text": _indexed_story_text(prepared),
+    }
+
+
 def _indexed_story_text(prepared: preparation.StoryPreparation) -> str:
     return "\n\n".join(
         f"[{paragraph.paragraph_id}] {paragraph.text}"
@@ -2574,6 +2851,81 @@ present criterion has supporting evidence, every cited ID exists, and no
 criterion is marked present solely because another is present. Return only the
 tool input, with no Markdown fences and no prose outside the tool call.
 """.strip()
+
+
+def _heinlein_temporal_system_prompt() -> str:
+    essential = _heinlein_slot_text("essential")
+    causal = _heinlein_slot_text("causal")
+    return f"""
+You are the date-aware Heinlein premise extractor in an LCATS science-fiction
+analysis. Return only the {HEINLEIN_TEMPORAL_TOOL_NAME} tool input.
+
+Judge the story against the world its AUTHOR knew when writing it, not against
+today. The analysis date and the composition interval are supplied in the
+payload. The time in which a story is set is never itself a difference, in
+either direction: a story set in the past or the far future is not different
+for that reason alone. A premise is new only if it departs from the author's
+real world, including the author's real past.
+
+Return an object with exactly these keys: premises, essential, causal. Do not
+return any status of a premise, a relation, a flag, a category, a verdict or
+any arithmetic; Python derives all of those. Do not add other keys.
+
+premises is a list of the story's material factual premises: claims about the
+world that the plot relies on. Each premise is an object with exactly these
+keys:
+- premise_id: a short unique ID such as "p1".
+- kind: "ordinary", or "counterfactual_divergence" when the story stipulates a
+  departure from the real history of the author's world (an alternate history).
+  For a counterfactual_divergence the timeline describes the standing of the
+  MECHANISM that would enable the divergence, never whether the divergence
+  contradicts the real record, and novel_at_composition must be "true".
+- claim: the premise as one sentence.
+- paragraph_id: the ID of the story paragraph (the "[p..]" label) that grounds it.
+- quote: a short passage copied exactly from that paragraph.
+- materiality: "central", "substantial", or "incidental". Only central and
+  substantial premises are counted.
+- novel_at_composition: "true" if the premise departed from the author's real
+  world when the story was written, "false" if it did not, "unknown" if you
+  cannot say.
+- dated_prediction: null, or an object with exactly the keys date (a year or
+  year-month such as "1985" or "1985-06") and claim, when the premise says that
+  a stated date will bring something about.
+- timeline: a list of standing periods, or [] when you cannot state how the
+  claim stood over time at all.
+
+A timeline period is an object with exactly these keys: from, to, standing,
+source. standing is "supported" (established fact), "open" (genuinely
+unsettled, no decisive evidence yet), "contested" (credible evidence on both
+sides), or "contradicted" (shown false). from and to are a year such as
+"1965" or a year-month such as "1965-07", or null. The periods must cover all
+of time without a gap: the first from is null, the last to is null, every other
+boundary is a date, and the periods are in time order. Where one period ends
+and the next begins on the same date, write the same string in both to and
+from. source is a short phrase naming the specific fact, discovery, or event
+and the date it rests on (for example "Mariner 4 flyby, July 1965"); it is
+recorded as your assertion and checked later, so name it plainly and do not
+invent one.
+
+essential and causal are each an object with exactly the keys status, premise_ids
+and rationale. status is one of present, ambiguous, absent, or not_assessable;
+premise_ids lists the premise_id values the judgement rests on (required and
+non-empty when status is present); rationale is a short string. Judge them in
+the author's frame:
+essential: {essential}
+causal: {causal}
+
+Never invent a premise_id, a paragraph_id, or a quote. Return only the tool
+input, with no Markdown fences and no prose outside the tool call.
+""".strip()
+
+
+def _heinlein_slot_text(slot_id: str) -> str:
+    return next(
+        slot.governing_text
+        for slot in rubric_definitions.HEINLEIN_FIVE.text_slots
+        if slot.slot_id == slot_id
+    )
 
 
 def _suvin_system_prompt() -> str:
@@ -2770,6 +3122,94 @@ def _heinlein_tool_schema() -> dict[str, Any]:
     )
 
 
+def _heinlein_temporal_tool_schema() -> dict[str, Any]:
+    date = {"type": ["string", "null"]}
+    period = {
+        "type": "object",
+        "properties": {
+            "from": date,
+            "to": date,
+            "standing": {
+                "type": "string",
+                "enum": sorted(heinlein_temporal.STANDINGS),
+            },
+            "source": {"type": "string"},
+        },
+        "required": ["from", "to", "standing", "source"],
+    }
+    premise = {
+        "type": "object",
+        "properties": {
+            "premise_id": {"type": "string"},
+            "kind": {
+                "type": "string",
+                "enum": sorted(heinlein_temporal.PREMISE_KINDS),
+            },
+            "claim": {"type": "string"},
+            "paragraph_id": {"type": "string"},
+            "quote": {"type": "string"},
+            "materiality": {
+                "type": "string",
+                "enum": sorted(models.MATERIALITY_STATES),
+            },
+            "novel_at_composition": {
+                "type": "string",
+                "enum": sorted(heinlein_temporal.NOVELTY_VALUES),
+            },
+            "dated_prediction": {
+                "type": ["object", "null"],
+                "properties": {
+                    "date": {"type": "string"},
+                    "claim": {"type": "string"},
+                },
+                "required": ["date", "claim"],
+            },
+            "timeline": {"type": "array", "items": period},
+        },
+        "required": [
+            "premise_id",
+            "kind",
+            "claim",
+            "paragraph_id",
+            "quote",
+            "materiality",
+            "novel_at_composition",
+            "dated_prediction",
+            "timeline",
+        ],
+    }
+    criterion = {
+        "type": "object",
+        "properties": {
+            "status": {
+                "type": "string",
+                "enum": ["present", "ambiguous", "absent", "not_assessable"],
+            },
+            "premise_ids": {"type": "array", "items": {"type": "string"}},
+            "rationale": {"type": "string"},
+        },
+        "required": ["status", "premise_ids", "rationale"],
+    }
+    return tool_schema_module.strict_tool_schema(
+        {
+            "name": HEINLEIN_TEMPORAL_TOOL_NAME,
+            "description": (
+                "Record a story's material premises with their standing "
+                "timelines and the author-frame essential and causal statuses."
+            ),
+            "input_schema": {
+                "type": "object",
+                "properties": {
+                    "premises": {"type": "array", "items": premise},
+                    "essential": criterion,
+                    "causal": criterion,
+                },
+                "required": ["premises", "essential", "causal"],
+            },
+        }
+    )
+
+
 def _suvin_tool_schema() -> dict[str, Any]:
     evidence_ids = {"type": "array", "items": {"type": "string"}}
     dimension = {
@@ -2918,6 +3358,50 @@ def _fake_heinlein_criteria() -> list[dict[str, Any]]:
     ]
 
 
+def _fake_heinlein_temporal_result(payload: dict[str, Any]) -> dict[str, Any]:
+    """A deterministic, no-cost response anchored to the first story paragraph."""
+
+    first = str(payload["text"]).split("\n\n", 1)[0]
+    label, _, body = first.partition("] ")
+    paragraph_id = label.lstrip("[")
+    # An unchanged substring of the paragraph, so the anchor check finds it
+    # even when the first words are separated by a line break or extra spaces.
+    words = re.match(r"\S+(?:\s+\S+){0,2}", body)
+    quote = words.group(0) if words else body
+    return {
+        "premises": [
+            {
+                "premise_id": "p1",
+                "kind": "ordinary",
+                "claim": "The story's central premise holds.",
+                "paragraph_id": paragraph_id,
+                "quote": quote,
+                "materiality": "central",
+                "novel_at_composition": "true",
+                "dated_prediction": None,
+                "timeline": [
+                    {
+                        "from": None,
+                        "to": None,
+                        "standing": "supported",
+                        "source": "No-cost deterministic smoke fact.",
+                    }
+                ],
+            }
+        ],
+        "essential": {
+            "status": "present",
+            "premise_ids": ["p1"],
+            "rationale": "No-cost deterministic smoke decision.",
+        },
+        "causal": {
+            "status": "present",
+            "premise_ids": ["p1"],
+            "rationale": "No-cost deterministic smoke decision.",
+        },
+    }
+
+
 def _fake_stage_result(
     payload: dict[str, Any], tool: dict[str, Any] | None
 ) -> dict[str, Any]:
@@ -2925,6 +3409,8 @@ def _fake_stage_result(
     tool_name = tool.get("name") if isinstance(tool, dict) else None
     if tool_name == HEINLEIN_TOOL_NAME:
         return {"heinlein_criteria": _fake_heinlein_criteria()}
+    if tool_name == HEINLEIN_TEMPORAL_TOOL_NAME:
+        return _fake_heinlein_temporal_result(payload)
     if tool_name == EVIDENCE_TOOL_NAME:
         return {"evidence": result["evidence"]}
     if tool_name == KNIGHT_TOOL_NAME:
@@ -2988,10 +3474,21 @@ def _enforce_run_gate(
     stories: tuple[SpikeStory, ...],
 ) -> None:
     gate = manifest.gates[options.mode]
+    if options.include_heinlein_temporal:
+        # Operator date inputs are checked before any model call, so a typo
+        # fails the run immediately instead of after four stages have spent
+        # their calls.
+        _temporal_inputs(options)
     if options.include_heinlein and _paid_call_requested(options, gate):
         raise ValueError(
             "the Heinlein stage adds a model call per story and is not covered "
             "by an approved paid-run estimate; use a no-cost backend"
+        )
+    if options.include_heinlein_temporal and _paid_call_requested(options, gate):
+        raise ValueError(
+            "the date-aware Heinlein stage adds a model call per story, has not "
+            "been run live, and is not covered by an approved paid-run estimate; "
+            "use a no-cost backend"
         )
     if len(stories) > gate.max_stories:
         raise ValueError(
@@ -3171,6 +3668,15 @@ def _summary(
                 if options.include_heinlein
                 else {}
             ),
+            **(
+                {
+                    "heinlein_temporal_categories": _heinlein_temporal_category_counts(
+                        story_results
+                    )
+                }
+                if options.include_heinlein_temporal
+                else {}
+            ),
             "input_tokens": sum(item.input_tokens for item in story_results),
             "output_tokens": sum(item.output_tokens for item in story_results),
             "latency_seconds": round(
@@ -3192,6 +3698,16 @@ def _summary(
         },
         "stories": [item.to_dict() for item in story_results],
     }
+
+
+def _heinlein_temporal_category_counts(
+    results: Iterable[StoryResult],
+) -> dict[str, int]:
+    counts = {category: 0 for category in sorted(heinlein_temporal.PROFILE_CATEGORIES)}
+    counts["unavailable"] = 0
+    for item in results:
+        counts[item.heinlein_temporal_category or "unavailable"] += 1
+    return counts
 
 
 def _heinlein_verdict_counts(results: Iterable[StoryResult]) -> dict[str, int]:
@@ -3225,6 +3741,11 @@ def _plan(
         "approve_full_sample": options.approve_full_sample,
         "resume": options.resume,
         **({"include_heinlein": True} if options.include_heinlein else {}),
+        **(
+            {"include_heinlein_temporal": True}
+            if options.include_heinlein_temporal
+            else {}
+        ),
         "retry_policy": {
             "truncation": "once_with_doubled_max_tokens",
             "transient_provider_or_network": "once",
@@ -3501,6 +4022,16 @@ def _write_report(output_root: pathlib.Path, summary: dict[str, Any]) -> pathlib
                 *(
                     [f"- Heinlein verdict: `{item['heinlein_verdict']}`"]
                     if item.get("heinlein_verdict")
+                    else []
+                ),
+                *(
+                    [
+                        "- Heinlein temporal category: "
+                        f"`{item['heinlein_temporal_category']}`",
+                        "- Heinlein temporal verdict as written: "
+                        f"`{item['heinlein_temporal_verdict']}`",
+                    ]
+                    if item.get("heinlein_temporal_category")
                     else []
                 ),
                 f"- Sidecar: `{item['sidecar_path']}`",
@@ -3816,6 +4347,28 @@ def _parse_args(argv: list[str] | None) -> argparse.Namespace:
         help="also run the optional Heinlein five-condition stage (no-cost "
         "backends only)",
     )
+    parser.add_argument(
+        "--include-heinlein-temporal",
+        action="store_true",
+        help="also run the optional date-aware Heinlein premise stage (no-cost "
+        "backends only; not yet run live)",
+    )
+    parser.add_argument(
+        "--analysis-date",
+        help="analysis date (YYYY-MM-DD) for the date-aware stage; default today",
+    )
+    parser.add_argument(
+        "--model-knowledge-cutoff",
+        help="YYYY-MM knowledge cutoff of the model, recorded by the date-aware stage",
+    )
+    parser.add_argument(
+        "--composition-earliest",
+        help="owner-supplied earliest composition date (YYYY or YYYY-MM)",
+    )
+    parser.add_argument(
+        "--composition-latest",
+        help="owner-supplied latest composition date (YYYY or YYYY-MM)",
+    )
     return parser.parse_args(argv)
 
 
@@ -3839,6 +4392,11 @@ def _options_from_args(args: argparse.Namespace) -> RunnerOptions:
         temperature=args.temperature,
         prior_spend_usd=args.prior_spend_usd,
         include_heinlein=args.include_heinlein,
+        include_heinlein_temporal=args.include_heinlein_temporal,
+        analysis_date=args.analysis_date,
+        model_knowledge_cutoff=args.model_knowledge_cutoff,
+        composition_earliest=args.composition_earliest,
+        composition_latest=args.composition_latest,
     )
 
 
