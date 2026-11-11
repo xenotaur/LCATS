@@ -1253,3 +1253,45 @@ stored text byte for byte (not measured).
 
 **Related:** `project/design/genre-sidecar-story-binding.md`; `WI-PROMOTE-0118`;
 `WI-PROMOTE-0124`; `WS-SIDECAR-SAFE-PROMOTION`.
+
+## From WI-SF-0126 (heinlein_temporal contract, PR #539, merged 2026-11-10)
+
+### `validate_sidecar` raises `TypeError` for an unhashable analysis `status` — P2
+
+`_validate_analyses` in `src/lcats/analysis/science_fiction/sidecar.py` (line 586,
+`status in {"failed", "partial"}`) tests set membership on whatever `status` holds before
+checking it is a string. A hand-edited or corrupted sidecar whose analysis `status` is a
+list or object makes `validate_sidecar` raise `TypeError: unhashable type: 'list'`
+instead of reporting a finding. It is loud, not silent, and it is shared code that predates
+the `heinlein_temporal` kind, which is why PR #539 left it alone (disclosed in the PR body).
+
+**Repro:** assemble a sidecar with any analysis, set that analysis's `status` to `["x"]`,
+call `sidecar.validate_sidecar(data)`.
+
+**First concrete step:** guard the membership test with `_is_non_empty_string(status)`
+(as the neighbouring `ANALYSIS_STATES` check already does), so a non-string status yields
+the existing invalid-status finding; add a test for each analysis kind that shares the
+helper.
+
+**Related:** `WI-SF-0126`; PR #539.
+
+### Decide how a standing timeline treats mixed-granularity boundary dates — P3, decision needed
+
+`validate_timeline` in `src/lcats/analysis/science_fiction/heinlein_temporal.py` rejects
+two adjacent standing periods whose boundaries share a month but are written at different
+granularity, for example `to: 1965` followed by `from: 1965-07`. They really do overlap in
+months, so rejection is defensible, but proposal R1's "compared at the finer granularity"
+wording does not say whether such a boundary should instead be read as touching. Equal
+boundary strings and day-precision pairs in one month (`1965-07-14`, then `1965-07-15`)
+are accepted; the mixed case is the only ambiguous one. A model that writes a coarse
+`to` and a fine `from` would have its whole record rejected.
+
+**First concrete step:** decide the rule (reject and tell the prompt to use one
+granularity per boundary, or read the coarse side at the finer side's granularity), then
+state it in R1 and in the date-aware stage prompt (`_heinlein_temporal_system_prompt` in
+`experimental/science_fiction_analysis_trial/run_worldcon_spike.py`, merged by `WI-SF-0127`,
+which today only tells the model to write the same string on both sides of a shared
+boundary); add a test pair either way. Cheapest evidence: see whether the live run
+(`WI-SF-0131`) ever produces a mixed boundary before writing code.
+
+**Related:** `PROP-LCATS-HEINLEIN-TEMPORAL-REFERENCE` (R1); `WI-SF-0126`; `WI-SF-0127`.
