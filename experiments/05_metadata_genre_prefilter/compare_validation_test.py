@@ -6,6 +6,7 @@ from pathlib import Path
 from compare_validation import (
     InputValidationError,
     classify,
+    main,
     normalize_genre,
     validate_inputs,
 )
@@ -51,17 +52,38 @@ def _metadata_record(story_id: str, candidates: list[str]) -> dict:
 def _model_record(story_id: str, model: str, genre: str) -> dict:
     return {
         "lcats_id": story_id,
+        "story_path": f"{story_id}/story.json",
         "schema_version": "genre-sidecar-v1",
         "assessments": [
             {
+                "assessment_id": f"metadata:{story_id}",
+                "generated_at": "2026-01-01T00:00:00Z",
                 "label": "gutenberg_metadata_rules",
+                "scope": "gutenberg_volume",
+                "method": {"name": "gutenberg_subject_rules", "version": "v1"},
+                "provenance": {"story_id": story_id},
+                "evidence": {"raw_subjects": []},
                 "result": {"target_candidates": ["fantasy"]},
             },
             {
+                "assessment_id": f"model:{story_id}:{model}",
                 "label": "model_detect",
                 "generated_at": "2026-01-01T00:00:00Z",
-                "provenance": {"backend_model": model},
-                "result": {"detected_genre": genre, "detected_genre_confidence": 0.5},
+                "scope": "story",
+                "method": {"name": "assess_story", "version": "v1"},
+                "provenance": {
+                    "backend_model": model,
+                    "story_id": story_id,
+                    "story_path": f"{story_id}/story.json",
+                    "run_id": "2026-01-01T00:00:00Z",
+                },
+                "evidence": {"error": ""},
+                "result": {
+                    "detected_genre": genre,
+                    "detected_genre_confidence": 0.5,
+                    "metadata_target_candidates": ["fantasy"],
+                },
+                "run_id": "2026-01-01T00:00:00Z",
             },
         ],
     }
@@ -160,6 +182,49 @@ class InputValidationTests(unittest.TestCase):
             diagnostics = "\n".join(context.exception.diagnostics)
             self.assertIn("missing story IDs", diagnostics)
             self.assertIn("unexpected story IDs", diagnostics)
+
+    def test_failed_assessment_and_metadata_snapshot_fail_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            directory = Path(temp)
+            metadata, opus, local = self.write_inputs(directory)
+            local_record = _model_record("story/one", "gpt-oss:20b", "horror")
+            local_record["assessments"][0]["result"]["target_candidates"] = ["horror"]
+            local_record["assessments"][1]["evidence"]["error"] = "backend failed"
+            local.write_text(json.dumps(local_record) + "\n", encoding="utf-8")
+            with self.assertRaises(InputValidationError) as context:
+                validate_inputs(metadata, opus, local)
+            diagnostics = "\n".join(context.exception.diagnostics)
+            self.assertIn("evidence.error", diagnostics)
+            self.assertIn("embedded metadata candidates", diagnostics)
+
+    def test_invalid_input_writes_failed_summary(self):
+        with tempfile.TemporaryDirectory() as temp:
+            directory = Path(temp)
+            metadata, opus, local = self.write_inputs(directory)
+            missing = directory / "missing.jsonl"
+            output = directory / "output"
+            result = main(
+                [
+                    "--metadata",
+                    str(missing),
+                    "--opus",
+                    str(opus),
+                    "--local",
+                    str(local),
+                    "--output-dir",
+                    str(output),
+                ]
+            )
+            self.assertEqual(result, 2)
+            summary = json.loads(
+                (output / "three_way_genre_comparison_summary.json").read_text()
+            )
+            self.assertEqual(summary["input_validation"]["status"], "failed")
+            self.assertTrue(summary["input_validation"]["diagnostics"])
+
+    def test_protected_output_root_is_rejected(self):
+        output = Path(__file__).resolve().parents[2] / "corpora" / "comparison-test"
+        self.assertEqual(main(["--output-dir", str(output)]), 2)
 
 
 if __name__ == "__main__":

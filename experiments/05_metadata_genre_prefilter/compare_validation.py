@@ -6,10 +6,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any, Iterable
+
+from lcats.analysis.corpus.genre_sidecar import validate_sidecar
 
 COMPARISON_VERSION = "three-way-genre-comparison-v1"
 EXPECTED_STORY_COUNT = 146
@@ -55,7 +58,7 @@ def normalize_genre(value: str) -> str:
     """Return the stable comparison vocabulary for a genre label."""
     if not isinstance(value, str) or not value.strip():
         raise ValueError(f"genre label must be a non-empty string: {value!r}")
-    key = " ".join(value.strip().lower().split())
+    key = " ".join(value.strip().lower().replace("_", " ").split())
     return GENRE_ALIASES.get(key, key)
 
 
@@ -65,6 +68,59 @@ def _sha256(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def _repository_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def _relative_or_absolute(path: Path, repository_root: Path) -> str:
+    resolved = path.resolve(strict=False)
+    try:
+        return resolved.relative_to(repository_root).as_posix()
+    except ValueError:
+        return str(resolved)
+
+
+def _preflight_outputs(output_dir: Path, input_paths: Iterable[Path]) -> list[str]:
+    """Reject protected roots and destinations aliasing input evidence."""
+    repository_root = _repository_root()
+    resolved_output = output_dir.resolve(strict=False)
+    corpus_root = (repository_root / "corpora").resolve()
+    diagnostics: list[str] = []
+    if output_dir.exists() and output_dir.is_symlink():
+        diagnostics.append(f"output directory is a symlink: {output_dir}")
+    try:
+        if os.path.commonpath((str(resolved_output), str(corpus_root))) == str(
+            corpus_root
+        ):
+            diagnostics.append(
+                f"output directory is inside protected corpus root: {output_dir}"
+            )
+    except ValueError:
+        pass
+    input_paths = [path.resolve(strict=False) for path in input_paths]
+    output_paths = [
+        output_dir / "three_way_genre_comparison.jsonl",
+        output_dir / "three_way_genre_comparison_summary.json",
+        output_dir / "three_way_genre_comparison_report.md",
+    ]
+    for destination in output_paths:
+        resolved_destination = destination.resolve(strict=False)
+        if destination.exists() and destination.is_symlink():
+            diagnostics.append(f"output destination is a symlink: {destination}")
+        if resolved_destination in input_paths:
+            diagnostics.append(
+                f"output destination aliases an input file: {destination}"
+            )
+        if destination.exists() and any(
+            input_path.exists() and os.path.samefile(destination, input_path)
+            for input_path in input_paths
+        ):
+            diagnostics.append(
+                f"output destination is hard-linked to an input file: {destination}"
+            )
+    return diagnostics
 
 
 def _read_jsonl(path: Path, *, name: str) -> tuple[list[dict[str, Any]], list[str]]:
@@ -137,6 +193,15 @@ def _model_assessment(
         return None, [
             f"{name}: {record.get('lcats_id', record.get('story_id'))!r} model_detect lacks provenance/result objects"
         ]
+    evidence = assessment.get("evidence")
+    if not isinstance(evidence, dict):
+        return None, [
+            f"{name}: {record.get('lcats_id', record.get('story_id'))!r} model_detect lacks an evidence object"
+        ]
+    if evidence.get("error"):
+        return None, [
+            f"{name}: {record.get('lcats_id', record.get('story_id'))!r} model_detect contains evidence.error"
+        ]
     model = provenance.get("backend_model")
     genre = result.get("detected_genre")
     if not isinstance(model, str) or not isinstance(genre, str) or not genre.strip():
@@ -197,14 +262,37 @@ def _metadata_from_validation(
     return matches[0], []
 
 
-def _validate_model_input(
-    path: Path, *, name: str, expected_model: str
-) -> tuple[dict[str, dict[str, Any]], dict[str, dict[str, Any]], list[str]]:
+def _candidate_values(assessment: dict[str, Any]) -> list[str]:
+    return [
+        normalize_genre(value) for value in assessment["result"]["target_candidates"]
+    ]
+
+
+def _validate_model_input(path: Path, *, name: str, expected_model: str) -> tuple[
+    dict[str, dict[str, Any]],
+    dict[str, dict[str, Any]],
+    dict[str, dict[str, Any]],
+    list[str],
+]:
     records, diagnostics = _read_jsonl(path, name=name)
     indexed, index_diagnostics = _index_records(records, name=name)
     diagnostics.extend(index_diagnostics)
     model_assessments: dict[str, dict[str, Any]] = {}
+    metadata_assessments: dict[str, dict[str, Any]] = {}
     for story_id, record in indexed.items():
+        validation = validate_sidecar(record)
+        if not validation.valid:
+            diagnostics.extend(
+                f"{name}: {story_id!r} sidecar {finding.path}: {finding.message}"
+                for finding in validation.findings
+                if finding.severity == "error"
+            )
+        metadata_assessment, metadata_errors = _metadata_from_validation(
+            record, name=name
+        )
+        diagnostics.extend(metadata_errors)
+        if metadata_assessment is not None:
+            metadata_assessments[story_id] = metadata_assessment
         assessment, errors = _model_assessment(record, name=name)
         diagnostics.extend(errors)
         if assessment is None:
@@ -214,9 +302,7 @@ def _validate_model_input(
                 f"{name}: {story_id!r} backend_model is {assessment['provenance'].get('backend_model')!r}, expected {expected_model!r}"
             )
         model_assessments[story_id] = assessment
-        _, metadata_errors = _metadata_from_validation(record, name=name)
-        diagnostics.extend(metadata_errors)
-    return indexed, model_assessments, diagnostics
+    return indexed, metadata_assessments, model_assessments, diagnostics
 
 
 def _validate_manifest(
@@ -250,10 +336,10 @@ def validate_inputs(
     metadata_path: Path, opus_path: Path, local_path: Path
 ) -> dict[str, Any]:
     metadata, metadata_assessments, diagnostics = _validate_manifest(metadata_path)
-    opus, opus_assessments, opus_errors = _validate_model_input(
+    opus, opus_metadata, opus_assessments, opus_errors = _validate_model_input(
         opus_path, name="opus", expected_model=EXPECTED_MODELS["opus"]
     )
-    local, local_assessments, local_errors = _validate_model_input(
+    local, local_metadata, local_assessments, local_errors = _validate_model_input(
         local_path, name="local", expected_model=EXPECTED_MODELS["local"]
     )
     diagnostics.extend(opus_errors)
@@ -261,6 +347,29 @@ def validate_inputs(
     _compare_sets(
         {"metadata": set(metadata), "opus": set(opus), "local": set(local)}, diagnostics
     )
+    for name, embedded in (("opus", opus_metadata), ("local", local_metadata)):
+        for story_id in sorted(set(metadata) & set(embedded)):
+            expected = _candidate_values(metadata_assessments[story_id])
+            actual = _candidate_values(embedded[story_id])
+            if actual != expected:
+                diagnostics.append(
+                    f"{name}: {story_id!r} embedded metadata candidates {actual!r} do not match manifest {expected!r}"
+                )
+            model_assessments = (
+                opus_assessments if name == "opus" else local_assessments
+            )
+            if story_id in model_assessments:
+                model_candidates = model_assessments[story_id]["result"].get(
+                    "metadata_target_candidates"
+                )
+                if not isinstance(model_candidates, list):
+                    diagnostics.append(
+                        f"{name}: {story_id!r} model_detect lacks metadata_target_candidates"
+                    )
+                elif [normalize_genre(value) for value in model_candidates] != expected:
+                    diagnostics.append(
+                        f"{name}: {story_id!r} model metadata_target_candidates do not match manifest {expected!r}"
+                    )
     if len(metadata) != EXPECTED_STORY_COUNT:
         diagnostics.append(
             f"metadata: expected {EXPECTED_STORY_COUNT} records, found {len(metadata)}"
@@ -273,12 +382,18 @@ def validate_inputs(
         diagnostics.append(
             f"local: expected {EXPECTED_STORY_COUNT} records, found {len(local)}"
         )
-    hashes = {
-        "metadata": _sha256(metadata_path),
-        "opus": _sha256(opus_path),
-        "local": _sha256(local_path),
-    }
-    if hashes["opus"] == hashes["local"]:
+    hashes: dict[str, str] = {}
+    for name, path in (
+        ("metadata", metadata_path),
+        ("opus", opus_path),
+        ("local", local_path),
+    ):
+        try:
+            hashes[name] = _sha256(path)
+        except OSError as exc:
+            hashes[name] = ""
+            diagnostics.append(f"{name}: cannot hash {path}: {exc}")
+    if hashes["opus"] and hashes["opus"] == hashes["local"]:
         diagnostics.append("opus and local source hashes are identical")
     if diagnostics:
         raise InputValidationError(diagnostics)
@@ -440,7 +555,10 @@ def build_summary(
                 }
             ),
         },
-        "source_paths": {name: str(path) for name, path in paths.items()},
+        "source_paths": {
+            name: _relative_or_absolute(path, _repository_root())
+            for name, path in paths.items()
+        },
         "source_sha256": inputs["hashes"],
     }
 
@@ -534,6 +652,24 @@ def write_outputs(
     )
 
 
+def write_failure_summary(
+    paths: dict[str, Path], output_dir: Path, diagnostics: list[str]
+) -> None:
+    summary = {
+        "comparison_version": COMPARISON_VERSION,
+        "input_validation": {"status": "failed", "diagnostics": diagnostics},
+        "matched_story_count": 0,
+        "source_paths": {
+            name: _relative_or_absolute(path, _repository_root())
+            for name, path in paths.items()
+        },
+    }
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / "three_way_genre_comparison_summary.json").write_text(
+        json.dumps(summary, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+    )
+
+
 def parse_args(argv: list[str]) -> argparse.Namespace:
     root = Path(__file__).resolve().parent / "results" / "full_scan"
     parser = argparse.ArgumentParser(description=__doc__)
@@ -553,10 +689,17 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv or sys.argv[1:])
     paths = {"metadata": args.metadata, "opus": args.opus, "local": args.local}
+    output_diagnostics = _preflight_outputs(args.output_dir, paths.values())
+    if output_diagnostics:
+        print("output validation failed:", file=sys.stderr)
+        for diagnostic in output_diagnostics:
+            print(f"- {diagnostic}", file=sys.stderr)
+        return 2
     try:
         inputs = validate_inputs(args.metadata, args.opus, args.local)
         write_outputs(inputs, paths, args.output_dir)
     except InputValidationError as exc:
+        write_failure_summary(paths, args.output_dir, exc.diagnostics)
         print("input validation failed:", file=sys.stderr)
         for diagnostic in exc.diagnostics:
             print(f"- {diagnostic}", file=sys.stderr)

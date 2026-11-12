@@ -122,9 +122,9 @@
     ]
   },
   "source_paths": {
-    "local": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl",
-    "metadata": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
-    "opus": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl"
+    "local": "experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl",
+    "metadata": "experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "opus": "experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl"
   },
   "source_sha256": {
     "local": "e7c9bcbe9367f7bc9cd7f6ddb1f46ad05a069fc3199241b9990634f6a004005a",

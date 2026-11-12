@@ -9,9 +9,9 @@ Records are joined by LCATS story ID after strict validation of JSONL structure,
 ## Inputs
 
 - Matched stories: **146**
-- Metadata source: `/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl`
-- Claude Opus source (`claude-opus-4-8`): `/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`
-- Local source (`gpt-oss:20b`): `/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl`
+- Metadata source: `experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl`
+- Claude Opus source (`claude-opus-4-8`): `experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl`
+- Local source (`gpt-oss:20b`): `experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl`
 
 ## Aggregate results
 
