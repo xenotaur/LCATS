@@ -5,9 +5,10 @@
 # Several functions now exist with similar functionality; refactor to
 #    collapse?    fix_body, in_body, remove_non_text
 
+from __future__ import annotations
+
 import os
 import dataclasses
-import difflib
 import re
 
 from lcats import constants
@@ -17,47 +18,1198 @@ from lcats.gatherers import story_output
 from lcats.analysis.corpus import discovery
 import pathlib
 from lcats.gatherers.mass_quantities import storymap
+from lcats.gatherers import registry
+
+from dataclasses import dataclass, asdict
+from typing import Optional, Sequence, Union
+import unicodedata
+
+START = re.compile(
+    r"^\s*\*{3}\s*START OF (?:THE|THIS) PROJECT GUTENBERG (?:EBOOK|ETEXT)\b", re.I
+)
+END = re.compile(
+    r"^\s*\*{3}\s*END OF (?:THE|THIS) PROJECT GUTENBERG (?:EBOOK|ETEXT)\b|^\s*End of (?:the )?(?:Project Gutenberg(?:\'s)?)\b|^\s*End of (?:this )?e-?text\b",
+    re.I,
+)
+EDITOR = re.compile(
+    r"^\s*\[\s*(?:transcriber\'s? notes?|transcription notes?|editor\'s? notes?|illustrations?|image|frontispiece|sidenote|caption|plate|figure)\s*(?=[:\].\s])",
+    re.I,
+)
 
 
-def how_many_titles(text, title):
-    """Return the number of times the title appears in the text.
+def _editorial_spelling(line: str) -> str:
+    """Fold typographic apostrophes for editorial-label recognition only."""
+    return line.replace("\u2019", "\u0027").replace("\u2018", "\u0027")
 
-    Args:
-        text (str): The full text of the story.
-        title (str): The title of the story.
-    Returns:
-        int: The number of times the title appears in the text.
+
+def _editor_marker(line: str) -> bool:
+    return bool(EDITOR.match(_editorial_spelling(line)))
+
+
+def _editor_heading(line: str) -> bool:
+    return bool(EDITOR_UNBRACKETED.match(_editorial_spelling(line)))
+
+
+EDITOR_UNBRACKETED = re.compile(
+    r"^\s*(?:transcriber\'s? notes?|transcription notes?|e-?text notes?|proofreader\'s? notes?)\s*:?\s*$",
+    re.I,
+)
+PRODUCTION = re.compile(
+    r"^\s*(?:produced by|e-?text prepared by|transcribed (?:by|from)|prepared by|digitized by|project gutenberg (?:volunteers|team))\b",
+    re.I,
+)
+YEAR = re.compile(r"^(?:1[5-9]\d{2}|20\d{2})\.?$")
+META = re.compile(
+    r"^(?:copyright\b|all rights reserved|published\b|first published\b|printed\b|illustrated by\b|with illustrations\b|author of\b|translated (?:by|from)\b|\b(?:new york|london|boston|philadelphia|chicago|paris)\b\s*$|by [^\n]{1,30} (?:& co\.|company|press|publishers?)\b)",
+    re.I,
+)
+CHAPTER = re.compile(
+    r"^(?:chapter|part|book|prologue|epilogue)\s+(?:[IVXLCDM0-9]+|one|two|three|four|five|six|seven|eight|nine|ten)\b|^(?:[IVXLCDM]{1,8}|\d{1,3})\.?$",
+    re.I,
+)
+SCENE = re.compile(
+    r"^(?:\*\s*){3,}$|^(?:#\s*){3,}$|^(?:-\s*){3,}$|^\s*\*\s+\*\s+\*\s*$"
+)
+FENCE = re.compile(r"^\s*(?:`{3,}|~{3,})\s*$")
+THE_END = re.compile(r"^\s*the\s+end[.!]?\s*$", re.I)
+
+
+@dataclass
+class ExtractionDiagnostics:
+    title_found: bool = False
+    matched_author: Optional[str] = None
+    matched_pseudonym: Optional[str] = None
+    start_marker_found: bool = False
+    end_marker_found: bool = False
+    removed_years: tuple[str, ...] = ()
+    narrative_start_line: int = 1
+    narrative_end_line: int = 1
+    boundary_confidence: str = "low"
+    removed_editorial_blocks: int = 0
+    removed_terminal_signature: Optional[str] = None
+    warnings: tuple[str, ...] = ()
+
+    def to_dict(self):
+        return asdict(self)
+
+
+def _norm(value: str) -> str:
+    value = unicodedata.normalize("NFKD", value).casefold().replace("’", "'")
+    value = re.sub(r"[_*]", "", value)
+    return re.sub(r"[^a-z0-9]+", " ", value).strip()
+
+
+def _title_variants(title: Union[str, Sequence[str], None]) -> list[str]:
+    """Include catalog titles and conservative main-title forms.
+
+    A colon often separates a work's main title from a subtitle present
+    in the catalog but absent from subsequent display headings. Restrict
+    partial forms to a plausible multiword title, not arbitrary prefixes.
     """
-    text_array = text.split("\n\n")
-    number_of_titles = 0
+    supplied = [title] if isinstance(title, str) else list(title or [])
+    supplied = [
+        re.sub(r"\s*:\s*\$[a-z]\s*", ": ", x, flags=re.I)
+        for x in supplied
+        if isinstance(x, str)
+    ]
+    variants = []
+    for candidate in supplied:
+        if not isinstance(candidate, str) or not candidate.strip():
+            continue
+        variants.append(candidate)
+        # Printed titles frequently omit a leading article found in catalogs.
+        # Only derive an entire heading, never use arbitrary prefix matching.
+        words = candidate.strip().split()
+        if len(words) >= 3 and words[0].casefold() in ("the", "a", "an"):
+            variants.append(" ".join(words[1:]))
+        main = re.split(r"\s*[:：]\s*", candidate, maxsplit=1)[0].strip()
+        if (
+            main != candidate
+            and len(_norm(main).split()) >= 2
+            and len(_norm(main)) >= 12
+        ):
+            variants.append(main)
+            main_words = main.split()
+            if len(main_words) >= 3 and main_words[0].casefold() in ("the", "a", "an"):
+                variants.append(" ".join(main_words[1:]))
+    return list(dict.fromkeys(variants))
 
-    for paragraph in text_array:
-        if line_contains_title(paragraph, title):
-            number_of_titles = number_of_titles + 1
 
-    return number_of_titles
-
-
-def possible_internal_chapter_name(line):
-    if line.strip().isupper() and len(line.strip().split(" ")) < 7:
-        if line.strip()[0] == '"' and line.strip()[-2:] == '."':
-            return False
-        if line.strip()[0] == '"' and line.strip()[-1:] == '"':
-            return False
-        if line.strip()[-1:] == ":":
-            return False
-        if line.strip()[0] == "\“" and line.strip()[-1:] == "\”":
-            return False
-        #        if line.strip() == "THE END.":
-        #            return False
-        if line.strip()[0] == "_" and line.strip()[-1:] == "_":
-            return False
-        if not any(
-            exception == line.strip() for exception in storymap.TITLE_EXCEPTIONS
+def _title_line(s: str, title: Union[str, Sequence[str], None]) -> bool:
+    a = _norm(s)
+    for variant in _title_variants(title):
+        b = _norm(variant)
+        if b and (
+            a == b
+            or a in {b + " by", "the " + b}
+            or (a.startswith(b + " by ") and len(a) < len(b) + 55)
         ):
             return True
-
     return False
+
+
+def _title_span(
+    lines: Sequence[str],
+    position: int,
+    limit: int,
+    title: Union[str, Sequence[str], None],
+) -> Optional[int]:
+    """Match a display title across up to three lines, favoring full titles.
+
+    A title with an optional catalog subtitle may match its main heading;
+    however a longer full-title match always takes precedence.
+    """
+    if position >= limit:
+        return None
+    supplied = [title] if isinstance(title, str) else list(title or [])
+    supplied = [
+        re.sub(r"\s*:\s*\$[a-z]\s*", ": ", x, flags=re.I)
+        for x in supplied
+        if isinstance(x, str)
+    ]
+    all_variants = _title_variants(title)
+    parts = []
+    best = None
+    # Allow a single blank line within a display heading: OBIL / [blank] /
+    # KEEPER OF CAMELS. Never accept leading or trailing blank lines.
+    gaps = 0
+    for last in range(position, min(position + 6, limit)):
+        line = lines[last].strip()
+        if not line:
+            gaps += 1
+            if not parts or gaps > 1:
+                break
+            continue
+        if len(line) > 100:
+            break
+        parts.append(line)
+        candidate = " ".join(parts)
+        if any(_norm(candidate) == _norm(v) for v in supplied if v):
+            return last
+        if any(_norm(candidate) == _norm(v) for v in all_variants if v):
+            best = last
+        if len(candidate) > 180:
+            break
+    return best
+
+
+def _author_line(s: str, names: Sequence[str]) -> Optional[str]:
+    raw = re.sub(
+        r"^\s*(?:(?:_?by_?\s+)|(?:written by\s+))", "", s.strip(), flags=re.I
+    ).strip("_ *.,")
+    a = _norm(raw)
+    for name in names:
+        n = _norm(name)
+        # Bibliographic metadata often stores names as 'Surname, Given'.
+        # Compare the printed byline against the reversed form as well.
+        if "," in name:
+            surname, given = name.split(",", 1)
+            reordered = _norm(given + " " + surname)
+            if reordered and (
+                a == reordered
+                or (a.startswith(reordered + " ") and len(a) - len(reordered) < 28)
+            ):
+                return name
+        if n and (a == n or a.startswith(n + " ") and len(a) - len(n) < 28):
+            return name
+        # Some catalogues spell out the middle name while the story prints
+        # an initial: Raymond Zinke Gallun / Raymond Z. Gallun.
+        tokens = n.split()
+        printed = a.split()
+        if (
+            len(tokens) >= 3
+            and len(tokens) == len(printed)
+            and tokens[0] == printed[0]
+            and tokens[-1] == printed[-1]
+            and all(
+                x == y
+                or (len(y) == 1 and x.startswith(y))
+                or (len(x) == 1 and y.startswith(x))
+                for x, y in zip(tokens[1:-1], printed[1:-1])
+            )
+        ):
+            return name
+    return None
+
+
+def _paragraphs(lines):
+    out = []
+    start = None
+    buffer = []
+    for i, s in enumerate(lines + [""]):
+        if s.strip():
+            if start is None:
+                start = i
+            buffer.append(s)
+        elif buffer:
+            out.append((start, i, " ".join(x.strip() for x in buffer)))
+            start = None
+            buffer = []
+    return out
+
+
+def _prose(s: str) -> bool:
+    words = s.split()
+    if len(words) < 8 or len(s) < 48:
+        return False
+    if s.isupper() and len(s) < 260:
+        return False
+    if (
+        PRODUCTION.match(s)
+        or META.match(s)
+        or re.match(
+            r"^(?:contents|introduction|preface|foreword|note to the reader|author of)\b",
+            s,
+            re.I,
+        )
+    ):
+        return False
+    if s.startswith("["):
+        return False
+    return bool(re.search(r"[a-z][a-z]", s))
+
+
+def _terminal_author_signature(line: str, names: Sequence[str]) -> Optional[str]:
+    """Match an entire standalone author signature, not a mention in prose.
+
+    Accepts common end credits: --AUTHOR, —AUTHOR, - AUTHOR, By AUTHOR,
+    and a bare author name. A known name/pseudonym is always required.
+    """
+    value = line.strip()
+    if not value or len(value) > 120:
+        return None
+    value = re.sub(r"^(?:(?:-|—|–){1,3}\s*|by\s+)", "", value, flags=re.I)
+    value = value.strip(" ._*")
+    for name in names:
+        if _norm(value) == _norm(name) and _norm(name):
+            return name
+    return None
+
+
+def _find_narrative_end(
+    lines: list[str], start: int, end: int, names: Sequence[str]
+) -> tuple[int, Optional[str], list[str]]:
+    """Trim explicitly identified terminal editorial notes and author signatures."""
+    warnings = []
+    candidate = end
+    for _ in range(5):
+        while candidate > start and not lines[candidate - 1].strip():
+            candidate -= 1
+        if candidate <= start:
+            break
+        block_start = candidate - 1
+        while block_start > start and lines[block_start - 1].strip():
+            block_start -= 1
+        first = lines[block_start].strip()
+        # Editor headings can be separated from their contents by a blank.
+        heading = block_start - 1
+        while heading >= start and not lines[heading].strip():
+            heading -= 1
+        if _editor_heading(first) or _editor_marker(first):
+            candidate = block_start
+            warnings.append("removed_terminal_editorial_note")
+            continue
+        if heading >= start and _editor_heading(lines[heading].strip()):
+            candidate = heading
+            warnings.append("removed_terminal_editorial_note")
+            continue
+        break
+    # If an editorial block was found, its start is the true ending.
+    if candidate < end:
+        end = candidate
+    last = end - 1
+    while last >= start and not lines[last].strip():
+        last -= 1
+    if last < start:
+        return end, None, warnings
+    matched = _terminal_author_signature(lines[last], names)
+    # Fallback for editions whose printed byline is not in the metadata.
+    # Only recognize an explicit dash-prefixed, uppercase, multiword credit
+    # on its own final line; never remove an ordinary name or prose sentence.
+    if not matched and last > start and not lines[last - 1].strip():
+        signature = re.fullmatch(
+            r"\s*(?:--|—|–)\s*([A-Z][A-Z.\'’ -]{3,75})\s*", lines[last]
+        )
+        if signature and len(signature.group(1).split()) >= 2:
+            matched = signature.group(1).strip()
+            warnings.append("terminal_author_signature_inferred_without_metadata_match")
+    if matched:
+        warnings.append("removed_terminal_author_signature")
+        return last, matched, warnings
+    return end, None, warnings
+
+
+def _frontmatter_mask(lines: list[str], start: int, end: int) -> list[str]:
+    """Mask clearly labeled editorial blocks in the opening without shifting indices.
+
+    Only scan before the narrative title page is resolved. Retain the original
+    lines for output; the mask is exclusively for detecting heading anchors.
+    """
+    masked = list(lines)
+    i = start
+    while i < min(end, start + 180):
+        value = lines[i].strip()
+        if _editor_heading(value):
+            j = i + 1
+            # Gutenberg uses both one blank separator and a compact note.
+            while j < end and not lines[j].strip():
+                j += 1
+            if j < end and re.match(
+                r"(?i)^this\s+e-?text\b|^this\s+ebook\b|^this\s+electronic\b",
+                lines[j].strip(),
+            ):
+                k = j
+                while k < end and lines[k].strip():
+                    k += 1
+                for at in range(i, k):
+                    masked[at] = ""
+                i = k
+                continue
+        i += 1
+    return masked
+
+
+def _front_credit(line: str) -> bool:
+    """Recognize bibliographic title-page credits, not narrative mentions."""
+    s = line.strip()
+    return bool(
+        re.match(
+            r"(?i)^(?:illustrator\s*:|illustrated by\b|with a drawing by\b|copyright\s*[,©\d]|university press\b|(?:first|second|third) edition\b|all rights reserved\b)",
+            s,
+        )
+    )
+
+
+def _front_blurb(lines: list[str], pos: int, end: int) -> int:
+    """Skip an italicized magazine teaser after title/byline/illustrator credits."""
+    if pos >= end or not lines[pos].strip().startswith("_"):
+        return pos
+    k = pos
+    while k < end and lines[k].strip() and k - pos < 12:
+        k += 1
+    para = " ".join(x.strip() for x in lines[pos:k])
+    if k - pos <= 10 and para.rstrip().endswith("_") and len(para) < 950:
+        return k
+    return pos
+
+
+def identify_story_boundaries(
+    text: str,
+    title: Optional[Union[str, Sequence[str]]] = None,
+    authors: Optional[Sequence[str]] = None,
+    pseudonyms: Optional[Sequence[str]] = None,
+):
+    """Return (start_line, end_line, diagnostics), lines zero-based, end exclusive.
+
+    The indices refer to normalized line endings in the supplied text, not to
+    the text after Gutenberg wrappers have been removed.
+    """
+
+    lines = text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    n = len(lines)
+    warn = []
+    starts = [i for i, s in enumerate(lines) if START.match(s)]
+    ends = [i for i, s in enumerate(lines) if END.match(s)]
+    start = starts[0] + 1 if starts else 0
+    end = next((i for i in ends if i >= start), n)
+
+    if not starts:
+        warn.append("no_standard_start_marker")
+    if not ends:
+        warn.append("no_standard_end_marker")
+
+    # Without a START marker, older editions can include a license preamble.
+    if not starts:
+        legacy = next(
+            (
+                i
+                for i, s in enumerate(lines[: min(300, n)])
+                if re.match(r"^\s*\*{3}\s*START\b", s, re.I)
+            ),
+            None,
+        )
+        if legacy is not None:
+            start = legacy + 1
+    # Mask labeled transcriber-note contents for anchor detection only.
+    masked = _frontmatter_mask(lines, start, end)
+    # Only consider a bounded region of the opening for bibliographic anchors.
+    opening_end = min(end, start + 240)
+    # Use bibliographic header fields as fallback evidence when the caller
+    # supplies no metadata; never override explicit caller-supplied values.
+    header = "\n".join(lines[:start])
+
+    if not title:
+        m = re.search(r"(?im)^Title:\s*(.+?)\s*$", header)
+        if m:
+            title = m.group(1).strip()
+    if not authors and not pseudonyms:
+        m = re.search(r"(?im)^Author:\s*(.+?)\s*$", header)
+        if m:
+            authors = [m.group(1).strip()]
+
+    names = list(authors or []) + list(pseudonyms or [])
+    title_hits = []
+    author_hits = []
+
+    for i in range(start, opening_end):
+        s = masked[i].strip()
+        if _title_line(s, title or ""):
+            title_hits.append(i)
+        elif _title_span(masked, i, opening_end, title) is not None:
+            title_hits.append(_title_span(masked, i, opening_end, title))
+        named = None if _title_line(s, title) else _author_line(s, names)
+        if named:
+            author_hits.append((i, named))
+    d = ExtractionDiagnostics(
+        title_found=bool(title_hits),
+        start_marker_found=bool(starts),
+        end_marker_found=bool(ends),
+    )
+    if author_hits:
+        matched = author_hits[0][1]
+        if matched in (pseudonyms or []):
+            d.matched_pseudonym = matched
+        else:
+            d.matched_author = matched
+
+    # Candidate title-page recognition: exact heading matches, including line wraps.
+    # A repeated heading following an explicitly labeled "About <title>" section
+    # is the real beginning; the intervening prose is editorial background.
+    title_starts = []
+    for i in range(start, opening_end):
+        last = _title_span(lines, i, opening_end, title)
+        if last is not None:
+            title_starts.append((i, last))
+
+    # Do not take occurrences far inside an established story as title pages.
+    def byline_near(last):
+        return any(
+            re.match(r"^\s*(?:_?by_?|written by)\s+\S+", lines[j], re.I)
+            or _author_line(lines[j], names)
+            for j in range(last + 1, min(last + 9, opening_end))
+        )
+
+    about_heading = any(
+        re.match(r"^\s*about\s+[\"\'“]?", lines[j], re.I)
+        and any(
+            _norm(v) in _norm(lines[j])
+            for v in ([title] if isinstance(title, str) else (title or []))
+        )
+        for j in range(start, min(opening_end, start + 130))
+    )
+    first_prose = next(
+        (i for i in range(start, min(start + 115, end)) if _prose(masked[i].strip())),
+        None,
+    )
+    heading_candidates = []
+    for i, last in title_starts:
+        # Unambiguously strong evidence: nearby byline, or an editorial
+        # About-title section followed by another matching title heading.
+        if (
+            first_prose is None
+            or i <= first_prose + 8
+            or byline_near(last)
+            or (about_heading and len(title_starts) > 1)
+            or (len(title_starts) > 1 and i < start + 110)
+        ):
+            heading_candidates.append((i, last))
+    later_heading = heading_candidates[-1] if heading_candidates else None
+    following = (
+        lines[later_heading[1] + 1].strip()
+        if later_heading and later_heading[1] + 1 < end
+        else ""
+    )
+    repeated_title_page = bool(
+        following
+        and len(following) < 100
+        and following == following.upper()
+        and not _prose(following)
+    )
+    if (
+        len(heading_candidates) > 1
+        and later_heading[0] < start + 110
+        and (repeated_title_page or about_heading)
+    ):
+        # The later repeated display title follows introductory/editorial matter.
+        heading = heading_candidates[-1]
+    else:
+        strong = [x for x in heading_candidates if byline_near(x[1])]
+        heading = (
+            strong[0]
+            if strong
+            else (heading_candidates[0] if heading_candidates else None)
+        )
+    # Author matches only count as title-page anchors if near its heading;
+    # names appearing later in narrative are not front matter.
+    boundary = heading[1] if heading else start - 1
+    if heading:
+        near = [i for i, _ in author_hits if heading[0] <= i <= heading[1] + 9]
+        if near:
+            boundary = max(boundary, max(near))
+    elif author_hits and (first_prose is None or author_hits[0][0] < first_prose):
+        boundary = author_hits[0][0]
+    pos = boundary + 1
+    years = []
+    skips = 0
+
+    # A scene divider directly after front matter is a strong boundary marker.
+    # When present, material between the title page and this first divider
+    # (including a magazine teaser) belongs to the front matter.
+    divider = None
+    if heading:
+        for j in range(pos, min(end, pos + 38)):
+            if SCENE.fullmatch(lines[j].strip()):
+                divider = j
+                break
+            if j > pos + 5 and CHAPTER.fullmatch(lines[j].strip()):
+                break
+    # A byline/illustrator after a teaser signals that the intervening text
+    # is editorial copy, not story narrative.
+    late_credit = None
+    for j in range(pos, min(end, pos + 32)):
+        if re.match(r"^\s*(?:illustrated|illustrations?)\s+by\b", lines[j], re.I):
+            late_credit = j
+            break
+    if divider is not None:
+        # A divider may also separate the first and second narrative scenes.
+        # Do not skip an already substantial prose paragraph before it.
+        sections = _paragraphs(lines[pos:divider])
+        if any(e - b >= 5 and _prose(t) for b, e, t in sections):
+            divider = None
+    if divider is not None:
+        pos = divider + 1
+    elif late_credit is not None:
+        pos = late_credit + 1
+    while pos < end and pos < start + 240:
+        s = lines[pos].strip()
+        if not s or FENCE.fullmatch(s):
+            pos += 1
+            continue
+        if SCENE.fullmatch(s):
+            pos += 1
+            continue
+        if YEAR.fullmatch(s) and pos < max([boundary, start]) + 35:
+            years.append(s)
+            pos += 1
+            continue
+        title_end = _title_span(lines, pos, min(pos + 3, end), title)
+        if title_end is not None:
+            pos = title_end + 1
+            continue
+        if (
+            _author_line(s, names)
+            or META.match(s)
+            or _front_credit(s)
+            or PRODUCTION.match(s)
+            or re.match(
+                r"^\s*(?:_?by_?|written by)\s+[A-Z][A-Za-z .\'-]{3,75}\s*$", s, re.I
+            )
+            and pos < boundary + 20
+        ):
+            pos += 1
+            continue
+        if re.fullmatch(r"_?by_?", s, re.I):
+            pos += 1
+            continue
+        if re.match(
+            r"^(?:contents|table of contents|list of illustrations|other works by|works of)\b",
+            s,
+            re.I,
+        ):
+            warn.append("contents_or_works_list")
+            pos += 1
+            continue
+        if _editor_marker(s):
+            depth = s.count("[") - s.count("]")
+            pos += 1
+            while depth > 0 and pos < end:
+                depth += lines[pos].count("[") - lines[pos].count("]")
+                pos += 1
+            continue
+        if _editor_heading(s):
+            pos += 1
+            while pos < end and not lines[pos].strip():
+                pos += 1
+            if pos < end and re.match(
+                r"(?i)^this\s+(?:e-?text|ebook|electronic)\b", lines[pos].strip()
+            ):
+                while pos < end and lines[pos].strip():
+                    pos += 1
+            continue
+        blurb_end = _front_blurb(lines, pos, end)
+        if blurb_end > pos:
+            pos = blurb_end
+            continue
+        if s.startswith("+") and re.match(r"^\+[-+]+\+$", s):
+            # ASCII framed transcriber's note. Only remove when identified.
+            close = next(
+                (
+                    j
+                    for j in range(pos + 1, min(pos + 55, end))
+                    if re.match(r"^\s*\+[-+]+\+\s*$", lines[j])
+                ),
+                None,
+            )
+            if close is not None and any(
+                "transcriber" in x.lower() for x in lines[pos : close + 1]
+            ):
+                pos = close + 1
+                continue
+        if re.match(r"^\s*(?:by|written by)\s*$", s, re.I):
+            pos += 1
+            continue
+        if CHAPTER.match(s):
+            break
+        if _prose(s):
+            break
+        # Verse narratives have short physical lines: after an anchored title
+        # and optional subtitle, a run of verse lines is narrative, not metadata.
+        if heading and pos > heading[1] and pos - heading[1] < 12:
+            look = [lines[x].strip() for x in range(pos, min(pos + 5, end))]
+            if len(look) >= 4 and all(
+                x
+                and len(x.split()) >= 3
+                and not _front_credit(x)
+                and not SCENE.fullmatch(x)
+                for x in look[:4]
+            ):
+                break
+        skips += 1
+        if skips > 14:
+            warn.append("uncertain_extended_front_matter")
+            break
+        pos += 1
+    if not heading and not author_hits:
+        warn.append("metadata_anchors_not_found")
+        if starts:
+            pos = min(
+                pos,
+                next(
+                    (
+                        i
+                        for i in range(start, min(end, start + 60))
+                        if _prose(masked[i])
+                    ),
+                    pos,
+                ),
+            )
+        else:
+            warn.append("manual_start_review")
+    # Magazine display pages: validate the printed byline against metadata,
+    # then skip a following strapline/editorial recommendation if present.
+    _variants = [title] if isinstance(title, str) else list(title or [])
+    _magazine_pos = find_magazine_start(lines, start, end, _variants, names)
+    if _magazine_pos is not None and _magazine_pos > pos:
+        pos = _magazine_pos
+        warn.append("magazine_display_byline_boundary")
+    if pos >= end:
+        pos = start
+        warn.append("story_start_not_found")
+    end, terminal_signature, trailing_warnings = _find_narrative_end(
+        lines, pos, end, names
+    )
+    warn.extend(trailing_warnings)
+    d.removed_terminal_signature = terminal_signature
+    d.narrative_start_line = pos + 1
+    d.narrative_end_line = end
+    d.removed_years = tuple(years)
+    d.boundary_confidence = (
+        "high"
+        if title_hits and author_hits and not any("uncertain" in x for x in warn)
+        else "medium" if title_hits or author_hits else "low"
+    )
+    if pos - start > 130:
+        warn.append("long_frontmatter")
+    d.warnings = tuple(dict.fromkeys(warn))
+    return pos, end, d
+
+
+def clean_story_text(
+    text: str,
+    *,
+    remove_scene_breaks: bool = True,
+    unwrap_lines: bool = True,
+    strip_italics: bool = True,
+    remove_the_end: bool = False,
+    return_removed_count: bool = False,
+):
+    """Clean narrative-only text; does not make story-boundary decisions."""
+    lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+    output = []
+    i = 0
+    removed = 0
+
+    while i < len(lines):
+        line = lines[i]
+        s = line.strip()
+        if FENCE.fullmatch(s) and (i < 4 or i > len(lines) - 5):
+            i += 1
+            continue
+        if _editor_marker(s):
+            removed += 1
+            depth = line.count("[") - line.count("]")
+            i += 1
+            while depth > 0 and i < len(lines):
+                depth += lines[i].count("[") - lines[i].count("]")
+                i += 1
+            continue
+        if _editor_heading(s):
+            removed += 1
+            i += 1
+            while i < len(lines) and lines[i].strip():
+                i += 1
+            continue
+        if SCENE.fullmatch(s):
+            output.extend([""] if remove_scene_breaks else ["", "***", ""])
+            i += 1
+            continue
+        output.append(s)
+        i += 1
+
+    if remove_the_end:
+        # Only remove a standalone terminal marker, never a phrase in narration.
+        last = next(
+            (j for j in range(len(output) - 1, -1, -1) if output[j].strip()), None
+        )
+        if last is not None and THE_END.fullmatch(output[last]):
+            del output[last]
+    if unwrap_lines:
+        paragraphs = []
+        chunk = []
+        for s in output + [""]:
+            if not s or s == "***" or CHAPTER.fullmatch(s):
+                if chunk:
+                    paragraphs.append(" ".join(chunk))
+                    chunk = []
+                if s:
+                    paragraphs.append(s)
+            else:
+                chunk.append(s)
+        result = "\n\n".join(paragraphs)
+    else:
+        result = re.sub(r"\n{3,}", "\n\n", "\n".join(output).strip())
+
+    if strip_italics:
+        result = re.sub(r"(?<!\w)_([^_\n]+)_(?!\w)", r"\1", result)
+    result = result.strip() + "\n" if result.strip() else ""
+    return (result, removed) if return_removed_count else result
+
+
+def _refine_front_boundary(lines, lo, hi, title, warnings):
+    """Resolve late title pages and clearly marked editorial prefaces.
+
+    Works only in the opening; never search the entire narrative for matching
+    words. Use isolated headings and editorial structure, not title substrings.
+    """
+    limit = min(hi, 190)
+    variants = _title_variants(title)
+    headings = []
+    for i in range(0, limit):
+        if not lines[i].strip() or len(lines[i].strip()) > 95:
+            continue
+        j = _title_span(lines, i, limit, title)
+        if j is not None and (
+            i == 0 or not lines[i - 1].strip() or lines[i].startswith(" ")
+        ):
+            headings.append((i, j))
+    # Title-page repeats are common after copyright, publicity, and notes.
+    # Refine only when the earlier boundary is still in that material.
+    for i, j in headings:
+        if i <= lo or i >= min(lo + 110, limit):
+            continue
+        between = "\n".join(lines[lo:i]).lower()
+        evidence = bool(
+            re.search(
+                r"this\s+e-?text|copyright|publisher|edition|introduction|"
+                r"by\s+[a-z]|louisville|university press|appeared|readers who|"
+                r"perpetuated|reprint|all rights reserved|\*\s+\*\s+\*",
+                between,
+            )
+        )
+        # Evaluate the *whole* matched title span, not just its first line.
+        # Otherwise a repeated title with a subtitle remains in the output.
+        matched_heading = " ".join(lines[i : j + 1])
+        exact_multiline_match = any(
+            _norm(matched_heading) == _norm(v) for v in variants if v
+        )
+        after_heading = j + 1
+        if evidence and (
+            after_heading >= hi
+            or not lines[after_heading].strip()
+            or exact_multiline_match
+        ):
+            lo = j + 1
+            warnings.append("late_repeated_title_page")
+    # A publication-history sentence between two isolated occurrences of a
+    # known title is front matter, even without a copyright keyword.
+    if len(headings) >= 2:
+        for i, j in headings:
+            if lo < i < min(lo + 35, limit):
+                between = " ".join(lines[lo:i]).lower()
+                if "appeared" in between or "published" in between:
+                    lo = j + 1
+                    warnings.append("publication_history_removed")
+    # Magazine pages may repeat the title, then insert caption and several
+    # underscore-italicized editorial teasers before the actual story.
+    if any(
+        "this etext" in line.lower()
+        for line in lines[max(0, lo - 25) : min(lo + 2, hi)]
+    ):
+        probe = lo
+        last_italic = None
+        italic_blocks = 0
+        while probe < min(hi, lo + 45):
+            st = lines[probe].strip()
+            if st.startswith("_") and not re.match(r"(?i)^_?(?:by|copyright)\b", st):
+                last_italic = probe
+                italic_blocks += 1
+                k = probe + 1
+                while k < min(hi, lo + 50) and lines[k].strip():
+                    k += 1
+                probe = k
+            else:
+                probe += 1
+        if last_italic is not None and italic_blocks >= 3:
+            k = last_italic + 1
+            while k < hi and lines[k].strip():
+                k += 1
+            if k < hi and k - lo < 52:
+                lo = k
+                warnings.append("magazine_editorial_blurbs_removed")
+    # These forms of editor text are explicit, and the editorial paragraphs
+    # end before the first unitalicized narrative paragraph.
+    editorial_heading = next(
+        (
+            i
+            for i in range(max(0, lo - 45), min(hi, lo + 55))
+            if re.match(
+                r"(?i)^\s*(?:a classic reprint from|introduction by)\b", lines[i]
+            )
+        ),
+        None,
+    )
+    if editorial_heading is not None and editorial_heading >= lo - 5:
+        intro = next(
+            (
+                i
+                for i in range(editorial_heading, min(hi, editorial_heading + 12))
+                if re.match(r"(?i)^\s*introduction by\b", lines[i])
+            ),
+            None,
+        )
+        if intro is not None:
+            k = intro + 1
+            while k < min(hi, intro + 85):
+                if lines[k].strip() and not lines[k].lstrip().startswith("_"):
+                    # Continuation lines of italicized paragraphs are also
+                    # editorial. Blank lines followed by a non-italic line
+                    # are the first plausible narrative boundary.
+                    if k > intro + 3 and not lines[k - 1].strip():
+                        lo = max(lo, k)
+                        warnings.append("editorial_introduction_removed")
+                        break
+                k += 1
+    # Standalone "This etext was produced" paragraph and accompanying
+    # rights discussion are editorial, even without a Transcriber's heading.
+    if lo < hi and re.match(r"(?i)^\s*this\s+e-?text\s+was\s+produced\b", lines[lo]):
+        k = lo
+        while k < hi and lines[k].strip():
+            k += 1
+        lo = k
+        warnings.append("unlabeled_etext_credit_removed")
+    return lo
+
+
+def _refine_repeated_display_heading(
+    lines, lo, hi, title, authors, pseudonyms, warnings
+):
+    """Strip isolated repeated title, byline, and publication epigraph near the chosen start.
+
+    Only uses actual heading matches in a small window around an already
+    identified story boundary. It does not scan the entire narrative.
+    """
+    names = list(authors or []) + list(pseudonyms or [])
+    limit = min(hi, max(lo + 18, 225))
+    matches = []
+    for i in range(max(0, lo - 95), min(limit, lo + 95)):
+        last = _title_span(lines, i, min(hi, i + 6), title)
+        if last is None:
+            continue
+        if i > 0 and lines[i - 1].strip() and not lines[i].startswith(" "):
+            continue
+        matches.append((i, last))
+
+    if not matches:
+        return lo
+
+    # Accept an immediately following repeat, or a later title after a
+    # copyright/publication introduction. Do not jump across narrative prose.
+    candidates = []
+    for i, last in matches:
+        if i <= lo and last + 1 >= lo - 2:
+            candidates.append((i, last))
+        elif lo < i <= lo + 95:
+            between = " ".join(lines[lo:i]).casefold()
+            editorial = bool(
+                re.search(
+                    r"copyright|published|publishers|introduction|\bthis etext\b|how did it happen",
+                    between,
+                )
+            )
+            empty_or_near = i - lo <= 8 and not any(
+                _prose(x.strip()) for x in lines[lo:i]
+            )
+            if editorial or empty_or_near:
+                candidates.append((i, last))
+    if not candidates:
+        return lo
+    i, last = candidates[-1]
+    pos = max(lo, last + 1)
+    while pos < min(hi, last + 25) and not lines[pos].strip():
+        pos += 1
+    # A freestanding 'by' followed by a metadata-matched author name.
+    if pos < hi and re.fullmatch(r"(?i)_?by_?", lines[pos].strip()):
+        j = pos + 1
+        while j < min(hi, pos + 5) and not lines[j].strip():
+            j += 1
+        if j < hi and _author_line(lines[j], names):
+            pos = j + 1
+    elif pos < hi and _author_line(lines[pos], names):
+        pos += 1
+    while pos < hi and not lines[pos].strip():
+        pos += 1
+    # Epigraph: isolated indented quotation, attributed to scripture / a
+    # named source, followed by a paragraph break before narrative.
+    if pos < hi and (lines[pos].startswith("  ") or lines[pos].strip().startswith("¶")):
+        j = pos
+        while j < min(hi, pos + 12) and lines[j].strip():
+            j += 1
+        verse = " ".join(x.strip() for x in lines[pos:j])
+        if re.search(
+            r"(?:--|—)\s*(?:MARK|LUKE|MATTHEW|JOHN|ACTS|PSALMS?)\s+[IVXLCDM0-9]+\s*:",
+            verse,
+            re.I,
+        ):
+            pos = j
+            while pos < hi and not lines[pos].strip():
+                pos += 1
+            warnings.append("scriptural_epigraph_removed")
+    if pos > lo:
+        warnings.append("repeated_title_and_byline_removed")
+        return pos
+    return lo
+
+
+def _trim_terminal_imprint(lines, lo, hi, authors, pseudonyms, warnings):
+    """Remove publisher colophons and printer imprints only at the end."""
+    end = hi
+
+    def previous_nonempty(k):
+        while k > lo and not lines[k - 1].strip():
+            k -= 1
+        return k
+
+    for _ in range(5):
+        end = previous_nonempty(end)
+        if end <= lo:
+            break
+        j = end - 1
+        while j > lo and lines[j - 1].strip():
+            j -= 1
+        paragraph = " ".join(x.strip() for x in lines[j:end])
+        if SCENE.fullmatch(paragraph.strip()):
+            end = j
+            warnings.append("terminal_scene_divider_removed")
+            continue
+
+        # Gutenberg printed colophons often use 'HERE ENDS <title> BY <author>'
+        # plus publisher/printer/date. This is distinct from story narration.
+        colophon = bool(re.match(r"(?i)^here ends\b", paragraph)) and bool(
+            re.search(r"(?i)\b(?:published by|printed for|press|company)\b", paragraph)
+        )
+        imprint = (
+            bool(re.match(r"(?i)^(?:the )?university press\b", paragraph))
+            and len(paragraph) < 180
+        )
+        if colophon or imprint:
+            end = j
+            warnings.append(
+                "terminal_publisher_colophon_removed"
+                if colophon
+                else "terminal_printer_imprint_removed"
+            )
+            continue
+        break
+    return end
+
+
+def _trim_trailing_transcriber_note(lines, lo, hi, warnings):
+    """A terminal transcriber's note may have blank lines after its heading."""
+    lower = max(lo, hi - 45)
+    for i in range(hi - 1, lower - 1, -1):
+        if not _editor_heading(lines[i].strip()):
+            continue
+        tail = [s.strip() for s in lines[i + 1 : hi] if s.strip()]
+        # Avoid truncating a narrative that follows an editorial note.
+        if tail and (len(tail) > 12 or any(len(s) > 250 for s in tail)):
+            continue
+        warnings.append("terminal_transcriber_note_removed")
+        return i
+    return hi
+
+
+def clean_gutenberg_story(
+    text: str,
+    title: Optional[Union[str, Sequence[str]]] = None,
+    authors: Optional[Sequence[str]] = None,
+    pseudonyms: Optional[Sequence[str]] = None,
+    *,
+    remove_scene_breaks: bool = True,
+    unwrap_lines: bool = True,
+    strip_italics: bool = True,
+    remove_the_end: bool = False,
+    return_diagnostics: bool = False,
+):
+    """Extract Gutenberg narrative using optional externally supplied metadata.
+
+    `authors` and `pseudonyms` are sequences of names (not one comma-delimited
+    string). Returns a string, or (string, diagnostics dictionary).
+    """
+    norm = text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
+    lines = norm.split("\n")
+    lo, hi, report = identify_story_boundaries(norm, title, authors, pseudonyms)
+    warnings = list(report.warnings)
+    lo = _refine_front_boundary(lines, lo, hi, title, warnings)
+    lo = _refine_repeated_display_heading(
+        lines, lo, hi, title, authors, pseudonyms, warnings
+    )
+    hi = _trim_terminal_imprint(lines, lo, hi, authors, pseudonyms, warnings)
+    hi = _trim_trailing_transcriber_note(lines, lo, hi, warnings)
+    hi = _trim_terminal_imprint(lines, lo, hi, authors, pseudonyms, warnings)
+    report.narrative_start_line = lo + 1
+    cleaned, removed = clean_story_text(
+        "\n".join(lines[lo:hi]),
+        remove_scene_breaks=remove_scene_breaks,
+        unwrap_lines=unwrap_lines,
+        strip_italics=strip_italics,
+        remove_the_end=remove_the_end,
+        return_removed_count=True,
+    )
+    report.removed_editorial_blocks = removed
+    if re.search(
+        r"(?im)^\s*(?:produced by|transcriber|\[illustration|table of contents)\b",
+        cleaned,
+    ):
+        warnings.append("possible_editorial_residue")
+    if len(cleaned) < 400:
+        warnings.append("very_short_extraction")
+    report.warnings = tuple(dict.fromkeys(warnings))
+    return (cleaned, report.to_dict()) if return_diagnostics else cleaned
+
+
+def normalize(s):
+    return re.sub(r"[^a-z0-9]+", " ", re.sub(r"[_*]", "", s.lower())).strip()
+
+
+def find_magazine_start(lines, lower, upper, titles, authors):
+    """Find narrative after an anchored display byline, or return None.
+
+    Require a metadata-matched author or a heading-to-byline relationship
+    for metadata-free documents. Avoid deleting bylines inside narrative.
+    """
+    max_line = min(upper, lower + 125)
+    names = {normalize(x) for x in authors if x}
+    titlenames = {normalize(x) for x in titles if x}
+    candidates = []
+    for i in range(lower, max_line):
+        s = lines[i].strip()
+        m = re.fullmatch(r"(?i)_?by_?\s*(?:\.{2,}\s*)?(.{3,85}?)_?\s*", s)
+        if not m:
+            continue
+        person = normalize(m.group(1))
+        if len(person.split()) > 6:
+            continue
+        known = person in names or any(
+            person.split()[-1] == a.split()[-1] and person.split()[0] == a.split()[0]
+            for a in names
+            if a
+        )
+        preceding = [lines[j].strip() for j in range(max(lower, i - 24), i)]
+        near_title = any(t and t in normalize(" ".join(preceding)) for t in titlenames)
+        # In a headerless document, a short isolated byline with display title
+        # above is supporting but weaker evidence than supplied metadata.
+        if not (known or near_title):
+            # In headerless ebooks, a short centered title appearing before
+            # a centered standalone byline is a plausible display title.
+            heading = any(
+                5 <= len(lines[j]) - len(lines[j].lstrip())
+                and 2 <= len(lines[j].split()) <= 8
+                and len(lines[j].strip()) < 80
+                and lines[j].strip()[0].isupper()
+                for j in range(max(lower, i - 18), i)
+                if lines[j].strip()
+            )
+            if not (heading and i < lower + 50):
+                continue
+        candidates.append((i, known, near_title))
+    if not candidates:
+        return None
+    i = next((x[0] for x in candidates if x[1] and x[2]), candidates[0][0])
+    j = i + 1
+
+    while j < upper and j < i + 45:
+        s = lines[j].strip()
+        if not s:
+            j += 1
+            continue
+        if re.fullmatch(r"(?:\*\s*){3,}", s):
+            j += 1
+            continue
+        if _front_credit(s) or re.match(r"(?i)(?:author of\b|\[illustration)", s):
+            j += 1
+            continue
+        # A fully italicized short magazine strapline/teaser.
+        if s.startswith("_"):
+            k = j
+            while k < upper and lines[k].strip():
+                k += 1
+            para = " ".join(x.strip() for x in lines[j:k])
+            if (
+                para.rstrip().endswith("_") or para.rstrip().endswith("....")
+            ) and k - j <= 8:
+                j = k
+                continue
+        # Standalone magazine taglines that end in four dots.
+        k = j
+        while k < upper and lines[k].strip():
+            k += 1
+        para = " ".join(x.strip() for x in lines[j:k])
+        if para.endswith("....") and len(para) < 400:
+            j = k
+            continue
+        # A magazine standfirst is often a one/two-line indented caption,
+        # set off by blank lines from the flush-left narrative below.
+        if (
+            len(para.split()) < 38
+            and k - j <= 3
+            and all(lines[x].startswith(" ") for x in range(j, k))
+            and k + 2 < upper
+            and any(
+                lines[x].strip() and not lines[x].startswith(" ")
+                for x in range(k + 1, min(k + 5, upper))
+            )
+        ):
+            j = k
+            continue
+        # Editorial introductions describing the author/story and addressing readers.
+        if re.match(r"(?i)(?:the author of this story|this story (?:is|was))\b", s):
+            j = k
+            continue
+        break
+    return j
+
+
+#################################################################
 
 
 def chaptered(text):
@@ -171,20 +1323,99 @@ def chaptered(text):
         return result >= 2 or possible_titles >= 2
 
 
-def is_number(string):
-    """Determine whether a string can be converted into a number.
+def possible_internal_chapter_name(line):
+    if line.strip().isupper() and len(line.strip().split(" ")) < 7:
+        if line.strip()[0] == '"' and line.strip()[-2:] == '."':
+            return False
+        if line.strip()[0] == '"' and line.strip()[-1:] == '"':
+            return False
+        if line.strip()[-1:] == ":":
+            return False
+        if line.strip()[0] == "\“" and line.strip()[-1:] == "\”":
+            return False
+        #        if line.strip() == "THE END.":
+        #            return False
+        if line.strip()[0] == "_" and line.strip()[-1:] == "_":
+            return False
+        if not any(
+            exception == line.strip() for exception in storymap.TITLE_EXCEPTIONS
+        ):
+            return True
+
+    return False
+
+
+def subject_ok(subject):
+    """Return True if the subject is consistent with what we want (short fiction).
 
     Args:
-        string (str): The string to check.
+        subject (frozenset): a string or list of strings representing the subject from the story metadata.
+    Returns:
+        bool: True if the subject appears to be short fiction, False otherwise.
+    """
+
+    if bad_subjects(subject):
+        return False
+
+    if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
+        return True
+
+    return False
+
+
+def author_ok(author):
+    """Return True if the author is consistent with what we want.
+
+    Args:
+        author (frozenset): A frozenset representing the author from the metadata of the story.
+    Returns:
+        bool: True if the author is consistent with what we want, False otherwise.
+    """
+    return len(list(author)) > 0
+
+
+def title_ok(title):
+    """Return True if the title is consistent with a valid story.
+
+    Args:
+        title (list[str]): A list of titles to check.
 
     Returns:
-       bool: True if the string can be converted to an integer, False otherwise.
+        bool: True if the title is consistent with what we want, False otherwise.
     """
-    try:
-        int(string)
-        return True
-    except ValueError:
+
+    result = True
+    if len(title) > 1:  # multiple titles
+        for a_title in title:
+            result = result and title_ok([a_title])
+
+        return result
+
+    if "; and" in title[0].strip().lower():
         return False
+
+    if ", and" in title[0].split("\n")[0].strip().lower():
+        return False
+
+    if "index of the project gutenberg" in title[0].lower():
+        return False
+
+    for part_indicator in storymap.EXCLUDED_TITLE_PART_WORDS:
+        if re.search(rf"{part_indicator}\s*\d+", title[0], re.IGNORECASE):
+            return False
+
+    for piece in title[0].split(" "):
+        piece = piece.lower()
+
+        if piece in storymap.EXCLUDED_TITLE_WORDS:
+            return False
+
+    return True
+
+
+def story_excluded(story_id):
+    """Return True if OK to try this story, False otherwise"""
+    return story_id in storymap.STORIES_TO_EXCLUDE
 
 
 def only_english(languages, target="en"):
@@ -202,19 +1433,6 @@ def only_english(languages, target="en"):
     other_languages = set(languages)
     other_languages.remove(target)
     return not other_languages
-
-
-def pen_names(name):
-    """Return a list of pen names for a given author name, including the original name.
-    Args:
-        name (str): The canonical name of the author.
-    Returns:
-        list: A list of pen names for the author, including the original name.
-    """
-    all_names = [name]
-    if name in storymap.PEN_NAMES:
-        all_names = all_names + storymap.PEN_NAMES[name]
-    return all_names
 
 
 def fiction(subject):
@@ -278,1088 +1496,7 @@ def bad_subjects(subjects):
     return False
 
 
-def subject_ok(subject):
-    """Return True if the subject is consistent with what we want (short fiction).
-
-    Args:
-        subject (frozenset): a string or list of strings representing the subject from the story metadata.
-    Returns:
-        bool: True if the subject appears to be short fiction, False otherwise.
-    """
-
-    if bad_subjects(subject):
-        return False
-
-    if loc_fiction(subject) and (short_story(subject) or fiction(subject)):
-        return True
-
-    return False
-
-
-def author_ok(author):
-    """Return True if the author is consistent with what we want.
-
-    Args:
-        author (frozenset): A frozenset representing the author from the metadata of the story.
-    Returns:
-        bool: True if the author is consistent with what we want, False otherwise.
-    """
-    return len(list(author)) > 0
-
-
-def title_multiple_lines(titles):
-    """Return True if the title has multiple lines.   Current legacy code
-    Args:
-        titles (string): A string representing the title from the metadata of the story.
-
-    Returns:
-        bool: True if the title has multiple lines, False otherwise.
-    """
-
-    contains = False
-
-    for title in titles:
-        if "\n" in title:
-            contains = True
-
-    return contains
-
-
-def title_ok(title):
-    """Return True if the title is consistent with a valid story.
-
-    Args:
-        title (list[str]): A list of titles to check.
-
-    Returns:
-        bool: True if the title is consistent with what we want, False otherwise.
-    """
-
-    result = True
-    if len(title) > 1:  # multiple titles
-        for a_title in title:
-            result = result and title_ok([a_title])
-
-        return result
-
-    if "; and" in title[0].strip().lower():
-        return False
-
-    if ", and" in title[0].split("\n")[0].strip().lower():
-        return False
-
-    if "index of the project gutenberg" in title[0].lower():
-        return False
-
-    for part_indicator in storymap.EXCLUDED_TITLE_PART_WORDS:
-        if re.search(rf"{part_indicator}\s*\d+", title[0], re.IGNORECASE):
-            return False
-
-    for piece in title[0].split(" "):
-        piece = piece.lower()
-
-        if piece in storymap.EXCLUDED_TITLE_WORDS:
-            return False
-
-    return True
-
-
-def make_title(title):
-    """Return a cleaned-up version of the title.
-
-    Args:
-        title (string): A string representing the title from the metadata of the story.
-    Returns:
-        string: A cleaned-up version of the title.
-    """
-    # First try splitting by \n and attempt to remove any trailing year.
-    title_array = title.split("\n")
-    if len(title_array) == 2 and is_number(title_array[1]):
-        title_number = int(title_array[1])
-        if title_number > 1800 and title_number < 1960:
-            return title_array[0]
-
-    # Next try splitting by \r\n and attempt to remove any trailing item.
-    title_array = title.split("\r\n")
-    if len(title_array) != 1:
-        return title_array[0]
-
-    # If both those fail, return the title as is.
-    return title
-
-
-def intrusive_paragraph(paragraph):
-    """Return True if we believe the paragraph is intrusive
-    Args:
-        paragraph (str):  A string representing a paragraph
-    Returns:
-        book:  True if the paragraph is deemed to be extra textual.
-    Note:  The specific things tested should be moved to storymap
-    """
-
-    result = True
-
-    if len(paragraph) == 0:
-        result = False
-
-    lines = paragraph.split("\n")
-
-    for line in lines:
-        stripped = line.strip().lower()
-        if stripped.startswith("typographical errors corrected"):
-            return True
-        if stripped.startswith('"obvious punctuation errors repaired'):
-            return True
-        if stripped.startswith("this etext was produced"):
-            return True
-        if stripped.startswith("|this etext was produced"):
-            return True
-        if stripped.startswith("classic reprint from"):
-            return True
-        if stripped.startswith("the country life press"):
-            return True
-        if stripped.startswith("the sentence on page"):
-            return True
-        if stripped.startswith("printed in u. s. a."):
-            return True
-        if stripped.startswith("all rights reserved"):
-            return True
-        if stripped.startswith("printed in the united states of america"):
-            return True
-        if stripped.startswith("a fragment from the journal"):
-            return True
-        if stripped == "printed by":
-            return True
-        if stripped.startswith("reprinted by permission of the author"):
-            return True
-        if stripped.startswith("copyright,") or stripped.startswith("copyright:"):
-            return True
-        if stripped.startswith("heading by"):
-            return True
-        if "copies of this book printed on" in stripped:
-            return True
-        if stripped.startswith("author of "):
-            return True
-        if len(line) == 0:
-            continue
-
-        result = False
-
-    return result
-
-
-def chunk_contains_transcriber_info(chunk):
-    """Return True if the chunk of story has transcriber info
-
-    Args:
-        chunk (string):  A chunk of the story.
-
-    Returns:
-        bool: True if the chunk has a transcriber on one of the lines, False otherwise.
-    """
-    lines = chunk.split("\n")
-    if len(lines) > 10:
-        return False
-
-    contains = False
-    for line in lines:
-        contains = contains or line_contains_transcriber_info(line)
-
-    return contains
-
-
-def line_contains_transcriber_info(line):
-    """Return True if the line contains transcriber information.
-    Args:
-        line (list): A string representing a line of the story.
-    Returns:
-        bool: True if the line contains transcriber information, False otherwise."""
-    stripped = line.strip().lower()
-
-    if len(stripped) == 0:
-        return False
-
-    return (
-        stripped.startswith("transcriber")
-        or stripped.startswith("[transcriber")
-        or stripped.startswith("_transcriber")
-        or (stripped[0] == "|" and "transcriber's note" in stripped)
-    )
-
-
-def line_contains_footnote(line):
-    """Return True if the line contains a footnote
-    Args:
-        line (str): A string representing a line of the story.
-    Returns:
-        bool: True if the line contains a footnote, False otherwise."""
-    stripped = line.strip().lower()
-
-    return (
-        stripped.startswith("footnote")
-        or stripped.startswith("[footnote")
-        or stripped.startswith("_footnote")
-    )
-
-
-def line_contains_illustration(line):
-    """Return True if the line contains illustration information.
-    Args:
-        line (str): A string representing a line of the story.
-    Returns:
-        bool: True if the line contains illustration information, False otherwise."""
-    stripped = line.strip().lower()
-    return (
-        stripped.startswith("illustrat")
-        or stripped.startswith("[illustrat")
-        or stripped.startswith("_illustrat")
-    )
-
-
-def line_contains_frontispiece(line):
-    """Return True if the line contains illustration information.
-    Args:
-        line (str): A string representing a line of the story.
-    Returns:
-        bool: True if the line contains illustration information, False otherwise."""
-    stripped = line.strip().lower()
-    return (
-        stripped.startswith("frontispiece")
-        or stripped.startswith("[frontispiece")
-        or stripped.startswith("_frontispiece")
-    )
-
-
-def chunk_contains_sidenote(chunk):
-    """Return True if the chunk of story has a publisher in it.
-
-    Args:
-        chunk (string):  A chunk of the story.
-
-    Returns:
-        bool: True if the chunk has a sidenote on one of the lines, False otherwise.
-    """
-    lines = chunk.split("\n\n")
-    if len(lines) > 10:
-        return False
-
-    contains = False
-    for line in lines:
-        contains = contains or line_contains_sidenote(line)
-
-    return contains
-
-
-def line_contains_sidenote(line):
-    """Return True if the line has a sidenote in it.
-
-    Args:
-        line (string):  A line of the story.
-
-    Returns:
-        bool: True if the line contains a sidenote, False otherwise.
-    """
-
-    stripped = line.strip().lower()
-
-    return (
-        stripped.startswith("sidenote")
-        or stripped.startswith("[sidenote")
-        or stripped.startswith("_sidenote")
-    )
-
-
-def chunk_contains_publisher(chunk):
-    """Return True if the chunk of story has a publisher in it.
-
-    Args:
-        chunk (string):  A chunk of the story.
-
-    Returns:
-        bool: True if the chunk has a publisher on one of the lines, False otherwise.
-    """
-    lines = chunk.split("\n\n")
-    if len(lines) > 10:
-        return False
-
-    contains = False
-    for line in lines:
-        contains = contains or line_contains_publisher(line)
-
-    return contains
-
-
-def line_contains_publisher(line):
-    """Return True if the line has a publisher in it.
-
-    Args:
-        line (string):  A line of the story.
-
-    Returns:
-        bool: True if the line contains a known publisher, False otherwise.
-    """
-    result = False
-
-    for publisher in storymap.PUBLISHERS:
-        if publisher.lower() in line.strip().lower():
-            result = True
-
-    return result
-
-
-def line_contains_publisher_city(line, publisher):
-    """Return True if the line has a publisher in it.
-
-    Args:
-        line (string):  A line of the story.
-
-    Returns:
-        bool: True if the line contains XXXXXX, False otherwise.
-    """
-
-    if publisher is None:
-        return False
-
-    city = find_city_for_publisher(publisher)
-    if city == line.strip().lower():
-        return True
-
-    return False
-
-
-def find_city_for_publisher(publisher):
-    result = None
-
-    for publisher_info in storymap.PUBLISHER_CITIES:
-        if publisher_info[0].lower() in publisher.strip().lower():
-            result = publisher_info[1]
-
-    return result
-
-
-def chunk_contains_author(chunk, authors, alias, limit=8):
-    """Detect whether the chunk contains the author of the story or other author-like content.
-
-    We limit the size of the chunk so we do not find this in a longer chunk of text.
-
-    Questions:
-    - What about folks with more than two names? Or just one name?
-    - Do all metadata use LN, FN format?
-    - What about pen names? We forgot about pen names :-(
-    - The logic for the 'by' case seems off. We should be checking for the names.
-
-    Args:
-        chunk (str): A string representing a chunk of the story.
-        authors (list): A list of strings representing the author(s) of the story.
-        limit (int): An integer representing the maximum number of words in the chunk to consider
-            it as an author chunk.
-    Returns:
-        bool: True if the chunk contains the author, False otherwise.
-    """
-
-    # KMM A hack a day keeps the bugs away
-    sh_lines = chunk.replace("\n\n", "!KMM").replace("\n", " ").replace("!KMM", "\n\n")
-
-    lines = chunk.split("\n")
-    if len(lines) > 10:
-        return False
-
-    contains = False
-    for line in lines:
-        contains = contains or line_contains_author(line, authors, alias)
-
-    if not contains:
-        for line in sh_lines.split("\n"):
-            contains = contains or line_contains_author(line, authors, alias)
-
-    return contains
-
-
-def chunk_contains_title(original_chunk, title):
-    """Detect whether the chunk contains the title of the story.
-
-    Some things have an extra period.  Some are surrounded by _.   Some leave off the !.
-
-    Args:
-        original_chunk (str): A string representing a chunk of the story.
-        title (list[str]): A list of titles from metadata.
-    Returns:
-        bool: True if the chunk contains the title, False otherwise.
-    """
-
-    lines = original_chunk.split("\n\n")
-    if len(lines) > 10:
-        return False
-
-    contains = False
-    for line in lines:
-        contains = contains or line_contains_title(line, title)
-
-    return contains
-
-
-def is_subtitle_title(title):
-    """Does the title contain a subtitle?
-    Args:
-        title (list):  Strings representing all known titles.
-    Returns:
-        bool: True if the title seems to be subtitled, False otherwise.
-    """
-
-    multiline = False
-
-    for single_title in title:
-        if ":" in single_title:
-            multiline = True
-
-    return multiline
-
-
-def is_multiline_title(title):
-    """Does the title cross multiple lines?
-    Args:
-        title (list):  Strings representing all known titles.
-    Returns:
-        bool: True if the title seems to be across multiple lines, False otherwise.
-    """
-
-    multiline = False
-
-    for single_title in title:
-        if "\n" in single_title:
-            multiline = True
-
-    return multiline
-
-
-def split_title(title):
-    """Split a multiple title into pieces
-    Args:
-        title (list):  A string representing a (potential?) multiple element title.
-    Returns:
-        list:  List of titles pieces.
-    """
-
-    if title.find("\n") > -1:
-        return title.split("\n")
-    elif title.find(":") > -1:
-        return title.split(":")
-    else:
-        return [title]  # ensures all returns are indeed lists
-
-
-def line_contains_title(original_line, title):
-    """Detect whether the line contains the title of the story.
-
-    Some things have an extra period.  Some are surrounded by _.   Some leave off the !.
-
-    Args:
-        original_line (str): A string representing a line of the story.
-        title (list[str]): A list of known titles from metadata.
-    Returns:
-        bool: True if the line contains the title, False otherwise.
-    """
-    multiline_title = is_multiline_title(title) or is_subtitle_title(title)
-    multiline_line = is_multiline_title(original_line)
-
-    if multiline_line:
-        answer = False
-        for line_piece in original_line.split("\n"):
-            answer = answer or line_contains_title(line_piece, title)
-
-        if answer:
-            return True
-
-    stripped = original_line.strip().lower()
-    if stripped.find("rn\n") > -1:
-        line = (
-            (" ".join([piece.strip() for piece in original_line.split("rn\n")]))
-            .lower()
-            .removesuffix("printed in the united states of america")
-            .strip()
-        )
-    elif stripped.find("\n") > -1:
-        line = (
-            (" ".join([piece.strip() for piece in original_line.split("\n")]))
-            .lower()
-            .removesuffix("printed in the united states of america")
-            .strip()
-        )
-    else:
-        line = original_line.strip().lower()
-
-    foundTitle = False
-    for single_title in list(title):
-        single_title = single_title.lower()
-
-        # Skip titles that are obviously too different in length.
-        if abs(len(line) - len(single_title)) > 10:
-            foundTitle = foundTitle or False
-
-        if multiline_title:
-            # need to check each piece, very hack-y
-            for single_title_piece in split_title(single_title):
-                foundTitle = foundTitle or line_contains_title_piece(
-                    line, single_title_piece
-                )
-        else:
-            foundTitle = foundTitle or line_contains_title_piece(line, single_title)
-
-        if foundTitle:
-            return True
-
-        # Handle titles that start with "The ".
-        if single_title[:4] == "the ":
-            return line_contains_title(line, [single_title[4:]])
-
-        # We didn't find any kind of match.
-
-    return False
-
-
-def line_contains_title_piece(line, title_piece):
-    """Split a multiple title into pieces
-    Args:
-        line (string):  Current line
-        title_piece (list):  A substring from a title.
-    Returns:
-        bool:  True if line contains a title part
-    """
-
-    foundTitle = False
-
-    # Exact matches, with some common variations.
-    if (
-        line == title_piece
-        or line == "_" + title_piece + "_"
-        or line == title_piece + "."
-        or line[:-1] == title_piece
-        or line[1:-1] == title_piece
-    ):
-        foundTitle = foundTitle or True
-
-    # Fuzzy match for minor variations.
-    if (
-        max(
-            difflib.SequenceMatcher(None, line, title_piece).ratio(),
-            difflib.SequenceMatcher(None, title_piece, line).ratio(),
-        )
-        > 0.89
-    ):  # KMM
-        foundTitle = foundTitle or True
-
-    return foundTitle
-
-
-def find_gutenberg_line(text_array):
-    """Some stories have the gutenberg footers!
-    Args:
-        text_array (array):  The broken up story text.
-    Returns:
-        int:  Element of text array containing the gutenberg flag or -1.
-    """
-    location = -1
-
-    for index, line in enumerate(text_array):
-        if line.strip().startswith("*** END OF THE PROJECT GUTENBERG EBOOK"):
-            location = index
-            break
-
-    return location
-
-
-def find_author_line(text_array, authors, alias, title, three_newlines_flag=False):
-    """Where does the author occur last?
-    Args:
-        text_array (array):  The broken up story text.
-        authors
-        alias
-        title
-        three_new_lines_flag (bool):
-
-    Returns:
-        int:  Final valid location of author in text.
-    """
-
-    location = -1
-
-    for index, line in enumerate(text_array):
-        if (
-            chunk_contains_author(line, authors, alias)
-            and index < len(text_array) - 1
-            and len(
-                remove_non_text(
-                    text_array[index + 1 :], authors, alias, title, three_newlines_flag
-                )
-            )
-            > 0
-        ):
-            location = index
-
-    return location
-
-
-def find_title_line(text_array, title, authors, alias, three_newlines_flag=False):
-    """Where does the title occur last?
-        Might make the how many titles function unnecessary.
-
-    Args:
-        text_array (array):  The broken up story text.
-        authors
-        alias
-        title
-        three_new_lines_flag (bool):
-
-    Returns:
-        int:  Final valid location of author in text.
-    """
-
-    location = -1
-
-    for index, line in enumerate(text_array):
-        if (
-            chunk_contains_title(line, title)
-            and index < len(text_array) - 1
-            and len(
-                remove_non_text(
-                    text_array[index + 1 :], authors, alias, title, three_newlines_flag
-                )
-            )
-            > 0
-        ):
-            location = index
-
-    return location
-
-
-def find_end_line(text_array):
-    """Does the story have a line containing an explicit end?
-    Args:
-        text_array (array):  The broken up story text.
-
-    Returns:
-        int:  Final location of explicit end marker or -1.
-
-    """
-    location = -1
-
-    for index, line in enumerate(text_array):
-        if line.strip().lower() == "the end" or line.strip().lower() == "end":
-            location = index
-
-    return location
-
-
-def line_contains_author(line, authors, alias, limit=6):
-    """Detect whether the line contains the author of the story or other author-like content.
-
-    We limit the size of the line so we do not find this in a longer line of text.
-
-    Questions:
-    - What about folks with more than two names? Or just one name?
-    - Do all metadata use LN, FN format?
-    - What about pen names? We forgot about pen names :-(
-    - The logic for the 'by' case seems off. We should be checking for the names.
-
-    Args:
-        line (str): A string representing a line of the story.
-        authors (list): A list of strings representing the author(s) of the story.
-        limit (int): An integer representing the maximum number of words in the line to consider
-            it as an author line.
-    Returns:
-        bool: True if the line contains the author, False otherwise.
-    """
-    if len(authors) == 1:  # only one author, woo hoo!
-        # for author in pen_names(authors[0]):
-        for author in authors + alias + pen_names(authors[0]):
-            author_names = author.split(",")
-            last_name = author_names[0].strip().lower()
-            if len(author_names) < 2:
-                first_name = ""
-            else:
-                first_name = author_names[1].strip().split(" ")[0].lower()
-
-            # If an author is detected and the line is short enough, return True.
-            stripped = line.strip().lower()
-
-            if (
-                (first_name in stripped or first_name[0] + "." in stripped)
-                and last_name in stripped
-                and (stripped.startswith("copyright,") or len(line.split()) < limit)
-            ):
-                return True
-
-                # Handle lines that just say "by" or "by FN LN" or similar.
-                # KMM 06/24/26 MIGHT BREAK, figure this part out.  Do we need the check?
-            if (
-                stripped == "by"
-                or stripped.startswith("by ")
-                or stripped.startswith("_by ")
-                or stripped.startswith("_by_")
-            ):
-                # If the line is short enough and starts with by, assume it's the author line.
-                if len(line.split()) < limit:
-                    return True
-
-                # If the line is longer than the limit, check for both names.
-                if first_name in stripped and last_name in stripped:
-                    # This should only occur if the line is longer than limit previously.
-                    return True
-
-        # If we get here, we didn't find the author and there was only one author
-        return False
-
-    # If there are two authors, check for both.
-    if len(authors) == 2:
-        author1 = [authors[0]]
-        author2 = [authors[1]]
-
-        author1_present = line_contains_author(line, author1, alias, limit * 2)
-        author2_present = line_contains_author(line, author2, alias, limit * 2)
-        return author1_present and author2_present
-
-    # Don't attempt to match more than two authors.
-    # print("Multiple authors detected: ", authors)
-    return False
-
-
-def story_excluded(story_id):
-    """Return True if OK to try this story, False otherwise"""
-    return story_id in storymap.STORIES_TO_EXCLUDE
-
-
-def is_blank_line(line):
-    """Return True if the line is blank, False otherwise.
-    Args:
-        line (str): A string representing a line of the story.
-    Returns:
-        bool: True if the line is blank, False otherwise.
-    """
-    return len(line) == 0 or line[0] == " " or line[:2] == "\n "
-
-
-def in_body(line, title, author, alias):
-    """Return True if the line is in the body of the story, False otherwise.
-
-    Args:
-        line (str): A string representing a line of the story.
-        title (list[str]): A list of titles.
-        author (str): A string representing the author of the story.
-    Returns:
-        bool: True if the line is in the body of the story, False otherwise.
-    """
-
-    # Skip title and author lines.
-    if line_contains_title(line, title) or line_contains_author(line, author, alias):
-        return False
-
-    # Skip empty lines and indented lines.
-    if is_blank_line(line):
-        return False
-
-    # Skip lines with illustrator information.
-    if line_contains_illustration(line):
-        return False
-
-    if line_contains_sidenote(line):
-        return False
-
-    return True
-
-
-def fix_body(text, title, author, alias):
-    """Removes extraneous lines from the body of the story.
-
-    Args:
-        text (str): A string representing the body of the story.
-        title (list[str]):  A list of titles for the story.
-        author (str): A string representing the author of the story.
-        alias (str): A string representing the alias of the story.
-    Returns:
-        str: A string representing the cleaned-up body of the story.
-    """
-    text_array = text.split("\n\n")  # ? 2 or 3   was 3 on 6/22
-    fixed_body = []
-
-    #    for paragraph in text_array:
-    #        if line_contains_illustration(paragraph):
-    #            continue
-    #
-    #        fixed_body.append(paragraph)
-
-    first_time = True
-    for paragraph in text_array:
-        if first_time:
-            if line_contains_transcriber_info(paragraph):
-                continue
-            elif line_contains_illustration(paragraph):
-                continue
-            elif line_contains_sidenote(paragraph):
-                continue
-            elif line_contains_title(paragraph, title):
-                continue
-            elif line_contains_author(paragraph, author, alias):
-                continue
-            elif first_time and intrusive_paragraph(paragraph):
-                continue
-            elif first_time and len(paragraph) == 0:
-                continue
-            else:
-                first_time = False
-
-        fixed_body.append(paragraph)
-
-    # And now backwards!
-    final_fixed_body = []
-
-    first_time = True
-
-    fixed_body_reversed = list(reversed(fixed_body))
-    end_location = -1  # find_end_line(fixed_body_reversed)
-
-    if end_location != -1:
-        final_fixed_body = list(fixed_body_reversed)[end_location + 1 :]
-    else:
-        for paragraph in reversed(fixed_body):
-            if first_time:
-                if line_contains_transcriber_info(paragraph):
-                    continue
-                elif line_contains_illustration(paragraph):
-                    continue
-                elif line_contains_footnote(paragraph):
-                    final_fixed_body.append(paragraph)
-                    continue
-                elif line_contains_title(paragraph, title):
-                    continue
-                elif line_contains_author(paragraph, author, alias):
-                    continue
-                elif len(paragraph) == 0:
-                    continue
-                elif first_time and intrusive_paragraph(paragraph):
-                    continue
-                else:
-                    first_time = False
-
-            final_fixed_body.append(paragraph)
-
-    final_fixed_body.reverse()
-    final_body = "\n\n".join(final_fixed_body)
-
-    return final_body
-
-
-def remove_non_text(pieces, author, alias, title, three_newlines_flag=False):
-    """Return True if the line is in the body of the story, False otherwise.
-    Args:
-        text_array (array):  The broken up story text.
-        author (string):
-        alias (string):
-        title (string):
-        three_new_lines_flag (bool):
-
-    Returns:
-        array:
-    """
-
-    story_parts = []
-
-    title_chunk = "NO TITLE"
-    first_time = True
-    publisher_found = False
-    publisher = None
-    introduction = False
-
-    for piece in pieces:
-        if first_time:
-            if not (three_newlines_flag):
-                if line_contains_illustration(piece):
-                    continue
-                if line_contains_sidenote(piece):
-                    continue
-
-            # potentially dangerous---only one example?
-            if three_newlines_flag and piece.strip().startswith("Introduction by"):
-                introduction = True
-                continue
-            if introduction:
-                introduction = False
-                continue
-
-            if chunk_contains_transcriber_info(piece):
-                continue
-            if intrusive_paragraph(piece):
-                continue
-            if line_contains_frontispiece(piece):
-                continue
-            if line_contains_publisher(piece):
-                publisher = piece
-                publisher_found = True
-                continue
-            if chunk_contains_title(piece, title):
-                title_chunk = piece
-                continue
-            if chunk_contains_author(piece, author, alias):
-                if title_chunk == "NO TITLE":
-                    title_chunk = piece
-                    continue
-            if publisher_found and line_contains_publisher_city(piece, publisher):
-                publisher_found = False
-                continue
-            if len(piece) == 0:
-                continue
-
-        first_time = False
-        story_parts.append(piece)
-
-    return story_parts
-
-
-def body_of_text(text, author, alias, title, debug=False):
-    """Return the body of the story, i.e., the material after the title and author.
-    Args:
-        text (str): A string representing a story from Gutenberg in plain text.
-        author (list[str]): A list of authors of the story.
-        alias (list[str]): A list of aliases for the author(s) of the story.
-        title (list[str]): A list of titles for the story.
-        debug (bool): A boolean indicating whether to print debug information.
-    Returns:
-        str: A string representing the body of the story.
-    """
-    number_of_titles_found = 0
-    seen_author = False
-    seen_title = False
-    dont_look_flag = False
-
-    # title = make_title(list(title)[0])
-    number_of_titles = how_many_titles(text, title)
-
-    # do a 3 split first
-    pieces = text.split("\n\n\n")
-
-    aut = find_author_line(pieces, author, alias, title, True)
-    tit = find_title_line(pieces, title, author, alias, True)
-
-    new_text = text
-
-    loc3 = max(aut, tit)
-    if aut > -1 and tit > -1:
-        # we have found both....
-        dont_look_flag = True
-
-    if loc3 > -1:
-        pieces = pieces[loc3 + 1 :]
-        if len(pieces) == 1:
-            new_text = pieces[0]
-        else:
-            story_parts = remove_non_text(pieces, author, alias, title, True)
-            new_text = "\n\n\n".join(story_parts)
-
-    # now, repeat with 2 split
-    pieces = new_text.split("\n\n")
-
-    gut = find_gutenberg_line(pieces)
-    if gut != -1:  # how did the gutenberg.py miss this???
-        pieces = pieces[: gut - 1]
-
-    if not dont_look_flag:
-        aut = find_author_line(pieces, author, alias, title)
-        tit = find_title_line(pieces, title, author, alias)
-
-        loc2 = max(aut, tit)
-        # if loc3 > -1 and loc2 > 0:
-        #    loc2 = -1
-
-        if loc2 > -1:
-            pieces = pieces[loc2 + 1 :]
-            if len(pieces) == 1:
-                pieces = pieces[0].split("\n\n")
-
-    story_parts = remove_non_text(pieces, author, alias, title)
-    new_text = "\n\n".join(story_parts)
-
-    # fix the separator line
-    paragraph_array = new_text.split("\n\n")
-
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array
-        ]
-    )
-
-    final_body = fix_body(body.removeprefix("\n"), title, author, alias)
-
-    if len(final_body.split("\n\n")) > 10:
-        return final_body
-
-    # too small?
-    print("Suspected small text, trying fall back extraction.")
-
-    paragraph_array = text.split("\n\n")
-
-    for index, line in enumerate(paragraph_array):
-        #   KMM Useful for debugging
-        if debug:
-            print(
-                str(index)
-                + " : "
-                + str(number_of_titles)
-                + " - "
-                + str(seen_title)
-                + ", "
-                + str(seen_author)
-                + " -- "
-                + line[:60]
-            )
-        if (number_of_titles > 1) and (number_of_titles_found == number_of_titles):
-            break
-        if (number_of_titles == 0) and seen_author:
-            break
-        # added the n_o_t == 1
-        if (
-            number_of_titles == 1
-            and seen_title
-            and seen_author
-            and in_body(line, title, author, alias)
-        ):
-            break
-        if line_contains_title(line, title):
-            seen_title = True
-            number_of_titles_found = number_of_titles_found + 1
-        elif line_contains_author(line, author, alias):
-            seen_author = True
-        elif is_blank_line(line):
-            continue
-        elif (number_of_titles > 1) and (number_of_titles_found != number_of_titles):
-            continue
-        elif in_body(line, title, author, alias) and (seen_title or seen_author):
-            break  # ???
-        else:
-            continue
-
-    # should be in the body
-    body = "\n\n".join(
-        [
-            ("" if "*       *       *       *       *" in line else line)
-            for line in paragraph_array[index:]
-        ]
-    )
-
-    return fix_body(body.removeprefix("\n"), title, author, alias)
-
-
-def make_single_title(title):
-    if "\r\n" in title:
-        pieces = title.split("\r\n")
-
-        return pieces[0]
-
-    if "\n" in title:
-        pieces = title.split("\n")
-
-        return pieces[0]
-
-    return title
+#################################################################
 
 
 def _metadata_rejection(metadata, story):
@@ -1407,9 +1544,13 @@ def _inspect_metadata(story, metadata, source):
     # Physical newlines remain intact in the original-byte cache. Normalize only
     # at the paragraph parser boundary, matching the historical extraction rules.
     text = prepared.cleaned.text.replace("\r\n", "\n").replace("\r", "\n").strip()
-    body = body_of_text(
-        text, list(metadata.authors), list(metadata.aliases), list(metadata.titles)
+    body = clean_gutenberg_story(
+        text,
+        title=list(metadata.titles),
+        authors=list(metadata.authors),
+        pseudonyms=list(metadata.aliases),
     )
+
     report["body"] = body
     report["provenance"] = prepared.provenance()
     if chaptered(body):
@@ -1475,11 +1616,25 @@ def gather_story_result(gatherer, story, *, source):
     file_name = names.title_and_author_to_filename(
         title, author, ext=constants.FILE_SUFFIX, max_len=50
     )
+
+    title_db, author_part = file_name.split("__", 1)
+    author_db = author_part.rsplit(".", 1)[0]
+
+    # Checking must not insert anything: acquisition, extraction and publication
+    # can still fail or reject this story.
+    if registry.check_story(title_db, author_db):
+        return StoryGatherResult(
+            story, None, "Mass Quantities -- Story already appears", "skipped"
+        )
+
     story_slug = os.path.splitext(file_name)[0]
     existing = (
         pathlib.Path(gatherer.path) / story_slug / discovery.CANONICAL_STORY_FILENAME
     )
     if story_output.existing(existing):
+        # A previously published output is safe to register without acquiring
+        # the source again. This also reconciles an unregistered existing file.
+        registry.add_story(title_db, author_db, source="Gutenberg mass retrieval")
         return StoryGatherResult(story, str(existing), None, "reused")
     report = _inspect_metadata(story, metadata, source)
     if report["rejection"] is not None:
@@ -1502,4 +1657,10 @@ def gather_story_result(gatherer, story, *, source):
     )
     _, file_path = gatherer.ensure(story_slug)
     written = story_output.publish(file_path, data_to_save)
+
+    # Only register a newly published story. A False result may mean another
+    # process published the output first; do not assume publication succeeded.
+    if written:
+        registry.add_story(title_db, author_db, source="Gutenberg mass retrieval")
+
     return StoryGatherResult(story, file_path, None, "written" if written else "reused")
