@@ -1,0 +1,21 @@
+{
+  "packages": {
+    "spacy": "3.8.14",
+    "stanza": "1.14.0",
+    "torch": "2.7.1",
+    "en-core-web-sm": "3.8.0"
+  },
+  "stanza_resources_version": "1.14.0",
+  "stanza_resources_commit": "8048f8a171b7ae3678c499c8d11319231a30d8b5",
+  "stanza_resources_sha256": "4e41c1df152146fa26ed0c006a08feea7a60bb3414bb6d57dbda24ad2e3cb99c",
+  "stanza_files_md5": {
+    "en/tokenize/combined_nocharlm.pt": "249f1bb1c4aa1ee38b5690df8fc96937",
+    "en/mwt/combined.pt": "6e49e64f630823cfcd8ab62ca59f42fc",
+    "en/pos/combined_charlm.pt": "9de7bf3317248a3956c2b2f789b5fd1d",
+    "en/pretrain/conll17.pt": "c339580492002fb1f759537dfbc57fb2",
+    "en/forward_charlm/1billion.pt": "468b3377455fa0311565d46865f55afb",
+    "en/backward_charlm/1billion.pt": "1405948b125b4264fd17509d1b6175ca",
+    "en/lemma/combined_nocharlm.pt": "cc8fd88147aa2172ccee976e8db9c1f8",
+    "en/depparse/combined_charlm.pt": "fa261267dcc449374c589ce8436f0234"
+  }
+}

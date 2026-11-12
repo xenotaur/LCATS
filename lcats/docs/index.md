@@ -22,6 +22,8 @@ cd LCATS/lcats
 
 ### How-to guides
 
+- [Run ordinary tests and CPU NLP smoke checks](how-to/run-nlp-tests.md) — separate model setup, bounded checks, diagnostics, and manual/weekly CI
+
 - [Inspect conservative Gutenberg cleanup](how-to/gettenberg-cleanup.md)
 
 - [Maintain Gutenberg CI caches](how-to/gettenberg-ci-maintenance.md)

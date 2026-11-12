@@ -1,0 +1,79 @@
+name: CPU NLP smoke
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 8 * * 2"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: lcats
+        shell: bash
+    env:
+      STANZA_RESOURCES_DIR: ${{ github.workspace }}/.cache/nlp-smoke/stanza
+      CUDA_VISIBLE_DEVICES: "-1"
+      OMP_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+      LCATS_CACHE_DIR: ${{ github.workspace }}/.lcats-unit-cache
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: |
+            lcats/pyproject.toml
+            lcats/tests/smoke/requirements.txt
+            lcats/tests/smoke/models.json
+      - name: Install smoke environment (network allowed)
+        timeout-minutes: 7
+        run: |
+          mkdir -p tmp/logs/smoke-ci
+          {
+            python -m pip install 'torch==2.7.1' --index-url https://download.pytorch.org/whl/cpu
+            python -m pip install -e '.[test]' -r tests/smoke/requirements.txt
+            python -m pip check
+            python -c 'import torch; assert torch.version.cuda is None, torch.version.cuda'
+            python -m pip freeze
+          } 2>&1 | tee tmp/logs/smoke-ci/install.log
+      - name: Restore versioned model files
+        id: models
+        uses: actions/cache@v4
+        with:
+          path: .cache/nlp-smoke/stanza
+          key: nlp-models-${{ runner.os }}-py311-${{ hashFiles('lcats/tests/smoke/models.json', 'lcats/tests/smoke/requirements.txt', 'lcats/tests/smoke/provision.py') }}
+      - name: Verify or provision pinned models (network allowed)
+        timeout-minutes: 6
+        run: |
+          echo 'Model cache hit: ${{ steps.models.outputs.cache-hit }}'
+          if ! scripts/smoke --check --log-dir tmp/logs/smoke-ci/prerequisites; then
+            python -m tests.smoke.provision 2>&1 | tee tmp/logs/smoke-ci/provision.log
+          fi
+          scripts/smoke --check --log-dir tmp/logs/smoke-ci/verified
+      - name: Run harness regressions and offline CPU inference
+        timeout-minutes: 5
+        run: |
+          scripts/test tests/analysis_tests/event_role_world_harness_test.py 2>&1 | tee tmp/logs/smoke-ci/harness.log
+          scripts/smoke --timeout 60 --log-dir tmp/logs/smoke-ci/inference 2>&1 | tee tmp/logs/smoke-ci/inference.log
+      - name: Retain setup and smoke diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpu-nlp-smoke-${{ github.run_id }}-${{ github.run_attempt }}
+          path: lcats/tmp/logs/
+          retention-days: 14
+          if-no-files-found: warn

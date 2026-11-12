@@ -16,28 +16,6 @@ from lcats.analysis.event_role_world import relation_extractor
 from lcats.analysis.event_role_world import schema
 from lcats.analysis.event_role_world import story_relation_extractor
 from lcats.analysis.event_role_world import surface_feature_extractor
-from lcats.utils import capture
-
-
-def _spacy_model_available() -> bool:
-    """Return True iff the "en_core_web_sm" spaCy model is installed.
-
-    Per the LCATS-specific offline/no-network-CI constraint recorded in
-    project/design/event-role-world-surface-feature-nlp-evaluation.md, tests
-    that require a downloaded NLP model must skip (not fail) in a clean
-    checkout where the model hasn't been fetched.
-    """
-    try:
-        import spacy
-
-        spacy.load("en_core_web_sm")
-        return True
-    except Exception:  # noqa: BLE001 - any load failure means "unavailable"
-        return False
-
-
-with capture.suppress_output(suppress_file_descriptors=True):
-    _SPACY_AVAILABLE = _spacy_model_available()
 
 
 class _SequencedFakeBackend:
@@ -344,58 +322,6 @@ class TestMakeNlpBackend(unittest.TestCase):
     def test_rejects_unknown_backend_name(self):
         with self.assertRaises(ValueError):
             surface_feature_extractor.make_nlp_backend("not_a_real_backend")
-
-
-def _stanza_model_available() -> bool:
-    """Return True iff the Stanza English model has been downloaded."""
-    try:
-        import stanza
-
-        stanza.Pipeline(
-            lang="en", processors="tokenize,pos,lemma,depparse", download_method=None
-        )
-        return True
-    except Exception:  # noqa: BLE001 - any load failure means "unavailable"
-        return False
-
-
-with capture.suppress_output(suppress_file_descriptors=True):
-    _STANZA_AVAILABLE = _stanza_model_available()
-
-
-class TestRealNLPBackends(unittest.TestCase):
-    """Direct integration coverage for both supported real backends.
-
-    Each backend's test skips independently if its model isn't downloaded,
-    so a checkout with only one model present still gets partial coverage
-    rather than an all-or-nothing skip.
-    """
-
-    @unittest.skipUnless(
-        _SPACY_AVAILABLE,
-        "en_core_web_sm not installed; run `python -m spacy download en_core_web_sm`",
-    )
-    def test_spacy_backend_produces_normalized_tokens(self):
-        backend = nlp_backend.SpacyBackend()
-        sentences = backend.analyze("The old machine hummed.")
-        self.assertEqual(len(sentences), 1)
-        tokens = sentences[0].tokens
-        self.assertTrue(any(t.upos == "VERB" for t in tokens))
-        # Exactly one token should be the sentence root (head_index == 0).
-        self.assertEqual(sum(1 for t in tokens if t.head_index == 0), 1)
-
-    @unittest.skipUnless(
-        _STANZA_AVAILABLE,
-        "Stanza 'en' model not downloaded; run stanza.download('en')",
-    )
-    def test_stanza_backend_produces_normalized_tokens(self):
-        with capture.suppress_output(suppress_file_descriptors=True):
-            backend = nlp_backend.StanzaBackend()
-            sentences = backend.analyze("The old machine hummed.")
-        self.assertEqual(len(sentences), 1)
-        tokens = sentences[0].tokens
-        self.assertTrue(any(t.upos == "VERB" for t in tokens))
-        self.assertEqual(sum(1 for t in tokens if t.head_index == 0), 1)
 
 
 # ---------------------------------------------------------------------------
