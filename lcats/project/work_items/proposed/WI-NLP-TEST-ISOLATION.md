@@ -267,3 +267,18 @@ The user approved the revised smoke-test approach, then the bounded CPU smoke
 CI workflow, on 2026-11-12 and authorized opening the planning PR for review.
 Creating or merging this planning artifact does not implement or resolve the
 work item. Implementation remains a separate PR against main.
+
+## Implementation and acceptance status (2026-11-12)
+
+Implementation [PR #552](https://github.com/xenotaur/LCATS/pull/552) merged at
+`6069a44d5b7c4c980e66fefb6a6895f21b8a3475` under explicit user approval,
+including limited closeout and a one-closeout archive-sync exception. All five
+linked execution records are landed. Local canonical validation, real smoke
+checks, Ubuntu cold/warm runs, and retained diagnostics from an isolated
+controlled failure are recorded in
+[implementation evidence](../../development/nlp-test-isolation-evidence.md).
+
+This WI deliberately remains **proposed**, with resolution unset, pending
+Kenny's affected-host confirmation without the external CUDA workaround.
+Implementation merge does not substitute for that outstanding acceptance
+check. Production GPU defaults and Kenny's PR #548 remain unchanged.

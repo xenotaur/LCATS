@@ -1,0 +1,685 @@
+{
+  "recorded": "2026-11-12",
+  "description": "Non-executable first-run evidence from GitHub run/job metadata and downloaded smoke artifacts. Original runner log paths identify artifact members, not local contributor paths. No code is embedded.",
+  "runs": [
+    {
+      "label": "cold",
+      "run": {
+        "conclusion": "success",
+        "headSha": "69857d3ab2449effe6293e8c6fb48f8957f15474",
+        "jobs": [
+          {
+            "completedAt": "2026-11-12T20:48:58Z",
+            "conclusion": "success",
+            "databaseId": 131481172945,
+            "name": "smoke",
+            "startedAt": "2026-11-12T20:46:50Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-11-12T20:46:52Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-11-12T20:46:51Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:47:01Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@v4",
+                "number": 2,
+                "startedAt": "2026-11-12T20:46:52Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:47:04Z",
+                "conclusion": "success",
+                "name": "Run actions/setup-python@v5",
+                "number": 3,
+                "startedAt": "2026-11-12T20:47:01Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:10Z",
+                "conclusion": "success",
+                "name": "Install smoke environment (network allowed)",
+                "number": 4,
+                "startedAt": "2026-11-12T20:47:04Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:10Z",
+                "conclusion": "success",
+                "name": "Restore versioned model files",
+                "number": 5,
+                "startedAt": "2026-11-12T20:48:10Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:26Z",
+                "conclusion": "success",
+                "name": "Verify or provision pinned models (network allowed)",
+                "number": 6,
+                "startedAt": "2026-11-12T20:48:10Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:50Z",
+                "conclusion": "success",
+                "name": "Run harness regressions and offline CPU inference",
+                "number": 7,
+                "startedAt": "2026-11-12T20:48:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:52Z",
+                "conclusion": "success",
+                "name": "Retain setup and smoke diagnostics",
+                "number": 8,
+                "startedAt": "2026-11-12T20:48:50Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:54Z",
+                "conclusion": "success",
+                "name": "Post Restore versioned model files",
+                "number": 14,
+                "startedAt": "2026-11-12T20:48:52Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:56Z",
+                "conclusion": "success",
+                "name": "Post Run actions/setup-python@v5",
+                "number": 15,
+                "startedAt": "2026-11-12T20:48:54Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:57Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@v4",
+                "number": 16,
+                "startedAt": "2026-11-12T20:48:56Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:48:57Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 17,
+                "startedAt": "2026-11-12T20:48:57Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/xenotaur/LCATS/actions/runs/43303671493/job/131481172945"
+          }
+        ],
+        "url": "https://github.com/xenotaur/LCATS/actions/runs/43303671493"
+      },
+      "artifacts": [
+        {
+          "id": 13982282752,
+          "node_id": "MDg6QXJ0aWZhY3QxMzk4MjI4Mjc1Mg==",
+          "name": "cpu-nlp-smoke-43303671493-1",
+          "size_in_bytes": 22459,
+          "url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13982282752",
+          "archive_download_url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13982282752/zip",
+          "expired": false,
+          "digest": "sha256:a5744d99ec29719841a2f39ca20ba9221f18b6ed1878f79a2040536e52cf3185",
+          "created_at": "2026-11-12T20:48:52Z",
+          "updated_at": "2026-11-12T20:48:52Z",
+          "expires_at": "2026-11-26T20:48:50Z",
+          "workflow_run": {
+            "id": 43303671493,
+            "repository_id": 710428780,
+            "head_repository_id": 710428780,
+            "head_branch": "main",
+            "head_sha": "69857d3ab2449effe6293e8c6fb48f8957f15474"
+          }
+        }
+      ],
+      "model_cache_hit": false,
+      "provision_executed": true,
+      "harness_tests_passed": 14,
+      "inference_summary": [
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 3.023,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-uprcriir/01-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.671,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-uprcriir/02-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.722,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-uprcriir/03-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 5.529,
+          "case": "tests.smoke.nlp_smoke.StanzaSmoke.test_stanza_backend_produces_normalized_tokens",
+          "backend": "stanza",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-uprcriir/04-stanza",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.StanzaSmoke.test_stanza_backend_produces_normalized_tokens",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "stanza": "1.14.0",
+              "torch": "2.7.1+cpu",
+              "stanza_resources_version": "1.14.0",
+              "stanza_resources_sha256": "4e41c1df152146fa26ed0c006a08feea7a60bb3414bb6d57dbda24ad2e3cb99c"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm",
+      "run": {
+        "conclusion": "success",
+        "headSha": "69857d3ab2449effe6293e8c6fb48f8957f15474",
+        "jobs": [
+          {
+            "completedAt": "2026-11-12T20:51:29Z",
+            "conclusion": "success",
+            "databaseId": 131482983265,
+            "name": "smoke",
+            "startedAt": "2026-11-12T20:50:02Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-11-12T20:50:04Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-11-12T20:50:03Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:50:11Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@v4",
+                "number": 2,
+                "startedAt": "2026-11-12T20:50:04Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:50:16Z",
+                "conclusion": "success",
+                "name": "Run actions/setup-python@v5",
+                "number": 3,
+                "startedAt": "2026-11-12T20:50:11Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:02Z",
+                "conclusion": "success",
+                "name": "Install smoke environment (network allowed)",
+                "number": 4,
+                "startedAt": "2026-11-12T20:50:16Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:05Z",
+                "conclusion": "success",
+                "name": "Restore versioned model files",
+                "number": 5,
+                "startedAt": "2026-11-12T20:51:02Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:07Z",
+                "conclusion": "success",
+                "name": "Verify or provision pinned models (network allowed)",
+                "number": 6,
+                "startedAt": "2026-11-12T20:51:05Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:25Z",
+                "conclusion": "success",
+                "name": "Run harness regressions and offline CPU inference",
+                "number": 7,
+                "startedAt": "2026-11-12T20:51:07Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:26Z",
+                "conclusion": "success",
+                "name": "Retain setup and smoke diagnostics",
+                "number": 8,
+                "startedAt": "2026-11-12T20:51:25Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:26Z",
+                "conclusion": "success",
+                "name": "Post Restore versioned model files",
+                "number": 14,
+                "startedAt": "2026-11-12T20:51:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:26Z",
+                "conclusion": "success",
+                "name": "Post Run actions/setup-python@v5",
+                "number": 15,
+                "startedAt": "2026-11-12T20:51:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:27Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@v4",
+                "number": 16,
+                "startedAt": "2026-11-12T20:51:26Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:27Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 17,
+                "startedAt": "2026-11-12T20:51:27Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/xenotaur/LCATS/actions/runs/43304185363/job/131482983265"
+          }
+        ],
+        "url": "https://github.com/xenotaur/LCATS/actions/runs/43304185363"
+      },
+      "artifacts": [
+        {
+          "id": 13983576381,
+          "node_id": "MDg6QXJ0aWZhY3QxMzk4MzU3NjM4MQ==",
+          "name": "cpu-nlp-smoke-43304185363-1",
+          "size_in_bytes": 21448,
+          "url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13983576381",
+          "archive_download_url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13983576381/zip",
+          "expired": false,
+          "digest": "sha256:48e1f2af3648cc31297516171d0f9b3883368a76205310a05c2eec65371ecc22",
+          "created_at": "2026-11-12T20:51:26Z",
+          "updated_at": "2026-11-12T20:51:26Z",
+          "expires_at": "2026-11-26T20:51:25Z",
+          "workflow_run": {
+            "id": 43304185363,
+            "repository_id": 710428780,
+            "head_repository_id": 710428780,
+            "head_branch": "main",
+            "head_sha": "69857d3ab2449effe6293e8c6fb48f8957f15474"
+          }
+        }
+      ],
+      "model_cache_hit": true,
+      "provision_executed": false,
+      "harness_tests_passed": 14,
+      "inference_summary": [
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.318,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-udoxcrt3/01-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.27,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-udoxcrt3/02-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.37,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-udoxcrt3/03-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 4.526,
+          "case": "tests.smoke.nlp_smoke.StanzaSmoke.test_stanza_backend_produces_normalized_tokens",
+          "backend": "stanza",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-udoxcrt3/04-stanza",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.StanzaSmoke.test_stanza_backend_produces_normalized_tokens",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "stanza": "1.14.0",
+              "torch": "2.7.1+cpu",
+              "stanza_resources_version": "1.14.0",
+              "stanza_resources_sha256": "4e41c1df152146fa26ed0c006a08feea7a60bb3414bb6d57dbda24ad2e3cb99c"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "label": "failure",
+      "run": {
+        "conclusion": "failure",
+        "headSha": "759bff8a95335b41fc9d0027e009bd5dbc3411f2",
+        "jobs": [
+          {
+            "completedAt": "2026-11-12T20:51:39Z",
+            "conclusion": "failure",
+            "databaseId": 131483076457,
+            "name": "smoke",
+            "startedAt": "2026-11-12T20:50:12Z",
+            "status": "completed",
+            "steps": [
+              {
+                "completedAt": "2026-11-12T20:50:13Z",
+                "conclusion": "success",
+                "name": "Set up job",
+                "number": 1,
+                "startedAt": "2026-11-12T20:50:13Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:50:21Z",
+                "conclusion": "success",
+                "name": "Run actions/checkout@v4",
+                "number": 2,
+                "startedAt": "2026-11-12T20:50:14Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:50:24Z",
+                "conclusion": "success",
+                "name": "Run actions/setup-python@v5",
+                "number": 3,
+                "startedAt": "2026-11-12T20:50:21Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:17Z",
+                "conclusion": "success",
+                "name": "Install smoke environment (network allowed)",
+                "number": 4,
+                "startedAt": "2026-11-12T20:50:24Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:19Z",
+                "conclusion": "success",
+                "name": "Restore versioned model files",
+                "number": 5,
+                "startedAt": "2026-11-12T20:51:17Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:22Z",
+                "conclusion": "success",
+                "name": "Verify or provision pinned models (network allowed)",
+                "number": 6,
+                "startedAt": "2026-11-12T20:51:19Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:36Z",
+                "conclusion": "failure",
+                "name": "Run harness regressions and offline CPU inference",
+                "number": 7,
+                "startedAt": "2026-11-12T20:51:22Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:37Z",
+                "conclusion": "success",
+                "name": "Retain setup and smoke diagnostics",
+                "number": 8,
+                "startedAt": "2026-11-12T20:51:36Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:37Z",
+                "conclusion": "skipped",
+                "name": "Post Restore versioned model files",
+                "number": 14,
+                "startedAt": "2026-11-12T20:51:37Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:37Z",
+                "conclusion": "skipped",
+                "name": "Post Run actions/setup-python@v5",
+                "number": 15,
+                "startedAt": "2026-11-12T20:51:37Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:37Z",
+                "conclusion": "success",
+                "name": "Post Run actions/checkout@v4",
+                "number": 16,
+                "startedAt": "2026-11-12T20:51:37Z",
+                "status": "completed"
+              },
+              {
+                "completedAt": "2026-11-12T20:51:37Z",
+                "conclusion": "success",
+                "name": "Complete job",
+                "number": 17,
+                "startedAt": "2026-11-12T20:51:37Z",
+                "status": "completed"
+              }
+            ],
+            "url": "https://github.com/xenotaur/LCATS/actions/runs/43304213609/job/131483076457"
+          }
+        ],
+        "url": "https://github.com/xenotaur/LCATS/actions/runs/43304213609"
+      },
+      "artifacts": [
+        {
+          "id": 13982447943,
+          "node_id": "MDg6QXJ0aWZhY3QxMzk4MjQ0Nzk0Mw==",
+          "name": "cpu-nlp-smoke-43304213609-1",
+          "size_in_bytes": 20951,
+          "url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13982447943",
+          "archive_download_url": "https://api.github.com/repos/xenotaur/LCATS/actions/artifacts/13982447943/zip",
+          "expired": false,
+          "digest": "sha256:5c0a8ff85b61610e788ee9febe14617c569e47198c01a4fbf5d706ce70775771",
+          "created_at": "2026-11-12T20:51:37Z",
+          "updated_at": "2026-11-12T20:51:37Z",
+          "expires_at": "2026-11-26T20:51:36Z",
+          "workflow_run": {
+            "id": 43304213609,
+            "repository_id": 710428780,
+            "head_repository_id": 710428780,
+            "head_branch": "codex/nlp-smoke-failure-evidence",
+            "head_sha": "759bff8a95335b41fc9d0027e009bd5dbc3411f2"
+          }
+        }
+      ],
+      "model_cache_hit": true,
+      "provision_executed": false,
+      "harness_tests_passed": 14,
+      "inference_summary": [
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.77,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-tlx8ea_p/01-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_repaired_spacy_profile_splits_problematic_surface_forms",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.569,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-tlx8ea_p/02-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_backend_produces_normalized_tokens",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 0,
+          "reason": "exit 0",
+          "timed_out": false,
+          "seconds": 2.621,
+          "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+          "backend": "spacy",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-tlx8ea_p/03-spacy",
+          "ok": true,
+          "receipt": {
+            "ok": true,
+            "kind": "test",
+            "case": "tests.smoke.nlp_smoke.SpacySmoke.test_spacy_smoke_backend_can_build_sidecar",
+            "tests_run": 1,
+            "skipped": 0,
+            "versions": {
+              "spacy": "3.8.14",
+              "en-core-web-sm": "3.8.0"
+            }
+          }
+        },
+        {
+          "returncode": 1,
+          "reason": "exit 1",
+          "timed_out": false,
+          "seconds": 0.114,
+          "case": "tests.smoke.nlp_smoke.StanzaSmoke.test_stanza_backend_produces_normalized_tokens",
+          "backend": "stanza",
+          "logs": "/home/runner/work/LCATS/LCATS/lcats/tmp/logs/smoke-ci/inference/run-tlx8ea_p/04-stanza",
+          "ok": false,
+          "receipt": {}
+        }
+      ],
+      "missing_model_stderr": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"/home/runner/work/LCATS/LCATS/lcats/tests/smoke/run.py\", line 266, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/home/runner/work/LCATS/LCATS/lcats/tests/smoke/run.py\", line 250, in main\n    return worker(args.worker, args.backend, args.worker_dir, args.check)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/LCATS/LCATS/lcats/tests/smoke/run.py\", line 130, in worker\n    versions = resources.check(backend)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/LCATS/LCATS/lcats/tests/smoke/resources.py\", line 61, in check\n    if digest(root / \"resources.json\", \"sha256\") != spec[\"stanza_resources_sha256\"]:\n       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/LCATS/LCATS/lcats/tests/smoke/resources.py\", line 37, in digest\n    with path.open(\"rb\") as stream:\n         ^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/_temp/lcats-expected-missing-models/resources.json'\n"
+    }
+  ]
+}

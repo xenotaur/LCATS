@@ -106,9 +106,9 @@ identities are recorded in `tests/smoke/models.json`.
   unchanged. The final manifest pins the verified upstream bytes, and the
   original contributor cache was preserved.
 
-## Outstanding acceptance evidence and first-run decision
+## First-run decision and implementation closeout
 
-No new GitHub smoke execution is claimed here. GitHub's documented manual
+At pre-merge review, no GitHub smoke execution was claimed. GitHub's documented manual
 dispatch requirement is that the workflow first exist on the default branch:
 [manual workflow documentation](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
 The implementation uses only approved manual and weekly triggers.
@@ -124,15 +124,85 @@ GitHub refused with `HTTP 404: workflow smoke.yml not found on the default
 branch`. No smoke run was created; this is a platform prerequisite, not a
 failed smoke test or evidence that the Ubuntu job works.
 
-Before resolving this work item, obtain:
+The user explicitly approved merging #552, limited execution-record closeout,
+a one-closeout archive-sync exception, and cold/warm plus controlled-failure
+first-run validation on 2026-11-12. PR #552 merged at
+`6069a44d5b7c4c980e66fefb6a6895f21b8a3475`; the five linked execution records
+were landed in main commit `69857d3ab2449effe6293e8c6fb48f8957f15474`.
+The Codex session pointers were retained; no Claude archive sync was performed.
+No persistent gate policy or fingerprint baseline changed.
 
-1. A reviewed first-run/merge verification plan if branch dispatch is unavailable.
-2. A real Ubuntu CPU workflow success with all four checks, tested SHA and run
-   URL, cold/warm-cache timings, and artifact verification on controlled failure.
-3. Kenny's affected-host confirmation without the external CUDA workaround.
+The WI remains **proposed** pending Kenny's affected-host confirmation, even
+if Ubuntu validation succeeds. The controlled failure is an explicitly
+approved negative test on an isolated, unmerged branch, not an unexpected
+normal-CI failure or a change to main's tests.
 
-Recommended first-run plan: review and merge the implementation while keeping
-the WI open, dispatch immediately, verify the cold and warm runs and diagnostic
-artifact path, then resolve only after acceptance evidence is complete. A
-failed smoke job becomes follow-up repair work, not a silent green closeout.
-This is a recommendation for human review, not authorization to merge.
+## Ubuntu first-run validation results
+
+All three runs completed on 2026-11-12, Ubuntu 24.04 / Python 3.11.18.
+[Retained machine-readable evidence](nlp-test-isolation-ci-evidence.json)
+contains tested SHAs, job/step times, artifact identities/digests, all per-check
+summaries/receipts, and the deliberate missing-model traceback. It is
+non-executable data derived from GitHub and the downloaded artifacts.
+
+| Run | Outcome | Job elapsed | Package setup | Model verify/provision | Harness + inference step | Sum of inference child times |
+|---|---|---:|---:|---:|---:|---:|
+| [Cold #43303671493](https://github.com/xenotaur/LCATS/actions/runs/43303671493) | Success; 4/4 smoke, 14 harness | 128 s | 66 s | 16 s | 24 s | 13.945 s |
+| [Warm #43304185363](https://github.com/xenotaur/LCATS/actions/runs/43304185363) | Success; 4/4 smoke, 14 harness | 87 s | 46 s | 2 s | 18 s | 11.484 s |
+| [Expected failure #43304213609](https://github.com/xenotaur/LCATS/actions/runs/43304213609) | Expected failure; 3 spaCy passes, Stanza prerequisite failure, 14 harness | 87 s | 53 s | 3 s | 14 s | 8.074 s |
+
+Job and step times are GitHub timestamps rounded to seconds and exclude queue
+wait. Child times come from the runner summaries. These are single measurements,
+not a benchmark or reliability estimate. All runs were well within the
+20-minute job budget.
+
+The cold and warm runs tested main SHA
+`69857d3ab2449effe6293e8c6fb48f8957f15474`. The cold log explicitly reports
+no matching model cache and contains a provisioning log; the warm log reports
+`Model cache hit: true`, verifies the cached files, and has no provisioning
+log. Both produced four one-test, zero-skip success receipts. All three runs
+used `torch==2.7.1+cpu`; the successful Stanza receipts record the pinned
+resource SHA-256. Effective spaCy/Stanza/model versions match the local pins.
+
+The negative run tested only validation commit
+`759bff8a95335b41fc9d0027e009bd5dbc3411f2` on
+`codex/nlp-smoke-failure-evidence`. This branch **must not be merged**. Its only
+change supplies an absent `STANZA_RESOURCES_DIR` to the inference command;
+setup still verifies the real cached models, and no existing data is removed.
+The inference step exits nonzero, while the always-run artifact step succeeds.
+The downloaded artifact contains the parent summary and Stanza stderr:
+
+```text
+FileNotFoundError: [Errno 2] No such file or directory: '/home/runner/work/_temp/lcats-expected-missing-models/resources.json'
+```
+
+There is no successful Stanza receipt. All three spaCy checks still have
+one-test, zero-skip success receipts. This establishes failure propagation and
+artifact retention for missing prerequisites. Native-abort diagnostics and
+continuation are separately covered by the 14 harness tests, not inferred
+from this missing-model run.
+
+All three artifacts were downloaded and inspected, including setup/harness
+logs and inference summaries. GitHub artifacts have a 14-day retention period;
+the adjacent JSON preserves the acceptance evidence beyond that period.
+The full downloaded logs also remain locally under
+`/tmp/lcats-nlp-ci-evidence/{cold,warm,failure}/`, but those temporary paths are
+not the durable source of record.
+
+## Remaining external confirmation
+
+The implementation and first-run CI evidence are complete. **Do not resolve
+WI-NLP-TEST-ISOLATION yet.** Kenny must confirm ordinary tests and explicit CPU
+smoke execution on his affected machine without the external CUDA-hiding
+shell workaround. Use the dedicated smoke environment and setup documented in
+[Run ordinary tests and CPU NLP smoke checks](../../docs/how-to/run-nlp-tests.md).
+Send back the tested commit, commands, exit statuses, package/model versions,
+and smoke run directory with `summary.json` and child logs. If ordinary tests
+fail, include their complete output. This confirms isolation on the affected
+host; it does not diagnose or certify repair of Kenny's GPU installation.
+
+No changes to Kenny's PR #548, production GPU defaults, or persistent gate
+policy were made. The WI remains in `proposed/`; its acceptance criteria have
+not been weakened. No additional memory was written: the durable process
+finding (default-branch prerequisite for first manual dispatch) and the
+archive-sync exception are already recorded here and in the closeout note.
