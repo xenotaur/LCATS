@@ -113,6 +113,17 @@ dispatch requirement is that the workflow first exist on the default branch:
 [manual workflow documentation](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow).
 The implementation uses only approved manual and weekly triggers.
 
+The live first-dispatch attempt after opening implementation
+[PR #552](https://github.com/xenotaur/LCATS/pull/552) was:
+
+```bash
+gh workflow run smoke.yml --repo xenotaur/LCATS --ref xenotaur/feat/wi-nlp-test-isolation
+```
+
+GitHub refused with `HTTP 404: workflow smoke.yml not found on the default
+branch`. No smoke run was created; this is a platform prerequisite, not a
+failed smoke test or evidence that the Ubuntu job works.
+
 Before resolving this work item, obtain:
 
 1. A reviewed first-run/merge verification plan if branch dispatch is unavailable.
