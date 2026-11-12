@@ -226,7 +226,7 @@ dependencies explicitly, but test execution must not fetch model data.
 - `scripts/test tests/analysis_tests/linguistics_test.py`
 - `scripts/test`
 - `scripts/smoke`
-- `actionlint .github/workflows/smoke.yml` (install the workflow validator explicitly if unavailable)
+- `actionlint ../.github/workflows/smoke.yml` (install the workflow validator explicitly if unavailable)
 - `lrh validate`
 
 Verify ordinary tests with and without NLP extras, and smoke execution with
