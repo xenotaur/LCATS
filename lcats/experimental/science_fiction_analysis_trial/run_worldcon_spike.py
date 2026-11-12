@@ -756,6 +756,40 @@ def _append_story_result(
     return path
 
 
+class _StageRunLog:
+    """Forward run-log events while de-duplicating one response's diagnostics."""
+
+    def __init__(
+        self,
+        delegate: run_log.RunLog | None,
+        *,
+        run_id: str | None = None,
+        story_id: str | None = None,
+    ):
+        self.delegate = delegate
+        self.run_id = run_id
+        self.story_id = story_id
+        self._unknown_evidence_events: set[tuple[Any, ...]] = set()
+
+    def reset_response_events(self) -> None:
+        self._unknown_evidence_events.clear()
+
+    def event(self, event: str, **fields: Any) -> None:
+        if event == "unknown_evidence_id":
+            fields.setdefault("run_id", self.run_id)
+            fields.setdefault("story_id", self.story_id)
+            key = (
+                fields.get("stage"),
+                fields.get("field"),
+                fields.get("evidence_id"),
+            )
+            if key in self._unknown_evidence_events:
+                return
+            self._unknown_evidence_events.add(key)
+        if self.delegate is not None:
+            self.delegate.event(event, **fields)
+
+
 def _run_checkpointed_model_stage(
     *,
     stage: str,
@@ -767,7 +801,7 @@ def _run_checkpointed_model_stage(
     payload: dict[str, Any],
     tool_schema: dict[str, Any],
     run_id: str,
-    log: run_log.RunLog | None,
+    log: run_log.RunLog | _StageRunLog | None,
     resume: bool,
     validate_result: Callable[[llm_backend.BackendResponse, Any], None],
 ) -> tuple[llm_backend.BackendResponse, Any, pathlib.Path, bool]:
@@ -795,6 +829,8 @@ def _run_checkpointed_model_stage(
             log=log,
         )
         try:
+            if isinstance(log, _StageRunLog):
+                log.reset_response_events()
             validate_result(response, tool_result)
         except Exception as error:
             error.raw_response_path = raw_path
@@ -1635,6 +1671,7 @@ def _run_knight_stage(
     reused = False
     system_prompt = _knight_system_prompt()
     tool_schema = _knight_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     provenance = _provenance(
         story=story,
         options=options,
@@ -1656,13 +1693,13 @@ def _run_knight_stage(
             payload=_knight_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda response, result: knight.build_analysis(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(result, evidence_set),
+                decisions=_knight_decisions(result, evidence_set, log=stage_log),
                 provenance=_provenance(
                     story=story,
                     options=options,
@@ -1695,7 +1732,7 @@ def _run_knight_stage(
                 analysis_id=f"{_stable_slug(story.story_id)}-knight-v1",
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_knight_decisions(tool_result, evidence_set),
+                decisions=_knight_decisions(tool_result, evidence_set, log=stage_log),
                 provenance=provenance,
             ),
             response,
@@ -1775,10 +1812,11 @@ def _validate_suvin_result(
     run_id: str,
     system_prompt: str,
     tool_schema: dict[str, Any],
+    log: run_log.RunLog | None = None,
 ) -> None:
     if not isinstance(result, dict):
         raise ValueError(f"{SUVIN_STAGE} tool_result must be an object")
-    candidates = _novum_candidates(result, evidence_set)
+    candidates = _novum_candidates(result, evidence_set, log=log)
     novum.build_analysis(
         analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
         story_hash=prepared.story_hash,
@@ -1817,6 +1855,7 @@ def _run_suvin_stage(
     reused = False
     system_prompt = _suvin_system_prompt()
     tool_schema = _suvin_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     provenance = _provenance(
         story=story,
         options=options,
@@ -1838,7 +1877,7 @@ def _run_suvin_stage(
             payload=_suvin_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda response, result: _validate_suvin_result(
                 story=story,
@@ -1850,6 +1889,7 @@ def _run_suvin_stage(
                 run_id=run_id,
                 system_prompt=system_prompt,
                 tool_schema=tool_schema,
+                log=stage_log,
             ),
         )
         if not isinstance(tool_result, dict):
@@ -1867,7 +1907,7 @@ def _run_suvin_stage(
             run_id=run_id,
             rubric_version=models.SUVIN_RUBRIC_VERSION,
         )
-        candidates = _novum_candidates(tool_result, evidence_set)
+        candidates = _novum_candidates(tool_result, evidence_set, log=stage_log)
         return (
             novum.build_analysis(
                 analysis_id=f"{_stable_slug(story.story_id)}-suvin-v1",
@@ -1991,6 +2031,7 @@ def _run_heinlein_stage(
     reused = False
     system_prompt = _heinlein_system_prompt()
     tool_schema = _heinlein_tool_schema()
+    stage_log = _StageRunLog(log, run_id=run_id, story_id=story.story_id)
     analysis_id = f"{_stable_slug(story.story_id)}-heinlein-v1"
 
     def provenance_for(
@@ -2018,13 +2059,13 @@ def _run_heinlein_stage(
             payload=_heinlein_payload(story, prepared, evidence_set),
             tool_schema=tool_schema,
             run_id=run_id,
-            log=log,
+            log=stage_log,
             resume=options.resume,
             validate_result=lambda stage_response, result: heinlein.build_analysis(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(result, evidence_set),
+                decisions=_heinlein_decisions(result, evidence_set, log=stage_log),
                 provenance=provenance_for(stage_response),
             ),
         )
@@ -2038,7 +2079,7 @@ def _run_heinlein_stage(
                 analysis_id=analysis_id,
                 story_hash=prepared.story_hash,
                 evidence_set=evidence_set,
-                decisions=_heinlein_decisions(tool_result, evidence_set),
+                decisions=_heinlein_decisions(tool_result, evidence_set, log=stage_log),
                 provenance=provenance_for(response),
             ),
             response,
@@ -2336,6 +2377,8 @@ def _partial_success_record(
 def _knight_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[knight.CriterionAdjudication, ...]:
     by_id = {
         item.get("criterion_id"): item
@@ -2362,6 +2405,9 @@ def _knight_decisions(
                 supporting_evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     support,
+                    log=log,
+                    stage=KNIGHT_STAGE,
+                    field=f"knight_criteria[{criterion_id}].supporting_evidence_ids",
                 ),
                 rationale=str(item.get("rationale", "")),
                 confidence=_optional_float(item.get("confidence")),
@@ -2388,6 +2434,8 @@ def _require_string_list(
 def _heinlein_decisions(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[heinlein.CriterionAdjudication, ...]:
     """Convert model output to decisions without inventing or defaulting anything.
 
@@ -2455,10 +2503,18 @@ def _heinlein_decisions(
                 criterion_id=criterion_id,
                 status=str(status),
                 supporting_evidence_ids=_existing_evidence_ids(
-                    evidence_set, tuple(supporting)
+                    evidence_set,
+                    tuple(supporting),
+                    log=log,
+                    stage=HEINLEIN_STAGE,
+                    field=f"heinlein_criteria[{criterion_id}].supporting_evidence_ids",
                 ),
                 counterevidence_ids=_existing_evidence_ids(
-                    evidence_set, tuple(counterevidence)
+                    evidence_set,
+                    tuple(counterevidence),
+                    log=log,
+                    stage=HEINLEIN_STAGE,
+                    field=f"heinlein_criteria[{criterion_id}].counterevidence_ids",
                 ),
                 rationale=rationale,
                 confidence=float(confidence),
@@ -2470,6 +2526,8 @@ def _heinlein_decisions(
 def _novum_candidates(
     tool_result: dict[str, Any],
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
 ) -> tuple[novum.CandidateAdjudication, ...]:
     candidates = []
     for index, raw_item in enumerate(
@@ -2483,35 +2541,67 @@ def _novum_candidates(
             novum.CandidateAdjudication(
                 candidate_id=candidate_id,
                 description=str(item.get("description", candidate_id)),
-                novelty=_dimension(item.get("novelty", {}), evidence_set),
+                novelty=_dimension(
+                    item.get("novelty", {}),
+                    evidence_set,
+                    log=log,
+                    field_prefix=f"novum_candidates[{index - 1}].novelty",
+                ),
                 cognitive_validation=_dimension(
                     item.get("cognitive_validation", {}),
                     evidence_set,
+                    log=log,
+                    field_prefix=(
+                        f"novum_candidates[{index - 1}].cognitive_validation"
+                    ),
                 ),
                 narrative_hegemony=_dimension(
                     item.get("narrative_hegemony", {}),
                     evidence_set,
+                    log=log,
+                    field_prefix=(f"novum_candidates[{index - 1}].narrative_hegemony"),
                 ),
                 estrangement=novum.EstrangementAdjudication(
                     reader_facing_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(item.get("reader_facing_evidence_ids", ())),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".reader_facing_evidence_ids"
+                        ),
                     ),
                     storyworld_consequence_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(
                             item.get("storyworld_consequence_evidence_ids", ())
                         ),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".storyworld_consequence_evidence_ids"
+                        ),
                     ),
                     character_reaction_evidence_ids=_existing_evidence_ids(
                         evidence_set,
                         _string_tuple(item.get("character_reaction_evidence_ids", ())),
+                        log=log,
+                        stage=SUVIN_STAGE,
+                        field=(
+                            f"novum_candidates[{index - 1}]"
+                            ".character_reaction_evidence_ids"
+                        ),
                     ),
                     rationale=str(item.get("estrangement_rationale", "")),
                 ),
                 evidence_ids=_existing_evidence_ids(
                     evidence_set,
                     _string_tuple(item.get("evidence_ids", ())),
+                    log=log,
+                    stage=SUVIN_STAGE,
+                    field=f"novum_candidates[{index - 1}].evidence_ids",
                 ),
             )
         )
@@ -2542,6 +2632,9 @@ def _dominant_novum_id(
 def _dimension(
     raw: Any,
     evidence_set: evidence.EvidenceSet,
+    *,
+    log: run_log.RunLog | None = None,
+    field_prefix: str = "dimension",
 ) -> novum.DimensionAdjudication:
     if not isinstance(raw, dict):
         raw = {
@@ -2553,10 +2646,16 @@ def _dimension(
         supporting_evidence_ids=_existing_evidence_ids(
             evidence_set,
             _string_tuple(raw.get("supporting_evidence_ids", ())),
+            log=log,
+            stage=SUVIN_STAGE,
+            field=f"{field_prefix}.supporting_evidence_ids",
         ),
         counterevidence_ids=_existing_evidence_ids(
             evidence_set,
             _string_tuple(raw.get("counterevidence_ids", ())),
+            log=log,
+            stage=SUVIN_STAGE,
+            field=f"{field_prefix}.counterevidence_ids",
         ),
         rationale=str(raw.get("rationale", "")),
         confidence=_optional_float(raw.get("confidence")),
@@ -3508,9 +3607,7 @@ def _enforce_run_gate(
         _enforce_paid_run_gate(gate, options)
         _verify_paid_source_manifest(manifest)
         if options.mode != CANARY_MODE and options.prior_spend_usd is None:
-            raise ValueError(
-                "paid sample/full stages require --prior-spend-usd"
-            )
+            raise ValueError("paid sample/full stages require --prior-spend-usd")
         if options.prior_spend_usd is not None and (
             not math.isfinite(options.prior_spend_usd) or options.prior_spend_usd < 0
         ):
@@ -3570,7 +3667,10 @@ def _enforce_paid_run_gate(gate: RunGate, options: RunnerOptions) -> None:
         raise ValueError("paid model calls require model to match approved_model")
     if not math.isfinite(gate.estimated_cost_usd) or gate.estimated_cost_usd <= 0:
         raise ValueError("paid model calls require positive estimated_cost_usd")
-    if not math.isfinite(gate.estimated_story_cost_usd) or gate.estimated_story_cost_usd <= 0:
+    if (
+        not math.isfinite(gate.estimated_story_cost_usd)
+        or gate.estimated_story_cost_usd <= 0
+    ):
         raise ValueError("paid model calls require positive estimated_story_cost_usd")
     if not math.isfinite(gate.cumulative_budget_usd) or gate.cumulative_budget_usd <= 0:
         raise ValueError("paid model calls require positive cumulative_budget_usd")
@@ -3598,7 +3698,9 @@ def _verify_paid_source_manifest(manifest: SpikeManifest) -> None:
     digest = hashlib.sha256(source_path.read_bytes()).hexdigest()
     if digest != manifest.source_worldcon_manifest_sha256:
         raise ValueError("source manifest sha256 does not match its contents")
-    count = sum(1 for line in source_path.read_text(encoding="utf-8").splitlines() if line)
+    count = sum(
+        1 for line in source_path.read_text(encoding="utf-8").splitlines() if line
+    )
     if count != manifest.source_worldcon_manifest_expected_count:
         raise ValueError("source manifest story count does not match its declaration")
     git_path = f"{manifest.source_worldcon_manifest_git_commit}:{manifest.source_worldcon_manifest}"
@@ -4102,9 +4204,7 @@ def _load_gate(mode: str, data: dict[str, Any]) -> RunGate:
             data.get("paid_model_calls_authorized", False)
         ),
         estimated_cost_usd=float(data.get("estimated_cost_usd", 0.0)),
-        estimated_story_cost_usd=float(
-            data.get("estimated_story_cost_usd", 0.0)
-        ),
+        estimated_story_cost_usd=float(data.get("estimated_story_cost_usd", 0.0)),
         requires_smoke_success=bool(data.get("requires_smoke_success", False)),
         requires_full_sample_approval=bool(
             data.get("requires_full_sample_approval", False)
@@ -4143,6 +4243,10 @@ def _load_expectations(value: Any) -> dict[str, Any]:
 def _existing_evidence_ids(
     evidence_set: evidence.EvidenceSet,
     evidence_ids: tuple[str, ...],
+    *,
+    log: run_log.RunLog | None = None,
+    stage: str | None = None,
+    field: str | None = None,
 ) -> tuple[str, ...]:
     available = {
         record.evidence_id: record.evidence_id for record in evidence_set.records
@@ -4151,7 +4255,19 @@ def _existing_evidence_ids(
         for provenance in record.provenance:
             if provenance.raw_id:
                 available[provenance.raw_id] = record.evidence_id
-    return tuple(available[item] for item in evidence_ids if item in available)
+    resolved: list[str] = []
+    for item in evidence_ids:
+        if item in available:
+            resolved.append(available[item])
+        elif log is not None:
+            log.event(
+                "unknown_evidence_id",
+                action="dropped",
+                evidence_id=item,
+                field=field,
+                stage=stage,
+            )
+    return tuple(resolved)
 
 
 def _list_field(data: dict[str, Any], key: str) -> tuple[Any, ...]:

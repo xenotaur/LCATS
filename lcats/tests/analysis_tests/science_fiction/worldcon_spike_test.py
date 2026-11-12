@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 import pathlib
 import tempfile
@@ -11,6 +12,8 @@ from unittest.mock import patch
 
 from experimental.science_fiction_analysis_trial import run_worldcon_spike
 from lcats.analysis.science_fiction import preparation
+from lcats.analysis.science_fiction import knight
+from lcats.analysis.science_fiction import novum
 from lcats.analysis.science_fiction import rendering
 from lcats.analysis.science_fiction import sidecar
 from lcats.llm import backend as llm_backend
@@ -167,6 +170,30 @@ class _UnexpectedBackend:
     def complete(self, **_kwargs):
         self.calls += 1
         raise AssertionError("backend should not be called for a reused checkpoint")
+
+
+class _UnknownEvidenceBackend:
+    def __init__(self):
+        self.delegate = run_worldcon_spike.DeterministicSpikeBackend()
+
+    def complete(self, **kwargs):
+        response = self.delegate.complete(**kwargs)
+        result = copy.deepcopy(response.tool_result)
+        tool_name = kwargs["tool"]["name"]
+        if tool_name == run_worldcon_spike.KNIGHT_TOOL_NAME:
+            result["knight_criteria"][0]["supporting_evidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        elif tool_name == run_worldcon_spike.HEINLEIN_TOOL_NAME:
+            result["heinlein_criteria"][0]["counterevidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        elif tool_name == run_worldcon_spike.SUVIN_TOOL_NAME:
+            result["novum_candidates"][0]["novelty"]["supporting_evidence_ids"].append(
+                "ev-unknown-runner"
+            )
+        response.tool_result = result
+        return response
 
 
 class _ValidationConnectionBackend:
@@ -385,6 +412,59 @@ class WorldconSpikeRunnerTest(unittest.TestCase):
                 story["knight_interval"],
             )
             self.assertEqual(1, story["qualified_novum_count"])
+
+    def test_unknown_ids_are_logged_once_for_fresh_and_resumed_runs(self):
+        output_root = self.root / "unknown-id-runs"
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_UnknownEvidenceBackend(),
+        ):
+            first = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    include_heinlein=True,
+                )
+            )
+
+        self.assertEqual("complete", first["status"])
+        with patch.object(
+            run_worldcon_spike,
+            "_make_backend",
+            return_value=_UnexpectedBackend(),
+        ):
+            resumed = run_worldcon_spike.run_spike(
+                run_worldcon_spike.RunnerOptions(
+                    manifest_path=self.manifest_path,
+                    output_root=output_root,
+                    max_stories=1,
+                    include_heinlein=True,
+                    resume=True,
+                )
+            )
+
+        self.assertEqual("complete", resumed["status"])
+        events = [
+            json.loads(line)
+            for line in (output_root / "worldcon_spike_run_log.jsonl")
+            .read_text(encoding="utf-8")
+            .splitlines()
+            if json.loads(line)["event"] == "unknown_evidence_id"
+        ]
+        by_run = {}
+        for event in events:
+            by_run.setdefault(event["run_id"], []).append(event)
+        self.assertEqual(2, len(by_run))
+        expected_stages = {
+            run_worldcon_spike.KNIGHT_STAGE,
+            run_worldcon_spike.SUVIN_STAGE,
+            run_worldcon_spike.HEINLEIN_STAGE,
+        }
+        for run_events in by_run.values():
+            self.assertEqual(expected_stages, {event["stage"] for event in run_events})
+            self.assertEqual(3, len(run_events))
 
     def test_sample_requires_successful_smoke_summary(self):
         with self.assertRaisesRegex(ValueError, "smoke-summary"):
@@ -2244,6 +2324,164 @@ class WorldconCanaryFixtureTest(unittest.TestCase):
         result = compat.extract_json(item["text"], strict_fence=True)
 
         self.assertEqual(5, len(result["heinlein_criteria"]))
+
+    def test_unknown_evidence_ids_are_logged_for_every_adjudicator(self):
+        prepared = self.prepared[
+            self._find("baseline", "vonnegut", "sf_evidence")["story_path"]
+        ]
+        raw = run_worldcon_spike._fake_tool_result({"text": prepared.normalized_text})
+        evidence_set = run_worldcon_spike._build_evidence_set(
+            prepared,
+            {"evidence": raw["evidence"]},
+            backend="openai-compatible",
+        )
+
+        class RecordingLog:
+            def __init__(self):
+                self.events = []
+
+            def event(self, event, **fields):
+                self.events.append({"event": event, **fields})
+
+        log = RecordingLog()
+        knight_result = {
+            "knight_criteria": copy.deepcopy(raw["knight_criteria"]),
+        }
+        knight_result["knight_criteria"][0]["supporting_evidence_ids"].append(
+            "ev-unknown-knight"
+        )
+        run_worldcon_spike._knight_decisions(
+            knight_result,
+            evidence_set,
+            log=log,
+        )
+
+        heinlein_result = {
+            "heinlein_criteria": copy.deepcopy(
+                run_worldcon_spike._fake_heinlein_criteria()
+            ),
+        }
+        heinlein_result["heinlein_criteria"][0]["counterevidence_ids"].append(
+            "ev-unknown-heinlein"
+        )
+        run_worldcon_spike._heinlein_decisions(
+            heinlein_result,
+            evidence_set,
+            log=log,
+        )
+
+        suvin_result = {
+            "novum_candidates": copy.deepcopy(raw["novum_candidates"]),
+            "dominant_novum_id": raw["dominant_novum_id"],
+        }
+        candidate = suvin_result["novum_candidates"][0]
+        candidate["novelty"]["supporting_evidence_ids"].append("ev-unknown-suvin")
+        run_worldcon_spike._novum_candidates(
+            suvin_result,
+            evidence_set,
+            log=log,
+        )
+
+        dropped = [
+            event for event in log.events if event["event"] == "unknown_evidence_id"
+        ]
+        self.assertEqual(
+            {
+                "ev-unknown-knight",
+                "ev-unknown-heinlein",
+                "ev-unknown-suvin",
+            },
+            {event["evidence_id"] for event in dropped},
+        )
+        self.assertEqual(
+            {
+                run_worldcon_spike.KNIGHT_STAGE,
+                run_worldcon_spike.HEINLEIN_STAGE,
+                run_worldcon_spike.SUVIN_STAGE,
+            },
+            {event["stage"] for event in dropped},
+        )
+        self.assertTrue(all(event["action"] == "dropped" for event in dropped))
+
+    def test_present_decisions_with_only_unknown_ids_still_fail_validation(self):
+        prepared = self.prepared[
+            self._find("baseline", "vonnegut", "sf_evidence")["story_path"]
+        ]
+        raw = run_worldcon_spike._fake_tool_result({"text": prepared.normalized_text})
+        evidence_set = run_worldcon_spike._build_evidence_set(
+            prepared,
+            {"evidence": raw["evidence"]},
+            backend="openai-compatible",
+        )
+        knight_result = {"knight_criteria": copy.deepcopy(raw["knight_criteria"])}
+        knight_result["knight_criteria"][0]["supporting_evidence_ids"] = [
+            "ev-unknown-knight"
+        ]
+        with self.assertRaisesRegex(ValueError, "supporting evidence"):
+            knight.build_analysis(
+                analysis_id="unknown-knight",
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                decisions=run_worldcon_spike._knight_decisions(
+                    knight_result, evidence_set
+                ),
+                provenance=None,
+            )
+
+        suvin_result = {
+            "novum_candidates": copy.deepcopy(raw["novum_candidates"]),
+            "dominant_novum_id": raw["dominant_novum_id"],
+        }
+        suvin_result["novum_candidates"][0]["novelty"]["supporting_evidence_ids"] = [
+            "ev-unknown-suvin"
+        ]
+        with self.assertRaisesRegex(ValueError, "supporting evidence"):
+            novum.build_analysis(
+                analysis_id="unknown-suvin",
+                story_hash=prepared.story_hash,
+                evidence_set=evidence_set,
+                candidates=run_worldcon_spike._novum_candidates(
+                    suvin_result, evidence_set
+                ),
+                provenance=None,
+                dominant_novum_id=None,
+            )
+
+    def test_unknown_id_logging_does_not_change_stage_fingerprint(self):
+        prepared = self.prepared[
+            self._find("baseline", "vonnegut", "sf_evidence")["story_path"]
+        ]
+        evidence_set = self._evidence_set("baseline", "vonnegut")
+        options = run_worldcon_spike.RunnerOptions(
+            manifest_path=CANARY_FIXTURES,
+            output_root=pathlib.Path("fingerprint"),
+        )
+        fingerprint_args = {
+            "stage": run_worldcon_spike.KNIGHT_STAGE,
+            "options": options,
+            "system_prompt": run_worldcon_spike._knight_system_prompt(),
+            "payload": run_worldcon_spike._knight_payload(
+                run_worldcon_spike.SpikeStory(
+                    story_id="vonnegut",
+                    story_path="mass_quantities/2_b_r_0_2_b__vonnegut/story.json",
+                    title="Vonnegut",
+                    selection_genre="science-fiction",
+                ),
+                prepared,
+                evidence_set,
+            ),
+            "tool_schema": run_worldcon_spike._knight_tool_schema(),
+        }
+        before = run_worldcon_spike._model_stage_fingerprint(**fingerprint_args)
+        run_worldcon_spike._existing_evidence_ids(
+            evidence_set,
+            ("ev-unknown-fingerprint",),
+            log=types.SimpleNamespace(event=lambda *_args, **_kwargs: None),
+            stage=run_worldcon_spike.KNIGHT_STAGE,
+            field="knight_criteria[science].supporting_evidence_ids",
+        )
+        after = run_worldcon_spike._model_stage_fingerprint(**fingerprint_args)
+        self.assertEqual(before, after)
 
 
 class WorldconStructuredOutputPromptTest(unittest.TestCase):
