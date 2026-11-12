@@ -3,8 +3,8 @@ execution_id: 2026_11_12_20_35_56_WI_NLP_TEST_ISOLATION_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_NLP_TEST_ISOLATION_SELFREVIEW)[2026-11-12T20:35:48+00:00]
 work_item: AD_HOC
 status: in_progress
-rerun_of:
-pr:
+rerun_of: 2026_11_12_20_36_57_WI_NLP_TEST_ISOLATION
+pr: https://github.com/xenotaur/LCATS/pull/552
 commit:
 created_at: 2026-11-12T20:35:56+00:00
 agent: codex_app
