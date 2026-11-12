@@ -1,0 +1,134 @@
+{
+  "category_counts": {
+    "all_three_agree": 97,
+    "all_three_differ": 4,
+    "metadata_local_only": 8,
+    "metadata_multi_label_models_split": 2,
+    "metadata_opus_only": 28,
+    "models_agree_metadata_differs": 7
+  },
+  "comparison_version": "three-way-genre-comparison-v1",
+  "generated_at": "2026-08-22T22:44:44.563954Z",
+  "input_record_counts": {
+    "local": 146,
+    "metadata": 146,
+    "opus": 146
+  },
+  "input_validation": {
+    "diagnostics": [],
+    "status": "passed"
+  },
+  "matched_story_count": 146,
+  "metadata_multi_label": {
+    "count": 16,
+    "rate": 0.109589
+  },
+  "pairwise_agreement": {
+    "all_three": {
+      "count": 97,
+      "rate": 0.664384
+    },
+    "metadata_local": {
+      "count": 107,
+      "rate": 0.732877
+    },
+    "metadata_opus": {
+      "count": 127,
+      "rate": 0.869863
+    },
+    "models": {
+      "count": 104,
+      "rate": 0.712329
+    }
+  },
+  "per_metadata_primary_genre": {
+    "adventure": {
+      "category_counts": {
+        "all_three_agree": 5,
+        "metadata_local_only": 1
+      },
+      "stories": 6
+    },
+    "fantasy": {
+      "category_counts": {
+        "all_three_agree": 12,
+        "metadata_opus_only": 8
+      },
+      "stories": 20
+    },
+    "horror": {
+      "category_counts": {
+        "all_three_agree": 19,
+        "metadata_opus_only": 1
+      },
+      "stories": 20
+    },
+    "humor": {
+      "category_counts": {
+        "all_three_agree": 9,
+        "all_three_differ": 2,
+        "metadata_local_only": 1,
+        "metadata_opus_only": 7,
+        "models_agree_metadata_differs": 1
+      },
+      "stories": 20
+    },
+    "mystery": {
+      "category_counts": {
+        "all_three_agree": 14,
+        "metadata_opus_only": 4,
+        "models_agree_metadata_differs": 2
+      },
+      "stories": 20
+    },
+    "romance": {
+      "category_counts": {
+        "all_three_agree": 8,
+        "all_three_differ": 2,
+        "metadata_local_only": 1,
+        "metadata_opus_only": 6,
+        "models_agree_metadata_differs": 3
+      },
+      "stories": 20
+    },
+    "science fiction": {
+      "category_counts": {
+        "all_three_agree": 19,
+        "metadata_local_only": 1
+      },
+      "stories": 20
+    },
+    "western": {
+      "category_counts": {
+        "all_three_agree": 11,
+        "metadata_local_only": 4,
+        "metadata_multi_label_models_split": 2,
+        "metadata_opus_only": 2,
+        "models_agree_metadata_differs": 1
+      },
+      "stories": 20
+    }
+  },
+  "provenance": {
+    "local_model": "gpt-oss:20b",
+    "local_run_ids": [
+      "2026-08-22T18:12:52.694890Z",
+      "2026-08-22T22:43:34.555291Z"
+    ],
+    "metadata_label": "gutenberg_metadata_rules",
+    "opus_model": "claude-opus-4-8",
+    "opus_run_ids": [
+      "2026-08-21T18:55:51.831553Z"
+    ]
+  },
+  "source_paths": {
+    "local": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_gpt_oss_20b_http_localhost_11434_v1_results.jsonl",
+    "metadata": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/genre_balanced_manifest.jsonl",
+    "opus": "/Users/centaur/Tempspace/Projects/LCATS/Workstreams/Codex/ScienceFiction/LCATS/experiments/05_metadata_genre_prefilter/results/full_scan/validation_results.jsonl"
+  },
+  "source_sha256": {
+    "local": "e7c9bcbe9367f7bc9cd7f6ddb1f46ad05a069fc3199241b9990634f6a004005a",
+    "metadata": "c1425ce2102d7c5c97f7c639f5cd2f887e2bffea537f9c3983cc9d22b00645f7",
+    "opus": "3abdfce9c46800e3b7412e5f5e557aa0a192fd5037419965835658377e48645e"
+  }
+}
