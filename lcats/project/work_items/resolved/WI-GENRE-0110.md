@@ -2,7 +2,7 @@
 id: WI-GENRE-0110
 title: Implement three-way genre-evidence comparison report
 type: deliverable
-status: proposed
+status: resolved
 priority: medium
 owner: unassigned
 contributors: []
@@ -23,7 +23,7 @@ depends_on:
 blocked_by: []
 blocked: false
 blocked_reason: null
-resolution: null
+resolution: "Implemented and merged in PR #549 (squash commit dc34bda3a455786219802bf555a2785f1c069237). Added strict three-way genre-evidence validation and comparison, deterministic JSONL/JSON/Markdown outputs for the 146-story corpus, coverage for all agreement categories and failure modes, and preserved existing validation evidence and corpora."
 expected_actions:
   - create_file
   - edit_file
