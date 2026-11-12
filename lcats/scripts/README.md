@@ -239,6 +239,15 @@ scripts/test tests.gatherers.downloaders_test.TestLoadPage.test_load_page_succes
 - If no target is provided, full test discovery is used.
 
 
+#### `smoke`
+
+See [`scripts/smoke`](../docs/how-to/run-nlp-tests.md) for the four real NLP
+integration checks, run separately from ordinary discovery. `scripts/smoke
+--dry-run` lists them; `--check` verifies prerequisites; a normal invocation runs
+bounded CPU children and prints the diagnostic directory. Provisioning is an
+explicit network-enabled step; test execution is offline. Missing models fail
+the requested smoke check rather than silently skipping it.
+
 #### `coverage`
 Runs test coverage analysis and generates reports.
 

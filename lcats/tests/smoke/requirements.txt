@@ -1,0 +1,6 @@
+# Smoke-only versions. Production extras remain unconstrained by these pins.
+# Linux CI installs torch from the CPU-only index before this file.
+torch==2.7.1
+spacy==3.8.14
+stanza==1.14.0
+en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl

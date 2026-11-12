@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Run from lcats/ in the project environment; tests remain offline.
+set -euo pipefail
+exec python -m tests.smoke.run "$@"
