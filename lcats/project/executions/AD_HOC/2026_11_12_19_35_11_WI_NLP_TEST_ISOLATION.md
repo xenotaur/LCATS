@@ -2,10 +2,10 @@
 execution_id: 2026_11_12_19_35_11_WI_NLP_TEST_ISOLATION
 prompt_id: "PROMPT(AD_HOC:WI_NLP_TEST_ISOLATION)[2026-11-12T18:24:28+00:00]"
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/551
-commit:
+commit: 886c95f415b332485df249fc871fde1ce43409ff
 created_at: 2026-11-12T19:35:11+00:00
 agent: codex_app
 instruction_source: project/work_items/proposed/WI-NLP-TEST-ISOLATION.md
