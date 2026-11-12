@@ -68,7 +68,8 @@ jobs:
         timeout-minutes: 5
         run: |
           scripts/test tests/analysis_tests/event_role_world_harness_test.py 2>&1 | tee tmp/logs/smoke-ci/harness.log
-          scripts/smoke --timeout 60 --log-dir tmp/logs/smoke-ci/inference 2>&1 | tee tmp/logs/smoke-ci/inference.log
+          # Expected negative validation only; this branch must not be merged.
+          STANZA_RESOURCES_DIR="$RUNNER_TEMP/lcats-expected-missing-models" scripts/smoke --timeout 60 --log-dir tmp/logs/smoke-ci/inference 2>&1 | tee tmp/logs/smoke-ci/inference.log
       - name: Retain setup and smoke diagnostics
         if: always()
         uses: actions/upload-artifact@v4
