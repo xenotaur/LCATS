@@ -218,6 +218,19 @@ class ClaimMatchingTest(unittest.TestCase):
                 for entry in fact_table.default_table().facts:
                     self.assertFalse(fact_table.claim_matches(claim, entry))
 
+    def test_typographic_apostrophes_count_as_negation(self):
+        for claim in (
+            "Mars doesn\u2019t have a thick atmosphere.",
+            "Mars doesn\u2018t have a thick atmosphere.",
+            "Venus surface isn\u2019t habitable.",
+            "Venus surface isn\u02bct habitable.",
+            "Mercury isn\u2019t tidally locked to the Sun.",
+            "Mars doesn`t have a thick atmosphere.",
+        ):
+            with self.subTest(claim):
+                for entry in fact_table.default_table().facts:
+                    self.assertFalse(fact_table.claim_matches(claim, entry))
+
     def test_the_metal_and_generic_sides_do_not_match_the_planet_entry(self):
         mercury = self._entry("mercury_synchronous_rotation")
 
@@ -308,6 +321,122 @@ class AuditTest(unittest.TestCase):
 
         self.assertEqual("disagreement", audit.outcome)
         self.assertTrue(any("first measurement" in reason for reason in audit.reasons))
+
+    def test_a_negated_typographic_claim_gets_no_audit_not_a_confirmation(self):
+        premise = _premise(
+            "Mars doesn\u2019t have a thick atmosphere.",
+            [_p("open", None, "1965-07"), _p("contradicted", "1965-07", None)],
+        )
+
+        self.assertIsNone(fact_table.audit_premise(premise))
+
+    def test_a_counterfactual_divergence_is_not_compared(self):
+        premise = base._premise(
+            "p1",
+            kind="counterfactual_divergence",
+            novel="true",
+            timeline=(_p("open", None, "2100"), _p("supported", "2100", None)),
+        )
+        premise = dataclasses.replace(premise, claim=MARS_CLAIM)
+
+        audit = fact_table.audit_premise(premise)
+
+        self.assertEqual("not_comparable", audit.outcome)
+        self.assertEqual("mars_thick_atmosphere", audit.fact_id)
+        self.assertIn("enabling mechanism", audit.reasons[0])
+
+    def test_a_counterfactual_matched_premise_is_not_relabelled(self):
+        premise = base._premise(
+            "p1",
+            kind="counterfactual_divergence",
+            novel="true",
+            timeline=(_p("open", None, "1965-07"), _p("contradicted", "1965-07", None)),
+        )
+        premise = dataclasses.replace(premise, claim=MARS_CLAIM)
+
+        audited = fact_table.apply_to_analysis(base._analysis(premises=(premise,)))
+
+        self.assertEqual(
+            {"model_asserted"}, {p.basis for p in audited.premises[0].timeline}
+        )
+        self.assertEqual(["not_comparable"], [a.outcome for a in audited.fact_audit])
+
+    def test_repeated_standings_are_one_change_at_the_start_of_the_run(self):
+        # contradicted since 1950, then another contradicted period at 1965-07:
+        # the change was in 1950, so the table's 1965-07 boundary disagrees.
+        early = _premise(
+            MARS_CLAIM,
+            [
+                _p("open", None, "1950"),
+                _p("contradicted", "1950", "1965-07"),
+                _p("contradicted", "1965-07", None),
+            ],
+        )
+        # the same fact with a later split of an already-contradicted run
+        split = _premise(
+            MARS_CLAIM,
+            [
+                _p("open", None, "1965-07"),
+                _p("contradicted", "1965-07", "1970"),
+                _p("contradicted", "1970", None),
+            ],
+        )
+
+        self.assertEqual("disagreement", fact_table.audit_premise(early).outcome)
+        self.assertEqual("table_confirmed", fact_table.audit_premise(split).outcome)
+
+    def test_every_period_since_the_change_is_relabelled_and_earlier_ones_are_not(self):
+        split = _premise(
+            MARS_CLAIM,
+            [
+                _p("open", None, "1965-07"),
+                _p("contradicted", "1965-07", "1970"),
+                _p("contradicted", "1970", None),
+            ],
+        )
+
+        audited = fact_table.apply_to_analysis(base._analysis(premises=(split,)))
+
+        self.assertEqual(
+            ["model_asserted", "table_confirmed", "table_confirmed"],
+            [p.basis for p in audited.premises[0].timeline],
+        )
+
+    def test_all_one_standing_across_several_periods_is_no_change(self):
+        premise = _premise(
+            MARS_CLAIM,
+            [_p("contradicted", None, "1900"), _p("contradicted", "1900", None)],
+        )
+
+        audit = fact_table.audit_premise(premise)
+
+        self.assertEqual("disagreement", audit.outcome)
+        self.assertTrue(any("records no change" in r for r in audit.reasons))
+
+    def test_a_confirmation_lists_only_opened_sources(self):
+        data = _table_dict()
+        data["sources"].append(
+            {
+                "id": "unread_page",
+                "title": "A page not opened",
+                "url": "https://example.org/unread",
+                "retrieved": "2026-11-12",
+                "opened": False,
+                "evidence": "UNCONFIRMED: not opened",
+            }
+        )
+        data["facts"][0]["source_ids"].append("unread_page")
+        table = fact_table.table_from_dict(data)
+        premise = _premise(
+            MARS_CLAIM,
+            [_p("open", None, "1965-07"), _p("contradicted", "1965-07", None)],
+        )
+
+        audit = fact_table.audit_premise(premise, table)
+
+        self.assertEqual("table_confirmed", audit.outcome)
+        self.assertNotIn("unread_page", audit.reasons[0])
+        self.assertIn("nssdca_mariner_4", audit.reasons[0])
 
     def test_an_unmatched_claim_gets_no_audit(self):
         premise = _premise("The sea was calm that morning.", [_p("supported")])

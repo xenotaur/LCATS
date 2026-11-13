@@ -10,7 +10,8 @@ of known cases, and a matcher that compares a premise's timeline with it.
 What the audit does and does not do:
 
 * It **reports**. A premise whose claim matches exactly one table entry and
-  whose timeline agrees is marked ``table_confirmed`` (its final period only);
+  whose timeline agrees is marked ``table_confirmed`` (the periods since the
+  change only; an earlier period keeps its ``model_asserted`` basis);
   a premise that matches and disagrees gets a ``disagreement`` audit with the
   reasons; a claim that matches several entries gets ``ambiguous_match`` and is
   left alone; a premise with no timeline gets ``not_comparable``; a claim that
@@ -36,7 +37,11 @@ Known limits of the term matcher (it is an audit aid, not a reader):
 * **Negation.** A claim containing a negator (``not``, ``no``, ``never``,
   ``without``, ``cannot``, ``n't``, ``neither``, ``nor``) is never matched, so
   "Mars does not have a thick atmosphere" is simply not audited. This avoids
-  both a false disagreement and a false confirmation.
+  both a false disagreement and a false confirmation. Typographic apostrophes
+  (for example ``doesn’t``) are normalised first, so they count too.
+* **Counterfactual premises.** A ``counterfactual_divergence`` premise's
+  timeline describes the standing of its enabling mechanism, not the historical
+  claim (R1), so a match is reported ``not_comparable`` and never compared.
 * **Co-occurrence only.** The groups test that words appear together, not that
   they are in the same clause: "Mars air, thick with dust" matches, and so does
   a sentence that names an unrelated body beside the right terms.
@@ -299,6 +304,19 @@ def _term_pattern(term: str) -> re.Pattern[str]:
     return re.compile(rf"(?<![\w-]){words}(?:s|es)?(?![\w-])", re.IGNORECASE)
 
 
+# Typographic apostrophes and quotes a model may emit in place of ``'``.
+_APOSTROPHES = str.maketrans(
+    {
+        "\u2019": "'",
+        "\u2018": "'",
+        "\u02bc": "'",
+        "\u2032": "'",
+        "\uff07": "'",
+        "\u00b4": "'",
+        "`": "'",
+    }
+)
+
 _NEGATION = re.compile(
     r"(?<![\w-])(?:not|no|never|without|cannot|neither|nor)(?![\w-])|n't\b",
     re.IGNORECASE,
@@ -308,6 +326,7 @@ _NEGATION = re.compile(
 def claim_matches(claim: str, entry: FactEntry) -> bool:
     """True when every term group has a term and the claim is not negated."""
 
+    claim = claim.translate(_APOSTROPHES)
     if _NEGATION.search(claim):
         return False
     return all(
@@ -320,6 +339,28 @@ def _months_overlap(first: str, second: str) -> bool:
     a_start, a_end = heinlein_temporal.month_range(first)
     b_start, b_end = heinlein_temporal.month_range(second)
     return a_start <= b_end and b_start <= a_end
+
+
+def _final_run_start(timeline: tuple[heinlein_temporal.StandingPeriod, ...]) -> int:
+    """Index of the first period of the trailing run of equal standings.
+
+    Two adjacent periods with the same standing are one standing for audit
+    purposes, so a fact contradicted in two consecutive periods changed once,
+    when the first of them began.
+    """
+
+    index = len(timeline) - 1
+    while index > 0 and timeline[index - 1].standing == timeline[index].standing:
+        index -= 1
+    return index
+
+
+def _opened_source_ids(entry: FactEntry, table: FactTable) -> tuple[str, ...]:
+    """Only a source that was opened and read is offered as evidence."""
+
+    return tuple(
+        source_id for source_id in entry.source_ids if table.source(source_id).opened
+    )
 
 
 def audit_premise(
@@ -350,26 +391,38 @@ def audit_premise(
             fact_id=entry.fact_id,
             reasons=("the premise has no timeline to compare",),
         )
+    if premise.kind == "counterfactual_divergence":
+        return heinlein_temporal.FactAudit(
+            premise_id=premise.premise_id,
+            outcome="not_comparable",
+            method=MATCH_METHOD,
+            fact_id=entry.fact_id,
+            reasons=(
+                "a counterfactual_divergence timeline describes its enabling "
+                "mechanism, not the historical claim, so it is not compared",
+            ),
+        )
     last = premise.timeline[-1]
+    run_start = _final_run_start(premise.timeline)
     reasons: list[str] = []
     if last.standing != entry.final_standing:
         reasons.append(
             f"the table records {entry.fact_id} as {entry.final_standing} after "
             f"{entry.change_at}; the premise ends {last.standing}"
         )
-    if len(premise.timeline) == 1:
+    if run_start == 0:
         reasons.append(
             f"the premise records no change; the table records a change at "
             f"{entry.change_at}"
         )
-    elif last.from_date is not None and not _months_overlap(
-        last.from_date, entry.change_at
-    ):
-        reasons.append(
-            f"the premise changes at {last.from_date}; the table records "
-            f"{entry.change_at} (the date of the first measurement its sources "
-            "report)"
-        )
+    else:
+        boundary = premise.timeline[run_start].from_date
+        if boundary is not None and not _months_overlap(boundary, entry.change_at):
+            reasons.append(
+                f"the premise changes to {last.standing} at {boundary}; the table "
+                f"records {entry.change_at} (the date of the first measurement "
+                "its sources report)"
+            )
     if reasons:
         return heinlein_temporal.FactAudit(
             premise_id=premise.premise_id,
@@ -385,18 +438,23 @@ def audit_premise(
         fact_id=entry.fact_id,
         reasons=(
             f"agrees with {entry.fact_id}: {entry.final_standing} from "
-            f"{entry.change_at} (sources: {', '.join(entry.source_ids)})",
+            f"{entry.change_at} (opened sources: "
+            f"{', '.join(_opened_source_ids(entry, table))})",
         ),
     )
 
 
-def _mark_final_period(
+def _mark_since_change(
     premise: heinlein_temporal.Premise,
 ) -> heinlein_temporal.Premise:
-    """Label only the final period ``table_confirmed``; the timeline is kept."""
+    """Label the periods since the change ``table_confirmed``; keep the timeline."""
 
-    final = dataclasses.replace(premise.timeline[-1], basis="table_confirmed")
-    return dataclasses.replace(premise, timeline=premise.timeline[:-1] + (final,))
+    start = _final_run_start(premise.timeline)
+    marked = tuple(
+        dataclasses.replace(period, basis="table_confirmed")
+        for period in premise.timeline[start:]
+    )
+    return dataclasses.replace(premise, timeline=premise.timeline[:start] + marked)
 
 
 def apply_to_analysis(
@@ -405,7 +463,8 @@ def apply_to_analysis(
 ) -> heinlein_temporal.HeinleinTemporalAnalysis:
     """Audit every premise; an analysis with nothing to report is returned as is.
 
-    A confirmed premise's final period is relabelled ``table_confirmed``. The
+    A confirmed premise's periods since the change are relabelled
+    ``table_confirmed``. The
     timeline, and so every derived status, is unchanged; disagreements and
     ambiguous matches are recorded in ``fact_audit`` for a human to review.
     """
@@ -420,7 +479,7 @@ def apply_to_analysis(
             continue
         audits.append(audit)
         premises.append(
-            _mark_final_period(premise)
+            _mark_since_change(premise)
             if audit.outcome == "table_confirmed"
             else premise
         )
