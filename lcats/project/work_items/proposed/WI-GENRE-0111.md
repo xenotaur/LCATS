@@ -144,7 +144,9 @@ comparison output into a bounded, reviewable human decision process.
 
 - `scripts/version tools`
 - `scripts/format --check --diff`
+- `scripts/format --check --diff ../experiments/05_metadata_genre_prefilter/*.py`
 - `scripts/lint`
+- `scripts/lint ../experiments/05_metadata_genre_prefilter/*.py`
 - `scripts/test ../experiments/05_metadata_genre_prefilter`
 - `scripts/test`
 - `lrh validate`
