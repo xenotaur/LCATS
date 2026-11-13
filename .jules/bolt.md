@@ -1,3 +1,3 @@
-## 2026-08-10 - Regex Compilation Overhead
-**Learning:** Python caches inline regex compilation internally, but heavily used functions (e.g. string normalization in tight loops like `canonical_author.py:parse_name`) still experience overhead from cache lookup and `re.sub`/`re.search` wrapper calls.
-**Action:** Always pre-compile frequently used regular expression patterns at the module level when executing within tight loops, especially for text-heavy normalization or parsing.
+## 2024-11-09 - Faster Title Detection with Native Split
+**Learning:** `re.split(r"\s+", line)` inside a list comprehension to filter empty strings is a performance anti-pattern. Native `line.split()` is significantly faster and natively handles empty string filtering for whitespace splits.
+**Action:** Always prefer native string `.split()` for simple whitespace separation over compiling and running regular expressions.
