@@ -21,9 +21,14 @@ import sqlite3
 import json
 import os
 from datetime import datetime
+from pathlib import Path
+
+from lcats.utils import env
 
 
-DEFAULT_REGISTRY = "lcats_registry.db"  # ~/LCATS-newest/LCATS/lcats/lcats_registry.db"
+DEFAULT_REGISTRY_DIR = env.cache_root() / "registry"
+DEFAULT_REGISTRY = DEFAULT_REGISTRY_DIR / "lcats_registry.db"
+DEFAULT_REGISTRY_TSV = DEFAULT_REGISTRY_DIR / "lcats_registry.tsv"
 
 
 def _connect(registry=DEFAULT_REGISTRY):
@@ -31,7 +36,10 @@ def _connect(registry=DEFAULT_REGISTRY):
     Open the registry database, creating it if necessary.
     """
 
-    conn = sqlite3.connect(registry)
+    registry_path = Path(registry)
+    registry_path.parent.mkdir(parents=True, exist_ok=True)
+
+    conn = sqlite3.connect(registry_path)
 
     conn.execute(
         """
@@ -257,7 +265,7 @@ def check_and_add(
 
 
 def export_registry(
-    output_file="lcats_registry.tsv",
+    output_file=DEFAULT_REGISTRY_TSV,
     registry=DEFAULT_REGISTRY,
     include_source=False,
     format="tsv",
@@ -299,7 +307,10 @@ def export_registry(
         """
         ).fetchall()
 
-    with open(output_file, "w", encoding="utf-8") as output:
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with open(output_path, "w", encoding="utf-8") as output:
 
         if format == "tsv":
 

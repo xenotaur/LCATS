@@ -113,3 +113,16 @@
 {"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-11T00:57:13.885155Z"}
 {"corpus": "Wilde", "event": "run_start", "story_count": 5, "timestamp": "2026-11-11T06:47:19.687921Z"}
 {"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-11T06:47:19.688453Z"}
+{"corpus": "Wilde", "event": "run_start", "story_count": 5, "timestamp": "2026-11-12T16:48:17.296503Z"}
+{"corpus": "Wilde", "event": "story_downloaded", "filename": "the_happy_prince", "timestamp": "2026-11-12T16:48:17.309627Z"}
+{"corpus": "Wilde", "event": "story_downloaded", "filename": "the_nightingale_and_the_rose", "timestamp": "2026-11-12T16:48:17.321070Z"}
+{"corpus": "Wilde", "event": "story_downloaded", "filename": "the_selfish_giant", "timestamp": "2026-11-12T16:48:17.331524Z"}
+{"corpus": "Wilde", "event": "story_downloaded", "filename": "the_devoted_friend", "timestamp": "2026-11-12T16:48:17.343236Z"}
+{"corpus": "Wilde", "event": "story_downloaded", "filename": "the_remarkable_rocket", "timestamp": "2026-11-12T16:48:17.356146Z"}
+{"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-12T16:48:17.356180Z"}
+{"corpus": "Wilde", "event": "run_start", "story_count": 5, "timestamp": "2026-11-12T21:41:37.354405Z"}
+{"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-12T21:41:37.355222Z"}
+{"corpus": "Wilde", "event": "run_start", "story_count": 5, "timestamp": "2026-11-13T02:16:35.663628Z"}
+{"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-13T02:16:35.664413Z"}
+{"corpus": "Wilde", "event": "run_start", "story_count": 5, "timestamp": "2026-11-13T12:59:59.585178Z"}
+{"corpus": "Wilde", "event": "run_end", "story_count": 5, "timestamp": "2026-11-13T12:59:59.585959Z"}

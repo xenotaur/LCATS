@@ -879,7 +879,7 @@ class TestStandardEbooksGatherer(LCATSTestCase):
             )
         no_download.assert_not_called()
 
-    def test_cached_collection_toc_reads_disk_but_stories_use_network(self):
+    def test_cached_collection_toc_reads_disk_and_uncached_stories_download(self):
         tmp_path = self.tmp_path
         module = self.module(tmp_path)
         fake_gatherer = fake_gatherer_fixture(tmp_path)
@@ -903,6 +903,10 @@ class TestStandardEbooksGatherer(LCATSTestCase):
         self.assertEqual(requested, [FIRST, SECOND])
 
         self.assertNotIn(TOC, requested)
+
+        for url in (FIRST, SECOND):
+            cached_story = module._cache_file(cache_dir, "stories", url, "html")
+            self.assertEqual(cached_story.read_text(encoding="utf-8"), STORY_HTML)
 
     def test_refresh_collection_downloads_and_saves_toc(self):
         tmp_path = self.tmp_path
@@ -1046,6 +1050,160 @@ class TestStandardEbooksGatherer(LCATSTestCase):
         self.assertIn(
             "Total stories in StandardEBooks corpus: 3", capsys.readouterr().out
         )
+
+
+class TestStandardEbooksStoryCache(LCATSTestCase):
+    """Cache original story HTML in the LCATS cache, without pytest."""
+
+    def module(self):
+        """Use the actual gatherer with mocks limited to external dependencies."""
+        self.patch_attribute(
+            gatherer, "DEFAULT_CACHE_DIR", self.tmp_path / "default-cache"
+        )
+        self.patch_attribute(downloaders, "DataGatherer", Mock())
+        self.patch_attribute(
+            names,
+            "canonical_author",
+            SimpleNamespace(
+                canonical_key=lambda author: author,
+                last_name=lambda author: author.split()[-1],
+            ),
+        )
+
+        return gatherer
+
+    def prepare_collection(self, module, *, cached_stories=False):
+        """Provide a one-story table of contents in a temporary directory."""
+        toc_html = f'<nav class="toc"><a href="{FIRST}">First Story</a></nav>'
+        toc_path = module._cache_file(self.tmp_path, "tables_of_contents", TOC, "html")
+        toc_path.parent.mkdir(parents=True, exist_ok=True)
+        toc_path.write_text(toc_html, encoding="utf-8")
+
+        if cached_stories:
+            story_path = module._cache_file(self.tmp_path, "stories", FIRST, "html")
+            story_path.parent.mkdir(parents=True, exist_ok=True)
+            story_path.write_text(STORY_HTML, encoding="utf-8")
+
+    def test_refresh_saves_story_and_cached_mode_reuses_it(self):
+        module = self.module()
+        downloaded = Mock(return_value=STORY_HTML)
+        self.patch_attribute(module, "download_page", downloaded)
+
+        fresh = module.get_story_page(object(), FIRST, cache_dir=self.tmp_path)
+        cached_path = module._cache_file(self.tmp_path, "stories", FIRST, "html")
+
+        self.assertEqual(fresh, STORY_HTML)
+        self.assertEqual(cached_path.read_text(encoding="utf-8"), STORY_HTML)
+        downloaded.assert_called_once()
+
+        downloaded.reset_mock()
+        cached = module.get_story_page(
+            object(),
+            FIRST,
+            metadata_mode="cached",
+            cache_dir=self.tmp_path,
+        )
+
+        self.assertEqual(cached, STORY_HTML)
+        downloaded.assert_not_called()
+
+    def test_cache_miss_downloads_and_saves_story(self):
+        module = self.module()
+        downloaded = Mock(return_value=STORY_HTML)
+        self.patch_attribute(module, "download_page", downloaded)
+
+        result = module.get_story_page(
+            object(),
+            FIRST,
+            metadata_mode="cached",
+            cache_dir=self.tmp_path,
+        )
+
+        self.assertEqual(result, STORY_HTML)
+        downloaded.assert_called_once()
+        cached_path = module._cache_file(self.tmp_path, "stories", FIRST, "html")
+        self.assertTrue(cached_path.is_file())
+
+    def test_failed_refresh_preserves_preexisting_story_cache(self):
+        module = self.module()
+        cached_path = module._cache_file(self.tmp_path, "stories", FIRST, "html")
+        cached_path.parent.mkdir(parents=True, exist_ok=True)
+        cached_path.write_text(STORY_HTML, encoding="utf-8")
+
+        def fail_download(session, url):
+            raise RuntimeError("download failed")
+
+        self.patch_attribute(module, "download_page", fail_download)
+
+        with self.assertRaisesRegex(RuntimeError, "download failed"):
+            module.get_story_page(object(), FIRST, cache_dir=self.tmp_path)
+
+        self.assertEqual(cached_path.read_text(encoding="utf-8"), STORY_HTML)
+
+    def test_cached_collection_uses_saved_story_without_network(self):
+        module = self.module()
+        self.prepare_collection(module, cached_stories=True)
+        download = Mock(side_effect=AssertionError("unexpected network access"))
+        save_story = Mock(return_value=(1, "result.json", None))
+        self.patch_attribute(module, "download_page", download)
+        self.patch_attribute(module, "gather_story", save_story)
+        self.patch_attribute(module, "_story_exists", Mock(return_value=False))
+        self.patch_attribute(module, "sleep", Mock())
+
+        result = module.gather_collection(
+            COLLECTION,
+            delay=0,
+            metadata_mode="cached",
+            cache_dir=self.tmp_path,
+        )
+
+        self.assertEqual(result, {1: "result.json"})
+        save_story.assert_called_once()
+        download.assert_not_called()
+
+    def test_registry_duplicate_skips_story_cache_and_download(self):
+        module = self.module()
+        self.prepare_collection(module)
+        download = Mock(side_effect=AssertionError("unexpected network access"))
+        save_story = Mock()
+        self.patch_attribute(module, "download_page", download)
+        self.patch_attribute(module, "gather_story", save_story)
+        self.patch_attribute(module, "_story_exists", Mock(return_value=True))
+
+        result = module.gather_collection(
+            COLLECTION,
+            delay=0,
+            metadata_mode="cached",
+            cache_dir=self.tmp_path,
+        )
+
+        self.assertEqual(result, {})
+        save_story.assert_not_called()
+        download.assert_not_called()
+        story_path = module._cache_file(self.tmp_path, "stories", FIRST, "html")
+        self.assertFalse(story_path.exists())
+
+    def test_cached_story_skips_network_throttling_delay(self):
+        module = self.module()
+        self.prepare_collection(module, cached_stories=True)
+        self.patch_attribute(
+            module, "download_page", Mock(side_effect=AssertionError("network"))
+        )
+        self.patch_attribute(
+            module, "gather_story", Mock(return_value=(1, "result.json", None))
+        )
+        self.patch_attribute(module, "_story_exists", Mock(return_value=False))
+        sleep = Mock()
+        self.patch_attribute(module, "sleep", sleep)
+
+        module.gather_collection(
+            COLLECTION,
+            delay=5,
+            metadata_mode="cached",
+            cache_dir=self.tmp_path,
+        )
+
+        sleep.assert_not_called()
 
 
 if __name__ == "__main__":

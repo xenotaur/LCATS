@@ -32,8 +32,7 @@ HEADERS = {
 }
 
 
-# Metadata cache only: individual story pages are still downloaded on each run.
-# DEFAULT_CACHE_DIR = Path.home() / ".cache" / "lcats" / "standard_ebooks"
+# Cache collection lists, tables of contents, and original story HTML.
 DEFAULT_CACHE_DIR = env.cache_root() / "standard_ebooks"
 METADATA_MODES = {"refresh", "cached"}
 
@@ -77,6 +76,34 @@ def _atomic_cache_write(path: Path, content: str) -> None:
 def _check_metadata_mode(mode: str) -> None:
     if mode not in METADATA_MODES:
         raise ValueError(f"metadata_mode must be one of {sorted(METADATA_MODES)}")
+
+
+def get_story_page(
+    session: requests.Session,
+    url: str,
+    *,
+    metadata_mode: str = "refresh",
+    cache_dir=False,
+) -> str:
+    """Read cached story HTML or download and cache the original page.
+
+    In cached mode, a missing story page is downloaded and saved. This is
+    intentional: older caches contain only collection lists and TOCs, and
+    skipped or previously registered stories might not yet have HTML copies.
+    """
+    _check_metadata_mode(metadata_mode)
+
+    cached_path = _cache_file(cache_dir, "stories", url, "html")
+
+    if metadata_mode == "cached" and cached_path.is_file():
+        print(f"Reading saved story: {url}")
+        return cached_path.read_text(encoding="utf-8")
+
+    print(f"Downloading story: {url}")
+    html = download_page(session, url)
+    _atomic_cache_write(cached_path, html)
+
+    return html
 
 
 def set_page_parameter(url: str, page_number: int) -> str:
@@ -845,10 +872,21 @@ def gather_collection(toc_url, delay=5, *, metadata_mode="refresh", cache_dir=Fa
             )
             continue
 
-        print(f"[{story.number:03d}/{len(stories):03d}] " f"Downloading: {story.title}")
+        print(f"[{story.number:03d}/{len(stories):03d}] Processing: {story.title}")
+
+        # Cached pages need no network throttling delay.
+        uses_cached_story = (
+            metadata_mode == "cached"
+            and _cache_file(cache_dir, "stories", story.url, "html").is_file()
+        )
 
         try:
-            html = download_page(session, story.url)
+            html = get_story_page(
+                session,
+                story.url,
+                metadata_mode=metadata_mode,
+                cache_dir=cache_dir,
+            )
             story_id, filename, error = gather_story(
                 gatherer,
                 html,
@@ -869,7 +907,8 @@ def gather_collection(toc_url, delay=5, *, metadata_mode="refresh", cache_dir=Fa
                 file=sys.stderr,
             )
 
-        sleep(delay)
+        if not uses_cached_story and delay > 0:
+            sleep(delay)
 
     if failures:
         print()
@@ -889,10 +928,11 @@ def gather_collection(toc_url, delay=5, *, metadata_mode="refresh", cache_dir=Fa
 # def gather():
 def gather(*, offline=False, cache_dir=False, metadata_mode="refresh"):
     """Extract the StandardEBooks collections of stories.
-    ``metadata_mode="refresh"`` downloads the collection list and TOCs and saves
-    them; ``metadata_mode="cached"`` uses only previously saved metadata.
-    Both modes still download individual story pages. Thus ``offline=True``
-    is unsupported here and rejected rather than implying an offline run.
+    ``metadata_mode="refresh"`` downloads and saves collection lists, TOCs,
+    and story pages. ``metadata_mode="cached"`` reuses cached copies; missing
+    story pages are downloaded and cached on demand, while missing lists and
+    TOCs remain errors. ``offline=True`` is unsupported because story pages
+    can still need network access.
     """
     if offline:
         raise ValueError("Offline story downloads are not supported by this gatherer")

@@ -186,12 +186,7 @@ def gather(
 
             title_db = file_name.split("__")[0]
             author_db = file_name.split("__")[1].split(".")[0]
-            if not registry.check_and_add(
-                title_db,
-                author_db,
-                mode="discard",
-                source=author + " Gutenberg mass retrieval",
-            ):
+            if registry.check_story(title_db, author_db):
                 continue
 
             gatherer.download(
@@ -214,11 +209,15 @@ def gather(
             # so this distinguishes the two without needing download()
             # itself to change its return contract (review finding, PR
             # #404).
-            event = (
-                "story_downloaded"
-                if filename in gatherer.downloads
-                else "story_skipped"
-            )
+            if filename in gatherer.downloads:
+                registry.add_story(
+                    title_db,
+                    author_db,
+                    source=author + " Gutenberg mass retrieval",
+                )
+                event = "story_downloaded"
+            else:
+                event = "story_skipped"
             log.event(event, filename=filename, corpus=corpus)
     if verbose:
         print(f" - Total stories in {corpus} corpus: {len(gatherer.downloads)}")
