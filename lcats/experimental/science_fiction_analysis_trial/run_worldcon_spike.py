@@ -25,6 +25,7 @@ import uuid
 from typing import Any, Callable, Iterable
 
 from lcats.analysis.science_fiction import evidence
+from lcats.analysis.science_fiction import fact_table
 from lcats.analysis.science_fiction import heinlein
 from lcats.analysis.science_fiction import heinlein_temporal
 from lcats.analysis.science_fiction import knight
@@ -2226,7 +2227,7 @@ def _run_heinlein_temporal_stage(
     def build(
         stage_response: llm_backend.BackendResponse, result: Any
     ) -> heinlein_temporal.HeinleinTemporalAnalysis:
-        return heinlein_temporal.build_analysis(
+        analysis = heinlein_temporal.build_analysis(
             analysis_id=analysis_id,
             story_hash=prepared.story_hash,
             evidence_set_id=evidence_set.evidence_set_id,
@@ -2239,6 +2240,9 @@ def _run_heinlein_temporal_stage(
             tool_result=result,
             paragraphs=prepared.paragraphs,
         )
+        # Audit against the curated fact table (WI-SF-0129): it reports and may
+        # label a confirmed final period, but never changes a derived status.
+        return fact_table.apply_to_analysis(analysis)
 
     try:
         response, tool_result, raw_path, reused = _run_checkpointed_model_stage(

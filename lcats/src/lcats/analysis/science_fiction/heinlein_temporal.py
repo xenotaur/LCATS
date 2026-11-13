@@ -67,6 +67,12 @@ HUMAN_STATUSES = models.DECISION_STATES | {NOT_COMPUTED}
 
 TODAY_REASON_ALL_EXPIRED = "all_counted_expired"
 
+# Outcomes of auditing a model-asserted premise against the curated fact table
+# (R10, WI-SF-0129). The audit only reports: it never changes a derived status.
+AUDIT_OUTCOMES = frozenset(
+    {"table_confirmed", "disagreement", "ambiguous_match", "not_comparable"}
+)
+
 CATEGORY_EVERGREEN = "evergreen"
 CATEGORY_OVERTAKEN = "overtaken"
 CATEGORY_WHEN_WRITTEN_TODAY_UNDETERMINED = "plausible_when_written_today_undetermined"
@@ -681,6 +687,49 @@ def premise_condition(
     return f"{premise.premise_id}: composition interval spans " + "; ".join(spans)
 
 
+@dataclasses.dataclass(frozen=True)
+class FactAudit:
+    """The result of auditing one premise against the curated fact table (R10).
+
+    Only premises that matched a table entry, or that matched more than one, get
+    an audit; an unmatched premise gets none and is unaffected. The audit is
+    reported alongside the record and never alters a premise's derived status.
+
+    Like ``human`` and ``existing_statuses`` it is a stored annotation: the
+    sidecar validator checks its shape and that it cites known premises, but does
+    not re-derive it, because the fact table grows and re-deriving would make
+    every earlier record look stale each time an entry is added.
+    """
+
+    premise_id: str
+    outcome: str
+    method: str
+    fact_id: str | None = None
+    reasons: tuple[str, ...] = ()
+
+    def __post_init__(self) -> None:
+        _require_non_empty_string(self.premise_id, "premise_id")
+        _require_choice(self.outcome, AUDIT_OUTCOMES, "outcome")
+        _require_non_empty_string(self.method, "method")
+        if self.fact_id is not None:
+            _require_non_empty_string(self.fact_id, "fact_id")
+        if not isinstance(self.reasons, tuple) or not all(
+            isinstance(reason, str) and reason.strip() for reason in self.reasons
+        ):
+            raise ValueError("reasons must be a tuple of non-empty strings")
+        if self.outcome in {"table_confirmed", "disagreement"} and self.fact_id is None:
+            raise ValueError(f"a {self.outcome} audit needs a fact_id")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "premise_id": self.premise_id,
+            "fact_id": self.fact_id,
+            "outcome": self.outcome,
+            "method": self.method,
+            "reasons": list(self.reasons),
+        }
+
+
 def validate_composition_window(
     composition: CompositionInterval, analysis_date: str
 ) -> None:
@@ -728,6 +777,9 @@ class HeinleinTemporalAnalysis:
     existing_statuses: Mapping[str, str] = dataclasses.field(default_factory=dict)
     status: str = "complete"
     failures: tuple[models.FailureRecord, ...] = ()
+    # Appended last and omitted from the serialized form when empty, so a record
+    # the fact table never touched is byte-identical to one written before it.
+    fact_audit: tuple[FactAudit, ...] = ()
 
     def __post_init__(self) -> None:
         _require_non_empty_string(self.analysis_id, "analysis_id")
@@ -744,6 +796,18 @@ class HeinleinTemporalAnalysis:
             month_range(self.model_knowledge_cutoff)
         premise_ids = tuple(premise.premise_id for premise in self.premises)
         _require_unique_strings(premise_ids, "premise_id")
+        if not isinstance(self.fact_audit, tuple) or not all(
+            isinstance(audit, FactAudit) for audit in self.fact_audit
+        ):
+            raise ValueError("fact_audit must be a tuple of FactAudit records")
+        _require_unique_strings(
+            tuple(audit.premise_id for audit in self.fact_audit), "fact_audit premise"
+        )
+        unknown_audited = {a.premise_id for a in self.fact_audit} - set(premise_ids)
+        if unknown_audited:
+            raise ValueError(
+                f"fact_audit cites unknown premises: {sorted(unknown_audited)!r}"
+            )
         for name, criterion in (("essential", self.essential), ("causal", self.causal)):
             unknown = set(criterion.premise_ids) - set(premise_ids)
             if unknown:
@@ -848,7 +912,7 @@ class HeinleinTemporalAnalysis:
         ]
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        data: dict[str, Any] = {
             "analysis_id": self.analysis_id,
             "story_hash": self.story_hash,
             "evidence_set_id": self.evidence_set_id,
@@ -862,6 +926,9 @@ class HeinleinTemporalAnalysis:
             "existing_statuses": dict(self.existing_statuses),
             "assessment": self.assessment(),
         }
+        if self.fact_audit:
+            data["fact_audit"] = [audit.to_dict() for audit in self.fact_audit]
+        return data
 
 
 # --- parsing ------------------------------------------------------------
@@ -963,6 +1030,20 @@ def _composition_from_dict(data: Any) -> CompositionInterval:
     )
 
 
+def _fact_audit_from_dict(data: Any) -> FactAudit:
+    data = _mapping(data, "fact audit")
+    _unexpected(
+        data, {"premise_id", "fact_id", "outcome", "method", "reasons"}, "fact audit"
+    )
+    return FactAudit(
+        premise_id=data.get("premise_id"),
+        fact_id=data.get("fact_id"),
+        outcome=data.get("outcome"),
+        method=data.get("method"),
+        reasons=tuple(_sequence(data.get("reasons", []), "reasons")),
+    )
+
+
 def analysis_from_dict(data: Mapping[str, Any]) -> HeinleinTemporalAnalysis:
     """Rebuild an analysis from its serialized form, validating every input.
 
@@ -986,6 +1067,7 @@ def analysis_from_dict(data: Mapping[str, Any]) -> HeinleinTemporalAnalysis:
             "premises",
             "existing_statuses",
             "assessment",
+            "fact_audit",
         },
         "analysis",
     )
@@ -1036,6 +1118,10 @@ def analysis_from_dict(data: Mapping[str, Any]) -> HeinleinTemporalAnalysis:
         ),
         status=data.get("status"),
         failures=failures,
+        fact_audit=tuple(
+            _fact_audit_from_dict(item)
+            for item in _sequence(data.get("fact_audit", []), "fact_audit")
+        ),
     )
 
 

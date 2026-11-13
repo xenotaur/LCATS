@@ -59,6 +59,7 @@ where = ["src"]
 # they are present in wheel/sdist installs, not only in source checkouts.
 "lcats.gatherers" = ["overrides/*.json"]
 "lcats.analysis.corpus" = ["allowlists/*.json"]
+"lcats.analysis.science_fiction" = ["facts/*.json"]
 
 [project.optional-dependencies]
 nlp = [

@@ -3135,6 +3135,73 @@ class WorldconSpikeHeinleinTemporalStageTest(unittest.TestCase):
             dates.add(data["analyses"]["heinlein_temporal"][0]["analysis_date"])
         self.assertEqual(1, len(dates))
 
+    def test_an_unmatched_premise_leaves_the_record_without_a_fact_audit(self):
+        _, _, data, _ = self._run("no-audit")
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertNotIn("fact_audit", record)
+        self.assertEqual(
+            {"model_asserted"},
+            {p["basis"] for pr in record["premises"] for p in pr["timeline"]},
+        )
+
+    def test_a_premise_matching_the_fact_table_is_audited_and_labelled(self):
+        def mars(result):
+            premise = result["premises"][0]
+            premise["claim"] = "Mars has a thick, breathable atmosphere."
+            premise["timeline"] = [
+                {
+                    "from": None,
+                    "to": "1965-07",
+                    "standing": "open",
+                    "source": "Before.",
+                },
+                {
+                    "from": "1965-07",
+                    "to": None,
+                    "standing": "contradicted",
+                    "source": "Mariner 4 flyby.",
+                },
+            ]
+            return result
+
+        _, _, data, _ = self._run("audit", _TemporalOverrideBackend(mars))
+
+        record = data["analyses"]["heinlein_temporal"][0]
+        self.assertEqual("complete", record["status"])
+        self.assertEqual(
+            ["table_confirmed"], [a["outcome"] for a in record["fact_audit"]]
+        )
+        self.assertEqual("mars_thick_atmosphere", record["fact_audit"][0]["fact_id"])
+        bases = [p["basis"] for p in record["premises"][0]["timeline"]]
+        self.assertEqual(["model_asserted", "table_confirmed"], bases)
+        self.assertTrue(sidecar.validate_sidecar(data).valid)
+
+    def test_a_disagreeing_premise_is_reported_and_the_model_is_not_overridden(self):
+        def mars(result):
+            premise = result["premises"][0]
+            premise["claim"] = "Mars has a thick, breathable atmosphere."
+            premise["timeline"] = [
+                {
+                    "from": None,
+                    "to": None,
+                    "standing": "supported",
+                    "source": "A claim.",
+                }
+            ]
+            return result
+
+        _, _, plain, _ = self._run("plain", _TemporalOverrideBackend(mars))
+        record = plain["analyses"]["heinlein_temporal"][0]
+
+        self.assertEqual(["disagreement"], [a["outcome"] for a in record["fact_audit"]])
+        self.assertEqual("supported", record["premises"][0]["timeline"][-1]["standing"])
+        self.assertEqual(
+            "model_asserted", record["premises"][0]["timeline"][-1]["basis"]
+        )
+        self.assertEqual("present", record["assessment"]["plausible_today"])
+        self.assertTrue(sidecar.validate_sidecar(plain).valid)
+
     def test_a_quote_not_in_the_cited_paragraph_is_rejected(self):
         def wrong_quote(result):
             result["premises"][0]["quote"] = "words that are not in the story"

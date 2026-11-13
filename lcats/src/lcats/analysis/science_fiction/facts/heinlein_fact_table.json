@@ -1,0 +1,96 @@
+{
+  "version": "lcats-heinlein-fact-table-v1",
+  "note": "A seed audit aid for the date-aware Heinlein stage, not an authority. Only the change a source was opened and read for is enforced by the matcher; the earlier standing is recorded for context and marked unconfirmed unless an opened source states it. To add an entry, see the module docstring of lcats.analysis.science_fiction.fact_table.",
+  "sources": [
+    {
+      "id": "nssdca_mariner_4",
+      "title": "NASA NSSDCA, Mariner 4 (1964-077A)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1964-077A",
+      "retrieved": "2026-11-12",
+      "opened": true,
+      "evidence": "Raw page read: the spacecraft flew by Mars on 14 and 15 July 1965 (closest approach 01:00:57 UT on 15 July); a surface atmospheric pressure of 4.1 to 7.0 mb and daytime temperatures near minus 100 C were estimated, and no magnetic field was detected."
+    },
+    {
+      "id": "wikipedia_mariner_4",
+      "title": "Wikipedia, Mariner 4",
+      "url": "https://en.wikipedia.org/wiki/Mariner_4",
+      "retrieved": "2026-11-12",
+      "opened": true,
+      "evidence": "Raw page read: gives the same 4.1 to 7.0 millibar surface pressure and minus 100 C daytime temperature estimates from the flyby."
+    },
+    {
+      "id": "wikipedia_atmosphere_of_mars",
+      "title": "Wikipedia, Atmosphere of Mars",
+      "url": "https://en.wikipedia.org/wiki/Atmosphere_of_Mars",
+      "retrieved": "2026-11-12",
+      "opened": true,
+      "evidence": "Raw page read: Mars's atmosphere is much thinner than Earth's, with a surface pressure of about 610 Pa, roughly 0.6 percent of Earth's value; says the Mariner 4 flyby in 1965 confirmed a mostly carbon dioxide atmosphere at about 400 to 700 Pa."
+    },
+    {
+      "id": "nssdca_mariner_2",
+      "title": "NASA NSSDCA, Mariner 2 (1962-041A)",
+      "url": "https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1962-041A",
+      "retrieved": "2026-11-12",
+      "opened": true,
+      "evidence": "Raw page read: closest approach to Venus at 19:59:28 UT on 14 December 1962; reported results include hot surface temperatures, high surface pressures and a mostly carbon dioxide atmosphere."
+    },
+    {
+      "id": "wikipedia_mercury",
+      "title": "Wikipedia, Mercury (planet)",
+      "url": "https://en.wikipedia.org/wiki/Mercury_(planet)",
+      "retrieved": "2026-11-12",
+      "opened": true,
+      "evidence": "Raw page read: for many years Mercury was thought tidally locked (one rotation per orbit), a view attributed to Schiaparelli in the 1880s and widely held; radar observations by Pettengill and Dyce, cited to Nature 1965, showed a rotation period of about 59 days, and 1965 radar results proved a 3:2 spin-orbit resonance."
+    }
+  ],
+  "facts": [
+    {
+      "fact_id": "mars_thick_atmosphere",
+      "claim": "Mars has a thick, Earth-like atmosphere at its surface, dense enough to breathe or to shelter the surface.",
+      "match": [
+        ["mars", "martian"],
+        ["atmosphere", "air"],
+        ["thick", "dense", "earth-like", "earthlike", "breathable", "breathe"]
+      ],
+      "change_at": "1965-07",
+      "final_standing": "contradicted",
+      "before_standing": "open",
+      "before_confirmed": false,
+      "before_note": "No opened source states what was believed about Mars's surface pressure before the flyby, so the earlier open standing is an UNCONFIRMED assumption and is not enforced.",
+      "source_ids": ["nssdca_mariner_4", "wikipedia_mariner_4", "wikipedia_atmosphere_of_mars"],
+      "note": "The boundary is the date of the first spacecraft measurement the opened sources report (the Mariner 4 flyby, 14-15 July 1965), not the later publication of its results and not necessarily the first time anyone doubted a thick atmosphere; spectroscopy before 1965 may already have pointed the same way. Contradiction follows from the opened sources' pressures (about 4 to 7 mb, roughly 0.6 percent of Earth's), an inference the sources do not state in one sentence."
+    },
+    {
+      "fact_id": "venus_temperate_surface",
+      "claim": "Venus has a temperate, habitable surface climate.",
+      "match": [
+        ["venus", "venusian"],
+        ["surface", "climate", "temperature", "temperatures"],
+        ["temperate", "habitable", "livable", "tropical", "jungle", "jungles", "swamp", "swamps", "lush", "comfortable", "earth-like", "earthlike"]
+      ],
+      "change_at": "1962-12",
+      "final_standing": "contradicted",
+      "before_standing": "open",
+      "before_confirmed": false,
+      "before_note": "No opened source states what was believed about Venus's surface before the encounter, so the earlier open standing is an UNCONFIRMED assumption and is not enforced.",
+      "source_ids": ["nssdca_mariner_2"],
+      "note": "The boundary is the date of the first spacecraft measurement the opened source reports (the encounter, 14 December 1962), not the later publication of results and not necessarily the first time anyone doubted a temperate surface. The opened page reports hot surface temperatures and high surface pressures without numbers; contradicting 'temperate' is a direct reading of 'hot' but the page gives no figure."
+    },
+    {
+      "fact_id": "mercury_synchronous_rotation",
+      "claim": "Mercury is tidally locked to the Sun, rotating once per orbit and always keeping the same face toward it.",
+      "match": [
+        ["mercury", "mercurian"],
+        ["tidally locked", "tidal lock", "tidally-locked", "synchronous", "synchronously", "same face", "same side", "one face", "one side"],
+        ["sun", "solar", "orbit", "orbits", "planet"]
+      ],
+      "change_at": "1965",
+      "final_standing": "contradicted",
+      "before_standing": "supported",
+      "before_confirmed": false,
+      "before_note": "The opened page says synchronous rotation was widely held for many years; whether that counts as 'supported' or 'open' in the standing vocabulary is a judgement the matcher does not enforce.",
+      "source_ids": ["wikipedia_mercury"],
+      "note": "The month of the 1965 radar result is not given in the opened source, so the boundary is the year. The claim is attributed to Schiaparelli in the 1880s by the opened page; before then no synchronous claim is recorded."
+    }
+  ]
+}
