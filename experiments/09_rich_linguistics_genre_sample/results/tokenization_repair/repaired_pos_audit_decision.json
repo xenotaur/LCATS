@@ -1,0 +1,44 @@
+{
+  "schema_version": "rich-linguistics-repaired-pos-audit-decision-v1",
+  "decision": "defer",
+  "authorized_pos_dependent_work": false,
+  "reason": "The repaired packet has been retained and its ledger initialized, but all 192 human audit rows remain pending. The POS quality gate cannot be scored without human labels.",
+  "source_commit": "b9aaec8d802a4498c839cd06bfc34baaa5f1819f",
+  "tokenization_mode": "repaired-v1",
+  "retention": {
+    "audit_packet": "checked_in_experiment_results",
+    "canonical_token_detail": "retained_in_experiment_local_parquet",
+    "parquet_manifest": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/parquet/parquet_manifest.json",
+    "parquet_bytes": 13252947,
+    "json_sidecars": "generated_local_source_for_parquet_export; not intended for git check-in"
+  },
+  "pilot": {
+    "story_count": 146,
+    "token_count": 1089199,
+    "generated_bytes": 414088712,
+    "elapsed_seconds": 295.556,
+    "peak_memory_bytes": 1112621056
+  },
+  "audit": {
+    "sample_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv",
+    "ledger_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json",
+    "packet_fingerprint": "79180b37b4c51e1d90c77ffad4998d1564da152bb440627ef2c09d3918a16b0d",
+    "row_count": 192,
+    "reviewed": 0,
+    "pending": 192,
+    "uncertain": 0,
+    "blocked": 0,
+    "pre_repair_blocked_rows": 56,
+    "post_repair_rows_requiring_block": 29,
+    "reduction": 27,
+    "status": "human_audit_pending"
+  },
+  "gates": {
+    "overall_precision_recall": "not_evaluable",
+    "genre_slice_precision_recall": "not_evaluable",
+    "full_corpus_run": "deferred",
+    "sample_pos_figures": "deferred",
+    "stanza_comparison": "not_reached"
+  },
+  "next_action": "Complete the 192-row interactive audit against the retained repaired packet, then validate and score only when every row is reviewed or explicitly deferred with evidence."
+}
