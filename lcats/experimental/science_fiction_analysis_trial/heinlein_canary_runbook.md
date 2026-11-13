@@ -348,9 +348,10 @@ is part of the stage checkpoint fingerprint.
 After a record is built, its premises are audited against a small curated fact
 table (`lcats.analysis.science_fiction.fact_table`; seeded with Mars, Venus and
 Mercury cases whose cited sources were opened and read). A premise that matches
-one entry and agrees on how the fact ended and when it changed has its final
-period labelled `table_confirmed`; a disagreement or an ambiguous match is
-recorded under `fact_audit`; an unmatched premise is untouched. The audit never
+one entry and agrees on how the fact ended and when it changed has the periods
+since that change labelled `table_confirmed`; a disagreement, an ambiguous match,
+an empty timeline or a counterfactual premise (`not_comparable`) is recorded
+under `fact_audit`; an unmatched or negated premise is untouched. The audit never
 changes a derived status, and a record with nothing to report has no
 `fact_audit` key. The table is a seed, not an authority, and matches on strict
 term groups because the stage does not supply a stable fact identifier.

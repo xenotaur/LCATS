@@ -34,11 +34,18 @@ audit so a later stage-supplied fact identifier can replace it.
 
 Known limits of the term matcher (it is an audit aid, not a reader):
 
-* **Negation.** A claim containing a negator (``not``, ``no``, ``never``,
-  ``without``, ``cannot``, ``n't``, ``neither``, ``nor``) is never matched, so
-  "Mars does not have a thick atmosphere" is simply not audited. This avoids
-  both a false disagreement and a false confirmation. Typographic apostrophes
-  (for example ``doesn’t``) are normalised first, so they count too.
+* **Negation.** A claim containing a negator is never matched, so "Mars does
+  not have a thick atmosphere" is simply not audited. This avoids both a false
+  disagreement and a false confirmation. The negators are ``not``, ``no``,
+  ``never``, ``without``, ``cannot``, ``neither``, ``nor``, ``none``,
+  ``nobody``, ``nothing``, ``nowhere``, ``lack``/``lacks``/``lacking``,
+  ``devoid``, ``hardly``, ``scarcely``, ``rarely``, ``little``, ``free of``,
+  ``far from``, ``anything but``, ``rather than``, ``less than`` and ``n't``.
+  Typographic apostrophes (for example ``doesn\u2019t``) are normalised first,
+  so they count too. The list errs towards not auditing: "little" and "less
+  than" also block harmless claims ("a little planet"), which costs only a
+  missed audit. It is a list, not a reader, so an unlisted negation can still
+  slip through.
 * **Counterfactual premises.** A ``counterfactual_divergence`` premise's
   timeline describes the standing of its enabling mechanism, not the historical
   claim (R1), so a match is reported ``not_comparable`` and never compared.
@@ -318,7 +325,10 @@ _APOSTROPHES = str.maketrans(
 )
 
 _NEGATION = re.compile(
-    r"(?<![\w-])(?:not|no|never|without|cannot|neither|nor)(?![\w-])|n't\b",
+    r"(?<![\w-])(?:not|no|never|without|cannot|neither|nor|none|nobody|nothing"
+    r"|nowhere|lack|lacks|lacking|devoid|hardly|scarcely|rarely|little"
+    r"|free\s+of|far\s+from|anything\s+but|rather\s+than|less\s+than)(?![\w-])"
+    r"|n't\b",
     re.IGNORECASE,
 )
 
@@ -464,9 +474,9 @@ def apply_to_analysis(
     """Audit every premise; an analysis with nothing to report is returned as is.
 
     A confirmed premise's periods since the change are relabelled
-    ``table_confirmed``. The
-    timeline, and so every derived status, is unchanged; disagreements and
-    ambiguous matches are recorded in ``fact_audit`` for a human to review.
+    ``table_confirmed``. The timeline, and so every derived status, is
+    unchanged; disagreements and ambiguous matches are recorded in
+    ``fact_audit`` for a human to review.
     """
 
     table = table or default_table()

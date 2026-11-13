@@ -218,6 +218,29 @@ class ClaimMatchingTest(unittest.TestCase):
                 for entry in fact_table.default_table().facts:
                     self.assertFalse(fact_table.claim_matches(claim, entry))
 
+    def test_wider_negation_forms_are_never_matched(self):
+        for claim in (
+            "Mars lacks a thick atmosphere.",
+            "Mars is lacking a thick atmosphere.",
+            "Mars hardly has a thick atmosphere.",
+            "Mars scarcely has a thick atmosphere.",
+            "Mars rarely has a thick atmosphere.",
+            "Mars has none of a thick atmosphere.",
+            "Mars has nothing like a thick atmosphere.",
+            "Mars atmosphere is anything but thick.",
+            "Mars atmosphere is far from thick.",
+            "Mars atmosphere is free of thick air.",
+            "Mars has a thin rather than thick atmosphere.",
+            "Mars has less than a thick atmosphere.",
+            "Mars atmosphere is devoid of thick air.",
+            "Venus surface is nowhere temperate.",
+            "Venus has little temperate surface.",
+            "Mercury is nobody's tidally locked planet of the Sun.",
+        ):
+            with self.subTest(claim):
+                for entry in fact_table.default_table().facts:
+                    self.assertFalse(fact_table.claim_matches(claim, entry))
+
     def test_typographic_apostrophes_count_as_negation(self):
         for claim in (
             "Mars doesn\u2019t have a thick atmosphere.",
@@ -252,7 +275,7 @@ class ClaimMatchingTest(unittest.TestCase):
 
 
 class AuditTest(unittest.TestCase):
-    def test_agreement_marks_the_final_period_table_confirmed(self):
+    def test_agreement_marks_the_final_run_table_confirmed(self):
         premise = _premise(
             MARS_CLAIM,
             [_p("open", None, "1965-07"), _p("contradicted", "1965-07", None)],
@@ -479,7 +502,7 @@ class ApplyToAnalysisTest(unittest.TestCase):
             or [_p("open", None, "1965-07"), _p("contradicted", "1965-07", None)],
         )
 
-    def test_a_confirmed_premise_gets_only_its_final_period_relabelled(self):
+    def test_a_confirmed_premise_gets_only_its_final_run_relabelled(self):
         analysis = self._analysis(self._mars())
 
         audited = fact_table.apply_to_analysis(analysis)
