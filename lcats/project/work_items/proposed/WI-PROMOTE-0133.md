@@ -45,9 +45,9 @@ forbidden_actions:
   - use_network
 acceptance:
   - "A read-only tool, tools/check_genre_story_binding.py, compares the sha256 of each baseline story's story.json bytes under a given data/ root with the 146-row story_hash_baseline.jsonl. It exits 0 and prints nothing but a one-line ok summary when every story matches, and exits 1 listing every changed story, every baseline story missing from the root, and every story under the root that has a genre.json but is not in the baseline"
-  - "Tests cover a match, changed bytes, a missing story, an extra story with a genre.json, an extra story without one (not reported), a malformed or duplicate baseline row, and the real 146-row baseline against the current corpora/ (all match). The tool never writes to the root it reads"
+  - "Tests cover a match, changed bytes, a missing story, an extra story with a genre.json, an extra story without one (not reported), a malformed or duplicate baseline row, and the real 146-row baseline against the current corpora/ (all match). A test also asserts that the tool and archive_checkpoints.py verify agree, both passing and both failing on a changed story, when run on the real baseline. The tool never writes to the root it reads"
   - "docs/reference/prepare-corpora-release.md step 3b runs the check after the seed step and states the rule for a mismatch: stop; re-assess that story or record an owner-accepted exception; do not run replace past it silently"
-  - "project/design/genre-sidecar-story-binding.md states in its status line that the recommendation is an adopted decision as of this work item, with the recommendation text otherwise unchanged"
+  - "project/design/genre-sidecar-story-binding.md states in its status line that the recommendation is an adopted decision as of this work item, that the adopted form is the standalone tools/check_genre_story_binding.py (not the code-free runbook-only check its recommendation text describes), and that it no longer says the note changes no code. The recommendation text itself is otherwise unchanged"
   - "lrh validate reports 0 errors, and the changed tool and test paths are passed explicitly to format and lint"
 required_evidence:
   - test_output
@@ -93,11 +93,13 @@ Design decisions, made at planning time:
 - **A new standalone tool**, `tools/check_genre_story_binding.py`, beside
   `tools/build_genre_seed_manifest.py`, rather than a new subcommand of
   `experiments/05_metadata_genre_prefilter/archive_checkpoints.py`. That script's
-  `verify --corpora <dir>` already compares story bytes with the baseline, but it
-  also re-verifies the whole archive and the evidence file, which a release operator
-  should not need. The tool reads only the baseline's `lcats_id` and
-  `story_content_hash` fields. A test pins its result against `verify`'s on the real
-  data so the two cannot drift.
+  `verify --corpora <dir>` already hashes each story's `story.json` and compares it
+  with the hash recorded in the archived Opus checkpoint (it also checks the baseline
+  row against that same hash), but it also re-verifies the whole archive and the
+  evidence file, which a release operator should not need. The tool reads only the
+  baseline's `lcats_id` and `story_content_hash` fields. A test (an acceptance
+  criterion) asserts the tool and `verify` agree on the real data, so the two cannot
+  drift.
 - **File bytes, not an effective-input hash.** File bytes are conservative: they also
   flag fields the assessment ignores, such as `year`, so the check can cause an
   unnecessary re-assess-or-accept decision but never miss a stale sidecar. The exact
@@ -125,7 +127,8 @@ Prior art check:
    paths are arguments.
 2. Tests, including the real baseline against `corpora/`.
 3. One runbook step in 3b, after the seed step, with the mismatch rule.
-4. The binding note's status line only.
+4. The binding note's status line only, which must also say the adopted form is the
+   standalone tool and drop the "changes no code" wording.
 
 ## Required Changes
 
@@ -135,11 +138,14 @@ Prior art check:
   malformed. The tool reads the root and writes nothing.
 - Add `tests/dev_tests/check_genre_story_binding_test.py` in the style of
   `tests/dev_tests/build_genre_seed_manifest_test.py`, covering the acceptance
-  criteria; build fixture roots in a temporary directory.
+  criteria, including the agreement test against `archive_checkpoints.py verify` on
+  the real baseline; build fixture roots in a temporary directory.
 - Edit `docs/reference/prepare-corpora-release.md` step 3b: add the command, its
   expected output, and the mismatch rule; update the sentence that says the check is
   not built yet. Keep the existing links and the two other read-only checks.
-- Edit the status line of `project/design/genre-sidecar-story-binding.md`.
+- Edit the status line of `project/design/genre-sidecar-story-binding.md` only: record
+  the adopted decision and that its adopted form is the standalone tool, and remove
+  "It changes no code". Leave the recommendation text unchanged.
 - Run format and lint with the changed paths named explicitly.
 
 ## Non-Goals
@@ -161,7 +167,9 @@ Prior art check:
   a `genre.json`, a malformed or duplicate baseline row, and the real baseline against
   the current `corpora/`.
 - Step 3b runs the check after the seed step and states the mismatch rule.
-- The binding note's status line records the adopted decision.
+- The binding note's status line records the adopted decision and names the standalone
+  tool as its adopted form.
+- A test shows the tool and `archive_checkpoints.py verify` agree on the real baseline.
 - `lrh validate` reports 0 errors; changed paths are passed explicitly to format and
   lint.
 
