@@ -660,6 +660,18 @@ def identify_story_boundaries(
             continue
         if CHAPTER.match(s):
             break
+        # After a metadata-matched display title, flush-left dialogue is
+        # narrative even when it is too short for _prose()'s word/length
+        # thresholds.  Magazine teasers are normally centered/indented and
+        # have already been handled by _front_blurb() and the credit rules.
+        # This prevents losing a first paragraph such as '"Time," said ...'
+        # and, consequently, any subsequent short narrative paragraphs.
+        if (
+            heading is not None
+            and lines[pos] == lines[pos].lstrip()
+            and s.startswith(('"', "\u201c", "\u2018", "'"))
+        ):
+            break
         if _prose(s):
             break
         # Verse narratives have short physical lines: after an anchored title
