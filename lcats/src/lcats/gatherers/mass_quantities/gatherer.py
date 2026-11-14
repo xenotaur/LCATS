@@ -161,6 +161,8 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
             # for story in tqdm(range(1, 79061)):
             # print(story)
             try:
+                # The parser checks registry membership before acquisition and
+                # registers only after it confirms a published or existing file.
                 result = parser.gather_story_result(gatherer, story, source=source)
                 story, filename, error = result.story, result.path, result.rejection
             except resources.ResourceTransportError as exc:

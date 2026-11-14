@@ -1,615 +1,933 @@
-"""Tests for lcats.gatherers.mass_quantities.parser."""
+"""Unit tests for LCATS using its actual package imports.
 
+Run from the LCATS repository root:
+    python -m unittest discover -s tests -p '*_test.py' -v
+"""
+
+import contextlib
+import io
+import tempfile
 import unittest
-from parameterized import parameterized
+from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
-from lcats.gatherers import parser
-from lcats.utils import capture
+from dataclasses import dataclass
+
+from lcats.gatherers import downloaders, normalization, parser, registry, story_output
+from lcats.gatherers.mass_quantities import storymap
+from lcats.gettenberg import resources
+from lcats.utils import names
 
 
-class TestIsNumber(unittest.TestCase):
-    """Tests for parser.is_number."""
+class CaptureOutput:
+    """Capture console output without relying on another test framework."""
 
-    @parameterized.expand(
-        [
-            ("integer_string", "42", True),
-            ("negative_integer", "-1", True),
-            ("zero", "0", True),
-            ("year_like", "1920", True),
-            ("float_string", "3.14", False),
-            ("word", "hello", False),
-            ("empty_string", "", False),
-            ("whitespace", "  ", False),
-        ]
+    def __init__(self):
+        self.stdout = io.StringIO()
+        self.stderr = io.StringIO()
+
+    def readouterr(self):
+        result = SimpleNamespace(
+            out=self.stdout.getvalue(),
+            err=self.stderr.getvalue(),
+        )
+
+        self.stdout.seek(0)
+        self.stdout.truncate(0)
+        self.stderr.seek(0)
+        self.stderr.truncate(0)
+
+        return result
+
+
+class LCATSTestCase(unittest.TestCase):
+    """Provide the same temporary-file and mock cleanup as existing LCATS tests."""
+
+    def setUp(self):
+        self._temporary_directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self._temporary_directory.cleanup)
+
+        self.tmp_path = Path(self._temporary_directory.name)
+        self.capsys = CaptureOutput()
+
+        self._stdout_capture = contextlib.redirect_stdout(self.capsys.stdout)
+        self._stderr_capture = contextlib.redirect_stderr(self.capsys.stderr)
+
+        self._stdout_capture.__enter__()
+        self.addCleanup(self._stdout_capture.__exit__, None, None, None)
+
+        self._stderr_capture.__enter__()
+        self.addCleanup(self._stderr_capture.__exit__, None, None, None)
+
+    def patch_attribute(self, target, name, replacement):
+        """Patch a real module or object, restoring it after this test."""
+        patcher = patch.object(target, name, replacement)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+        return replacement
+
+
+@dataclass
+class Metadata:
+    titles: tuple = ("Sample Story",)
+    authors: tuple = ("Author, Alice",)
+    aliases: tuple = ()
+    subjects: tuple = ("PS", "Short stories")
+    languages: tuple = ("en",)
+
+
+def source_fixture():
+    metadata = Metadata()
+
+    prepared = SimpleNamespace(
+        cleaned=SimpleNamespace(text="Sample text"),
+        provenance=Mock(return_value={"source_uri": "https://example.test/book"}),
     )
-    def test_is_number(self, _name, s, expected):
-        self.assertEqual(parser.is_number(s), expected)
+
+    return SimpleNamespace(
+        metadata=Mock(return_value=metadata),
+        read=Mock(return_value=prepared),
+    )
 
 
-class TestOnlyEnglish(unittest.TestCase):
-    """Tests for parser.only_english."""
-
-    def test_only_english_single(self):
-        self.assertTrue(parser.only_english(["en"]))
-
-    def test_only_english_set(self):
-        self.assertTrue(parser.only_english({"en"}))
-
-    def test_mixed_languages(self):
-        self.assertFalse(parser.only_english(["en", "fr"]))
-
-    def test_no_english(self):
-        self.assertFalse(parser.only_english(["fr"]))
-
-    def test_empty_list(self):
-        self.assertFalse(parser.only_english([]))
-
-    def test_custom_target(self):
-        self.assertTrue(parser.only_english(["fr"], target="fr"))
-
-    def test_custom_target_not_in_list(self):
-        self.assertFalse(parser.only_english(["en"], target="fr"))
+def output_gatherer_fixture(tmp_path):
+    return SimpleNamespace(
+        path=str(tmp_path),
+        ensure=Mock(return_value=(None, str(tmp_path / "story.json"))),
+    )
 
 
-class TestFiction(unittest.TestCase):
-    """Tests for parser.fiction."""
-
-    def test_fiction_in_subject(self):
-        self.assertTrue(parser.fiction(["American fiction"]))
-
-    def test_fiction_case_insensitive(self):
-        self.assertTrue(parser.fiction(["FICTION"]))
-
-    def test_no_fiction(self):
-        self.assertFalse(parser.fiction(["poetry"]))
-
-    def test_empty_subject(self):
-        self.assertFalse(parser.fiction([]))
-
-    def test_fiction_among_multiple(self):
-        self.assertTrue(parser.fiction(["PS", "Short stories", "American fiction"]))
+SAMPLE_BOOK = "\n".join(
+    [
+        "Title: The Forgotten Island",
+        "Author: Alice Author",
+        "*** START OF THE PROJECT GUTENBERG EBOOK THE FORGOTTEN ISLAND",
+        "The Forgotten Island",
+        "By Alice Author",
+        "",
+        "The boat crossed the water as the late evening sun sank behind the hill.",
+        "",
+        "A second paragraph describes the island and its strange inhabitants.",
+        "",
+        "*** END OF THE PROJECT GUTENBERG EBOOK THE FORGOTTEN ISLAND",
+    ]
+)
 
 
-class TestShortStory(unittest.TestCase):
-    """Tests for parser.short_story."""
+class TestParser(LCATSTestCase):
 
-    def test_short_stories_in_subject(self):
-        self.assertTrue(parser.short_story(["Short stories"]))
+    def modules(self, tmp_path):
+        """Use real LCATS imports, mocking only external effects."""
+        file_namer = Mock(return_value="sample__author.json")
 
-    def test_short_story_singular(self):
-        self.assertTrue(parser.short_story(["Short story"]))
+        self.patch_attribute(names, "title_and_author_to_filename", file_namer)
+        self.patch_attribute(normalization, "normalize_story_dict", Mock())
+        self.patch_attribute(story_output, "existing", Mock(return_value=False))
+        self.patch_attribute(story_output, "publish", Mock(return_value=True))
+        self.patch_attribute(registry, "check_story", Mock(return_value=False))
+        self.patch_attribute(registry, "add_story", Mock(return_value=True))
 
-    def test_case_insensitive(self):
-        self.assertTrue(parser.short_story(["SHORT STORIES"]))
+        return SimpleNamespace(
+            parser=parser,
+            storymap=storymap,
+            names=names,
+            normalization=normalization,
+            story_output=story_output,
+            registry=registry,
+            downloaders=downloaders,
+            resources=resources,
+            tmp_path=tmp_path,
+        )
 
-    def test_no_short_story(self):
-        self.assertFalse(parser.short_story(["American fiction"]))
+    def test_normalization(self):
+        for _case_index, (raw, expected) in enumerate(
+            [
+                ("The _Lost_ Story!", "the lost story"),
+                ("  A---B  ", "a b"),
+                ("Café", "cafe"),
+            ]
+        ):
+            with self.subTest(raw=raw, expected=expected):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                self.assertEqual(modules.parser._norm(raw), expected)
 
-    def test_empty_subject(self):
-        self.assertFalse(parser.short_story([]))
+    def test_title_variants_include_article_and_subtitle(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        variants = modules.parser._title_variants(
+            "The Forgotten Island: A Curious Tale"
+        )
 
+        self.assertIn("The Forgotten Island: A Curious Tale", variants)
 
-class TestLocFiction(unittest.TestCase):
-    """Tests for parser.loc_fiction."""
+        self.assertIn("Forgotten Island: A Curious Tale", variants)
 
-    def test_ps_present(self):
-        self.assertTrue(parser.loc_fiction(["PS"]))
+        self.assertIn("The Forgotten Island", variants)
 
-    def test_pr_present(self):
-        self.assertTrue(parser.loc_fiction(["PR"]))
+        self.assertIn("Forgotten Island", variants)
 
-    def test_both_present(self):
-        self.assertTrue(parser.loc_fiction(["PS", "PR"]))
+    def test_title_line_matching(self):
+        for _case_index, (display, expected) in enumerate(
+            [
+                ("THE FORGOTTEN ISLAND", True),
+                ("The Forgotten Island by", True),
+                ("The Forgotten Island by Alice Author", True),
+                ("A different story entirely", False),
+            ]
+        ):
+            with self.subTest(display=display, expected=expected):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                actual = modules.parser._title_line(display, "The Forgotten Island")
+                self.assertIs(actual, expected)
 
-    def test_neither_present(self):
-        self.assertFalse(parser.loc_fiction(["PQ"]))
+    def test_multiline_title_span_with_one_blank(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        lines = ["The Forgotten", "", "Island", "Start of narrative"]
 
-    def test_empty(self):
-        self.assertFalse(parser.loc_fiction([]))
+        self.assertEqual(
+            modules.parser._title_span(lines, 0, len(lines), "The Forgotten Island"), 2
+        )
 
-    def test_substring_does_not_match(self):
-        """PS must be exact, not a substring."""
-        self.assertFalse(parser.loc_fiction(["PSX"]))
+    def test_multiline_title_rejects_leading_blank(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        lines = ["", "The Forgotten", "Island"]
 
+        self.assertIs(
+            modules.parser._title_span(lines, 0, len(lines), "The Forgotten Island"),
+            None,
+        )
 
-class TestSubjectOk(unittest.TestCase):
-    """Tests for parser.subject_ok."""
+    def test_author_reversed_catalog_name(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        actual = modules.parser._author_line("By Alice Author", ["Author, Alice"])
 
-    def test_valid_subject(self):
-        self.assertTrue(parser.subject_ok(["PS", "Short stories"]))
+        self.assertEqual(actual, "Author, Alice")
 
-    def test_loc_plus_fiction(self):
-        self.assertTrue(parser.subject_ok(["PR", "American fiction"]))
+    def test_author_middle_initial(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        actual = modules.parser._author_line(
+            "By Raymond Z. Gallun", ["Raymond Zinke Gallun"]
+        )
 
-    def test_no_loc(self):
-        self.assertFalse(parser.subject_ok(["Short stories"]))
+        self.assertEqual(actual, "Raymond Zinke Gallun")
 
-    def test_no_story_or_fiction(self):
-        self.assertFalse(parser.subject_ok(["PS", "poetry"]))
+    def test_author_does_not_match_unrelated_name(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
 
-    def test_empty(self):
-        self.assertFalse(parser.subject_ok([]))
+        self.assertIs(
+            modules.parser._author_line("By Someone Else", ["Author, Alice"]), None
+        )
 
+    def test_editorial_markers(self):
+        for _case_index, line in enumerate(
+            [
+                "[Transcriber's Note: corrected spelling]",
+                "[Transcriber’s Note: corrected spelling]",
+                "[Illustration]",
+            ]
+        ):
+            with self.subTest(line=line):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                self.assertTrue(modules.parser._editor_marker(line))
 
-class TestAuthorOk(unittest.TestCase):
-    """Tests for parser.author_ok."""
+    def test_editorial_headings(self):
+        for _case_index, line in enumerate(
+            ["Transcriber's Note", "Transcriber’s Note:", "Proofreader's Notes"]
+        ):
+            with self.subTest(line=line):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                self.assertTrue(modules.parser._editor_heading(line))
 
-    def test_non_empty_author(self):
-        self.assertTrue(parser.author_ok(["Smith, John"]))
+    def test_editorial_markers_do_not_match_normal_prose(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
 
-    def test_empty_author(self):
+        self.assertFalse(
+            modules.parser._editor_marker("The transcriber entered the room.")
+        )
+
+        self.assertFalse(
+            modules.parser._editor_heading("A transcriber's note was found.")
+        )
+
+    def test_terminal_signature(self):
+        for _case_index, (line, expected) in enumerate(
+            [
+                ("--ALICE AUTHOR", "Alice Author"),
+                ("By Alice Author", "Alice Author"),
+                ("Alice Author wrote a letter.", None),
+            ]
+        ):
+            with self.subTest(line=line, expected=expected):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                actual = modules.parser._terminal_author_signature(
+                    line, ["Alice Author"]
+                )
+                self.assertEqual(actual, expected)
+
+    def test_diagnostics_to_dict(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        diagnostics = modules.parser.ExtractionDiagnostics(
+            title_found=True, warnings=("very_short_extraction",)
+        )
+        result = diagnostics.to_dict()
+
+        self.assertIs(result["title_found"], True)
+
+        self.assertEqual(result["warnings"], ("very_short_extraction",))
+
+    def test_identify_boundaries_with_metadata(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        start, end, details = modules.parser.identify_story_boundaries(
+            SAMPLE_BOOK, title="The Forgotten Island", authors=["Alice Author"]
+        )
+        lines = SAMPLE_BOOK.splitlines()
+
+        self.assertTrue(details.start_marker_found)
+
+        self.assertTrue(details.end_marker_found)
+
+        self.assertTrue(details.title_found)
+
+        self.assertTrue(lines[start].startswith("The boat crossed"))
+
+        self.assertTrue(all((not line.strip() for line in lines[end:-1])))
+
+        self.assertTrue(lines[-1].startswith("*** END"))
+
+    def test_identify_boundaries_with_header_fallback(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        start, end, details = modules.parser.identify_story_boundaries(SAMPLE_BOOK)
+
+        self.assertTrue(details.title_found)
+
+        self.assertEqual(details.matched_author, "Alice Author")
+
+        self.assertLess(start, end)
+
+    def test_identify_boundaries_without_wrappers_warns(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        text = (
+            "The Forgotten Island\nBy Alice Author\n\n"
+            + "There were several people aboard the boat that morning. " * 2
+        )
+        _, _, details = modules.parser.identify_story_boundaries(
+            text, title="The Forgotten Island", authors=["Alice Author"]
+        )
+
+        self.assertIn("no_standard_start_marker", details.warnings)
+
+        self.assertIn("no_standard_end_marker", details.warnings)
+
+    def test_clean_gutenberg_story_extracts_narrative(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        story, details = modules.parser.clean_gutenberg_story(
+            SAMPLE_BOOK,
+            title="The Forgotten Island",
+            authors=["Alice Author"],
+            return_diagnostics=True,
+        )
+
+        self.assertTrue(story.startswith("The boat crossed"))
+
+        self.assertIn("A second paragraph", story)
+
+        self.assertNotIn("START OF", story)
+
+        self.assertNotIn("END OF", story)
+
+        self.assertIs(details["title_found"], True)
+
+    def test_clean_gutenberg_story_strips_terminal_author(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        text = SAMPLE_BOOK.replace(
+            "*** END OF THE PROJECT GUTENBERG",
+            "--ALICE AUTHOR\n\n*** END OF THE PROJECT GUTENBERG",
+        )
+        story, details = modules.parser.clean_gutenberg_story(
+            text,
+            title="The Forgotten Island",
+            authors=["Alice Author"],
+            return_diagnostics=True,
+        )
+
+        self.assertNotIn("--ALICE AUTHOR", story)
+
+        self.assertEqual(details["removed_terminal_signature"], "Alice Author")
+
+    def test_clean_gutenberg_story_reports_short_extraction(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        _, details = modules.parser.clean_gutenberg_story(
+            SAMPLE_BOOK,
+            title="The Forgotten Island",
+            authors=["Alice Author"],
+            return_diagnostics=True,
+        )
+
+        self.assertIn("very_short_extraction", details["warnings"])
+
+    def test_clean_story_text_unwraps_physical_lines(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        result = modules.parser.clean_story_text(
+            "The sky was clear\nand the wind was cold.\n\nThe next day arrived."
+        )
+
+        self.assertEqual(
+            result,
+            "The sky was clear and the wind was cold.\n\nThe next day arrived.\n",
+        )
+
+    def test_clean_story_text_preserves_physical_lines_if_requested(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        result = modules.parser.clean_story_text(
+            "one line\nsecond line", unwrap_lines=False
+        )
+
+        self.assertEqual(result, "one line\nsecond line\n")
+
+    def test_clean_story_text_scene_break_toggle(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        text = "First scene.\n\n* * *\n\nSecond scene."
+        removed = modules.parser.clean_story_text(text)
+        retained = modules.parser.clean_story_text(text, remove_scene_breaks=False)
+
+        self.assertNotIn("***", removed)
+
+        self.assertIn("***", retained)
+
+        self.assertIn("First scene.", retained)
+
+        self.assertIn("Second scene.", retained)
+
+    def test_clean_story_text_italic_toggle(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        text = "She read the _old_ letter."
+
+        self.assertIn("old", modules.parser.clean_story_text(text))
+
+        self.assertNotIn("_old_", modules.parser.clean_story_text(text))
+
+        self.assertIn(
+            "_old_", modules.parser.clean_story_text(text, strip_italics=False)
+        )
+
+    def test_clean_story_text_removes_only_terminal_the_end(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        text = "The end was almost visible.\n\nTHE END."
+        cleaned = modules.parser.clean_story_text(text, remove_the_end=True)
+
+        self.assertIn("The end was almost visible.", cleaned)
+
+        self.assertNotIn("THE END.", cleaned)
+
+    def test_clean_story_text_keeps_the_end_by_default(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertIn("THE END.", modules.parser.clean_story_text("THE END."))
+
+    def test_clean_story_text_removes_editorial_block_and_counts(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        cleaned, count = modules.parser.clean_story_text(
+            "A first line.\n\n[Illustration: a boat]\n\nA final line.",
+            return_removed_count=True,
+        )
+
+        self.assertNotIn("Illustration", cleaned)
+
+        self.assertIn("A first line.", cleaned)
+
+        self.assertIn("A final line.", cleaned)
+
+        self.assertEqual(count, 1)
+
+    def test_chaptered_detects_contents(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertTrue(
+            modules.parser.chaptered("Table of Contents\n\nA story follows")
+        )
+
+    def test_chaptered_detects_sequential_chapters(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertTrue(
+            modules.parser.chaptered("Chapter I\n\nStory text\n\nChapter II")
+        )
+
+    def test_chaptered_accepts_ordinary_prose(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertFalse(
+            modules.parser.chaptered(
+                "The first person entered the room.\n\nThe second person followed."
+            )
+        )
+
+    def test_possible_internal_chapter_heading(self):
+        for _case_index, (line, expected) in enumerate(
+            [
+                ("THE DARK ROOM", True),
+                ("THE END", False),
+                ('"A STRANGE STATEMENT"', False),
+                ("THE CLOCK:", False),
+            ]
+        ):
+            with self.subTest(line=line, expected=expected):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                self.assertIs(
+                    modules.parser.possible_internal_chapter_name(line), expected
+                )
+
+    def test_subject_accepts_short_fiction(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertTrue(modules.parser.subject_ok(("PS", "Short stories")))
+
+        self.assertTrue(modules.parser.subject_ok(("PR", "Fiction")))
+
+    def test_subject_rejects_epistolary(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertFalse(
+            modules.parser.subject_ok(("PS", "Short stories", "Epistolary fiction"))
+        )
+
+    def test_subject_requires_loc_classification(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertFalse(modules.parser.subject_ok(("Short stories",)))
+
+    def test_english_only_check(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertTrue(modules.parser.only_english(("en",)))
+
+        self.assertFalse(modules.parser.only_english(("en", "fr")))
+
+        self.assertFalse(modules.parser.only_english(("fr",)))
+
+    def test_title_and_author_metadata_rules(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        parser = modules.parser
+
+        self.assertTrue(parser.title_ok(["The Forgotten Island"]))
+
+        self.assertFalse(parser.title_ok(["An Anthology; and Other Stories"]))
+
+        self.assertFalse(parser.title_ok(["Volume 2"]))
+
+        self.assertTrue(parser.author_ok(["Author, Alice"]))
+
         self.assertFalse(parser.author_ok([]))
 
-    def test_multiple_authors(self):
-        self.assertTrue(parser.author_ok(["Smith, John", "Doe, Jane"]))
+    def test_metadata_rejection_for_missing_metadata(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
 
-
-class TestTitleOk(unittest.TestCase):
-    """Tests for parser.title_ok."""
-
-    def test_simple_title(self):
-        self.assertTrue(parser.title_ok(["The Bell"]))
-
-    def test_gutenberg_index_title(self):
-        self.assertFalse(parser.title_ok(["Index of the Project Gutenberg Works"]))
-
-    def test_excluded_word_volume(self):
-        self.assertFalse(parser.title_ok(["Complete Works Volume 2"]))
-
-    def test_excluded_word_part(self):
-        self.assertFalse(parser.title_ok(["Stories Part 1"]))
-
-    def test_excluded_word_poem(self):
-        self.assertFalse(parser.title_ok(["The poem"]))
-
-    def test_multiple_good_titles(self):
-        self.assertTrue(parser.title_ok(["The Bell", "The Shadow"]))
-
-
-class TestMakeTitle(unittest.TestCase):
-    """Tests for parser.make_title."""
-
-    def test_simple_title_unchanged(self):
-        self.assertEqual(parser.make_title("The Bell"), "The Bell")
-
-    def test_title_with_year_removed(self):
-        self.assertEqual(parser.make_title("The Bell\n1920"), "The Bell")
-
-    def test_year_too_early(self):
-        """Years before 1800 are not removed."""
-        self.assertEqual(parser.make_title("The Bell\n1799"), "The Bell\n1799")
-
-    def test_year_too_late(self):
-        """Years after 1960 are not removed."""
-        self.assertEqual(parser.make_title("The Bell\n1970"), "The Bell\n1970")
-
-    def test_crlf_title_split(self):
-        result = parser.make_title("The Bell\r\nSubtitle")
-        self.assertEqual(result, "The Bell")
-
-    def test_no_crlf_and_no_year(self):
-        result = parser.make_title("The Bell")
-        self.assertEqual(result, "The Bell")
-
-
-class TestChaptered(unittest.TestCase):
-    """Tests for parser.chaptered."""
-
-    def test_has_contents(self):
-        text = "Some text\n\ncontents\n\nmore text"
-        self.assertTrue(parser.chaptered(text))
-
-    def test_has_contents_with_period(self):
-        text = "Some text\n\ncontents.\n\nmore text"
-        self.assertTrue(parser.chaptered(text))
-
-    def test_chapter_i_and_ii(self):
-        text = "Chapter I\n\nsome content\n\nChapter II\n\nmore content"
-        self.assertTrue(parser.chaptered(text))
-
-    def test_roman_numerals_i_and_ii(self):
-        text = "Some text\n\ni\n\nmore text\n\nii\n\neven more"
-        self.assertTrue(parser.chaptered(text))
-
-    def test_only_one_chapter_marker(self):
-        text = "Some text\n\ni\n\nno second marker"
-        self.assertFalse(parser.chaptered(text))
-
-    def test_no_chapters(self):
-        text = "Just some plain text\n\nwith no chapters"
-        self.assertFalse(parser.chaptered(text))
-
-    def test_part_i_and_part_ii(self):
-        text = "Part I\n\nsome content\n\nPart II\n\nmore"
-        self.assertTrue(parser.chaptered(text))
-
-
-class TestHowManyTitles(unittest.TestCase):
-    """Tests for parser.how_many_titles."""
-
-    def test_no_title(self):
-        text = "Some paragraph.\n\nAnother paragraph."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 0)
-
-    def test_one_title(self):
-        text = "Some paragraph.\n\nThe Bell\n\nAnother paragraph."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 1)
-
-    def test_two_titles(self):
-        text = "The Bell\n\nSome text.\n\nThe Bell\n\nMore text."
-        self.assertEqual(parser.how_many_titles(text, ["The Bell"]), 2)
-
-
-class TestIntrusiveParagraph(unittest.TestCase):
-    """Tests for parser.intrusive_paragraph."""
-
-    def test_empty_paragraph(self):
-        self.assertFalse(parser.intrusive_paragraph(""))
-
-    def test_blank_lines_only(self):
-        # Blank-only lines are skipped; result stays True
-        self.assertTrue(parser.intrusive_paragraph("\n\n"))
-
-    def test_normal_prose(self):
-        self.assertFalse(parser.intrusive_paragraph("This is a normal paragraph."))
-
-    def test_quoted_indented(self):
-        """Lines with 4 spaces then a curly quote set result=False."""
-        paragraph = "    \u201cQuoted text here\u201d"
-        self.assertFalse(parser.intrusive_paragraph(paragraph))
-
-
-class TestLineContainsTranscriberInfo(unittest.TestCase):
-    """Tests for parser.line_contains_transcriber_info."""
-
-    @parameterized.expand(
-        [
-            ("starts_with_transcriber", "Transcriber's note", True),
-            ("bracket_transcriber", "[Transcriber's note]", True),
-            ("underscore_transcriber", "_transcriber note_", True),
-            ("not_transcriber", "Some normal line", False),
-            ("empty", "", False),
-            ("case_insensitive", "TRANSCRIBER note", True),
-        ]
-    )
-    def test_line(self, _name, line, expected):
-        self.assertEqual(parser.line_contains_transcriber_info(line), expected)
-
-
-class TestLineContainsIllustration(unittest.TestCase):
-    """Tests for parser.line_contains_illustration."""
-
-    @parameterized.expand(
-        [
-            ("starts_with_illustrat", "Illustrated by John", True),
-            ("bracket_illustrat", "[Illustration: A tree]", True),
-            ("underscore_illustrat", "_Illustrated by_", True),
-            ("not_illustration", "Some normal line", False),
-            ("empty", "", False),
-            ("case_insensitive", "ILLUSTRATION: fig 1", True),
-        ]
-    )
-    def test_line(self, _name, line, expected):
-        self.assertEqual(parser.line_contains_illustration(line), expected)
-
-
-class TestLineContainsTitle(unittest.TestCase):
-    """Tests for parser.line_contains_title."""
-
-    def test_exact_match(self):
-        self.assertTrue(parser.line_contains_title("The Bell", ["The Bell"]))
-
-    def test_with_underscore_wrapping(self):
-        self.assertTrue(parser.line_contains_title("_the bell_", ["The Bell"]))
-
-    def test_with_trailing_period(self):
-        self.assertTrue(parser.line_contains_title("The Bell.", ["The Bell"]))
-
-    def test_too_different_length(self):
-        self.assertFalse(
-            parser.line_contains_title("The Bell is ringing loudly", ["The Bell"])
+        self.assertEqual(
+            modules.parser._metadata_rejection(None, 123),
+            "No data for this story, skipping",
         )
 
-    def test_no_match(self):
-        self.assertFalse(parser.line_contains_title("Some other line", ["The Bell"]))
+    def test_metadata_rejection_for_missing_title(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        metadata = Metadata(titles=())
 
-    def test_fuzzy_match(self):
-        self.assertTrue(parser.line_contains_title("The Bell!", ["The Bell"]))
-
-    def test_title_starts_with_the(self):
-        """Lines without 'the' can match titles that start with 'the '."""
-        self.assertTrue(parser.line_contains_title("Bell", ["the Bell"]))
-
-    def test_multiline_rn(self):
-        """Lines with rn\\n in the middle are joined before matching."""
-        line = "The Bellrn\nsome text"
-        self.assertTrue(parser.line_contains_title(line, ["the bell some text"]))
-
-    def test_multiline_newline(self):
-        """Lines with \\n (not rn\\n) are joined."""
-        line = "The\nBell"
-        self.assertTrue(parser.line_contains_title(line, ["The Bell"]))
-
-
-class TestLineContainsAuthor(unittest.TestCase):
-    """Tests for parser.line_contains_author."""
-
-    def test_single_author_full_name(self):
-        self.assertTrue(parser.line_contains_author("John Smith", ["Smith, John"], []))
-
-    def test_single_author_not_found(self):
-        self.assertFalse(parser.line_contains_author("Jane Doe", ["Smith, John"], []))
-
-    def test_by_line_short(self):
-        self.assertTrue(
-            parser.line_contains_author("by John Smith", ["Smith, John"], [])
+        self.assertEqual(
+            modules.parser._metadata_rejection(metadata, 123),
+            "No title for this story, skipping",
         )
 
-    def test_by_alone(self):
-        self.assertTrue(parser.line_contains_author("by", ["Smith, John"], []))
+    def test_metadata_rejection_for_non_english(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        metadata = Metadata(languages=("fr",))
 
-    def test_by_underscore(self):
-        self.assertTrue(
-            parser.line_contains_author("_by John Smith_", ["Smith, John"], [])
+        self.assertEqual(
+            modules.parser._metadata_rejection(metadata, 123),
+            "Metadata not suitable, skipping.",
         )
 
-    def test_two_authors(self):
-        self.assertTrue(
-            parser.line_contains_author(
-                "John Smith and Jane Doe",
-                ["Smith, John", "Doe, Jane"],
-                [],
-                limit=10,
-            )
+    def test_metadata_rejection_for_excluded_story(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+
+        self.assertEqual(
+            modules.parser._metadata_rejection(Metadata(), 64092),
+            "Story on exclusion list, skipping.",
         )
 
-    def test_two_authors_only_one_present(self):
-        self.assertFalse(
-            parser.line_contains_author(
-                "John Smith",
-                ["Smith, John", "Doe, Jane"],
-                [],
-                limit=10,
-            )
+    def test_inspect_rejected_story_does_not_read_text(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        source.metadata.return_value = Metadata(languages=("fr",))
+        report = modules.parser.inspect_story(123, source=source)
+
+        self.assertIs(report["body"], None)
+
+        self.assertEqual(report["rejection"], "Metadata not suitable, skipping.")
+        source.read.assert_not_called()
+
+    def test_inspect_uses_correct_title_author_keyword_mapping(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        clean = Mock(return_value="A narrative body")
+        self.patch_attribute(modules.parser, "clean_gutenberg_story", clean)
+        self.patch_attribute(modules.parser, "chaptered", Mock(return_value=False))
+        report = modules.parser.inspect_story(123, source=source)
+
+        self.assertEqual(report["body"], "A narrative body")
+
+        self.assertEqual(report["rejection"], "Story is too short, skipping.")
+
+        self.assertEqual(
+            clean.call_args.kwargs,
+            {"title": ["Sample Story"], "authors": ["Author, Alice"], "pseudonyms": []},
         )
 
-    def test_more_than_two_authors(self):
-        """Three or more authors always returns False."""
-        self.assertFalse(
-            parser.line_contains_author(
-                "John Smith, Jane Doe, Bob Brown",
-                ["Smith, John", "Doe, Jane", "Brown, Bob"],
-                [],
-            )
+    def test_inspect_detects_chaptered_body(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        self.patch_attribute(
+            modules.parser,
+            "clean_gutenberg_story",
+            Mock(return_value="Chapter I\n\nStory\n\nChapter II"),
+        )
+        report = modules.parser.inspect_story(123, source=source)
+
+        self.assertEqual(report["rejection"], "Story has chapters, skipping.")
+
+        self.assertIn("Chapter I", report["body"])
+
+    def test_inspect_accepts_long_story(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        paragraphs = [f"Paragraph {index} has narrative prose." for index in range(12)]
+        body = "\n\n".join(paragraphs)
+        self.patch_attribute(
+            modules.parser, "clean_gutenberg_story", Mock(return_value=body)
+        )
+        self.patch_attribute(modules.parser, "chaptered", Mock(return_value=False))
+        report = modules.parser.inspect_story(123, source=source)
+
+        self.assertIs(report["rejection"], None)
+
+        self.assertEqual(report["body"], body)
+
+        self.assertEqual(
+            report["provenance"]["source_uri"], "https://example.test/book"
         )
 
-    def test_pen_name_match(self):
-        """Author with known pen name matches the pen name."""
-        # "Garrett, Randall" has pen name "Gordon, David"
-        self.assertTrue(
-            parser.line_contains_author("David Gordon", ["Garrett, Randall"], [])
+    def test_story_result_skips_bad_metadata(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        source.metadata.return_value = Metadata(languages=("fr",))
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
+
+        self.assertEqual(result.disposition, "skipped")
+
+        self.assertIs(result.path, None)
+        source.read.assert_not_called()
+        modules.registry.check_story.assert_not_called()
+        modules.registry.add_story.assert_not_called()
+
+    def test_story_result_registry_duplicate_skips_acquisition(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        modules.registry.check_story.return_value = True
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
+
+        self.assertIs(result.path, None)
+
+        self.assertEqual(result.disposition, "skipped")
+
+        self.assertIn("already appears", result.rejection)
+        modules.registry.add_story.assert_not_called()
+        source.read.assert_not_called()
+
+    def test_story_result_reuses_existing_path(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        modules.story_output.existing.return_value = True
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
+
+        self.assertEqual(result.disposition, "reused")
+
+        self.assertTrue(result.path.endswith("sample__author/story.json"))
+        source.read.assert_not_called()
+        modules.story_output.publish.assert_not_called()
+        modules.registry.add_story.assert_called_once_with(
+            "sample", "author", source="Gutenberg mass retrieval"
         )
 
+    def test_story_result_rejects_short_body_without_publish(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        self.patch_attribute(
+            modules.parser,
+            "_inspect_metadata",
+            Mock(return_value={"rejection": "Story is too short, skipping."}),
+        )
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
-class TestIsBlankLine(unittest.TestCase):
-    """Tests for parser.is_blank_line."""
+        self.assertEqual(result.disposition, "skipped")
+        modules.story_output.publish.assert_not_called()
+        output_gatherer.ensure.assert_not_called()
+        modules.registry.add_story.assert_not_called()
 
-    @parameterized.expand(
-        [
-            ("empty_string", "", True),
-            ("single_space", " hello", True),
-            ("newline_space", "\n hello", True),
-            ("normal_line", "Hello world", False),
-            ("tab_start", "\tHello", False),
-        ]
-    )
-    def test_blank(self, _name, line, expected):
-        self.assertEqual(parser.is_blank_line(line), expected)
+    def test_story_result_publishes_normalized_story(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        self.patch_attribute(
+            modules.parser,
+            "_inspect_metadata",
+            Mock(
+                return_value={
+                    "rejection": None,
+                    "body": "Story prose",
+                    "provenance": {"source_uri": "https://example.test/book"},
+                }
+            ),
+        )
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
+        self.assertEqual(result.disposition, "written")
 
-class TestInBody(unittest.TestCase):
-    """Tests for parser.in_body."""
+        self.assertEqual(result.path, str(modules.tmp_path / "story.json"))
 
-    def test_normal_line_in_body(self):
-        self.assertTrue(
-            parser.in_body("This is story text.", "The Bell", ["Smith, John"], [])
+        self.assertEqual(
+            modules.story_output.publish.call_args.args[1]["body"], "Story prose"
         )
 
-    def test_title_line_not_in_body(self):
-        self.assertFalse(parser.in_body("The Bell", ["The Bell"], ["Smith, John"], []))
-
-    def test_author_line_not_in_body(self):
-        self.assertFalse(
-            parser.in_body("John Smith", ["The Bell"], ["Smith, John"], [])
+        self.assertEqual(
+            modules.story_output.publish.call_args.args[1]["metadata"]["gettenberg"],
+            {"source_uri": "https://example.test/book"},
+        )
+        modules.normalization.normalize_story_dict.assert_called_once()
+        output_gatherer.ensure.assert_called_once_with("sample__author")
+        modules.registry.add_story.assert_called_once_with(
+            "sample", "author", source="Gutenberg mass retrieval"
         )
 
-    def test_blank_line_not_in_body(self):
-        self.assertFalse(parser.in_body("", ["The Bell"], ["Smith, John"], []))
-
-    def test_illustration_line_not_in_body(self):
-        self.assertFalse(
-            parser.in_body("Illustration: A drawing", ["The Bell"], ["Smith, John"], [])
+    def test_story_result_reports_reused_when_publish_declines(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        modules.story_output.publish.return_value = False
+        self.patch_attribute(
+            modules.parser,
+            "_inspect_metadata",
+            Mock(
+                return_value={
+                    "rejection": None,
+                    "body": "Body",
+                    "provenance": {"source_uri": "source://example"},
+                }
+            ),
         )
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
+        self.assertEqual(result.disposition, "reused")
+        modules.registry.add_story.assert_not_called()
 
-class TestPenNames(unittest.TestCase):
-    """Tests for parser.pen_names."""
+    def test_historical_gather_story_tuple(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        self.patch_attribute(
+            modules.parser,
+            "gather_story_result",
+            Mock(
+                return_value=modules.parser.StoryGatherResult(
+                    123, "path", None, "written"
+                )
+            ),
+        )
+        result = modules.parser.gather_story(output_gatherer, 123, source=source)
 
-    def test_no_pen_name(self):
-        result = parser.pen_names("Doe, John")
-        self.assertEqual(result, ["Doe, John"])
+        self.assertEqual(result, (123, "path", None))
 
-    def test_with_pen_name(self):
-        # "Garrett, Randall" has pen name "Gordon, David"
-        result = parser.pen_names("Garrett, Randall")
-        self.assertIn("Garrett, Randall", result)
-        self.assertIn("Gordon, David", result)
+    def test_registry_check_is_read_only_before_extraction(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
 
+        def inspect(story, metadata, story_source):
+            modules.registry.check_story.assert_called_once_with("sample", "author")
+            modules.registry.add_story.assert_not_called()
+            return {"rejection": "Story has chapters, skipping."}
 
-class TestFixBody(unittest.TestCase):
-    """Tests for parser.fix_body."""
+        self.patch_attribute(modules.parser, "_inspect_metadata", inspect)
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
-    def test_removes_transcriber_info_from_start(self):
-        text = "Transcriber's note: some note\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("Transcriber", result)
-        self.assertIn("Actual story begins here.", result)
+        self.assertEqual(result.disposition, "skipped")
+        modules.registry.add_story.assert_not_called()
 
-    def test_removes_illustration_from_start(self):
-        text = "Illustration: A drawing\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("Illustration", result)
-        self.assertIn("Actual story begins here.", result)
+    def test_registry_add_happens_after_successful_publish(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
 
-    def test_removes_etext_produced_from_start(self):
-        text = "This etext was produced by volunteers\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("This etext was produced", result)
-        self.assertIn("Actual story begins here.", result)
+        def inspect(story, metadata, story_source):
+            modules.registry.add_story.assert_not_called()
+            return {
+                "rejection": None,
+                "body": "Narrative",
+                "provenance": {"source_uri": "source://example"},
+            }
 
-    def test_removes_author_from_start(self):
-        text = "John Smith\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("John Smith", result)
-        self.assertIn("Actual story begins here.", result)
+        def publish(path, data):
+            modules.registry.add_story.assert_not_called()
+            return True
 
-    def test_preserves_normal_body(self):
-        text = "First paragraph.\n\nSecond paragraph."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertIn("First paragraph.", result)
-        self.assertIn("Second paragraph.", result)
+        self.patch_attribute(modules.parser, "_inspect_metadata", inspect)
+        modules.story_output.publish.side_effect = publish
+        result = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
-    def test_does_remove_transcriber_in_last_paragraph(self):
-        text = "First paragraph.\n\nSecond paragraph.\n\nTranscriber's note: late note"
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("Transcriber", result)
+        self.assertEqual(result.disposition, "written")
+        modules.registry.add_story.assert_called_once()
 
+    def test_failures_leave_registry_unchanged(self):
+        for _case_index, failing_operation in enumerate(
+            ["read", "normalize", "ensure", "publish"]
+        ):
+            with self.subTest(failing_operation=failing_operation):
+                tmp_path = self.tmp_path / str(_case_index)
+                tmp_path.mkdir(parents=True, exist_ok=True)
+                modules = self.modules(tmp_path)
+                source = source_fixture()
+                output_gatherer = output_gatherer_fixture(tmp_path)
+                if failing_operation == "read":
+                    source.read.side_effect = OSError("download failed")
+                else:
+                    self.patch_attribute(
+                        modules.parser,
+                        "_inspect_metadata",
+                        Mock(
+                            return_value={
+                                "rejection": None,
+                                "body": "Narrative",
+                                "provenance": {"source_uri": "source://example"},
+                            }
+                        ),
+                    )
+                if failing_operation == "normalize":
+                    modules.normalization.normalize_story_dict.side_effect = OSError(
+                        "normalization failed"
+                    )
+                if failing_operation == "ensure":
+                    output_gatherer.ensure.side_effect = OSError("ensure failed")
+                if failing_operation == "publish":
+                    modules.story_output.publish.side_effect = OSError("publish failed")
+                with self.assertRaises(OSError):
+                    modules.parser.gather_story_result(
+                        output_gatherer, 123, source=source
+                    )
+                modules.registry.add_story.assert_not_called()
 
-class TestBodyOfText(unittest.TestCase):
-    """Tests for parser.body_of_text."""
+    def test_registry_add_error_propagates_after_publication(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        self.patch_attribute(
+            modules.parser,
+            "_inspect_metadata",
+            Mock(
+                return_value={
+                    "rejection": None,
+                    "body": "Narrative",
+                    "provenance": {"source_uri": "source://example"},
+                }
+            ),
+        )
+        modules.registry.add_story.side_effect = OSError("registry unavailable")
+        with self.assertRaisesRegex(OSError, "registry unavailable"):
+            modules.parser.gather_story_result(output_gatherer, 123, source=source)
+        modules.story_output.publish.assert_called_once()
 
-    def setUp(self):
-        self._output_suppression = capture.suppress_output()
-        self._output_suppression.__enter__()
-        self.addCleanup(self._output_suppression.__exit__, None, None, None)
+    def test_failed_extraction_does_not_poison_later_retry(self):
+        tmp_path = self.tmp_path
+        modules = self.modules(tmp_path)
+        source = source_fixture()
+        output_gatherer = output_gatherer_fixture(tmp_path)
+        rejection = {"rejection": "Story is too short, skipping."}
+        accepted = {
+            "rejection": None,
+            "body": "Narrative",
+            "provenance": {"source_uri": "source://example"},
+        }
+        inspect = Mock(side_effect=[rejection, accepted])
+        self.patch_attribute(modules.parser, "_inspect_metadata", inspect)
+        first = modules.parser.gather_story_result(output_gatherer, 123, source=source)
+        second = modules.parser.gather_story_result(output_gatherer, 123, source=source)
 
-    def _make_story(self, title, author_line, body):
-        """Helper to create a story text with title, author, and body."""
-        return f"{title}\n\n{author_line}\n\n{body}"
+        self.assertEqual(first.disposition, "skipped")
 
-    def test_extracts_body_after_title_and_author(self):
-        """The body should be extracted after the title and author lines."""
-        text = self._make_story("The Bell", "John Smith", "Once upon a time.")
-        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
-        self.assertIn("Once upon a time.", result)
+        self.assertEqual(second.disposition, "written")
 
-    def test_body_excludes_title(self):
-        """The title line should not be included in the body, even if it appears at the start."""
-        text = self._make_story("The Bell", "John Smith", "Once upon a time.")
-        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
-        self.assertNotIn("The Bell\n\nJohn Smith", result)
-
-    def test_debug_flag_does_not_raise(self):
-        """debug=True should not raise errors."""
-        text = self._make_story("The Bell", "John Smith", "Once upon a time.")
-
-        try:
-            with capture.suppress_output():
-                parser.body_of_text(text, ["Smith, John"], [], "The Bell", debug=True)
-        except Exception as e:
-            self.fail(f"body_of_text raised an exception with debug=True: {e}")
-
-    def test_story_with_year_title(self):
-        """Titles with year suffix are stripped correctly."""
-        text = "The Bell\n\nJohn Smith\n\nOnce upon a time."
-        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell\n1920")
-        self.assertIn("Once upon a time.", result)
-
-
-class TestLineContainsTitleAdditional(unittest.TestCase):
-    """Additional tests for line_contains_title covering fuzzy and no-match branches."""
-
-    def test_fuzzy_match_fires_for_near_miss(self):
-        """Line w/high similarity to title triggers fuzzy-match when no exact match exists."""
-        # "The Bel" vs "The Bell": no exact match variant fires,
-        # but SequenceMatcher ratio ~0.93 > 0.90 so the fuzzy branch returns True.
-        self.assertTrue(parser.line_contains_title("The Bel", ["The Bell"]))
-
-    def test_no_match_returns_false_for_non_the_title(self):
-        """A line with no similarity and title not starting with 'the ' returns False."""
-        # len diff = 3 (<=5), no exact match, low fuzzy ratio, title[:4] != "the "
-        self.assertFalse(parser.line_contains_title("abcde", ["my story"]))
-
-
-class TestLineContainsAuthorAdditional(unittest.TestCase):
-    """Additional tests for line_contains_author covering single-name and long-by-line cases."""
-
-    def test_single_name_no_comma(self):
-        """Author with a single name (no comma) sets first_name to empty string."""
-        self.assertTrue(parser.line_contains_author("Mark", ["Mark"], []))
-
-    def test_by_line_over_limit_containing_names_returns_true(self):
-        """A 'by' line with >=limit words that still contains author names returns True."""
-        # 9 words: length check fails (len >= 8), but names are present, exercising lines 422-424.
-        line = "by john smith the author of this story today"
-        self.assertTrue(parser.line_contains_author(line, ["Smith, John"], []))
-
-
-class TestFixBodyAdditional(unittest.TestCase):
-    """Additional tests for fix_body covering the intrusive-paragraph branch."""
-
-    def test_removes_intrusive_paragraph_at_start(self):
-        """An intrusive paragraph (Classic reprint) at the start is skipped."""
-        text = "classic reprint from SuperScienceStories\n\nActual story begins here."
-        result = parser.fix_body(text, ["A Story"], ["Smith, John"], [])
-        self.assertNotIn("Classic reprint", result)
-        self.assertIn("Actual story begins here.", result)
-
-
-class TestBodyOfTextAdditional(unittest.TestCase):
-    """Additional tests for body_of_text covering the remaining break/continue branches."""
-
-    def setUp(self):
-        self._output_suppression = capture.suppress_output()
-        self._output_suppression.__enter__()
-        self.addCleanup(self._output_suppression.__exit__, None, None, None)
-
-    def test_double_title_breaks_after_second_occurrence(self):
-        """When the title appears twice, the loop breaks after both are found (line 612)."""
-        text = "The Bell\n\nThe Bell\n\nThis is the body."
-        result = parser.body_of_text(text, [], [], "The Bell")
-        self.assertIn("This is the body.", result)
-
-    def test_no_title_breaks_on_author(self):
-        """When title is absent but the author is seen, the loop breaks (line 614)."""
-        text = "John Smith\n\nThis is the body."
-        result = parser.body_of_text(text, ["Smith, John"], [], "Absent Title")
-        self.assertIn("This is the body.", result)
-
-    def test_blank_paragraph_before_title_is_skipped(self):
-        """A blank paragraph before the title is skipped via the is_blank_line branch (line 622)."""
-        text = "\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
-        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
-        self.assertIn("This is the body.", result)
-
-    def test_text_between_multiple_title_occurrences_is_skipped(self):
-        """Paragraphs between multiple title occurrences are skipped (line 624)."""
-        text = "The Bell\n\nMiddle text\n\nThe Bell\n\nThis is the body."
-        result = parser.body_of_text(text, [], [], "The Bell")
-        self.assertIn("This is the body.", result)
-
-    def test_body_content_after_title_without_author_triggers_break(self):
-        """Body content after title but w/o author present triggers the elif break (line 626)."""
-        text = "The Bell\n\nThis is the body."
-        result = parser.body_of_text(text, [], [], "The Bell")
-        self.assertIn("This is the body.", result)
-
-    def test_preface_before_title_is_skipped_via_else_continue(self):
-        """Text before title (not blank/title/author) is skipped via else:continue (line 628)."""
-        text = "Preface text\n\nThe Bell\n\nJohn Smith\n\nThis is the body."
-        result = parser.body_of_text(text, ["Smith, John"], [], "The Bell")
-        self.assertIn("This is the body.", result)
-        self.assertNotIn("Preface text", result)
+        self.assertEqual(modules.registry.check_story.call_count, 2)
+        modules.registry.add_story.assert_called_once()
 
 
 if __name__ == "__main__":

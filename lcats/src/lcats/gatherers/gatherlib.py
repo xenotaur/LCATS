@@ -4,8 +4,11 @@ import pathlib
 
 from bs4 import BeautifulSoup
 from lcats.gatherers import downloaders
+from lcats import constants
 from lcats.utils import names
 from lcats.utils import run_log
+
+from lcats.gatherers import registry
 
 DEFAULT_DIVISION_TAGS = ["h2", "div"]
 DEFAULT_HEADING_TAGS = ["h2", "h3"]
@@ -177,6 +180,15 @@ def gather(
             url = entry_url(*entry) if entry_url is not None else gutenberg_url
             story_name = name_source(*entry) if name_source is not None else filename
 
+            file_name = names.title_and_author_to_filename(
+                filename, [author], ext=constants.FILE_SUFFIX, max_len=50
+            )
+
+            title_db = file_name.split("__")[0]
+            author_db = file_name.split("__")[1].split(".")[0]
+            if registry.check_story(title_db, author_db):
+                continue
+
             gatherer.download(
                 filename,
                 url,
@@ -197,11 +209,15 @@ def gather(
             # so this distinguishes the two without needing download()
             # itself to change its return contract (review finding, PR
             # #404).
-            event = (
-                "story_downloaded"
-                if filename in gatherer.downloads
-                else "story_skipped"
-            )
+            if filename in gatherer.downloads:
+                registry.add_story(
+                    title_db,
+                    author_db,
+                    source=author + " Gutenberg mass retrieval",
+                )
+                event = "story_downloaded"
+            else:
+                event = "story_skipped"
             log.event(event, filename=filename, corpus=corpus)
     if verbose:
         print(f" - Total stories in {corpus} corpus: {len(gatherer.downloads)}")
