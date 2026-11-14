@@ -2,10 +2,10 @@
 execution_id: 2026_11_14_00_00_08_WS_GENRE_HUMAN_REVIEW_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WS_GENRE_HUMAN_REVIEW_SELFREVIEW)[2026-11-14T00:00:01+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_11_13_21_45_41_WS_GENRE_HUMAN_REVIEW
 pr: https://github.com/xenotaur/LCATS/pull/556
-commit: 91bc35bfd9ef4b510742531b8c37332a9c5a0d7e
+commit: 7faab83e13a3255be42f180cb19ec4388e2e32b7
 created_at: 2026-11-14T00:00:08+00:00
 agent: codex_app
 instruction_source: user request via /lrh-land PR 556; confirm-fixes substitute self-review

@@ -2,13 +2,13 @@
 execution_id: 2026_11_13_21_45_41_WS_GENRE_HUMAN_REVIEW
 prompt_id: "PROMPT(AD_HOC:WS_GENRE_HUMAN_REVIEW)[2026-11-13T21:45:41+00:00]"
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of:
 pr: https://github.com/xenotaur/LCATS/pull/556
-commit: 95eb2aa5
+commit: 7faab83e13a3255be42f180cb19ec4388e2e32b7
 agent: codex_app
 instruction_source: "user request via /lrh-workstream WS-GENRE-HUMAN-REVIEW"
-session_transcript: pending
+session_transcript: codex-app:01a0fdae-9d9e-7062-9923-58755737c5aa
 created_at: 2026-11-13T21:45:41+00:00
 ---
 
