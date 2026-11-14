@@ -92,7 +92,7 @@ This follows the repository precedent of creating a fresh follow-on after a clos
 ## Open Questions
 
 - What exact bounded subset of the 49 disagreements should be reviewed first?
-- `current_adjudication` must contain both a non-empty normalized `label` and a
+- `current_adjudication` must contain both a non-empty `label` and a
   `selected_assessment_id` that references an existing assessment record;
   ID-only and label-only forms are invalid under the existing sidecar
   validator.
