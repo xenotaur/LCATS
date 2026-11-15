@@ -1043,6 +1043,25 @@ def _trim_terminal_imprint(lines, lo, hi, authors, pseudonyms, warnings):
             bool(re.match(r"(?i)^(?:the )?university press\b", paragraph))
             and len(paragraph) < 180
         )
+        edition_statement = (
+            bool(
+                re.match(
+                    r"(?i)^(?:[A-Z][A-Z-]*\s+){1,8}copies of this book\b",
+                    paragraph,
+                )
+            )
+            and bool(
+                re.search(
+                    r"(?i)\b(?:printed|paper|type distributed|impression)\b",
+                    paragraph,
+                )
+            )
+            and len(paragraph) < 400
+        )
+        if edition_statement:
+            end = j
+            warnings.append("terminal_limited_edition_colophon_removed")
+            continue
         if colophon or imprint:
             end = j
             warnings.append(
@@ -1219,6 +1238,77 @@ def find_magazine_start(lines, lower, upper, titles, authors):
             continue
         break
     return j
+
+
+# Source-verified recovery anchors for previously confirmed opening-scene loss.
+# These are deliberately scoped to confirmed Gutenberg IDs: applying a broad
+# heuristic to every italicized magazine page introduced unrelated teaser and
+# copyright residue in corpus-wide differential checks.  We prefer to leave
+# all other existing extracts exactly as they are until independently audited.
+# The short anchors must occur at the start of a physical line in the source.
+_VERIFIED_NARRATIVE_OPENINGS = {
+    65347: "El outer-thought I've had all I want of it haven't you",
+    24566: "July 18 1949 A D",
+    50940: "Numb with the terror that had dogged him",
+    31964: "I never thought I'd like circus life",
+    60393: "The first of the morons as they were popularly called",
+    65241: "Rick Mason's ship was still high over Mordarga",
+}
+
+
+def _repair_verified_opening(story, text, titles, authors, aliases, body):
+    """Recover a source-verified first scene, leaving every other ID unchanged.
+
+    This is a conservative corpus correction, not a new general body-start
+    heuristic.  The anchor must occur uniquely in the first 240 source lines,
+    before the original boundary.  The existing end-boundary/cleanup rules are
+    reused so Gutenberg footer and editorial endings remain excluded.
+    """
+    expected = _VERIFIED_NARRATIVE_OPENINGS.get(story)
+    if not expected:
+        return body
+
+    norm = text.lstrip("\ufeff").replace("\r\n", "\n").replace("\r", "\n")
+    lines = norm.split("\n")
+    anchors = [
+        i
+        for i, line in enumerate(lines[:240])
+        if _norm(line).startswith(_norm(expected))
+    ]
+    if len(anchors) != 1:
+        raise ValueError(
+            f"Gutenberg {story}: source-verified opening anchor is absent "
+            "or ambiguous; refusing to publish a potentially truncated story"
+        )
+    first = anchors[0]
+    lo, hi, _ = identify_story_boundaries(norm, titles, authors, aliases)
+    # Use the final refined boundary: the over-aggressive italic-blurb pass
+    # runs *after* the initial boundary detector and can lose whole scenes.
+    boundary_warnings = []
+    lo = _refine_front_boundary(lines, lo, hi, titles, boundary_warnings)
+    lo = _refine_repeated_display_heading(
+        lines, lo, hi, titles, authors, aliases, boundary_warnings
+    )
+    # Even after a later general parser improvement, do not move the start
+    # forward or gratuitously reformat an already-correct extraction.
+    if first >= lo:
+        return body
+    warnings = []
+    hi = _trim_terminal_imprint(lines, first, hi, authors, aliases, warnings)
+    hi = _trim_trailing_transcriber_note(lines, first, hi, warnings)
+    hi = _trim_terminal_imprint(lines, first, hi, authors, aliases, warnings)
+    if first >= hi:
+        raise ValueError(f"Gutenberg {story}: invalid verified source boundaries")
+    repaired = clean_story_text("\n".join(lines[first:hi]))
+    # The preserved text must contain the known previous opening. This guards
+    # against selecting an unrelated introductory quotation or another edition.
+    old_prefix = _norm(body[:160]).split()[:12]
+    if old_prefix and " ".join(old_prefix) not in _norm(repaired):
+        raise ValueError(
+            f"Gutenberg {story}: recovered scene does not contain old "
+            "narrative opening; refusing to publish ambiguous text"
+        )
+    return repaired
 
 
 #################################################################
@@ -1561,6 +1651,14 @@ def _inspect_metadata(story, metadata, source):
         title=list(metadata.titles),
         authors=list(metadata.authors),
         pseudonyms=list(metadata.aliases),
+    )
+    body = _repair_verified_opening(
+        story,
+        text,
+        list(metadata.titles),
+        list(metadata.authors),
+        list(metadata.aliases),
+        body,
     )
 
     report["body"] = body
