@@ -1244,15 +1244,18 @@ and derived `story_hash_baseline.jsonl` (146 rows) from them; `archive_checkpoin
 verify` re-checks them. What remains is the check itself, recommended in
 `project/design/genre-sidecar-story-binding.md`.
 
-**First concrete step:** build the comparison of the regenerated `data/` against that
-baseline as a small tool plus a runbook step, using file bytes (conservative: also flags
-unused fields such as `year`) or an effective-input hash over `author`, `url` and the
-body (exact), never a body hash alone (it misses changes the model is shown); decide the
-re-assess-or-accept rule; and measure whether a fresh `lcats gather` reproduces the
-stored text byte for byte (not measured).
+**Planned:** `WI-PROMOTE-0133` builds the comparison of the regenerated `data/` against
+that baseline as a small tool (`tools/check_genre_story_binding.py`) plus a runbook step,
+using file bytes (conservative: also flags unused fields such as `year`), and states the
+re-assess-or-accept rule. It is proposed, not built.
+
+**Still open after that:** an effective-input hash over `author`, `url` and the body
+(exact; never a body hash alone, which misses changes the model is shown), and a
+measurement of whether a fresh `lcats gather` reproduces the stored text byte for byte
+(not measured).
 
 **Related:** `project/design/genre-sidecar-story-binding.md`; `WI-PROMOTE-0118`;
-`WI-PROMOTE-0124`; `WS-SIDECAR-SAFE-PROMOTION`.
+`WI-PROMOTE-0124`; `WI-PROMOTE-0133`; `WS-SIDECAR-SAFE-PROMOTION`.
 
 ## From WI-SF-0126 (heinlein_temporal contract, PR #539, merged 2026-11-10)
 
