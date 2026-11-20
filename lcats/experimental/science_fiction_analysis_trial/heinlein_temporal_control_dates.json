@@ -1,0 +1,22 @@
+{
+  "version": "lcats-composition-dates-v1",
+  "stories": {
+    "mass_quantities/he_walked_around_the_horses__piper": {
+      "latest": "1948-04",
+      "basis": "Wikipedia, He Walked Around the Horses (opened 2026-11-19): first published in the April 1948 issue of Astounding Science Fiction. Wikipedia, H. Beam Piper (opened 2026-11-19): born 23 March 1904, died about 6 November 1964. A publication month is an upper bound on composition.",
+      "caveats": [
+        "Secondary source only; the Project Gutenberg source note could not be opened (HTTP 503) and ISFDB is not used.",
+        "No lower bound is set. Wikipedia says Piper's first short story appeared in 1947, which would justify an owner lower bound of 1947 for this story; that is an inference and is left to the owner."
+      ]
+    },
+    "mass_quantities/the_perfect_tribute__andrews": {
+      "latest": "1906-07",
+      "basis": "Wikipedia, Mary Raymond Andrews (opened 2026-11-19; the story's own title redirects to it): The Perfect Tribute appeared in Scribner's in July 1906. The same page gives the author's life as 2 April 1860 to 2 August 1936. A publication month is an upper bound on composition.",
+      "caveats": [
+        "Secondary source only; the Project Gutenberg source note could not be opened (HTTP 503).",
+        "A search-result summary (not opened) says the Scribner's book edition appeared in September 1906; it is not relied on.",
+        "No lower bound is set; the story is about 18 November 1863, so its own text does not bound composition from below."
+      ]
+    }
+  }
+}
