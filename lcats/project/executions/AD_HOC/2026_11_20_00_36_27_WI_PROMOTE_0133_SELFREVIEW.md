@@ -2,10 +2,10 @@
 execution_id: 2026_11_20_00_36_27_WI_PROMOTE_0133_SELFREVIEW
 prompt_id: PROMPT(AD_HOC:WI_PROMOTE_0133_SELFREVIEW)[2026-11-20T00:36:15+00:00]
 work_item: AD_HOC
-status: in_progress
+status: landed
 rerun_of: 2026_11_11_05_14_35_WI_PROMOTE_0133
 pr: https://github.com/xenotaur/LCATS/pull/546
-commit:
+commit: f7dcc4764aab6e07677eb0a7fc73a49f8c2fd875
 agent: claude_app
 instruction_source: https://github.com/xenotaur/LCATS/pull/546
 session_transcript: claude-app:6a2dbae2-adca-4a2a-92fe-2e95d3b2a4e0
