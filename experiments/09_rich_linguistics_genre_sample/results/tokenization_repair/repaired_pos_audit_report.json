@@ -1,0 +1,31 @@
+{
+  "schema_version": "rich-linguistics-repaired-pos-audit-report-v1",
+  "decision_artifact": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/repaired_pos_audit_decision.json",
+  "packet_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair",
+  "sample_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv",
+  "ledger_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_ledger.json",
+  "source_commit": "b9aaec8d802a4498c839cd06bfc34baaa5f1819f",
+  "tokenization_mode": "repaired-v1",
+  "retention": {
+    "audit_packet": "checked_in_experiment_results",
+    "canonical_token_detail": "retained_in_experiment_local_parquet",
+    "parquet_manifest": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/parquet/parquet_manifest.json",
+    "parquet_bytes": 13252947
+  },
+  "story_count": 146,
+  "token_count": 1089199,
+  "audit_row_count": 192,
+  "audit_counts": {
+    "reviewed": 0,
+    "pending": 192,
+    "uncertain": 0,
+    "blocked": 0
+  },
+  "validation": {
+    "packet": "passed",
+    "ledger": "passed_as_initialized_pending_ledger",
+    "pos_quality_gate": "not_evaluable"
+  },
+  "decision": "defer",
+  "pos_dependent_work": "blocked_until_human_audit_completion"
+}

@@ -1,0 +1,1738 @@
+{
+  "schema_version": "rich-linguistics-pos-audit-ledger-v1",
+  "packet_schema_version": "rich-linguistics-pos-audit-v1",
+  "sample_path": "experiments/09_rich_linguistics_genre_sample/results/tokenization_repair/pos_audit_sample.csv",
+  "packet_fingerprint": "79180b37b4c51e1d90c77ffad4998d1564da152bb440627ef2c09d3918a16b0d",
+  "row_count": 192,
+  "reviewer": null,
+  "entries": {
+    "mass_quantities/long_odds__haggard#g347": {
+      "token_key": "mass_quantities/long_odds__haggard#g347",
+      "row_fingerprint": "3072e42061d0a4497e2dea7fa3b3270f535f24e980f19bb54ffc576c428e0510",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g2197": {
+      "token_key": "mass_quantities/long_odds__haggard#g2197",
+      "row_fingerprint": "255525555ddfb2ff54c629b092487e922bea6e5cb608556af5aa6ba172ffc67b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g2238": {
+      "token_key": "mass_quantities/long_odds__haggard#g2238",
+      "row_fingerprint": "e65a67ea82a5e1fd944d62278d4f438067cf85a5e847f0cd7ad43c2487ebceaf",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g5546": {
+      "token_key": "mass_quantities/long_odds__haggard#g5546",
+      "row_fingerprint": "73c15a9fcd76a7a2a7543bf09d6b537dc9ba74f7b2b490b8f61f7c702d9ad6cf",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g376": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g376",
+      "row_fingerprint": "245da6bb8a2ece8f51350e2273dd948949dc4a134d4800a3328a1f697de9757f",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_seven_missionaries__mcneile#g4023": {
+      "token_key": "mass_quantities/the_seven_missionaries__mcneile#g4023",
+      "row_fingerprint": "3b1189bdb2e832cccb95abac31a800b4d33d97d429b4bb8012edea97a7748890",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/to_the_lights__norton#g7035": {
+      "token_key": "mass_quantities/to_the_lights__norton#g7035",
+      "row_fingerprint": "005344025a268f42f97eed240aa907af310081d2dba47cf0e83484e6d3a2a169",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/to_the_lights__norton#g9466": {
+      "token_key": "mass_quantities/to_the_lights__norton#g9466",
+      "row_fingerprint": "1a8ce3f368708d50a357664d42461bbd94f6fd58f5c8dad6f93a034adae2a0cb",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g135": {
+      "token_key": "mass_quantities/long_odds__haggard#g135",
+      "row_fingerprint": "284a79427c1796d656d85f4213cc2c256e6d1fdafcfef9d080c3c1783f14f741",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g646": {
+      "token_key": "mass_quantities/long_odds__haggard#g646",
+      "row_fingerprint": "eb45fd0942d899452eb340fc21f70a93e82b32c4e0fed2b22bdf1edbefeeada1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g664": {
+      "token_key": "mass_quantities/long_odds__haggard#g664",
+      "row_fingerprint": "290896c5fa00000795fa2398b649533dab89942d2b7b14d535bad534cfef3631",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g5699": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g5699",
+      "row_fingerprint": "9ab95474c751afd4138894c3f3f08d633b47a3a18b551142638ae0425c35068e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_red_fetish__long#g1521": {
+      "token_key": "mass_quantities/the_red_fetish__long#g1521",
+      "row_fingerprint": "e8dd4099ce3d64188a928a298172d7592f0ca406bcb3f2d3293eb60042e68a0b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_red_fetish__long#g3116": {
+      "token_key": "mass_quantities/the_red_fetish__long#g3116",
+      "row_fingerprint": "5197fcd562205c8b18f2cdfa17915746299be7a31d1318608027f427fe61a05e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_red_fetish__long#g3328": {
+      "token_key": "mass_quantities/the_red_fetish__long#g3328",
+      "row_fingerprint": "ebaacd7787c4085581e2dffae77183b90e26633b71b0154f443acc97ab448c71",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/to_the_lights__norton#g7546": {
+      "token_key": "mass_quantities/to_the_lights__norton#g7546",
+      "row_fingerprint": "39fba054344173fda8d13c5f4a43f55c63b535d8163eca84184123c2dc5780ad",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g1953": {
+      "token_key": "mass_quantities/long_odds__haggard#g1953",
+      "row_fingerprint": "ec4fdd818d0a6d4ddaa29ab1da2f1140e64a86ed2eecab67630cd841b9ec9a26",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g5807": {
+      "token_key": "mass_quantities/long_odds__haggard#g5807",
+      "row_fingerprint": "5e884b4aa89dbafabb1a6b101a49598478bb40b39ed0871d71cba678b643c0fa",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/long_odds__haggard#g7314": {
+      "token_key": "mass_quantities/long_odds__haggard#g7314",
+      "row_fingerprint": "51f66b6d67d6aa2cd53539c9e16382dd9ae2f9c0b737e2e880996b5f1d46c512",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g215": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g215",
+      "row_fingerprint": "877a3dfa39a7929d292431b765e5fe2f6e92ebf10f8718a84f76985c9d23f51c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g1107": {
+      "token_key": "mass_quantities/the_adventure_of_elizabeth_morey_of_new_york_1901__becke#g1107",
+      "row_fingerprint": "3f3db00ed02688f583fcc0686633a238eef95d705820922eef76d51f602b594c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_spring_of_a_lion__haggard#g1990": {
+      "token_key": "mass_quantities/the_spring_of_a_lion__haggard#g1990",
+      "row_fingerprint": "964d81d076c07cfdd55d9fc1f3583b2728b116be61b57a96a40c41313ab5ea87",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_spring_of_a_lion__haggard#g7512": {
+      "token_key": "mass_quantities/the_spring_of_a_lion__haggard#g7512",
+      "row_fingerprint": "0294fc14373d744d200b68b611dcd1148af6f9b8de63e821c833dc9a3e9eb17e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/to_the_lights__norton#g2182": {
+      "token_key": "mass_quantities/to_the_lights__norton#g2182",
+      "row_fingerprint": "36f8256f88b8943eef7551ea10749a38e31244b0239ca8cc569c3a3b325116e3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/bell#g1250": {
+      "token_key": "anderson/bell#g1250",
+      "row_fingerprint": "02d1e1868c01bdaae512654baa59b2d7a96825571a830505eda5c666fcd9116e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/dream_of_little_tuk#g853": {
+      "token_key": "anderson/dream_of_little_tuk#g853",
+      "row_fingerprint": "c5c4e99d6599b1b8325e16dfa83e08e1bbe231af23f6cb987b8a5328941dcdfd",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g5713": {
+      "token_key": "anderson/shoes_of_fortune#g5713",
+      "row_fingerprint": "a3a6f065c403e1a80ecd5238a1fd157b91f4cb2ac694efb81315dbe370759d7c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g9801": {
+      "token_key": "anderson/shoes_of_fortune#g9801",
+      "row_fingerprint": "56182d18e64dcaf8bdaca32d0a53afe69b071281be2c7406ffc509775b600ea4",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g9898": {
+      "token_key": "anderson/shoes_of_fortune#g9898",
+      "row_fingerprint": "2044d5c9186d0f3451d6751c0eacad4e631b3dbf20c1be8ec5d0253ca1d0b535",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/snow_queen#g11270": {
+      "token_key": "anderson/snow_queen#g11270",
+      "row_fingerprint": "6c0dc69efde1e22e90b2fecda9f0c5a2b3eb89ff733fcb68e092760d5a4bf2cc",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/story_of_a_mother#g593": {
+      "token_key": "anderson/story_of_a_mother#g593",
+      "row_fingerprint": "1a28ac5248a3b713d86a8f26f52032e25c891604c2c839b372fd31a939047c58",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/story_of_a_mother#g2392": {
+      "token_key": "anderson/story_of_a_mother#g2392",
+      "row_fingerprint": "b5f1568fb23f95be794a23c6ac2e2991de4f789b4a3ff37c61567830864bd9b3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/bell#g18": {
+      "token_key": "anderson/bell#g18",
+      "row_fingerprint": "eb851c6f6578b62d53ccc03b22cac6a56151c7b2ef33b1444c62555072d811f4",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/emperor_s_new_clothes#g1839": {
+      "token_key": "anderson/emperor_s_new_clothes#g1839",
+      "row_fingerprint": "812d7bce0ee6b0d7b928a132d4e4db7a953c59791c1b2d486041a858efb419ae",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/fir_tree#g4025": {
+      "token_key": "anderson/fir_tree#g4025",
+      "row_fingerprint": "62246ae837bf2415d913f3c45456d42fb720d8c9b54172708530d54b8f332399",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/little_match_girl#g972": {
+      "token_key": "anderson/little_match_girl#g972",
+      "row_fingerprint": "688624ed7ff38d182175209fb70b51480d78ecfeeef39476f7fae3a2690c3dae",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g13409": {
+      "token_key": "anderson/shoes_of_fortune#g13409",
+      "row_fingerprint": "75a0e29ab5da7513c250c3762c3140f67d9499b85cdad0cc815a31d65f0d74d3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g14311": {
+      "token_key": "anderson/shoes_of_fortune#g14311",
+      "row_fingerprint": "44652e3ef5db0d33f60858bd89bcd460a2f9cf455895f59820da3080cfeb5803",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/snow_queen#g1295": {
+      "token_key": "anderson/snow_queen#g1295",
+      "row_fingerprint": "1820ecb0b895e5ab060f9c21d15d7d37e95e71428529028ab04951c50f22df47",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/snow_queen#g1305": {
+      "token_key": "anderson/snow_queen#g1305",
+      "row_fingerprint": "3159a68a3684f7542ceb176925218ab8671ddd3bc536d97a9703c3b33f0c88c8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/happy_family#g475": {
+      "token_key": "anderson/happy_family#g475",
+      "row_fingerprint": "d206add57b0f630a9c35858fe876f32020d38e75d5cee6b5ff1c516512dd3eea",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/happy_family#g855": {
+      "token_key": "anderson/happy_family#g855",
+      "row_fingerprint": "9b78efceea545010f02ed28f83db3a2d37e99da46314212dd8ea7a24fe0bc4c8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g9721": {
+      "token_key": "anderson/shoes_of_fortune#g9721",
+      "row_fingerprint": "6ef90fd09f746442e331d395598f20d948cb2601d618f24d99c4d1400f504672",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/shoes_of_fortune#g16242": {
+      "token_key": "anderson/shoes_of_fortune#g16242",
+      "row_fingerprint": "8bfc082d3d8c67255fcc65b1ad4ea45db80b14ebc05db0ebaf81c70436703e71",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/snow_queen#g6741": {
+      "token_key": "anderson/snow_queen#g6741",
+      "row_fingerprint": "1aaa64afa4eef85560e11aed91ac901821909cc1a868b5c278f7055bdb5b29ff",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/snow_queen#g9875": {
+      "token_key": "anderson/snow_queen#g9875",
+      "row_fingerprint": "17b9861a43fb10d79edae36a6932614e9784348be8b7311b30e1bbcfa0d3f15b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/story_of_a_mother#g268": {
+      "token_key": "anderson/story_of_a_mother#g268",
+      "row_fingerprint": "682d02a9501f509b3bb7eecd52071095d58272eb2bd596e8cd158e0d901770c7",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "anderson/story_of_a_mother#g1142": {
+      "token_key": "anderson/story_of_a_mother#g1142",
+      "row_fingerprint": "02bccbb73f4f3d30fff4fb62bc61a037c434085a97fda515f4a9ff1a453cc775",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/cool_air#g232": {
+      "token_key": "lovecraft/cool_air#g232",
+      "row_fingerprint": "77d936860850224a71a315f0f4c335b0cd07280565411be368b49e4c91966101",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_call_of_cthulhu#g1492": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g1492",
+      "row_fingerprint": "e829839589beace6a215fb17e558139316d8c61b038aceb10f780004658e60c6",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_call_of_cthulhu#g9933": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g9933",
+      "row_fingerprint": "7d1d24e7cd058bb406a33a5cc76cd3f649448410d8ed51324eb18c1850b43ede",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_call_of_cthulhu#g9990": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g9990",
+      "row_fingerprint": "2a2304542cad057f04fa03270018fe514bc3312790318c3c3838164638d538ab",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/doom_of_the_house_of_duryea__peirce#g87": {
+      "token_key": "mass_quantities/doom_of_the_house_of_duryea__peirce#g87",
+      "row_fingerprint": "acbac01a4de5ca8e011cd5781d5037b09e0730aad94fc8306f2ebaaefaa582f1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/isle_of_the_undead__eshbach#g732": {
+      "token_key": "mass_quantities/isle_of_the_undead__eshbach#g732",
+      "row_fingerprint": "6c56e2e162b669ef2c41316b6e5eb73215a62c5a67a8f5b7be718e2cb417f460",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/listen_children_listen__west#g162": {
+      "token_key": "mass_quantities/listen_children_listen__west#g162",
+      "row_fingerprint": "e820a3aedb16123db3d98ac5f8d4cab4e3b9e49e5a4d925e0fcc4f840097ac37",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/listen_children_listen__west#g245": {
+      "token_key": "mass_quantities/listen_children_listen__west#g245",
+      "row_fingerprint": "45a3ad96538221cd6bd6844b9eb035528dd559926f3703d0c5e2b883a15b514b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_call_of_cthulhu#g10192": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g10192",
+      "row_fingerprint": "1de58e3641be2d78b9cb5575ac13e31f47cc61601b61e34403c97961b5dd9331",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_haunter_of_the_dark#g1277": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g1277",
+      "row_fingerprint": "d106990d2c76d1beecbdce0646f41b2f00efebe6d86e9210dff5c18cd76fb54d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_horror_at_red_hook#g4442": {
+      "token_key": "lovecraft/the_horror_at_red_hook#g4442",
+      "row_fingerprint": "7d3970a6e8d09ea66c8217f1422a0752b93c5892bc6db1ba81460266f58d9672",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_thing_on_the_doorstep#g5779": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g5779",
+      "row_fingerprint": "f08d65e14d1c0e6a6443e8a7f9306db1e822e64188d7b6b9babfb379b9cbcf0c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_thing_on_the_doorstep#g8965": {
+      "token_key": "lovecraft/the_thing_on_the_doorstep#g8965",
+      "row_fingerprint": "ec1645efdeb1391e18394a6315d880802cd0ce1e3fdea94eb53423e8b6427207",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/doom_of_the_house_of_duryea__peirce#g5473": {
+      "token_key": "mass_quantities/doom_of_the_house_of_duryea__peirce#g5473",
+      "row_fingerprint": "fbb35f198c8335027262defa40bbf36bc8cdda6273b7a57b96cfac99e0463dbb",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/he__lovecraft#g4213": {
+      "token_key": "mass_quantities/he__lovecraft#g4213",
+      "row_fingerprint": "6b4af7f5043a1bf777ad58c8601cd2bc7ecd09281e202f9d842a8ae5b773ea95",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/listen_children_listen__west#g2918": {
+      "token_key": "mass_quantities/listen_children_listen__west#g2918",
+      "row_fingerprint": "2f022300f34e8e3878560259463dacb4f71bb14d244b1946896b6b15d73c09b5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_call_of_cthulhu#g5806": {
+      "token_key": "lovecraft/the_call_of_cthulhu#g5806",
+      "row_fingerprint": "96d09e966dbb07c2cfac9911adfdd110d8b5795c1e90655746f8b450ce45dd8b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_festival#g757": {
+      "token_key": "lovecraft/the_festival#g757",
+      "row_fingerprint": "4269049d9d0568df28628f6283e01ed348920e7332f3abfa68b357d0af4dc10d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_haunter_of_the_dark#g1162": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g1162",
+      "row_fingerprint": "5fb884d4e1f433f76d97df214124aa6cbb5a64803f364f0c9bd0488b28291e36",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_haunter_of_the_dark#g4113": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g4113",
+      "row_fingerprint": "d71e7a3b459db1ec41d952d6437b7814124eac4928623e50d84e8d38fbb4f7f0",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_haunter_of_the_dark#g5391": {
+      "token_key": "lovecraft/the_haunter_of_the_dark#g5391",
+      "row_fingerprint": "13b7f7811a02ad3d2c0d21832ff3021f84e839d60d029ea598d4a89f6e6d199e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/dig_me_no_grave__howard#g5793": {
+      "token_key": "mass_quantities/dig_me_no_grave__howard#g5793",
+      "row_fingerprint": "9cf5b4628016a647759684ebaaac6fe7ef0c96d23d9a2c6775b552356c0a905c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/doom_of_the_house_of_duryea__peirce#g4875": {
+      "token_key": "mass_quantities/doom_of_the_house_of_duryea__peirce#g4875",
+      "row_fingerprint": "618315a9b3fa100861df99f8efc533166f5209f8f5070c257d64d1c7d3f4ec2d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/in_the_dark__clark#g2763": {
+      "token_key": "mass_quantities/in_the_dark__clark#g2763",
+      "row_fingerprint": "33d4bad2dd04bbc7fa703deae0b4c7fafd6594c06a2ce464b6a21ad1f957293e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5802": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5802",
+      "row_fingerprint": "56d888db095e28043b244cdea95c9cc8b146f95ed8bef4f275ef02151ec4f77d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_pirate_s_pocket_book__calthrop#g1382": {
+      "token_key": "mass_quantities/the_pirate_s_pocket_book__calthrop#g1382",
+      "row_fingerprint": "7f21f275ec60ce6e023f18679eb5fc353c987a5ddcfac0a93795d9ca3240efad",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_pirate_s_pocket_book__calthrop#g1488": {
+      "token_key": "mass_quantities/the_pirate_s_pocket_book__calthrop#g1488",
+      "row_fingerprint": "bde3ccc0239bbfd71e0539e724088c1f5f8ab30b1df17167201a8664cc33840b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_westminster_alice__saki#g722": {
+      "token_key": "mass_quantities/the_westminster_alice__saki#g722",
+      "row_fingerprint": "5573de78cbc8c7f29391bec67c8516b66e52caf21eed2905fe1730c086dc4fb6",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/bill_the_bloodhound#g4785": {
+      "token_key": "wodehouse/bill_the_bloodhound#g4785",
+      "row_fingerprint": "bd3e75a2d68070bd5d5beeb5773f2b3db27de44c2886ef84aedcdb43f1b5924b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/bill_the_bloodhound#g5452": {
+      "token_key": "wodehouse/bill_the_bloodhound#g5452",
+      "row_fingerprint": "a63fb9d8e13ea59bd505053c8bc948c9d083d9d612db6439da64cacd27553a73",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/mixer#g1418": {
+      "token_key": "wodehouse/mixer#g1418",
+      "row_fingerprint": "d420ebd6148dec0a5ee46a7d86b042e88404ecd7c62b8eba5529f62c42b6088d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/one_touch_of_nature#g2922": {
+      "token_key": "wodehouse/one_touch_of_nature#g2922",
+      "row_fingerprint": "ec969f68646daf84c3ee523785bba4713dfac555d94d845867139034b204a3a1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g10": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g10",
+      "row_fingerprint": "a58d15ef3e3a1bc4ce0769b8b987b3298f2c9855eb027e66c637ad81844cf443",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5085": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5085",
+      "row_fingerprint": "2f73dc4268d7b2b0aa9d8484dbe397bbda541a87b742aff52173814d4b3cfead",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g6885": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g6885",
+      "row_fingerprint": "1dadc2c1314a4198be4483ea5f513a6dd2ec2ed60d7178e685ee56d0e628c939",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/puppet_government__revelle#g4375": {
+      "token_key": "mass_quantities/puppet_government__revelle#g4375",
+      "row_fingerprint": "d99a3dd039c858302a4b9f897f641e051968b359b3cf98eb44030dfa3faed1f8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3116": {
+      "token_key": "mass_quantities/the_facts_concerning_the_recent_carnival_of_crime__twain#g3116",
+      "row_fingerprint": "d7f8ff586aa8ded62c1de954cb11ab5b88bb89130a6ad105c161f5eab1ad6324",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_pirate_s_pocket_book__calthrop#g2121": {
+      "token_key": "mass_quantities/the_pirate_s_pocket_book__calthrop#g2121",
+      "row_fingerprint": "4183e2c16e8ffeb97bf52bf63d10c1b6acb1e75b1a413050d7c7252a0505e8a1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/romance_of_an_ugly_policeman#g1465": {
+      "token_key": "wodehouse/romance_of_an_ugly_policeman#g1465",
+      "row_fingerprint": "fb64e77d7786853d0f43b1b4585036d862e400f6017ef2d90d122ee038b35a65",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/romance_of_an_ugly_policeman#g6149": {
+      "token_key": "wodehouse/romance_of_an_ugly_policeman#g6149",
+      "row_fingerprint": "5a5eeddd0cd3d2526e3101853ef325bfe28af4d50325d380f1d1da8a3110c12b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5275": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5275",
+      "row_fingerprint": "30cbb672e55eceb9f2f5b5281180562dd4877acf5f7b538cc2ca5f2aa2f8f73a",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g5602": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g5602",
+      "row_fingerprint": "72abb63a220f4b54a97077a9838648f6b16471833eba59ea94adfe1e8fc42929",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/eve_s_diary_complete__twain#g7300": {
+      "token_key": "mass_quantities/eve_s_diary_complete__twain#g7300",
+      "row_fingerprint": "63ef648e9da32ea4c9bda152a8967f958bd6a058b595c56d3cdaff59c1d5233b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_lamplighter__dickens#g254": {
+      "token_key": "mass_quantities/the_lamplighter__dickens#g254",
+      "row_fingerprint": "6a228151088170f2d28f74dbd70e7b45e3a438799378bc93b311eec454db61cb",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_pirate_s_pocket_book__calthrop#g1466": {
+      "token_key": "mass_quantities/the_pirate_s_pocket_book__calthrop#g1466",
+      "row_fingerprint": "991215efc8b77c83e3d840b14b4c4a0aeb5c1bdf431c1cfe3ca94860d325d4d3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_westminster_alice__saki#g5725": {
+      "token_key": "mass_quantities/the_westminster_alice__saki#g5725",
+      "row_fingerprint": "7160ca91baeb88c5ba7c16df33e129d4101854a758975ad5f1f8e476a971667d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/at_geisenheimer_s#g6044": {
+      "token_key": "wodehouse/at_geisenheimer_s#g6044",
+      "row_fingerprint": "20fe9aae0997875c368e048e1eddc84adf45e36bbb013e37368ca30720babf5b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "wodehouse/bill_the_bloodhound#g7383": {
+      "token_key": "wodehouse/bill_the_bloodhound#g7383",
+      "row_fingerprint": "1aa74843923ef09975149d6e5692a1b4b97881bed2c58f91219cfaa1500bfcc0",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g225": {
+      "token_key": "chesterton/blue_cross#g225",
+      "row_fingerprint": "0c2d3bb89dd2e7a94e677e4d0c8409a6cdd6e6252aa025735503584be4e17557",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g2058": {
+      "token_key": "chesterton/blue_cross#g2058",
+      "row_fingerprint": "c0fceaf3897ff2fc5b590946ac4c98ab39900e2ebc2b685a5352284ceeb6a443",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g5174": {
+      "token_key": "chesterton/blue_cross#g5174",
+      "row_fingerprint": "00dabcd043172432f38747fad130165b9b25ddf132e8a157e00ddb256eada7e5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/back_home__davis#g5167": {
+      "token_key": "mass_quantities/back_home__davis#g5167",
+      "row_fingerprint": "f8a9f3b1a02e28ce5ce2b5c13af5d37493ee538e4c0b283bef493951ac0d0e43",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g3182": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g3182",
+      "row_fingerprint": "ef296fb24c90840ef1bdfb71d51e57470c07e02469c823c92b74c01742b0bc6c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g3338": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g3338",
+      "row_fingerprint": "48eb23c7cc4bbdb35e04a8ab94d94563be0fb11b8769e8ebd087c7a0ef6416d8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g9285": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g9285",
+      "row_fingerprint": "041e45450ff4bb7691426b3133564dd281534832ab3e043d70904a677d6a4e35",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_adventure_of_the_red_circle__doyle#g1338": {
+      "token_key": "mass_quantities/the_adventure_of_the_red_circle__doyle#g1338",
+      "row_fingerprint": "97e62af82cfcfb3e3eba6231f229019da035d2788826f4784ba4f2a1d92ee02c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g3379": {
+      "token_key": "chesterton/blue_cross#g3379",
+      "row_fingerprint": "75bc83ea9aaab8efa37e2711bc8add9f32cc638b99acf8ea8dda286afc3c82e3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g5160": {
+      "token_key": "chesterton/blue_cross#g5160",
+      "row_fingerprint": "4f902ae1fc650986ba4b71c75f5a029289b6a773d4c1f7b98b1533dd7e2cbbcc",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/blue_cross#g5987": {
+      "token_key": "chesterton/blue_cross#g5987",
+      "row_fingerprint": "90eeba4cfdbfd908f6079dd4e29697609d4268f1e2b2548d221909124f550c12",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/sins_of_prince_saradine#g415": {
+      "token_key": "chesterton/sins_of_prince_saradine#g415",
+      "row_fingerprint": "1420a3ae10eadfc1d6e68a2eb2520a8ae755df1d5cd34b2d115080eef6e08ebd",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g428": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g428",
+      "row_fingerprint": "317fc330053703f602dc4ca49217b4d749f25c820098deb0e4e96a93ec1aef5e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g474": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g474",
+      "row_fingerprint": "41f431d5abcb3f932307518830615551323ffb4cdea0fbc96134a4b366e2e1e8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/my_friend_the_murderer__doyle#g2419": {
+      "token_key": "mass_quantities/my_friend_the_murderer__doyle#g2419",
+      "row_fingerprint": "728d74d486cb37bf82f12bc843e18e2d8c7fb2d7c55123cd1b1a3f1a05ab4172",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/splashes_of_red__davis#g796": {
+      "token_key": "mass_quantities/splashes_of_red__davis#g796",
+      "row_fingerprint": "97df3273f8d007ac3eb50be0e17bf6842ff92e3492a52c8dfab596373d59b5b3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/flying_stars#g5142": {
+      "token_key": "chesterton/flying_stars#g5142",
+      "row_fingerprint": "bb3640e186cb1aa4f3de7236485211ac19a1c44eb7ee85580f1c4df4522e3226",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/hammer_of_god#g605": {
+      "token_key": "chesterton/hammer_of_god#g605",
+      "row_fingerprint": "cb1b9aaf6209a72c959565b77a13728595d7cd68d1cc64c0ba440845862e5e5b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/hammer_of_god#g794": {
+      "token_key": "chesterton/hammer_of_god#g794",
+      "row_fingerprint": "5503c2e0f5bdcf7736298039b45df6800b6cf7e1641b7577c1a05d67781e0618",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "chesterton/sins_of_prince_saradine#g448": {
+      "token_key": "chesterton/sins_of_prince_saradine#g448",
+      "row_fingerprint": "f6d6484e7a787a273ce2da7277991e9fade5c14f50e4d97b18d54b54f35e56ff",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/back_home__davis#g2048": {
+      "token_key": "mass_quantities/back_home__davis#g2048",
+      "row_fingerprint": "fe47411d75e54a641de6d61747c8770a674d526459676135ec0c0976432783ab",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/back_home__davis#g7663": {
+      "token_key": "mass_quantities/back_home__davis#g7663",
+      "row_fingerprint": "923b2844bfde867b6b76eeaa0c1b06ce04a67ff438604f1fba6a554602d6b38a",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_gray_brotherhood__leverage#g7226": {
+      "token_key": "mass_quantities/the_gray_brotherhood__leverage#g7226",
+      "row_fingerprint": "e7a642c9357eeb0ca376ff9b9ab3f5471be1188d11c4cc5f419547f9c0409429",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_leak__futrelle#g5628": {
+      "token_key": "mass_quantities/the_leak__futrelle#g5628",
+      "row_fingerprint": "400345a6d3e9184fffdd7deb5c4c936dd32977060bb9923aed48cad35d01024c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g140": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g140",
+      "row_fingerprint": "b9557324f65155ea57eb01b53a90043511fbfd697409b5ec36fb3724da1ba093",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g1813": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g1813",
+      "row_fingerprint": "5dd812293abb42295a6a2b0f26e445a61a17bc1aff02f5d4a9a1b3668fbc11e4",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_reversion_to_type__bacon#g2336": {
+      "token_key": "mass_quantities/a_reversion_to_type__bacon#g2336",
+      "row_fingerprint": "75b32308279d95389acd9e9db50e2392fe7bc64031e4156450da099c142bac0a",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/julia_the_apostate__bacon#g5723": {
+      "token_key": "mass_quantities/julia_the_apostate__bacon#g5723",
+      "row_fingerprint": "21d6067c8ee041b676602400095b040a8127da7cad117357ae4bb227dc3b7adb",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g4881": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g4881",
+      "row_fingerprint": "805d5fe3a17d945985b536670a6b7eead0916a9a654fd276ee1871c3379f4496",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/one_day_at_arle__burnett#g1129": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g1129",
+      "row_fingerprint": "b28368a9fdb29c0636471ff64d831e3fa1a5d7ce147381d8020363fbaf67bb5c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/one_day_at_arle__burnett#g3130": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g3130",
+      "row_fingerprint": "79ffb2e3be72cd35f65fbeaee02d3bd1f68c21645009e39266c3baacb6b63ed6",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/the_courting_of_lady_jane__bacon#g221": {
+      "token_key": "mass_quantities/the_courting_of_lady_jane__bacon#g221",
+      "row_fingerprint": "5272826e24850de16ea6fbd3eaaa98391d69af0a1a5c4ae209ac8991839106ec",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g1681": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g1681",
+      "row_fingerprint": "30e4dd0659eee39484674e8fb93cdb8b3b22554f8d3053a23c7273663e2bdac5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g6505": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g6505",
+      "row_fingerprint": "115797d5fdcd67517f901194a13a4bdb740e6d612e2a2c2a9bf4a8e8fc1e78dd",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_reversion_to_type__bacon#g3056": {
+      "token_key": "mass_quantities/a_reversion_to_type__bacon#g3056",
+      "row_fingerprint": "68d34aa5dc01a7f8a8efd803f7ef0ff042ae0b42cd47169e250ae3dfb6ee2055",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1176": {
+      "token_key": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1176",
+      "row_fingerprint": "c6cc9cb998387b7ce2c44cadc8d320e7907a2a2dba87811b6528c194707faa14",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1234": {
+      "token_key": "mass_quantities/john_bull_on_the_guadalquivir_from_tales_from_all__trollope#g1234",
+      "row_fingerprint": "a5ff1decd38593c8a056b3e53b481d4f42b1e65d1e1eea55edf3d40add6660c1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g2620": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g2620",
+      "row_fingerprint": "49cb71c63ec2309f90922474211d449b8e2c82a74faf61949f7b20291a7a468c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g8872": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g8872",
+      "row_fingerprint": "48ce7e0569149ce455cda26e4ee8c467fc3d63ce7b5955550e595f846bf728a5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g12788": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g12788",
+      "row_fingerprint": "2e518579992181935e864a13a743d343660fb4ada722bb11fc638d13c697bae7",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g1534": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g1534",
+      "row_fingerprint": "ed638b8f974bd20e15d3f6cd8e281ace1911a2b059bf42d3f48b6a8fd0b75494",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_philanthropist__bacon#g7761": {
+      "token_key": "mass_quantities/a_philanthropist__bacon#g7761",
+      "row_fingerprint": "6618cf529116c8aefc523e675efd107474b52eaab1585fc572d006fa8dc7c3b3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/amy_foster__conrad#g5000": {
+      "token_key": "mass_quantities/amy_foster__conrad#g5000",
+      "row_fingerprint": "ef3a8dbadcf46aa622143664bbd42a16203e97cc43f6195f6a098c6c329651e0",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/amy_foster__conrad#g11497": {
+      "token_key": "mass_quantities/amy_foster__conrad#g11497",
+      "row_fingerprint": "8c1150b77a896e2d3fd8f6ab7bf7d34fc67b0b0428ac7b0415bd5dc4b09fe67b",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g935": {
+      "token_key": "mass_quantities/le_monsieur_de_la_petite_dame__burnett#g935",
+      "row_fingerprint": "ef13215607f9199026fd3bd39b314fee7b1b11fef6e09186318bdfc055c9b5f5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/mrs_general_talboys__trollope#g5774": {
+      "token_key": "mass_quantities/mrs_general_talboys__trollope#g5774",
+      "row_fingerprint": "7998380e34557174edbda5b7a857713282c9cd6542cf427172b87aa975837db4",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/one_day_at_arle__burnett#g2315": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g2315",
+      "row_fingerprint": "1c690f595cbae693db7b45a5638313b550e666c42b463ff3b9656aa5750de9ef",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/one_day_at_arle__burnett#g5339": {
+      "token_key": "mass_quantities/one_day_at_arle__burnett#g5339",
+      "row_fingerprint": "2269118ff6c19294094244376d860cedd0ea00612e8754629902074a637a57f1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g380": {
+      "token_key": "lovecraft/the_colour_out_of_space#g380",
+      "row_fingerprint": "dd88619e24421aa6443297da5cdfc7b42311a9d324cfa60d94b6a8210a5c1539",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g1183": {
+      "token_key": "lovecraft/the_colour_out_of_space#g1183",
+      "row_fingerprint": "1eddad0da117344e1097fe6f0094ba8c66e03478b91928f5a99b85f7836f423e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g9408": {
+      "token_key": "lovecraft/the_colour_out_of_space#g9408",
+      "row_fingerprint": "ebe5ac1679978c30408dc7dee1b9773f043105db00adc83ecb2dc29ba724c66e",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g10237": {
+      "token_key": "lovecraft/the_colour_out_of_space#g10237",
+      "row_fingerprint": "fb318356860689c6a8dbe929bb4bc7e82af67eedeb11a007f7767f3401875b30",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/8_million_dollars_from_mars__marks#g614": {
+      "token_key": "mass_quantities/8_million_dollars_from_mars__marks#g614",
+      "row_fingerprint": "40cae9658eef1caaef1c89ac9498864cbf24123d8041b1998039f2f780161ebf",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_bottle_of_old_wine__lewis#g2949": {
+      "token_key": "mass_quantities/a_bottle_of_old_wine__lewis#g2949",
+      "row_fingerprint": "a9123a202e8015518e5cea9f83964a2a66146e9200f04c9d27cb384f63ab7581",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g2614": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g2614",
+      "row_fingerprint": "c5ec9a3348efa0fa5f7707c950ecaa8b1e7115b337363a73a8e62d1372dc37b9",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g6145": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g6145",
+      "row_fingerprint": "49bf8bdbdc0d0922441ca999e0c665700555cdbf2b8300b5bd8211cb198775e2",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g7664": {
+      "token_key": "lovecraft/the_colour_out_of_space#g7664",
+      "row_fingerprint": "6402badb03c2c29cd9ace2f00f76e7cdecef327841b679b7d73dde26d0810a00",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "lovecraft/the_colour_out_of_space#g14229": {
+      "token_key": "lovecraft/the_colour_out_of_space#g14229",
+      "row_fingerprint": "4add695b3c0e0780273c0ae7a6d783e6cfc09ebb85a0277f51412a5d724b7c9c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/1_000_a_plate__mckenty#g616": {
+      "token_key": "mass_quantities/1_000_a_plate__mckenty#g616",
+      "row_fingerprint": "506ee472fed4d98f62b2721091b309212f093d77d4876d589327b925a48ba986",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_bottle_of_old_wine__lewis#g1909": {
+      "token_key": "mass_quantities/a_bottle_of_old_wine__lewis#g1909",
+      "row_fingerprint": "b3795c015438d954ef0d3b8ca3324f860026d268583955e4d68cb4c047e47525",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_case_of_sunburn__fontenay#g8049": {
+      "token_key": "mass_quantities/a_case_of_sunburn__fontenay#g8049",
+      "row_fingerprint": "3eb4b424ed8e44a89e569fac20fe52d9d414acbe83d9ba4b27495f9d2a80f4a1",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g1726": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g1726",
+      "row_fingerprint": "0cc440c917a9718d4de820a574f0eec9238cc00ce722d8f21a8c700e272decf5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g2848": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g2848",
+      "row_fingerprint": "b806bc26a4fb6bde9d938145bd6d56a9b4c778d18770abd93eec53db78f7defb",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_jar_of_jelly_beans__gregory#g4466": {
+      "token_key": "mass_quantities/a_jar_of_jelly_beans__gregory#g4466",
+      "row_fingerprint": "29db5ea246c3efcf4e92a73e46fc49a2f7f7b263c79ee63c6f8f185afc8a55ee",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/8_million_dollars_from_mars__marks#g1839": {
+      "token_key": "mass_quantities/8_million_dollars_from_mars__marks#g1839",
+      "row_fingerprint": "0aae7c80cc56245a71cd06a7a52755df15f2910eceec68adf02c5d614c10a1e9",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/8_million_dollars_from_mars__marks#g3807": {
+      "token_key": "mass_quantities/8_million_dollars_from_mars__marks#g3807",
+      "row_fingerprint": "449648cb915ace7e96fd023ee39a9a56a41a59f708d5e71a75e08405ae046920",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_bad_day_for_vermin__laumer#g388": {
+      "token_key": "mass_quantities/a_bad_day_for_vermin__laumer#g388",
+      "row_fingerprint": "ac3af649506a8a14af782d36e4394cb0c53ec1fcf4a496ddfa1a407312531234",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_bad_day_for_vermin__laumer#g924": {
+      "token_key": "mass_quantities/a_bad_day_for_vermin__laumer#g924",
+      "row_fingerprint": "bf634a65585de4acb45ec79a369424f1ca2551f89bc32d4a466ec9e0ddefc2aa",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_case_of_sunburn__fontenay#g2837": {
+      "token_key": "mass_quantities/a_case_of_sunburn__fontenay#g2837",
+      "row_fingerprint": "9095f6f4f11af10598a8e111ad1ea054933d794c08c162c6b00ef8597214e6e2",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_fall_of_glass__lee#g870": {
+      "token_key": "mass_quantities/a_fall_of_glass__lee#g870",
+      "row_fingerprint": "f9212b2c81342aba4dcfdea91cfbc151a3386c2d6aaa2114be6344edea10a63f",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_gift_for_terra__holden#g2980": {
+      "token_key": "mass_quantities/a_gift_for_terra__holden#g2980",
+      "row_fingerprint": "233355ed7ed5503f6119bdb9490bb3e19cbef713785ffd694de04b9c7d184a47",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_gift_from_earth__banister#g1157": {
+      "token_key": "mass_quantities/a_gift_from_earth__banister#g1157",
+      "row_fingerprint": "a82f4b307509024cb9803a95ad197a4297125d68f6d8abed329908660315d5ff",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/brown_wolf#g28": {
+      "token_key": "london/brown_wolf#g28",
+      "row_fingerprint": "5331f6a867d28c775c649db90b331bc8128f9e5dd248fc647f452f24fa3b8b37",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/brown_wolf#g3350": {
+      "token_key": "london/brown_wolf#g3350",
+      "row_fingerprint": "c153ebd9c5db1f67976aba33cbd1d4822a467470c80c0d1a4477c4eec27dbe0d",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/sun_dog_trail#g8436": {
+      "token_key": "london/sun_dog_trail#g8436",
+      "row_fingerprint": "42625748e55ee6c95f972ea3eef27702d3e75ee5b42beff46c4a342307968387",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g125": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g125",
+      "row_fingerprint": "a8c830992a6e5f0aa41ff789a283cc840bac0c327bf669d277185a0776f7943a",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g599": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g599",
+      "row_fingerprint": "4e5721ea4675206ef09cdee1b836d4cbbc5683fecf0bda330d254811d764e522",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g7907": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g7907",
+      "row_fingerprint": "211c221d46691e5dde096864bc3e5bb998676edaf1affa73d0b69135e0693a13",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/ajax_for_example__tuttle#g1188": {
+      "token_key": "mass_quantities/ajax_for_example__tuttle#g1188",
+      "row_fingerprint": "95fa989ea31c7ef332341c791071b96d9c95fc31862af59ca4d294bec7b6a0c5",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g4030": {
+      "token_key": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g4030",
+      "row_fingerprint": "15a5f81a9e55b9d250f9c1ac562a1db74c91e8a81474b0ed7e8af1d495a51028",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/brown_wolf#g39": {
+      "token_key": "london/brown_wolf#g39",
+      "row_fingerprint": "5e593251b2fe0b618d6d06d7b913d99baf5319b2d61d0b93dc919783f9c65e72",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/day_s_lodging#g1311": {
+      "token_key": "london/day_s_lodging#g1311",
+      "row_fingerprint": "32f20498af15bf61654e25d7aa119d5d436744481c3c0645f40c9a28456dcf1a",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g6533": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g6533",
+      "row_fingerprint": "fb59828598ecc2b6155777ad17373b23a8a64c7b834e98692c4d406642af02e8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g7371": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g7371",
+      "row_fingerprint": "f354b07e6726dedd76405f91e0abaac4d9b79d1da1a49cc14fce5e353e4da123",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9188": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9188",
+      "row_fingerprint": "1fd59f3d9bc64f60fef24ddfbab7889d662babaf01201acfc8c9f7d8eb9c5362",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_prevaricated_parade__tuttle#g7002": {
+      "token_key": "mass_quantities/a_prevaricated_parade__tuttle#g7002",
+      "row_fingerprint": "794b6cd3f22a470ff0789a08f57eb961028b5a4ea3f2f8c08ed8fa27ecac2e2c",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/ajax_for_example__tuttle#g10851": {
+      "token_key": "mass_quantities/ajax_for_example__tuttle#g10851",
+      "row_fingerprint": "5322ff1495be2bbbbbeff5cbfe608446d2d6eb1365eaf5e1d8419e3220f78642",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g1776": {
+      "token_key": "mass_quantities/especially_dance_hall_women__ellerbe_ellerbe#g1776",
+      "row_fingerprint": "4e03cbcd7408d4f29d728ffdf76c46b85f43beac50a45b769d1388bf1d870eba",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "london/love_of_life#g9397": {
+      "token_key": "london/love_of_life#g9397",
+      "row_fingerprint": "c373001e7f5b5abde151a7fdbb94fe08dbbf314211dbff25b324efa8e316d076",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9030": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9030",
+      "row_fingerprint": "ed547b3c8477d1e88ba318c2af3e585bdb0b2e1226ed5b5f058432c54bfbec91",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9264": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9264",
+      "row_fingerprint": "7fe1cae5c2bf95f8fcdaaec87e68682938b4f76557062a8c8bd815846d41ae19",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/a_drift_from_redwood_camp__harte#g9301": {
+      "token_key": "mass_quantities/a_drift_from_redwood_camp__harte#g9301",
+      "row_fingerprint": "fcaf3c6e99a9bb58634566a840e6dcb4098dfbc8832aa77554cb0b4478170afc",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/bearly_reasonable__tuttle#g4761": {
+      "token_key": "mass_quantities/bearly_reasonable__tuttle#g4761",
+      "row_fingerprint": "654110d7a9d64c28615c5c9da49ed33c9e4f0a689d182ae06770b9c0762f985f",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/easy_come_easy_go__sabin#g496": {
+      "token_key": "mass_quantities/easy_come_easy_go__sabin#g496",
+      "row_fingerprint": "bc19bd6128995f3a8283c3bc63d146cf848d8074ee54193d0c075c83b74fabc3",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/easy_come_easy_go__sabin#g2006": {
+      "token_key": "mass_quantities/easy_come_easy_go__sabin#g2006",
+      "row_fingerprint": "3b739815397af9af2b4968223e6d4b70e669947678aab18c48356dae796910b8",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    },
+    "mass_quantities/easy_money__sinclair#g3379": {
+      "token_key": "mass_quantities/easy_money__sinclair#g3379",
+      "row_fingerprint": "8dfaebde7ea26c3411bcd576ca4759d7a013f50ecbf68147fc837d73a93e6463",
+      "disposition": "pending",
+      "gold_upos": null,
+      "issue_codes": [],
+      "notes": "not yet reviewed",
+      "reviewer": null
+    }
+  }
+}
