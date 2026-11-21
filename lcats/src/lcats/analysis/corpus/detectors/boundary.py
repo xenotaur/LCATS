@@ -103,7 +103,8 @@ class StartDetector:
             return False
         if line.endswith((".", "!", "?", ";", ":")):
             return False
-        words = [word for word in re.split(r"\s+", line) if word]
+        # Performance optimization: use native .split() instead of re.split(r"\s+", ...)
+        words = line.split()
         if len(words) < 2 or len(words) > 12:
             return False
         alpha_words = [
