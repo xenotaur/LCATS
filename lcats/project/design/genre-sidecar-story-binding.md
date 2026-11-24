@@ -1,9 +1,13 @@
 # How a seeded genre sidecar is bound to its story
 
 Status: investigation result for `WI-PROMOTE-0118` (workstream
-`WS-SIDECAR-SAFE-PROMOTION`). It records evidence and a recommendation. It changes
-no code, no sidecar schema, no `corpora/` content and no evidence file. It answers
-follow-up 4 of `project/design/genre-sidecars-in-release-workflow.md`.
+`WS-SIDECAR-SAFE-PROMOTION`), adopted as a decision by `WI-PROMOTE-0133`. It records
+evidence and a recommendation, and changes no sidecar schema, no `corpora/` content
+and no evidence file. The adopted form is the standalone, tested tool
+`tools/check_genre_story_binding.py`, run from the release runbook, not the code-free
+runbook check that the recommendation text below describes ("a runbook check needs no
+code"); where the two differ, this status line governs. It answers follow-up 4 of
+`project/design/genre-sidecars-in-release-workflow.md`.
 
 ## Question
 
