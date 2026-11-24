@@ -210,11 +210,38 @@ Stop and decide the precedence deliberately.
 
 Never pass `--allow-orphaned-sidecar-deletion` to avoid this step: it disables
 the orphaned-sidecar guard for every collection and every sidecar kind at once.
-The seeded sidecars carry no story-text fingerprint, so they are not checked
-against the regenerated story text. The recommended check (a side manifest of the
-original story hashes, compared with the regenerated `data/`) is described in
-[`project/design/genre-sidecar-story-binding.md`](../../project/design/genre-sidecar-story-binding.md);
-it is not built yet.
+The seeded sidecars carry no story-text fingerprint, so `insert` does not check
+them against the regenerated story text. Check it yourself, from `lcats/`, after
+the seed step and before `replace`:
+
+```bash
+python tools/check_genre_story_binding.py --root data
+```
+
+Expected: one line, `ok: 146 stories match the baseline under data`, exit `0`.
+It hashes each `data/<collection>/<story>/story.json` and compares it with the
+tracked baseline of the text the 146 sidecars were assessed against
+(`experiments/05_metadata_genre_prefilter/results/full_scan/story_hash_baseline.jsonl`).
+It reads file bytes, so it also flags a change to a field the assessment ignores,
+such as `year`. It is read-only, and it covers all 146 stories, not only a
+collection you regenerated. The design is in
+[`project/design/genre-sidecar-story-binding.md`](../../project/design/genre-sidecar-story-binding.md).
+
+**If it reports problems** (exit `1`, one line each on stderr): stop and do not
+run `replace` until each is resolved. The release must never go past one silently.
+
+- `changed: <collection>/<story>`: the regenerated story differs from the text
+  its sidecar was assessed against. Re-assess that story, or record an
+  owner-accepted exception naming the story and the difference, then re-run.
+- `missing: <collection>/<story>`: `data/` has no `story.json` for a story with a
+  seeded sidecar (`gather` did not finish, or regeneration no longer produces it).
+  Fix the cause and re-run; `replace` would delete that story and its sidecars.
+- `unlisted: <collection>/<story>`: `data/` holds a `genre.json` for a story the
+  baseline does not cover (for example one `lcats annotate` just produced), so
+  nothing says what text it was assessed against. Decide deliberately; this is not
+  a failure of the seeded 146.
+
+Exit `2` means the baseline or the root could not be read; fix that and re-run.
 
 **Other sidecar kinds.** Today only `genre.json` exists in `corpora/`, so this step
 covers everything that needs seeding. If a later release also holds `scenes.json`,

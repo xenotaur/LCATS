@@ -1235,21 +1235,20 @@ before a release; it prints nothing today.
 **Related:** `project/design/sidecar-kinds-release-rule.md`; `WI-PROMOTE-0117`;
 `WS-SIDECAR-SAFE-PROMOTION`.
 
-### Build the release-time story-binding check for the seeded genre sidecars — P2
+### Story-binding check follow-ups: effective-input hash and `gather` reproducibility — P3
 
-The original per-story `story_content_hash` values are now preserved: `WI-PROMOTE-0124`
+The original per-story `story_content_hash` values are preserved: `WI-PROMOTE-0124`
 (PR #533) archived the 146 Opus and 146 gpt-oss:20b checkpoint files under
 `experiments/05_metadata_genre_prefilter/results/full_scan/checkpoint_archive_2026-08-21/`
 and derived `story_hash_baseline.jsonl` (146 rows) from them; `archive_checkpoints.py
-verify` re-checks them. What remains is the check itself, recommended in
-`project/design/genre-sidecar-story-binding.md`.
+verify` re-checks them.
 
-**Planned:** `WI-PROMOTE-0133` builds the comparison of the regenerated `data/` against
-that baseline as a small tool (`tools/check_genre_story_binding.py`) plus a runbook step,
-using file bytes (conservative: also flags unused fields such as `year`), and states the
-re-assess-or-accept rule. It is proposed, not built.
+**Built:** `WI-PROMOTE-0133` added the release-time comparison of the regenerated `data/`
+against that baseline, `tools/check_genre_story_binding.py` with tests, as a step in
+`docs/reference/prepare-corpora-release.md` step 3b that states the re-assess-or-accept
+rule. It uses file bytes (conservative: also flags unused fields such as `year`).
 
-**Still open after that:** an effective-input hash over `author`, `url` and the body
+**Still open:** an effective-input hash over `author`, `url` and the body
 (exact; never a body hash alone, which misses changes the model is shown), and a
 measurement of whether a fresh `lcats gather` reproduces the stored text byte for byte
 (not measured).
