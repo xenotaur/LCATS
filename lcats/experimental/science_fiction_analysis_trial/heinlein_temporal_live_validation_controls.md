@@ -39,9 +39,10 @@ Limits:
   Gutenberg note for Piper's story gives April 1948 and that the Scribner's book
   edition of Andrews's story is September 1906; neither is relied on.
 - ISFDB is not used (see `composition_date_source_evaluation.md`).
-- No lower bound is set for either story. Piper's first story was published in 1947,
-  which would support a lower bound of 1947 for his; that is an inference left to
-  the owner.
+- No lower bound is set for either story, and no opened source supports one. An
+  author's debut (Piper's first story appeared in 1947) is context, not a bound,
+  under `composition_sources.py`: a story can be written years before it is
+  published.
 
 ## Why these two
 
@@ -68,9 +69,11 @@ Agreed by the owner:
 1. **Faithful historical fiction (*The Perfect Tribute*):** `different` is `absent`,
    and few or no counted premises are contradicted, because the story stays within
    the author's own history.
-2. **Alternate history (*He Walked Around the Horses*):** the stage records
-   `counterfactual_divergence` premises for the points where the story's history
-   departs from the real one.
+2. **Alternate history (*He Walked Around the Horses*):** the stage records at
+   least one counted `counterfactual_divergence` premise for a point where the
+   story's history departs from the real one, and `different` is `present`.
+   (`different_as_written` looks only at counted premises, so divergences recorded
+   only as incidental would give `absent`.)
 
 Derived from the code, not separately agreed:
 
@@ -84,12 +87,13 @@ Derived from the code, not separately agreed:
 
 What would count against the stage (to be judged by the owner, not decided here):
 a faithful story given `different: present` or counted contradicted premises that
-are not the disputed-anecdote kind; an alternate-history story with no
-counterfactual premise at all.
+are not the disputed-anecdote kind; an alternate-history story with no counted
+counterfactual premise (including one whose divergences are all incidental, which
+returns `absent`) or without `different: present`.
 
 ## Not decided
 
-- Lower bounds for both stories (see above).
+- Lower bounds for both stories (none is supported by an opened source).
 - A runner flag to read the owner-dates file; WI-SF-0131 still needs one.
 - The nine hand checks listed in `composition_date_source_evaluation.md`, and the
   seven canary stories' own dates, are separate from these two controls.
