@@ -1,0 +1,20 @@
+test_broken_anchor_does_not_publish (test_extraction_records.RecordTests.test_broken_anchor_does_not_publish) ... ok
+test_confidence_values_and_validation (test_extraction_records.RecordTests.test_confidence_values_and_validation) ... ok
+test_duplicate_anchor_fails (test_extraction_records.RecordTests.test_duplicate_anchor_fails) ... ok
+test_missing_override_is_normal (test_extraction_records.RecordTests.test_missing_override_is_normal) ... ok
+test_no_false_short_heading_match (test_extraction_records.RecordTests.test_no_false_short_heading_match) ... ok
+test_original_newlines_untouched (test_extraction_records.RecordTests.test_original_newlines_untouched) ... ok
+test_override_removes_only_prefix (test_extraction_records.RecordTests.test_override_removes_only_prefix) ... ok
+test_read_and_write (test_extraction_records.RecordTests.test_read_and_write) ... ok
+test_wrong_id_fails (test_extraction_records.RecordTests.test_wrong_id_fails) ... ok
+test_confidence_flows_from_parser_diagnostics_to_record (test_extraction_wiring.WiringTests.test_confidence_flows_from_parser_diagnostics_to_record) ... ok
+test_override_after_normalization_before_publishing (test_extraction_wiring.WiringTests.test_override_after_normalization_before_publishing) ... ok
+test_parser_imports_module (test_extraction_wiring.WiringTests.test_parser_imports_module) ... ok
+test_raw_record_populated_on_inspection (test_extraction_wiring.WiringTests.test_raw_record_populated_on_inspection) ... ok
+test_called_in_clean_gutenberg_story (test_parser_precision_wiring.ParserWiringTests.test_called_in_clean_gutenberg_story) ... ok
+test_imported_from_package (test_parser_precision_wiring.ParserWiringTests.test_imported_from_package) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.061s
+
+OK

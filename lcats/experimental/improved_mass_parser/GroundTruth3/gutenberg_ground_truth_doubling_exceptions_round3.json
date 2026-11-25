@@ -1,0 +1,22 @@
+[
+  {
+    "gutenberg_id": 25404,
+    "title": [
+      "The Lost Child"
+    ],
+    "reason": "Original text unavailable in supplied Gutenberg story archives",
+    "original_physical_lines": 60,
+    "requested_physical_lines": 120,
+    "actual_physical_lines": 60
+  },
+  {
+    "gutenberg_id": 61624,
+    "title": [
+      "The Fall of Ulysses: An Elephant Story"
+    ],
+    "reason": "Original text unavailable in supplied Gutenberg story archives",
+    "original_physical_lines": 20,
+    "requested_physical_lines": 40,
+    "actual_physical_lines": 20
+  }
+]

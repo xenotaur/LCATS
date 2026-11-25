@@ -1,0 +1,9 @@
+test_guard_never_shifts_boundary_forward (test_conservative_parser.ConservativeExtractionTests.test_guard_never_shifts_boundary_forward) ... ok
+test_split_is_disjoint_and_complete (test_conservative_parser.ConservativeExtractionTests.test_split_is_disjoint_and_complete) ... ok
+test_training_italic_prologues_are_preserved (test_conservative_parser.ConservativeExtractionTests.test_training_italic_prologues_are_preserved) ... ok
+test_verified_records_have_expected_fields (test_conservative_parser.ConservativeExtractionTests.test_verified_records_have_expected_fields) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 18.774s
+
+OK

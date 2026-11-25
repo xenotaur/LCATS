@@ -1,0 +1,38 @@
+[
+  {
+    "gutenberg_id": 23357,
+    "title": [
+      "Miss Mehetabel's Son"
+    ],
+    "current_lines": 40,
+    "requested_lines": 80,
+    "reason": "No original 23357.txt among stories*.zip"
+  },
+  {
+    "gutenberg_id": 25404,
+    "title": [
+      "The Lost Child"
+    ],
+    "current_lines": 60,
+    "requested_lines": 120,
+    "reason": "No original 25404.txt among stories*.zip"
+  },
+  {
+    "gutenberg_id": 33608,
+    "title": [
+      "Bride Roses"
+    ],
+    "current_lines": 60,
+    "requested_lines": 120,
+    "reason": "No original 33608.txt among stories*.zip"
+  },
+  {
+    "gutenberg_id": 61624,
+    "title": [
+      "The Fall of Ulysses: An Elephant Story"
+    ],
+    "current_lines": 20,
+    "requested_lines": 40,
+    "reason": "No original 61624.txt among stories*.zip"
+  }
+]

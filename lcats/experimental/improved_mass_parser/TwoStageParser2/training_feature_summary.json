@@ -1,0 +1,128 @@
+{
+  "n": 1316,
+  "gap_distribution": {
+    "1": 60,
+    "2": 1086,
+    "3": 24,
+    "4": 143,
+    "6": 3
+  },
+  "gap_given_previous_type": {
+    "byline": {
+      "n": 96,
+      "gap_at_least_2": 92,
+      "gap_at_least_3": 27
+    },
+    "credit": {
+      "n": 52,
+      "gap_at_least_2": 52,
+      "gap_at_least_3": 8
+    },
+    "prose_or_other": {
+      "n": 986,
+      "gap_at_least_2": 950,
+      "gap_at_least_3": 44
+    },
+    "title_or_heading": {
+      "n": 182,
+      "gap_at_least_2": 162,
+      "gap_at_least_3": 91
+    }
+  },
+  "predicted_late_by_type": {
+    "byline": 2,
+    "credit": 2,
+    "prose_or_other": 6,
+    "title_or_heading": 1
+  },
+  "examples_late": [
+    {
+      "id": 29632,
+      "offset": 6,
+      "gap": 2,
+      "previous_type": "prose_or_other",
+      "prev": "was the last thing they did!_",
+      "start": "GRETA"
+    },
+    {
+      "id": 23357,
+      "offset": 2,
+      "gap": 4,
+      "previous_type": "prose_or_other",
+      "prev": "Copyright, 1873, 1885, and 1901",
+      "start": "I. THE OLD TAVERN AT BAYLEY'S FOUR CORNERS."
+    },
+    {
+      "id": 26956,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "title_or_heading",
+      "prev": "ILLUSTRATOR LLEWELLYN",
+      "start": "\"You are General James Rothwell?\""
+    },
+    {
+      "id": 33608,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "prose_or_other",
+      "prev": "_Bride Roses_",
+      "start": "SCENE"
+    },
+    {
+      "id": 23367,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "prose_or_other",
+      "prev": "Copyright, 1903, by Charles Scribner's Sons",
+      "start": "\u201cYou don't think it's too young for me, girls?\u201d"
+    },
+    {
+      "id": 29889,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "prose_or_other",
+      "prev": "should one hear it said in a single lifetime?_",
+      "start": "Outside, bells were ringing. \"Happy New Year!\""
+    },
+    {
+      "id": 31680,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "byline",
+      "prev": "By M. C. Pease",
+      "start": "\"Did it go well?\" the aide asked."
+    },
+    {
+      "id": 26772,
+      "offset": 5,
+      "gap": 2,
+      "previous_type": "credit",
+      "prev": "Illustrated by FINLAY",
+      "start": " _I smelled the trouble the moment I stepped on"
+    },
+    {
+      "id": 23003,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "credit",
+      "prev": "First published in the \u201cCentury Magazine.\u201d",
+      "start": "\u201cThe minister's got a job,\u201d said Mr. Snell."
+    },
+    {
+      "id": 21279,
+      "offset": 2,
+      "gap": 4,
+      "previous_type": "byline",
+      "prev": "by KURT VONNEGUT, JR.",
+      "start": "Everything was perfectly swell."
+    },
+    {
+      "id": 29662,
+      "offset": 2,
+      "gap": 2,
+      "previous_type": "prose_or_other",
+      "prev": "paying a very simple price--denial of life!_",
+      "start": "\"Effie! What the devil are you up to?\""
+    }
+  ]
+}

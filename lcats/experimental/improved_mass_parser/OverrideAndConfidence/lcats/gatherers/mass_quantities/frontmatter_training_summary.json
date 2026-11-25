@@ -1,0 +1,52 @@
+{
+  "training_entries": 1318,
+  "metrics": {
+    "before": {
+      "assessable": 1316,
+      "unassessable": 2,
+      "exact": 659,
+      "narrative_loss_cases": 3,
+      "narrative_lines_lost": 6,
+      "extra_frontmatter_cases": 654,
+      "extra_frontmatter_lines": 6332
+    },
+    "after": {
+      "assessable": 1316,
+      "unassessable": 2,
+      "exact": 682,
+      "narrative_loss_cases": 3,
+      "narrative_lines_lost": 6,
+      "extra_frontmatter_cases": 631,
+      "extra_frontmatter_lines": 6125
+    }
+  },
+  "changed_entries": 23,
+  "excess_lines_removed": 207,
+  "new_or_increased_narrative_loss": 0,
+  "changed_gutenberg_ids": [
+    32143,
+    31841,
+    33969,
+    31736,
+    32040,
+    32104,
+    32149,
+    32744,
+    32131,
+    32638,
+    32254,
+    31306,
+    31612,
+    32346,
+    32412,
+    32078,
+    32079,
+    23799,
+    32718,
+    31307,
+    32637,
+    31778,
+    32213
+  ],
+  "qualification": "Training-only evaluation; already inspected prior held-back cases; no fresh independent test."
+}

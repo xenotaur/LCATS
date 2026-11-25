@@ -1,14 +1,16 @@
 """Gatherer for single stories from gutenberg"""
 
+import logging
+
 import dataclasses
 import pathlib
 
-from tqdm import tqdm
+import tqdm
 
 from lcats.gatherers import downloaders
 from lcats.gatherers.mass_quantities import storymap
 from lcats.gatherers import parser
-from lcats.gettenberg import resources
+from lcats import gettenberg
 from lcats.utils import env
 from lcats.utils import paths
 from lcats.utils import run_log
@@ -157,7 +159,7 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
         allow_protected_root=True,
     ) as log:
         # stories = stories[:10]  # Limit to 10 for testing; remove or adjust as needed.
-        for story in tqdm(stories):
+        for story in tqdm.tqdm(stories):
             # for story in tqdm(range(1, 79061)):
             # print(story)
             try:
@@ -165,7 +167,7 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
                 # registers only after it confirms a published or existing file.
                 result = parser.gather_story_result(gatherer, story, source=source)
                 story, filename, error = result.story, result.path, result.rejection
-            except resources.ResourceTransportError as exc:
+            except gettenberg.resources.ResourceTransportError as exc:
                 if exc.code != "http_status" or exc.status != 404:
                     raise
                 # Only a confirmed missing representation is local to this input.
@@ -182,7 +184,7 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
                     final_url=exc.final_url,
                 )
                 continue
-            except resources.ResourceDecodeError as exc:
+            except gettenberg.resources.ResourceDecodeError as exc:
                 if exc.code != "cleanup_refused":
                     raise
                 # A content refusal is local to this input, not an operational
@@ -227,11 +229,11 @@ def gather_batch(stories, log_dir=DEFAULT_GATHER_LOG_DIR, *, source):
 
 def main(*, source):
     """Extract the Single stories from the Gutenberg Project."""
-    print("Gathering single stories en masse from Gutenberg.")
+    logging.info("Gathering single stories en masse from Gutenberg.")
     downloads, errors = gather_stories(storymap.SINGLE_STORIES, source=source)
     # downloads, errors = gather_stories(range(1, 78290))
-    print(f" - Total stories in the single corpus: {len(downloads)}")
-    print(f" - Total errors encountered: {len(errors)}")
+    logging.info(f" - Total stories in the single corpus: {len(downloads)}")
+    logging.info(f" - Total errors encountered: {len(errors)}")
 
 
 if __name__ == "__main__":

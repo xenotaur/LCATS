@@ -55,7 +55,10 @@ EXCLUDED_SUBJECTS = [
 ]
 
 # 64092 -- the christmas dinner by washington irving has a wacky line set
-STORIES_TO_EXCLUDE = [64092]
+# 63009, 63028 -- contains multiple stories
+# 70486, 71109 -- multiple chapters
+STORIES_TO_EXCLUDE = [63009, 63028, 64092, 70486, 71109]
+
 
 # (original) Subjects we want to exclude from our corps.
 BAD_SUBJECTS = [

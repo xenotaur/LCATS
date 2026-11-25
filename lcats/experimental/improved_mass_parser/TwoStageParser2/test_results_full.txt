@@ -1,0 +1,30 @@
+test_guard_never_shifts_boundary_forward (test_conservative_parser.ConservativeExtractionTests.test_guard_never_shifts_boundary_forward) ... ok
+test_marker_followed_by_title_is_not_narrative (test_conservative_parser.ConservativeExtractionTests.test_marker_followed_by_title_is_not_narrative) ... ok
+test_sidenote_and_illustration_synthetic_openings (test_conservative_parser.ConservativeExtractionTests.test_sidenote_and_illustration_synthetic_openings) ... ok
+test_split_is_disjoint_and_complete (test_conservative_parser.ConservativeExtractionTests.test_split_is_disjoint_and_complete) ... ok
+test_training_italic_prologues_are_preserved (test_conservative_parser.ConservativeExtractionTests.test_training_italic_prologues_are_preserved) ... ok
+test_training_post_transcriber_markers (test_conservative_parser.ConservativeExtractionTests.test_training_post_transcriber_markers) ... ok
+test_verified_records_have_expected_fields (test_conservative_parser.ConservativeExtractionTests.test_verified_records_have_expected_fields) ... ok
+test_date_and_location_synthetic (test_conservative_parser.DatedSceneHeadingTests.test_date_and_location_synthetic) ... ok
+test_human_correction_27013 (test_conservative_parser.DatedSceneHeadingTests.test_human_correction_27013) ... ok
+test_no_fictional_date_no_change (test_conservative_parser.DatedSceneHeadingTests.test_no_fictional_date_no_change) ... ok
+test_roman_numbered_titles_ending_with_period (test_two_stage_structure.AdditionalSectionTests.test_roman_numbered_titles_ending_with_period) ... ok
+test_single_roman_titled_section_not_sufficient (test_two_stage_structure.AdditionalSectionTests.test_single_roman_titled_section_not_sufficient) ... ok
+test_advertising_catalog_not_chapters (test_two_stage_structure.StructuralTests.test_advertising_catalog_not_chapters) ... ok
+test_bracketed_numbered_comments_ignored (test_two_stage_structure.StructuralTests.test_bracketed_numbered_comments_ignored) ... ok
+test_contents_multiple_stories (test_two_stage_structure.StructuralTests.test_contents_multiple_stories) ... ok
+test_italic_numbered_sections (test_two_stage_structure.StructuralTests.test_italic_numbered_sections) ... ok
+test_lone_numbered_heading_not_enough (test_two_stage_structure.StructuralTests.test_lone_numbered_heading_not_enough) ... ok
+test_real_local_archive_cases_if_available (test_two_stage_structure.StructuralTests.test_real_local_archive_cases_if_available) ... ok
+test_repeated_chapters (test_two_stage_structure.StructuralTests.test_repeated_chapters) ... ok
+test_standalone_two_stage_rejects_before_cleaning (test_two_stage_structure.StructuralTests.test_standalone_two_stage_rejects_before_cleaning) ... ok
+test_title_page_not_counted (test_two_stage_structure.StructuralTests.test_title_page_not_counted) ... ok
+test_blank_lines_alone_not_a_rule (test_boundary_features.BoundaryFeatureTests.test_blank_lines_alone_not_a_rule) ... ok
+test_only_moves_earlier (test_boundary_features.BoundaryFeatureTests.test_only_moves_earlier) ... ok
+test_single_section_not_rejected (test_boundary_features.BoundaryFeatureTests.test_single_section_not_rejected) ... ok
+test_training_recoveries (test_boundary_features.BoundaryFeatureTests.test_training_recoveries) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 23.333s
+
+OK

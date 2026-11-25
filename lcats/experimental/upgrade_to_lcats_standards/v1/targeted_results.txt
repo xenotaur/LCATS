@@ -1,0 +1,34 @@
+test_broken_anchor_does_not_publish (test_extraction_records.RecordTests.test_broken_anchor_does_not_publish) ... ok
+test_duplicate_anchor_fails (test_extraction_records.RecordTests.test_duplicate_anchor_fails) ... ok
+test_missing_override_is_normal (test_extraction_records.RecordTests.test_missing_override_is_normal) ... ok
+test_no_false_short_heading_match (test_extraction_records.RecordTests.test_no_false_short_heading_match) ... ok
+test_original_newlines_untouched (test_extraction_records.RecordTests.test_original_newlines_untouched) ... ok
+test_override_removes_only_prefix (test_extraction_records.RecordTests.test_override_removes_only_prefix) ... ok
+test_read_and_write (test_extraction_records.RecordTests.test_read_and_write) ... ok
+test_wrong_id_fails (test_extraction_records.RecordTests.test_wrong_id_fails) ... ok
+test_override_after_normalization_before_publishing (test_extraction_wiring.WiringTests.test_override_after_normalization_before_publishing) ... ok
+test_parser_imports_module (test_extraction_wiring.WiringTests.test_parser_imports_module) ... ok
+test_raw_record_populated_on_inspection (test_extraction_wiring.WiringTests.test_raw_record_populated_on_inspection) ... ok
+test_called_in_clean_gutenberg_story (test_parser_precision_wiring.ParserWiringTests.test_called_in_clean_gutenberg_story) ... ok
+test_imported_from_package (test_parser_precision_wiring.ParserWiringTests.test_imported_from_package) ... ok
+test_blank_lines_alone_do_not_trigger (test_frontmatter_precision.TeaserBoundaryTests.test_blank_lines_alone_do_not_trigger) ... ok
+test_genuine_italic_prologues_not_deleted (test_frontmatter_precision.TeaserBoundaryTests.test_genuine_italic_prologues_not_deleted) ... ok
+test_never_passes_narrative_on_training_set (test_frontmatter_precision.TeaserBoundaryTests.test_never_passes_narrative_on_training_set) ... ok
+test_no_change_for_long_prologue (test_frontmatter_precision.TeaserBoundaryTests.test_no_change_for_long_prologue) ... ok
+test_recovers_known_training_teasers (test_frontmatter_precision.TeaserBoundaryTests.test_recovers_known_training_teasers) ... ok
+test_roman_numbered_titles_ending_with_period (test_two_stage_structure.AdditionalSectionTests.test_roman_numbered_titles_ending_with_period) ... ok
+test_single_roman_titled_section_not_sufficient (test_two_stage_structure.AdditionalSectionTests.test_single_roman_titled_section_not_sufficient) ... ok
+test_advertising_catalog_not_chapters (test_two_stage_structure.StructuralTests.test_advertising_catalog_not_chapters) ... ok
+test_bracketed_numbered_comments_ignored (test_two_stage_structure.StructuralTests.test_bracketed_numbered_comments_ignored) ... ok
+test_contents_multiple_stories (test_two_stage_structure.StructuralTests.test_contents_multiple_stories) ... ok
+test_italic_numbered_sections (test_two_stage_structure.StructuralTests.test_italic_numbered_sections) ... ok
+test_lone_numbered_heading_not_enough (test_two_stage_structure.StructuralTests.test_lone_numbered_heading_not_enough) ... ok
+test_real_local_archive_cases_if_available (test_two_stage_structure.StructuralTests.test_real_local_archive_cases_if_available) ... ok
+test_repeated_chapters (test_two_stage_structure.StructuralTests.test_repeated_chapters) ... ok
+test_standalone_two_stage_rejects_before_cleaning (test_two_stage_structure.StructuralTests.test_standalone_two_stage_rejects_before_cleaning) ... ok
+test_title_page_not_counted (test_two_stage_structure.StructuralTests.test_title_page_not_counted) ... ok
+
+----------------------------------------------------------------------
+Ran 29 tests in 19.154s
+
+OK
