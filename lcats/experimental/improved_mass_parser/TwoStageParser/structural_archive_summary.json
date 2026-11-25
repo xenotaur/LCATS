@@ -1,0 +1,10 @@
+{
+  "stories_scanned": 1660,
+  "rejected_raw": 13,
+  "reason_counts": {
+    "multiple_numbered_sections": 7,
+    "multiple_chapter_headings": 1,
+    "contents_list": 5
+  },
+  "note": "Candidate structural detections only, not verified chapter classification. Existing saved outputs are not rechecked."
+}

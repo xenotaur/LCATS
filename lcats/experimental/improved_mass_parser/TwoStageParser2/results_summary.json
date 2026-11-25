@@ -1,0 +1,56 @@
+{
+  "note": "Training-derived heuristics. Prior testing data had been previously examined during development.",
+  "training_count": 1318,
+  "testing_count": 330,
+  "source_audit_count": 1660,
+  "source_audit_old_rejections": 13,
+  "source_audit_new_rejections": 13,
+  "source_audit_changed_decisions": 0,
+  "unavailable_complete_source": [
+    23357
+  ],
+  "training": {
+    "prior": {
+      "assessable": 1316,
+      "unassessable": 2,
+      "exact_boundary": 686,
+      "narrative_loss_cases": 11,
+      "narrative_lines_lost": 29,
+      "front_matter_retained_cases": 619,
+      "front_matter_lines_retained": 6087,
+      "max_narrative_lines_lost_one_story": 6
+    },
+    "updated": {
+      "assessable": 1316,
+      "unassessable": 2,
+      "exact_boundary": 659,
+      "narrative_loss_cases": 3,
+      "narrative_lines_lost": 6,
+      "front_matter_retained_cases": 654,
+      "front_matter_lines_retained": 6332,
+      "max_narrative_lines_lost_one_story": 2
+    }
+  },
+  "testing": {
+    "prior": {
+      "assessable": 330,
+      "unassessable": 0,
+      "exact_boundary": 164,
+      "narrative_loss_cases": 1,
+      "narrative_lines_lost": 12,
+      "front_matter_retained_cases": 165,
+      "front_matter_lines_retained": 1489,
+      "max_narrative_lines_lost_one_story": 12
+    },
+    "updated": {
+      "assessable": 330,
+      "unassessable": 0,
+      "exact_boundary": 153,
+      "narrative_loss_cases": 1,
+      "narrative_lines_lost": 12,
+      "front_matter_retained_cases": 176,
+      "front_matter_lines_retained": 1558,
+      "max_narrative_lines_lost_one_story": 12
+    }
+  }
+}

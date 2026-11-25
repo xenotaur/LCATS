@@ -11,15 +11,15 @@ THE_HAPPY_PRINCE_GUTENBERG = (
 
 
 THE_HAPPY_PRINCE_HEADINGS = [
-    ("happy_prince", "The Happy Prince", "Wilde - the Happy Prince"),
+    ("the_happy_prince", "The Happy Prince", "Wilde - the Happy Prince"),
     (
-        "nightingale_and_the_rose",
+        "the_nightingale_and_the_rose",
         "The Nightingale and the Rose",
         "Wilde - the Nightingale And the Rose",
     ),
-    ("selfish_giant", "The Selfish Giant", "Wilde - the Selfish Giant"),
-    ("devoted_friend", "The Devoted Friend", "Wilde - the Devoted Friend"),
-    ("remarkable_rocket", "The Remarkable Rocket", "Wilde - the Remarkable Rocket"),
+    ("the_selfish_giant", "The Selfish Giant", "Wilde - the Selfish Giant"),
+    ("the_devoted_friend", "The Devoted Friend", "Wilde - the Devoted Friend"),
+    ("the_remarkable_rocket", "The Remarkable Rocket", "Wilde - the Remarkable Rocket"),
 ]
 
 

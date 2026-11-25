@@ -10,12 +10,12 @@ LONDON_GUTENBERG = "https://www.gutenberg.org/cache/epub/710/pg710-images.html"
 
 LONDON_HEADINGS = [
     ("love_of_life", "LOVE OF LIFE", "London - Love Of Life"),
-    ("day's_lodging", "A DAY’S LODGING", "London - A Day's Lodging"),
-    ("white_man's_way", "THE WHITE MAN’S WAY", "London - The White Man's Way"),
-    ("story_of_keesh", "THE STORY OF KEESH", "London - The Story Of Keesh"),
-    ("unexpected", "THE UNEXPECTED", "London - The Unexpected"),
+    ("a_day_s_lodging", "A DAY’S LODGING", "London - A Day's Lodging"),
+    ("the_white_man_s_way", "THE WHITE MAN’S WAY", "London - The White Man's Way"),
+    ("the_story_of_keesh", "THE STORY OF KEESH", "London - The Story Of Keesh"),
+    ("the_unexpected", "THE UNEXPECTED", "London - The Unexpected"),
     ("brown_wolf", "BROWN WOLF", "London - Brown Wolf"),
-    ("sun-dog_trail", "THE SUN-DOG TRAIL", "London - The Sun-dog Trail"),
+    ("the_sun-dog_trail", "THE SUN-DOG TRAIL", "London - The Sun-dog Trail"),
     ("negore,_the_coward", "NEGORE, THE COWARD", "London - Negore, the Coward"),
 ]
 

@@ -1,0 +1,3808 @@
+{
+  "overrides_created": 757,
+  "not_automatically_safe": [
+    [
+      24247,
+      "no unique line-aligned match"
+    ],
+    [
+      72192,
+      "no unique line-aligned match"
+    ],
+    [
+      29897,
+      "no unique line-aligned match"
+    ],
+    [
+      38302,
+      "no unique line-aligned match"
+    ]
+  ],
+  "overrides": [
+    {
+      "gutenberg_id": 50921,
+      "story_path": "data/mass_quantities/1_000_a_plate__mckenty/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 51258,
+      "story_path": "data/mass_quantities/a_bad_day_for_vermin__laumer/story.json",
+      "trimmed_characters": 75
+    },
+    {
+      "gutenberg_id": 59825,
+      "story_path": "data/mass_quantities/a_case_of_sunburn__fontenay/story.json",
+      "trimmed_characters": 139
+    },
+    {
+      "gutenberg_id": 50802,
+      "story_path": "data/mass_quantities/a_city_near_centaurus__doede/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 2006,
+      "story_path": "data/mass_quantities/a_fair_penitent__collins/story.json",
+      "trimmed_characters": 338
+    },
+    {
+      "gutenberg_id": 51609,
+      "story_path": "data/mass_quantities/a_fall_of_glass__lee/story.json",
+      "trimmed_characters": 105
+    },
+    {
+      "gutenberg_id": 23588,
+      "story_path": "data/mass_quantities/a_filbert_is_a_nut__raphael/story.json",
+      "trimmed_characters": 202
+    },
+    {
+      "gutenberg_id": 32487,
+      "story_path": "data/mass_quantities/a_gift_for_terra__holden/story.json",
+      "trimmed_characters": 200
+    },
+    {
+      "gutenberg_id": 51129,
+      "story_path": "data/mass_quantities/a_gift_from_earth__banister/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 51460,
+      "story_path": "data/mass_quantities/a_husband_for_my_wife__stuart/story.json",
+      "trimmed_characters": 100
+    },
+    {
+      "gutenberg_id": 51171,
+      "story_path": "data/mass_quantities/a_little_journey__bradbury/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 66588,
+      "story_path": "data/mass_quantities/a_man_sized_pet__tuttle/story.json",
+      "trimmed_characters": 73
+    },
+    {
+      "gutenberg_id": 51615,
+      "story_path": "data/mass_quantities/a_matter_of_protocol__sharkey/story.json",
+      "trimmed_characters": 75
+    },
+    {
+      "gutenberg_id": 51461,
+      "story_path": "data/mass_quantities/a_pail_of_air__leiber/story.json",
+      "trimmed_characters": 119
+    },
+    {
+      "gutenberg_id": 62035,
+      "story_path": "data/mass_quantities/a_planet_for_your_thoughts__norman/story.json",
+      "trimmed_characters": 228
+    },
+    {
+      "gutenberg_id": 63890,
+      "story_path": "data/mass_quantities/a_planet_named_joe__hunter/story.json",
+      "trimmed_characters": 202
+    },
+    {
+      "gutenberg_id": 20257,
+      "story_path": "data/mass_quantities/a_political_romance__sterne/story.json",
+      "trimmed_characters": 145
+    },
+    {
+      "gutenberg_id": 66857,
+      "story_path": "data/mass_quantities/a_prevaricated_parade__tuttle/story.json",
+      "trimmed_characters": 59
+    },
+    {
+      "gutenberg_id": 72179,
+      "story_path": "data/mass_quantities/a_prison_make__stuart/story.json",
+      "trimmed_characters": 182
+    },
+    {
+      "gutenberg_id": 32238,
+      "story_path": "data/mass_quantities/a_thought_for_tomorrow__gilbert/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 72662,
+      "story_path": "data/mass_quantities/a_time_to_die__calin/story.json",
+      "trimmed_characters": 239
+    },
+    {
+      "gutenberg_id": 51304,
+      "story_path": "data/mass_quantities/a_touch_of_e_flat__gibson/story.json",
+      "trimmed_characters": 131
+    },
+    {
+      "gutenberg_id": 72379,
+      "story_path": "data/mass_quantities/a_voice_from_the_inner_world__verrill/story.json",
+      "trimmed_characters": 821
+    },
+    {
+      "gutenberg_id": 30816,
+      "story_path": "data/mass_quantities/a_world_by_the_tale__garrett/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 73354,
+      "story_path": "data/mass_quantities/a_world_to_die_for__carson/story.json",
+      "trimmed_characters": 634
+    },
+    {
+      "gutenberg_id": 66189,
+      "story_path": "data/mass_quantities/a_zloor_for_your_trouble__reynolds/story.json",
+      "trimmed_characters": 141
+    },
+    {
+      "gutenberg_id": 29159,
+      "story_path": "data/mass_quantities/acid_bath__garson/story.json",
+      "trimmed_characters": 206
+    },
+    {
+      "gutenberg_id": 26955,
+      "story_path": "data/mass_quantities/advanced_chemistry__huekels/story.json",
+      "trimmed_characters": 103
+    },
+    {
+      "gutenberg_id": 17083,
+      "story_path": "data/mass_quantities/adventures_of_a_sixpence_in_guernsey_by_a_native__anonymous/story.json",
+      "trimmed_characters": 39
+    },
+    {
+      "gutenberg_id": 23960,
+      "story_path": "data/mass_quantities/after_a_few_words__garrett/story.json",
+      "trimmed_characters": 138
+    },
+    {
+      "gutenberg_id": 72266,
+      "story_path": "data/mass_quantities/after_ixmal__sutton/story.json",
+      "trimmed_characters": 69
+    },
+    {
+      "gutenberg_id": 64288,
+      "story_path": "data/mass_quantities/against_tetrarch__gilmour/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 24161,
+      "story_path": "data/mass_quantities/all_day_september__kuykendall/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 32434,
+      "story_path": "data/mass_quantities/all_in_the_mind__henderson/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 51185,
+      "story_path": "data/mass_quantities/all_jackson_s_children__galouye/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 32765,
+      "story_path": "data/mass_quantities/all_that_goes_up__brooks/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 51603,
+      "story_path": "data/mass_quantities/all_the_people__lafferty/story.json",
+      "trimmed_characters": 106
+    },
+    {
+      "gutenberg_id": 65933,
+      "story_path": "data/mass_quantities/all_wool__tuttle/story.json",
+      "trimmed_characters": 76
+    },
+    {
+      "gutenberg_id": 51596,
+      "story_path": "data/mass_quantities/aloys__lafferty/story.json",
+      "trimmed_characters": 123
+    },
+    {
+      "gutenberg_id": 64722,
+      "story_path": "data/mass_quantities/alpha_say_beta_do__maxwell/story.json",
+      "trimmed_characters": 209
+    },
+    {
+      "gutenberg_id": 51623,
+      "story_path": "data/mass_quantities/always_a_qurono__harmon/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 51681,
+      "story_path": "data/mass_quantities/amateur_in_chancery__smith/story.json",
+      "trimmed_characters": 94
+    },
+    {
+      "gutenberg_id": 65126,
+      "story_path": "data/mass_quantities/an_eel_by_the_tail__lang/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 51434,
+      "story_path": "data/mass_quantities/an_elephant_for_the_prinkip__stecher/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 9251,
+      "story_path": "data/mass_quantities/an_old_woman_s_tale_from_the_doliver_romance_and_o__hawthorne/story.json",
+      "trimmed_characters": 21
+    },
+    {
+      "gutenberg_id": 51046,
+      "story_path": "data/mass_quantities/and_it_comes_out_here__del_rey/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 62915,
+      "story_path": "data/mass_quantities/and_the_gods_laughed__brown/story.json",
+      "trimmed_characters": 150
+    },
+    {
+      "gutenberg_id": 64595,
+      "story_path": "data/mass_quantities/animat__wells/story.json",
+      "trimmed_characters": 104
+    },
+    {
+      "gutenberg_id": 72247,
+      "story_path": "data/mass_quantities/answer_please_answer__bova/story.json",
+      "trimmed_characters": 163
+    },
+    {
+      "gutenberg_id": 63827,
+      "story_path": "data/mass_quantities/asleep_in_armageddon__bradbury/story.json",
+      "trimmed_characters": 51
+    },
+    {
+      "gutenberg_id": 68918,
+      "story_path": "data/mass_quantities/assignats__leverage/story.json",
+      "trimmed_characters": 30
+    },
+    {
+      "gutenberg_id": 64293,
+      "story_path": "data/mass_quantities/assignment_in_the_dawn__walton/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 62348,
+      "story_path": "data/mass_quantities/assignment_on_venus__jacobi/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 61766,
+      "story_path": "data/mass_quantities/asteroid_h277_plus__walton/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 64270,
+      "story_path": "data/mass_quantities/asteroid_justice__thiessen/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 64157,
+      "story_path": "data/mass_quantities/atavism__fennel/story.json",
+      "trimmed_characters": 167
+    },
+    {
+      "gutenberg_id": 32067,
+      "story_path": "data/mass_quantities/atom_drive__fontenay/story.json",
+      "trimmed_characters": 139
+    },
+    {
+      "gutenberg_id": 70475,
+      "story_path": "data/mass_quantities/atomic_bonanza__smith/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 31364,
+      "story_path": "data/mass_quantities/b_12_s_moon_glow__stearns/story.json",
+      "trimmed_characters": 229
+    },
+    {
+      "gutenberg_id": 73567,
+      "story_path": "data/mass_quantities/back_home__davis/story.json",
+      "trimmed_characters": 66
+    },
+    {
+      "gutenberg_id": 32619,
+      "story_path": "data/mass_quantities/back_to_julie__wilson/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 51498,
+      "story_path": "data/mass_quantities/bad_memory__fahy/story.json",
+      "trimmed_characters": 52
+    },
+    {
+      "gutenberg_id": 73313,
+      "story_path": "data/mass_quantities/battleground__del_rey/story.json",
+      "trimmed_characters": 482
+    },
+    {
+      "gutenberg_id": 29240,
+      "story_path": "data/mass_quantities/be_it_ever_thus__williams/story.json",
+      "trimmed_characters": 134
+    },
+    {
+      "gutenberg_id": 51494,
+      "story_path": "data/mass_quantities/beach_scene__king/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 66024,
+      "story_path": "data/mass_quantities/bearly_reasonable__tuttle/story.json",
+      "trimmed_characters": 68
+    },
+    {
+      "gutenberg_id": 72059,
+      "story_path": "data/mass_quantities/beauty_interrupted__fontenay/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 32864,
+      "story_path": "data/mass_quantities/bedside_manner__samachson/story.json",
+      "trimmed_characters": 188
+    },
+    {
+      "gutenberg_id": 72420,
+      "story_path": "data/mass_quantities/beside_the_golden_door__slesar/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 24724,
+      "story_path": "data/mass_quantities/beyond_the_marshes__connor/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 68930,
+      "story_path": "data/mass_quantities/beyond_the_wall__leverage/story.json",
+      "trimmed_characters": 217
+    },
+    {
+      "gutenberg_id": 32551,
+      "story_path": "data/mass_quantities/big_stupe__de_vet/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 50800,
+      "story_path": "data/mass_quantities/bimmie_says__van_scyoc/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 23762,
+      "story_path": "data/mass_quantities/blessed_are_the_meek__edmondson/story.json",
+      "trimmed_characters": 216
+    },
+    {
+      "gutenberg_id": 51499,
+      "story_path": "data/mass_quantities/blueblood__harmon/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 28460,
+      "story_path": "data/mass_quantities/bolden_s_pets__wallace/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 72248,
+      "story_path": "data/mass_quantities/boy_meets_dyevitza__young/story.json",
+      "trimmed_characters": 290
+    },
+    {
+      "gutenberg_id": 60291,
+      "story_path": "data/mass_quantities/bramble_bush__nourse/story.json",
+      "trimmed_characters": 252
+    },
+    {
+      "gutenberg_id": 51662,
+      "story_path": "data/mass_quantities/breakdown__kastle/story.json",
+      "trimmed_characters": 80
+    },
+    {
+      "gutenberg_id": 63757,
+      "story_path": "data/mass_quantities/breath_of_beelzebub__sternig/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 32077,
+      "story_path": "data/mass_quantities/breeder_reaction__marks/story.json",
+      "trimmed_characters": 215
+    },
+    {
+      "gutenberg_id": 51241,
+      "story_path": "data/mass_quantities/bridge_crossing__dryfoos/story.json",
+      "trimmed_characters": 127
+    },
+    {
+      "gutenberg_id": 31964,
+      "story_path": "data/mass_quantities/brknk_s_bounty__sohl/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 32076,
+      "story_path": "data/mass_quantities/brown_john_s_body__marks/story.json",
+      "trimmed_characters": 134
+    },
+    {
+      "gutenberg_id": 53016,
+      "story_path": "data/mass_quantities/cakewalk_to_gloryanna__stecher/story.json",
+      "trimmed_characters": 99
+    },
+    {
+      "gutenberg_id": 63867,
+      "story_path": "data/mass_quantities/captain_midas__coppel/story.json",
+      "trimmed_characters": 205
+    },
+    {
+      "gutenberg_id": 64632,
+      "story_path": "data/mass_quantities/cargo_to_callisto__bixby/story.json",
+      "trimmed_characters": 208
+    },
+    {
+      "gutenberg_id": 32876,
+      "story_path": "data/mass_quantities/castle_of_terror__liston/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 51137,
+      "story_path": "data/mass_quantities/cause_of_death__tadlock/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 26761,
+      "story_path": "data/mass_quantities/cerebrum__teichner/story.json",
+      "trimmed_characters": 209
+    },
+    {
+      "gutenberg_id": 32160,
+      "story_path": "data/mass_quantities/chain_of_command__arr/story.json",
+      "trimmed_characters": 104
+    },
+    {
+      "gutenberg_id": 51255,
+      "story_path": "data/mass_quantities/chain_reaction__ellanby/story.json",
+      "trimmed_characters": 88
+    },
+    {
+      "gutenberg_id": 64481,
+      "story_path": "data/mass_quantities/chicken_farm__rocklynne/story.json",
+      "trimmed_characters": 269
+    },
+    {
+      "gutenberg_id": 66044,
+      "story_path": "data/mass_quantities/cinders__tuttle/story.json",
+      "trimmed_characters": 52
+    },
+    {
+      "gutenberg_id": 51342,
+      "story_path": "data/mass_quantities/citizen_jell__shaara/story.json",
+      "trimmed_characters": 102
+    },
+    {
+      "gutenberg_id": 32685,
+      "story_path": "data/mass_quantities/cold_ghost__geier/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 31208,
+      "story_path": "data/mass_quantities/collectivum__lewis/story.json",
+      "trimmed_characters": 170
+    },
+    {
+      "gutenberg_id": 63683,
+      "story_path": "data/mass_quantities/color_blind__stearns/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 51082,
+      "story_path": "data/mass_quantities/coming_attraction__leiber/story.json",
+      "trimmed_characters": 97
+    },
+    {
+      "gutenberg_id": 51148,
+      "story_path": "data/mass_quantities/common_denominator__macdonald/story.json",
+      "trimmed_characters": 114
+    },
+    {
+      "gutenberg_id": 34255,
+      "story_path": "data/mass_quantities/comrades__phelps/story.json",
+      "trimmed_characters": 201
+    },
+    {
+      "gutenberg_id": 51305,
+      "story_path": "data/mass_quantities/confidence_game__harmon/story.json",
+      "trimmed_characters": 138
+    },
+    {
+      "gutenberg_id": 32243,
+      "story_path": "data/mass_quantities/confidence_game__mckimmey/story.json",
+      "trimmed_characters": 146
+    },
+    {
+      "gutenberg_id": 41565,
+      "story_path": "data/mass_quantities/consignment__nourse/story.json",
+      "trimmed_characters": 111
+    },
+    {
+      "gutenberg_id": 31932,
+      "story_path": "data/mass_quantities/contamination_crew__nourse/story.json",
+      "trimmed_characters": 102
+    },
+    {
+      "gutenberg_id": 73682,
+      "story_path": "data/mass_quantities/cosmic_striptease__ellison/story.json",
+      "trimmed_characters": 247
+    },
+    {
+      "gutenberg_id": 24399,
+      "story_path": "data/mass_quantities/criminal_negligence__mccomas/story.json",
+      "trimmed_characters": 141
+    },
+    {
+      "gutenberg_id": 73178,
+      "story_path": "data/mass_quantities/crisis__kornbluth/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 63658,
+      "story_path": "data/mass_quantities/crisis_on_titan__adams/story.json",
+      "trimmed_characters": 205
+    },
+    {
+      "gutenberg_id": 18632,
+      "story_path": "data/mass_quantities/crossroads_of_destiny__piper/story.json",
+      "trimmed_characters": 395
+    },
+    {
+      "gutenberg_id": 51570,
+      "story_path": "data/mass_quantities/cry_snooker__fetler/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 32712,
+      "story_path": "data/mass_quantities/cube_root_of_conquest__phillips/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 25234,
+      "story_path": "data/mass_quantities/cum_grano_salis__garrett/story.json",
+      "trimmed_characters": 160
+    },
+    {
+      "gutenberg_id": 72497,
+      "story_path": "data/mass_quantities/date_of_publication_2083_a_d__samachson/story.json",
+      "trimmed_characters": 333
+    },
+    {
+      "gutenberg_id": 64073,
+      "story_path": "data/mass_quantities/dateline_mars__wilson/story.json",
+      "trimmed_characters": 168
+    },
+    {
+      "gutenberg_id": 25094,
+      "story_path": "data/mass_quantities/daughters_of_doom__hickey/story.json",
+      "trimmed_characters": 116
+    },
+    {
+      "gutenberg_id": 32686,
+      "story_path": "data/mass_quantities/day_of_the_druid__enferd/story.json",
+      "trimmed_characters": 149
+    },
+    {
+      "gutenberg_id": 64491,
+      "story_path": "data/mass_quantities/day_of_wrath__kirchhoff/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 51247,
+      "story_path": "data/mass_quantities/dead_end__macfarlane/story.json",
+      "trimmed_characters": 75
+    },
+    {
+      "gutenberg_id": 30773,
+      "story_path": "data/mass_quantities/dead_man_s_planet__samachson/story.json",
+      "trimmed_characters": 115
+    },
+    {
+      "gutenberg_id": 27631,
+      "story_path": "data/mass_quantities/dead_world__douglas/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 71586,
+      "story_path": "data/mass_quantities/deadline__kleine/story.json",
+      "trimmed_characters": 432
+    },
+    {
+      "gutenberg_id": 72119,
+      "story_path": "data/mass_quantities/deadly_decoy__garrett_silverberg/story.json",
+      "trimmed_characters": 215
+    },
+    {
+      "gutenberg_id": 32880,
+      "story_path": "data/mass_quantities/death_makes_a_mistake__mcgivern/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 32726,
+      "story_path": "data/mass_quantities/death_of_a_b_e_m__livingston/story.json",
+      "trimmed_characters": 281
+    },
+    {
+      "gutenberg_id": 73431,
+      "story_path": "data/mass_quantities/death_of_a_mutant__de_vet/story.json",
+      "trimmed_characters": 165
+    },
+    {
+      "gutenberg_id": 29643,
+      "story_path": "data/mass_quantities/death_of_a_spaceman__miller/story.json",
+      "trimmed_characters": 245
+    },
+    {
+      "gutenberg_id": 63419,
+      "story_path": "data/mass_quantities/death_star__pace/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 29680,
+      "story_path": "data/mass_quantities/decision__robinson/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 63648,
+      "story_path": "data/mass_quantities/defense_mech__bradbury/story.json",
+      "trimmed_characters": 216
+    },
+    {
+      "gutenberg_id": 68410,
+      "story_path": "data/mass_quantities/deny_the_slake__wilson/story.json",
+      "trimmed_characters": 73
+    },
+    {
+      "gutenberg_id": 49762,
+      "story_path": "data/mass_quantities/diagnosis__palmer/story.json",
+      "trimmed_characters": 200
+    },
+    {
+      "gutenberg_id": 32672,
+      "story_path": "data/mass_quantities/direct_wire__garson/story.json",
+      "trimmed_characters": 82
+    },
+    {
+      "gutenberg_id": 66050,
+      "story_path": "data/mass_quantities/dirty_work_for_doughgod__tuttle/story.json",
+      "trimmed_characters": 69
+    },
+    {
+      "gutenberg_id": 32711,
+      "story_path": "data/mass_quantities/disaster_revisited__marlowe/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 24150,
+      "story_path": "data/mass_quantities/disturbing_sun__richardson/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 22623,
+      "story_path": "data/mass_quantities/divinity__samachson/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 63109,
+      "story_path": "data/mass_quantities/doctor_universe__jacobi/story.json",
+      "trimmed_characters": 273
+    },
+    {
+      "gutenberg_id": 68203,
+      "story_path": "data/mass_quantities/don_t_look_now__kuttner/story.json",
+      "trimmed_characters": 118
+    },
+    {
+      "gutenberg_id": 51074,
+      "story_path": "data/mass_quantities/don_t_shoot__zacks/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 32710,
+      "story_path": "data/mass_quantities/doom_of_the_house_of_duryea__peirce/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 51509,
+      "story_path": "data/mass_quantities/doorstep__laumer/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 63392,
+      "story_path": "data/mass_quantities/doorway_to_kal_jmar__knight/story.json",
+      "trimmed_characters": 172
+    },
+    {
+      "gutenberg_id": 51363,
+      "story_path": "data/mass_quantities/double_standard__coppel/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 63442,
+      "story_path": "data/mass_quantities/double_trouble__jacobi/story.json",
+      "trimmed_characters": 221
+    },
+    {
+      "gutenberg_id": 66898,
+      "story_path": "data/mass_quantities/dough_or_dynamite__tuttle/story.json",
+      "trimmed_characters": 59
+    },
+    {
+      "gutenberg_id": 30305,
+      "story_path": "data/mass_quantities/dp__savage/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 51353,
+      "story_path": "data/mass_quantities/dr_kometevsky_s_day__leiber/story.json",
+      "trimmed_characters": 139
+    },
+    {
+      "gutenberg_id": 68170,
+      "story_path": "data/mass_quantities/dream_s_end__kuttner/story.json",
+      "trimmed_characters": 125
+    },
+    {
+      "gutenberg_id": 29193,
+      "story_path": "data/mass_quantities/dream_town__slesar/story.json",
+      "trimmed_characters": 103
+    },
+    {
+      "gutenberg_id": 51668,
+      "story_path": "data/mass_quantities/dream_world__lafferty/story.json",
+      "trimmed_characters": 112
+    },
+    {
+      "gutenberg_id": 58670,
+      "story_path": "data/mass_quantities/dreamer_s_world__walton/story.json",
+      "trimmed_characters": 70
+    },
+    {
+      "gutenberg_id": 23148,
+      "story_path": "data/mass_quantities/droozle__banta/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 32436,
+      "story_path": "data/mass_quantities/duel_on_syrtis__anderson/story.json",
+      "trimmed_characters": 289
+    },
+    {
+      "gutenberg_id": 51478,
+      "story_path": "data/mass_quantities/dumbwaiter__stamers/story.json",
+      "trimmed_characters": 113
+    },
+    {
+      "gutenberg_id": 63473,
+      "story_path": "data/mass_quantities/dust_unto_dust__hinckley/story.json",
+      "trimmed_characters": 154
+    },
+    {
+      "gutenberg_id": 23301,
+      "story_path": "data/mass_quantities/each_man_kills__glad/story.json",
+      "trimmed_characters": 249
+    },
+    {
+      "gutenberg_id": 51475,
+      "story_path": "data/mass_quantities/east_in_the_morning__fisher/story.json",
+      "trimmed_characters": 134
+    },
+    {
+      "gutenberg_id": 68450,
+      "story_path": "data/mass_quantities/easy_come_easy_go__sabin/story.json",
+      "trimmed_characters": 172
+    },
+    {
+      "gutenberg_id": 71348,
+      "story_path": "data/mass_quantities/easy_money__sinclair/story.json",
+      "trimmed_characters": 270
+    },
+    {
+      "gutenberg_id": 50877,
+      "story_path": "data/mass_quantities/education_of_a_martian__shallit/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 73988,
+      "story_path": "data/mass_quantities/electro_episoded_in_a_d_2025__skinner/story.json",
+      "trimmed_characters": 563
+    },
+    {
+      "gutenberg_id": 63638,
+      "story_path": "data/mass_quantities/electron_eat_electron__loomis/story.json",
+      "trimmed_characters": 251
+    },
+    {
+      "gutenberg_id": 32819,
+      "story_path": "data/mass_quantities/elegy__beaumont/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 50959,
+      "story_path": "data/mass_quantities/end_as_a_world__wallace/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 63715,
+      "story_path": "data/mass_quantities/enter_the_nebula__jacobi/story.json",
+      "trimmed_characters": 165
+    },
+    {
+      "gutenberg_id": 74119,
+      "story_path": "data/mass_quantities/evans_of_the_earth_guard__hamilton/story.json",
+      "trimmed_characters": 1153
+    },
+    {
+      "gutenberg_id": 8525,
+      "story_path": "data/mass_quantities/eve_s_diary_complete__twain/story.json",
+      "trimmed_characters": 30
+    },
+    {
+      "gutenberg_id": 73704,
+      "story_path": "data/mass_quantities/excitement_for_sale__marlowe/story.json",
+      "trimmed_characters": 306
+    },
+    {
+      "gutenberg_id": 22346,
+      "story_path": "data/mass_quantities/exile__fyfe/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 71237,
+      "story_path": "data/mass_quantities/exiles_of_the_sky__spewack/story.json",
+      "trimmed_characters": 289
+    },
+    {
+      "gutenberg_id": 61752,
+      "story_path": "data/mass_quantities/exiles_of_the_three_red_moons__selwyn/story.json",
+      "trimmed_characters": 200
+    },
+    {
+      "gutenberg_id": 61843,
+      "story_path": "data/mass_quantities/exit_from_asteroid_60__james/story.json",
+      "trimmed_characters": 167
+    },
+    {
+      "gutenberg_id": 1892,
+      "story_path": "data/mass_quantities/extracts_from_adam_s_diary_translated_from_the_ori__twain/story.json",
+      "trimmed_characters": 330
+    },
+    {
+      "gutenberg_id": 51622,
+      "story_path": "data/mass_quantities/extracts_from_the_galactick_almanack_music_around__janifer/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 73925,
+      "story_path": "data/mass_quantities/f_o_b_venus__bond/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 64358,
+      "story_path": "data/mass_quantities/failure_on_titan__abernathy/story.json",
+      "trimmed_characters": 228
+    },
+    {
+      "gutenberg_id": 24566,
+      "story_path": "data/mass_quantities/faithfully_yours__tabakow/story.json",
+      "trimmed_characters": 646
+    },
+    {
+      "gutenberg_id": 72312,
+      "story_path": "data/mass_quantities/far_enough_to_touch__bartholomew/story.json",
+      "trimmed_characters": 156
+    },
+    {
+      "gutenberg_id": 23408,
+      "story_path": "data/mass_quantities/far_from_home__taylor/story.json",
+      "trimmed_characters": 99
+    },
+    {
+      "gutenberg_id": 30337,
+      "story_path": "data/mass_quantities/fifty_per_cent_prophet__garrett/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 65838,
+      "story_path": "data/mass_quantities/final_examination__sheckley/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 64647,
+      "story_path": "data/mass_quantities/flight_from_time__coppel/story.json",
+      "trimmed_characters": 159
+    },
+    {
+      "gutenberg_id": 18460,
+      "story_path": "data/mass_quantities/flight_from_tomorrow__piper/story.json",
+      "trimmed_characters": 182
+    },
+    {
+      "gutenberg_id": 66569,
+      "story_path": "data/mass_quantities/flight_perilous__noll/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 32734,
+      "story_path": "data/mass_quantities/fly_by_night__savage/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 63817,
+      "story_path": "data/mass_quantities/fog_of_the_forgotten__wells/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 32293,
+      "story_path": "data/mass_quantities/for_every_man_a_reason__wilkins/story.json",
+      "trimmed_characters": 275
+    },
+    {
+      "gutenberg_id": 68753,
+      "story_path": "data/mass_quantities/forgotten_danger__samachson/story.json",
+      "trimmed_characters": 198
+    },
+    {
+      "gutenberg_id": 63632,
+      "story_path": "data/mass_quantities/formula_for_conquest__adams/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 32735,
+      "story_path": "data/mass_quantities/forsyte_s_retreat__marks/story.json",
+      "trimmed_characters": 125
+    },
+    {
+      "gutenberg_id": 29181,
+      "story_path": "data/mass_quantities/foundling_on_venus__de_courcy_de_courcy/story.json",
+      "trimmed_characters": 138
+    },
+    {
+      "gutenberg_id": 51335,
+      "story_path": "data/mass_quantities/fresh_air_fiend__neville/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 32126,
+      "story_path": "data/mass_quantities/freudian_slip__abel/story.json",
+      "trimmed_characters": 87
+    },
+    {
+      "gutenberg_id": 23179,
+      "story_path": "data/mass_quantities/frictional_electricity_from_the_saturday_evening_p__clark/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 51758,
+      "story_path": "data/mass_quantities/from_an_unseen_censor__brown/story.json",
+      "trimmed_characters": 114
+    },
+    {
+      "gutenberg_id": 70549,
+      "story_path": "data/mass_quantities/fugue__marlowe/story.json",
+      "trimmed_characters": 555
+    },
+    {
+      "gutenberg_id": 29194,
+      "story_path": "data/mass_quantities/g_r_r_r__locke/story.json",
+      "trimmed_characters": 129
+    },
+    {
+      "gutenberg_id": 31798,
+      "story_path": "data/mass_quantities/games__maclean/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 73220,
+      "story_path": "data/mass_quantities/gangway_for_homer__hahn/story.json",
+      "trimmed_characters": 235
+    },
+    {
+      "gutenberg_id": 63847,
+      "story_path": "data/mass_quantities/garden_of_evil__st_clair/story.json",
+      "trimmed_characters": 145
+    },
+    {
+      "gutenberg_id": 50981,
+      "story_path": "data/mass_quantities/garrity_s_annuities__mason/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 31956,
+      "story_path": "data/mass_quantities/garth_and_the_visitor__stecher/story.json",
+      "trimmed_characters": 129
+    },
+    {
+      "gutenberg_id": 29578,
+      "story_path": "data/mass_quantities/george_loves_gistla__mckimmey/story.json",
+      "trimmed_characters": 212
+    },
+    {
+      "gutenberg_id": 42664,
+      "story_path": "data/mass_quantities/gods_of_the_north__howard/story.json",
+      "trimmed_characters": 734
+    },
+    {
+      "gutenberg_id": 67855,
+      "story_path": "data/mass_quantities/godsend_to_a_lady__bower/story.json",
+      "trimmed_characters": 131
+    },
+    {
+      "gutenberg_id": 64646,
+      "story_path": "data/mass_quantities/goma_s_follicles__de_courcy_de_courcy/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 51597,
+      "story_path": "data/mass_quantities/gourmet__lang/story.json",
+      "trimmed_characters": 116
+    },
+    {
+      "gutenberg_id": 71939,
+      "story_path": "data/mass_quantities/gratitude__norton/story.json",
+      "trimmed_characters": 255
+    },
+    {
+      "gutenberg_id": 50842,
+      "story_path": "data/mass_quantities/green_grew_the_lasses__wainwright/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 69671,
+      "story_path": "data/mass_quantities/greener_than_spruce__farris/story.json",
+      "trimmed_characters": 47
+    },
+    {
+      "gutenberg_id": 62324,
+      "story_path": "data/mass_quantities/grifters_asteroid__gold/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 29205,
+      "story_path": "data/mass_quantities/grove_of_the_unborn__venable/story.json",
+      "trimmed_characters": 145
+    },
+    {
+      "gutenberg_id": 50889,
+      "story_path": "data/mass_quantities/half_past_alligator__colvin/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 30308,
+      "story_path": "data/mass_quantities/hanging_by_a_thread__garrett/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 29206,
+      "story_path": "data/mass_quantities/happy_ending__brown_reynolds/story.json",
+      "trimmed_characters": 120
+    },
+    {
+      "gutenberg_id": 18807,
+      "story_path": "data/mass_quantities/he_walked_around_the_horses__piper/story.json",
+      "trimmed_characters": 624
+    },
+    {
+      "gutenberg_id": 30885,
+      "story_path": "data/mass_quantities/heart__slesar/story.json",
+      "trimmed_characters": 187
+    },
+    {
+      "gutenberg_id": 52784,
+      "story_path": "data/mass_quantities/heavenly_gifts__kolom/story.json",
+      "trimmed_characters": 71
+    },
+    {
+      "gutenberg_id": 32591,
+      "story_path": "data/mass_quantities/henry_horn_s_x_ray_eye_glasses__swain/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 24397,
+      "story_path": "data/mass_quantities/hex__janifer/story.json",
+      "trimmed_characters": 133
+    },
+    {
+      "gutenberg_id": 76208,
+      "story_path": "data/mass_quantities/his_brother_s_keeper__tuttle/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 32890,
+      "story_path": "data/mass_quantities/home_is_where_you_left_it__marlowe/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 29168,
+      "story_path": "data/mass_quantities/houlihan_s_equation__sheldon/story.json",
+      "trimmed_characters": 135
+    },
+    {
+      "gutenberg_id": 72401,
+      "story_path": "data/mass_quantities/how_deep_the_grooves__farmer/story.json",
+      "trimmed_characters": 212
+    },
+    {
+      "gutenberg_id": 50818,
+      "story_path": "data/mass_quantities/how_to_make_friends__harmon/story.json",
+      "trimmed_characters": 78
+    },
+    {
+      "gutenberg_id": 51433,
+      "story_path": "data/mass_quantities/hunt_the_hunter__neville/story.json",
+      "trimmed_characters": 122
+    },
+    {
+      "gutenberg_id": 29676,
+      "story_path": "data/mass_quantities/identity__blade/story.json",
+      "trimmed_characters": 144
+    },
+    {
+      "gutenberg_id": 31009,
+      "story_path": "data/mass_quantities/if_at_first_you_don_t__brudy/story.json",
+      "trimmed_characters": 160
+    },
+    {
+      "gutenberg_id": 61498,
+      "story_path": "data/mass_quantities/if_you_re_smart__jameson/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 70348,
+      "story_path": "data/mass_quantities/imitation_of_death__del_rey/story.json",
+      "trimmed_characters": 292
+    },
+    {
+      "gutenberg_id": 68832,
+      "story_path": "data/mass_quantities/in_self_defense__tuttle/story.json",
+      "trimmed_characters": 55
+    },
+    {
+      "gutenberg_id": 70794,
+      "story_path": "data/mass_quantities/in_the_bad_lands__sinclair/story.json",
+      "trimmed_characters": 49
+    },
+    {
+      "gutenberg_id": 32853,
+      "story_path": "data/mass_quantities/in_the_cards__cogan/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 58991,
+      "story_path": "data/mass_quantities/inhibition__causey/story.json",
+      "trimmed_characters": 168
+    },
+    {
+      "gutenberg_id": 51650,
+      "story_path": "data/mass_quantities/innocent_at_large__anderson_anderson/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 23931,
+      "story_path": "data/mass_quantities/instinct__smith/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 73541,
+      "story_path": "data/mass_quantities/into_the_blue__austin/story.json",
+      "trimmed_characters": 244
+    },
+    {
+      "gutenberg_id": 73053,
+      "story_path": "data/mass_quantities/island_honor__leinster/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 65489,
+      "story_path": "data/mass_quantities/it_might_have_happened_otherwise__pendexter/story.json",
+      "trimmed_characters": 57
+    },
+    {
+      "gutenberg_id": 29195,
+      "story_path": "data/mass_quantities/it_s_all_yours__merwin/story.json",
+      "trimmed_characters": 102
+    },
+    {
+      "gutenberg_id": 65067,
+      "story_path": "data/mass_quantities/it_s_raining_frogs__marlowe/story.json",
+      "trimmed_characters": 153
+    },
+    {
+      "gutenberg_id": 49838,
+      "story_path": "data/mass_quantities/jack_of_no_trades__smith/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 51605,
+      "story_path": "data/mass_quantities/jamieson__doede/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 51027,
+      "story_path": "data/mass_quantities/jaywalker__rocklynne/story.json",
+      "trimmed_characters": 105
+    },
+    {
+      "gutenberg_id": 31716,
+      "story_path": "data/mass_quantities/jimsy_and_the_monsters__sheldon/story.json",
+      "trimmed_characters": 118
+    },
+    {
+      "gutenberg_id": 63833,
+      "story_path": "data/mass_quantities/jinx_ship_to_the_rescue__coppel/story.json",
+      "trimmed_characters": 157
+    },
+    {
+      "gutenberg_id": 63429,
+      "story_path": "data/mass_quantities/joe_carson_s_weapon__adams/story.json",
+      "trimmed_characters": 149
+    },
+    {
+      "gutenberg_id": 26867,
+      "story_path": "data/mass_quantities/john_jones_s_dollar__keeler/story.json",
+      "trimmed_characters": 278
+    },
+    {
+      "gutenberg_id": 64420,
+      "story_path": "data/mass_quantities/jonah_of_the_jove_run__bradbury/story.json",
+      "trimmed_characters": 174
+    },
+    {
+      "gutenberg_id": 31961,
+      "story_path": "data/mass_quantities/joy_ride__meadows/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 51053,
+      "story_path": "data/mass_quantities/judas_ram__merwin/story.json",
+      "trimmed_characters": 107
+    },
+    {
+      "gutenberg_id": 49809,
+      "story_path": "data/mass_quantities/junior__abernathy/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 32287,
+      "story_path": "data/mass_quantities/know_thy_neighbor__lewis/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 51493,
+      "story_path": "data/mass_quantities/kreativity_for_kats__leiber/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 64624,
+      "story_path": "data/mass_quantities/lady_into_hell_cat__mullen/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 64015,
+      "story_path": "data/mass_quantities/last_call__walton/story.json",
+      "trimmed_characters": 212
+    },
+    {
+      "gutenberg_id": 63988,
+      "story_path": "data/mass_quantities/last_night_out__rothman/story.json",
+      "trimmed_characters": 223
+    },
+    {
+      "gutenberg_id": 30649,
+      "story_path": "data/mass_quantities/last_resort__bartholomew/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 63430,
+      "story_path": "data/mass_quantities/lazarus_come_forth__bradbury/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 58773,
+      "story_path": "data/mass_quantities/les_machines__love/story.json",
+      "trimmed_characters": 231
+    },
+    {
+      "gutenberg_id": 29675,
+      "story_path": "data/mass_quantities/less_than_human__blade/story.json",
+      "trimmed_characters": 144
+    },
+    {
+      "gutenberg_id": 64631,
+      "story_path": "data/mass_quantities/let_the_ants_try__pohl/story.json",
+      "trimmed_characters": 159
+    },
+    {
+      "gutenberg_id": 32592,
+      "story_path": "data/mass_quantities/let_there_be_light__fyfe/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 29698,
+      "story_path": "data/mass_quantities/lighter_than_you_think__bond/story.json",
+      "trimmed_characters": 114
+    },
+    {
+      "gutenberg_id": 72506,
+      "story_path": "data/mass_quantities/listen_children_listen__west/story.json",
+      "trimmed_characters": 338
+    },
+    {
+      "gutenberg_id": 72517,
+      "story_path": "data/mass_quantities/little_men_of_space__long/story.json",
+      "trimmed_characters": 259
+    },
+    {
+      "gutenberg_id": 66722,
+      "story_path": "data/mass_quantities/loco_or_love__tuttle/story.json",
+      "trimmed_characters": 62
+    },
+    {
+      "gutenberg_id": 30029,
+      "story_path": "data/mass_quantities/lost_in_translation__janifer/story.json",
+      "trimmed_characters": 231
+    },
+    {
+      "gutenberg_id": 63821,
+      "story_path": "data/mass_quantities/love_among_the_robots__mcdowell/story.json",
+      "trimmed_characters": 188
+    },
+    {
+      "gutenberg_id": 60654,
+      "story_path": "data/mass_quantities/love_and_moondogs__mckenna/story.json",
+      "trimmed_characters": 115
+    },
+    {
+      "gutenberg_id": 19122,
+      "story_path": "data/mass_quantities/love_instigated_the_story_of_a_carved_ivory_umbrel__sherley/story.json",
+      "trimmed_characters": 788
+    },
+    {
+      "gutenberg_id": 64640,
+      "story_path": "data/mass_quantities/machine_of_klamugra__lang/story.json",
+      "trimmed_characters": 270
+    },
+    {
+      "gutenberg_id": 29242,
+      "story_path": "data/mass_quantities/made_in_tanganyika__jacobi/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 51194,
+      "story_path": "data/mass_quantities/made_to_measure__gault/story.json",
+      "trimmed_characters": 124
+    },
+    {
+      "gutenberg_id": 64782,
+      "story_path": "data/mass_quantities/madmen_of_mars__fennel/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 51311,
+      "story_path": "data/mass_quantities/make_me_an_offer__blomberg/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 67060,
+      "story_path": "data/mass_quantities/making_good_for_muley__tuttle/story.json",
+      "trimmed_characters": 57
+    },
+    {
+      "gutenberg_id": 51050,
+      "story_path": "data/mass_quantities/man_s_best_friend__smith/story.json",
+      "trimmed_characters": 87
+    },
+    {
+      "gutenberg_id": 32764,
+      "story_path": "data/mass_quantities/manners_of_the_age__fyfe/story.json",
+      "trimmed_characters": 112
+    },
+    {
+      "gutenberg_id": 70391,
+      "story_path": "data/mass_quantities/martians_keep_out__leiber/story.json",
+      "trimmed_characters": 101
+    },
+    {
+      "gutenberg_id": 27383,
+      "story_path": "data/mass_quantities/master_of_none__goble/story.json",
+      "trimmed_characters": 278
+    },
+    {
+      "gutenberg_id": 65246,
+      "story_path": "data/mass_quantities/master_race__ashby/story.json",
+      "trimmed_characters": 150
+    },
+    {
+      "gutenberg_id": 71377,
+      "story_path": "data/mass_quantities/maurice_and_the_bay_mare__knibbs/story.json",
+      "trimmed_characters": 321
+    },
+    {
+      "gutenberg_id": 30199,
+      "story_path": "data/mass_quantities/mcilvaine_s_star__derleth/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 64354,
+      "story_path": "data/mass_quantities/me_myself_and_i__tenn/story.json",
+      "trimmed_characters": 166
+    },
+    {
+      "gutenberg_id": 65053,
+      "story_path": "data/mass_quantities/meet_me_in_tomorrow__geier/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 31689,
+      "story_path": "data/mass_quantities/membership_drive__yaco/story.json",
+      "trimmed_characters": 201
+    },
+    {
+      "gutenberg_id": 62325,
+      "story_path": "data/mass_quantities/menace_of_the_mists__gold/story.json",
+      "trimmed_characters": 245
+    },
+    {
+      "gutenberg_id": 63963,
+      "story_path": "data/mass_quantities/mercy_flight__reynolds/story.json",
+      "trimmed_characters": 206
+    },
+    {
+      "gutenberg_id": 51713,
+      "story_path": "data/mass_quantities/metamorphosis__de_vet/story.json",
+      "trimmed_characters": 97
+    },
+    {
+      "gutenberg_id": 32579,
+      "story_path": "data/mass_quantities/micro_man__ackerman/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 66144,
+      "story_path": "data/mass_quantities/milk_run__locke/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 63749,
+      "story_path": "data/mass_quantities/mimsy_s_joke__grimes/story.json",
+      "trimmed_characters": 242
+    },
+    {
+      "gutenberg_id": 64415,
+      "story_path": "data/mass_quantities/mind_worms__schere/story.json",
+      "trimmed_characters": 158
+    },
+    {
+      "gutenberg_id": 44319,
+      "story_path": "data/mass_quantities/miss_heck_s_thanksgiving_party_or_topsy_up_to_date__munsell/story.json",
+      "trimmed_characters": 466
+    },
+    {
+      "gutenberg_id": 23210,
+      "story_path": "data/mass_quantities/missing_link__herbert/story.json",
+      "trimmed_characters": 224
+    },
+    {
+      "gutenberg_id": 64302,
+      "story_path": "data/mass_quantities/mo_sanshon__walton/story.json",
+      "trimmed_characters": 184
+    },
+    {
+      "gutenberg_id": 58744,
+      "story_path": "data/mass_quantities/money_is_the_root_of_all_good__wilkins/story.json",
+      "trimmed_characters": 203
+    },
+    {
+      "gutenberg_id": 61499,
+      "story_path": "data/mass_quantities/monopoly__phillips_roberts/story.json",
+      "trimmed_characters": 171
+    },
+    {
+      "gutenberg_id": 32618,
+      "story_path": "data/mass_quantities/monsoons_of_death__vance/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 32484,
+      "story_path": "data/mass_quantities/moon_glow__vandenburg/story.json",
+      "trimmed_characters": 344
+    },
+    {
+      "gutenberg_id": 1387,
+      "story_path": "data/mass_quantities/mother__wister/story.json",
+      "trimmed_characters": 330
+    },
+    {
+      "gutenberg_id": 73326,
+      "story_path": "data/mass_quantities/mr_caxton_draws_a_martian_bird__long/story.json",
+      "trimmed_characters": 563
+    },
+    {
+      "gutenberg_id": 32719,
+      "story_path": "data/mass_quantities/mr_president__arr/story.json",
+      "trimmed_characters": 111
+    },
+    {
+      "gutenberg_id": 72120,
+      "story_path": "data/mass_quantities/mr_replogle_s_dream__smith/story.json",
+      "trimmed_characters": 409
+    },
+    {
+      "gutenberg_id": 64497,
+      "story_path": "data/mass_quantities/murderer_s_base__brittain/story.json",
+      "trimmed_characters": 159
+    },
+    {
+      "gutenberg_id": 29196,
+      "story_path": "data/mass_quantities/mutineer__shea/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 63675,
+      "story_path": "data/mass_quantities/mutiny__offenbecker/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 62350,
+      "story_path": "data/mass_quantities/mutiny_in_the_void__tanner/story.json",
+      "trimmed_characters": 153
+    },
+    {
+      "gutenberg_id": 28119,
+      "story_path": "data/mass_quantities/my_father_the_cat__slesar/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 50892,
+      "story_path": "data/mass_quantities/my_lady_selene__ludens/story.json",
+      "trimmed_characters": 66
+    },
+    {
+      "gutenberg_id": 51202,
+      "story_path": "data/mass_quantities/name_your_symptom__harmon/story.json",
+      "trimmed_characters": 80
+    },
+    {
+      "gutenberg_id": 51101,
+      "story_path": "data/mass_quantities/nice_girl_with_5_husbands__leiber/story.json",
+      "trimmed_characters": 129
+    },
+    {
+      "gutenberg_id": 72489,
+      "story_path": "data/mass_quantities/nightmare_on_the_nose__smith/story.json",
+      "trimmed_characters": 409
+    },
+    {
+      "gutenberg_id": 33872,
+      "story_path": "data/mass_quantities/nine_men_in_time__loomis/story.json",
+      "trimmed_characters": 180
+    },
+    {
+      "gutenberg_id": 31986,
+      "story_path": "data/mass_quantities/no_charge_for_alterations__gold/story.json",
+      "trimmed_characters": 329
+    },
+    {
+      "gutenberg_id": 29272,
+      "story_path": "data/mass_quantities/no_hiding_place__smith/story.json",
+      "trimmed_characters": 114
+    },
+    {
+      "gutenberg_id": 73357,
+      "story_path": "data/mass_quantities/no_star_s_land__samachson/story.json",
+      "trimmed_characters": 356
+    },
+    {
+      "gutenberg_id": 51350,
+      "story_path": "data/mass_quantities/no_substitutions__harmon/story.json",
+      "trimmed_characters": 99
+    },
+    {
+      "gutenberg_id": 51396,
+      "story_path": "data/mass_quantities/not_a_creature_was_stirring__evans/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 50872,
+      "story_path": "data/mass_quantities/not_fit_for_children__smith/story.json",
+      "trimmed_characters": 88
+    },
+    {
+      "gutenberg_id": 51136,
+      "story_path": "data/mass_quantities/nothing_but_the_best__cogan/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 29290,
+      "story_path": "data/mass_quantities/now_we_are_three__hensley/story.json",
+      "trimmed_characters": 122
+    },
+    {
+      "gutenberg_id": 51006,
+      "story_path": "data/mass_quantities/obil_keeper_of_camels_b_being_the_parable_of_the_m__bell/story.json",
+      "trimmed_characters": 1577
+    },
+    {
+      "gutenberg_id": 67516,
+      "story_path": "data/mass_quantities/object_matrimony__bower/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 50948,
+      "story_path": "data/mass_quantities/of_all_possible_worlds__tenn/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 32582,
+      "story_path": "data/mass_quantities/of_stegner_s_folly__shaver/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 51751,
+      "story_path": "data/mass_quantities/oh_rats__de_ford/story.json",
+      "trimmed_characters": 99
+    },
+    {
+      "gutenberg_id": 47492,
+      "story_path": "data/mass_quantities/old_fort_garland__forrest_slack/story.json",
+      "trimmed_characters": 509
+    },
+    {
+      "gutenberg_id": 73247,
+      "story_path": "data/mass_quantities/old_harmless__norton/story.json",
+      "trimmed_characters": 219
+    },
+    {
+      "gutenberg_id": 50904,
+      "story_path": "data/mass_quantities/on_the_fourth_planet__bone/story.json",
+      "trimmed_characters": 113
+    },
+    {
+      "gutenberg_id": 71765,
+      "story_path": "data/mass_quantities/on_the_sweeny_wire__barnes/story.json",
+      "trimmed_characters": 324
+    },
+    {
+      "gutenberg_id": 32785,
+      "story_path": "data/mass_quantities/once_upon_a_planet__allerton/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 63032,
+      "story_path": "data/mass_quantities/one_against_the_stars__garson/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 73619,
+      "story_path": "data/mass_quantities/one_good_turn__sinclair/story.json",
+      "trimmed_characters": 313
+    },
+    {
+      "gutenberg_id": 32041,
+      "story_path": "data/mass_quantities/one_man_s_poison__sheckley/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 72173,
+      "story_path": "data/mass_quantities/one_touch_of_terra__bok/story.json",
+      "trimmed_characters": 517
+    },
+    {
+      "gutenberg_id": 32541,
+      "story_path": "data/mass_quantities/one_way__de_ford/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 32754,
+      "story_path": "data/mass_quantities/one_way_ticket_to_nowhere__yerxa/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 32396,
+      "story_path": "data/mass_quantities/oogie_finds_love__livingston/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 51168,
+      "story_path": "data/mass_quantities/operation_distress__del_rey/story.json",
+      "trimmed_characters": 175
+    },
+    {
+      "gutenberg_id": 29303,
+      "story_path": "data/mass_quantities/operation_earthworm__archibald/story.json",
+      "trimmed_characters": 126
+    },
+    {
+      "gutenberg_id": 24721,
+      "story_path": "data/mass_quantities/operation_haystack__herbert/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 23534,
+      "story_path": "data/mass_quantities/or_your_money_back__garrett/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 63869,
+      "story_path": "data/mass_quantities/ordeal_in_space__sloan/story.json",
+      "trimmed_characters": 195
+    },
+    {
+      "gutenberg_id": 50827,
+      "story_path": "data/mass_quantities/orphans_of_the_void__shaara/story.json",
+      "trimmed_characters": 135
+    },
+    {
+      "gutenberg_id": 61051,
+      "story_path": "data/mass_quantities/out_of_mind__stuart/story.json",
+      "trimmed_characters": 175
+    },
+    {
+      "gutenberg_id": 73156,
+      "story_path": "data/mass_quantities/out_of_nowhere__grosser/story.json",
+      "trimmed_characters": 365
+    },
+    {
+      "gutenberg_id": 64076,
+      "story_path": "data/mass_quantities/out_of_the_dark_nebula__coe/story.json",
+      "trimmed_characters": 305
+    },
+    {
+      "gutenberg_id": 31597,
+      "story_path": "data/mass_quantities/out_of_the_earth__edrich/story.json",
+      "trimmed_characters": 105
+    },
+    {
+      "gutenberg_id": 65642,
+      "story_path": "data/mass_quantities/outcast_of_the_stars__silverberg/story.json",
+      "trimmed_characters": 147
+    },
+    {
+      "gutenberg_id": 63990,
+      "story_path": "data/mass_quantities/palimpsest__aycock/story.json",
+      "trimmed_characters": 150
+    },
+    {
+      "gutenberg_id": 68004,
+      "story_path": "data/mass_quantities/pandora_s_millions__smith/story.json",
+      "trimmed_characters": 155
+    },
+    {
+      "gutenberg_id": 66143,
+      "story_path": "data/mass_quantities/paradise_planet__shaver/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 32303,
+      "story_path": "data/mass_quantities/pastoral_affair__stearns/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 68748,
+      "story_path": "data/mass_quantities/peacemaker__nourse/story.json",
+      "trimmed_characters": 197
+    },
+    {
+      "gutenberg_id": 51286,
+      "story_path": "data/mass_quantities/pen_pal__marlowe/story.json",
+      "trimmed_characters": 140
+    },
+    {
+      "gutenberg_id": 51397,
+      "story_path": "data/mass_quantities/people_soup__arkin/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 32859,
+      "story_path": "data/mass_quantities/perchance_to_dream__stockham/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 51482,
+      "story_path": "data/mass_quantities/perfect_answer__stecher/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 31985,
+      "story_path": "data/mass_quantities/perfect_control__stockham/story.json",
+      "trimmed_characters": 115
+    },
+    {
+      "gutenberg_id": 62241,
+      "story_path": "data/mass_quantities/peril_of_the_blue_world__abernathy/story.json",
+      "trimmed_characters": 224
+    },
+    {
+      "gutenberg_id": 32344,
+      "story_path": "data/mass_quantities/pet_farm__aycock/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 73497,
+      "story_path": "data/mass_quantities/peter_merton_s_private_mint__ellison/story.json",
+      "trimmed_characters": 296
+    },
+    {
+      "gutenberg_id": 32891,
+      "story_path": "data/mass_quantities/phantom_of_the_forest__yerxa/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 68600,
+      "story_path": "data/mass_quantities/picnic__marlowe/story.json",
+      "trimmed_characters": 261
+    },
+    {
+      "gutenberg_id": 51193,
+      "story_path": "data/mass_quantities/pictures_don_t_lie__maclean/story.json",
+      "trimmed_characters": 112
+    },
+    {
+      "gutenberg_id": 32832,
+      "story_path": "data/mass_quantities/piper_in_the_woods__dick/story.json",
+      "trimmed_characters": 99
+    },
+    {
+      "gutenberg_id": 73483,
+      "story_path": "data/mass_quantities/plane_jane__davis/story.json",
+      "trimmed_characters": 52
+    },
+    {
+      "gutenberg_id": 64474,
+      "story_path": "data/mass_quantities/planet_in_reverse__guth/story.json",
+      "trimmed_characters": 177
+    },
+    {
+      "gutenberg_id": 64159,
+      "story_path": "data/mass_quantities/planet_of_creation__geier/story.json",
+      "trimmed_characters": 212
+    },
+    {
+      "gutenberg_id": 50945,
+      "story_path": "data/mass_quantities/point_of_departure__shelton/story.json",
+      "trimmed_characters": 128
+    },
+    {
+      "gutenberg_id": 51047,
+      "story_path": "data/mass_quantities/pollony_undiverted__van_scyoc/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 25629,
+      "story_path": "data/mass_quantities/postmark_ganymede__silverberg/story.json",
+      "trimmed_characters": 281
+    },
+    {
+      "gutenberg_id": 40954,
+      "story_path": "data/mass_quantities/potential_enemy__reynolds/story.json",
+      "trimmed_characters": 992
+    },
+    {
+      "gutenberg_id": 51321,
+      "story_path": "data/mass_quantities/prime_difference__nourse/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 62212,
+      "story_path": "data/mass_quantities/prison_planet__tucker/story.json",
+      "trimmed_characters": 205
+    },
+    {
+      "gutenberg_id": 32739,
+      "story_path": "data/mass_quantities/probability__trimble/story.json",
+      "trimmed_characters": 25
+    },
+    {
+      "gutenberg_id": 50844,
+      "story_path": "data/mass_quantities/proof_of_the_pudding__sheckley/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 51232,
+      "story_path": "data/mass_quantities/psychotennis_anyone__williams/story.json",
+      "trimmed_characters": 130
+    },
+    {
+      "gutenberg_id": 49779,
+      "story_path": "data/mass_quantities/publicity_stunt__williams/story.json",
+      "trimmed_characters": 161
+    },
+    {
+      "gutenberg_id": 62198,
+      "story_path": "data/mass_quantities/quest_of_thig__wells/story.json",
+      "trimmed_characters": 195
+    },
+    {
+      "gutenberg_id": 61811,
+      "story_path": "data/mass_quantities/quest_on_io__williams/story.json",
+      "trimmed_characters": 197
+    },
+    {
+      "gutenberg_id": 62580,
+      "story_path": "data/mass_quantities/quest_s_end__wells/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 32900,
+      "story_path": "data/mass_quantities/rats_in_the_belfry__o_brien/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 51092,
+      "story_path": "data/mass_quantities/rattle_ok__warner/story.json",
+      "trimmed_characters": 132
+    },
+    {
+      "gutenberg_id": 68942,
+      "story_path": "data/mass_quantities/red_stripes__pendexter/story.json",
+      "trimmed_characters": 51
+    },
+    {
+      "gutenberg_id": 19964,
+      "story_path": "data/mass_quantities/regeneration__dye/story.json",
+      "trimmed_characters": 667
+    },
+    {
+      "gutenberg_id": 70388,
+      "story_path": "data/mass_quantities/remember_the_4th__loomis/story.json",
+      "trimmed_characters": 437
+    },
+    {
+      "gutenberg_id": 30267,
+      "story_path": "data/mass_quantities/remember_the_alamo__fehrenbach/story.json",
+      "trimmed_characters": 170
+    },
+    {
+      "gutenberg_id": 72180,
+      "story_path": "data/mass_quantities/requiem__hamilton/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 29822,
+      "story_path": "data/mass_quantities/rescue_squad__o_hara/story.json",
+      "trimmed_characters": 104
+    },
+    {
+      "gutenberg_id": 32631,
+      "story_path": "data/mass_quantities/restricted_tool__morehart/story.json",
+      "trimmed_characters": 212
+    },
+    {
+      "gutenberg_id": 62351,
+      "story_path": "data/mass_quantities/revenge_of_the_vera__hasse/story.json",
+      "trimmed_characters": 184
+    },
+    {
+      "gutenberg_id": 65138,
+      "story_path": "data/mass_quantities/revolt_of_the_devil_star__rocklynne/story.json",
+      "trimmed_characters": 154
+    },
+    {
+      "gutenberg_id": 64507,
+      "story_path": "data/mass_quantities/ricardo_s_virus__tenn/story.json",
+      "trimmed_characters": 102
+    },
+    {
+      "gutenberg_id": 65767,
+      "story_path": "data/mass_quantities/ride_the_crepe_ring__marlowe/story.json",
+      "trimmed_characters": 140
+    },
+    {
+      "gutenberg_id": 70552,
+      "story_path": "data/mass_quantities/righteous_plague__abernathy/story.json",
+      "trimmed_characters": 265
+    },
+    {
+      "gutenberg_id": 31840,
+      "story_path": "data/mass_quantities/ring_once_for_death__arthur/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 64636,
+      "story_path": "data/mass_quantities/rip_van_winkle__irving/story.json",
+      "trimmed_characters": 2726
+    },
+    {
+      "gutenberg_id": 73987,
+      "story_path": "data/mass_quantities/rivals_of_the_clouds__whitfield/story.json",
+      "trimmed_characters": 216
+    },
+    {
+      "gutenberg_id": 61540,
+      "story_path": "data/mass_quantities/robinc__boucher/story.json",
+      "trimmed_characters": 227
+    },
+    {
+      "gutenberg_id": 31611,
+      "story_path": "data/mass_quantities/robots_of_the_world_arise__wolf/story.json",
+      "trimmed_characters": 110
+    },
+    {
+      "gutenberg_id": 64181,
+      "story_path": "data/mass_quantities/rocket_summer__bradbury/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 48880,
+      "story_path": "data/mass_quantities/rough_beast__aycock/story.json",
+      "trimmed_characters": 228
+    },
+    {
+      "gutenberg_id": 31980,
+      "story_path": "data/mass_quantities/rough_translation__janis/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 59622,
+      "story_path": "data/mass_quantities/routine_for_a_hornet__berry/story.json",
+      "trimmed_characters": 166
+    },
+    {
+      "gutenberg_id": 64602,
+      "story_path": "data/mass_quantities/runaway__coppel/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 63856,
+      "story_path": "data/mass_quantities/s_o_s_aphrodite__mullen/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 51616,
+      "story_path": "data/mass_quantities/sales_talk__blomberg/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 73244,
+      "story_path": "data/mass_quantities/salvage__norton/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 70645,
+      "story_path": "data/mass_quantities/sam_bass__cunningham/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 32324,
+      "story_path": "data/mass_quantities/sam_this_is_you__leinster/story.json",
+      "trimmed_characters": 188
+    },
+    {
+      "gutenberg_id": 61869,
+      "story_path": "data/mass_quantities/satellite_of_fear__kummer/story.json",
+      "trimmed_characters": 162
+    },
+    {
+      "gutenberg_id": 29990,
+      "story_path": "data/mass_quantities/satellite_system__fyfe/story.json",
+      "trimmed_characters": 163
+    },
+    {
+      "gutenberg_id": 51727,
+      "story_path": "data/mass_quantities/satisfaction_guaranteed__leache/story.json",
+      "trimmed_characters": 121
+    },
+    {
+      "gutenberg_id": 63783,
+      "story_path": "data/mass_quantities/savage_galahad__walton/story.json",
+      "trimmed_characters": 162
+    },
+    {
+      "gutenberg_id": 51773,
+      "story_path": "data/mass_quantities/scent_makes_a_difference__stamers/story.json",
+      "trimmed_characters": 134
+    },
+    {
+      "gutenberg_id": 51037,
+      "story_path": "data/mass_quantities/second_childhood__simak/story.json",
+      "trimmed_characters": 145
+    },
+    {
+      "gutenberg_id": 32032,
+      "story_path": "data/mass_quantities/second_variety__dick/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 26140,
+      "story_path": "data/mass_quantities/security__kenyon/story.json",
+      "trimmed_characters": 209
+    },
+    {
+      "gutenberg_id": 51588,
+      "story_path": "data/mass_quantities/security_plan__farrell/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 51576,
+      "story_path": "data/mass_quantities/shatter_the_wall__van_scyoc/story.json",
+      "trimmed_characters": 83
+    },
+    {
+      "gutenberg_id": 67139,
+      "story_path": "data/mass_quantities/shepherds_for_science__tuttle/story.json",
+      "trimmed_characters": 62
+    },
+    {
+      "gutenberg_id": 50796,
+      "story_path": "data/mass_quantities/shipping_clerk__samachson/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 64625,
+      "story_path": "data/mass_quantities/sidewinders_from_sirius__holden/story.json",
+      "trimmed_characters": 211
+    },
+    {
+      "gutenberg_id": 30288,
+      "story_path": "data/mass_quantities/sight_gag__janifer/story.json",
+      "trimmed_characters": 248
+    },
+    {
+      "gutenberg_id": 63860,
+      "story_path": "data/mass_quantities/signal_red__guth/story.json",
+      "trimmed_characters": 180
+    },
+    {
+      "gutenberg_id": 70540,
+      "story_path": "data/mass_quantities/skulls_in_the_stars__howard/story.json",
+      "trimmed_characters": 200
+    },
+    {
+      "gutenberg_id": 22462,
+      "story_path": "data/mass_quantities/slingshot__lande/story.json",
+      "trimmed_characters": 147
+    },
+    {
+      "gutenberg_id": 29308,
+      "story_path": "data/mass_quantities/small_world__nolan/story.json",
+      "trimmed_characters": 108
+    },
+    {
+      "gutenberg_id": 51414,
+      "story_path": "data/mass_quantities/so_they_baked_a_cake__marks/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 51610,
+      "story_path": "data/mass_quantities/solid_solution__stamers/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 30798,
+      "story_path": "data/mass_quantities/sonny__raphael/story.json",
+      "trimmed_characters": 158
+    },
+    {
+      "gutenberg_id": 61942,
+      "story_path": "data/mass_quantities/south_to_propontis__ackermann/story.json",
+      "trimmed_characters": 153
+    },
+    {
+      "gutenberg_id": 63697,
+      "story_path": "data/mass_quantities/space_lane_of_no_return__whittington/story.json",
+      "trimmed_characters": 265
+    },
+    {
+      "gutenberg_id": 51249,
+      "story_path": "data/mass_quantities/spacemen_die_at_home__ludwig/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 32011,
+      "story_path": "data/mass_quantities/special_delivery__knight/story.json",
+      "trimmed_characters": 133
+    },
+    {
+      "gutenberg_id": 73618,
+      "story_path": "data/mass_quantities/splashes_of_red__davis/story.json",
+      "trimmed_characters": 188
+    },
+    {
+      "gutenberg_id": 51121,
+      "story_path": "data/mass_quantities/spoken_for__samachson/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 23159,
+      "story_path": "data/mass_quantities/stairway_to_the_stars__shaw/story.json",
+      "trimmed_characters": 261
+    },
+    {
+      "gutenberg_id": 32594,
+      "story_path": "data/mass_quantities/stalemate__wells/story.json",
+      "trimmed_characters": 130
+    },
+    {
+      "gutenberg_id": 70541,
+      "story_path": "data/mass_quantities/star_bright__walton/story.json",
+      "trimmed_characters": 94
+    },
+    {
+      "gutenberg_id": 62253,
+      "story_path": "data/mass_quantities/star_of_panadur__depina_hasse/story.json",
+      "trimmed_characters": 237
+    },
+    {
+      "gutenberg_id": 73175,
+      "story_path": "data/mass_quantities/static__west/story.json",
+      "trimmed_characters": 232
+    },
+    {
+      "gutenberg_id": 19963,
+      "story_path": "data/mass_quantities/stop_look_and_dig__smith/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 28450,
+      "story_path": "data/mass_quantities/stopover__gerken/story.json",
+      "trimmed_characters": 115
+    },
+    {
+      "gutenberg_id": 63936,
+      "story_path": "data/mass_quantities/strange_exodus__abernathy/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 62314,
+      "story_path": "data/mass_quantities/stranger_from_space__bok/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 30722,
+      "story_path": "data/mass_quantities/subjectivity__spinrad/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 23197,
+      "story_path": "data/mass_quantities/subversive__reynolds/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 64744,
+      "story_path": "data/mass_quantities/suicide_command__mullen/story.json",
+      "trimmed_characters": 154
+    },
+    {
+      "gutenberg_id": 26968,
+      "story_path": "data/mass_quantities/summer_snow_storm__marlowe/story.json",
+      "trimmed_characters": 222
+    },
+    {
+      "gutenberg_id": 72181,
+      "story_path": "data/mass_quantities/sunfire__hamilton/story.json",
+      "trimmed_characters": 223
+    },
+    {
+      "gutenberg_id": 63663,
+      "story_path": "data/mass_quantities/survival__wells/story.json",
+      "trimmed_characters": 177
+    },
+    {
+      "gutenberg_id": 70559,
+      "story_path": "data/mass_quantities/survival_of_the_fittest__henderson/story.json",
+      "trimmed_characters": 640
+    },
+    {
+      "gutenberg_id": 33919,
+      "story_path": "data/mass_quantities/suzy__parker/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 50924,
+      "story_path": "data/mass_quantities/sweet_tooth__young/story.json",
+      "trimmed_characters": 98
+    },
+    {
+      "gutenberg_id": 51231,
+      "story_path": "data/mass_quantities/syndrome_johnny__dye/story.json",
+      "trimmed_characters": 97
+    },
+    {
+      "gutenberg_id": 64515,
+      "story_path": "data/mass_quantities/synthetic_hero__fennel/story.json",
+      "trimmed_characters": 149
+    },
+    {
+      "gutenberg_id": 32583,
+      "story_path": "data/mass_quantities/tape_jockey__leahy/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 64300,
+      "story_path": "data/mass_quantities/task_of_kayin__samachson/story.json",
+      "trimmed_characters": 163
+    },
+    {
+      "gutenberg_id": 50847,
+      "story_path": "data/mass_quantities/tea_tray_in_the_sky__smith/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 29625,
+      "story_path": "data/mass_quantities/teething_ring__causey/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 31153,
+      "story_path": "data/mass_quantities/telempathy__simonds/story.json",
+      "trimmed_characters": 216
+    },
+    {
+      "gutenberg_id": 63799,
+      "story_path": "data/mass_quantities/tepondicon__jacobi/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 51240,
+      "story_path": "data/mass_quantities/the_addicts__samachson/story.json",
+      "trimmed_characters": 76
+    },
+    {
+      "gutenberg_id": 29908,
+      "story_path": "data/mass_quantities/the_adventurer__kornbluth/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 51688,
+      "story_path": "data/mass_quantities/the_air_of_castor_oil__harmon/story.json",
+      "trimmed_characters": 66
+    },
+    {
+      "gutenberg_id": 51081,
+      "story_path": "data/mass_quantities/the_amateurs__cogan/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 31585,
+      "story_path": "data/mass_quantities/the_amazing_mrs_mimms__knight/story.json",
+      "trimmed_characters": 108
+    },
+    {
+      "gutenberg_id": 64045,
+      "story_path": "data/mass_quantities/the_ambassadors_from_venus__crossen/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 32345,
+      "story_path": "data/mass_quantities/the_animated_pinup__parker/story.json",
+      "trimmed_characters": 209
+    },
+    {
+      "gutenberg_id": 62619,
+      "story_path": "data/mass_quantities/the_avenger__knight/story.json",
+      "trimmed_characters": 147
+    },
+    {
+      "gutenberg_id": 32162,
+      "story_path": "data/mass_quantities/the_beasts_in_the_void__fairman/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 44327,
+      "story_path": "data/mass_quantities/the_beggar_s_purse_a_fairy_tale_of_familiar_financ__adams/story.json",
+      "trimmed_characters": 1165
+    },
+    {
+      "gutenberg_id": 70647,
+      "story_path": "data/mass_quantities/the_belt__west/story.json",
+      "trimmed_characters": 552
+    },
+    {
+      "gutenberg_id": 59034,
+      "story_path": "data/mass_quantities/the_big_leap__fritch/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 29931,
+      "story_path": "data/mass_quantities/the_big_tomorrow__shaver/story.json",
+      "trimmed_characters": 640
+    },
+    {
+      "gutenberg_id": 30240,
+      "story_path": "data/mass_quantities/the_big_trip_up_yonder__vonnegut/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 50890,
+      "story_path": "data/mass_quantities/the_birds_of_lorrane__doede/story.json",
+      "trimmed_characters": 71
+    },
+    {
+      "gutenberg_id": 23104,
+      "story_path": "data/mass_quantities/the_blue_tower__smith/story.json",
+      "trimmed_characters": 240
+    },
+    {
+      "gutenberg_id": 63475,
+      "story_path": "data/mass_quantities/the_brides_of_ool__cummings/story.json",
+      "trimmed_characters": 193
+    },
+    {
+      "gutenberg_id": 64063,
+      "story_path": "data/mass_quantities/the_bryd__loomis/story.json",
+      "trimmed_characters": 178
+    },
+    {
+      "gutenberg_id": 65100,
+      "story_path": "data/mass_quantities/the_builders__holden/story.json",
+      "trimmed_characters": 148
+    },
+    {
+      "gutenberg_id": 51435,
+      "story_path": "data/mass_quantities/the_business_as_usual__sharkey/story.json",
+      "trimmed_characters": 143
+    },
+    {
+      "gutenberg_id": 28583,
+      "story_path": "data/mass_quantities/the_calm_man__long/story.json",
+      "trimmed_characters": 121
+    },
+    {
+      "gutenberg_id": 61842,
+      "story_path": "data/mass_quantities/the_castaway__bond/story.json",
+      "trimmed_characters": 191
+    },
+    {
+      "gutenberg_id": 32652,
+      "story_path": "data/mass_quantities/the_chameleon_man__mcgivern/story.json",
+      "trimmed_characters": 118
+    },
+    {
+      "gutenberg_id": 41064,
+      "story_path": "data/mass_quantities/the_chapter_ends__anderson/story.json",
+      "trimmed_characters": 228
+    },
+    {
+      "gutenberg_id": 51508,
+      "story_path": "data/mass_quantities/the_chasers__galouye/story.json",
+      "trimmed_characters": 90
+    },
+    {
+      "gutenberg_id": 9228,
+      "story_path": "data/mass_quantities/the_christmas_banquet_from_mosses_from_an_old_mans__hawthorne/story.json",
+      "trimmed_characters": 49
+    },
+    {
+      "gutenberg_id": 65947,
+      "story_path": "data/mass_quantities/the_color_of_his_boots__tuttle/story.json",
+      "trimmed_characters": 67
+    },
+    {
+      "gutenberg_id": 26967,
+      "story_path": "data/mass_quantities/the_coming_of_the_ice__peyton/story.json",
+      "trimmed_characters": 1570
+    },
+    {
+      "gutenberg_id": 51256,
+      "story_path": "data/mass_quantities/the_cool_war__fetler/story.json",
+      "trimmed_characters": 73
+    },
+    {
+      "gutenberg_id": 65938,
+      "story_path": "data/mass_quantities/the_cosmic_bluff__reynolds/story.json",
+      "trimmed_characters": 51
+    },
+    {
+      "gutenberg_id": 32899,
+      "story_path": "data/mass_quantities/the_cosmic_deflector__coblentz/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 62169,
+      "story_path": "data/mass_quantities/the_cosmic_derelict__broome/story.json",
+      "trimmed_characters": 165
+    },
+    {
+      "gutenberg_id": 26066,
+      "story_path": "data/mass_quantities/the_cosmic_express__williamson/story.json",
+      "trimmed_characters": 3608
+    },
+    {
+      "gutenberg_id": 74074,
+      "story_path": "data/mass_quantities/the_cottage__long/story.json",
+      "trimmed_characters": 433
+    },
+    {
+      "gutenberg_id": 1757,
+      "story_path": "data/mass_quantities/the_cruise_of_the_dolphin__aldrich/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 28698,
+      "story_path": "data/mass_quantities/the_crystal_crypt__dick/story.json",
+      "trimmed_characters": 164
+    },
+    {
+      "gutenberg_id": 73926,
+      "story_path": "data/mass_quantities/the_crystal_ray__gallun/story.json",
+      "trimmed_characters": 708
+    },
+    {
+      "gutenberg_id": 29623,
+      "story_path": "data/mass_quantities/the_cuckoo_clock__barefoot/story.json",
+      "trimmed_characters": 103
+    },
+    {
+      "gutenberg_id": 67072,
+      "story_path": "data/mass_quantities/the_curse_of_eve__doyle/story.json",
+      "trimmed_characters": 61
+    },
+    {
+      "gutenberg_id": 32784,
+      "story_path": "data/mass_quantities/the_dark_goddess__shaver/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 30528,
+      "story_path": "data/mass_quantities/the_day_of_the_dog__horne/story.json",
+      "trimmed_characters": 20
+    },
+    {
+      "gutenberg_id": 73355,
+      "story_path": "data/mass_quantities/the_deadly_ones__wallace/story.json",
+      "trimmed_characters": 475
+    },
+    {
+      "gutenberg_id": 51091,
+      "story_path": "data/mass_quantities/the_deep_one__ruzic/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 28767,
+      "story_path": "data/mass_quantities/the_defenders__dick/story.json",
+      "trimmed_characters": 133
+    },
+    {
+      "gutenberg_id": 32134,
+      "story_path": "data/mass_quantities/the_dictator__marlowe/story.json",
+      "trimmed_characters": 141
+    },
+    {
+      "gutenberg_id": 32671,
+      "story_path": "data/mass_quantities/the_doors_of_death__waltermire/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 31788,
+      "story_path": "data/mass_quantities/the_double_spy__moore/story.json",
+      "trimmed_characters": 368
+    },
+    {
+      "gutenberg_id": 61890,
+      "story_path": "data/mass_quantities/the_dragon_queen_of_jupiter__brackett/story.json",
+      "trimmed_characters": 170
+    },
+    {
+      "gutenberg_id": 51519,
+      "story_path": "data/mass_quantities/the_drug__macapp/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 69601,
+      "story_path": "data/mass_quantities/the_escape_of_alice_a_christmas_fantasy__starrett/story.json",
+      "trimmed_characters": 783
+    },
+    {
+      "gutenberg_id": 31962,
+      "story_path": "data/mass_quantities/the_ethical_way__farrell/story.json",
+      "trimmed_characters": 127
+    },
+    {
+      "gutenberg_id": 32087,
+      "story_path": "data/mass_quantities/the_executioner__riley/story.json",
+      "trimmed_characters": 346
+    },
+    {
+      "gutenberg_id": 63123,
+      "story_path": "data/mass_quantities/the_eyes_of_thar__kuttner/story.json",
+      "trimmed_characters": 231
+    },
+    {
+      "gutenberg_id": 68553,
+      "story_path": "data/mass_quantities/the_festival__lovecraft/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 41062,
+      "story_path": "data/mass_quantities/the_final_figure__merwin/story.json",
+      "trimmed_characters": 363
+    },
+    {
+      "gutenberg_id": 71085,
+      "story_path": "data/mass_quantities/the_fire_of_asshurbanipal__howard/story.json",
+      "trimmed_characters": 591
+    },
+    {
+      "gutenberg_id": 24192,
+      "story_path": "data/mass_quantities/the_first_one__kastle/story.json",
+      "trimmed_characters": 133
+    },
+    {
+      "gutenberg_id": 60568,
+      "story_path": "data/mass_quantities/the_fishdollar_affair__mckenna/story.json",
+      "trimmed_characters": 210
+    },
+    {
+      "gutenberg_id": 59712,
+      "story_path": "data/mass_quantities/the_floater__walton/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 50980,
+      "story_path": "data/mass_quantities/the_freelancer__zacks/story.json",
+      "trimmed_characters": 88
+    },
+    {
+      "gutenberg_id": 33513,
+      "story_path": "data/mass_quantities/the_frightened_planet__austen/story.json",
+      "trimmed_characters": 109
+    },
+    {
+      "gutenberg_id": 51257,
+      "story_path": "data/mass_quantities/the_furious_rose__evans/story.json",
+      "trimmed_characters": 116
+    },
+    {
+      "gutenberg_id": 32861,
+      "story_path": "data/mass_quantities/the_genius__pederson/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 74110,
+      "story_path": "data/mass_quantities/the_genius_of_lancelot_biggs__bond/story.json",
+      "trimmed_characters": 108
+    },
+    {
+      "gutenberg_id": 67822,
+      "story_path": "data/mass_quantities/the_ghost_of_one_man_coulee__bower/story.json",
+      "trimmed_characters": 299
+    },
+    {
+      "gutenberg_id": 63899,
+      "story_path": "data/mass_quantities/the_giants_return__abernathy/story.json",
+      "trimmed_characters": 170
+    },
+    {
+      "gutenberg_id": 19029,
+      "story_path": "data/mass_quantities/the_gifts_of_asti__norton/story.json",
+      "trimmed_characters": 61
+    },
+    {
+      "gutenberg_id": 51699,
+      "story_path": "data/mass_quantities/the_god_next_door__doede/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 24495,
+      "story_path": "data/mass_quantities/the_golden_judge__gordon/story.json",
+      "trimmed_characters": 707
+    },
+    {
+      "gutenberg_id": 32580,
+      "story_path": "data/mass_quantities/the_golgotha_dancers__wellman/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 49897,
+      "story_path": "data/mass_quantities/the_gravity_business__gunn/story.json",
+      "trimmed_characters": 130
+    },
+    {
+      "gutenberg_id": 68951,
+      "story_path": "data/mass_quantities/the_gray_brotherhood__leverage/story.json",
+      "trimmed_characters": 128
+    },
+    {
+      "gutenberg_id": 73383,
+      "story_path": "data/mass_quantities/the_great_illusion__banister/story.json",
+      "trimmed_characters": 157
+    },
+    {
+      "gutenberg_id": 73231,
+      "story_path": "data/mass_quantities/the_great_implication__lee/story.json",
+      "trimmed_characters": 156
+    },
+    {
+      "gutenberg_id": 50893,
+      "story_path": "data/mass_quantities/the_great_nebraska_sea__danzig/story.json",
+      "trimmed_characters": 104
+    },
+    {
+      "gutenberg_id": 24278,
+      "story_path": "data/mass_quantities/the_green_beret__purdom/story.json",
+      "trimmed_characters": 174
+    },
+    {
+      "gutenberg_id": 24152,
+      "story_path": "data/mass_quantities/the_guardians__cox/story.json",
+      "trimmed_characters": 165
+    },
+    {
+      "gutenberg_id": 29132,
+      "story_path": "data/mass_quantities/the_gun__dick/story.json",
+      "trimmed_characters": 222
+    },
+    {
+      "gutenberg_id": 63398,
+      "story_path": "data/mass_quantities/the_hairy_ones__wells/story.json",
+      "trimmed_characters": 162
+    },
+    {
+      "gutenberg_id": 32055,
+      "story_path": "data/mass_quantities/the_hand__sohl/story.json",
+      "trimmed_characters": 143
+    },
+    {
+      "gutenberg_id": 41562,
+      "story_path": "data/mass_quantities/the_hanging_stranger__dick/story.json",
+      "trimmed_characters": 144
+    },
+    {
+      "gutenberg_id": 63401,
+      "story_path": "data/mass_quantities/the_happy_castaway__mcdowell/story.json",
+      "trimmed_characters": 217
+    },
+    {
+      "gutenberg_id": 25035,
+      "story_path": "data/mass_quantities/the_happy_unfortunate__silverberg/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 73233,
+      "story_path": "data/mass_quantities/the_haunter_of_the_dark__lovecraft/story.json",
+      "trimmed_characters": 29
+    },
+    {
+      "gutenberg_id": 53048,
+      "story_path": "data/mass_quantities/the_hermit_of_mars__bartholomew/story.json",
+      "trimmed_characters": 58
+    },
+    {
+      "gutenberg_id": 28886,
+      "story_path": "data/mass_quantities/the_hickory_limb__fillmore/story.json",
+      "trimmed_characters": 141
+    },
+    {
+      "gutenberg_id": 50868,
+      "story_path": "data/mass_quantities/the_highest_mountain__walton/story.json",
+      "trimmed_characters": 94
+    },
+    {
+      "gutenberg_id": 22102,
+      "story_path": "data/mass_quantities/the_hills_of_home__coppel/story.json",
+      "trimmed_characters": 519
+    },
+    {
+      "gutenberg_id": 32284,
+      "story_path": "data/mass_quantities/the_hitch_hikers__mccain/story.json",
+      "trimmed_characters": 237
+    },
+    {
+      "gutenberg_id": 68847,
+      "story_path": "data/mass_quantities/the_hollow_lens__leverage/story.json",
+      "trimmed_characters": 171
+    },
+    {
+      "gutenberg_id": 29170,
+      "story_path": "data/mass_quantities/the_hoofer__miller/story.json",
+      "trimmed_characters": 131
+    },
+    {
+      "gutenberg_id": 29445,
+      "story_path": "data/mass_quantities/the_hour_of_battle__sheckley/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 31588,
+      "story_path": "data/mass_quantities/the_house_from_nowhere__stangland/story.json",
+      "trimmed_characters": 93
+    },
+    {
+      "gutenberg_id": 32904,
+      "story_path": "data/mass_quantities/the_huddlers__gault/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 59982,
+      "story_path": "data/mass_quantities/the_human_element__kelley/story.json",
+      "trimmed_characters": 146
+    },
+    {
+      "gutenberg_id": 65272,
+      "story_path": "data/mass_quantities/the_hunt_pack__white/story.json",
+      "trimmed_characters": 51
+    },
+    {
+      "gutenberg_id": 25627,
+      "story_path": "data/mass_quantities/the_hunted_heroes__silverberg/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 67160,
+      "story_path": "data/mass_quantities/the_hunter_s_lodge_case__christie/story.json",
+      "trimmed_characters": 152
+    },
+    {
+      "gutenberg_id": 22524,
+      "story_path": "data/mass_quantities/the_hunters__samachson/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 51682,
+      "story_path": "data/mass_quantities/the_imitation_of_earth__stamers/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 20838,
+      "story_path": "data/mass_quantities/the_infra_medians__wright/story.json",
+      "trimmed_characters": 191
+    },
+    {
+      "gutenberg_id": 32684,
+      "story_path": "data/mass_quantities/the_invader__coppel/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 23535,
+      "story_path": "data/mass_quantities/the_invaders__ferris/story.json",
+      "trimmed_characters": 107
+    },
+    {
+      "gutenberg_id": 2328,
+      "story_path": "data/mass_quantities/the_lake_gun__cooper/story.json",
+      "trimmed_characters": 1872
+    },
+    {
+      "gutenberg_id": 51669,
+      "story_path": "data/mass_quantities/the_lamps_of_the_angels__sabia/story.json",
+      "trimmed_characters": 120
+    },
+    {
+      "gutenberg_id": 42640,
+      "story_path": "data/mass_quantities/the_last_christmas_tree_an_idyl_of_immortality__allen/story.json",
+      "trimmed_characters": 158
+    },
+    {
+      "gutenberg_id": 59011,
+      "story_path": "data/mass_quantities/the_last_crusade__smith/story.json",
+      "trimmed_characters": 154
+    },
+    {
+      "gutenberg_id": 32655,
+      "story_path": "data/mass_quantities/the_last_gentleman__magill/story.json",
+      "trimmed_characters": 198
+    },
+    {
+      "gutenberg_id": 67070,
+      "story_path": "data/mass_quantities/the_last_laugh__lawrence/story.json",
+      "trimmed_characters": 27
+    },
+    {
+      "gutenberg_id": 51530,
+      "story_path": "data/mass_quantities/the_last_letter__leiber/story.json",
+      "trimmed_characters": 120
+    },
+    {
+      "gutenberg_id": 62097,
+      "story_path": "data/mass_quantities/the_last_martian__van_houten/story.json",
+      "trimmed_characters": 159
+    },
+    {
+      "gutenberg_id": 66613,
+      "story_path": "data/mass_quantities/the_last_plunge__sackett/story.json",
+      "trimmed_characters": 142
+    },
+    {
+      "gutenberg_id": 49826,
+      "story_path": "data/mass_quantities/the_lights_on_precipice_peak__tall/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 51698,
+      "story_path": "data/mass_quantities/the_little_man_who_wasn_t_quite__stuart/story.json",
+      "trimmed_characters": 121
+    },
+    {
+      "gutenberg_id": 64363,
+      "story_path": "data/mass_quantities/the_little_pets_of_arkkhan__garson/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 29742,
+      "story_path": "data/mass_quantities/the_long_voyage__jacobi/story.json",
+      "trimmed_characters": 133
+    },
+    {
+      "gutenberg_id": 71816,
+      "story_path": "data/mass_quantities/the_lost_charm__norton/story.json",
+      "trimmed_characters": 140
+    },
+    {
+      "gutenberg_id": 25404,
+      "story_path": "data/mass_quantities/the_lost_child__kingsley/story.json",
+      "trimmed_characters": 2100
+    },
+    {
+      "gutenberg_id": 27921,
+      "story_path": "data/mass_quantities/the_love_of_frank_nineteen__knight/story.json",
+      "trimmed_characters": 100
+    },
+    {
+      "gutenberg_id": 50835,
+      "story_path": "data/mass_quantities/the_luckiest_man_in_denv__kornbluth/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 63843,
+      "story_path": "data/mass_quantities/the_madcap_metalloids__athanas/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 73942,
+      "story_path": "data/mass_quantities/the_madness_of_lancelot_biggs__bond/story.json",
+      "trimmed_characters": 201
+    },
+    {
+      "gutenberg_id": 67292,
+      "story_path": "data/mass_quantities/the_man_higher_up__balmer_macharg/story.json",
+      "trimmed_characters": 904
+    },
+    {
+      "gutenberg_id": 51337,
+      "story_path": "data/mass_quantities/the_man_outside__smith/story.json",
+      "trimmed_characters": 131
+    },
+    {
+      "gutenberg_id": 30259,
+      "story_path": "data/mass_quantities/the_man_who_played_to_lose__janifer/story.json",
+      "trimmed_characters": 166
+    },
+    {
+      "gutenberg_id": 71388,
+      "story_path": "data/mass_quantities/the_man_who_talked_too_much__norton/story.json",
+      "trimmed_characters": 222
+    },
+    {
+      "gutenberg_id": 73938,
+      "story_path": "data/mass_quantities/the_man_who_was_pale__sharkey/story.json",
+      "trimmed_characters": 150
+    },
+    {
+      "gutenberg_id": 51233,
+      "story_path": "data/mass_quantities/the_marching_morons__kornbluth/story.json",
+      "trimmed_characters": 155
+    },
+    {
+      "gutenberg_id": 72507,
+      "story_path": "data/mass_quantities/the_maugham_obsession__derleth/story.json",
+      "trimmed_characters": 513
+    },
+    {
+      "gutenberg_id": 24135,
+      "story_path": "data/mass_quantities/the_measure_of_a_man__garrett/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 32639,
+      "story_path": "data/mass_quantities/the_medici_boots__swet/story.json",
+      "trimmed_characters": 144
+    },
+    {
+      "gutenberg_id": 32901,
+      "story_path": "data/mass_quantities/the_merchants_of_venus__phelps/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 62034,
+      "story_path": "data/mass_quantities/the_mercurian__long/story.json",
+      "trimmed_characters": 168
+    },
+    {
+      "gutenberg_id": 32353,
+      "story_path": "data/mass_quantities/the_mind_digger__marks/story.json",
+      "trimmed_characters": 210
+    },
+    {
+      "gutenberg_id": 32431,
+      "story_path": "data/mass_quantities/the_model_of_a_judge__samachson/story.json",
+      "trimmed_characters": 192
+    },
+    {
+      "gutenberg_id": 62569,
+      "story_path": "data/mass_quantities/the_monster_maker__bradbury/story.json",
+      "trimmed_characters": 175
+    },
+    {
+      "gutenberg_id": 61870,
+      "story_path": "data/mass_quantities/the_monster_that_threatened_the_universe__winterbotham/story.json",
+      "trimmed_characters": 187
+    },
+    {
+      "gutenberg_id": 50826,
+      "story_path": "data/mass_quantities/the_moons_of_mars__evans/story.json",
+      "trimmed_characters": 85
+    },
+    {
+      "gutenberg_id": 32751,
+      "story_path": "data/mass_quantities/the_moralist__taylor/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 29791,
+      "story_path": "data/mass_quantities/the_most_sentimental_man__smith/story.json",
+      "trimmed_characters": 106
+    },
+    {
+      "gutenberg_id": 64659,
+      "story_path": "data/mass_quantities/the_night_has_a_thousand_eyes__de_courcy_de_courcy/story.json",
+      "trimmed_characters": 175
+    },
+    {
+      "gutenberg_id": 71530,
+      "story_path": "data/mass_quantities/the_night_of_no_moon__fyfe/story.json",
+      "trimmed_characters": 101
+    },
+    {
+      "gutenberg_id": 50989,
+      "story_path": "data/mass_quantities/the_nostalgia_gene__hutchins/story.json",
+      "trimmed_characters": 113
+    },
+    {
+      "gutenberg_id": 32590,
+      "story_path": "data/mass_quantities/the_old_martians__phillips/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 30398,
+      "story_path": "data/mass_quantities/the_other_likeness__schmitz/story.json",
+      "trimmed_characters": 173
+    },
+    {
+      "gutenberg_id": 51112,
+      "story_path": "data/mass_quantities/the_other_now__leinster/story.json",
+      "trimmed_characters": 114
+    },
+    {
+      "gutenberg_id": 23703,
+      "story_path": "data/mass_quantities/the_parthenon_by_way_of_papendrecht__smith/story.json",
+      "trimmed_characters": 35
+    },
+    {
+      "gutenberg_id": 51297,
+      "story_path": "data/mass_quantities/the_pilot_and_the_bushman__jacobs/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 30062,
+      "story_path": "data/mass_quantities/the_plague__keller/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 61797,
+      "story_path": "data/mass_quantities/the_planet_that_time_forgot__wollheim/story.json",
+      "trimmed_characters": 180
+    },
+    {
+      "gutenberg_id": 32801,
+      "story_path": "data/mass_quantities/the_plotters__shaver/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 66446,
+      "story_path": "data/mass_quantities/the_plymouth_express_affair__christie/story.json",
+      "trimmed_characters": 209
+    },
+    {
+      "gutenberg_id": 51126,
+      "story_path": "data/mass_quantities/the_princess_and_the_physicist__smith/story.json",
+      "trimmed_characters": 124
+    },
+    {
+      "gutenberg_id": 71775,
+      "story_path": "data/mass_quantities/the_prior_claim__kelly/story.json",
+      "trimmed_characters": 120
+    },
+    {
+      "gutenberg_id": 32361,
+      "story_path": "data/mass_quantities/the_prophetic_camera__mcgreevey/story.json",
+      "trimmed_characters": 211
+    },
+    {
+      "gutenberg_id": 9204,
+      "story_path": "data/mass_quantities/the_prophetic_pictures_from_twice_told_tales__hawthorne/story.json",
+      "trimmed_characters": 216
+    },
+    {
+      "gutenberg_id": 51028,
+      "story_path": "data/mass_quantities/the_protector__curtis/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 63787,
+      "story_path": "data/mass_quantities/the_purple_pariah__tustin/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 24418,
+      "story_path": "data/mass_quantities/the_quantum_jump__wicks/story.json",
+      "trimmed_characters": 240
+    },
+    {
+      "gutenberg_id": 51589,
+      "story_path": "data/mass_quantities/the_rag_and_bone_men__budrys/story.json",
+      "trimmed_characters": 96
+    },
+    {
+      "gutenberg_id": 26890,
+      "story_path": "data/mass_quantities/the_rat_racket__keller/story.json",
+      "trimmed_characters": 265
+    },
+    {
+      "gutenberg_id": 31762,
+      "story_path": "data/mass_quantities/the_record_of_currupira__abernathy/story.json",
+      "trimmed_characters": 104
+    },
+    {
+      "gutenberg_id": 51483,
+      "story_path": "data/mass_quantities/the_reluctant_heroes__robinson/story.json",
+      "trimmed_characters": 162
+    },
+    {
+      "gutenberg_id": 22073,
+      "story_path": "data/mass_quantities/the_repairman__harrison/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 58653,
+      "story_path": "data/mass_quantities/the_revealing_pattern__heiner/story.json",
+      "trimmed_characters": 72
+    },
+    {
+      "gutenberg_id": 28832,
+      "story_path": "data/mass_quantities/the_sargasso_of_space__hamilton/story.json",
+      "trimmed_characters": 84
+    },
+    {
+      "gutenberg_id": 36719,
+      "story_path": "data/mass_quantities/the_scapegoat__maples/story.json",
+      "trimmed_characters": 112
+    },
+    {
+      "gutenberg_id": 32584,
+      "story_path": "data/mass_quantities/the_secret_of_kralitz__kuttner/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 51153,
+      "story_path": "data/mass_quantities/the_semantic_war__clothier/story.json",
+      "trimmed_characters": 94
+    },
+    {
+      "gutenberg_id": 51296,
+      "story_path": "data/mass_quantities/the_sense_of_wonder__marlowe/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 32327,
+      "story_path": "data/mass_quantities/the_seventh_order__sohl/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 29328,
+      "story_path": "data/mass_quantities/the_shining_cow__james/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 72175,
+      "story_path": "data/mass_quantities/the_shrine__sheldon/story.json",
+      "trimmed_characters": 479
+    },
+    {
+      "gutenberg_id": 74015,
+      "story_path": "data/mass_quantities/the_skipper_knows_best__leinster/story.json",
+      "trimmed_characters": 414
+    },
+    {
+      "gutenberg_id": 31737,
+      "story_path": "data/mass_quantities/the_sloths_of_kruvny__fearing/story.json",
+      "trimmed_characters": 362
+    },
+    {
+      "gutenberg_id": 49901,
+      "story_path": "data/mass_quantities/the_snare__smith/story.json",
+      "trimmed_characters": 89
+    },
+    {
+      "gutenberg_id": 39216,
+      "story_path": "data/mass_quantities/the_snowball__weyman/story.json",
+      "trimmed_characters": 324
+    },
+    {
+      "gutenberg_id": 50766,
+      "story_path": "data/mass_quantities/the_snowball_effect__maclean/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 30283,
+      "story_path": "data/mass_quantities/the_sound_of_silence__constant/story.json",
+      "trimmed_characters": 205
+    },
+    {
+      "gutenberg_id": 61717,
+      "story_path": "data/mass_quantities/the_space_flame__phillips/story.json",
+      "trimmed_characters": 258
+    },
+    {
+      "gutenberg_id": 74075,
+      "story_path": "data/mass_quantities/the_space_visitors__hamilton/story.json",
+      "trimmed_characters": 1071
+    },
+    {
+      "gutenberg_id": 51351,
+      "story_path": "data/mass_quantities/the_spicy_sound_of_success__harmon/story.json",
+      "trimmed_characters": 97
+    },
+    {
+      "gutenberg_id": 66915,
+      "story_path": "data/mass_quantities/the_spring_of_a_lion__haggard/story.json",
+      "trimmed_characters": 218
+    },
+    {
+      "gutenberg_id": 67071,
+      "story_path": "data/mass_quantities/the_star__wells/story.json",
+      "trimmed_characters": 61
+    },
+    {
+      "gutenberg_id": 32448,
+      "story_path": "data/mass_quantities/the_statue__wolf/story.json",
+      "trimmed_characters": 102
+    },
+    {
+      "gutenberg_id": 61844,
+      "story_path": "data/mass_quantities/the_stellar_legion__brackett/story.json",
+      "trimmed_characters": 139
+    },
+    {
+      "gutenberg_id": 73288,
+      "story_path": "data/mass_quantities/the_survivors__hamm/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 51545,
+      "story_path": "data/mass_quantities/the_sweeper_of_loray__sheckley/story.json",
+      "trimmed_characters": 122
+    },
+    {
+      "gutenberg_id": 32697,
+      "story_path": "data/mass_quantities/the_sword__quattrocchi/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 26883,
+      "story_path": "data/mass_quantities/the_sword_and_the_atopen__greenfield/story.json",
+      "trimmed_characters": 273
+    },
+    {
+      "gutenberg_id": 61577,
+      "story_path": "data/mass_quantities/the_tahquitch_maiden_a_tale_of_the_san_jacintos__spalding/story.json",
+      "trimmed_characters": 1062
+    },
+    {
+      "gutenberg_id": 61744,
+      "story_path": "data/mass_quantities/the_tantalus_death__rocklynne/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 64512,
+      "story_path": "data/mass_quantities/the_third_little_green_man__knight/story.json",
+      "trimmed_characters": 188
+    },
+    {
+      "gutenberg_id": 73145,
+      "story_path": "data/mass_quantities/the_thought_feeders__winterbotham/story.json",
+      "trimmed_characters": 179
+    },
+    {
+      "gutenberg_id": 62199,
+      "story_path": "data/mass_quantities/the_thought_men_of_mercury__winterbotham/story.json",
+      "trimmed_characters": 144
+    },
+    {
+      "gutenberg_id": 24936,
+      "story_path": "data/mass_quantities/the_thunders_of_silence__cobb/story.json",
+      "trimmed_characters": 407
+    },
+    {
+      "gutenberg_id": 32775,
+      "story_path": "data/mass_quantities/the_ties_that_bind__miller/story.json",
+      "trimmed_characters": 194
+    },
+    {
+      "gutenberg_id": 39829,
+      "story_path": "data/mass_quantities/the_toy_shop_a_romantic_story_of_lincoln_the_man__gerry/story.json",
+      "trimmed_characters": 261
+    },
+    {
+      "gutenberg_id": 65074,
+      "story_path": "data/mass_quantities/the_ultimate_quest__annas/story.json",
+      "trimmed_characters": 125
+    },
+    {
+      "gutenberg_id": 63656,
+      "story_path": "data/mass_quantities/the_ultimate_world__walton/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 31357,
+      "story_path": "data/mass_quantities/the_ultroom_error__sohl/story.json",
+      "trimmed_characters": 154
+    },
+    {
+      "gutenberg_id": 64239,
+      "story_path": "data/mass_quantities/the_un_reconstructed_woman__howard/story.json",
+      "trimmed_characters": 158
+    },
+    {
+      "gutenberg_id": 30683,
+      "story_path": "data/mass_quantities/the_unthinking_destroyer__phillips/story.json",
+      "trimmed_characters": 161
+    },
+    {
+      "gutenberg_id": 73433,
+      "story_path": "data/mass_quantities/the_untouchable_adolescents__ellison/story.json",
+      "trimmed_characters": 171
+    },
+    {
+      "gutenberg_id": 60981,
+      "story_path": "data/mass_quantities/the_useless_bugbreeders__stamers/story.json",
+      "trimmed_characters": 146
+    },
+    {
+      "gutenberg_id": 64230,
+      "story_path": "data/mass_quantities/the_venus_evil__geier/story.json",
+      "trimmed_characters": 167
+    },
+    {
+      "gutenberg_id": 31586,
+      "story_path": "data/mass_quantities/the_very_black__evans/story.json",
+      "trimmed_characters": 129
+    },
+    {
+      "gutenberg_id": 32903,
+      "story_path": "data/mass_quantities/the_victor__walton/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 22629,
+      "story_path": "data/mass_quantities/the_vortex_blaster__smith/story.json",
+      "trimmed_characters": 95
+    },
+    {
+      "gutenberg_id": 19750,
+      "story_path": "data/mass_quantities/the_waif_woman__stevenson/story.json",
+      "trimmed_characters": 477
+    },
+    {
+      "gutenberg_id": 72278,
+      "story_path": "data/mass_quantities/the_warriors__purdom/story.json",
+      "trimmed_characters": 289
+    },
+    {
+      "gutenberg_id": 71910,
+      "story_path": "data/mass_quantities/the_way_out__smith/story.json",
+      "trimmed_characters": 51
+    },
+    {
+      "gutenberg_id": 23308,
+      "story_path": "data/mass_quantities/the_white_feather_hex__peterson/story.json",
+      "trimmed_characters": 202
+    },
+    {
+      "gutenberg_id": 72081,
+      "story_path": "data/mass_quantities/the_wizard_of_light__ely/story.json",
+      "trimmed_characters": 185
+    },
+    {
+      "gutenberg_id": 59036,
+      "story_path": "data/mass_quantities/the_york_problem__kastle/story.json",
+      "trimmed_characters": 218
+    },
+    {
+      "gutenberg_id": 59224,
+      "story_path": "data/mass_quantities/they_were_different__kenney/story.json",
+      "trimmed_characters": 160
+    },
+    {
+      "gutenberg_id": 32827,
+      "story_path": "data/mass_quantities/think_yourself_to_death__marlowe/story.json",
+      "trimmed_characters": 183
+    },
+    {
+      "gutenberg_id": 23102,
+      "story_path": "data/mass_quantities/this_world_must_die__fyfe/story.json",
+      "trimmed_characters": 210
+    },
+    {
+      "gutenberg_id": 31948,
+      "story_path": "data/mass_quantities/thompson_s_cat__williams/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 63720,
+      "story_path": "data/mass_quantities/through_the_asteroids_to_hell__yerxa/story.json",
+      "trimmed_characters": 177
+    },
+    {
+      "gutenberg_id": 32630,
+      "story_path": "data/mass_quantities/tiger_cat__keller/story.json",
+      "trimmed_characters": 181
+    },
+    {
+      "gutenberg_id": 23337,
+      "story_path": "data/mass_quantities/tight_squeeze__ing/story.json",
+      "trimmed_characters": 402
+    },
+    {
+      "gutenberg_id": 64835,
+      "story_path": "data/mass_quantities/tigre_and_isola__thompson/story.json",
+      "trimmed_characters": 41
+    },
+    {
+      "gutenberg_id": 32802,
+      "story_path": "data/mass_quantities/tillie__phillips/story.json",
+      "trimmed_characters": 186
+    },
+    {
+      "gutenberg_id": 18831,
+      "story_path": "data/mass_quantities/time_and_time_again__piper/story.json",
+      "trimmed_characters": 213
+    },
+    {
+      "gutenberg_id": 51380,
+      "story_path": "data/mass_quantities/time_in_the_round__leiber/story.json",
+      "trimmed_characters": 136
+    },
+    {
+      "gutenberg_id": 72172,
+      "story_path": "data/mass_quantities/title_fight__gault/story.json",
+      "trimmed_characters": 509
+    },
+    {
+      "gutenberg_id": 31355,
+      "story_path": "data/mass_quantities/to_each_his_star__walton/story.json",
+      "trimmed_characters": 420
+    },
+    {
+      "gutenberg_id": 30844,
+      "story_path": "data/mass_quantities/to_invade_new_york__lewis/story.json",
+      "trimmed_characters": 200
+    },
+    {
+      "gutenberg_id": 31599,
+      "story_path": "data/mass_quantities/to_remember_charlie_by__aycock/story.json",
+      "trimmed_characters": 152
+    },
+    {
+      "gutenberg_id": 69063,
+      "story_path": "data/mass_quantities/to_the_lights__norton/story.json",
+      "trimmed_characters": 130
+    },
+    {
+      "gutenberg_id": 68565,
+      "story_path": "data/mass_quantities/to_the_sons_of_tomorrow__cox/story.json",
+      "trimmed_characters": 257
+    },
+    {
+      "gutenberg_id": 50884,
+      "story_path": "data/mass_quantities/today_is_forever__aycock/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 73356,
+      "story_path": "data/mass_quantities/too_close_to_the_forest__walton_reynolds/story.json",
+      "trimmed_characters": 376
+    },
+    {
+      "gutenberg_id": 63708,
+      "story_path": "data/mass_quantities/total_recall__sternig/story.json",
+      "trimmed_characters": 161
+    },
+    {
+      "gutenberg_id": 51759,
+      "story_path": "data/mass_quantities/traveling_companion_wanted__wilson/story.json",
+      "trimmed_characters": 128
+    },
+    {
+      "gutenberg_id": 72174,
+      "story_path": "data/mass_quantities/travelogue__aycock/story.json",
+      "trimmed_characters": 335
+    },
+    {
+      "gutenberg_id": 61872,
+      "story_path": "data/mass_quantities/treasure_of_triton__baker/story.json",
+      "trimmed_characters": 180
+    },
+    {
+      "gutenberg_id": 66436,
+      "story_path": "data/mass_quantities/trouble_near_the_sun__ramm/story.json",
+      "trimmed_characters": 140
+    },
+    {
+      "gutenberg_id": 67550,
+      "story_path": "data/mass_quantities/troubled_waters__sinclair/story.json",
+      "trimmed_characters": 151
+    },
+    {
+      "gutenberg_id": 31287,
+      "story_path": "data/mass_quantities/turnover_point__coppel/story.json",
+      "trimmed_characters": 393
+    },
+    {
+      "gutenberg_id": 67580,
+      "story_path": "data/mass_quantities/under_the_skin__perri/story.json",
+      "trimmed_characters": 138
+    },
+    {
+      "gutenberg_id": 32737,
+      "story_path": "data/mass_quantities/uniform_of_a_man__dryfoos/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 23443,
+      "story_path": "data/mass_quantities/unspecialist__yaco/story.json",
+      "trimmed_characters": 252
+    },
+    {
+      "gutenberg_id": 58721,
+      "story_path": "data/mass_quantities/unwelcomed_visitor__samachson/story.json",
+      "trimmed_characters": 198
+    },
+    {
+      "gutenberg_id": 66976,
+      "story_path": "data/mass_quantities/upside_down_or_backwards__tuttle/story.json",
+      "trimmed_characters": 61
+    },
+    {
+      "gutenberg_id": 29353,
+      "story_path": "data/mass_quantities/vampires_of_space__wright/story.json",
+      "trimmed_characters": 85
+    },
+    {
+      "gutenberg_id": 61798,
+      "story_path": "data/mass_quantities/venus_has_green_eyes__selwyn/story.json",
+      "trimmed_characters": 207
+    },
+    {
+      "gutenberg_id": 64528,
+      "story_path": "data/mass_quantities/venus_hate__mcgreevey/story.json",
+      "trimmed_characters": 100
+    },
+    {
+      "gutenberg_id": 63657,
+      "story_path": "data/mass_quantities/venusian_invader__sternig/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 23563,
+      "story_path": "data/mass_quantities/viewpoint__garrett/story.json",
+      "trimmed_characters": 197
+    },
+    {
+      "gutenberg_id": 50940,
+      "story_path": "data/mass_quantities/wailing_wall__aycock/story.json",
+      "trimmed_characters": 91
+    },
+    {
+      "gutenberg_id": 32230,
+      "story_path": "data/mass_quantities/wainer__shaara/story.json",
+      "trimmed_characters": 190
+    },
+    {
+      "gutenberg_id": 32717,
+      "story_path": "data/mass_quantities/wait_for_weight__mckenty/story.json",
+      "trimmed_characters": 112
+    },
+    {
+      "gutenberg_id": 59561,
+      "story_path": "data/mass_quantities/war_game__walton/story.json",
+      "trimmed_characters": 152
+    },
+    {
+      "gutenberg_id": 30416,
+      "story_path": "data/mass_quantities/waste_not_want__dryfoos/story.json",
+      "trimmed_characters": 189
+    },
+    {
+      "gutenberg_id": 32416,
+      "story_path": "data/mass_quantities/way_of_a_rebel__miller/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 38287,
+      "story_path": "data/mass_quantities/we_re_civilized__clifton_apostolides/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 65254,
+      "story_path": "data/mass_quantities/we_re_off_to_mars__gibson/story.json",
+      "trimmed_characters": 149
+    },
+    {
+      "gutenberg_id": 58639,
+      "story_path": "data/mass_quantities/welcome_martians__hunter/story.json",
+      "trimmed_characters": 86
+    },
+    {
+      "gutenberg_id": 66397,
+      "story_path": "data/mass_quantities/welcome_to_paradise__donnelson/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 64531,
+      "story_path": "data/mass_quantities/werwile_of_the_crystal_crypt__fox/story.json",
+      "trimmed_characters": 241
+    },
+    {
+      "gutenberg_id": 49754,
+      "story_path": "data/mass_quantities/what_do_you_read__ellanby/story.json",
+      "trimmed_characters": 214
+    },
+    {
+      "gutenberg_id": 64519,
+      "story_path": "data/mass_quantities/what_inhabits_me__williams/story.json",
+      "trimmed_characters": 223
+    },
+    {
+      "gutenberg_id": 51336,
+      "story_path": "data/mass_quantities/what_is_posat__smith/story.json",
+      "trimmed_characters": 88
+    },
+    {
+      "gutenberg_id": 30867,
+      "story_path": "data/mass_quantities/what_need_of_man__calin/story.json",
+      "trimmed_characters": 218
+    },
+    {
+      "gutenberg_id": 65070,
+      "story_path": "data/mass_quantities/what_so_proudly_we_hail__keene/story.json",
+      "trimmed_characters": 150
+    },
+    {
+      "gutenberg_id": 32127,
+      "story_path": "data/mass_quantities/wheels_within__de_vet/story.json",
+      "trimmed_characters": 117
+    },
+    {
+      "gutenberg_id": 28953,
+      "story_path": "data/mass_quantities/when_i_grow_up__lowe/story.json",
+      "trimmed_characters": 118
+    },
+    {
+      "gutenberg_id": 64658,
+      "story_path": "data/mass_quantities/when_kohonnes_screamed__fox/story.json",
+      "trimmed_characters": 171
+    },
+    {
+      "gutenberg_id": 65961,
+      "story_path": "data/mass_quantities/when_oscar_went_wild__tuttle/story.json",
+      "trimmed_characters": 59
+    },
+    {
+      "gutenberg_id": 32836,
+      "story_path": "data/mass_quantities/when_the_mountain_shook__abernathy/story.json",
+      "trimmed_characters": 196
+    },
+    {
+      "gutenberg_id": 70349,
+      "story_path": "data/mass_quantities/when_the_squadron_dropped_anchor__burtis/story.json",
+      "trimmed_characters": 176
+    },
+    {
+      "gutenberg_id": 53035,
+      "story_path": "data/mass_quantities/when_you_giffle__stecher/story.json",
+      "trimmed_characters": 92
+    },
+    {
+      "gutenberg_id": 74021,
+      "story_path": "data/mass_quantities/where_are_you_mr_biggs__bond/story.json",
+      "trimmed_characters": 98
+    },
+    {
+      "gutenberg_id": 52805,
+      "story_path": "data/mass_quantities/where_the_phph_pebbles_go__de_ford/story.json",
+      "trimmed_characters": 72
+    },
+    {
+      "gutenberg_id": 31207,
+      "story_path": "data/mass_quantities/where_the_world_is_quiet__kuttner/story.json",
+      "trimmed_characters": 124
+    },
+    {
+      "gutenberg_id": 64679,
+      "story_path": "data/mass_quantities/who_goes_there__davis/story.json",
+      "trimmed_characters": 197
+    },
+    {
+      "gutenberg_id": 23166,
+      "story_path": "data/mass_quantities/who_was_she_from_the_atlantic_monthly_for_septembe__taylor/story.json",
+      "trimmed_characters": 49
+    },
+    {
+      "gutenberg_id": 66823,
+      "story_path": "data/mass_quantities/wise_men_and_a_mule__tuttle/story.json",
+      "trimmed_characters": 60
+    },
+    {
+      "gutenberg_id": 23198,
+      "story_path": "data/mass_quantities/with_no_strings_attached__garrett/story.json",
+      "trimmed_characters": 230
+    },
+    {
+      "gutenberg_id": 73385,
+      "story_path": "data/mass_quantities/woman_s_touch__smith/story.json",
+      "trimmed_characters": 163
+    },
+    {
+      "gutenberg_id": 73857,
+      "story_path": "data/mass_quantities/world_atavism__hamilton/story.json",
+      "trimmed_characters": 854
+    },
+    {
+      "gutenberg_id": 61904,
+      "story_path": "data/mass_quantities/world_of_mockery__moskowitz/story.json",
+      "trimmed_characters": 173
+    },
+    {
+      "gutenberg_id": 66211,
+      "story_path": "data/mass_quantities/x_marks_the_asteroid__rocklynne/story.json",
+      "trimmed_characters": 159
+    },
+    {
+      "gutenberg_id": 66502,
+      "story_path": "data/mass_quantities/yellow_butterflies__andrews/story.json",
+      "trimmed_characters": 711
+    },
+    {
+      "gutenberg_id": 67747,
+      "story_path": "data/mass_quantities/you_ask_anybody__bower/story.json",
+      "trimmed_characters": 359
+    },
+    {
+      "gutenberg_id": 65122,
+      "story_path": "data/mass_quantities/you_ll_like_it_on_mars__harris/story.json",
+      "trimmed_characters": 50
+    },
+    {
+      "gutenberg_id": 32907,
+      "story_path": "data/mass_quantities/you_too_can_be_a_millionaire__loomis/story.json",
+      "trimmed_characters": 199
+    },
+    {
+      "gutenberg_id": 62043,
+      "story_path": "data/mass_quantities/zurk__lewis/story.json",
+      "trimmed_characters": 207
+    }
+  ]
+}

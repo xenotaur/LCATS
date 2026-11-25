@@ -33,7 +33,7 @@ lcats/tempspace
 Thumbs.db
 
 # Ignore local copies of data corpus.
-data/
+data
 lcats/data
 lcats/lcats/data
 lcats/notebooks/data

@@ -1,0 +1,20 @@
+[
+  {
+    "gutenberg_id": 25404,
+    "title": [
+      "The Lost Child"
+    ],
+    "original_lines": 60,
+    "requested_lines": 80,
+    "reason": "original Gutenberg text absent from supplied archives; entry retained unchanged"
+  },
+  {
+    "gutenberg_id": 61624,
+    "title": [
+      "The Fall of Ulysses: An Elephant Story"
+    ],
+    "original_lines": 20,
+    "requested_lines": 40,
+    "reason": "original Gutenberg text absent from supplied archives; entry retained unchanged"
+  }
+]

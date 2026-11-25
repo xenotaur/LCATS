@@ -1,0 +1,2997 @@
+{
+  "count": 330,
+  "metrics": {
+    "baseline": {
+      "assessable": 330,
+      "unassessable": 0,
+      "exact_boundary": 226,
+      "narrative_loss_cases": 12,
+      "narrative_lines_lost": 132,
+      "front_matter_retained_cases": 92,
+      "front_matter_lines_retained": 922,
+      "max_narrative_lines_lost_one_story": 41
+    },
+    "modified": {
+      "assessable": 330,
+      "unassessable": 0,
+      "exact_boundary": 164,
+      "narrative_loss_cases": 1,
+      "narrative_lines_lost": 12,
+      "front_matter_retained_cases": 165,
+      "front_matter_lines_retained": 1489,
+      "max_narrative_lines_lost_one_story": 12
+    }
+  },
+  "per_story": [
+    {
+      "gutenberg_id": 32686,
+      "title": "Day of the Druid",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 73793,
+      "title": "The lost race",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51257,
+      "title": "The Furious Rose",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -4,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 61844,
+      "title": "The Stellar Legion",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 51688,
+      "title": "The Air of Castor Oil",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 68832,
+      "title": "In self-defense",
+      "reference_start_line_1_based": 9,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61334,
+      "title": "When Whirlybirds Call",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29133,
+      "title": "Shipwreck in the Sky",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 34,
+      "modified_start_line_1_based": 34,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67323,
+      "title": "The Best of Fences",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 65861,
+      "title": "The Mischievous Typesetter",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 10,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": -7,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 66154,
+      "title": "The Music Master",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67292,
+      "title": "The Man Higher Up",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -17,
+      "modified_offset_lines": -28
+    },
+    {
+      "gutenberg_id": 72181,
+      "title": "Sunfire!",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 24954,
+      "title": "\"Pig-Headed\" Sailor Men\r\nFrom \"The Strange Adventure of James Shervinton, and Other Stories\" - 1902",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73618,
+      "title": "Splashes of red",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 30722,
+      "title": "Subjectivity",
+      "reference_start_line_1_based": 39,
+      "baseline_start_line_1_based": 39,
+      "modified_start_line_1_based": 24,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -15
+    },
+    {
+      "gutenberg_id": 35401,
+      "title": "Friend Island",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 70486,
+      "title": "The lurking fear",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 3,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 8525,
+      "title": "Eve's Diary, Complete",
+      "reference_start_line_1_based": 26,
+      "baseline_start_line_1_based": 26,
+      "modified_start_line_1_based": 26,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64244,
+      "title": "Preview of Peril",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 59849,
+      "title": "Filthy Rich",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 23148,
+      "title": "Droozle",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 5,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 62351,
+      "title": "Revenge of the Vera",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 3716,
+      "title": "Mrs. General Talboys",
+      "reference_start_line_1_based": 13,
+      "baseline_start_line_1_based": 13,
+      "modified_start_line_1_based": 13,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31922,
+      "title": "Felony",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 73556,
+      "title": "Especially dance hall women",
+      "reference_start_line_1_based": 11,
+      "baseline_start_line_1_based": 11,
+      "modified_start_line_1_based": 11,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29680,
+      "title": "Decision",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 51508,
+      "title": "The Chasers",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 25745,
+      "title": "Thakur-na: A Terran Empire story",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 38,
+      "baseline_offset_lines": 2,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66857,
+      "title": "A Prevaricated Parade",
+      "reference_start_line_1_based": 9,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64063,
+      "title": "The Bryd",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 73926,
+      "title": "The crystal ray",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": -18,
+      "modified_offset_lines": -18
+    },
+    {
+      "gutenberg_id": 64672,
+      "title": "Tubemonkey",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32631,
+      "title": "Restricted Tool",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 58899,
+      "title": "Journey Work",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 32,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31932,
+      "title": "Contamination Crew",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 24,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 30475,
+      "title": "With a Vengeance",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 3,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 22840,
+      "title": "Honor O'Callaghan",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 60460,
+      "title": "The Raider",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 50872,
+      "title": "Not Fit for Children",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 23764,
+      "title": "The Bramble Bush",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 38,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 24399,
+      "title": "Criminal Negligence",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 34,
+      "modified_start_line_1_based": 26,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 23884,
+      "title": "History Repeats",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 40,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 2728,
+      "title": "Hunter Quatermain's Story",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31703,
+      "title": "'Mid Pleasures and Palaces",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 74021,
+      "title": "Where are you, Mr. Biggs?",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 64474,
+      "title": "Planet in Reverse",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 42640,
+      "title": "The Last Christmas Tree: An Idyl of Immortality",
+      "reference_start_line_1_based": 47,
+      "baseline_start_line_1_based": 47,
+      "modified_start_line_1_based": 38,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 31585,
+      "title": "The Amazing Mrs. Mimms",
+      "reference_start_line_1_based": 42,
+      "baseline_start_line_1_based": 42,
+      "modified_start_line_1_based": 34,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 4623,
+      "title": "The Son of My Friend",
+      "reference_start_line_1_based": 46,
+      "baseline_start_line_1_based": 46,
+      "modified_start_line_1_based": 46,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51027,
+      "title": "Jaywalker",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -4,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 73586,
+      "title": "An enemy of peace",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 65741,
+      "title": "Run, Little Monster!",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 10,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": -7,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 63986,
+      "title": "The Last Laugh",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32861,
+      "title": "The Genius",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 29242,
+      "title": "Made in Tanganyika",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 34,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 67165,
+      "title": "In the Garden of the Gods",
+      "reference_start_line_1_based": 7,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 33934,
+      "title": "She Knew He Was Coming",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63616,
+      "title": "Hagerty's Enzymes",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 65896,
+      "title": "So Many Worlds Away...",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 27013,
+      "title": "Hellhounds of the Cosmos",
+      "reference_start_line_1_based": 29,
+      "baseline_start_line_1_based": 29,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 71065,
+      "title": "The hyena",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 23356,
+      "title": "A Struggle For Life",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 69148,
+      "title": "The eternal quest",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31964,
+      "title": "Brknk's Bounty",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 32,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 23103,
+      "title": "Traders Risk",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66588,
+      "title": "A Man-Sized Pet",
+      "reference_start_line_1_based": 13,
+      "baseline_start_line_1_based": 13,
+      "modified_start_line_1_based": 13,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 40953,
+      "title": "A Traveler in Time",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 30746,
+      "title": "The Last Straw",
+      "reference_start_line_1_based": 41,
+      "baseline_start_line_1_based": 41,
+      "modified_start_line_1_based": 41,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63697,
+      "title": "Space-Lane of No-Return",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -13,
+      "modified_offset_lines": -13
+    },
+    {
+      "gutenberg_id": 31737,
+      "title": "The Sloths of Kruvny",
+      "reference_start_line_1_based": 47,
+      "baseline_start_line_1_based": 47,
+      "modified_start_line_1_based": 34,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -13
+    },
+    {
+      "gutenberg_id": 1821,
+      "title": "A Charmed Life",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 24151,
+      "title": "The Sky Trap",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61048,
+      "title": "The Girls from Fieu Dayol",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 23731,
+      "title": "A Martian Odyssey",
+      "reference_start_line_1_based": 25,
+      "baseline_start_line_1_based": 25,
+      "modified_start_line_1_based": 25,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64841,
+      "title": "Dark Reality",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51202,
+      "title": "Name Your Symptom",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 65666,
+      "title": "Bleekman's Planet",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72338,
+      "title": "The right side of the tracks",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 47492,
+      "title": "Old Fort Garland",
+      "reference_start_line_1_based": 45,
+      "baseline_start_line_1_based": 34,
+      "modified_start_line_1_based": 34,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 62212,
+      "title": "Prison Planet",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 72440,
+      "title": "The smart ones",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 58733,
+      "title": "Spatial Delivery",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29193,
+      "title": "Dream Town",
+      "reference_start_line_1_based": 33,
+      "baseline_start_line_1_based": 33,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 51656,
+      "title": "Pick a Crime",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51460,
+      "title": "A Husband for My Wife",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -4,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 64157,
+      "title": "Atavism",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 58802,
+      "title": "Community Property",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 32,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29290,
+      "title": "Now We Are Three",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 58995,
+      "title": "Seller of the Sky",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 32,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29832,
+      "title": "Second Sight",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 34,
+      "modified_start_line_1_based": 34,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67602,
+      "title": "The Big Fix!",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 23548,
+      "title": "The raid of the guerilla\r\n1911",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73463,
+      "title": "The girl from Samarcand",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 71078,
+      "title": "Her country",
+      "reference_start_line_1_based": 54,
+      "baseline_start_line_1_based": 54,
+      "modified_start_line_1_based": 54,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 19963,
+      "title": "Stop Look and Dig",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 29,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": -5,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 23698,
+      "title": "Fiddles\n1909",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31981,
+      "title": "The Eel",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 59558,
+      "title": "Your Servant, Sir",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 65032,
+      "title": "Wind in Her Hair",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 2,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 877,
+      "title": "Little Britain",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72079,
+      "title": "Burden the hand",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32087,
+      "title": "The Executioner",
+      "reference_start_line_1_based": 39,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 26,
+      "baseline_offset_lines": -7,
+      "modified_offset_lines": -13
+    },
+    {
+      "gutenberg_id": 36719,
+      "title": "The Scapegoat",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 68256,
+      "title": "Rat Race",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68393,
+      "title": "My sweetheart's the Man in the Moon",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64646,
+      "title": "Goma's Follicles",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 33212,
+      "title": "The Underpup",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64679,
+      "title": "Who Goes There?",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 22110,
+      "title": "Martian V.F.W.",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 70158,
+      "title": "Beast of prey",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64789,
+      "title": "Bratton's Idea",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51530,
+      "title": "The Last Letter",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 64350,
+      "title": "Among the Scented Ones",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 11,
+      "modified_start_line_1_based": 11,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 71939,
+      "title": "Gratitude",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 22710,
+      "title": "The Old Folks' Party\n1898",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67288,
+      "title": "The Right Thing",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61797,
+      "title": "The Planet That Time Forgot",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 61717,
+      "title": "The Space Flame",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -13,
+      "modified_offset_lines": -13
+    },
+    {
+      "gutenberg_id": 64363,
+      "title": "The Little Pets of Arkkhan",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 32212,
+      "title": "Clean Break",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 73385,
+      "title": "Woman's touch",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 60462,
+      "title": "Conservation",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68942,
+      "title": "Red stripes",
+      "reference_start_line_1_based": 9,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64239,
+      "title": "The Un-Reconstructed Woman",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 31840,
+      "title": "Ring Once for Death",
+      "reference_start_line_1_based": 41,
+      "baseline_start_line_1_based": 41,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 30539,
+      "title": "The Terrible Answer",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 1387,
+      "title": "Mother",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -19
+    },
+    {
+      "gutenberg_id": 61577,
+      "title": "The Tahquitch Maiden: A Tale of the San Jacintos",
+      "reference_start_line_1_based": 105,
+      "baseline_start_line_1_based": 105,
+      "modified_start_line_1_based": 74,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -31
+    },
+    {
+      "gutenberg_id": 64827,
+      "title": "Yesterday's Revenge",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32652,
+      "title": "The Chameleon Man",
+      "reference_start_line_1_based": 37,
+      "baseline_start_line_1_based": 37,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 51249,
+      "title": "Spacemen Die at Home",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -3,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 59172,
+      "title": "Willie's Planet",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 25,
+      "modified_start_line_1_based": 25,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 1761,
+      "title": "My Buried Treasure",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51597,
+      "title": "Gourmet",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 31326,
+      "title": "The Wealth of Echindul",
+      "reference_start_line_1_based": 37,
+      "baseline_start_line_1_based": 37,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 22715,
+      "title": "The Cold Snap\n1898",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 23368,
+      "title": "The courting of Lady Jane",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63442,
+      "title": "Double Trouble",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 22597,
+      "title": "Question of Comfort",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 22590,
+      "title": "Wind",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 28,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51615,
+      "title": "A Matter of Protocol",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 31986,
+      "title": "No Charge for Alterations",
+      "reference_start_line_1_based": 42,
+      "baseline_start_line_1_based": 42,
+      "modified_start_line_1_based": 33,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 9204,
+      "title": "The Prophetic Pictures (From \"Twice Told Tales\")",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -4,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 9215,
+      "title": "Chippings with a Chisel (From \"Twice Told Tales\")",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32785,
+      "title": "Once Upon A Planet",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 71775,
+      "title": "The prior claim",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 69601,
+      "title": "The escape of Alice: A Christmas fantasy",
+      "reference_start_line_1_based": 65,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 38,
+      "baseline_offset_lines": -27,
+      "modified_offset_lines": -27
+    },
+    {
+      "gutenberg_id": 68598,
+      "title": "The band played on",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66288,
+      "title": "The Fifty-Fourth of July",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68615,
+      "title": "Breathes there a man",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 67732,
+      "title": "The Overman",
+      "reference_start_line_1_based": 63,
+      "baseline_start_line_1_based": 63,
+      "modified_start_line_1_based": 63,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 18807,
+      "title": "He Walked Around the Horses",
+      "reference_start_line_1_based": 49,
+      "baseline_start_line_1_based": 49,
+      "modified_start_line_1_based": 35,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -14
+    },
+    {
+      "gutenberg_id": 71857,
+      "title": "The beast of boredom",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 70559,
+      "title": "Survival of the fittest",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -20,
+      "modified_offset_lines": -20
+    },
+    {
+      "gutenberg_id": 68450,
+      "title": "Easy come, easy go",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 62443,
+      "title": "Destination—Death",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 41565,
+      "title": "Consignment",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -4,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 63521,
+      "title": "Raiders of the Second Moon",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67229,
+      "title": "An Art Shop in Greenwich Village",
+      "reference_start_line_1_based": 7,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66722,
+      "title": "Loco or Love",
+      "reference_start_line_1_based": 9,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32127,
+      "title": "Wheels Within",
+      "reference_start_line_1_based": 37,
+      "baseline_start_line_1_based": 37,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 3615,
+      "title": "John Bull on the Guadalquivir\r\nFrom \"Tales from All Countries\"",
+      "reference_start_line_1_based": 13,
+      "baseline_start_line_1_based": 13,
+      "modified_start_line_1_based": 13,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64181,
+      "title": "Rocket Summer",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 36867,
+      "title": "Progress Report",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 59345,
+      "title": "Slow Burn",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 28,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 50819,
+      "title": "A Bad Day for Sales",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64528,
+      "title": "Venus Hate",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 66292,
+      "title": "The Sling and the Stone",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 21,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51296,
+      "title": "The Sense of Wonder",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 32395,
+      "title": "No Strings Attached",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 63702,
+      "title": "Mary Anonymous",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 74118,
+      "title": "The seven missionaries",
+      "reference_start_line_1_based": 11,
+      "baseline_start_line_1_based": 11,
+      "modified_start_line_1_based": 11,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73091,
+      "title": "The taking of Cloudy McGee",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72402,
+      "title": "The Klygha",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 22958,
+      "title": "One-Shot",
+      "reference_start_line_1_based": 37,
+      "baseline_start_line_1_based": 37,
+      "modified_start_line_1_based": 37,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29168,
+      "title": "Houlihan's Equation",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 58725,
+      "title": "Quickie",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64817,
+      "title": "Lunar Station",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 33872,
+      "title": "Nine Men in Time",
+      "reference_start_line_1_based": 36,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": -14,
+      "modified_offset_lines": -14
+    },
+    {
+      "gutenberg_id": 22705,
+      "title": "A Summer Evening's Dream\n1898",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73942,
+      "title": "The madness of Lancelot Biggs",
+      "reference_start_line_1_based": 25,
+      "baseline_start_line_1_based": 10,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": -15,
+      "modified_offset_lines": -15
+    },
+    {
+      "gutenberg_id": 32345,
+      "title": "The Animated Pinup",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 62915,
+      "title": "And the Gods Laughed",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 31355,
+      "title": "To Each His Star",
+      "reference_start_line_1_based": 45,
+      "baseline_start_line_1_based": 45,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -15
+    },
+    {
+      "gutenberg_id": 70541,
+      "title": "Star bright",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 73575,
+      "title": "The hounds of Tindalos",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29271,
+      "title": "The Issahar Artifacts",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72120,
+      "title": "Mr. Replogle's dream",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 28,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 28119,
+      "title": "My Father, the Cat",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 60421,
+      "title": "Security",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32076,
+      "title": "Brown John's Body",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 32654,
+      "title": "Project Hush",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 7,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64358,
+      "title": "Failure on Titan",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 70540,
+      "title": "Skulls in the stars",
+      "reference_start_line_1_based": 29,
+      "baseline_start_line_1_based": 10,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": -19,
+      "modified_offset_lines": -19
+    },
+    {
+      "gutenberg_id": 32618,
+      "title": "Monsoons of Death",
+      "reference_start_line_1_based": 33,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 50753,
+      "title": "Later Than You Think",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61798,
+      "title": "Venus Has Green Eyes",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 24161,
+      "title": "All Day September",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 23251,
+      "title": "Marianson\nFrom \"Mackinac And Lake Stories\", 1899",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51493,
+      "title": "Kreativity For Kats",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 32805,
+      "title": "The Impossible Voyage Home",
+      "reference_start_line_1_based": 34,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 23159,
+      "title": "Stairway to the Stars",
+      "reference_start_line_1_based": 36,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 51351,
+      "title": "The Spicy Sound of Success",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": -3,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 63709,
+      "title": "Prisoner of the Brain-Mistress",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 13,
+      "modified_start_line_1_based": 13,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 72407,
+      "title": "The god on the 36th floor",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29170,
+      "title": "The Hoofer",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 24135,
+      "title": "The Measure of a Man",
+      "reference_start_line_1_based": 48,
+      "baseline_start_line_1_based": 48,
+      "modified_start_line_1_based": 41,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 23166,
+      "title": "Who Was She?\nFrom \"The Atlantic Monthly\" for September, 1874",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 59034,
+      "title": "The Big Leap",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 20,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 29204,
+      "title": "Arm of the Law",
+      "reference_start_line_1_based": 36,
+      "baseline_start_line_1_based": 36,
+      "modified_start_line_1_based": 36,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 64744,
+      "title": "Suicide Command",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 68410,
+      "title": "Deny the Slake",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 8,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 32407,
+      "title": "Fair and Warmer",
+      "reference_start_line_1_based": 44,
+      "baseline_start_line_1_based": 44,
+      "modified_start_line_1_based": 44,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 30010,
+      "title": "Trees Are Where You Find Them",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 27492,
+      "title": "Upstarts",
+      "reference_start_line_1_based": 29,
+      "baseline_start_line_1_based": 29,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 62313,
+      "title": "Oridin's Formula",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 48880,
+      "title": "Rough Beast",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 4,
+      "modified_start_line_1_based": 4,
+      "baseline_offset_lines": -14,
+      "modified_offset_lines": -14
+    },
+    {
+      "gutenberg_id": 66283,
+      "title": "The Disembodied Man",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 21,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63028,
+      "title": "Reinstern",
+      "reference_start_line_1_based": 39,
+      "baseline_start_line_1_based": 51,
+      "modified_start_line_1_based": 51,
+      "baseline_offset_lines": 12,
+      "modified_offset_lines": 12
+    },
+    {
+      "gutenberg_id": 32088,
+      "title": "Instant of Decision",
+      "reference_start_line_1_based": 39,
+      "baseline_start_line_1_based": 39,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 64491,
+      "title": "Day of Wrath",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 8,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 32230,
+      "title": "Wainer",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -7,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 51397,
+      "title": "People Soup",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 65053,
+      "title": "Meet Me in Tomorrow",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 30014,
+      "title": "Native Son",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61257,
+      "title": "World in a Mirror",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 24276,
+      "title": "The Coffin Cure",
+      "reference_start_line_1_based": 23,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73483,
+      "title": "Plane Jane",
+      "reference_start_line_1_based": 9,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51353,
+      "title": "Dr. Kometevsky's Day",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 23369,
+      "title": "Mrs. Dud's Sister",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63632,
+      "title": "Formula for Conquest",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 51335,
+      "title": "Fresh Air Fiend",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 25109,
+      "title": "Susâni\n1901",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 28767,
+      "title": "The Defenders",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 31153,
+      "title": "Telempathy",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 24,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -16
+    },
+    {
+      "gutenberg_id": 63813,
+      "title": "In His Image",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 74015,
+      "title": "The skipper knows best",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 9,
+      "modified_start_line_1_based": 9,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 62198,
+      "title": "Quest of Thig",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 2712,
+      "title": "A Drift from Redwood Camp",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63430,
+      "title": "Lazarus Come Forth",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 60928,
+      "title": "The Contact Point",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32541,
+      "title": "One Way",
+      "reference_start_line_1_based": 29,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 60761,
+      "title": "The Good Seed",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68409,
+      "title": "The Martian Shore",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 71530,
+      "title": "The night of no moon",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 13,
+      "modified_start_line_1_based": 13,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 64288,
+      "title": "Against Tetrarch",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 32133,
+      "title": "The Graveyard of Space",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 40,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 24973,
+      "title": "The Sun King",
+      "reference_start_line_1_based": 26,
+      "baseline_start_line_1_based": 26,
+      "modified_start_line_1_based": 26,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 62569,
+      "title": "The Monster Maker",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 59148,
+      "title": "The Cyber and Justice Holmes",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 59587,
+      "title": "Corbow's Theory",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68930,
+      "title": "Beyond the wall",
+      "reference_start_line_1_based": 13,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 23197,
+      "title": "Subversive",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 29,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 64076,
+      "title": "Out of the Dark Nebula",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -14,
+      "modified_offset_lines": -14
+    },
+    {
+      "gutenberg_id": 32658,
+      "title": "The Standardized Man",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 35,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 68975,
+      "title": "The crimp",
+      "reference_start_line_1_based": 7,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63663,
+      "title": "Survival",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 32801,
+      "title": "The Plotters",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -9,
+      "modified_offset_lines": -9
+    },
+    {
+      "gutenberg_id": 24724,
+      "title": "Beyond the Marshes",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 25,
+      "modified_start_line_1_based": 25,
+      "baseline_offset_lines": -7,
+      "modified_offset_lines": -7
+    },
+    {
+      "gutenberg_id": 68659,
+      "title": "The impossible invention",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66752,
+      "title": "Gunnison's Bonanza",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 2,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 30034,
+      "title": "I'll Kill You Tomorrow",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51136,
+      "title": "Nothing But the Best",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 61904,
+      "title": "World of Mockery",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 29910,
+      "title": "The Second Voice",
+      "reference_start_line_1_based": 36,
+      "baseline_start_line_1_based": 36,
+      "modified_start_line_1_based": 36,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 71085,
+      "title": "The fire of Asshurbanipal",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": -17,
+      "modified_offset_lines": -17
+    },
+    {
+      "gutenberg_id": 51605,
+      "title": "Jamieson",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 67603,
+      "title": "The man who liked lions",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 30004,
+      "title": "A Bottle of Old Wine",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 30199,
+      "title": "McIlvaine's Star",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 11,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 64279,
+      "title": "Test For the Pearl",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 59842,
+      "title": "Operation Boomerang",
+      "reference_start_line_1_based": 30,
+      "baseline_start_line_1_based": 30,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 31995,
+      "title": "The Reluctant Weapon",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 51,
+      "modified_start_line_1_based": 30,
+      "baseline_offset_lines": 13,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 64073,
+      "title": "Dateline: Mars",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 23550,
+      "title": "Una of the hill country\r\n1911",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 22810,
+      "title": "Midnight In Beauchamp Row\n1895",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 18,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29542,
+      "title": "The Valor of Cappen Varra",
+      "reference_start_line_1_based": 38,
+      "baseline_start_line_1_based": 38,
+      "modified_start_line_1_based": 38,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51101,
+      "title": "Nice Girl with 5 Husbands",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 62324,
+      "title": "Grifters' Asteroid",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 72067,
+      "title": "Between the dark and the daylight",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72506,
+      "title": "Listen, children ... listen!",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -13
+    },
+    {
+      "gutenberg_id": 32344,
+      "title": "Pet Farm",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 65200,
+      "title": "Perfect Companion",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32697,
+      "title": "The Sword",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 70349,
+      "title": "When the squadron dropped anchor",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": -6,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 51321,
+      "title": "Prime Difference",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 67923,
+      "title": "Lost Art",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73383,
+      "title": "The great illusion",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 73313,
+      "title": "Battleground",
+      "reference_start_line_1_based": 28,
+      "baseline_start_line_1_based": 10,
+      "modified_start_line_1_based": 10,
+      "baseline_offset_lines": -18,
+      "modified_offset_lines": -18
+    },
+    {
+      "gutenberg_id": 32836,
+      "title": "When the Mountain Shook",
+      "reference_start_line_1_based": 33,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 71592,
+      "title": "Survival factor",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63837,
+      "title": "Peril Orbit",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51483,
+      "title": "The Reluctant Heroes",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 62,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 41,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 71910,
+      "title": "The way out",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 60935,
+      "title": "Don't Think About It",
+      "reference_start_line_1_based": 15,
+      "baseline_start_line_1_based": 15,
+      "modified_start_line_1_based": 15,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 66138,
+      "title": "Guaranteed—Forever!",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 67822,
+      "title": "The Ghost of One Man Coulee",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 61869,
+      "title": "Satellite of Fear",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 25094,
+      "title": "Daughters of Doom",
+      "reference_start_line_1_based": 27,
+      "baseline_start_line_1_based": 27,
+      "modified_start_line_1_based": 24,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -3
+    },
+    {
+      "gutenberg_id": 59505,
+      "title": "Sales Resistance",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 32,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51396,
+      "title": "Not a Creature Was Stirring",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 64602,
+      "title": "Runaway",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 8,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 66050,
+      "title": "Dirty Work for Doughgod",
+      "reference_start_line_1_based": 14,
+      "baseline_start_line_1_based": 14,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32142,
+      "title": "Marley's Chain",
+      "reference_start_line_1_based": 35,
+      "baseline_start_line_1_based": 35,
+      "modified_start_line_1_based": 27,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 31767,
+      "title": "The Peacemaker",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 31,
+      "modified_start_line_1_based": 31,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 51091,
+      "title": "The Deep One",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 18,
+      "modified_start_line_1_based": 14,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 66436,
+      "title": "Trouble Near the Sun",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 62097,
+      "title": "The Last Martian",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 51616,
+      "title": "Sales talk",
+      "reference_start_line_1_based": 20,
+      "baseline_start_line_1_based": 20,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -4
+    },
+    {
+      "gutenberg_id": 60747,
+      "title": "The Little Red Bag",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 73243,
+      "title": "The trap",
+      "reference_start_line_1_based": 19,
+      "baseline_start_line_1_based": 19,
+      "modified_start_line_1_based": 19,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 32901,
+      "title": "The Merchants of Venus",
+      "reference_start_line_1_based": 31,
+      "baseline_start_line_1_based": 23,
+      "modified_start_line_1_based": 23,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 65126,
+      "title": "An Eel by the Tail",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 7,
+      "modified_start_line_1_based": 7,
+      "baseline_offset_lines": -10,
+      "modified_offset_lines": -10
+    },
+    {
+      "gutenberg_id": 32592,
+      "title": "Let There Be Light",
+      "reference_start_line_1_based": 29,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 21,
+      "baseline_offset_lines": -8,
+      "modified_offset_lines": -8
+    },
+    {
+      "gutenberg_id": 65229,
+      "title": "Hold Back Tomorrow",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 63838,
+      "title": "Time Trap",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29578,
+      "title": "George Loves Gistla",
+      "reference_start_line_1_based": 32,
+      "baseline_start_line_1_based": 32,
+      "modified_start_line_1_based": 26,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -6
+    },
+    {
+      "gutenberg_id": 2798,
+      "title": "The Queen of the Pirate Isle",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 17,
+      "modified_start_line_1_based": 17,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61744,
+      "title": "The Tantalus Death",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 73053,
+      "title": "Island honor",
+      "reference_start_line_1_based": 21,
+      "baseline_start_line_1_based": 21,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": -5
+    },
+    {
+      "gutenberg_id": 22841,
+      "title": "Mr. Joseph Hanson, The Haberdasher",
+      "reference_start_line_1_based": 16,
+      "baseline_start_line_1_based": 16,
+      "modified_start_line_1_based": 16,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 18342,
+      "title": "The Answer",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 40,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 72347,
+      "title": "Small voice, big man",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 29401,
+      "title": "The Solar Magnet",
+      "reference_start_line_1_based": 40,
+      "baseline_start_line_1_based": 40,
+      "modified_start_line_1_based": 40,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 61498,
+      "title": "If You're Smart—",
+      "reference_start_line_1_based": 17,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -11,
+      "modified_offset_lines": -11
+    },
+    {
+      "gutenberg_id": 72553,
+      "title": "A long way back",
+      "reference_start_line_1_based": 22,
+      "baseline_start_line_1_based": 22,
+      "modified_start_line_1_based": 22,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 49165,
+      "title": "Brightside Crossing",
+      "reference_start_line_1_based": 8,
+      "baseline_start_line_1_based": 8,
+      "modified_start_line_1_based": 8,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    },
+    {
+      "gutenberg_id": 65642,
+      "title": "Outcast of the Stars",
+      "reference_start_line_1_based": 18,
+      "baseline_start_line_1_based": 6,
+      "modified_start_line_1_based": 6,
+      "baseline_offset_lines": -12,
+      "modified_offset_lines": -12
+    },
+    {
+      "gutenberg_id": 68829,
+      "title": "Mistake inside",
+      "reference_start_line_1_based": 12,
+      "baseline_start_line_1_based": 12,
+      "modified_start_line_1_based": 12,
+      "baseline_offset_lines": 0,
+      "modified_offset_lines": 0
+    }
+  ]
+}
